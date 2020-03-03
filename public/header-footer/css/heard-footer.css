@@ -1,0 +1,99 @@
+        .clearfix::after {
+            visibility: hidden;
+            display: block;
+            font-size: 0;
+            content: " ";
+            clear: both;
+            height: 0;
+        }
+        header{
+            height: 310px;
+            background: #EFEFEF;
+            overflow: hidden;
+        }
+        .chin-bigtitle{
+            height: 107px;
+            background: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .chin-search{
+            margin: 40px 0 0 20px;
+        }
+        .chin-product{
+            width: 1300px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+        }
+        .chin-productoptions{
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding-left: 100px;
+        }
+        .chin-productoptions li{
+            font-size: 18px;
+            font-weight:bold;
+            margin: 40px 0 0 40px;
+            letter-spacing:4px;
+        }
+        .chin-bag-heart-user img{
+            margin: 40px 0 0 20px;
+        }
+       
+        footer{
+            background: #050505;
+            overflow: hidden;
+        }
+        .chin-everything-triplec{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 770px;
+            width: 1300px;
+            margin: 0 auto;
+        }
+        .chin-everything{
+            width: 1300px;
+            margin-top: 110px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        .chin-customerservice{
+            display: flex;
+            flex-direction: row;
+        }
+        .chin-triplec{
+            display: flex;
+            flex-direction: row;
+            color: #FFF;
+            margin-left: 55px ;
+        }
+        .chin-triplec ul{
+            margin: 0;
+            padding-left: 30px;
+            text-align: left;
+            list-style: none;
+        }
+        .chin-triplec ul li{
+            padding-bottom:10px ;
+        }
+        .chin-followus{
+            display: flex;
+            flex-direction: row;
+            color: #FFF;
+            margin-right: 55px;
+        }
+        .chin-followus ul{
+            margin: 0;
+            padding-left: 30px;
+            text-align: left;
+            list-style: none;
+        }
+        .chin-followus ul li{
+            padding-bottom:10px ;
+        }
