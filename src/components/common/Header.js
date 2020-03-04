@@ -1,10 +1,11 @@
 import React from 'react'
+import logo from '../../logo.svg'
 
 function Header() {
   return (
     <header>
       <div className="chin-bigtitle">
-        <img src="./header-footer/images/title.png" alt="" />
+      <img src={logo} className="header-logo" alt="logo" />
       </div>
       <div className="chin-product">
         <div className="chin-search">
@@ -12,11 +13,11 @@ function Header() {
         </div>
         <div>
           <ul className="chin-productoptions">
-            <li>穿戴式裝置</li>
-            <li>耳機/喇叭</li>
-            <li>運動攝影機</li>
-            <li>周邊</li>
-            <li>優惠卷專區</li>
+            <li><a>穿戴式裝置</a></li>
+            <li><a>耳機/喇叭</a></li>
+            <li><a>運動攝影機</a></li>
+            <li><a>周邊</a></li>
+            <li><a>優惠卷專區</a></li>
           </ul>
         </div>
         <div className="chin-bag-heart-user">

@@ -1,39 +1,40 @@
 import React from 'react'
+import logo from '../../logo.svg'
 
 function Footer() {
   return (
     <>
       <footer>
         <div className="chin-everything-triplec">
-          <img src="./header-footer/images/title.png" alt="" />
+        <img src={logo} className="header-logo" alt="logo" />
           <div className="chin-everything">
             <div className="chin-customerservice">
               <div className="chin-triplec">
-                <span>TRIPLEC</span>
+                <span><a>TRIPLEC</a></span>
                 <ul>
-                  <li>關於我們</li>
-                  <li>申請廠商</li>
-                  <li>隱私權政策</li>
+                  <li><a>關於我們</a></li>
+                  <li><a>申請廠商</a></li>
+                  <li><a>隱私權政策</a></li>
                 </ul>
               </div>
               <div className="chin-triplec">
                 <span>服務</span>
                 <ul>
-                  <li>聯絡客服</li>
-                  <li>Q&A</li>
-                  <li>購物須知</li>
+                  <li><a>聯絡客服</a></li>
+                  <li><a>Q&A</a></li>
+                  <li><a>購物須知</a></li>
                 </ul>
               </div>
               <div className="chin-triplec">
                 <span>商品</span>
                 <ul>
-                  <li>運動手錶</li>
-                  <li>手環</li>
-                  <li>有線耳機</li>
-                  <li>藍芽耳機</li>
-                  <li>藍芽喇吧</li>
-                  <li>運動攝影機</li>
-                  <li>周邊</li>
+                  <li><a>運動手錶</a></li>
+                  <li><a>手環</a></li>
+                  <li><a>有線耳機</a></li>
+                  <li><a>藍芽耳機</a></li>
+                  <li><a>藍芽喇吧</a></li>
+                  <li><a>運動攝影機</a></li>
+                  <li><a>周邊</a></li>
                 </ul>
               </div>
             </div>
@@ -41,9 +42,9 @@ function Footer() {
               <div className="chin-followus">
                 <span>追蹤我們</span>
                 <ul>
-                  <li>Facebook</li>
-                  <li>Instagram</li>
-                  <li>Line</li>
+                  <li><a>Facebook</a></li>
+                  <li><a>Instagram</a></li>
+                  <li><a>Line</a></li>
                 </ul>
               </div>
             </div>
