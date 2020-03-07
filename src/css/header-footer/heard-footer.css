@@ -45,7 +45,7 @@ header {
   margin: 0 auto;
   background: #050505;
   transition: 1s;
-  top: -10%;
+  top: -90px;
 }
 .chin-blackcome {
   top: 0;
@@ -78,8 +78,8 @@ header {
   flex-direction: column;
   position: fixed;
   top: 45%;
-  right: -5%;
-  transition: 1s;
+  right: -25px;
+  transition: 0.5s;
 }
 .chin-three-positioncome {
   right: 32px;

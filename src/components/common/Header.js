@@ -4,7 +4,6 @@ import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.css'
 
-
 function Header() {
   const [scrolled, setScrolled] = useState(false)
 
@@ -23,6 +22,10 @@ function Header() {
         document.querySelector('.chin-black').classList.add('chin-blackcome')
       } else {
         setScrolled(false)
+        document
+          .querySelector('.chin-three-position')
+          .classList.remove('chin-three-positioncome')
+        document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
     })
   }, [])
@@ -32,7 +35,7 @@ function Header() {
         <Container>
           <div className="chin-othernavbar">
             <div className="chin-title-sea">
-            <img src={logo} className="header-logo" alt="logo" />
+              <img src={logo} className="header-logo" alt="logo" />
               <img src="./img/header-footer/searchwhite.svg" alt="" />
             </div>
             <div className="chin-classtext">
@@ -59,7 +62,7 @@ function Header() {
     <>
       <div className="chin-bigtitle">
         <a href="/">
-        <img src={logo} className="header-logo" alt="logo" />
+          <img src={logo} className="header-logo" alt="logo" />
         </a>
       </div>
       <div className="chin-product">
@@ -97,7 +100,10 @@ function Header() {
   )
   return (
     <>
-      <header>{scrolled ? navbar : headershow}</header>
+      <header>
+        {navbar}
+        {headershow}
+      </header>
     </>
   )
 }
