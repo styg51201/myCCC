@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from '../../logo.svg'
-import '../../css/header-footer/css/heard-footer.css'
+import '../../css/header-footer/heard-footer.css'
 
 function Header() {
   return (
@@ -10,7 +10,7 @@ function Header() {
       </div>
       <div className="chin-product">
         <div className="chin-search">
-          <img src="/img/header-footer/images/search.svg" alt="" />
+          <img src="/img/header-footer/search.svg" alt="" />
         </div>
         <div>
           <ul className="chin-productoptions">
@@ -32,9 +32,9 @@ function Header() {
           </ul>
         </div>
         <div className="chin-bag-heart-user">
-          <img src="/img/header-footer/images/shopping-bag.svg" alt="" />
-          <img src="/img/header-footer/images/heart.svg" alt="" />
-          <img src="/img/header-footer/images/user.svg" alt="" />
+          <img src="/img/header-footer/shopping-bag.svg" alt="" />
+          <img src="/img/header-footer/heart.svg" alt="" />
+          <img src="/img/header-footer/user.svg" alt="" />
         </div>
       </div>
     </header>
