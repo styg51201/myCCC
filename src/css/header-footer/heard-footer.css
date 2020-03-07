@@ -1,99 +1,144 @@
-        .clearfix::after {
-            visibility: hidden;
-            display: block;
-            font-size: 0;
-            content: " ";
-            clear: both;
-            height: 0;
-        }
-        header{
-            height: 310px;
-            background: #EFEFEF;
-            overflow: hidden;
-        }
-        .chin-bigtitle{
-            height: 107px;
-            background: #050505;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .chin-search{
-            margin: 40px 0 0 20px;
-        }
-        .chin-product{
-            width: 1300px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-        }
-        .chin-productoptions{
-            list-style: none;
-            display: flex;
-            margin: 0;
-            padding-left: 100px;
-        }
-        .chin-productoptions li{
-            font-size: 18px;
-            font-weight:bold;
-            margin: 40px 0 0 40px;
-            letter-spacing:4px;
-        }
-        .chin-bag-heart-user img{
-            margin: 40px 0 0 20px;
-        }
-       
-        footer{
-            background: #050505;
-            overflow: hidden;
-        }
-        .chin-everything-triplec{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 770px;
-            width: 1300px;
-            margin: 0 auto;
-        }
-        .chin-everything{
-            width: 1300px;
-            margin-top: 110px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
-        }
-        .chin-customerservice{
-            display: flex;
-            flex-direction: row;
-        }
-        .chin-triplec{
-            display: flex;
-            flex-direction: row;
-            color: #FFF;
-            margin-left: 55px ;
-        }
-        .chin-triplec ul{
-            margin: 0;
-            padding-left: 30px;
-            text-align: left;
-            list-style: none;
-        }
-        .chin-triplec ul li{
-            padding-bottom:10px ;
-        }
-        .chin-followus{
-            display: flex;
-            flex-direction: row;
-            color: #FFF;
-            margin-right: 55px;
-        }
-        .chin-followus ul{
-            margin: 0;
-            padding-left: 30px;
-            text-align: left;
-            list-style: none;
-        }
-        .chin-followus ul li{
-            padding-bottom:10px ;
-        }
+header {
+  height: 310px;
+  background: #efefef;
+  overflow: hidden;
+}
+.chin-bigtitle {
+  height: 107px;
+  background: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.chin-search {
+  margin: 40px 0 0 20px;
+}
+.chin-product {
+  width: 1300px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-productoptions {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding-left: 100px;
+}
+.chin-productoptions li {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 40px 0 0 40px;
+  letter-spacing: 4px;
+}
+.chin-productoptions li a {
+  text-decoration: none;
+  color: #050505;
+}
+.chin-bag-heart-user img {
+  margin: 40px 0 0 20px;
+}
+/*----------------------------------------------------*/
+.chin-black {
+  width: 100%;
+  position: fixed;
+  margin: 0 auto;
+  background: #050505;
+  transition: 1s;
+  top: -10%;
+}
+.chin-blackcome {
+  top: 0;
+}
+.chin-othernavbar {
+  margin: 0 auto;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-title-sea img {
+  margin-top: 30px;
+}
+.chin-title-sea img:nth-child(2) {
+  margin-left: 60px;
+}
+.chin-classtext ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  color: #ffffff;
+}
+.chin-classtext ul li {
+  margin: 30px 0 0 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.chin-three-position {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 45%;
+  right: -5%;
+  transition: 1s;
+}
+.chin-three-positioncome {
+  right: 32px;
+}
+.chin-three-position img {
+  margin-top: 20px;
+}
+/*----------------------------------------*/
+footer {
+  background: #050505;
+  overflow: hidden;
+}
+.chin-everything-triplec {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 770px;
+  width: 1300px;
+  margin: 0 auto;
+}
+.chin-everything {
+  width: 1300px;
+  margin-top: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.chin-customerservice {
+  display: flex;
+  flex-direction: row;
+}
+.chin-triplec {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  margin-left: 55px;
+}
+.chin-triplec ul {
+  margin: 0;
+  padding-left: 30px;
+  text-align: left;
+  list-style: none;
+}
+.chin-triplec ul li {
+  padding-bottom: 10px;
+}
+.chin-followus {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  margin-right: 55px;
+}
+.chin-followus ul {
+  margin: 0;
+  padding-left: 30px;
+  text-align: left;
+  list-style: none;
+}
+.chin-followus ul li {
+  padding-bottom: 10px;
+}
