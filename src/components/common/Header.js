@@ -6,24 +6,42 @@ import '../../css/header-footer/heard-footer.css'
 
 function Header() {
   const [scrolled, setScrolled] = useState(false)
+ 
 
   useEffect(() => {
     const product = document.querySelector('.chin-product').offsetTop
     const height = product + 68
+    // const pos = document.querySelector('.chin-three-position')
     console.log(height)
+   
     window.addEventListener('scroll', () => {
       const isTop = window.scrollY < height
       console.log(isTop)
       if (isTop !== true) {
         setScrolled(true)
+        // pos.forEach((e) => {
+        //   pos.classList.add('chin-three-positioncome')
+        //  });
         document
           .querySelector('.chin-three-position')
+          .classList.add('chin-three-positioncome')
+          document
+          .querySelector('.chin-three-position2')
+          .classList.add('chin-three-positioncome')
+          document
+          .querySelector('.chin-three-position3')
           .classList.add('chin-three-positioncome')
         document.querySelector('.chin-black').classList.add('chin-blackcome')
       } else {
         setScrolled(false)
         document
           .querySelector('.chin-three-position')
+          .classList.remove('chin-three-positioncome')
+          document
+          .querySelector('.chin-three-position2')
+          .classList.remove('chin-three-positioncome')
+          document
+          .querySelector('.chin-three-position3')
           .classList.remove('chin-three-positioncome')
         document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
@@ -50,10 +68,10 @@ function Header() {
           </div>
         </Container>
       </div>
-      <div className="chin-three-position">
-        <img src="./img/header-footer/user.svg" alt="" />
-        <img src="./img/header-footer/shopping-bag.svg" alt="" />
-        <img src="./img/header-footer/heart.svg" alt="" />
+      <div>
+        <img src="./img/header-footer/user.svg" alt="" className="chin-three-position"/>
+        <img src="./img/header-footer/shopping-bag.svg" alt="" className="chin-three-position2"/>
+        <img src="./img/header-footer/heart.svg" alt="" className="chin-three-position3"/>
       </div>
     </>
   )
