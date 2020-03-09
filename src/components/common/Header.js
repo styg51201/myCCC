@@ -10,7 +10,7 @@ function Header() {
 
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
-    const height = product - 30 
+    const height = product -20 
     // const pos = document.querySelector('.chin-three-position')
     console.log(height)
    
