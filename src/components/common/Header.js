@@ -9,8 +9,8 @@ function Header() {
  
 
   useEffect(() => {
-    const product = document.querySelector('.chin-product').offsetTop
-    const height = product + 68
+    const product = document.querySelector('.chin-bigtitle img').offsetTop
+    const height = product - 30 
     // const pos = document.querySelector('.chin-three-position')
     console.log(height)
    
@@ -90,17 +90,17 @@ function Header() {
         <div>
           <ul className="chin-productoptions">
             <li>
-              <a href="/watch" ClassName="Watch">
+              <a href="/watch" className="Watch">
                 穿戴式裝置
               </a>
             </li>
             <li>
-              <a href="/headset" ClassName="Watch">
+              <a href="/headset" className="Watch">
                 耳機/喇叭
               </a>
             </li>
             <li>
-              <a href="/motion" ClassName="Watch">
+              <a href="/motion" className="Watch">
                 運動攝影機
               </a>
             </li>
@@ -119,8 +119,8 @@ function Header() {
   return (
     <>
       <header>
-        {navbar}
         {headershow}
+        {navbar}
       </header>
     </>
   )

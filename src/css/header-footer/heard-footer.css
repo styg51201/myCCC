@@ -9,6 +9,8 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 .chin-search {
   margin: 40px 0 0 20px;
@@ -41,14 +43,13 @@ header {
 /*----------------------------------------------------*/
 .chin-black {
   width: 100%;
-  position: fixed;
+  position: absolute;
   margin: 0 auto;
   background: #050505;
-  transition: 1s;
-  top: -90px;
+  top: 0;
 }
 .chin-blackcome {
-  top: 0;
+  position: fixed;
 }
 .chin-othernavbar {
   margin: 0 auto;
