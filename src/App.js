@@ -11,6 +11,10 @@ import { Button, Container } from 'react-bootstrap'
 import Toast from 'react-bootstrap/Toast'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+//引入優惠券
+import GetCoupon from './stacey/GetCoupon'
+
+
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
   const ExampleToast = ({ children }) => {
@@ -37,6 +41,12 @@ function App() {
       <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
         <CartList />
       </Route>
+
+      {/* 連結優惠券專區 */}
+      <Route path="/getCoupon"> 
+      <GetCoupon />
+      </Route>
+
     </Switch>
       {/* <div className="App">
         <header className="App-header">

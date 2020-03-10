@@ -80,6 +80,14 @@ function Header() {
                   周邊
                 </Link>
                 </li>
+                <li>
+                <Link to="/getCoupon" className="navbarlist">
+                  優惠券專區
+                </Link>
+                </li>
+                <li>
+                  故事牆
+                </li>
               </ul>
             </div>
           </div>
@@ -129,7 +137,9 @@ function Header() {
                 周邊
               </Link>
             </li>
-            <li>優惠卷專區</li>
+            <li><Link to="/getCoupon" className="headerlist">
+                  優惠券專區
+                </Link></li>
             <li>故事牆</li>
           </ul>
         </div>
