@@ -14,6 +14,9 @@ import CartList from './mao/ShopCartList'
 //import biki
 import Home from './biki/Home'
 
+//import Irene
+import MemberLogin from './Irene/MemberLogin'
+
 //import from react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button, Container } from 'react-bootstrap'
@@ -60,6 +63,9 @@ function App() {
           </Route>
           <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
             <CartList />
+          </Route>
+          <Route path="/MemberLogin">
+            <MemberLogin/>
           </Route>
         </Switch>
       </Container>

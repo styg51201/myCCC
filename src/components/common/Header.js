@@ -140,9 +140,10 @@ function Header() {
             <div className="nav-icons">
               <FiHeart />
             </div>
+          <Link to="/MemberLogin">
             <div className="nav-icons">
               <FiUser />
-            </div>
+            </div></Link>
         </div>
       </div>
       </Container>
