@@ -106,10 +106,10 @@ function Header() {
       </div>
       <Container>
         <div className="chin-product">
-        <div className="chin-search">
-          <IconContext.Provider value={{ className : 'nav-icons' }}>
+        <div className="nav-icons-wrapper">
+          <div className="nav-icons">
             <FiSearch />
-          </IconContext.Provider>
+          </div>
         </div>
         <div>
           <ul className="chin-productoptions">
@@ -137,12 +137,18 @@ function Header() {
             <li>故事牆</li>
           </ul>
         </div>
-        <div className="chin-bag-heart-user">
-          <IconContext.Provider value={{ className : 'nav-icons' }}>
-          <Link to="/ShopCartList/:id?"><FiShoppingBag /></Link>
-            <FiHeart />
-            <FiUser />
-          </IconContext.Provider>
+        <div className="nav-icons-wrapper">
+          <Link to="/ShopCartList/:id?">
+            <div className="nav-icons">
+                <FiShoppingBag />
+            </div>
+          </Link>
+            <div className="nav-icons">
+              <FiHeart />
+            </div>
+            <div className="nav-icons">
+              <FiUser />
+            </div>
         </div>
       </div>
       </Container>

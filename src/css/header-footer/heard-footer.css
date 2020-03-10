@@ -26,20 +26,29 @@ header {
 .chin-productoptions {
   list-style: none;
   display: flex;
-  /* width: 100%; */
-  /* margin: 0; */
-  /* padding-left: 100px; */
+  margin: 0;
 }
 .chin-productoptions li {
   font-size: 1.1rem;
   font-weight: bold;
   letter-spacing: 4px;
-  padding: 0 10px;
+  padding: 5px 10px;
 }
+
+.nav-icons-wrapper {
+  display: flex;
+}
+
 .nav-icons {
   margin: 0 5px;
+  padding: 5px;
   font-size: 1.2rem;
 }
+
+.nav-icons svg {
+  vertical-align: -1px;
+}
+
 .headerlist {
   text-decoration: none;
   color: #050505;
