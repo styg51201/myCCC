@@ -1,0 +1,18 @@
+body{
+    background-color: #efefef;
+}
+
+.container{
+    width: 100%;
+}
+@media (min-width: 1360px) {
+.container {
+    max-width: 1300px;
+}
+}
+
+@media (min-width: 1360px) {
+    .container, .container-sm, .container-md, .container-lg, .container-xl {
+        max-width: 1300px;
+    }
+}

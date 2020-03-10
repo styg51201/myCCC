@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.css'
@@ -74,11 +74,9 @@ function Header() {
         </Container>
       </div>
       <div>
-        <IconContext.Provider value={{ className : 'nav-icons' }}>
         <img src="./img/header-footer/user.svg" alt="" className="chin-three-position"/>
         <img src="./img/header-footer/shopping-bag.svg" alt="" className="chin-three-position2"/>
         <img src="./img/header-footer/heart.svg" alt="" className="chin-three-position3"/>
-        </IconContext.Provider>
       </div>
     </>
   )
@@ -92,40 +90,41 @@ function Header() {
       </div>
       <Container>
         <div className="chin-product">
-          <div className="chin-search">
-            <IconContext.Provider value={{ className : 'nav-icons' }}>
-              <FiSearch />
-            </IconContext.Provider>
-          </div>
-          <div>
-            <ul className="chin-productoptions">
-              <li>
-                <a href="/watch" className="Watch">
-                  穿戴式裝置
-                </a>
-              </li>
-              <li>
-                <a href="/headset" className="Watch">
-                  耳機/喇叭
-                </a>
-              </li>
-              <li>
-                <a href="/motion" className="Watch">
-                  運動攝影機
-                </a>
-              </li>
-              <li>周邊</li>
-              <li>優惠卷專區</li>
-            </ul>
-          </div>
-          <div className="chin-bag-heart-user">
-            <IconContext.Provider value={{ className : 'nav-icons' }}>
-              <FiShoppingBag />
-              <FiHeart />
-              <FiUser />
-            </IconContext.Provider>
-          </div>
+        <div className="chin-search">
+          <IconContext.Provider value={{ className : 'nav-icons' }}>
+            <FiSearch />
+          </IconContext.Provider>
         </div>
+        <div>
+          <ul className="chin-productoptions">
+            <li>
+              <a href="/watch" className="Watch">
+                穿戴式裝置
+              </a>
+            </li>
+            <li>
+              <a href="/headset" className="Watch">
+                耳機/喇叭
+              </a>
+            </li>
+            <li>
+              <a href="/motion" className="Watch">
+                運動攝影機
+              </a>
+            </li>
+            <li>周邊</li>
+            <li>優惠卷專區</li>
+            <li>故事牆</li>
+          </ul>
+        </div>
+        <div className="chin-bag-heart-user">
+          <IconContext.Provider value={{ className : 'nav-icons' }}>
+            <FiShoppingBag />
+            <FiHeart />
+            <FiUser />
+          </IconContext.Provider>
+        </div>
+      </div>
       </Container>
     </>
   )

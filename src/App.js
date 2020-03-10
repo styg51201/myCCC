@@ -4,10 +4,14 @@ import './App.css'
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
 import CartList from './mao/ShopCartList'
+
 //import from react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 import Toast from 'react-bootstrap/Toast'
+//import main css
+import './css/main.css'
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 function App() {
@@ -36,6 +40,9 @@ function App() {
       <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
         <CartList />
       </Route>
+      <Container>
+        asdf
+      </Container>
     </Switch>
       {/* <div className="App">
         <header className="App-header">
