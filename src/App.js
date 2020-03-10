@@ -4,6 +4,14 @@ import './App.css'
 //import Header Footer
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
+//import Irene
+import MemberLogin from './Irene/MemberLogin'
+//import biki
+import Home from './biki/Home'
+//import chin
+import Headset from './chin/Headset'
+import Watch from './chin/Watch'
+//import mao
 import CartList from './mao/ShopCartList'
 //import from react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -37,7 +45,6 @@ function App() {
     <Router>
     <>
       <Header />
-<<<<<<< HEAD
       <Switch>
       <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
         <CartList />
@@ -64,7 +71,6 @@ function App() {
           {/* 上面是測試用的 react-bootstrap ExampleToast 物件 */}
         {/* </header>
       </div> */}
-=======
         <Switch>
           <Route exact path="/">
               <Home />
@@ -86,7 +92,6 @@ function App() {
           </Route>
         </Switch>
       </Container>
->>>>>>> 66f581c2801e356ba193714aff33ca1106458a1c
       <Footer />
     </>
     </Router>

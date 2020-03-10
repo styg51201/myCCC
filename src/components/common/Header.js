@@ -11,12 +11,6 @@ import { FiSearch, FiUser, FiShoppingBag, FiHeart, FiHome } from "react-icons/fi
 
 
 function Header() {
-
-  useEffect(() => {
-    const product = document.querySelector('.chin-bigtitle img').offsetTop
-    const height = product -20 
-    // const pos = document.querySelector('.chin-three-position')
-    console.log(height)
    
     window.addEventListener('scroll', () => {
       const product = document.querySelector('.chin-bigtitle img').offsetTop
@@ -116,17 +110,17 @@ function Header() {
         <div>
           <ul className="chin-productoptions">
             <li>
-              <Link to="/watch" className="Watch">
+              <Link to="/watch" className="headerlist">
                 穿戴式裝置
               </Link>
             </li>
             <li>
-              <Link to="/headset" className="Watch">
+              <Link to="/headset" className="headerlist">
                 耳機/喇叭
                 </Link>
             </li>
             <li>
-              <Link to="/motion" className="Watch">
+              <Link to="/motion" className="headerlist">
                 運動攝影機
                 </Link>
             </li>
@@ -167,6 +161,6 @@ function Header() {
       </header>
     </>
   )
-}
+  }
 
 export default Header
