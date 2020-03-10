@@ -17,17 +17,11 @@ function Header() {
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
     const height = product -20 
-    // const pos = document.querySelector('.chin-three-position')
-    console.log(height)
    
     window.addEventListener('scroll', () => {
       const isTop = window.scrollY < height
-      console.log(isTop)
       if (isTop !== true) {
         setScrolled(true)
-        // pos.forEach((e) => {
-        //   pos.classList.add('chin-three-positioncome')
-        //  });
         document
           .querySelector('.chin-three-position')
           .classList.add('chin-three-positioncome')

@@ -1,6 +1,5 @@
 .chin-main {
   display: flex;
-  background: #efefef;
   flex-direction: column;
   overflow: hidden;
 }
@@ -8,7 +7,6 @@
   margin-right: 17px;
   width: 312px;
   height: 897px;
-  background: #efefef;
 }
 .chin-price {
   padding: 20px;
@@ -55,6 +53,7 @@
   font-size: 16px;
 }
 .chin-sort {
+  margin-right: 42px;
   background: #a0a0a0;
   border: none;
   color: white;
@@ -82,7 +81,7 @@
   width: 972px;
 }
 .chin-commodity-item {
-  margin: 20px;
+  margin: 15px;
   width: 284px;
   height: 414px;
   background: #fff;
