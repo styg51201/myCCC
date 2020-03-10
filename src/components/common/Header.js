@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.css'
+import {Link} from 'react-router-dom'
 
 //icons
 import { IconContext } from "react-icons";
@@ -63,11 +64,26 @@ function Header() {
             </div>
             <div className="chin-classtext">
               <ul>
-                <li>穿戴式裝置</li>
-                <li>耳機/喇叭</li>
-                <li>運動攝影機</li>
-                <li>周邊</li>
-                <li>優惠卷專區</li>
+              <li>
+                  <Link to="/watch" className="navbarlist">
+                    穿戴式裝置
+                  </Link>
+                </li>
+                <li>
+                <Link to="/headset" className="navbarlist">
+                  耳機/喇叭
+                </Link>
+                </li>
+                <li>
+                <Link to="/motion" className="navbarlist">
+                  運動攝影機
+                </Link>
+                </li>
+                <li>
+                <Link to="/surrounding" className="navbarlist">
+                  周邊
+                </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -75,7 +91,7 @@ function Header() {
       </div>
       <div>
         <img src="./img/header-footer/user.svg" alt="" className="chin-three-position"/>
-        <img src="./img/header-footer/shopping-bag.svg" alt="" className="chin-three-position2"/>
+        <Link to="/ShopCartList/:id?"><img src="./img/header-footer/shopping-bag.svg" alt="" className="chin-three-position2"/></Link>
         <img src="./img/header-footer/heart.svg" alt="" className="chin-three-position3"/>
       </div>
     </>
@@ -97,29 +113,33 @@ function Header() {
         </div>
         <div>
           <ul className="chin-productoptions">
-            <li>
-              <a href="/watch" className="Watch">
+          <li>
+              <Link to="/watch" className="headerlist">
                 穿戴式裝置
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/headset" className="Watch">
+              <Link to="/headset" className="headerlist">
                 耳機/喇叭
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/motion" className="Watch">
+              <Link to="/motion" className="headerlist">
                 運動攝影機
-              </a>
+              </Link>
             </li>
-            <li>周邊</li>
+            <li>
+              <Link to="/surrounding" className="headerlist">
+                周邊
+              </Link>
+            </li>
             <li>優惠卷專區</li>
             <li>故事牆</li>
           </ul>
         </div>
         <div className="chin-bag-heart-user">
           <IconContext.Provider value={{ className : 'nav-icons' }}>
-            <FiShoppingBag />
+          <Link to="/ShopCartList/:id?"><FiShoppingBag /></Link>
             <FiHeart />
             <FiUser />
           </IconContext.Provider>

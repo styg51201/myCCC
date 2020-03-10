@@ -1,0 +1,139 @@
+.chin-main {
+  display: flex;
+  background: #efefef;
+  flex-direction: column;
+  overflow: hidden;
+}
+.chin-commoditylist {
+  margin-right: 17px;
+  width: 312px;
+  height: 897px;
+  background: #efefef;
+}
+.chin-price {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-commodity-title {
+  display: flex;
+  flex-direction: column;
+}
+.chin-title {
+  display: flex;
+  justify-content: space-between;
+}
+.chin-title-text span {
+  letter-spacing: 2px;
+  margin-left: 20px;
+  line-height: 50px;
+  color: #050505;
+  font-size: 22px;
+  font-weight: bold;
+  font-family: Helvetica Neue;
+}
+.chin-title-text span:nth-child(2) {
+  margin-left: 44px;
+  font-size: 18px;
+}
+.chin-comparegoods {
+  background: #0dd2c5;
+  border: none;
+  color: white;
+  width: 155px;
+  height: 45px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.chin-comparegoods span {
+  font-size: 16px;
+}
+.chin-sort {
+  background: #a0a0a0;
+  border: none;
+  color: white;
+  width: 155px;
+  height: 45px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.chin-sort span {
+  margin-right: 35px;
+}
+.chin-comparegoods-sort {
+  display: flex;
+}
+.chin-section {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+}
+.chin-commodity {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 972px;
+}
+.chin-commodity-item {
+  margin: 20px;
+  width: 284px;
+  height: 414px;
+  background: #fff;
+}
+.chin-star-heart-bag {
+  list-style: none;
+  display: flex;
+  margin: 21.9px 0 0 22.1px;
+  padding: 0;
+}
+.chin-star {
+  width: 15px;
+  height: 15px;
+  margin: 0 7.2px 0 0;
+}
+.chin-bag {
+  width: 20.31px;
+  height: 20.18px;
+}
+.chin-heart {
+  width: 20.47px;
+  height: 18.59px;
+  margin: 0 0 13.8px 0;
+}
+.chin-watch {
+  margin: 0 37px 18px 25px;
+  width: 222px;
+  height: 222px;
+}
+.chin-heart-bag {
+  display: flex;
+  flex-direction: column;
+  margin-left: 115px;
+}
+h6 {
+  text-align: center;
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #a0a0a0;
+}
+h5 {
+  font-size: 17px;
+  margin: 0;
+  color: #0dd2c5;
+  text-align: center;
+}
+.chin-commodity-item p {
+  margin: 2px 0 12px 0;
+  font-size: 17px;
+  font-weight: bold;
+  color: #050505;
+  text-align: center;
+}

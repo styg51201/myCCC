@@ -36,16 +36,27 @@ header {
   letter-spacing: 4px;
   padding: 0 10px;
 }
-.chin-productoptions li a {
-  text-decoration: none;
-  color: #050505;
-}
-.nav-icons{
+.nav-icons {
   margin: 0 5px;
   font-size: 1.2rem;
 }
-
+.headerlist {
+  text-decoration: none;
+  color: #050505;
+}
+.headerlist:hover {
+  text-decoration: none;
+  color: #050505;
+}
 /*----------------------------------------------------*/
+.navbarlist {
+  text-decoration: none;
+  color: #ffffff;
+}
+.navbarlist:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
 .chin-black {
   width: 100%;
   position: absolute;

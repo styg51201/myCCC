@@ -1,8 +1,14 @@
 import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+//import Header Footer
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
+
+//import chin
+import Headset from './chin/Headset'
+import Watch from './chin/Watch'
+//import mao
 import CartList from './mao/ShopCartList'
 
 //import from react-bootstrap
@@ -36,29 +42,36 @@ function App() {
     <Router>
     <>
       <Header />
+      <Container>
       <Switch>
+      <Route exact path="/">
+        <div className="App">
+          <header className="App-header">
+            <img src={logo} className="App-logo" alt="logo" />
+            <p>This is our Hello World page.我誰~~~~~~</p> 
+
+            {/* 下面是測試用的 react-bootstrap ExampleToast 物件
+            <ExampleToast className="toast">
+              We now have Toasts
+              <span role="img" aria-label="tada">
+                🎉
+              </span>
+            </ExampleToast>
+            上面是測試用的 react-bootstrap ExampleToast 物件 */}
+          </header>
+        </div>
+      </Route>
+      <Route path="/headset">
+        <Headset/>
+      </Route>
+      <Route path="/watch">
+        <Watch/>
+      </Route>
       <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
         <CartList />
       </Route>
-      <Container>
-        asdf
-      </Container>
     </Switch>
-      {/* <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>This is our Hello World page.我誰~~~~~~</p> */}
-
-          {/* 下面是測試用的 react-bootstrap ExampleToast 物件 */}
-          {/* <ExampleToast className="toast">
-            We now have Toasts
-            <span role="img" aria-label="tada">
-              🎉
-            </span>
-          </ExampleToast> */}
-          {/* 上面是測試用的 react-bootstrap ExampleToast 物件 */}
-        {/* </header>
-      </div> */}
+    </Container>
       <Footer />
     </>
     </Router>
