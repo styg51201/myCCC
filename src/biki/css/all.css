@@ -1,0 +1,27 @@
+h5 {
+  color: black;
+}
+
+h6.bk-white {
+  color: white;
+}
+
+.bk-btn {
+  padding: 0.5rem 2rem;
+}
+
+.bk-btn.bordered {
+  border: solid 1px black;
+}
+
+.bk-btn.bordered.white {
+  position: relative;
+  border-color: white;
+  background-color: transparent;
+  color: white;
+  z-index: 1;
+}
+
+.bk-icon {
+  font-size: 1.3rem;
+}
