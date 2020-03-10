@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 // import logo from '../logo.svg'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button } from 'react-bootstrap'
@@ -6,24 +6,35 @@ import Toast from 'react-bootstrap/Toast'
 import { withRouter, Link } from 'react-router-dom'
 import MaoCartShopTotal from '../components/MaoCartShopTotal'
 
-function CartList() {
-  const [count, setCount] = useState(1)
-  const dataList = []
+function CartList(props) {
+  const ExampleToast = ({ children }) => {
+    const [show, toggleShow] = useState(false)
 
+    return (
+      <>
+        {!show && <Button onClick={() => toggleShow(true)}>Show Toast</Button>}
+        <Toast show={show} onClose={() => toggleShow(false)}>
+          <Toast.Header>
+            <strong className="mr-auto">歡迎光臨</strong>
+          </Toast.Header>
+          <Toast.Body>{children}</Toast.Body>
+        </Toast>
+      </>
+    )
+  }
+  const dataList = []
   for (let i = 0; i < 5; i++) {
     dataList.push(
       <li
-        key={i}
         className="d-flex"
         style={{
           padding: '15px 0px',
           width: '900px',
-          margin: '0px 15px',
+          margin: '0px auto',
           borderBottom: '2px solid #efefef',
-          padding: '10px',
         }}
       >
-        <img src="https://fakeimg.pl/125/" style={{ margin: '0px 20px' }} />
+        <img src="https://fakeimg.pl/125/" style={{ margin: '0px 5px' }} />
         <div
           className="d-flex flex-column justify-content-between"
           style={{ margin: '0px 50px' }}
@@ -42,27 +53,24 @@ function CartList() {
                 width: '85px',
               }}
             >
-              <button
+              <div
                 className="text-center"
                 style={{ fontSize: '30px', background: '#ddd', width: '30%' }}
-                onClick={() => setCount(+count - 1)}
               >
                 -
-              </button>
+              </div>
               <input
-                placeholder="1"
-                value={count}
+                value="1"
                 type="text"
                 className="text-center w-50 m-0"
                 style={{ outline: 'none', border: 'none' }}
               />
-              <button
+              <div
                 className="text-center"
                 style={{ fontSize: '30px', background: '#ddd', width: '30%' }}
-                onClick={() => setCount(+count + 1)}
               >
                 +
-              </button>
+              </div>
             </div>
             <p style={{ fontSize: '18px' }}>
               <b>$7000</b>
@@ -71,14 +79,14 @@ function CartList() {
         </div>
         <div
           className="d-flex flex-column justify-content-center text-left"
-          style={{ margin: '0 auto' }}
+          style={{ margin: 'auto' }}
         >
           <div
             className="border d-flex align-items-center"
             style={{ padding: '8px 20px', margin: '10px' }}
           >
             <img
-              src="..\img\header-footer\heart.svg"
+              src="./img/header-footer/heart.svg"
               style={{ marginRight: '10px' }}
               alt=""
             />
@@ -89,7 +97,7 @@ function CartList() {
             style={{ padding: '8px 20px', margin: '10px' }}
           >
             <img
-              src="..\img\header-footer\search.svg"
+              src=".\public\img\header-footer\heart.svg"
               style={{ marginRight: '10px' }}
               alt=""
             />
@@ -101,12 +109,7 @@ function CartList() {
   }
 
   const behavior = (
-    <ul
-      className="nav nav-tabs"
-      id="myTab"
-      role="tablist"
-      style={{ width: '975px' }}
-    >
+    <ul className="nav nav-tabs" id="myTab" role="tablist">
       <li className="nav-item">
         <Link
           className="nav-link active"
@@ -137,38 +140,24 @@ function CartList() {
   )
   return (
     <>
-      {behavior}
       <div
-        className="d-flex justify-content-between"
-        style={{ position: 'relative' }}
+        className="w-100"
+        style={{ background: '#efefef', padding: '100px' }}
       >
-        <ul
-          className="list-unstyled bg-white"
-          style={{ maxWidth: '975px', marginLeft: '1px' }}
-        >
-          {dataList}
-          <li>
-            <Link
-              style={{
-                border: '1px solid #000',
-                maxWidth: '315px',
-                margin: '30px auto',
-                display: 'block',
-                textAlign: 'center',
-                padding: '10px',
-                color: '#fff',
-                background: '#000',
-              }}
+        <div style={{ width: '1300px', margin: '0 auto' }}>
+          {behavior}
+          <div className="d-flex">
+            <ul
+              className="list-unstyled bg-white"
+              style={{ width: '975px', marginLeft: '1px' }}
             >
-              前往結帳
-            </Link>
-          </li>
-        </ul>
-        <MaoCartShopTotal />
+              {dataList}
+            </ul>
+            <MaoCartShopTotal />
+          </div>
+        </div>
+        <button>前往結帳</button>
       </div>
-      {/* </div> */}
-
-      {/* </div> */}
     </>
   )
 }
