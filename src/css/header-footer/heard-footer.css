@@ -12,34 +12,38 @@ header {
   position: relative;
   z-index: 1;
 }
-.chin-search {
-  margin: 40px 0 0 20px;
-}
 .chin-product {
-  width: 1300px;
-  margin: 0 auto;
+  /* max-width: 1300px; */
+  margin: 40px auto;
   display: flex;
   justify-content: space-between;
 }
 .chin-productoptions {
   list-style: none;
   display: flex;
-  margin: 0;
-  padding-left: 100px;
+  /* width: 100%; */
+  /* margin: 0; */
+  /* padding-left: 100px; */
 }
 .chin-productoptions li {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: bold;
-  margin: 40px 0 0 40px;
   letter-spacing: 4px;
+  padding: 0 10px;
 }
 .chin-productoptions li a {
   text-decoration: none;
   color: #050505;
 }
-.chin-bag-heart-user img {
-  margin: 40px 0 0 20px;
+.nav-icons{
+  margin: 0 5px;
+  font-size: 1.2rem;
 }
+
+.nav-icons:hover{
+  fill: black;
+}
+
 /*----------------------------------------------------*/
 .chin-black {
   width: 100%;
