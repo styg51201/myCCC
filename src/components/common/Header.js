@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
@@ -11,17 +11,12 @@ import { FiSearch, FiUser, FiShoppingBag, FiHeart, FiHome } from "react-icons/fi
 
 
 function Header() {
-  const [scrolled, setScrolled] = useState(false)
- 
 
-  useEffect(() => {
-    const product = document.querySelector('.chin-bigtitle img').offsetTop
-    const height = product -20 
-   
     window.addEventListener('scroll', () => {
+      const product = document.querySelector('.chin-bigtitle img').offsetTop
+      const height = product - 20 
       const isTop = window.scrollY < height
       if (isTop !== true) {
-        setScrolled(true)
         document
           .querySelector('.chin-three-position')
           .classList.add('chin-three-positioncome')
@@ -33,7 +28,6 @@ function Header() {
           .classList.add('chin-three-positioncome')
         document.querySelector('.chin-black').classList.add('chin-blackcome')
       } else {
-        setScrolled(false)
         document
           .querySelector('.chin-three-position')
           .classList.remove('chin-three-positioncome')
@@ -46,7 +40,7 @@ function Header() {
         document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
     })
-  }, [])
+
   const navbar = (
     <>
       <div className="chin-black">
