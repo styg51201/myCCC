@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container,Row,Col,InputGroup,FormControl} from 'react-bootstrap'
 import './I_css/MemberLogin.css'
 
 function MemberLogin(){
@@ -16,7 +15,8 @@ function MemberLogin(){
                         <p style={{textAlign:"right"}}>忘記密碼?</p>
                         </div>
                         <button type="button" className="btn btn-dark mg-auto" style={{margin: '100px auto',display:'block'}}>SIGN IN</button> 
-                    </form>                               
+                    </form>
+                    {/* //如果可以要做google&facebook登入                                */}
                 </div>
                 <div className="col card">
                     <h3>Register Now 快速註冊</h3>
@@ -29,6 +29,7 @@ function MemberLogin(){
                         </div>
                         <button type="button" className="btn btn-dark mg-auto" style={{margin: '20px auto',display:'block'}}>REGISTER NOW</button>
                     </form>
+                    {/* //如果可以要做google&facebook登入                                */}
                 </div>
                 </div> 
             </div>       
