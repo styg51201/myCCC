@@ -1,10 +1,17 @@
 header {
-  height: 310px;
-  background: #efefef;
+  /* height: 310px; */
+  /* background: #efefef; */
   overflow: hidden;
+  position: relative;
+  z-index: 10;
 }
+
+.header-logo {
+  width: 180px;
+}
+
 .chin-bigtitle {
-  height: 107px;
+  height: 100px;
   background: #050505;
   display: flex;
   justify-content: center;
@@ -16,8 +23,8 @@ header {
   margin: 40px 0 0 20px;
 }
 .chin-product {
-  width: 1300px;
-  margin: 0 auto;
+  max-width: 1300px;
+  padding: 35px 0;
   display: flex;
   justify-content: space-between;
 }
@@ -25,22 +32,66 @@ header {
   list-style: none;
   display: flex;
   margin: 0;
-  padding-left: 100px;
 }
 .chin-productoptions li {
-  font-size: 18px;
+  font-size: 1.1rem;
   font-weight: bold;
-  margin: 40px 0 0 40px;
   letter-spacing: 4px;
+  padding: 10px 5px;
+  margin: 0 5px;
+  position: relative;
+  overflow: hidden;
 }
-.chin-productoptions li a {
+
+.chin-productoptions li:after {
+  width: 100%;
+  /* transform: scaleX(0); */
+  height: 3px;
+  content: '';
+  display: block;
+  position: absolute;
+  left: -101%;
+  bottom: 0;
+  box-shadow: 0 0 0 3px inset black;
+  transition: 0.3s;
+}
+
+.chin-productoptions li:hover:after {
+  /* transform: scaleX(1); */
+  left: 0;
+}
+
+.nav-icons-wrapper {
+  display: flex;
+}
+
+.nav-icons {
+  margin: 0 5px;
+  padding: 10px 5px;
+  font-size: 1.3rem;
+}
+
+.nav-icons svg {
+  vertical-align: -1px;
+}
+
+.headerlist {
   text-decoration: none;
   color: #050505;
 }
-.chin-bag-heart-user img {
-  margin: 40px 0 0 20px;
+.headerlist:hover {
+  text-decoration: none;
+  color: #050505;
 }
 /*----------------------------------------------------*/
+.navbarlist {
+  text-decoration: none;
+  color: #ffffff;
+}
+.navbarlist:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
 .chin-black {
   width: 100%;
   position: absolute;
@@ -115,7 +166,7 @@ footer {
   justify-content: center;
   align-items: center;
   height: 770px;
-  width: 1300px;
+  /* width: 1300px; */
   margin: 0 auto;
 }
 .chin-everything {

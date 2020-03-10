@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
+// import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.css'
+import {Link} from 'react-router-dom'
+
+//icons
+import { IconContext } from "react-icons";
+import { FiSearch, FiUser, FiShoppingBag, FiHeart, FiHome } from "react-icons/fi";
+
 
 function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -16,12 +22,8 @@ function Header() {
    
     window.addEventListener('scroll', () => {
       const isTop = window.scrollY < height
-      console.log(isTop)
       if (isTop !== true) {
         setScrolled(true)
-        // pos.forEach((e) => {
-        //   pos.classList.add('chin-three-positioncome')
-        //  });
         document
           .querySelector('.chin-three-position')
           .classList.add('chin-three-positioncome')
@@ -58,11 +60,26 @@ function Header() {
             </div>
             <div className="chin-classtext">
               <ul>
-                <li>穿戴式裝置</li>
-                <li>耳機/喇叭</li>
-                <li>運動攝影機</li>
-                <li>周邊</li>
-                <li>優惠卷專區</li>
+              <li>
+                  <Link to="/watch" className="navbarlist">
+                    穿戴式裝置
+                  </Link>
+                </li>
+                <li>
+                <Link to="/headset" className="navbarlist">
+                  耳機/喇叭
+                </Link>
+                </li>
+                <li>
+                <Link to="/motion" className="navbarlist">
+                  運動攝影機
+                </Link>
+                </li>
+                <li>
+                <Link to="/surrounding" className="navbarlist">
+                  周邊
+                </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -70,7 +87,7 @@ function Header() {
       </div>
       <div>
         <img src="./img/header-footer/user.svg" alt="" className="chin-three-position"/>
-        <img src="./img/header-footer/shopping-bag.svg" alt="" className="chin-three-position2"/>
+        <Link to="/ShopCartList/:id?"><img src="./img/header-footer/shopping-bag.svg" alt="" className="chin-three-position2"/></Link>
         <img src="./img/header-footer/heart.svg" alt="" className="chin-three-position3"/>
       </div>
     </>
@@ -83,37 +100,54 @@ function Header() {
           <img src={logo} className="header-logo" alt="logo" />
         </a>
       </div>
-      <div className="chin-product">
-        <div className="chin-search">
-          <img src="./img/header-footer/search.svg" alt="" />
+      <Container>
+        <div className="chin-product">
+        <div className="nav-icons-wrapper">
+          <div className="nav-icons">
+            <FiSearch />
+          </div>
         </div>
         <div>
           <ul className="chin-productoptions">
             <li>
-              <a href="/watch" className="Watch">
+              <Link to="/watch" className="Watch">
                 穿戴式裝置
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="/headset" className="Watch">
+              <Link to="/headset" className="Watch">
                 耳機/喇叭
-              </a>
+                </Link>
             </li>
             <li>
-              <a href="/motion" className="Watch">
+              <Link to="/motion" className="Watch">
                 運動攝影機
-              </a>
+                </Link>
             </li>
-            <li>周邊</li>
+            <li>
+              <Link to="/surrounding" className="headerlist">
+                周邊
+              </Link>
+            </li>
             <li>優惠卷專區</li>
+            <li>故事牆</li>
           </ul>
         </div>
-        <div className="chin-bag-heart-user">
-          <img src="./img/header-footer/shopping-bag.svg" alt="" />
-          <img src="./img/header-footer/heart.svg" alt="" />
-          <img src="./img/header-footer/user.svg" alt="" />
+        <div className="nav-icons-wrapper">
+          <Link to="/ShopCartList/:id?">
+            <div className="nav-icons">
+                <FiShoppingBag />
+            </div>
+          </Link>
+            <div className="nav-icons">
+              <FiHeart />
+            </div>
+            <div className="nav-icons">
+              <FiUser />
+            </div>
         </div>
       </div>
+      </Container>
     </>
   )
   return (

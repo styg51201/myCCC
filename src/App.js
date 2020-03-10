@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+//import Header Footer
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
 import CartList from './mao/ShopCartList'
 //import from react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 import Toast from 'react-bootstrap/Toast'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
