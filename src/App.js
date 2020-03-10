@@ -37,6 +37,7 @@ function App() {
     <Router>
     <>
       <Header />
+<<<<<<< HEAD
       <Switch>
       <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
         <CartList />
@@ -63,6 +64,29 @@ function App() {
           {/* 上面是測試用的 react-bootstrap ExampleToast 物件 */}
         {/* </header>
       </div> */}
+=======
+        <Switch>
+          <Route exact path="/">
+              <Home />
+          </Route>
+        </Switch>
+      <Container>
+        <Switch>
+          <Route path="/headset">
+            <Headset/>
+          </Route>
+          <Route path="/watch">
+            <Watch/>
+          </Route>
+          <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
+            <CartList />
+          </Route>
+          <Route path="/MemberLogin">
+            <MemberLogin/>
+          </Route>
+        </Switch>
+      </Container>
+>>>>>>> 66f581c2801e356ba193714aff33ca1106458a1c
       <Footer />
     </>
     </Router>
