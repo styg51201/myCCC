@@ -19,7 +19,10 @@ const counter = (state = 0, action) => {
 //優惠券
 const getCouponData = (state=[],action)=>{
   switch (action.type){
-    
+    case 'SHOW_VALUE':
+      return action.value
+    default :
+    return state
   }
 }
 
@@ -27,7 +30,7 @@ const getCouponData = (state=[],action)=>{
 
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
 const rootReducer = combineReducers({
-  counter,
+  counter,getCouponData,
 })
 
 export { rootReducer }
