@@ -3,7 +3,7 @@ import SideFilter from './components/SideFilter'
 import Bread from './components/Bread'
 import { Route, withRouter, NavLink, Switch, matchPath } from 'react-router-dom'
 import '../css/main.css'
-import './css/GetCoupon.css'
+import './styles/GetCoupon.scss'
 import CouponItem from './components/CouponItem'
 
 function GetCoupon(props) {
