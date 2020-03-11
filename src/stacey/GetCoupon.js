@@ -6,36 +6,20 @@ import '../css/main.css'
 import './css/GetCoupon.scss'
 import CouponItem from './components/CouponItem'
 
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import {formServerCouponData,getCoupon} from '../actions/index'
+
 function GetCoupon(props) {
-  console.log(props.match)
-  const url = props.match.url
-  const path = props.match.path
-  console.log(url, path)
-
-  const[item,setItem]=useState([])
-
-  async function getData (){
-
-    const request = new Request('http://localhost:5555/coupon', {
-      method: 'GET',
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
-    const res = await fetch(request)
-    const data = await res.json()
-    console.log(data)
-    await setItem([...data])
-  }
+  console.log(props)
+  
 
   useEffect(()=>{
-    getData()
+    props.formServerCouponData()
   },[])
 
-  useEffect(()=>{
-    console.log(item)
-  },[item])
 
   return (
     <>
@@ -47,61 +31,10 @@ function GetCoupon(props) {
         <div className="col col-sm-9">
           <div className="row">
             {/* <!-- 領取 --> */}
-            {item.map((val,ind)=>{
-              return  <CouponItem data={item[ind]}/>
-            })
-            }
+            {props.data.map((val,ind)=>{
+              return <CouponItem key={ind} data={props.data[ind]} />
+            })}
            
-            <div className="col col-sm-6 coupon">
-              <div className="item">
-                <div className="wrapForImg">
-                  <img src="img/Swatch.jpg" alt="" />
-                  <div className="alreadyGet">已領取</div>
-                </div>
-                <div className="text">
-                  <ul>
-                    <h3>85折</h3>
-                    <li>swatch品牌券</li>
-                    <li>穿戴式裝置指定商品8折</li>
-                    <li>有效至 2020/02/15</li>
-                  </ul>
-                  <div className="state">
-                    <div></div>
-                    <p>75% 已領取</p>
-                  </div>
-                </div>
-                <div className="button">
-                  <button>
-                    <span>領取</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <div className="col col-sm-6 coupon">
-              <div className="item">
-                <div className="wrapForImg">
-                  <img src="img/Swatch.jpg" alt="" />
-                  <div className="alreadyGet">已領取</div>
-                </div>
-                <div className="text">
-                  <ul>
-                    <h3>85折</h3>
-                    <li>swatch品牌券</li>
-                    <li>穿戴式裝置指定商品8折</li>
-                    <li>有效至 2020/02/15</li>
-                  </ul>
-                  <div className="state">
-                    <div></div>
-                    <p>75% 已領取</p>
-                  </div>
-                </div>
-                <div className="button">
-                  <button>
-                    <span>領取</span>
-                  </button>
-                </div>
-              </div>
-            </div>
             {/* <!-- 已領取 --> */}
             <div className="col col-sm-6 coupon geted">
               <div className="item">
@@ -212,4 +145,15 @@ function GetCoupon(props) {
   )
 }
 
-export default withRouter(GetCoupon)
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return { data: store.getCouponData }
+}
+//action
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({
+    formServerCouponData,getCoupon
+  },dispatch)
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(GetCoupon))

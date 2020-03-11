@@ -9,32 +9,32 @@ function SideFilter (){
           <hr />
           <ul>
             <li>
-              <input type="checkbox" name="apple" id="all" /><label for="all"
+              <input type="checkbox" name="apple" id="all" /><label htmlFor="all"
                 >ALL</label>
             </li>
             <li>
               <input type="checkbox" name="apple" id="apple" /><label
-                for="apple"
+                htmlFor="apple"
                 >APPLE</label>
             </li>
             <li>
               <input type="checkbox" name="apple" id="bpple" /><label
-                for="bpple"
+                htmlFor="bpple"
                 >APPLE</label>
             </li>
             <li>
               <input type="checkbox" name="apple" id="cpple" /><label
-                for="cpple"
+                htmlFor="cpple"
                 >APPLE</label>
             </li>
             <li>
               <input type="checkbox" name="apple" id="dpple" /><label
-                for="dpple"
+                htmlFor="dpple"
                 >APPLE</label>
             </li>
             <li>
               <input type="checkbox" name="apple" id="epple" /><label
-                for="epple"
+                htmlFor="epple"
                 >APPLE</label>
             </li>
           </ul>
