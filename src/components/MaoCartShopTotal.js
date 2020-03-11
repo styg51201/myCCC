@@ -1,22 +1,17 @@
 import React, { useEffect } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 function MaoCartShopTotal() {
   useEffect(() => {
     let TotalBox = document.querySelector('.Total-box')
-
     document.addEventListener('scroll', e => {
       let FixScrollY = e.path[1].scrollY
-      let tt = e.path[1].pageXOffset
 
-      // console.log(TotalBox)
       if (FixScrollY > 170) {
         TotalBox.classList.add('position-fixed')
         console.log(FixScrollY)
       } else {
         TotalBox.classList.remove('position-fixed')
       }
-
-      //  console.log(e.path[1].scrollY)
     })
   }, [])
   return (
@@ -102,4 +97,4 @@ function MaoCartShopTotal() {
   )
 }
 
-export default withRouter(MaoCartShopTotal)
+export default MaoCartShopTotal
