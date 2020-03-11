@@ -14,7 +14,7 @@ function CouponItem(props){
         <div class="col col-sm-6 coupon">
               <div class="item">
                 <div class="wrapForImg">
-                  <img src="img/Swatch.jpg" alt="" />
+                  <img src="../img/Swatch.jpg" alt="" />
                   <div class="alreadyGet">已領取</div>
                 </div>
                 <div class="text">
