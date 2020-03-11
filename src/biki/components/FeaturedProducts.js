@@ -1,5 +1,5 @@
 import React from 'react'
-import '../css/home.css'
+import '../css/home.scss'
 import { FiShoppingBag, FiHeart, FiStar } from "react-icons/fi";
 
 function FeaturedProducts(){

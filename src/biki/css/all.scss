@@ -1,13 +1,15 @@
+@import '../../css/variables.scss';
+
 h5 {
-  color: black;
+  color: $black;
 }
 
 h6.bk-white {
-  color: white;
+  color: $white;
 }
 
-.bk-btn {
-  padding: 0.5rem 2rem;
+.bk-btn-white {
+  @include buttonTheme(whiteBorderedStyle);
 }
 
 .bk-btn.bordered {

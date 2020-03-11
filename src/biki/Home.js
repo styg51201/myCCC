@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-import './css/all.css'
-import './css/home.css'
+import './css/all.scss'
+import './css/home.scss'
 
 import FeaturedProducts from './components/FeaturedProducts'
 
@@ -35,7 +35,7 @@ function Home(){
                             <p>
                             context context context
                             </p>
-                            <button className="bk-btn bordered white">BUTTON HERE</button>
+                            <button className="bk-btn-white">BUTTON HERE</button>
                         </div>
                     </div>
                     <div className="bk-arrows">
@@ -66,7 +66,7 @@ function Home(){
                             <div className="bk-box-content">
                                 <h3>FEATURED PRODUCTS</h3>
                                 <h6 className="bk-white">精選商品</h6>
-                                <button class="bk-btn bordered white">瀏覽商品</button>
+                                <button class="bk-btn-white">瀏覽商品</button>
                             </div>
                         </div>
                         <FeaturedProducts />
