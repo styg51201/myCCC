@@ -45,17 +45,6 @@ function App() {
     <Router>
     <>
       <Header />
-      <Switch>
-      <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
-        <CartList />
-      </Route>
-
-      {/* 連結優惠券專區 */}
-      <Route path="/getCoupon"> 
-      <GetCoupon />
-      </Route>
-
-    </Switch>
       {/* <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
@@ -90,6 +79,10 @@ function App() {
           <Route path="/MemberLogin">
             <MemberLogin/>
           </Route>
+          {/* 連結優惠券專區 */}
+        <Route path="/getCoupon"> 
+          <GetCoupon />
+        </Route>
         </Switch>
       </Container>
       <Footer />
