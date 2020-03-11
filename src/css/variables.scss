@@ -1,0 +1,49 @@
+//顏色
+$black: #050505;
+$background: #ddd;
+$white: #fff;
+$blue: #0ac3ae;
+$grey: #a0a0a0;
+$yellow: #ffdd00;
+$orange: #ff6329;
+
+//粗體字
+$font-bold: 800;
+
+//間距 (參考bootstrap的)
+$spacing: 0.75rem;
+
+//icon尺寸
+$icon-regular: 1.3rem;
+$icon-small: 1rem;
+
+//文字尺寸
+$font-xl: 2rem; //超大標題 (首頁)
+$font-x: 1.375rem; //22px 標題
+$font-m: 1.125rem; //18px 小標題
+$font-s: 1rem; //16px 內文
+$font-xs: 0.875rem; //14px 小文字
+
+//按鈕樣式(橫的)
+@mixin buttonTheme($style, $padding: 0.5rem 2rem, $width: auto) {
+  padding: $padding;
+  width: $width;
+
+  @if $style == blackStyle {
+    background-color: $black;
+    border: solid 1px $white;
+    color: $white;
+  } @else if $style == borderedStyle {
+    background-color: transparent;
+    border: solid 1px $black;
+    color: $black;
+  } @else if $style == blueStyle {
+    background-color: $blue;
+    border: solid 1px $blue;
+    color: $white;
+  } @else if $style == whiteBorderedStyle {
+    background-color: transparent;
+    border: solid 1px $white;
+    color: $white;
+  }
+}
