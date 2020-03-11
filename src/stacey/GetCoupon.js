@@ -1,9 +1,10 @@
-import React from 'react'
+import React ,{useEffect ,useState}from 'react'
 import SideFilter from './components/SideFilter'
 import Bread from './components/Bread'
 import { Route, withRouter, NavLink, Switch, matchPath } from 'react-router-dom'
 import '../css/main.css'
 import './css/GetCoupon.css'
+import CouponItem from './components/CouponItem'
 
 function GetCoupon(props) {
   console.log(props.match)
@@ -11,11 +12,30 @@ function GetCoupon(props) {
   const path = props.match.path
   console.log(url, path)
 
+  const[item,setItem]=useState([])
 
+  async function getData (){
 
-  console.log('123456')
-  console.log('this is a test')
-  console.log('123111')
+    const request = new Request('http://localhost:5555/coupon', {
+      method: 'GET',
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    console.log(data)
+    await setItem([...data])
+  }
+
+  useEffect(()=>{
+    getData()
+  },[])
+
+  useEffect(()=>{
+    console.log(item)
+  },[item])
 
   return (
     <>
@@ -27,6 +47,11 @@ function GetCoupon(props) {
         <div className="col col-sm-9">
           <div className="row">
             {/* <!-- 領取 --> */}
+            {item.map((val,ind)=>{
+              return  <CouponItem data={item[ind]}/>
+            })
+            }
+           
             <div className="col col-sm-6 coupon">
               <div className="item">
                 <div className="wrapForImg">

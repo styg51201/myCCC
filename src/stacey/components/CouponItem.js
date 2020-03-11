@@ -1,13 +1,14 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 
 
-function CouponItem(){
-    const [vendor,setVendor]=useState
-    const [img,setImg]=useState
-    const [discount,setDiscount]=useState
-    const [dueDate,setdueDate]=useState
+function CouponItem(props){
+    const [vendor,setVendor]=useState('')
+    const [img,setImg]=useState('')
+    const [discount,setDiscount]=useState('')
+    const [dueDate,setDueDate]=useState('')
 
-
+  console.log('props',props)
+    
     return (
         <>
         <div class="col col-sm-6 coupon">
@@ -18,10 +19,10 @@ function CouponItem(){
                 </div>
                 <div class="text">
                   <ul>
-                    <h3>85折</h3>
-                    <li>swatch品牌券</li>
-                    <li>穿戴式裝置指定商品8折</li>
-                    <li>有效至 2020/02/15</li>
+                    <h3>{props.data.discount}</h3>
+                    <li>{props.data.vendor}</li>
+                    <li>穿戴式裝置指定商品{props.data.discount}</li>
+                    <li>有效至 {props.data.dueDate}</li>
                   </ul>
                   <div class="state">
                     <div></div>

@@ -10,7 +10,7 @@ const readFile = util.promisify(fs.readFile)
 const writeFile = util.promisify(fs.writeFile)
 
 //設定你想讀取的 table 名稱
-const strKeyword = 'ad'
+const strKeyword = 'member'
 
 //從資料庫取得資料
 async function getDataFromDb() {
