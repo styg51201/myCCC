@@ -31,7 +31,7 @@ $font-xs: 0.875rem; //14px 小文字
 
   @if $style == blackStyle {
     background-color: $black;
-    border: solid 1px $white;
+    border: solid 1px $black;
     color: $white;
   } @else if $style == borderedStyle {
     background-color: transparent;
