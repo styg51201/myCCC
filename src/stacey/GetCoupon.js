@@ -13,8 +13,8 @@ function GetCoupon(props) {
   const path = props.match.path
   console.log(url, path)
 
-  console.log('123456')
-
+  console.log('123456') 
+  console.log('67891011')
 
   return (
     <>
