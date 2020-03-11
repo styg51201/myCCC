@@ -5,20 +5,18 @@ import { Route, withRouter, NavLink, Switch, matchPath } from 'react-router-dom'
 import '../css/main.css'
 import './css/GetCoupon.css'
 
-
 function GetCoupon(props) {
-
   console.log(props.match)
   const url = props.match.url
   const path = props.match.path
   console.log(url, path)
 
   console.log('123456')
-
+  console.log('this is a test')
 
   return (
     <>
-    <Bread />
+      <Bread />
       <div className="row wrap">
         {/* <!-- 側邊篩選欄 --> */}
         <SideFilter />
@@ -180,8 +178,8 @@ function GetCoupon(props) {
               </div>
             </div>
           </div>
-        </div>  
-    </div>
+        </div>
+      </div>
     </>
   )
 }
