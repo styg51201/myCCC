@@ -25,7 +25,7 @@ async function getData() {
   console.log("strat to read file...");
   //讀取 json 檔
   let data = JSON.parse(
-    await readFile("output/backup/" + strKeyword + ".json")
+    await readFile("../jsonProducts/" + strKeyword + ".json")
   );
 
   //針對每一筆資料執行迴圈
