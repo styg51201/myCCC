@@ -1,0 +1,52 @@
+{
+  "coupon": [
+    {
+      "id": 1,
+      "vendor": "swatch",
+      "count": 70,
+      "geted": false,
+      "discount": 100,
+      "dueDate": "2020/03/15"
+    },
+    {
+      "id": 2,
+      "vendor": "swatch",
+      "count": 65,
+      "geted": false,
+      "discount": 200,
+      "dueDate": "2020/03/15"
+    },
+    {
+      "id": 3,
+      "vendor": "swatch",
+      "count": 0,
+      "geted": true,
+      "discount": 300,
+      "dueDate": "2020/03/15"
+    },
+    {
+      "id": 4,
+      "vendor": "swatch",
+      "count": 20,
+      "geted": true,
+      "discount": 400,
+      "dueDate": "2020/03/15"
+    },
+    {
+      "id": 5,
+      "vendor": "swatch",
+      "count": 90,
+      "geted": true,
+      "discount": 500,
+      "dueDate": "2020/03/15"
+    },
+    {
+      "id": 6,
+      "vendor": "swatch",
+      "count": 5,
+      "geted": false,
+      "discount": 600,
+      "dueDate": "2020/03/15"
+    }
+  ]
+}
