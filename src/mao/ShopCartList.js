@@ -3,27 +3,34 @@ import React, { useState, useEffect, useCallback, useRef } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { Button } from 'react-bootstrap'
 import Toast from 'react-bootstrap/Toast'
-import { withRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import MaoShopCartBTN from '../components/MaoShopCartBTN'
 import MaoCartShopTotal from '../components/MaoCartShopTotal'
+import {withRouter} from 'react-router-dom'
 
-function CartList() {
-  const [count, setCount] = useState(1)
-  const dataList = []
-  const data = [1, 2, 5, 9]
-
-  function a(e) {
-    let getNum = +e.target.getAttribute('data-value') * 1
-    let b = e.target.parentNode.children[1]
-    b.value = +b.value + getNum
-  }
-
-  const handleCount = e => {
-    console.log(e)
-  }
-  for (let i = 0; i < data.length; i++) {
+const dataItem=[{id:6,price:10},{id:2,price:20},{id:90,price:30},{id:4,price:40},{id:5,price:50}]
+function ShopCartList(props) {
+  const [mycart, setMycart] = useState([])
+  const [loadcount, setLoadcount] = useState(false)
+  console.log(props)
+const dataList=[]
+function getLocalStorage(){
+  let getCart=localStorage.getItem('cart')?JSON.parse(localStorage.getItem('cart')):[]
+  // console.log(getCart)
+}
+  // 數量增加按鈕
+  // function a(e) {
+  //   let getNum = +e.target.getAttribute('data-value') * 1
+  //   let b = e.target.parentNode.children[1]
+  //   b.value = +b.value + getNum
+  // }
+useEffect(()=>{
+  getLocalStorage()
+},[loadcount])
+  for (let i = 0; i < dataItem.length; i++) {
     dataList.push(
       <li
-        key={data[i]}
+        key={dataItem[i]}
         className="d-flex"
         style={{
           padding: '15px 0px',
@@ -52,29 +59,28 @@ function CartList() {
                 width: '85px',
               }}
             >
-              <button
-                className="text-center"
-                style={{ fontSize: '30px', background: '#ddd', width: '30%' }}
-                data-value="-1"
-                onClick={(e) => handleCount(e)}
-              >
-                -
-              </button>
+               <MaoShopCartBTN 
+              addItems={dataItem[i]}
+              count='-1'
+              />
               <input
                 placeholder="1"
-                value={count}
+                value='1'
                 type="text"
                 className="text-center w-50 m-0"
-                style={{ outline: 'none', border: 'none' }}
+                style={{ outline: 'none', border: 'none',width:'30px'}}
               />
-              <button
+              {/* <button
                 className="text-center"
                 style={{ fontSize: '30px', background: '#ddd', width: '30%' }}
                 data-value="1"
-                onClick={a}
               >
                 +
-              </button>
+              </button> */}
+              <MaoShopCartBTN
+              addItems={dataItem[i]}
+              count='1'
+              />
             </div>
             <p style={{ fontSize: '18px' }}>
               <b>$7000</b>
@@ -185,5 +191,4 @@ function CartList() {
     </>
   )
 }
-
-export default withRouter(CartList)
+export default withRouter(ShopCartList)
