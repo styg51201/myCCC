@@ -39,8 +39,8 @@
     {
       "id": 5,
       "vendor": "swatch",
-      "getedCount": 10,
-      "geted": false,
+      "getedCount": 15,
+      "geted": true,
       "discount": 500,
       "dueDate": "2020/03/15",
       "count": 100

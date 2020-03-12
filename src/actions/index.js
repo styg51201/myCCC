@@ -57,22 +57,3 @@ export const formServerCouponData = val => {
       dispatch(formServerCouponData())
     }
   }
-
-  export const addCouponCount = (item) => {
-    return async dispatch => {
-      const request = new Request(`http://localhost:5555/coupon/${item.id}`, {
-        method: 'PATCH',
-        headers: new Headers({
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }),
-        body: `{"getedCount":${+item.getedCount+5}}`,
-
-      })
-      const res = await fetch(request)
-      const data = await res.json()
-  
-      console.log('data', data)
-      dispatch(formServerCouponData())
-    }
-  }
