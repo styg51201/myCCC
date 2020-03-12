@@ -2,57 +2,97 @@
   "coupon": [
     {
       "id": 1,
-      "vendor": "swatch",
-      "getedCount": 100,
-      "geted": false,
-      "discount": 100,
-      "dueDate": "2020/03/15",
-      "count": 100
+      "cp_id": 1,
+      "cp_vendor": "swatch",
+      "cp_getedCount": 15,
+      "cp_img": "",
+      "cp_start": "",
+      "cp_due": "2020/03/15",
+      "cp_count": 100,
+      "geted": true,
+      "cpr_object": 0,
+      "cpr_rule": 1,
+      "cpr_ruleNum": 3,
+      "cpr_discount": 0,
+      "cpr_discountNum": 8
     },
     {
       "id": 2,
-      "vendor": "swatch",
-      "getedCount": 95,
+      "cp_id": 2,
+      "cp_vendor": "swatch",
+      "cp_getedCount": 55,
+      "cp_img": "",
+      "cp_start": "",
+      "cp_due": "2020/03/15",
+      "cp_count": 100,
       "geted": true,
-      "discount": 200,
-      "dueDate": "2020/03/15",
-      "count": 100
+      "cpr_object": 3,
+      "cpr_rule": 0,
+      "cpr_ruleNum": 0,
+      "cpr_discount": 0,
+      "cpr_discountNum": 9
     },
     {
       "id": 3,
-      "vendor": "swatch",
-      "getedCount": 95,
+      "cp_id": 3,
+      "cp_vendor": "apple2",
+      "cp_getedCount": 85,
+      "cp_img": "",
+      "cp_start": "",
+      "cp_due": "2020/03/15",
+      "cp_count": 100,
       "geted": true,
-      "discount": 300,
-      "dueDate": "2020/03/15",
-      "count": 100
+      "cpr_object": 0,
+      "cpr_rule": 2,
+      "cpr_ruleNum": 1000,
+      "cpr_discount": 1,
+      "cpr_discountNum": 200
     },
     {
       "id": 4,
-      "vendor": "swatch",
-      "getedCount": 65,
-      "geted": true,
-      "discount": 400,
-      "dueDate": "2020/03/15",
-      "count": 100
+      "cp_id": 4,
+      "cp_vendor": "apple",
+      "cp_getedCount": 100,
+      "cp_img": "",
+      "cp_start": "",
+      "cp_due": "2020/03/15",
+      "cp_count": 100,
+      "geted": false,
+      "cpr_object": 1,
+      "cpr_rule": 2,
+      "cpr_ruleNum": 1000,
+      "cpr_discount": 1,
+      "cpr_discountNum": 200
     },
     {
       "id": 5,
-      "vendor": "swatch",
-      "getedCount": 15,
+      "cp_id": 5,
+      "cp_vendor": "swatch",
+      "cp_getedCount": 75,
+      "cp_img": "",
+      "cp_start": "",
+      "cp_due": "2020/03/15",
+      "cp_count": 100,
       "geted": true,
-      "discount": 500,
-      "dueDate": "2020/03/15",
-      "count": 100
+      "cpr_object": 1,
+      "cpr_rule": 2,
+      "cpr_ruleNum": 1000,
+      "cpr_discount": 1,
+      "cpr_discountNum": 200
+    }
+  ],
+  "vendor": [
+    {
+      "id": 1,
+      "name": "apple1"
     },
     {
-      "id": 6,
-      "vendor": "swatch",
-      "getedCount": 10,
-      "geted": false,
-      "discount": 600,
-      "dueDate": "2020/03/15",
-      "count": 100
+      "id": 2,
+      "name": "apple2"
+    },
+    {
+      "id": 3,
+      "name": "apple3"
     }
   ]
 }
