@@ -7,7 +7,7 @@ function MemberLogin(){
         <div>
             <div className="row">     
                 <div className="col card" style={{borderRight: '1px solid #ddd'}}>       
-                    <h3 className="MemberLogin">Sign In 登入</h3>
+                    <h3 className="MemberLoginh3">Sign In 登入</h3>
                     <form>
                         <div>      
                         <label >帳號:</label> <input className="form-control" type="text" />
@@ -19,7 +19,7 @@ function MemberLogin(){
                     {/* //如果可以要做google&facebook登入                                */}
                 </div>
                 <div className="col card">
-                    <h3 className="MemberLogin">Register Now 快速註冊</h3>
+                    <h3 className="MemberLoginh3">Register Now 快速註冊</h3>
                     <form >
                         <div>      
                         <label >帳號:</label> <input className="form-control" type="text" />
