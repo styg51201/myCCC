@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
+
+//import from react-bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Button, Container } from 'react-bootstrap'
+import Toast from 'react-bootstrap/Toast'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 //import Header Footer
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
@@ -13,11 +20,7 @@ import Headset from './chin/Headset'
 import Watch from './chin/Watch'
 //import mao
 import CartList from './mao/ShopCartList'
-//import from react-bootstrap
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Button, Container } from 'react-bootstrap'
-import Toast from 'react-bootstrap/Toast'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+
 
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
