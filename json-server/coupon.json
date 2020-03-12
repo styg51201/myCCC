@@ -3,50 +3,56 @@
     {
       "id": 1,
       "vendor": "swatch",
-      "count": 70,
+      "getedCount": 100,
       "geted": false,
       "discount": 100,
-      "dueDate": "2020/03/15"
+      "dueDate": "2020/03/15",
+      "count": 100
     },
     {
       "id": 2,
       "vendor": "swatch",
-      "count": 65,
-      "geted": false,
+      "getedCount": 95,
+      "geted": true,
       "discount": 200,
-      "dueDate": "2020/03/15"
+      "dueDate": "2020/03/15",
+      "count": 100
     },
     {
       "id": 3,
       "vendor": "swatch",
-      "count": 0,
+      "getedCount": 95,
       "geted": true,
       "discount": 300,
-      "dueDate": "2020/03/15"
+      "dueDate": "2020/03/15",
+      "count": 100
     },
     {
       "id": 4,
       "vendor": "swatch",
-      "count": 20,
+      "getedCount": 65,
       "geted": true,
       "discount": 400,
-      "dueDate": "2020/03/15"
+      "dueDate": "2020/03/15",
+      "count": 100
     },
     {
       "id": 5,
       "vendor": "swatch",
-      "count": 90,
+      "getedCount": 15,
       "geted": true,
       "discount": 500,
-      "dueDate": "2020/03/15"
+      "dueDate": "2020/03/15",
+      "count": 100
     },
     {
       "id": 6,
       "vendor": "swatch",
-      "count": 5,
+      "getedCount": 10,
       "geted": false,
       "discount": 600,
-      "dueDate": "2020/03/15"
+      "dueDate": "2020/03/15",
+      "count": 100
     }
   ]
 }
