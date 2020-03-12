@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2020 年 03 月 10 日 08:50
+-- 產生時間： 2020 年 03 月 12 日 06:42
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.2.27
 
@@ -111,6 +111,106 @@ INSERT INTO `categoryies` (`categoryId`, `categoryName`, `categoryParentId`, `cr
 (34, '藍芽耳機', '藍芽耳機', '2020-01-18 21:04:04', '2020-01-18 21:04:04'),
 (35, '錄影器材', '錄影器材', '2020-01-18 21:04:04', '2020-01-18 21:04:04'),
 (36, '其他', '其他', '2020-01-18 21:04:04', '2020-01-18 21:04:04');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `coupon`
+--
+
+CREATE TABLE IF NOT EXISTS `coupon` (
+  `cp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券id',
+  `cp_vendor` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '優惠券廠商id',
+  `cp_count` int(11) NOT NULL COMMENT '優惠券發放數量',
+  `cp_rule` int(11) NOT NULL COMMENT '優惠券使用規則',
+  `cp_img` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '優惠券圖片',
+  `cp_start` date NOT NULL COMMENT '優惠券開始時間',
+  `cp_due` date NOT NULL COMMENT '優惠券結束時間',
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`cp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表新增資料前，先清除舊資料 `coupon`
+--
+
+TRUNCATE TABLE `coupon`;
+--
+-- 傾印資料表的資料 `coupon`
+--
+
+INSERT INTO `coupon` (`cp_id`, `cp_vendor`, `cp_count`, `cp_rule`, `cp_img`, `cp_start`, `cp_due`, `created_at`, `updates_at`) VALUES
+(1, 'Apple', 100, 1, 'Swatch.jpg', '2020-03-12', '2020-03-31', '2020-03-12 13:19:22', '2020-03-12 13:19:22'),
+(2, 'Apple2', 50, 2, 'Swatch.jpg', '2020-03-12', '2020-03-17', '2020-03-12 13:23:39', '2020-03-12 13:23:39'),
+(3, 'Apple3', 200, 3, 'Swatch.jpg', '2020-03-12', '2020-03-20', '2020-03-12 13:23:40', '2020-03-12 13:23:40');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `coupon_item`
+--
+
+CREATE TABLE IF NOT EXISTS `coupon_item` (
+  `cpi_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '個人優惠券id',
+  `cpi_cp_id` int(11) NOT NULL COMMENT '對應的優惠券id',
+  `cpi_mb_id` int(11) NOT NULL COMMENT '對應的會員id',
+  `cpi_use` int(11) NOT NULL COMMENT '是否使用',
+  `cpi_useDate` date NOT NULL COMMENT '使用日期',
+  `created_at` datetime NOT NULL,
+  `updates_at` datetime NOT NULL,
+  PRIMARY KEY (`cpi_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表新增資料前，先清除舊資料 `coupon_item`
+--
+
+TRUNCATE TABLE `coupon_item`;
+--
+-- 傾印資料表的資料 `coupon_item`
+--
+
+INSERT INTO `coupon_item` (`cpi_id`, `cpi_cp_id`, `cpi_mb_id`, `cpi_use`, `cpi_useDate`, `created_at`, `updates_at`) VALUES
+(1, 1, 4, 0, '0000-00-00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 1, 5, 1, '2020-03-13', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(3, 2, 6, 0, '0000-00-00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(4, 2, 7, 1, '2020-03-14', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(5, 3, 7, 0, '0000-00-00', '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(6, 3, 8, 1, '2020-03-17', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `coupon_rule`
+--
+
+CREATE TABLE IF NOT EXISTS `coupon_rule` (
+  `cpr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券規則id',
+  `cpr_cp_id` int(11) NOT NULL COMMENT '對應的優惠券id',
+  `cpr_object` int(11) NOT NULL COMMENT '優惠券目標',
+  `cpr_rule` int(11) NOT NULL COMMENT '優惠券規則',
+  `cpr_ruleNum` int(11) NOT NULL COMMENT '優惠券規則的數量',
+  `cpr_discount` int(11) NOT NULL COMMENT '優惠券折扣',
+  `cpr_discountNum` int(11) NOT NULL COMMENT '優惠券折扣數量',
+  `created_at` int(11) NOT NULL,
+  `updates_at` int(11) NOT NULL,
+  PRIMARY KEY (`cpr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表新增資料前，先清除舊資料 `coupon_rule`
+--
+
+TRUNCATE TABLE `coupon_rule`;
+--
+-- 傾印資料表的資料 `coupon_rule`
+--
+
+INSERT INTO `coupon_rule` (`cpr_id`, `cpr_cp_id`, `cpr_object`, `cpr_rule`, `cpr_ruleNum`, `cpr_discount`, `cpr_discountNum`, `created_at`, `updates_at`) VALUES
+(1, 1, 0, 1, 3, 0, 8, 0, 0),
+(2, 2, 1, 2, 1000, 1, 200, 0, 0),
+(3, 3, 2, 0, 0, 0, 9, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -786,7 +886,7 @@ CREATE TABLE IF NOT EXISTS `returnlist` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`returnId`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
 --
 -- 資料表新增資料前，先清除舊資料 `returnlist`
