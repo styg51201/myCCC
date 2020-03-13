@@ -6,55 +6,25 @@ import { Form, ListGroup, Button } from 'react-bootstrap'
 // import MemberSidebar from './components/MemberSidebar'
 import './I_css/MemberEdit.css'
 import Nav from 'react-bootstrap/Nav'
-
+import MemberSidebar from './components/MemberSidebar'
 import MemberOrder from './MemberOrder'
 
 function MemberEdit(props) {
   return (
-    <>
-      <Router>
-        <>
-          <Switch>
-            <Route path="/memberorder">
+    <>   
+    <Switch>
+            <Route path="/memberedit/memberorder">
               <MemberOrder />
-            </Route>
-          </Switch>
-        </>
-      </Router>
-      //最後要新增一頁，如果路由不對要顯示頁面錯誤然後跳轉。
-      {/* <Route path="*">
+            </Route> 
+    {/* //最後要新增一頁，如果路由不對要顯示頁面錯誤然後跳轉。 
+    <Route path="*">
           <PageNitFound />
         </Route> */}
-      {/* <MemberSidebar/> components 結尾要再加入</div>包整個才可以flex   */}
-      <div className="row d-flex justify-content-center">
-        <div className="membersidebar col-2">
-          <ListGroup>
-            <ListGroup.Item>
-              <div>
-                <img
-                  className="image"
-                  src="https://fakeimg.pl/150x150/"
-                  alt=""
-                />
-              </div>
-              <Nav.Link className="edit">編輯</Nav.Link>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Nav.Link href="/memberedit">基本資料管理</Nav.Link>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Nav.Link href="/memberorder">交易紀錄</Nav.Link>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Nav.Link>我的收藏</Nav.Link>
-            </ListGroup.Item>
-            <ListGroup.Item>
-              <Nav.Link>優惠券</Nav.Link>
-            </ListGroup.Item>
-          </ListGroup>
-        </div>
+
+<div className="row d-flex justify-content-center">
+     <MemberSidebar/>     
         {/* 會員資料編輯內容 */}
-        <div className="membereditcontent col-9">
+        <div className="memberedit col-9">
           <h3>基本資料管理</h3>
           <hr />
           <Form>
@@ -129,8 +99,9 @@ function MemberEdit(props) {
             </div>
           </Form>
         </div>
-      </div>
-    </>
+    </div>        
+    </Switch>
+    </>    
   )
 }
 

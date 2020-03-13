@@ -98,11 +98,12 @@ function Header() {
         </Container>
       </div>
       <div>
+      <Link to="/memberlogin">
         <img
           src="./img/header-footer/user.svg"
           alt=""
           className="chin-three-position"
-        />
+        /></Link>
         <Link to="/ShopCartList/:id?">
           <img
             src="./img/header-footer/shopping-bag.svg"
