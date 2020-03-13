@@ -68,3 +68,26 @@ export const addFilterCoupon = val =>{
 export const minusFilterCoupon = val =>{
   return {type:'MINUS_VALUE',value:val}
 }
+
+//----chin商品列表 -------
+//回傳showItems
+export const showItems = val =>{
+  return {type:'SHOW_ITEMS',value:val}
+}
+//跟server要資料
+export const formServerItemsData = val => {
+  return async dispatch => {
+    const request = new Request('http://localhost:5555/items', {
+      method: 'GET',
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+
+    console.log('data', data)
+    dispatch(showItems(data))
+  }
+}

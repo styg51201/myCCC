@@ -1,6 +1,12 @@
 import React from 'react'
 import './chin-css/items.scss'
 
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import { formServerItemsData } from '../actions/index'
+
 function Headset(){
     return(
         <>
