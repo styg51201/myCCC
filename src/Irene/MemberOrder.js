@@ -6,7 +6,7 @@ import { Form, ListGroup, Button } from 'react-bootstrap'
 // import MemberSidebar from './components/MemberSidebar'
 import './I_css/MemberEdit.css'
 
-function MemberEdit() {
+function MemberOrder() {
   return (
     <>
       {/* <MemberSidebar/> components 結尾要再加入</div>包整個才可以flex   */}
@@ -38,10 +38,12 @@ function MemberEdit() {
           </ListGroup>
         </div>
         {/* 會員訂單內容 */}
-        <div className="memberorder col-9"></div>
+        <div className="memberorder col-9">
+          <h1>1111111</h1>
+        </div>
       </div>
     </>
   )
 }
 
-export default MemberEdit
+export default MemberOrder

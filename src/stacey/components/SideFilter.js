@@ -5,61 +5,30 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {addFilterCoupon,minusFilterCoupon} from '../../actions/index'
+import {addFilterCoupon} from '../../actions/index'
 
 
 function SideFilter (props){
 
-  const [box,setBox] = useState(true)
+  console.log('888',props)
 
   const filter = function (e){
-    if(e.target.checked){
-      // console.log(e.target.checked,e.target.value)
-      props.addFilterCoupon(e.target.value)
-    }else{
-      props.minusFilterCoupon(e.target.value)
-    }
+      props.addFilterCoupon({isChecked:e.target.checked,vendorName:e.target.value},props.filterList)
   }
   
-
     return(
         <>
         <div className="col-3 sty-sideFilter">
           <h3 className="">品牌</h3>
-          
           <hr />
-          <ul>
-          <li>
-          </li>
-            <li>
-              <input type="checkbox" name="apple" id="all" value="apple" onChange={(e)=>filter(e)} /><label htmlFor="all"
-                >ALL</label>
-            </li>
-            <li>
-              <input type="checkbox" name="apple" id="apple" value=""/><label
-                htmlFor="apple"
-                >APPLE</label>
-            </li>
-            <li>
-              <input type="checkbox" name="apple" id="bpple" /><label
-                htmlFor="bpple"
-                >APPLE</label>
-            </li>
-            <li>
-              <input type="checkbox" name="apple" id="cpple" /><label
-                htmlFor="cpple"
-                >APPLE</label>
-            </li>
-            <li>
-              <input type="checkbox" name="apple" id="dpple" /><label
-                htmlFor="dpple"
-                >APPLE</label>
-            </li>
-            <li>
-              <input type="checkbox" name="apple" id="epple" /><label
-                htmlFor="epple"
-                >APPLE</label>
-            </li>
+          <ul onChange={(e)=>filter(e)}>
+          {props.list.map((val,ind)=>{
+            return (<li>
+              <input type="checkbox" name={val} id={val} value={val}/><label
+                htmlFor={val}
+                >{val}</label>
+            </li>)
+          })}
           </ul>
         </div>
         </>
@@ -67,12 +36,17 @@ function SideFilter (props){
 }
 
 
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return {  filterList: store.filterCoupon,}
+}
+
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    addFilterCoupon,minusFilterCoupon
+    addFilterCoupon
   },dispatch)
 }
 
 
-export default connect(null,mapDispatchToProps)(SideFilter)
+export default connect(mapStateToProps,mapDispatchToProps)(SideFilter)

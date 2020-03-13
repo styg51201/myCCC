@@ -29,6 +29,7 @@ const getItemsData = (state=[],action)=>{
 
 
 //優惠券
+//-----------stacey 優惠券---------------------
 const getCouponData = (state=[],action)=>{
   switch (action.type){
     case 'SHOW_VALUE':
@@ -41,13 +42,8 @@ const getCouponData = (state=[],action)=>{
 //優惠券篩選
 const filterCoupon = (state=[],action)=>{
   switch (action.type){
-    case 'ADD_VALUE':
-      return [action.value,...state]
-    case 'MINUS_VALUE':
-      let ind = state.indexOf(action.value)
-      return state.map((val,ind)=>{
-        
-      })
+    case 'FILTER_VALUE':
+        return action.value
     default :
       return state
   }

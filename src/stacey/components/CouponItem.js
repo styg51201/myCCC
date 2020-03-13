@@ -89,7 +89,6 @@ function CouponItem(props){
   }
 
 
-  console.log('props',props)
     
     return (
         <>

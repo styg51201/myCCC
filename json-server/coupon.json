@@ -3,7 +3,7 @@
     {
       "id": 1,
       "cp_id": 1,
-      "cp_vendor": "swatch",
+      "cp_vendor": "cpple",
       "cp_getedCount": 15,
       "cp_img": "",
       "cp_start": "",
@@ -35,7 +35,7 @@
     {
       "id": 3,
       "cp_id": 3,
-      "cp_vendor": "apple2",
+      "cp_vendor": "apple",
       "cp_getedCount": 85,
       "cp_img": "",
       "cp_start": "",
@@ -67,7 +67,7 @@
     {
       "id": 5,
       "cp_id": 5,
-      "cp_vendor": "swatch",
+      "cp_vendor": "BBB",
       "cp_getedCount": 75,
       "cp_img": "",
       "cp_start": "",
