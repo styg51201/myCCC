@@ -73,7 +73,7 @@ function Header() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/motion" className="navbarlist">
+                  <Link to="/actioncamera" className="navbarlist">
                     運動攝影機
                   </Link>
                 </li>
@@ -146,7 +146,7 @@ function Header() {
                 </Link>
               </li>
               <li>
-                <Link to="/motion" className="headerlist">
+                <Link to="/actioncamera" className="headerlist">
                   運動攝影機
                 </Link>
               </li>

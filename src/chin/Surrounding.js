@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { formServerItemsData } from '../actions/index'
 
-function Headset(){
+function Surrounding(){
     return(
         <>
          <main class="chin-main">
@@ -64,4 +64,4 @@ function Headset(){
     )
 }
 
-export default Headset
+export default Surrounding

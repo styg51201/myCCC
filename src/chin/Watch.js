@@ -8,14 +8,43 @@ import '../css/main.scss'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData } from '../actions/index'
+import {watchItems } from '../actions/index'
 
 function Watch(props){
     console.log(props)
 
     useEffect(()=>{
-        props.formServerItemsData()
+        props.watchItems()
       },[])
+
+    if(!props.data) return <></>
+
+
+    const items= (
+        <div className="chin-commodity">
+                    {props.data.map((val,ind)=>{
+                        return(<div className="chin-commodity" key={ind}>
+                                <div className="chin-commodity-item">
+                                    <ul className="chin-star-heart-bag">
+                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                                        <li className="chin-heart-bag">
+                                            <img className="chin-heart" src="./chin-img/heart.svg" alt=""/>
+                                            <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt=""/>
+                                        </li>
+                                    </ul>
+                                    <img className="chin-watch" src={`./chin-img/images/${val.itemImg}`} alt=""/>
+                                    <h6>{val.name}</h6>
+                                    <p>{val.itemName}</p>
+                                    <h5>NT${val.itemPrice}</h5>
+                                </div>
+                            </div>)
+                        })}
+                </div>
+    )
 
     return(
         <>
@@ -56,29 +85,7 @@ function Watch(props){
                         </button>
                     </div>
                 </div>
-                <div className="chin-commodity">
-                    {props.data.map((val,ind)=>{
-                        return(<div className="chin-commodity" key={ind}>
-                                <div className="chin-commodity-item">
-                                    <ul className="chin-star-heart-bag">
-                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                                        <li className="chin-heart-bag">
-                                            <img className="chin-heart" src="./chin-img/heart.svg" alt=""/>
-                                            <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt=""/>
-                                        </li>
-                                    </ul>
-                                    <img className="chin-watch" src={`./chin-img/images/${val.itemImg}`} alt=""/>
-                                    <h6>{val.name}</h6>
-                                    <p>{val.itemName}</p>
-                                    <h5>NT${val.itemPrice}</h5>
-                                </div>
-                            </div>)
-                        })}
-                </div>
+                {items}
                 <div className="circle">
                     <div className="circle1">
                         <div className="circle3"></div>
@@ -94,13 +101,13 @@ function Watch(props){
 }
 // 選擇對應的reducer
 const mapStateToProps = store => {
-    return { data: store.getItemsData}
+    return { data: store.getWatchItems}
   }
 
 //action
 const mapDispatchToProps = dispatch =>{
     return bindActionCreators({
-      formServerItemsData
+        watchItems
     },dispatch)
   }
 
