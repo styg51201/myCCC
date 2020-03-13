@@ -5,16 +5,26 @@ import { Link } from 'react-router-dom'
 import { Form, ListGroup, Button } from 'react-bootstrap'
 // import MemberSidebar from './components/MemberSidebar'
 import './I_css/MemberEdit.css'
+import Nav from 'react-bootstrap/Nav'
+
 import MemberOrder from './MemberOrder'
 
-function MemberEdit() {
+function MemberEdit(props) {
   return (
     <>
-      <Switch>
-        <Route path="/memberorder">
-          <MemberOrder />
-        </Route>
-      </Switch>
+      <Router>
+        <>
+          <Switch>
+            <Route path="/memberorder">
+              <MemberOrder />
+            </Route>
+          </Switch>
+        </>
+      </Router>
+      //最後要新增一頁，如果路由不對要顯示頁面錯誤然後跳轉。
+      {/* <Route path="*">
+          <PageNitFound />
+        </Route> */}
       {/* <MemberSidebar/> components 結尾要再加入</div>包整個才可以flex   */}
       <div className="row d-flex justify-content-center">
         <div className="membersidebar col-2">
@@ -27,19 +37,19 @@ function MemberEdit() {
                   alt=""
                 />
               </div>
-              <Link className="edit">編輯</Link>
+              <Nav.Link className="edit">編輯</Nav.Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Link to="/memberedit">基本資料管理</Link>
+              <Nav.Link href="/memberedit">基本資料管理</Nav.Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Link>交易紀錄</Link>
+              <Nav.Link href="/memberorder">交易紀錄</Nav.Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Link>我的收藏</Link>
+              <Nav.Link>我的收藏</Nav.Link>
             </ListGroup.Item>
             <ListGroup.Item>
-              <Link>優惠券</Link>
+              <Nav.Link>優惠券</Nav.Link>
             </ListGroup.Item>
           </ListGroup>
         </div>
