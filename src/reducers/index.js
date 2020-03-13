@@ -16,7 +16,22 @@ const counter = (state = 0, action) => {
   }
 }
 
+//---------------chin items--------------------
+
+const getWatchItems = (state=[],action)=>{
+  switch (action.type){
+    case 'SHOW_WATCH':
+      return action.value
+      default :
+      return state
+  }
+}
+
+
+
+
 //優惠券
+//-----------stacey 優惠券---------------------
 const getCouponData = (state=[],action)=>{
   switch (action.type){
     case 'SHOW_VALUE':
@@ -29,13 +44,8 @@ const getCouponData = (state=[],action)=>{
 //優惠券篩選
 const filterCoupon = (state=[],action)=>{
   switch (action.type){
-    case 'ADD_VALUE':
-      return [action.value,...state]
-    case 'MINUS_VALUE':
-      let ind = state.indexOf(action.value)
-      return state.map((val,ind)=>{
-        
-      })
+    case 'FILTER_VALUE':
+        return action.value
     default :
       return state
   }
@@ -44,7 +54,7 @@ const filterCoupon = (state=[],action)=>{
 
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
 const rootReducer = combineReducers({
-  counter,getCouponData,filterCoupon
+  counter,getCouponData,filterCoupon,getWatchItems
 })
 
 export { rootReducer }

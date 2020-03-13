@@ -20,6 +20,8 @@ import Headset from './chin/Headset'
 import Watch from './chin/Watch'
 import Commidty from './chin/Commidty'
 import Comparepages from './chin/Comparepages'
+import Actioncamera from './chin/Actioncamera'
+import Surrounding from './chin/Surrounding'
 //import mao
 import CartList from './mao/ShopCartList'
 
@@ -29,6 +31,8 @@ import MemberEdit from './Irene/MemberEdit'
 
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
+import MemberCoupon from './stacey/MemberCoupon'
+
 
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
@@ -74,11 +78,18 @@ function App() {
         </Switch>
       <Container>
         <Switch>
+        {/*----------------------chin---------------------*/}
           <Route path="/headset">
             <Headset/>
           </Route>
           <Route path="/watch">
             <Watch/>
+          </Route>
+          <Route path="/actioncamera">
+            <Actioncamera/>
+          </Route>
+          <Route path="/surrounding">
+            <Surrounding/>
           </Route>
           <Route path="/commidty">
             <Commidty/>
@@ -86,6 +97,7 @@ function App() {
           <Route path="/comparepages">
             <Comparepages/>
           </Route>
+        {/*---------------------------------------------*/}
           <Route path="/ShopCartList/:id?">
               {' '}
               {/*id抓會員ID */}

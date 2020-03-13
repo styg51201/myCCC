@@ -89,25 +89,24 @@ function CouponItem(props){
   }
 
 
-  console.log('props',props)
     
     return (
         <>
         <div className={couponClassName}>
               <div className="item">
                 <div className="wrapForImg">
-                  <img src={img} alt="" />
+                  <img src={`./sty-img/${props.data.cp_img}`} alt="" />
                   <div className="alreadyGet">已領取</div>
                 </div>
                 <div className="text">
                   <ul>
                     <h3>{props.data.cpr_discount?props.data.cpr_discountNum+'元':props.data.cpr_discountNum+'折'}</h3>
-                    <li>{props.data.cp_vendor}</li>
+                    <li className="vendorName">[ {props.data.cp_vendor} ]</li>
                     <li>{object}{rule}{discount}</li>
                     <li>有效至 {props.data.cp_due}</li>
                   </ul>
-                  <div className="state">
-                    <div style={couponState === '發放結束'?endCouponStyle:getedCountStyle}></div>
+                  <div >
+                    <div className="state" style={couponState === '發放結束'?endCouponStyle:getedCountStyle}></div>
                     {couponState === '發放結束'?<p>全數領取完畢</p>:<p>{props.data.cp_getedCount}% 已領取</p>}
                   </div>
                 </div>
