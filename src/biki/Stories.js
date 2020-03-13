@@ -12,26 +12,10 @@ function Stories(){
             <main className="mt-5">
                 <Row className="row-cols-lg-3  row-cols-md-2 row-cols-1">
                     <StoryCard />
-                    <Col>
-                        <div className="card bk-card">
-                            asdf
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="card bk-card">
-                            asdf
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="card bk-card">
-                            asdf
-                        </div>
-                    </Col>
-                    <Col>
-                        <div className="card bk-card">
-                            asdf
-                        </div>
-                    </Col>
+                    <StoryCard />
+                    <StoryCard />
+                    <StoryCard />
+                    <StoryCard />
 
                 </Row>
             </main>
