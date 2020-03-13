@@ -6,7 +6,40 @@ $bk-full-page: calc(100vh - 100px);
   height: calc(100vh - 218px);
   background-color: grey;
   margin-bottom: 5rem;
+  position: relative;
+
+  .bk-slides{
+    background-color: grey;
+    height: 100%;
+    
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
 }
+
+
+// 覆蓋navbar選單部分
+// .bk-home-slider {
+//   height: calc(100vh - 100px);
+//   margin-bottom: 5rem;
+//   position: relative;
+
+//   .bk-slides{
+//     position: absolute;
+//     top: -121px;
+//     background-color: grey;
+//     height: 100%;
+
+//     img{
+//       width: 100%;
+//       height: 100%;
+//       object-fit: cover;
+//     }
+//   }
+// }
 
 /* ----- ADS ----- */
 .bk-ads {
@@ -229,6 +262,15 @@ $bk-full-page: calc(100vh - 100px);
     width: 100%;
     position: absolute;
     bottom: 0;
+    overflow: hidden;
+
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: blur(8px);
+      transform: scale(1.3);
+    }
   }
 
   .bk-collection-content{

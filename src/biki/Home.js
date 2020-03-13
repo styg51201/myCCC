@@ -11,6 +11,9 @@ function Home(){
     return(
         <>
             <section className="bk-home-slider">
+                <div className='bk-slides'>
+                    <img src="./biki-img/geronimo-giqueaux-ahPZamckL7A-unsplash.jpg" />
+                </div>
             </section>
             <Container>
                 <section className="bk-ads">

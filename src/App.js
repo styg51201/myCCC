@@ -14,9 +14,12 @@ import Header from './components/common/Header'
 
 //import biki
 import Home from './biki/Home'
+import Stories from './biki/Stories'
 //import chin
 import Headset from './chin/Headset'
 import Watch from './chin/Watch'
+import Commidty from './chin/Commidty'
+import Comparepages from './chin/Comparepages'
 //import mao
 import CartList from './mao/ShopCartList'
 
@@ -69,15 +72,21 @@ function App() {
             <Home />
           </Route>
         </Switch>
-        <Container>
-          <Switch>
-            <Route path="/headset">
-              <Headset />
-            </Route>
-            <Route path="/watch">
-              <Watch />
-            </Route>
-            <Route path="/ShopCartList/:id?">
+      <Container>
+        <Switch>
+          <Route path="/headset">
+            <Headset/>
+          </Route>
+          <Route path="/watch">
+            <Watch/>
+          </Route>
+          <Route path="/commidty">
+            <Commidty/>
+          </Route>
+          <Route path="/comparepages">
+            <Comparepages/>
+          </Route>
+          <Route path="/ShopCartList/:id?">
               {' '}
               {/*id抓會員ID */}
               <CartList />
@@ -88,14 +97,17 @@ function App() {
             <Route path="/memberedit">
               <MemberEdit />
             </Route>
-            {/* 連結優惠券專區 */}
-            <Route path="/getCoupon">
-              <GetCoupon />
-            </Route>
-          </Switch>
-        </Container>
-        <Footer />
-      </>
+          {/* 連結優惠券專區 */}
+        <Route path="/getCoupon"> 
+          <GetCoupon />
+        </Route>
+        <Route path="/stories"> 
+          <Stories />
+        </Route>
+        </Switch>
+      </Container>
+      <Footer />
+    </>
     </Router>
   )
 }

@@ -1,4 +1,6 @@
 const mysql = require("mysql");
+const bluebird= require('bluebird');
+
 const pool = mysql.createPool({
   connectionLimit: 10,
   host: "localhost",
@@ -8,5 +10,7 @@ const pool = mysql.createPool({
   supportBigNumbers: true,
   charset: "UTF8_GENERAL_CI"
 });
+
+bluebird.promisifyAll(pool)
 
 module.exports = pool;

@@ -1,5 +1,5 @@
 import React from 'react'
-import './chin-css/items.css'
+import './chin-css/items.scss'
 
 function Headset(){
     return(
@@ -37,7 +37,7 @@ function Headset(){
                         </button>
                         <button class="chin-sort">
                             <span>排序</span>
-                            <img src="./chin-img/chevron-down.svg" alt=""/>
+                            <img src="./chin-img/chevron-down-white.svg" alt=""/>
                         </button>
                     </div>
                 </div>

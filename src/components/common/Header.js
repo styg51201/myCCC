@@ -84,10 +84,14 @@ function Header() {
                 </li>
                 <li>
                   <Link to="/getCoupon" className="navbarlist">
-                    優惠券專區
+                  優惠券專區
                   </Link>
                 </li>
-                <li>故事牆</li>
+                <li>
+                  <Link to="/stories" className="navbarlist">
+                    故事牆
+                  </Link>
+                </li>
               </ul>
             </div>
           </div>
@@ -154,14 +158,17 @@ function Header() {
               <li>
                 <Link to="/getCoupon" className="headerlist">
                   優惠券專區
-                </Link>
-              </li>
-              <li>故事牆</li>
-            </ul>
-          </div>
-          <div className="nav-icons-wrapper">
-            <Link to="/ShopCartList/:id?">
-              <div className="nav-icons">
+                </Link></li>
+            <li>
+              <Link to="/stories" className="headerlist">
+                故事牆
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className="nav-icons-wrapper">
+          <Link to="/ShopCartList/:id?">
+            <div className="nav-icons">
                 <FiShoppingBag />
               </div>
             </Link>
