@@ -18,6 +18,8 @@ import Stories from './biki/Stories'
 //import chin
 import Headset from './chin/Headset'
 import Watch from './chin/Watch'
+import Commidty from './chin/Commidty'
+import Comparepages from './chin/Comparepages'
 //import mao
 import CartList from './mao/ShopCartList'
 
@@ -77,6 +79,12 @@ function App() {
           </Route>
           <Route path="/watch">
             <Watch/>
+          </Route>
+          <Route path="/commidty">
+            <Commidty/>
+          </Route>
+          <Route path="/comparepages">
+            <Comparepages/>
           </Route>
           <Route path="/ShopCartList/:id?">
               {' '}
