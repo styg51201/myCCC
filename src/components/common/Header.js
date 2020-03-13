@@ -84,7 +84,9 @@ function Header() {
                 </Link>
                 </li>
                 <li>
-                  故事牆
+                  <Link to="/stories" className="navbarlist">
+                    故事牆
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -138,7 +140,11 @@ function Header() {
             <li><Link to="/getCoupon" className="headerlist">
                   優惠券專區
                 </Link></li>
-            <li>故事牆</li>
+            <li>
+              <Link to="/stories" className="headerlist">
+                故事牆
+              </Link>
+            </li>
           </ul>
         </div>
         <div className="nav-icons-wrapper">

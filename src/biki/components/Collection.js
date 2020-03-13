@@ -7,14 +7,13 @@ function Collection(props){
 
     console.log(props)
 
-    let bgUrl = `url(${props.bg})`
-
     return(
     <>
         <div className={
             props.theme === 'white' ? "bk-collection mt-5 " + props.theme : "bk-collection " + props.theme
         }>
-            <div className="bottom" style={{backgroundImage: bgUrl, backgroundSize: 'cover', backgroundPosition: 'center center'}}>
+            <div className="bottom">
+                <img src={ props.bg} />
             </div>
 
             <Container className='bk-collection-content'>
