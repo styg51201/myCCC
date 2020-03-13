@@ -17,10 +17,11 @@
 
 
 //----stacey 優惠券 -------
+//回傳coupon
 export const showCoupon = val =>{
     return {type:'SHOW_VALUE',value:val}
 }
-
+//跟server要資料
 export const formServerCouponData = val => {
     return async dispatch => {
       const request = new Request('http://localhost:5555/coupon', {
@@ -38,15 +39,18 @@ export const formServerCouponData = val => {
     }
   }
 
-  export const getCoupon = (val,bool) => {
+//領取的動作
+export const getCoupon = (item) => {
     return async dispatch => {
-      const request = new Request(`http://localhost:5555/coupon/${val}`, {
+      const request = new Request(`http://localhost:5555/coupon/${item.cp_id}`, {
         method: 'PATCH',
         headers: new Headers({
           Accept: 'application/json',
           'Content-Type': 'application/json',
         }),
-        body: `{"geted":${bool}}`,
+        body: `{"geted":${!item.geted},"cp_getedCount":${+item.cp_getedCount+5}}`,
+  
+
       })
       const res = await fetch(request)
       const data = await res.json()
@@ -55,3 +59,12 @@ export const formServerCouponData = val => {
       dispatch(formServerCouponData())
     }
   }
+
+//篩選的動作
+export const addFilterCoupon = val =>{
+  console.log('999')
+  return {type:'ADD_VALUE',value:val}
+}
+export const minusFilterCoupon = val =>{
+  return {type:'MINUS_VALUE',value:val}
+}

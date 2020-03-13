@@ -1,11 +1,9 @@
 import React ,{useEffect ,useState}from 'react'
 import SideFilter from './components/SideFilter'
 import Bread from './components/Bread'
-import { BrowserRouter as Router, Route, Link, Switch ,withRouter } from 'react-router-dom'
-import '../css/main.css'
-import './css/GetCoupon.scss'
-import CouponItem from './components/CouponItem'
-
+import { BrowserRouter as Router, Route, Link, Switch ,withRouter} from 'react-router-dom'
+import './css/MemberCoupon.scss'
+import MemberCouponItem from './components/MemberCouponItem'
 
 
 //redux
@@ -15,26 +13,13 @@ import { bindActionCreators } from 'redux'
 import {formServerCouponData,getCoupon} from '../actions/index'
 
 function GetCoupon(props) {
-  console.log('vendor',props.vendor)
-  console.log('vendor',props.vendor.length)
-
-  const vendor =['apple','apple2']
+  console.log(props)
+  
 
   useEffect(()=>{
     props.formServerCouponData()
   },[])
 
-  const filterNum = props.vendor.length
-
-  const filterCouponItem = props.data.map((val,ind)=>{
-    if(vendor.indexOf(val.cp_vendor) > -1){
-      return <CouponItem key={ind} data={props.data[ind]} />
-    }
-  })
-
-  const allCouponItem = props.data.map((val,ind)=>{
-    return <CouponItem key={ind} data={val} />
-  })
 
   return (
     <>
@@ -42,16 +27,14 @@ function GetCoupon(props) {
       <div className="row wrap">
         {/* <!-- 側邊篩選欄 --> */}
         <SideFilter />
+     
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
           <div className="row">
             {/* <!-- 領取 --> */}
-            {/* {props.data.map((val,ind)=>{
-              return <CouponItem key={ind} data={val} />
-            })} */}
-            {filterNum?filterCouponItem:allCouponItem}
-            {/* 篩選品牌 */}
-            
+            {props.data.map((val,ind)=>{
+              return <MemberCouponItem key={ind} data={props.data[ind]} />
+            })}
           </div>
         </div>
       </div>
@@ -61,8 +44,7 @@ function GetCoupon(props) {
 
 // 選擇對應的reducer
 const mapStateToProps = store => {
-  return { data: store.getCouponData ,
-            vendor: store.filterCoupon,}
+  return { data: store.getCouponData }
 }
 //action
 const mapDispatchToProps = dispatch =>{

@@ -5,8 +5,7 @@
 }
 .chin-commoditylist {
   margin-right: 17px;
-  width: 312px;
-  height: 897px;
+  width: 590px;
 }
 .chin-price {
   padding: 20px;
@@ -25,72 +24,96 @@
   display: flex;
   justify-content: space-between;
 }
-.chin-title-text span {
-  letter-spacing: 2px;
-  margin-left: 20px;
-  line-height: 50px;
-  color: #050505;
-  font-size: 22px;
-  font-weight: bold;
-  font-family: Helvetica Neue;
-}
-.chin-title-text span:nth-child(2) {
-  margin-left: 44px;
-  font-size: 18px;
+.chin-title-text {
+  span {
+    letter-spacing: 2px;
+    margin-left: 20px;
+    line-height: 50px;
+    color: #050505;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Helvetica Neue;
+    &:nth-child(2) {
+      margin-left: 44px;
+      font-size: 18px;
+    }
+  }
 }
 .chin-comparegoods {
-  background: #0dd2c5;
+  background: #0ac3ae;
   border: none;
   color: white;
-  width: 155px;
-  height: 45px;
+  width: 140px;
+  height: 40px;
   margin-right: 20px;
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-.chin-comparegoods span {
-  font-size: 16px;
+  span {
+    font-size: 16px;
+  }
 }
 .chin-sort {
-  margin-right: 42px;
   background: #a0a0a0;
   border: none;
   color: white;
-  width: 155px;
-  height: 45px;
+  width: 140px;
+  height: 40px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  span {
+    margin-right: 25px;
+  }
 }
-.chin-sort span {
-  margin-right: 35px;
+.chin-sort img {
+  margin-right: 10px;
 }
 .chin-comparegoods-sort {
   display: flex;
 }
 .chin-section {
-  margin: 0 auto;
   display: flex;
   flex-direction: row;
 }
 .chin-commodity {
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   flex-wrap: wrap;
-  width: 972px;
 }
 .chin-commodity-item {
   margin: 15px;
-  width: 284px;
-  height: 414px;
+  width: 250px;
+  height: 400px;
   background: #fff;
+  p {
+    margin: 2px 0 12px 0;
+    font-size: 17px;
+    font-weight: bold;
+    color: #050505;
+    text-align: center;
+  }
+}
+.chin-commodity-item h6 {
+  text-align: center;
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #a0a0a0;
+}
+.chin-commodity-item h5 {
+  font-size: 17px;
+  margin: 0;
+  color: #0dd2c5;
+  text-align: center;
 }
 .chin-star-heart-bag {
   list-style: none;
   display: flex;
-  margin: 21.9px 0 0 22.1px;
+  margin: 5px 0 0 15px;
   padding: 0;
+  align-items: flex-start;
 }
 .chin-star {
   width: 15px;
@@ -104,35 +127,15 @@
 .chin-heart {
   width: 20.47px;
   height: 18.59px;
-  margin: 0 0 13.8px 0;
+  margin: 7px 0 10px 0;
 }
 .chin-watch {
-  margin: 0 37px 18px 25px;
-  width: 222px;
-  height: 222px;
+  margin: 15px 20px;
+  width: 210px;
+  height: 210px;
 }
 .chin-heart-bag {
   display: flex;
   flex-direction: column;
-  margin-left: 115px;
-}
-h6 {
-  text-align: center;
-  margin: 0;
-  font-size: 15px;
-  font-weight: bold;
-  color: #a0a0a0;
-}
-h5 {
-  font-size: 17px;
-  margin: 0;
-  color: #0dd2c5;
-  text-align: center;
-}
-.chin-commodity-item p {
-  margin: 2px 0 12px 0;
-  font-size: 17px;
-  font-weight: bold;
-  color: #050505;
-  text-align: center;
+  margin-left: 90px;
 }

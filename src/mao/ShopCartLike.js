@@ -30,31 +30,16 @@ function ShopCartList() {
           </p>
           <div className="d-flex justify-content-between">
             <p style={{ width: '25%' }}>價格{newCart[i].price}</p>
-            <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
-              <MaoShopCartBTN
-                addItems={newCart[i]}
-                count="-1"
-                type="minusBTN"
-              />
-              <input
-                placeholder=""
-                value={newCart[i].count}
-                type="text"
-                id="count-value"
-                className="text-center w-50 m-0"
-              />
-              <MaoShopCartBTN addItems={newCart[i]} count="1" type="addBTN" />
-            </div>
           </div>
         </div>
         <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
           <div className="border d-flex align-items-center">
             <img src="..\img\header-footer\heart.svg" alt="" />
-            <span>刪除</span>
+            <span>加入購物車</span>
           </div>
           <div className="border d-flex align-items-center">
             <img src="..\img\header-footer\search.svg" alt="" />
-            <span>下次購買</span>
+            <span>刪除</span>
           </div>
         </div>
       </li>
@@ -70,7 +55,7 @@ function ShopCartList() {
     >
       <li className="nav-item">
         <Link
-          className="nav-link active"
+          className="nav-link "
           id="home-tab"
           data-toggle="tab"
           to="/ShopCartList"
@@ -83,7 +68,7 @@ function ShopCartList() {
       </li>
       <li className="nav-item">
         <Link
-          className="nav-link"
+          className="nav-link active"
           id="profile-tab"
           data-toggle="tab"
           to="/ShopCartLike"

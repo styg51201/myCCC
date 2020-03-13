@@ -1,21 +1,6 @@
 import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
-//import Header Footer
-import Footer from './components/common/Footer'
-import Header from './components/common/Header'
-
-//import biki
-import Home from './biki/Home'
-//import chin
-import Headset from './chin/Headset'
-import Watch from './chin/Watch'
-//import mao
-import CartList from './mao/ShopCartList'
-
-//import Irene
-import MemberLogin from './Irene/MemberLogin'
-import MemberEdit from './Irene/MemberEdit'
 
 //import from react-bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -23,9 +8,27 @@ import { Button, Container } from 'react-bootstrap'
 import Toast from 'react-bootstrap/Toast'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
+//import Header Footer
+import Footer from './components/common/Footer'
+import Header from './components/common/Header'
+
+//import biki
+import Home from './biki/Home'
+import Stories from './biki/Stories'
+//import chin
+import Headset from './chin/Headset'
+import Watch from './chin/Watch'
+import Commidty from './chin/Commidty'
+import Comparepages from './chin/Comparepages'
+//import mao
+import CartList from './mao/ShopCartList'
+
+//import Irene
+import MemberLogin from './Irene/MemberLogin'
+import MemberEdit from './Irene/MemberEdit'
+
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
-
 
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
@@ -47,26 +50,26 @@ function App() {
 
   return (
     <Router>
-    <>
-      <Header />
-      {/* <div className="App">
+      <>
+        <Header />
+        {/* <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>This is our Hello World page.我誰~~~~~~</p> */}
 
-          {/* 下面是測試用的 react-bootstrap ExampleToast 物件 */}
-          {/* <ExampleToast className="toast">
+        {/* 下面是測試用的 react-bootstrap ExampleToast 物件 */}
+        {/* <ExampleToast className="toast">
             We now have Toasts
             <span role="img" aria-label="tada">
               🎉
             </span>
           </ExampleToast> */}
-          {/* 上面是測試用的 react-bootstrap ExampleToast 物件 */}
+        {/* 上面是測試用的 react-bootstrap ExampleToast 物件 */}
         {/* </header>
       </div> */}
         <Switch>
           <Route exact path="/">
-              <Home />
+            <Home />
           </Route>
         </Switch>
       <Container>
@@ -77,18 +80,29 @@ function App() {
           <Route path="/watch">
             <Watch/>
           </Route>
-          <Route path="/ShopCartList/:id?"> {/*id抓會員ID */}
-            <CartList />
+          <Route path="/commidty">
+            <Commidty/>
           </Route>
-          <Route path="/memberlogin">
-            <MemberLogin/>
+          <Route path="/comparepages">
+            <Comparepages/>
           </Route>
-          <Route path="/memberedit">
-            <MemberEdit/>
-          </Route>
+          <Route path="/ShopCartList/:id?">
+              {' '}
+              {/*id抓會員ID */}
+              <CartList />
+            </Route>
+            <Route path="/memberlogin">
+              <MemberLogin />
+            </Route>
+            <Route path="/memberedit">
+              <MemberEdit />
+            </Route>
           {/* 連結優惠券專區 */}
         <Route path="/getCoupon"> 
           <GetCoupon />
+        </Route>
+        <Route path="/stories"> 
+          <Stories />
         </Route>
         </Switch>
       </Container>

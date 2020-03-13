@@ -1,5 +1,7 @@
 import React from 'react'
-import './chin-css/items.css'
+import { Col } from 'react-bootstrap'
+import './chin-css/items.scss'
+import '../css/main.scss'
 
 function Watch(){
     return(
@@ -37,7 +39,7 @@ function Watch(){
                         </button>
                         <button class="chin-sort">
                             <span>排序</span>
-                            <img src="./chin-img/chevron-down.svg" alt=""/>
+                            <img src="./chin-img/chevron-down-white.svg" alt=""/>
                         </button>
                     </div>
                 </div>
@@ -76,7 +78,6 @@ function Watch(){
                         <p>Apple Watch Nike</p>
                         <h5>NT$6,400</h5>
                     </div>
-
                     <div class="chin-commodity-item">
                         <ul class="chin-star-heart-bag">
                             <li><img class="chin-star" src="./chin-img/star.svg" alt=""/></li>
@@ -94,7 +95,6 @@ function Watch(){
                         <p>Apple Watch Nike</p>
                         <h5>NT$6,400</h5>
                     </div>
-
                     <div class="chin-commodity-item">
                         <ul class="chin-star-heart-bag">
                             <li><img class="chin-star" src="./chin-img/star.svg" alt=""/></li>
@@ -112,7 +112,6 @@ function Watch(){
                         <p>Apple Watch Nike</p>
                         <h5>NT$6,400</h5>
                     </div>
-
                     <div class="chin-commodity-item">
                         <ul class="chin-star-heart-bag">
                             <li><img class="chin-star" src="./chin-img/star.svg" alt=""/></li>
@@ -130,7 +129,6 @@ function Watch(){
                         <p>Apple Watch Nike</p>
                         <h5>NT$6,400</h5>
                     </div>
-
                     <div class="chin-commodity-item">
                         <ul class="chin-star-heart-bag">
                             <li><img class="chin-star" src="./chin-img/star.svg" alt=""/></li>

@@ -1,103 +1,127 @@
 import React from 'react'
 import './I_css/MemberLogin.css'
-
-import { withRouter, Link } from 'react-router-dom'
-import {Form,ListGroup,Button} from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Form, ListGroup, Button } from 'react-bootstrap'
 // import MemberSidebar from './components/MemberSidebar'
 import './I_css/MemberEdit.css'
+import MemberOrder from './MemberOrder'
 
-function MemberEdit(){
-    return (
-        <> 
-        {/* <MemberSidebar/> components 結尾要再加入</div>包整個才可以flex   */}
-        <div className="row d-flex container justify-content-center">
-        <div className="membersidebar col-2.5">
-        <ListGroup>
+function MemberEdit() {
+  return (
+    <>
+      <Switch>
+        <Route path="/memberorder">
+          <MemberOrder />
+        </Route>
+      </Switch>
+      {/* <MemberSidebar/> components 結尾要再加入</div>包整個才可以flex   */}
+      <div className="row d-flex justify-content-center">
+        <div className="membersidebar col-2">
+          <ListGroup>
             <ListGroup.Item>
-                <div><img src="https://fakeimg.pl/150x150/" alt="" /></div>
-                <Link className="edit">編輯</Link>
+              <div>
+                <img
+                  className="image"
+                  src="https://fakeimg.pl/150x150/"
+                  alt=""
+                />
+              </div>
+              <Link className="edit">編輯</Link>
             </ListGroup.Item>
             <ListGroup.Item>
-                <Link href="/memberedit" >基本資料管理</Link>
+              <Link to="/memberedit">基本資料管理</Link>
             </ListGroup.Item>
             <ListGroup.Item>
-                <Link>交易紀錄</Link>
+              <Link>交易紀錄</Link>
             </ListGroup.Item>
             <ListGroup.Item>
-                <Link>我的收藏</Link>
+              <Link>我的收藏</Link>
             </ListGroup.Item>
             <ListGroup.Item>
-                <Link>優惠券</Link>
+              <Link>優惠券</Link>
             </ListGroup.Item>
-        </ListGroup> 
-        </div>       
-{/* 會員資料編輯內容 */}      
-          <div className="membereditcontent col-7">
+          </ListGroup>
+        </div>
+        {/* 會員資料編輯內容 */}
+        <div className="membereditcontent col-9">
           <h3>基本資料管理</h3>
           <hr />
           <Form>
             <div className="form-group row">
-              <label for="staticEmail" className="col-sm-2 col-form-label">帳號</label>
+              <label className="col-sm-2 col-form-label">帳號</label>
               <div className="col-sm-10">
-                <input type="text" readonly className="form-control-plaintext" id="staticEmail"
-                  value="固定的帳號"/>
+                <input
+                  type="text"
+                  readonly
+                  className="form-control-plaintext"
+                  id="staticEmail"
+                  value="固定的帳號"
+                />
               </div>
             </div>
             <div className="form-group row">
-              <label for="" className="col-sm-2 col-form-label">電子信箱</label>
+              <label className="col-sm-2 col-form-label">電子信箱</label>
               <div className="col-sm-4">
                 <input type="email" className="form-control" id="" />
               </div>
             </div>
             <div className="form-group row">
-              <label for="inputPassword" className="col-sm-2 col-form-label">密碼</label>
+              <label className="col-sm-2 col-form-label">密碼</label>
               <div className="col-sm-4">
                 <input type="password" className="form-control" id="" />
               </div>
             </div>
             <div className="form-group row">
-              <label for="" className="col-sm-2 col-form-label">姓名</label>
+              <label className="col-sm-2 col-form-label">姓名</label>
               <div className="col-sm-4">
                 <input type="text" className="form-control" id="" />
               </div>
             </div>
             <div className="form-group row">
-              <label for="" className="col-sm-2 col-form-label">性別</label>
+              <label className="col-sm-2 col-form-label">性別</label>
               <div className="col-sm-10">
-              <select className="custom-select col-sm-4" required>
-        <option selected value="">男</option>
-        <option value="">女</option>
+                <select className="custom-select col-sm-4" required>
+                  <option selected value="">
+                    男
+                  </option>
+                  <option value="">女</option>
                   <option value="">不便告知</option>
-      </select>              
+                </select>
               </div>
             </div>
             <div className="form-group row">
-              <label for="" className="col-sm-2 col-form-label">生日</label>
+              <label className="col-sm-2 col-form-label">生日</label>
               <div className="col-sm-4">
                 <input type="date" className="form-control" id="" />
               </div>
             </div>
             <div className="form-group row">
-              <label for="" className="col-sm-2 col-form-label">地址 </label>
+              <label className="col-sm-2 col-form-label">地址 </label>
               <div className="col-sm-10">
                 <select className="custom-select col-sm-4" required>
-                  <option selected value="">台北市</option>        
-                </select>   
+                  <option selected value="">
+                    台北市
+                  </option>
+                </select>
                 <select className="custom-select col-sm-4" required>
-                  <option selected value="">大安區</option>        
-                </select>                    
-            <div><input type="text" className="col-sm-
-            9 form-control" /></div>
-              </div>                         
-           </div>
-           <div className="text-right">
-             <Button variant="dark">送出</Button>
-           </div>         
+                  <option selected value="">
+                    大安區
+                  </option>
+                </select>
+                <div>
+                  <input type="text" className="col-sm-8 form-control" />
+                </div>
+              </div>
+            </div>
+            <div className="text-right">
+              <Button variant="dark">送出</Button>
+            </div>
           </Form>
-          </div>        
-        </div>    
-        </>      
-    )
+        </div>
+      </div>
+    </>
+  )
 }
 
 export default MemberEdit
