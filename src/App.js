@@ -15,6 +15,7 @@ import Header from './components/common/Header'
 import MemberLogin from './Irene/MemberLogin'
 //import biki
 import Home from './biki/Home'
+import Stories from './biki/Stories'
 //import chin
 import Headset from './chin/Headset'
 import Watch from './chin/Watch'
@@ -85,6 +86,9 @@ function App() {
           {/* 連結優惠券專區 */}
         <Route path="/getCoupon"> 
           <GetCoupon />
+        </Route>
+        <Route path="/stories"> 
+          <Stories />
         </Route>
         </Switch>
       </Container>
