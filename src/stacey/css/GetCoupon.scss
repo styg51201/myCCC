@@ -102,9 +102,13 @@
       h3 {
         font-size: $font-x;
       }
+      .vendorName {
+        font-weight: $font-bold;
+      }
     }
-    .state {
-      div {
+    div {
+      width: 100%;
+      .state {
         height: 0.3125rem;
         border-radius: 1.875rem;
         // background: linear-gradient(to right, $green 80%, $deepGray 80%);

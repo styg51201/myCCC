@@ -10,7 +10,7 @@ import CouponItem from './components/CouponItem'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {formServerCouponData,getCoupon} from '../actions/index'
+import {formServerCouponData} from '../actions/index'
 
 function GetCoupon(props) {
 
@@ -22,8 +22,6 @@ function GetCoupon(props) {
   },[])
 
  //篩選功能
-  const filterNum = props.vendor.length
-
   const filterCouponItem = props.data.map((val,ind)=>{
     if(props.vendor.indexOf(val.cp_vendor) > -1){
       return <CouponItem key={ind} data={props.data[ind]} />
@@ -54,7 +52,7 @@ function GetCoupon(props) {
         <div className="col col-sm-9">
           <div className="row">
             {/* <!-- 領取 --> */}
-            {filterNum?filterCouponItem:allCouponItem}
+            {props.vendor.length?filterCouponItem:allCouponItem}
           </div>
         </div>
       </div>
@@ -71,7 +69,7 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    formServerCouponData,getCoupon
+    formServerCouponData
   },dispatch)
 }
 

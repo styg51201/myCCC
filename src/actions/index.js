@@ -24,6 +24,7 @@ export const showCoupon = val =>{
 //跟server要資料
 export const formServerCouponData = val => {
     return async dispatch => {
+      //getCoupon
       const request = new Request('http://localhost:5555/coupon', {
         method: 'GET',
         headers: new Headers({
@@ -31,6 +32,14 @@ export const formServerCouponData = val => {
           'Content-Type': 'application/json',
         }),
       })
+      //memberCoupon
+      // const request = new Request('http://localhost:5555/memberCoupon', {
+      //   method: 'GET',
+      //   headers: new Headers({
+      //     Accept: 'application/json',
+      //     'Content-Type': 'application/json',
+      //   }),
+      // })
       const res = await fetch(request)
       const data = await res.json()
       dispatch(showCoupon(data))

@@ -29,6 +29,8 @@ import MemberEdit from './Irene/MemberEdit'
 
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
+import MemberCoupon from './stacey/MemberCoupon'
+
 
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
