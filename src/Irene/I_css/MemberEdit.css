@@ -1,0 +1,18 @@
+.membersidebar img {
+  border-radius: 50%;
+}
+.membersidebar .list-group-item {
+  text-align: center;
+}
+.membersidebar .list-group-item {
+  border: none;
+}
+.membersidebar .image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+.membersidebar {
+  margin-top: 50px;
+  margin-right: 50px;
+}

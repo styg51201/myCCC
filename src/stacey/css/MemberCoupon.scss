@@ -7,30 +7,36 @@
   margin: 0;
   box-sizing: border-box;
 }
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: black;
+}
 .container {
   width: 1300px;
 }
 .sty-bread {
+  padding: 50px 0;
   h3 {
     font-size: $font-x;
     text-align: center;
     color: $grey;
     margin: 0;
   }
-  .mobileFilter {
-    // display: flex;
-    display: none;
-    justify-content: flex-end;
-    button {
-      display: flex;
-      color: $grey;
-      font-size: $font-x;
-      @include buttonTheme(borderedStyle);
-      width: 140px;
-      padding: 0 0.5rem;
-    }
+  ul {
+    list-style: none;
+    display: flex;
   }
-  padding: 50px 0;
+  li {
+    margin-right: 1.25rem;
+    position: relative;
+  }
+  li + li:before {
+    content: '>';
+    position: absolute;
+    left: -1.25rem;
+    transform: translateX(50%);
+  }
 }
 
 .sty-sideFilter {
@@ -59,6 +65,11 @@
     margin: 0;
   }
 }
+.sty-title {
+  h3 {
+    font-size: $font-x;
+  }
+}
 .sty-coupon {
   padding: 0 0.625rem;
   margin-bottom: 1.875rem;
@@ -67,6 +78,7 @@
     background-color: $white;
     display: flex;
     justify-content: space-between;
+    // align-items: center;
     box-shadow: 0px 0px 8px #bbbbbb;
   }
   .wrapForImg {
@@ -90,22 +102,20 @@
     }
   }
   .text {
-    width: 48%;
-    height: 11.25rem;
-    padding: 0.5rem;
+    width: 43%;
+    padding: 0;
     display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+    align-items: center;
     ul {
-      margin-bottom: 0.625rem;
       margin-left: 0.625rem;
+      margin-bottom: 0;
       h3 {
         font-size: $font-x;
       }
     }
     .state {
       div {
-        height: 0.3125rem;
+        height: 5px;
         border-radius: 1.875rem;
         // background: linear-gradient(to right, $green 80%, $deepGray 80%);
       }
@@ -119,7 +129,7 @@
   }
   .button {
     align-self: center;
-    padding: 0 0.5rem;
+    padding: 8px 0.625rem;
     button {
       width: 2.8125rem;
       height: 9.375rem;
@@ -144,8 +154,8 @@
     }
   }
 }
-// 已領取
-.sty-coupon.geted {
+// 已使用
+.sty-coupon.used {
   .wrapForImg {
     position: relative;
     &:before {
@@ -169,8 +179,8 @@
     }
   }
 }
-//發放結束
-.sty-coupon.end {
+//效期已過
+.sty-coupon.exp {
   .state {
     div {
       background: $grey;
@@ -201,9 +211,9 @@
     .row {
       align-items: center;
     }
-    .mobileFilter {
-      display: flex;
-    }
+  }
+  .sty-title {
+    display: none;
   }
   .sty-sideFilter {
     display: none;

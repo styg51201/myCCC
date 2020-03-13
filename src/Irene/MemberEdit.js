@@ -1,98 +1,127 @@
 import React from 'react'
 import './I_css/MemberLogin.css'
-import { Form } from 'react-bootstrap'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { Form, ListGroup, Button } from 'react-bootstrap'
+// import MemberSidebar from './components/MemberSidebar'
+import './I_css/MemberEdit.css'
+import MemberOrder from './MemberOrder'
 
-function MemberEdit(){
-    return (
-        <>
-<div class="container d-flex space-between">
-      <div class="">
-        <div class="col">
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-              <img src="" alt="" />
-              <a>編輯</a>
-            </li>
-            <li class="list-group-item"><a>基本資料管理</a></li>
-            <li class="list-group-item"><a>交易紀錄</a></li>
-            <li class="list-group-item"><a>我的收藏</a></li>
-            <li class="list-group-item"><a>優惠券</a></li>
-          </ul>
+function MemberEdit() {
+  return (
+    <>
+      <Switch>
+        <Route path="/memberorder">
+          <MemberOrder />
+        </Route>
+      </Switch>
+      {/* <MemberSidebar/> components 結尾要再加入</div>包整個才可以flex   */}
+      <div className="row d-flex justify-content-center">
+        <div className="membersidebar col-2">
+          <ListGroup>
+            <ListGroup.Item>
+              <div>
+                <img
+                  className="image"
+                  src="https://fakeimg.pl/150x150/"
+                  alt=""
+                />
+              </div>
+              <Link className="edit">編輯</Link>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Link to="/memberedit">基本資料管理</Link>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Link>交易紀錄</Link>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Link>我的收藏</Link>
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Link>優惠券</Link>
+            </ListGroup.Item>
+          </ListGroup>
         </div>
-      </div>
-      <div class="">
-        <div class="col">
-          <h2>基本資料管理</h2>
+        {/* 會員資料編輯內容 */}
+        <div className="membereditcontent col-9">
+          <h3>基本資料管理</h3>
           <hr />
-          <form>
-            <div class="form-group row">
-              <label for="staticEmail" class="col-sm-2 col-form-label"
-                >帳號</label
-              >
-              <div class="col-sm-10">
+          <Form>
+            <div className="form-group row">
+              <label className="col-sm-2 col-form-label">帳號</label>
+              <div className="col-sm-10">
                 <input
                   type="text"
                   readonly
-                  class="form-control-plaintext"
+                  className="form-control-plaintext"
                   id="staticEmail"
                   value="固定的帳號"
                 />
               </div>
             </div>
-            <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label">電子信箱</label>
-              <div class="col-sm-10">
-                <input type="email" class="form-control" id="" />
+            <div className="form-group row">
+              <label className="col-sm-2 col-form-label">電子信箱</label>
+              <div className="col-sm-4">
+                <input type="email" className="form-control" id="" />
               </div>
             </div>
-            <div class="form-group row">
-              <label for="inputPassword" class="col-sm-2 col-form-label"
-                >密碼</label
-              >
-              <div class="col-sm-10">
-                <input type="password" class="form-control" id="" />
+            <div className="form-group row">
+              <label className="col-sm-2 col-form-label">密碼</label>
+              <div className="col-sm-4">
+                <input type="password" className="form-control" id="" />
               </div>
             </div>
-            <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label">姓名</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="" />
+            <div className="form-group row">
+              <label className="col-sm-2 col-form-label">姓名</label>
+              <div className="col-sm-4">
+                <input type="text" className="form-control" id="" />
               </div>
             </div>
-            <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label">性別</label>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label">生日</label>
-              <div class="col-sm-10">
-                <input type="date" class="form-control" id="" />
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="" class="col-sm-2 col-form-label">地址 </label>
-              <div>
-                <select>
-                  <option value="Taipei">台北市</option>
+            <div className="form-group row">
+              <label className="col-sm-2 col-form-label">性別</label>
+              <div className="col-sm-10">
+                <select className="custom-select col-sm-4" required>
+                  <option selected value="">
+                    男
+                  </option>
+                  <option value="">女</option>
+                  <option value="">不便告知</option>
                 </select>
               </div>
-              <div>
-                <select>
-                  <option value="Daan">大安區</option>
-                </select>
-              </div>
-              <div class="col-sm-10">
-                <input type="text" class="form-control" id="" />
+            </div>
+            <div className="form-group row">
+              <label className="col-sm-2 col-form-label">生日</label>
+              <div className="col-sm-4">
+                <input type="date" className="form-control" id="" />
               </div>
             </div>
-          </form>
+            <div className="form-group row">
+              <label className="col-sm-2 col-form-label">地址 </label>
+              <div className="col-sm-10">
+                <select className="custom-select col-sm-4" required>
+                  <option selected value="">
+                    台北市
+                  </option>
+                </select>
+                <select className="custom-select col-sm-4" required>
+                  <option selected value="">
+                    大安區
+                  </option>
+                </select>
+                <div>
+                  <input type="text" className="col-sm-8 form-control" />
+                </div>
+              </div>
+            </div>
+            <div className="text-right">
+              <Button variant="dark">送出</Button>
+            </div>
+          </Form>
         </div>
       </div>
-    </div>
-        </>      
-    )
+    </>
+  )
 }
 
 export default MemberEdit

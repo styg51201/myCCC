@@ -1,45 +1,34 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
-const dataItem = [
-  { id: 6, price: 10 },
-  { id: 2, price: 20 },
-  { id: 90, price: 30 },
-  { id: 4, price: 40 },
-  { id: 5, price: 50 },
+let newCart = [
+  { id: 3, price: 10, count: 1 },
+  { id: 56, price: 90, count: 1 },
+  { id: 31, price: 60, count: 1 },
 ]
-
 function MaoShopCartBTN(props) {
   const [mycart, setMycart] = useState([])
   const [mycartDisplay, setMycartDisplay] = useState([])
   const [loaded, setLoaded] = useState(false)
-  let newCart = []
-  let Num = props.count //確認數量是 + || -
+  const [shoploaded, setShoploaded] = useState(false)
+  // let newCart = []
 
+  newCart = [...newCart]
+  let BTNtype = props.type
   //   加入購物車
   // 創localStorage的Cart
   function getCartLocalStorage(val) {
-    // console.log(props.addItems)
-    // console.log(props.count * 1)
     let count = props.count * 1
     val = props.addItems
     let addCount = { ...val, count: count }
-    console.log(addCount)
     setLoaded(true)
-    const LocalStorageCart = localStorage.getItem('cart')
-      ? JSON.parse(localStorage.getItem('cart'))
-      : []
-
-    newCart = [...LocalStorageCart, addCount]
-    // newCart = newCart.filter(newCart => newCart.count > 0)
-    // console.log('result', result)
+    newCart = [...newCart, addCount]
     localStorage.setItem('cart', JSON.stringify(newCart))
     setMycart(newCart)
+    setShoploaded(true)
   }
 
   useEffect(() => {
     setLoaded(false)
-  }, [loaded])
-  useEffect(() => {
     let newMycartDisplay = []
     for (let i = 0; i < mycart.length; i++) {
       const index = newMycartDisplay.findIndex(val => val.id == mycart[i].id)
@@ -50,16 +39,40 @@ function MaoShopCartBTN(props) {
         newMycartDisplay = [...newMycartDisplay, newItem]
       }
     }
-    localStorage.setItem('cart', JSON.stringify(newMycartDisplay))
+    newMycartDisplay = newMycartDisplay.filter(
+      newMycartDisplay => newMycartDisplay.count > 0
+    )
     setMycartDisplay(newMycartDisplay)
   }, [mycart])
 
-  return (
-    <>
-      <button className="btn btn-danger" onClick={() => getCartLocalStorage()}>
-        {Num == 1 ? '+' : '-'}
-      </button>
-    </>
-  )
+  console.log(mycartDisplay) //顯示購物車使用
+  let typeBox = []
+  switch (BTNtype) {
+    case 'addBTN':
+      typeBox = (
+        <button className="btn btn-dark" onClick={() => getCartLocalStorage()}>
+          +
+        </button>
+      )
+      break
+    case 'minusBTN':
+      typeBox = (
+        <button className="btn btn-dark" onClick={() => getCartLocalStorage()}>
+          -
+        </button>
+      )
+      break
+    case 'addIcon':
+      typeBox = (
+        <img
+          class="chin-bag"
+          src="./chin-img/shopping-bag.svg"
+          alt="9999"
+          onClick={() => getCartLocalStorage()}
+        />
+      )
+      break
+  }
+  return <>{typeBox}</>
 }
 export default withRouter(MaoShopCartBTN)

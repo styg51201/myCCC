@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2020 年 03 月 12 日 06:42
+-- 產生時間： 2020 年 03 月 12 日 08:35
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.2.27
 
@@ -947,6 +947,74 @@ INSERT INTO `shopcart` (`csId`, `pId`, `count`, `created_at`, `updated_time`) VA
 ('CS004', 'p005', 1, '2020-02-07 17:31:56', '2020-02-07 17:31:56'),
 ('CS004', 'p007', 1, '2020-02-07 17:31:58', '2020-02-07 17:31:58');
 
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `stories`
+--
+
+CREATE TABLE IF NOT EXISTS `stories` (
+  `usrId` int(50) NOT NULL,
+  `stryId` int(11) NOT NULL AUTO_INCREMENT,
+  `stryTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stryStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stryContent` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stryLikes` int(50) NOT NULL DEFAULT 0,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`stryId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表新增資料前，先清除舊資料 `stories`
+--
+
+TRUNCATE TABLE `stories`;
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `storyImages`
+--
+
+CREATE TABLE IF NOT EXISTS `storyImages` (
+  `imgId` int(50) NOT NULL AUTO_INCREMENT,
+  `stryId` int(50) NOT NULL,
+  `imgSrc` varchar(256) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imgAlt` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`imgId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表新增資料前，先清除舊資料 `storyImages`
+--
+
+TRUNCATE TABLE `storyImages`;
+-- --------------------------------------------------------
+
+--
+-- 資料表結構 `storyReplies`
+--
+
+CREATE TABLE IF NOT EXISTS `storyReplies` (
+  `rplyId` int(50) NOT NULL AUTO_INCREMENT,
+  `stryId` int(50) NOT NULL,
+  `usrId` int(50) NOT NULL,
+  `rplyTo` int(50) DEFAULT NULL,
+  `rplyTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rplyContent` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `rplyStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`rplyId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 資料表新增資料前，先清除舊資料 `storyReplies`
+--
+
+TRUNCATE TABLE `storyReplies`;
 -- --------------------------------------------------------
 
 --
