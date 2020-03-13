@@ -16,7 +16,6 @@ function Stories(){
                     <StoryCard />
                     <StoryCard />
                     <StoryCard />
-
                 </Row>
             </main>
         </>
