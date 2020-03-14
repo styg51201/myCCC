@@ -4,7 +4,7 @@ import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { withRouter ,Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getShopCart,addValue,minusValue ,updateShopCart,addShopCartItem} from '../actions/index'
+import { getShopCart,addValue,minusValue} from '../actions/index'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 function ShopCartList(props) {
   console.log(props)
@@ -122,7 +122,7 @@ function ShopCartList(props) {
   let productBtn=(
     productList.map((v,i)=>{
       return(
-        <button className="btn btn-dark" onClick={()=> props.addShopCartItem(v)}>+</button>
+        <button className="btn btn-dark">+</button>
       )})
   )
   
@@ -152,8 +152,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       getShopCart,
-      addValue,minusValue,updateShopCart,
-      addShopCartItem
+      addValue,minusValue,
     },
     dispatch
   )
