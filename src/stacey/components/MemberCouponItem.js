@@ -33,7 +33,7 @@ console.log(props.data.cp_due)
   }
 
   //設定優惠券的外觀
-  let couponClassName = classNames('col','col-sm-6','sty-coupon',{
+  let couponClassName = classNames('col','col-sm-6','sty-memberCoupon',{
     used:props.data.cpi_use,
     exp:props.data.cpi_use?false:isExp,
   })
