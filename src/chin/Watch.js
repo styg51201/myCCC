@@ -8,13 +8,14 @@ import '../css/main.scss'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {watchItems } from '../actions/index'
+import {formServerItemsData } from '../actions/index'
 
 function Watch(props){
-    console.log(props)
 
+    console.log(props)
+    console.log(props.data)
     useEffect(()=>{
-        props.watchItems()
+        props.formServerItemsData("watch")
       },[])
 
     if(!props.data) return <></>
@@ -101,13 +102,13 @@ function Watch(props){
 }
 // 選擇對應的reducer
 const mapStateToProps = store => {
-    return { data: store.getWatchItems}
+    return { data: store.getItems}
   }
 
 //action
 const mapDispatchToProps = dispatch =>{
     return bindActionCreators({
-        watchItems
+        formServerItemsData
     },dispatch)
   }
 

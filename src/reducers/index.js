@@ -18,7 +18,7 @@ const counter = (state = 0, action) => {
 
 //---------------chin items--------------------
 
-const getWatchItems = (state=[],action)=>{
+const getItems = (state=[],action)=>{
   switch (action.type){
     case 'SHOW_WATCH':
       return action.value
@@ -54,7 +54,7 @@ const filterCoupon = (state=[],action)=>{
 
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
 const rootReducer = combineReducers({
-  counter,getCouponData,filterCoupon,getWatchItems
+  counter,getCouponData,filterCoupon,getItems
 })
 
 export { rootReducer }

@@ -88,37 +88,17 @@ export const minusFilterCoupon = val =>{
 export const showItems = val =>{
   return {type:'SHOW_WATCH',value:val}
 }
-//跟server要資料
+//跟node要資料
 export const formServerItemsData = val => {
   return async dispatch => {
-    const request = new Request('http://localhost:5555/items', {
+    const request = new Request(`http://localhost:5500/items/${val}`, {
       method: 'GET',
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }),
+      credentials: 'include'
     })
     const res = await fetch(request)
     const data = await res.json()
 
-    console.log('data', data)
-    dispatch(showItems(data))
-  }
-}
-
-export const watchItems = val => {
-  return async dispatch => {
-    const request = new Request(`http://localhost:5555/items?itemCategoryId=穿戴式裝置`, {
-      method: 'GET',
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }),
-    })
-    const res = await fetch(request)
-    const data = await res.json()
-
-    console.log('aaa', data)
+    console.log('我誰!!!', data)
     dispatch(showItems(data))
   }
 }
