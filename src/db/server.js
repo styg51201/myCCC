@@ -43,6 +43,16 @@ app.get('/try-db', (req, res)=>{
     })
 })
 
+//test items
+
+app.get('/items/watch', (req, res)=>{
+    let sql='SELECT * FROM `items` WHERE `itemCategoryId`="穿戴式裝置"'
+    db.queryAsync(sql)
+    .then(r=>{
+        return res.json(r)
+    })
+})
+
 //test
 app.get('/', (req, res)=>{
     res.send("hello")
@@ -55,6 +65,6 @@ app.use((req, res)=>{
 })
 
 
-app.listen(3000, ()=>{
+app.listen(5500, ()=>{
     console.log('Express server start')
 })
