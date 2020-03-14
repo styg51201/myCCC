@@ -23,7 +23,7 @@ import Comparepages from './chin/Comparepages'
 import Actioncamera from './chin/Actioncamera'
 import Surrounding from './chin/Surrounding'
 //import mao
-import CartList from './mao/ShopCartList'
+import ShopCartList from './mao/ShopCartList'
 
 //import Irene
 import MemberLogin from './Irene/MemberLogin'
@@ -98,10 +98,10 @@ function App() {
             <Comparepages/>
           </Route>
         {/*---------------------------------------------*/}
-          <Route path="/ShopCartList/:id?">
+          <Route path="/ShopCartList">
               {' '}
               {/*id抓會員ID */}
-              <CartList />
+              <ShopCartList />
             </Route>
             <Route path="/memberlogin">
               <MemberLogin />
