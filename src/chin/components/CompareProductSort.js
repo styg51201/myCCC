@@ -7,6 +7,10 @@ function CompareProductSort(){
             <span>WEARABLE DEVICES</span>
             <span>穿戴式裝置</span>
         </div>
+        <div className="chin-rwd-sort-features">
+            <button className="chin-rwd-features">功能</button>
+            <button className="chin-rwd-sort">排序方式</button>
+        </div>
         <div className="chin-comparegoods-sort">
             <button className="chin-comparegoods">
                 <span>比較商品</span>
