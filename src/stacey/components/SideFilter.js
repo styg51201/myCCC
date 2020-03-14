@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {addFilterCoupon} from '../../actions/index'
+import {addFilterCoupon} from '../actions/couponAction'
 
 
 function SideFilter (props){

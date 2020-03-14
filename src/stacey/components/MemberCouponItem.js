@@ -7,7 +7,7 @@ import img from '../img/Swatch.jpg'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {getCoupon} from '../../actions/index'
+import {getCoupon} from '../actions/couponAction'
 
 
 function CouponItem(props){
