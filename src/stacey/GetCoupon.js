@@ -13,7 +13,7 @@ import CouponItem from './components/CouponItem'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {formServerCouponData} from '../actions/index'
+import {formServerCouponData} from './actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
