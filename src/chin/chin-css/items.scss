@@ -241,7 +241,7 @@
   display: none;
 }
 
-@media screen and(max-width: 375px) {
+@media (max-width: 375px) {
   .chin-title-text {
     display: flex;
     flex-direction: column;

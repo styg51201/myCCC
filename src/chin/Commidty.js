@@ -21,6 +21,12 @@ function Commidty(){
               <img src="./chin-img/images/headset10.jpg" alt="" />
               <img src="./chin-img/chevron-right.svg" alt="" />
             </div>
+            <div className="chin-rwd-circle-circle">
+                <span className="chin-rwd-circle"></span>
+                <span className="chin-rwd-circle"></span>
+                <span className="chin-rwd-circle"></span>
+                <span className="chin-rwd-circle"></span>
+            </div>
           </div>
           <div className="chin-productname">
             <h6>Audio-Technica</h6>
@@ -71,7 +77,6 @@ function Commidty(){
               <h3>技術規格</h3>
         </div>
         <div className="chin-technicalspecifications">
-       
           <div className="chin-size-digital">
             <div className="chin-size">
               <ul>
@@ -191,6 +196,11 @@ function Commidty(){
             <h6>Mary Chu</h6>
             <span>1個月前</span>
           </div>
+          <div className="chin-rwd-avatar-circle-circle">
+            <span className="chin-rwd-avatar-circle"></span>
+            <span className="chin-rwd-avatar-circle"></span>
+            <span className="chin-rwd-avatar-circle"></span>
+          </div>
         </div>
         <div>
           <p>
@@ -223,6 +233,11 @@ function Commidty(){
             <h6>Mary Chu</h6>
             <span>1個月前</span>
           </div>
+          <div className="chin-rwd-avatar-circle-circle">
+            <span className="chin-rwd-avatar-circle"></span>
+            <span className="chin-rwd-avatar-circle"></span>
+            <span className="chin-rwd-avatar-circle"></span>
+          </div>
         </div>
         <div>
           <p>
@@ -249,21 +264,21 @@ function Commidty(){
         <button>
           <img src="./chin-img/chevron-left.svg" alt="" />
         </button>
-        <div className="chin-commodity">
-          <div className="chin-commodity-item">
-            <ul className="chin-star-heart-bag">
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li className="chin-heart-bag">
-                <img className="chin-heart" src="./chin-img/heart.svg" alt="" />
-                <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt="" />
+        <div className="chin-commodity2">
+          <div className="chin-commodity-item2">
+            <ul className="chin-star-heart-bag2">
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li className="chin-heart-bag2">
+                <img className="chin-heart2" src="./chin-img/heart.svg" alt="" />
+                <img className="chin-bag2" src="./chin-img/shopping-bag.svg" alt="" />
               </li>
             </ul>
             <img
-              className="chin-watch"
+              className="chin-watch2"
               src="./chin-img/images/watch.jpg"
               alt=""
             />
@@ -272,22 +287,22 @@ function Commidty(){
             <h5>NT$6,400</h5>
           </div>
         </div>
-        <div className="chin-commodity">
-          <div className="chin-commodity-item">
-            <ul className="chin-star-heart-bag">
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li className="chin-heart-bag">
-                <img className="chin-heart" src="./chin-img/heart.svg" alt="" />
-                <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt="" />
+        <div className="chin-commodity2">
+          <div className="chin-commodity-item2">
+            <ul className="chin-star-heart-bag2">
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li className="chin-heart-bag2">
+                <img className="chin-heart2" src="./chin-img/heart.svg" alt="" />
+                <img className="chin-bag2" src="./chin-img/shopping-bag.svg" alt="" />
               </li>
             </ul>
             <img
-              className="chin-watch"
-              src="./chin-img//images/watch.jpg"
+              className="chin-watch2"
+              src="./chin-img/images/watch.jpg"
               alt=""
             />
             <h6>Apple</h6>
@@ -295,45 +310,22 @@ function Commidty(){
             <h5>NT$6,400</h5>
           </div>
         </div>
-        <div className="chin-commodity">
-          <div className="chin-commodity-item">
-            <ul className="chin-star-heart-bag">
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li className="chin-heart-bag">
-                <img className="chin-heart" src="./chin-img/heart.svg" alt="" />
-                <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt="" />
+        <div className="chin-commodity2">
+          <div className="chin-commodity-item2">
+            <ul className="chin-star-heart-bag2">
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li><img className="chin-star2" src="./chin-img/star.svg" alt="" /></li>
+              <li className="chin-heart-bag2">
+                <img className="chin-heart2" src="./chin-img/heart.svg" alt="" />
+                <img className="chin-bag2" src="./chin-img/shopping-bag.svg" alt="" />
               </li>
             </ul>
             <img
-              className="chin-watch"
-              src="./chin-img//images/watch.jpg"
-              alt=""
-            />
-            <h6>Apple</h6>
-            <p>Apple Watch Nike</p>
-            <h5>NT$6,400</h5>
-          </div>
-        </div>
-        <div className="chin-commodity">
-          <div className="chin-commodity-item">
-            <ul className="chin-star-heart-bag">
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li><img className="chin-star" src="./chin-img/star.svg" alt="" /></li>
-              <li className="chin-heart-bag">
-                <img className="chin-heart" src="./chin-img/heart.svg" alt="" />
-                <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt="" />
-              </li>
-            </ul>
-            <img
-              className="chin-watch"
-              src="./chin-img//images/watch.jpg"
+              className="chin-watch2"
+              src="./chin-img/images/watch.jpg"
               alt=""
             />
             <h6>Apple</h6>
