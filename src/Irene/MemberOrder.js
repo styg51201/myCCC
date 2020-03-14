@@ -7,7 +7,7 @@ import './I_css/MemberEdit.css'
 import Nav from 'react-bootstrap/Nav'
 import MemberSidebar from './components/MemberSidebar'
 import InputGroup from 'react-bootstrap/InputGroup'
-import DatePicker from ''
+import DatePicker from 'react-datepicker'
 
 
 function MemberOrder() {

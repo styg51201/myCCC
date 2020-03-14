@@ -1,0 +1,24 @@
+import React from 'react'
+
+function CompareProductSort(){
+    return(
+    <div className="chin-title">
+        <div className="chin-title-text">
+            <span>WEARABLE DEVICES</span>
+            <span>穿戴式裝置</span>
+        </div>
+        <div className="chin-comparegoods-sort">
+            <button className="chin-comparegoods">
+                <span>比較商品</span>
+                <img src="./chin-img/align-justify.svg" alt=""/>
+            </button>
+            <button className="chin-sort">
+                <span>排序</span>
+                <img src="./chin-img/chevron-down-white.svg" alt=""/>
+            </button>
+        </div>
+    </div>
+    )
+}
+
+export default CompareProductSort
