@@ -105,7 +105,7 @@ export const minusFilterCoupon = val =>{
   return {type:'MINUS_VALUE',value:val}
 }
 
-//----chin商品列表 -------
+//---------------------------------------------------------------------------chin商品列表 ---------------------------------------
 //回傳showItems
 export const showItems = val =>{
   return {type:'SHOW_WATCH',value:val}
