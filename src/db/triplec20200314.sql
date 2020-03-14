@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2020 年 03 月 12 日 08:35
+-- 產生時間： 2020 年 03 月 14 日 14:05
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.2.27
 
@@ -253,17 +253,17 @@ INSERT INTO `customer` (`csId`, `csName`, `csAdress`, `csPhone`, `created_at`, `
 
 CREATE TABLE IF NOT EXISTS `items` (
   `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品編號',
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廠商名稱',
   `itemName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名稱',
   `itemImg` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品照片',
   `itemDescription` varchar(3000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品描述',
-  `itemPrice` int(11) NOT NULL COMMENT '商品價格',
+  `itemPrice` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品價格',
   `itemQty` tinyint(4) NOT NULL COMMENT '商品數量',
   `itemCategoryId` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品類別',
-  `itemColor` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品顏色',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
   PRIMARY KEY (`itemId`)
-) ENGINE=InnoDB AUTO_INCREMENT=243 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- 資料表新增資料前，先清除舊資料 `items`
@@ -274,10 +274,47 @@ TRUNCATE TABLE `items`;
 -- 傾印資料表的資料 `items`
 --
 
-INSERT INTO `items` (`itemId`, `itemName`, `itemImg`, `itemDescription`, `itemPrice`, `itemQty`, `itemCategoryId`, `itemColor`, `created_at`, `updated_at`) VALUES
-(239, '我誰', 'jq範例1.jpg', '我誰!!!!!!!!!!!!!!!!!!我瘋子!!!!!!!!!!', 30000, 100, '其他', '黑', '2020-02-14 22:57:08', '2020-02-14 22:57:08'),
-(241, '1', 'a1.jpg', '2', 3, 4, '智慧手錶', '黑', '2020-02-16 12:47:18', '2020-02-16 12:47:18'),
-(242, '1', 'a1.jpg', '2', 3, 4, '智慧手錶', '黑', '2020-02-17 14:58:52', '2020-02-17 14:58:52');
+INSERT INTO `items` (`itemId`, `name`, `itemName`, `itemImg`, `itemDescription`, `itemPrice`, `itemQty`, `itemCategoryId`, `created_at`, `updated_at`) VALUES
+(1, 'Apple', 'Apple Watch Nike', 'watch.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,400', 10, '穿戴式裝置', '2020-03-13 23:31:00', '2020-03-13 23:32:14'),
+(2, 'Apple2', 'Apple Watch Nike2', 'watch2.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,500', 15, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:39:13'),
+(3, 'Apple3', 'Apple Watch Nike3', 'watch3.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 20, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(4, 'Apple4', 'Apple Watch Nike4', 'watch4.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 17, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(5, 'Apple5', 'Apple Watch Nike5', 'watch5.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '8,400', 20, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(6, 'Apple6', 'Apple Watch Nike6', 'watch6.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '9,400', 15, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(7, 'Apple7', 'Apple Watch Nike7', 'watch7.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,700', 65, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(8, 'Apple8', 'Apple Watch Nike8', 'watch8.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 32, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(9, 'Apple9', 'Apple Watch Nike9', 'watch9.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 70, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(10, 'Apple10', 'Apple Watch Nike10', 'watch10.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '4,400', 40, '穿戴式裝置', '2020-03-13 23:34:14', '2020-03-13 23:34:14'),
+(11, 'Apple11', 'Apple Watch Nike11', 'headset.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,500', 15, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:39:17'),
+(12, 'Apple12', 'Apple Watch Nike12', 'headset2.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 20, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(13, 'Apple13', 'Apple Watch Nike13', 'headset3.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 17, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(14, 'Apple14', 'Apple Watch Nike14', 'headset4.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '8,400', 20, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(15, 'Apple15', 'Apple Watch Nike15', 'headset5.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '9,400', 15, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(16, 'Apple16', 'Apple Watch Nike16', 'headset6.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,700', 65, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(17, 'Apple17', 'Apple Watch Nike17', 'headset7.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 32, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(18, 'Apple18', 'Apple Watch Nike18', 'headset8.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 70, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(19, 'Apple19', 'Apple Watch Nike19', 'headset9.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '4,400', 40, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(20, 'Apple20', 'Apple Watch Nike20', 'headset10.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 70, '耳機/喇叭', '2020-03-13 23:36:46', '2020-03-13 23:36:46'),
+(21, 'Apple21', 'Apple Watch Nike21', 'actioncamera.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,500', 15, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(22, 'Apple22', 'Apple Watch Nike22', 'actioncamera2.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,400', 20, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(23, 'Apple23', 'Apple Watch Nike23', 'actioncamera3.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 17, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(24, 'Apple24', 'Apple Watch Nike24', 'actioncamera4.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '8,400', 20, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(25, 'Apple25', 'Apple Watch Nike25', 'actioncamera5.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '9,400', 15, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(26, 'Apple26', 'Apple Watch Nike26', 'actioncamera6.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,700', 65, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(27, 'Apple27', 'Apple Watch Nike27', 'actioncamera7.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 32, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(28, 'Apple28', 'Apple Watch Nike28', 'actioncamera8.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 70, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(29, 'Apple29', 'Apple Watch Nike29', 'actioncamera9.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '4,400', 40, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(30, 'Apple30', 'Apple Watch Nike30', 'actioncamera10.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 70, '運動攝影機', '2020-03-13 23:38:56', '2020-03-13 23:38:56'),
+(31, 'Apple31', 'Apple Watch Nike31', 'surrounding.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,500', 15, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(32, 'Apple32', 'Apple Watch Nike32', 'surrounding2.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,400', 20, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(33, 'Apple33', 'Apple Watch Nike33', 'surrounding3.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 17, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(34, 'Apple34', 'Apple Watch Nike34', 'surrounding4.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '8,400', 20, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(35, 'Apple35', 'Apple Watch Nike35', 'surrounding5.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '9,400', 15, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(36, 'Apple36', 'Apple Watch Nike36', 'surrounding6.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,700', 65, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(37, 'Apple37', 'Apple Watch Nike37', 'surrounding7.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '6,900', 32, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(38, 'Apple38', 'Apple Watch Nike38', 'surrounding8.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 70, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(39, 'Apple39', 'Apple Watch Nike39', 'surrounding9.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '4,400', 40, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09'),
+(40, 'Apple40', 'Apple Watch Nike40', 'surrounding10.jpg', '單次充電最長可使用8小時**依據使用條件而有所不同。 導線附屬控制器支援Siri/Google Assistant™語音智慧助理不易漏音的密閉型耳機充滿光澤感的設計與多色機體選擇', '7,400', 70, '周邊', '2020-03-13 23:41:09', '2020-03-13 23:41:09');
 
 -- --------------------------------------------------------
 
@@ -1162,7 +1199,7 @@ INSERT INTO `vendorAdmins` (`vaId`, `vId`, `vaRoleId`, `vaFName`, `vaLName`, `va
 (151, 52, 3, 'fall', 'night', 'nightfallvs0923@gmail.com', 'c52888225c6929961bb5fdd4c51fe46c239d9e11', 'active', 'verified', '16c222aa19898e5058938167c8ab6c57', '2020-01-22 06:50:59', '2020-01-22 06:50:11', 'okey dokey', '2020-01-21 16:06:23', '2020-01-21 16:06:23'),
 (152, 52, 2, 'radu', 'rider', 'radu000rider@gmail.com', 'bc7cafbd1f9bcb7a3065a603b98d5c45e60c67d9', 'active', 'verified', 'dd8eb9f23fbd362da0e3f4e70b878c16', '2020-01-22 00:43:22', '2020-01-22 00:27:49', '', '2020-01-21 16:11:18', '2020-01-21 16:11:18'),
 (153, 53, 1, 'NIGHT', NULL, 'nightfallvs0923@gmail.com', '1be2a44cb53dde903be8466c08dee9067da8ede3', 'active', 'verified', 'f1c1592588411002af340cbaedd6fc33', '2020-01-22 07:11:01', '2020-01-22 07:11:47', NULL, '2020-01-21 17:08:33', '2020-01-21 17:08:33'),
-(154, 54, 1, '是在哈囉', NULL, 'onpica17@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'active', '2020-02-16 04:37:00', 'fb7b9ffa5462084c5f4e7e85a093e6d7', NULL, '2020-02-16 04:37:00', NULL, '2020-02-16 04:37:00', '2020-02-16 04:37:00');
+(154, 54, 1, '是在哈囉', NULL, 'onpica17@gmail.com', 'a94a8fe5ccb19ba61c4c0873d391e987982fbbd3', 'active', '2020-02-16 04:37:00', 'fb7b9ffa5462084c5f4e7e85a093e6d7', NULL, '2020-03-13 13:00:33', NULL, '2020-02-16 04:37:00', '2020-02-16 04:37:00');
 
 -- --------------------------------------------------------
 
