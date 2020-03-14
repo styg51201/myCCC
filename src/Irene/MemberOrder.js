@@ -3,12 +3,7 @@ import { Link } from 'react-router-dom'
 import { Form, Button, Table } from 'react-bootstrap'
 
 import MemberSidebar from './components/MemberSidebar'
-<<<<<<< HEAD
 import './I_css/MemberOrder.scss'
-=======
-import InputGroup from 'react-bootstrap/InputGroup'
-import DatePicker from 'react-datepicker'
->>>>>>> 6e51245fdcf367d0eb15811eb589f314d56c6087
 
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
