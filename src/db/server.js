@@ -43,6 +43,12 @@ app.get('/try-db', (req, res)=>{
     })
 })
 
+//test items
+app.use('/items', require(__dirname + '/items'));
+
+//coupon
+app.use('/getCoupon', require(__dirname + '/getCoupon'));
+
 //test
 app.get('/', (req, res)=>{
     res.send("hello")
@@ -55,6 +61,6 @@ app.use((req, res)=>{
 })
 
 
-app.listen(3000, ()=>{
+app.listen(5500, ()=>{
     console.log('Express server start')
 })

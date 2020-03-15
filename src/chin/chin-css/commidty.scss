@@ -46,7 +46,9 @@ h4 {
   font-size: 15px;
   margin-top: 50px;
 }
-
+.chin-productname h4 {
+  color: #0ac3ae;
+}
 .chin-starimg img {
   width: 20px;
   height: 20px;
@@ -323,4 +325,338 @@ h4 {
 .chin-relatedproducts button img {
   width: 50px;
   height: 50px;
+}
+.chin-commodity2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+.chin-commodity-item2 {
+  margin: 20px 20px 20px 21px;
+  width: 280px;
+  height: 400px;
+  background: #fff;
+  p {
+    margin: 2px 0 12px 0;
+    font-size: 17px;
+    font-weight: bold;
+    color: #050505;
+    text-align: center;
+  }
+}
+.chin-commodity-item2 h6 {
+  text-align: center;
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #a0a0a0;
+}
+.chin-commodity-item2 h5 {
+  font-size: 17px;
+  margin: 0;
+  color: #0dd2c5;
+  text-align: center;
+}
+.chin-commodity-item2:hover {
+  box-shadow: 0px 0px 9px #a0a0a0;
+}
+.chin-star-heart-bag2 {
+  list-style: none;
+  display: flex;
+  margin: 25px 0 0 25px;
+  padding: 0;
+  align-items: flex-start;
+  position: relative;
+}
+.chin-star-heart-bag2 :nth-child(1) > .chin-star2 {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+}
+.chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(1) > .chin-star2 {
+  opacity: 1;
+}
+.chin-star-heart-bag2 :nth-child(2) > .chin-star2 {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(2) > .chin-star2 {
+  opacity: 1;
+  left: 20px;
+}
+.chin-star-heart-bag2 :nth-child(3) > .chin-star2 {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(3) > .chin-star2 {
+  opacity: 1;
+  left: 40px;
+}
+.chin-star-heart-bag2 :nth-child(4) > .chin-star2 {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(4) > .chin-star2 {
+  opacity: 1;
+  left: 60px;
+}
+.chin-star-heart-bag2 :nth-child(5) > .chin-star2 {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(5) > .chin-star2 {
+  opacity: 1;
+  left: 80px;
+}
+.chin-bag2 {
+  position: absolute;
+  top: 0;
+  right: 8%;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition: 0.3s;
+}
+.chin-commodity-item2:hover .chin-bag2 {
+  opacity: 1;
+  top: 30px;
+}
+.chin-heart2 {
+  position: absolute;
+  top: 0;
+  right: 8%;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition: 0.3s;
+}
+.chin-commodity-item2:hover .chin-heart2 {
+  opacity: 1;
+}
+.chin-watch2 {
+  margin: 40px 35px 15px 35px;
+  width: 210px;
+  height: 210px;
+}
+.chin-heart-bag2 {
+  display: flex;
+  flex-direction: column;
+}
+/*--------------RWD-----------------------------*/
+.chin-rwd-circle-circle {
+  display: none;
+}
+.chin-rwd-avatar-circle-circle {
+  display: none;
+}
+@media (max-width: 576px) {
+  .chin-productdetails {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .chin-bigitem img {
+    width: 345px;
+    height: 369px;
+  }
+  .chin-smallitem {
+    display: none;
+  }
+  .chin-rwd-circle-circle {
+    display: flex;
+    justify-content: center;
+  }
+  .chin-rwd-circle:nth-child(1) {
+    width: 8px;
+    height: 8px;
+    border: 1px solid #050505;
+    border-radius: 50%;
+    background: #050505;
+    margin: 5px;
+  }
+  .chin-rwd-circle {
+    width: 8px;
+    height: 8px;
+    border: 1px solid #767676;
+    border-radius: 50%;
+    background: #fff;
+    margin: 5px;
+  }
+  .chin-productname {
+    margin: 0;
+    padding-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .chin-myfavourite-shopping {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+  }
+  .chin-myfavourite {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .chin-productdescription-technicalspecifications {
+    background: none;
+    margin-top: 20px;
+    padding-top: 10px;
+  }
+  .chin-productdescription p {
+    width: 100%;
+    margin: 0;
+  }
+  .chin-technicalspecifications {
+    display: flex;
+    flex-direction: column;
+  }
+  .chin-size-digital {
+    width: 100%;
+  }
+  .chin-memory-narrative-p {
+    padding: 0;
+    width: 100%;
+  }
+  .chin-memory-narrative {
+    justify-content: flex-start;
+  }
+  .chin-narrative {
+    margin-left: 50px;
+  }
+  .chin-usercomment-fractionalstars {
+    margin-top: 20px;
+  }
+  .chin-discuss {
+    display: none;
+  }
+  .chin-commentstars {
+    display: none;
+  }
+  .chin-usercomment {
+    justify-content: space-between;
+    margin: 0;
+  }
+  .chin-fractional {
+    display: flex;
+    align-items: center;
+  }
+  .chin-fractional p {
+    margin: 0 15px;
+  }
+  .chin-sortspan {
+    display: none;
+  }
+  .chin-avatar-name-p {
+    width: 100%;
+  }
+  .chin-avatar-name {
+    align-items: center;
+  }
+  .chin-rwd-avatar-circle-circle {
+    display: flex;
+    justify-content: center;
+    margin-left: 75px;
+  }
+  .chin-rwd-avatar-circle {
+    width: 6px;
+    height: 6px;
+    border: 1px solid #050505;
+    border-radius: 50%;
+    margin: 2px;
+  }
+  .chin-historicalrecord a {
+    margin: 0;
+  }
+  .chin-historicalrecord {
+    justify-content: space-evenly;
+  }
+  .chin-relatedproducts {
+    margin-top: 20px;
+    position: relative;
+  }
+  .chin-relatedproducts button:nth-child(1) {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    left: -4%;
+    top: 60%;
+  }
+  .chin-relatedproducts button {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: -4%;
+    top: 60%;
+  }
+  .chin-relatedproducts button img {
+    width: 30px;
+    height: 30px;
+  }
+  .chin-commodity2 {
+    width: 115px;
+    height: 150px;
+  }
+  .chin-watch2 {
+    margin: 0;
+    width: 115px;
+    height: 150px;
+  }
+  .chin-commodity-item2 {
+    background: none;
+    margin: 0;
+  }
+  .chin-commodity-item2 h6 {
+    font-size: 12px;
+  }
+  .chin-commodity-item2 h5 {
+    font-size: 15px;
+  }
+  .chin-commodity-item2 p {
+    font-size: 12px;
+  }
+  .chin-commodity-item2:hover {
+    box-shadow: unset !important;
+  }
+  .chin-star-heart-bag2 :nth-child(1) > .chin-star2 {
+    position: absolute;
+    transition: 0.3s;
+    opacity: 0;
+    width: 15px;
+    height: 15px;
+  }
+  .chin-star2 {
+    display: none;
+  }
+  .chin-bag2 {
+    display: none;
+  }
+  .chin-heart2 {
+    position: absolute;
+    top: 0;
+    right: 8%;
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+  }
 }

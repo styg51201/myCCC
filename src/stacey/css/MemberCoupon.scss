@@ -70,7 +70,7 @@
     font-size: $font-x;
   }
 }
-.sty-coupon {
+.sty-memberCoupon {
   padding: 0 0.625rem;
   margin-bottom: 1.875rem;
   .item {
@@ -111,6 +111,9 @@
       margin-bottom: 0;
       h3 {
         font-size: $font-x;
+      }
+      .vendorName {
+        font-weight: $font-bold;
       }
     }
     .state {
@@ -155,7 +158,7 @@
   }
 }
 // 已使用
-.sty-coupon.used {
+.sty-memberCoupon.used {
   .wrapForImg {
     position: relative;
     &:before {
@@ -180,10 +183,20 @@
   }
 }
 //效期已過
-.sty-coupon.exp {
-  .state {
-    div {
-      background: $grey;
+.sty-memberCoupon.exp {
+  .wrapForImg {
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background-color: rgba($color: $grey, $alpha: 0.95);
+    }
+    .alreadyGet {
+      display: block;
     }
   }
   .button {
@@ -218,7 +231,7 @@
   .sty-sideFilter {
     display: none;
   }
-  .sty-coupon {
+  .sty-memberCoupon {
     padding: 0;
   }
 }

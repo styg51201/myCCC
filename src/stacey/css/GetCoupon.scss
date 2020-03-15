@@ -7,6 +7,11 @@
   margin: 0;
   box-sizing: border-box;
 }
+button {
+  &:focus {
+    outline: none;
+  }
+}
 .container {
   width: 1300px;
 }
@@ -59,6 +64,65 @@
     margin: 0;
   }
 }
+.sty-pageTitle {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0.625rem 1.25rem;
+  p {
+    font-size: $font-x;
+    font-weight: $font-bold;
+    margin: 0;
+    span {
+      margin-right: 2.5rem;
+    }
+  }
+  .sty-orderDiv {
+    position: relative;
+    color: $grey;
+    button {
+      color: $grey;
+      background-color: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.325rem 1.25rem;
+      width: 9.375rem;
+      border: none;
+      // transition: 0.8s;
+      &:active {
+        border: none;
+      }
+    }
+  }
+  .sty-couponOrder {
+    background-color: $white;
+    position: relative;
+    // padding: 0.325rem 1.25rem;
+    width: 100%;
+    z-index: 3;
+    // background-color: $background;
+    overflow: hidden;
+    transition: 0.4s;
+    max-height: 0;
+    div {
+      cursor: pointer;
+      padding: 10px 0 10px 20px;
+      &:hover {
+        background-color: $grey;
+        color: $black;
+      }
+    }
+  }
+  .sty-orderDiv.active {
+    button {
+      background-color: $white;
+    }
+    .sty-couponOrder {
+      max-height: 100px;
+    }
+  }
+}
+
 .sty-coupon {
   padding: 0 0.625rem;
   margin-bottom: 1.875rem;
@@ -74,6 +138,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    overflow: hidden;
     img {
       width: 100%;
       height: 85%;
@@ -81,30 +147,46 @@
       border-right: 1px dashed $grey;
     }
     .alreadyGet {
+      width: 100%;
+      height: 100%;
       position: absolute;
+      left: -110%;
       font-weight: $font-bold;
-      letter-spacing: 0.625rem;
-      padding-left: 0.625rem;
       font-size: $font-x;
-      display: none;
+      background-color: rgba($color: $grey, $alpha: 0.95);
+      display: flex;
+      justify-content: center;
+      transition: 0.8s;
+      p {
+        letter-spacing: 0.625rem;
+        padding-left: 0.625rem;
+
+        align-self: center;
+        margin: 0;
+      }
     }
   }
   .text {
-    width: 48%;
+    // background-color: red;
+    width: 45%;
     height: 11.25rem;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     ul {
       margin-bottom: 0.625rem;
-      margin-left: 0.625rem;
+      margin-left: 1rem;
       h3 {
         font-size: $font-x;
       }
+      .vendorName {
+        font-weight: $font-bold;
+      }
     }
-    .state {
-      div {
+    div {
+      width: 100%;
+      .state {
         height: 0.3125rem;
         border-radius: 1.875rem;
         // background: linear-gradient(to right, $green 80%, $deepGray 80%);
@@ -119,8 +201,9 @@
   }
   .button {
     align-self: center;
-    padding: 0 0.5rem;
+    padding: 0 0.5rem 0 0;
     button {
+      transition: 0.8s;
       width: 2.8125rem;
       height: 9.375rem;
       background-color: $black;
@@ -146,20 +229,8 @@
 }
 // 已領取
 .sty-coupon.geted {
-  .wrapForImg {
-    position: relative;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background-color: rgba($color: $grey, $alpha: 0.95);
-    }
-    .alreadyGet {
-      display: block;
-    }
+  .alreadyGet {
+    left: 0;
   }
   .button {
     button {
@@ -188,21 +259,18 @@
 }
 
 @media (max-width: 576px) {
+  // html {
+  //   font-size: 13px;
+  // }
   .container {
     max-width: 100%;
   }
   .wrap {
     padding: 0 0.9375rem;
   }
-  .sty-bread {
-    h3 {
-      text-align: left;
-    }
-    .row {
-      align-items: center;
-    }
-    .mobileFilter {
-      display: flex;
+  .sty-pageTitle {
+    span {
+      display: none;
     }
   }
   .sty-sideFilter {

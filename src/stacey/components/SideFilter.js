@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {addFilterCoupon} from '../../actions/index'
+import {addFilterCoupon} from '../actions/couponAction'
 
 
 function SideFilter (props){
@@ -23,7 +23,7 @@ function SideFilter (props){
           <hr />
           <ul onChange={(e)=>filter(e)}>
           {props.list.map((val,ind)=>{
-            return (<li>
+            return (<li key={ind}>
               <input type="checkbox" name={val} id={val} value={val}/><label
                 htmlFor={val}
                 >{val}</label>

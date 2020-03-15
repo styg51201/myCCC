@@ -6,14 +6,15 @@ import './css/MemberCoupon.scss'
 import MemberCouponItem from './components/MemberCouponItem'
 
 
+
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {formServerCouponData,getCoupon} from '../actions/index'
+import {formServerCouponData} from './actions/couponAction'
 
-function GetCoupon(props) {
-  console.log(props)
+function MemberCoupon(props) {
+  // console.log(props)
   
 
   useEffect(()=>{
@@ -21,13 +22,14 @@ function GetCoupon(props) {
   },[])
 
 
+
   return (
     <>
       <Bread />
       <div className="row wrap">
         {/* <!-- 側邊篩選欄 --> */}
-        <SideFilter />
-     
+        {/* <SideFilter /> */}
+     <div className="col-3"></div>
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
           <div className="row">
@@ -49,8 +51,8 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    formServerCouponData,getCoupon
+    formServerCouponData
   },dispatch)
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(GetCoupon))
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(MemberCoupon))

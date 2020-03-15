@@ -2,30 +2,35 @@ import React,{useState,useEffect} from 'react'
 import classNames from 'classnames'
 import img from '../img/Swatch.jpg'
 
-
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {getCoupon} from '../../actions/index'
+import {getCoupon} from '../actions/couponAction'
 
+//icon
+import { IconContext } from 'react-icons'
+import {
+  IoMdArrowDropright
+} from 'react-icons/io'
 
 function CouponItem(props){
 
   // const [couponState,setCouponState] = useState('領取')
   
+
   // 設定按鈕裡的字樣
   let couponState = '領取'
-  if(props.data.cp_getedCount === props.data.cp_count){
-    couponState = '發放結束'
-  }else if(props.data.geted){
+  if(props.data.geted){
     couponState = '去逛逛'
+  }else if(props.data.cp_getedCount === props.data.cp_count){
+    couponState = '發放結束'
   }
 
   //設定優惠券的外觀
   let couponClassName = classNames('col','col-sm-6','sty-coupon',{
     geted:props.data.geted,
-    end:props.data.cp_getedCount === props.data.cp_count,
+    end:props.data.geted?false:props.data.cp_getedCount === props.data.cp_count,
   })
 
   //設定進度條的外觀
@@ -95,19 +100,19 @@ function CouponItem(props){
         <div className={couponClassName}>
               <div className="item">
                 <div className="wrapForImg">
-                  <img src={img} alt="" />
-                  <div className="alreadyGet">已領取</div>
+                  <img src={`./sty-img/${props.data.cp_img}`} alt="" />
+                  <div className="alreadyGet"><p>已領取</p></div>
                 </div>
                 <div className="text">
                   <ul>
                     <h3>{props.data.cpr_discount?props.data.cpr_discountNum+'元':props.data.cpr_discountNum+'折'}</h3>
-                    <li>{props.data.cp_vendor}</li>
+                    <li className="vendorName">[ {props.data.cp_vendor} ]</li>
                     <li>{object}{rule}{discount}</li>
                     <li>有效至 {props.data.cp_due}</li>
                   </ul>
-                  <div className="state">
-                    <div style={couponState === '發放結束'?endCouponStyle:getedCountStyle}></div>
-                    {couponState === '發放結束'?<p>全數領取完畢</p>:<p>{props.data.cp_getedCount}% 已領取</p>}
+                  <div >
+                    <div className="state" style={props.data.cp_getedCount === props.data.cp_count?endCouponStyle:getedCountStyle}></div>
+                    <p>{props.data.cp_getedCount === props.data.cp_count?'全數領取完畢':props.data.cp_getedCount +'% 已領取'}</p>
                   </div>
                 </div>
                 <div className="button">

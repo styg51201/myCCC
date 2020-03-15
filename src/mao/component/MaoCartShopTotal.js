@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import '../mao/css/mao.css'
+import '../css/mao.css'
 function MaoCartShopTotal() {
   useEffect(() => {
     let TotalBox = document.querySelector('.Mao-total-box')
@@ -50,7 +50,7 @@ function MaoCartShopTotal() {
         </Link>
         <Link
           className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn"
-          to=""
+          to="/OrderInfo"
         >
           前往結帳
         </Link>

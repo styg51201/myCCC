@@ -1,16 +1,26 @@
 import React ,{useEffect ,useState}from 'react'
-import SideFilter from './components/SideFilter'
 import Bread from './components/Bread'
 import { BrowserRouter as Router, Route, Link, Switch ,withRouter } from 'react-router-dom'
 import '../css/main.css'
 import './css/GetCoupon.scss'
+
+//components
+import SideFilter from './components/SideFilter'
+import CouPageTitle from './components/CouPageTitle'
 import CouponItem from './components/CouponItem'
 
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {formServerCouponData,getCoupon} from '../actions/index'
+import {formServerCouponData} from './actions/couponAction'
+
+//icon
+import { IconContext } from 'react-icons'
+import {
+  FiChevronDown
+} from 'react-icons/fi'
+
 
 function GetCoupon(props) {
 
@@ -21,9 +31,7 @@ function GetCoupon(props) {
       setLoaded(true)
   },[])
 
- //篩選功能
-  const filterNum = props.vendor.length
-
+ //篩選過後的
   const filterCouponItem = props.data.map((val,ind)=>{
     if(props.vendor.indexOf(val.cp_vendor) > -1){
       return <CouponItem key={ind} data={props.data[ind]} />
@@ -46,15 +54,17 @@ function GetCoupon(props) {
 
   return (
     <>
-      <Bread />
-      <div className="row wrap">
+      {/* <Bread /> */}
+      <div className="row wrap mt-5">
         {/* <!-- 側邊篩選欄 --> */}
         <SideFilter list={vendorList}/>
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
           <div className="row">
-            {/* <!-- 領取 --> */}
-            {filterNum?filterCouponItem:allCouponItem}
+            {/* <!-- title --> */}
+            <CouPageTitle />
+            {/* 優惠券 */}
+            {props.vendor.length?filterCouponItem:allCouponItem}
           </div>
         </div>
       </div>
@@ -71,7 +81,7 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    formServerCouponData,getCoupon
+    formServerCouponData
   },dispatch)
 }
 
