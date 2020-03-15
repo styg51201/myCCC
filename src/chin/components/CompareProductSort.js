@@ -1,11 +1,17 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 
-function CompareProductSort(){
+function CompareProductSort(props){
+    // const [pro,setPro] =useState([])
+    // // console.log(toto)
+    // // console.log({...props})
+    // useEffect(()=>{
+    //     setPro(data)
+    // })
     return(
     <div className="chin-title">
         <div className="chin-title-text">
             <span>WEARABLE DEVICES</span>
-            <span>穿戴式裝置</span>
+            <span>{props.name}</span>
         </div>
         <div className="chin-rwd-sort-features">
             <button className="chin-rwd-features">功能</button>

@@ -16,6 +16,7 @@ import { formServerItemsData } from './actions/itemsActions'
 
 
 function Headset(props){
+    const [nameHeadset,setNameHeadset]=useState("耳機/喇叭")
     console.log(props)
     console.log(props.data)
     useEffect(()=>{
@@ -30,7 +31,7 @@ function Headset(props){
                 <section className="chin-section">
                 <Commoditylist/>
                     <div className="chin-commodity-title">
-                    <CompareProductSort/>
+                    <CompareProductSort name={nameHeadset}/>
                         <div className="chin-commodity">
                             {props.data.map((val,ind)=>{
                                 return(
