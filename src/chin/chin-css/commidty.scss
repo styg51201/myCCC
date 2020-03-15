@@ -468,10 +468,11 @@ h4 {
 .chin-rwd-avatar-circle-circle {
   display: none;
 }
-@media screen and (max-width: 375px) {
+@media (max-width: 576px) {
   .chin-productdetails {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   .chin-bigitem img {
     width: 345px;

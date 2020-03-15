@@ -12,7 +12,7 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData } from '../actions/index'
+import { formServerItemsData } from './actions/itemsActions'
 
 
 function Watch(props){

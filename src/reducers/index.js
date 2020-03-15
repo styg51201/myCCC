@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import  {getCouponData ,filterCoupon} from '../stacey/reducer/couponReducer'
-
+import { getItems } from '../chin/reducer/itemsReducer'
 
 //老師範例
 // 第一步：建立reducer
@@ -18,20 +18,6 @@ import  {getCouponData ,filterCoupon} from '../stacey/reducer/couponReducer'
 //       return state
 //   }
 // }
-
-//---------------chin items--------------------
-
-const getItems = (state=[],action)=>{
-  switch (action.type){
-    case 'SHOW_WATCH':
-      return action.value
-      default :
-      return state
-  }
-}
-
-
-
 
 
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
