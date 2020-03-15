@@ -16,7 +16,7 @@ import { formServerItemsData } from './actions/itemsActions'
 
 
 function Surrounding(props){
-    const [nameSurrounding,setNameSurrounding]=useState("周邊")
+    const [englishnameSurrounding,setEnglishnameSurrounding]=useState("SURROUNDING")
     console.log(props)
     console.log(props.data)
     useEffect(()=>{
@@ -29,9 +29,9 @@ function Surrounding(props){
         <>
             <main className="chin-main">
                 <section className="chin-section">
-                <Commoditylist/>
+                <Commoditylist />
                     <div className="chin-commodity-title">
-                    <CompareProductSort name={nameSurrounding}/>
+                    <CompareProductSort data={props.data} englishname={englishnameSurrounding}/>
                         <div className="chin-commodity">
                             {props.data.map((val,ind)=>{
                                 return(

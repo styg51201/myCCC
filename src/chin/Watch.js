@@ -16,7 +16,7 @@ import { formServerItemsData } from './actions/itemsActions'
 
 
 function Watch(props){
-    const [nameWatch,setNameWatch]=useState("穿戴式裝置")
+    const [englishnameWatch,setEnglishnameWatch]=useState("WEARABLE DEVICES")
     console.log(props)
     console.log(props.data)
     useEffect(()=>{
@@ -31,7 +31,7 @@ function Watch(props){
                 <section className="chin-section">
                 <Commoditylist/>
                     <div className="chin-commodity-title">
-                    <CompareProductSort data={props.data}/>
+                    <CompareProductSort data={props.data} englishname={englishnameWatch}/>
                         <div className="chin-commodity">
                             {props.data.map((val,ind)=>{
                                 return(

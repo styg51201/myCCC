@@ -16,7 +16,7 @@ import { formServerItemsData } from './actions/itemsActions'
 
 
 function Actioncamera(props){
-    const [nameActioncamera,setNameActioncamera]=useState("運動攝影機")
+    const [englishnameActioncamera,setEnglishnameActioncamera]=useState("ACTION CAMERA")
     console.log(props)
     console.log(props.data)
     useEffect(()=>{
@@ -31,7 +31,7 @@ function Actioncamera(props){
                 <section className="chin-section">
                 <Commoditylist/>
                     <div className="chin-commodity-title">
-                    <CompareProductSort  name={nameActioncamera}/>
+                    <CompareProductSort  data={props.data} englishname={englishnameActioncamera}/>
                         <div className="chin-commodity">
                             {props.data.map((val,ind)=>{
                                 return(
