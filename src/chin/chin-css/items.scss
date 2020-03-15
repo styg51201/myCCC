@@ -19,6 +19,22 @@
   display: flex;
   justify-content: space-between;
 }
+.chin-brand {
+  height: 0px;
+  visibility: hidden;
+}
+.chin-brand2 {
+  height: auto;
+  visibility: visible;
+}
+.chin-features {
+  height: 0px;
+  visibility: hidden;
+}
+.chin-features2 {
+  height: auto;
+  visibility: visible;
+}
 .chin-commodity-title {
   width: 1000px;
   display: flex;
@@ -99,7 +115,6 @@
   visibility: hidden;
   z-index: 3;
   box-shadow: 0 0 8px #a0a0a0;
-  border: 1px solid #ddd;
 }
 .chin-featuredproducts2 {
   visibility: visible;
@@ -114,6 +129,10 @@
 }
 .chin-featuredproducts li:nth-child(1) {
   margin-top: 45px;
+}
+.chin-featuredproducts li:hover {
+  background: rgb(211, 211, 211);
+  cursor: pointer;
 }
 .chin-comparegoods-sort {
   display: flex;
