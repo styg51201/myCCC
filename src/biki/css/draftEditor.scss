@@ -1,0 +1,36 @@
+@import '../../css/variables.scss';
+
+.bk-draft-editor-container{
+    border: solid 1px black;
+    padding: $spacing;
+}
+
+.bk-draft-toolbar{
+    display: flex;
+ 
+    button{
+        width: 30px;
+        height: 30px;
+        background-color: transparent;
+        border: none;
+
+        &.active svg{
+            stroke-width: 3px;
+        }
+    }
+}
+
+.DraftEditor-editorContainer{
+    border: solid 1px black;
+    padding: $spacing 0;
+}
+
+.public-DraftEditorPlaceholder-root{
+    height: 100%;
+    padding: $spacing 0;
+    top: 0;
+}
+
+.bk-submit-btn{
+    @include buttonTheme(blackStyle);
+}

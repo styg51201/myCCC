@@ -15,6 +15,8 @@ import Header from './components/common/Header'
 //import biki
 import Home from './biki/Home'
 import Stories from './biki/Stories'
+import DraftEditor from './biki/DraftEditor'
+
 //import chin
 import Headset from './chin/Headset'
 import Watch from './chin/Watch'
@@ -103,6 +105,9 @@ function App() {
         </Route>
         <Route path="/stories"> 
           <Stories />
+        </Route>
+        <Route path="/upload-stories">
+          <DraftEditor />
         </Route>
         </Switch>
       </Container>
