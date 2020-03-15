@@ -31,7 +31,7 @@ function Watch(props){
                 <section className="chin-section">
                 <Commoditylist/>
                     <div className="chin-commodity-title">
-                    <CompareProductSort name={nameWatch}/>
+                    <CompareProductSort data={props.data}/>
                         <div className="chin-commodity">
                             {props.data.map((val,ind)=>{
                                 return(
