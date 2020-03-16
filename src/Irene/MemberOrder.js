@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button, Table } from 'react-bootstrap'
 
@@ -8,10 +8,16 @@ import './I_css/MemberOrder.scss'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { FaInfoCircle } from 'react-icons/fa'
+import $ from 'jquery'
 
 function MemberOrder() {
   const [startDate, setStartDate] = useState(new Date('2020/01/01'))
   const [endDate, setEndDate] = useState(new Date(new Date()))
+
+  useEffect(() => {
+    $('.memberorderdetail').click(() => alert('click'))
+  }, [])
+
   return (
     <>
       <div className="row d-flex">
@@ -101,7 +107,7 @@ function MemberOrder() {
                     {' '}
                     訂單編號
                     <button
-                      class="btn"
+                      class="btn memberorderdetail"
                       type="button"
                       data-toggle="collapse"
                       data-target="#collapseExample"
