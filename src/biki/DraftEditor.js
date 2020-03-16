@@ -12,7 +12,7 @@ import {
     FiAlignRight
   } from 'react-icons/fi'
 
-import '/Users/biki/Desktop/ccc/node_modules/draft-js/dist/Draft.css'
+import './css/Draft.css'
 import './css/draftEditor.scss'
 
 import { connect } from 'react-redux'
