@@ -1,1 +1,1 @@
-json-server --watch --port 5555 coupon.json
+json-server --watch --port 5555 member.json
