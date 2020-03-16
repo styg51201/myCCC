@@ -12,10 +12,11 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData } from '../actions/index'
+import { formServerItemsData } from './actions/itemsActions'
 
 
 function Actioncamera(props){
+    const [englishnameActioncamera,setEnglishnameActioncamera]=useState("ACTION CAMERA")
     console.log(props)
     console.log(props.data)
     useEffect(()=>{
@@ -30,7 +31,7 @@ function Actioncamera(props){
                 <section className="chin-section">
                 <Commoditylist/>
                     <div className="chin-commodity-title">
-                    <CompareProductSort/>
+                    <CompareProductSort  data={props.data} englishname={englishnameActioncamera}/>
                         <div className="chin-commodity">
                             {props.data.map((val,ind)=>{
                                 return(

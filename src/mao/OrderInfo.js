@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
 
 function OrderInfo(){
-
 function getMonth(){
     let MonthBox=[]
         for(let i=1;i<=12;i++){

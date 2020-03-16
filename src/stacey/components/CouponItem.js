@@ -2,12 +2,11 @@ import React,{useState,useEffect} from 'react'
 import classNames from 'classnames'
 import img from '../img/Swatch.jpg'
 
-
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {getCoupon} from '../../actions/index'
+import {getCoupon} from '../actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
@@ -19,6 +18,7 @@ function CouponItem(props){
 
   // const [couponState,setCouponState] = useState('領取')
   
+
   // 設定按鈕裡的字樣
   let couponState = '領取'
   if(props.data.geted){

@@ -1,0 +1,53 @@
+@import "../../css/variables.scss";
+
+.bk-draft-editor-container {
+  border: solid 1px black;
+  padding: 0 $spacing $spacing $spacing;
+
+  .align-center .public-DraftStyleDefault-ltr {
+    text-align: center;
+  }
+  .align-right .public-DraftStyleDefault-ltr {
+    text-align: right;
+  }
+}
+
+.bk-draft-toolbar {
+  display: flex;
+
+  button {
+    margin: $spacing/2;
+    background-color: transparent;
+    border: none;
+    font-size: $icon-regular;
+
+    svg {
+      stroke: $grey;
+    }
+
+    &.active svg {
+      stroke: $black;
+    }
+  }
+}
+
+.DraftEditor-editorContainer {
+  border-top: solid 1px black;
+  padding: $spacing 0;
+  min-height: 300px;
+
+  &:hover {
+    cursor: text;
+  }
+}
+
+.public-DraftEditorPlaceholder-root {
+  height: 100%;
+  padding: $spacing 0;
+  top: 0;
+}
+
+.bk-submit-btn {
+  margin-top: $spacing;
+  @include buttonTheme(blackStyle);
+}

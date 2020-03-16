@@ -2,9 +2,7 @@ import React from 'react'
 
 
 function Commoditycomponents(props){
-    console.log(props.data.name)
     return(
-       <div className="chin-commodity">
         <div className="chin-commodity-item">
             <ul className="chin-star-heart-bag">
                 <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
@@ -22,7 +20,6 @@ function Commoditycomponents(props){
             <p>{props.data.itemName}</p>
             <h5>NT${props.data.itemPrice}</h5>
         </div>
-    </div>
     )
 }
 

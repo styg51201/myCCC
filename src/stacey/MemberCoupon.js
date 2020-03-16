@@ -11,7 +11,7 @@ import MemberCouponItem from './components/MemberCouponItem'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {formServerCouponData} from '../actions/index'
+import {formServerCouponData} from './actions/couponAction'
 
 function MemberCoupon(props) {
   // console.log(props)

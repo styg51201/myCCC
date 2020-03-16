@@ -12,10 +12,11 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData } from '../actions/index'
+import { formServerItemsData } from './actions/itemsActions'
 
 
 function Surrounding(props){
+    const [englishnameSurrounding,setEnglishnameSurrounding]=useState("SURROUNDING")
     console.log(props)
     console.log(props.data)
     useEffect(()=>{
@@ -28,9 +29,9 @@ function Surrounding(props){
         <>
             <main className="chin-main">
                 <section className="chin-section">
-                <Commoditylist/>
+                <Commoditylist />
                     <div className="chin-commodity-title">
-                    <CompareProductSort/>
+                    <CompareProductSort data={props.data} englishname={englishnameSurrounding}/>
                         <div className="chin-commodity">
                             {props.data.map((val,ind)=>{
                                 return(

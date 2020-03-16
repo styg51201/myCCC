@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
+
 import './css/all.scss'
 import './css/stories.scss'
 
 import StoryCard from './components/StoryCard'
 
 function Stories(){
+
     return(
         <>
             <main className="mt-5">
@@ -17,6 +19,7 @@ function Stories(){
                     <StoryCard />
                     <StoryCard />
                 </Row>
+                <Link to="/upload-stories">Post your story</Link>
             </main>
         </>
     )

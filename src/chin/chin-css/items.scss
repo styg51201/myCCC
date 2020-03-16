@@ -1,3 +1,6 @@
+@import '../../css/variables';
+@import '../../css/main.scss';
+
 .chin-main {
   display: flex;
   flex-direction: column;
@@ -10,11 +13,27 @@
 .chin-price {
   padding: 20px;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: $font-bold;
   height: 65px;
   border-bottom: 1px solid #a0a0a0;
   display: flex;
   justify-content: space-between;
+}
+.chin-brand {
+  height: 0px;
+  visibility: hidden;
+}
+.chin-brand2 {
+  height: auto;
+  visibility: visible;
+}
+.chin-features {
+  height: 0px;
+  visibility: hidden;
+}
+.chin-features2 {
+  height: auto;
+  visibility: visible;
 }
 .chin-commodity-title {
   width: 1000px;
@@ -30,9 +49,9 @@
     letter-spacing: 2px;
     margin-left: 15px;
     line-height: 50px;
-    color: #050505;
+    color: $black;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: $font-bold;
     font-family: Helvetica Neue;
     &:nth-child(2) {
       margin-left: 44px;
@@ -41,12 +60,12 @@
   }
 }
 .chin-comparegoods {
-  background: #0ac3ae;
+  background: $blue;
   border: none;
   color: white;
   width: 140px;
   height: 40px;
-  margin-right: 20px;
+  margin: 5px 20px 0 0;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -54,21 +73,66 @@
     font-size: 16px;
   }
 }
+.chin-sort-featuredproducts {
+  position: relative;
+  width: 200px;
+  margin: 5px 10px 0 0;
+}
 .chin-sort {
-  background: #a0a0a0;
+  position: absolute;
+  right: 0;
+  background: #ddd;
   border: none;
-  color: white;
-  width: 140px;
+  color: $black;
   height: 40px;
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  cursor: pointer;
+  z-index: 4;
   span {
-    margin-right: 25px;
+    margin-right: 5px;
   }
 }
 .chin-sort img {
-  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+}
+.chin-sort2 {
+  transition: 0.3s;
+  transform: rotate(180deg);
+}
+.chin-sort3 {
+  transition: 0.3s;
+  transform: rotate(0deg);
+}
+.chin-featuredproducts {
+  list-style: none;
+  text-align: right;
+  position: absolute;
+  opacity: 0;
+  transition: 0.3s;
+  visibility: hidden;
+  z-index: 3;
+  box-shadow: 0 0 8px #a0a0a0;
+}
+.chin-featuredproducts2 {
+  visibility: visible;
+  opacity: 1;
+}
+.chin-featuredproducts li {
+  background: #ddd;
+  color: $black;
+  padding: 0 30px 0 10px;
+  width: 200px;
+  height: 40px;
+}
+.chin-featuredproducts li:nth-child(1) {
+  margin-top: 45px;
+}
+.chin-featuredproducts li:hover {
+  background: rgb(211, 211, 211);
+  cursor: pointer;
 }
 .chin-comparegoods-sort {
   display: flex;
@@ -87,12 +151,12 @@
   margin: 20px 20px 20px 21px;
   width: 280px;
   height: 400px;
-  background: #fff;
+  background: $white;
   p {
     margin: 2px 0 12px 0;
     font-size: 17px;
-    font-weight: bold;
-    color: #050505;
+    font-weight: $font-bold;
+    color: $black;
     text-align: center;
   }
 }
@@ -100,7 +164,7 @@
   text-align: center;
   margin: 0;
   font-size: 15px;
-  font-weight: bold;
+  font-weight: $font-bold;
   color: #a0a0a0;
 }
 .chin-commodity-item h5 {
@@ -109,36 +173,108 @@
   color: #0dd2c5;
   text-align: center;
 }
+.chin-commodity-item:hover {
+  box-shadow: 0px 0px 9px #a0a0a0;
+}
 .chin-star-heart-bag {
   list-style: none;
   display: flex;
-  margin: 5px 0 0 15px;
+  margin: 25px 0 0 25px;
   padding: 0;
   align-items: flex-start;
+  position: relative;
 }
-.chin-star {
+.chin-star-heart-bag :nth-child(1) > .chin-star {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
   width: 15px;
   height: 15px;
-  margin: 0 7.2px 0 0;
+}
+.chin-commodity-item:hover .chin-star-heart-bag :nth-child(1) > .chin-star {
+  opacity: 1;
+}
+.chin-star-heart-bag :nth-child(2) > .chin-star {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item:hover .chin-star-heart-bag :nth-child(2) > .chin-star {
+  opacity: 1;
+  left: 20px;
+}
+.chin-star-heart-bag :nth-child(3) > .chin-star {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item:hover .chin-star-heart-bag :nth-child(3) > .chin-star {
+  opacity: 1;
+  left: 40px;
+}
+.chin-star-heart-bag :nth-child(4) > .chin-star {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item:hover .chin-star-heart-bag :nth-child(4) > .chin-star {
+  opacity: 1;
+  left: 60px;
+}
+.chin-star-heart-bag :nth-child(5) > .chin-star {
+  position: absolute;
+  transition: 0.3s;
+  opacity: 0;
+  width: 15px;
+  height: 15px;
+  left: 0;
+}
+.chin-commodity-item:hover .chin-star-heart-bag :nth-child(5) > .chin-star {
+  opacity: 1;
+  left: 80px;
 }
 .chin-bag {
-  width: 20.31px;
-  height: 20.18px;
+  position: absolute;
+  top: 0;
+  right: 8%;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition: 0.3s;
+}
+.chin-commodity-item:hover .chin-bag {
+  opacity: 1;
+  top: 30px;
 }
 .chin-heart {
-  width: 20.47px;
-  height: 18.59px;
-  margin: 7px 0 10px 0;
+  position: absolute;
+  top: 0;
+  right: 8%;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  transition: 0.3s;
+}
+.chin-commodity-item:hover .chin-heart {
+  opacity: 1;
 }
 .chin-watch {
-  margin: 15px 20px;
+  margin: 40px 35px 15px 35px;
   width: 210px;
   height: 210px;
 }
 .chin-heart-bag {
   display: flex;
   flex-direction: column;
-  margin-left: 115px;
 }
 .circle {
   display: flex;
@@ -147,9 +283,9 @@
 .circle1 {
   width: 58px;
   height: 58px;
-  border: 1px solid #050505;
+  border: 1px solid $black;
   border-radius: 50%;
-  background: #050505;
+  background: $black;
   margin: 168px 0 189px 0;
   display: flex;
   flex-direction: row;
@@ -159,8 +295,107 @@
 .circle3 {
   width: 5px;
   height: 5px;
-  border: 1px solid #fff;
+  border: 1px solid $white;
   border-radius: 50%;
-  background: #fff;
+  background: $white;
   margin: 2px;
+}
+/*--------------RWD------------------*/
+.chin-rwd-sort-features {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .chin-title-text {
+    display: flex;
+    flex-direction: column;
+  }
+  .chin-title-text span:nth-child(1) {
+    font-size: 22px;
+    margin: 0 auto;
+  }
+  .chin-title-text span:nth-child(2) {
+    margin: 0 auto;
+  }
+  .chin-rwd-sort-features {
+    display: flex;
+    justify-content: space-between;
+  }
+  .chin-rwd-features {
+    background: $white;
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+    width: 159px;
+    height: 42px;
+  }
+  .chin-rwd-sort {
+    background: $white;
+    border: 1px solid #c4c4c4;
+    border-radius: 5px;
+    width: 159px;
+    height: 42px;
+  }
+  .chin-comparegoods {
+    margin-left: 20px;
+  }
+  .chin-commoditylist {
+    display: none;
+  }
+  .chin-title {
+    flex-direction: column;
+  }
+  .chin-comparegoods-sort {
+    display: none;
+  }
+  .chin-commodity {
+    justify-content: space-between;
+    margin-top: 40px;
+  }
+  .chin-commodity-item {
+    background: #ddd;
+    width: 155px;
+    height: 363px;
+    margin: 0;
+  }
+  .chin-commodity-item h6 {
+    margin-top: 10px;
+    font-size: 12px;
+  }
+  .chin-commodity-item h5 {
+    font-size: 15px;
+  }
+  .chin-commodity-item p {
+    margin-top: 10px;
+    font-size: $font-xs;
+  }
+  .chin-watch {
+    width: 155px;
+    height: 206px;
+    margin: 0;
+  }
+  .chin-commodity-item:hover {
+    box-shadow: unset !important;
+  }
+  .chin-star-heart-bag :nth-child(1) > .chin-star {
+    position: absolute;
+    transition: 0.3s;
+    opacity: 0;
+    width: 15px;
+    height: 15px;
+  }
+  .chin-star {
+    display: none;
+  }
+  .chin-bag {
+    display: none;
+  }
+  .chin-heart {
+    position: absolute;
+    top: 0;
+    right: 8%;
+    width: 20px;
+    height: 20px;
+    opacity: 1;
+    transition: 0.3s;
+  }
 }
