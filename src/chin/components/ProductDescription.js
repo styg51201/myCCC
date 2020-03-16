@@ -6,11 +6,11 @@ function ProductDescription(){
         <h6>Audio-Technica</h6>
         <h5>智慧型手機專用耳塞式耳機</h5>
         <div className="chin-starimg">
-          <img src="./chin-img/star.svg" alt="" />
-          <img src="./chin-img/star.svg" alt="" />
-          <img src="./chin-img/star.svg" alt="" />
-          <img src="./chin-img/star.svg" alt="" />
-          <img src="./chin-img/star.svg" alt="" />
+          <img src="/chin-img/star.svg" alt="" />
+          <img src="/chin-img/star.svg" alt="" />
+          <img src="/chin-img/star.svg" alt="" />
+          <img src="/chin-img/star.svg" alt="" />
+          <img src="/chin-img/star.svg" alt="" />
         <span>4.0 (5)</span>
         </div>
         <h4>NT$6,400</h4>
@@ -23,9 +23,9 @@ function ProductDescription(){
         <div className="chin-myfavourite-shopping">
           <div className="chin-myfavourite">
            <div>
-              <img src="./chin-img/minus-circle.svg" alt="" />
+              <img src="/chin-img/minus-circle.svg" alt="" />
               <span>1</span>
-              <img src="./chin-img/plus-circle.svg" alt="" />
+              <img src="/chin-img/plus-circle.svg" alt="" />
             </div>
             <div className="chin-shopping">
               <button>加入購物車</button>
@@ -33,7 +33,7 @@ function ProductDescription(){
             </div>
           </div>
           <div className="chin-favourite">
-            <img src="./chin-img/heart.svg" alt="" />
+            <img src="/chin-img/heart.svg" alt="" />
             <span>加入我的最愛</span>
           </div>
         </div>

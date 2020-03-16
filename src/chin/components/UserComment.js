@@ -9,48 +9,48 @@ function UserComment(){
           <div className="chin-fractionalstars">
             <div className="chin-fractional">
               <p>4.0</p>
-              <img src="./chin-img/star.svg" alt="" />
-              <img src="./chin-img/star.svg" alt="" />
-              <img src="./chin-img/star.svg" alt="" />
-              <img src="./chin-img/star.svg" alt="" />
-              <img src="./chin-img/star.svg" alt="" />
+              <img src="/chin-img/star.svg" alt="" />
+              <img src="/chin-img/star.svg" alt="" />
+              <img src="/chin-img/star.svg" alt="" />
+              <img src="/chin-img/star.svg" alt="" />
+              <img src="/chin-img/star.svg" alt="" />
               <p>6則評論</p>
             </div>
             <div className="chin-commentstars">
               <div>
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
               </div>
               <div>
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
               </div>
               <div>
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
               </div>
               <div>
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
               </div>
               <div>
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
-                <img src="./chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
+                <img src="/chin-img/star.svg" alt="" />
               </div>
             </div>
           </div>
@@ -63,21 +63,21 @@ function UserComment(){
         <div className="chin-sortspan">
             <button>
               <span>排序</span>
-              <img src="./chin-img/chevron-down-black.svg" alt="" />
+              <img src="/chin-img/chevron-down-black.svg" alt="" />
             </button>
         </div>
       </div>
       <div className="chin-avatar-name-p">
         <div className="chin-avatar-name">
           <div className="chin-avatar">
-            <img src="./chin-img/images/watch.jpg" alt="" />
+            <img src="/chin-img/images/watch.jpg" alt="" />
           </div>
           <div>
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
             <h6>Mary Chu</h6>
             <span>1個月前</span>
           </div>
@@ -107,14 +107,14 @@ function UserComment(){
       <div className="chin-avatar-name-p">
         <div className="chin-avatar-name">
           <div className="chin-avatar">
-            <img src="./chin-img/images/watch.jpg" alt="" />
+            <img src="/chin-img/images/watch.jpg" alt="" />
           </div>
           <div>
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
-            <img src="./chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
+            <img src="/chin-img/star.svg" alt="" />
             <h6>Mary Chu</h6>
             <span>1個月前</span>
           </div>

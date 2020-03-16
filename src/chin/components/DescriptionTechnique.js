@@ -3,8 +3,7 @@ import React from 'react'
 
 function DescriptionTechnique(){
     return(<>
-
-<div className="chin-productdescription-technicalspecifications">
+    <div className="chin-productdescription-technicalspecifications">
         <div className="chin-productdescription">
           <h3>商品敘述</h3>
             <p>澡收土英立花斤竹肖母肖後。下說室跑青打戊浪師昌至飯第物肉美，夕故詞蝴它！占果風寸話衣像杯找個錯貫，封京海書皮能用東問放刀，姐占跑內，陽新門香媽裏明刃心點西反已半想孝，巾背占良婆目愛背園禾。
