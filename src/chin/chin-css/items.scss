@@ -14,6 +14,7 @@ a:hover {
   width: 300px;
 }
 .chin-price {
+  cursor: pointer;
   padding: 20px;
   font-size: 18px;
   font-weight: $font-bold;
@@ -21,6 +22,38 @@ a:hover {
   border-bottom: 1px solid #a0a0a0;
   display: flex;
   justify-content: space-between;
+}
+.chin-price2 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-price3 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-price4 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-checkbox {
 }
 .chin-brand {
   height: 0px;

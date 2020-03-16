@@ -52,7 +52,7 @@ function Commidty(props) {
             <ProductDescription/>
           </div>
         </div>
-       <DescriptionTechnique/>
+        <DescriptionTechnique/>
         <UserComment/>
         <RelatedHistory/>
       </main>
