@@ -3,7 +3,7 @@ import {productList} from './ProductList'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {getShopCart,AddCart,realCart } from './actions/ShopCartAction'
+import {getShopCart,AddCart,realCart,AddCartNewItem } from './actions/ShopCartAction'
 
 
 function ProductSlide(props){
@@ -40,11 +40,7 @@ useEffect(()=>{
                 <h4 className="card-title">{v.pName}</h4>
                 <p>${v.price}</p>
                 {/* <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> */}
-                <button className="btn btn-primary" onClick={()=>
-                {
-                    props.realCart(RealCart)
-                    props.AddCart(v.pId)
-                }}>加入購物車</button>
+                <button className="btn btn-primary" onClick={()=>{props.AddCartNewItem(v.pId,props.data)}}>加入購物車</button>
             </div>
         </>
     )
@@ -75,7 +71,7 @@ const mapStateToProps = store => {
   const mapDispatchToProps = dispatch => {
     return bindActionCreators(
       {
-        getShopCart,AddCart,realCart
+        getShopCart,AddCart,realCart,AddCartNewItem
       },
       dispatch
     )
