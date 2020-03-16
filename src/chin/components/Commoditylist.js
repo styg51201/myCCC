@@ -1,25 +1,27 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import Features from '../small components/Features'
+import Brand from '../small components/Brand'
+import Price from '../small components/Price'
+import Discount from '../small components/Discount'
+
 
 function Commoditylist(){
+    
     return(
-        <div className="chin-commoditylist">
-            <div className="chin-price">
-                <span>價格</span>
-                <img src="./chin-img/chevron-up.svg" alt=""/>
-            </div>
-            <div className="chin-price">
-                <span>品牌</span>
-                <img src="./chin-img/chevron-up.svg" alt=""/>
-            </div>
-            <div className="chin-price">
-                <span>功能</span>
-                <img src="./chin-img/chevron-up.svg" alt=""/>
-            </div>
-            <div className="chin-price">
-                <span>優惠</span>
-                <img src="./chin-img/chevron-up.svg" alt=""/>
-            </div>
-        </div>
+        <ul className="chin-commoditylist">
+            <li>
+                <Price/>
+            </li>
+            <li>
+               <Brand/>
+            </li>
+            <li>
+                <Features/>
+            </li>
+            <li>
+               <Discount/>
+            </li>
+        </ul>
          )
 }
 

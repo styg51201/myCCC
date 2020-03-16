@@ -1,52 +1,17 @@
 import React, { useState,useEffect } from 'react'
 import './css/mao.css'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
-import { withRouter ,Link} from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getShopCart,addValue,minusValue} from '../actions/index'
+import { getShopCart,addValue,minusValue,AddCart,realCart} from '../actions/index'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
+import {productList} from './ProductList'
+import ProductSlide from './ProductSlide'
 function ShopCartList(props) {
-  console.log(props)
-  const productList = [
-    {
-      id: 1,
-      pId: 'p001',
-      pName: 'Apple Watch Nike1',
-      price: 100,
-    },
-    {
-      id: 2,
-      pId: 'p002',
-      pName: 'Apple Watch Nike2',
-      price: 200,
-    },
-    {
-      id: 3,
-      pId: 'p003',
-      pName: 'Apple Watch Nike3',
-      price: 300,
-    },
-    {
-      id: 4,
-      pId: 'p004',
-      pName: 'Apple Watch Nike4',
-      price: 400,
-    },
-    {
-      id: 5,
-      pId: 'p005',
-      pName: 'Apple Watch Nike5',
-      price: 500,
-    },
-    {
-      id: 6,
-      pId: 'p006',
-      pName: 'Apple Watch Nike6',
-      price: 600,
-    },
-  ]
 
+
+  // 從產品ID轉換成產品名稱
   function checkProduct(val) {
     productList.map((v, i) => {
       if (val == v.pId) {
@@ -56,6 +21,7 @@ function ShopCartList(props) {
     return val
   }
   
+  // 從ID去獲取產品的價格
   function checkProductPrice(val) {
     productList.map((v, i) => {
       if (val == v.pId) {
@@ -70,70 +36,115 @@ function ShopCartList(props) {
   useEffect(() => {
     checkProduct()
     props.getShopCart()
-  }, [])
-  // console.log(props.data[0])
-  let shopBox=props.data
-  const dataList = props.data.map((v, i) => {
-    
-    return (
-      <li key={v.Id} className="d-flex Mao-shopcart-check-item">
-        <img src="https://fakeimg.pl/100/" alt="" />
-        <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
-          <p>{checkProduct(v.pId)}</p>
-          <div className="d-flex justify-content-between">
-            <p style={{ width: '25%' }}>${checkProductPrice(v.pId)}</p>
-            <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
-              <button className="btn btn-danger" 
-                onClick={() => {
-                  props.minusValue(1)
-                }}>-</button>
-              <input
-                placeholder=""
-                value={props.handlecount+v.count}
-                type="text"
-                id="count-value"
-                className="text-center w-50 m-0"
-              />
-              <Link to='./ShopCartList'
-                className="btn btn-danger"
-                onClick={() => {
-                  props.addValue(1)
-                }}
-              >
-                +
-              </Link>
-            </div>
-          </div>
-        </div>
-        <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
-          <div className="border d-flex align-items-center">
-            <img src="..\img\header-footer\heart.svg" alt="" />
-            <span>刪除</span>
-          </div>
-          <div className="border d-flex align-items-center">
-            <img src="..\img\header-footer\search.svg" alt="" />
-            <span>下次購買</span>
-          </div>
-        </div>
-      </li>
-    )
+  }, [props.handlecount])
+  // let ServerCart=[]
+  
+  let checkBox=[] //儲存產品項目購物車
+  let RealCart=[] //統整checkBox的品項，然後最後送至資料庫
+
+  //從資料庫叫出的購物車內容加入checkBox & RealCart
+  const ShopCartFromServer=props.data.map((v,i)=>{
+    let val=v.pId
+    let count=v.count
+    checkBox.push(val)
+    RealCart.push({pId:val,count:count})
   })
-  
-  let productBtn=(
-    productList.map((v,i)=>{
-      return(
-        <button className="btn btn-dark">+</button>
-      )})
+  console.log('checkBox',checkBox)
+
+  // 顯示購物車內容
+  　//將資料庫叫的購物車丟入
+
+  let count=0; //加入數量使用
+
+  //從reducer取得的產品進行加入購物車的行為，並且判斷產品是否有相同的，如果相同則數量+1
+  // 品項篩入checkBox，整理後的加入RealCart
+  const shopcartItem=props.AddItem.map((v,i)=>{
+    // let sameVal=el=>el=v.value
+    if(checkBox.indexOf(v.value)==-1){
+      checkBox.push(v.value)
+      let val=v.value
+      RealCart.push({pId:val,count:1})
+      // console.log('checkBox',checkBox)
+    }else{
+      RealCart.map((val,index)=>{
+        if(val.pId==v.value){
+          val.count+=1
+        }
+      })
+    }
+  })
+
+//驗證購物車作用的狀況
+const displayRealCart=RealCart.map((v,i)=>{
+  return (
+    <li>產品：{v.pId} / 數量：{v.count}</li>
   )
+})
+
+// 購物車內容顯示　要再做調整
+const dataList = props.data.map((v, i) => {
+  return (
+    <li key={v.Id} className="d-flex Mao-shopcart-check-item">
+      <img src="https://fakeimg.pl/100/" alt="" />
+      <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
+        <p>{checkProduct(v.pId)}</p>
+        <div className="d-flex justify-content-between">
+          <p style={{ width: '25%' }}>${checkProductPrice(v.pId)}</p>
+          <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
+            <button className="btn btn-danger" 
+              onClick={() => {
+                props.minusValue(1)
+              }}>-</button>
+            <input
+              placeholder=""
+              // value={props.handlecount*1+v.count*1}
+              value={props.handlecount*1+v.count*1}
+              type="text"
+              id="count-value"
+              className="text-center w-50 m-0"
+            />
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                props.addValue(1)
+              }}
+            >
+              +
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
+        <div className="border d-flex align-items-center">
+          <img src="..\img\header-footer\heart.svg" alt="" />
+          <span>刪除</span>
+        </div>
+        <div className="border d-flex align-items-center">
+          <img src="..\img\header-footer\search.svg" alt="" />
+          <span>下次購買</span>
+        </div>
+      </div>
+    </li>
+  )
+})
+  // 如果沒有購物車內沒有品項顯示的畫面
+  const CartNoItem = (<h3 className="Mao-shopcart-check-item">購物內車目前沒有產品</h3>)
   
+ 
+  
+
   return (
     <>
       <div className="d-flex">
-        <ul>{dataList}</ul>
+        <ul>{props.data.length>0?dataList:CartNoItem}</ul>
         <MaoCartShopTotal/>
       </div>
-      {productBtn}
-
+      <ProductSlide/>
+      <div>
+      <h2>傳輸內容</h2>
+        <ul className="list-unstyled">{displayRealCart.length>0?displayRealCart:CartNoItem}</ul>
+      </div>
+      
     </>
   )
 }
@@ -143,7 +154,9 @@ function ShopCartList(props) {
 const mapStateToProps = store => {
   return {
     data: store.getShop,
-    handlecount:store.AddShopCartCount
+    handlecount:store.counter,
+    AddItem:store.AddItem,
+    Cart:store.displayShopCart
   }
 }
 
@@ -152,7 +165,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       getShopCart,
-      addValue,minusValue,
+      addValue,minusValue,AddCart,realCart
     },
     dispatch
   )
