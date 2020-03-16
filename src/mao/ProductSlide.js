@@ -3,7 +3,7 @@ import {productList} from './ProductList'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {getShopCart,AddCart,realCart } from '../actions/index'
+import {getShopCart,AddCart,realCart } from './actions/ShopCartAction'
 
 
 function ProductSlide(props){
