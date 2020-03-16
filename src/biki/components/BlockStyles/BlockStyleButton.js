@@ -8,9 +8,9 @@ function BlockStyleButton(props){
 	};
 
 
-    let className = "RichEditor-styleButton";
+    let className = "";
     if (props.active) {
-        className += " RichEditor-activeButton";
+        className += "active";
     }
 
     return (
