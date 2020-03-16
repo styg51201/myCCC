@@ -1,8 +1,28 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+import { BrowserRouter as Router, Route, Link, Switch ,withRouter} from 'react-router-dom'
 import './chin-css/commidty.scss'
 import '../css/main.scss'
 
-function Commidty(){
+import img from './headset.jpg'
+
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import { commidtyItemId } from './actions/itemsActions'
+
+function Commidty(props){
+  // let student = null
+  console.log('789',props)
+  console.log(props.data)
+  console.log(props)
+  console.log(props.match.params.itemId)
+
+  const itemId = props.match.params.itemId
+
+  useEffect(()=>{
+    props.commidtyItemId(itemId)
+  },[])
 
   return(
     <>
@@ -11,7 +31,7 @@ function Commidty(){
         <div className="chin-productdetails">
           <div>
             <div className="chin-bigitem">
-              <img src="./chin-img/images/headset6.jpg" alt="" />
+              <img src={`./chin-img/images/${props.data.itemImg}`} alt="" />
             </div>
             <div className="chin-smallitem">
               <img src="./chin-img/chevron-left.svg" alt="" />
@@ -342,4 +362,16 @@ function Commidty(){
     )
   }
 
-export default Commidty
+  // 選擇對應的reducer
+const mapStateToProps = store => {
+  return { data: store.getItemId}
+}
+
+//action
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({
+    commidtyItemId
+  },dispatch)
+}
+
+export default withRouter (connect(mapStateToProps,mapDispatchToProps)(Commidty))

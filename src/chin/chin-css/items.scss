@@ -1,6 +1,9 @@
 @import '../../css/variables';
 @import '../../css/main.scss';
 
+a:hover {
+  text-decoration: none;
+}
 .chin-main {
   display: flex;
   flex-direction: column;
@@ -149,6 +152,7 @@
 }
 .chin-commodity-item {
   margin: 20px 20px 20px 21px;
+  padding-top: 1px;
   width: 280px;
   height: 400px;
   background: $white;

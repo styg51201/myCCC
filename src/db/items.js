@@ -30,6 +30,13 @@ router.get('/surrounding', (req, res)=>{
         return res.json(r)
     })
 })
-
+router.get('/commidty/:itemId?',(req,res)=>{
+    // res.json(req.params);
+    let sql='SELECT * FROM `items` WHERE `itemId` = ?'
+    db.queryAsync(sql,[req.params.itemId])
+    .then(r=>{
+        return res.json(r)
+    })
+})
 
 module.exports = router;
