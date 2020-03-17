@@ -1,36 +1,53 @@
-@import '../../css/variables.scss';
+@import "../../css/variables.scss";
 
-.bk-draft-editor-container{
-    border: solid 1px black;
-    padding: $spacing;
+.bk-draft-editor-container {
+  border: solid 1px black;
+  padding: 0 $spacing $spacing $spacing;
+
+  .align-center .public-DraftStyleDefault-ltr {
+    text-align: center;
+  }
+  .align-right .public-DraftStyleDefault-ltr {
+    text-align: right;
+  }
 }
 
-.bk-draft-toolbar{
-    display: flex;
- 
-    button{
-        width: 30px;
-        height: 30px;
-        background-color: transparent;
-        border: none;
+.bk-draft-toolbar {
+  display: flex;
 
-        &.active svg{
-            stroke-width: 3px;
-        }
+  button {
+    margin: $spacing/2;
+    background-color: transparent;
+    border: none;
+    font-size: $icon-regular;
+
+    svg {
+      stroke: $grey;
     }
+
+    &.active svg {
+      stroke: $black;
+    }
+  }
 }
 
-.DraftEditor-editorContainer{
-    border: solid 1px black;
-    padding: $spacing 0;
+.DraftEditor-editorContainer {
+  border-top: solid 1px black;
+  padding: $spacing 0;
+  min-height: 300px;
+
+  &:hover {
+    cursor: text;
+  }
 }
 
-.public-DraftEditorPlaceholder-root{
-    height: 100%;
-    padding: $spacing 0;
-    top: 0;
+.public-DraftEditorPlaceholder-root {
+  height: 100%;
+  padding: $spacing 0;
+  top: 0;
 }
 
-.bk-submit-btn{
-    @include buttonTheme(blackStyle);
+.bk-submit-btn {
+  margin-top: $spacing;
+  @include buttonTheme(blackStyle);
 }

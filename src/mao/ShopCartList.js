@@ -4,13 +4,13 @@ import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getShopCart,addValue,minusValue,AddCart,realCart} from './actions/ShopCartAction'
+import { getShopCart,AddCart,realCart,AddCartItem} from './actions/ShopCartAction'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import {productList} from './ProductList'
 import ProductSlide from './ProductSlide'
 function ShopCartList(props) {
-
-
+const [load,setLoad]=useState(false)
+// console.log(props.data)
   // 從產品ID轉換成產品名稱
   function checkProduct(val) {
     productList.map((v, i) => {
@@ -36,20 +36,17 @@ function ShopCartList(props) {
   useEffect(() => {
     checkProduct()
     props.getShopCart()
-  }, [props.handlecount])
-  // let ServerCart=[]
+  }, [])
   
-  let checkBox=[] //儲存產品項目購物車
   let RealCart=[] //統整checkBox的品項，然後最後送至資料庫
 
   //從資料庫叫出的購物車內容加入checkBox & RealCart
   const ShopCartFromServer=props.data.map((v,i)=>{
     let val=v.pId
     let count=v.count
-    checkBox.push(val)
     RealCart.push({pId:val,count:count})
   })
-  console.log('checkBox',checkBox)
+  // console.log('RealCart',RealCart)
 
   // 顯示購物車內容
   　//將資料庫叫的購物車丟入
@@ -58,21 +55,20 @@ function ShopCartList(props) {
 
   //從reducer取得的產品進行加入購物車的行為，並且判斷產品是否有相同的，如果相同則數量+1
   // 品項篩入checkBox，整理後的加入RealCart
-  const shopcartItem=props.AddItem.map((v,i)=>{
-    // let sameVal=el=>el=v.value
-    if(checkBox.indexOf(v.value)==-1){
-      checkBox.push(v.value)
-      let val=v.value
-      RealCart.push({pId:val,count:1})
-      // console.log('checkBox',checkBox)
-    }else{
-      RealCart.map((val,index)=>{
-        if(val.pId==v.value){
-          val.count+=1
-        }
-      })
-    }
-  })
+  // const shopcartItem=props.AddItem.map((v,i)=>{
+  //   if(checkBox.indexOf(v.value)==-1){
+  //     checkBox.push(v.value)
+  //     let val=v.value
+  //     RealCart.push({pId:val,count:1})
+  //     // console.log('checkBox',checkBox)
+  //   }else{
+  //     RealCart.map((val,index)=>{
+  //       if(val.pId==v.value){
+  //         val.count+=1
+  //       }
+  //     })
+  //   }
+  // })
 
 //驗證購物車作用的狀況
 const displayRealCart=RealCart.map((v,i)=>{
@@ -80,9 +76,9 @@ const displayRealCart=RealCart.map((v,i)=>{
     <li>產品：{v.pId} / 數量：{v.count}</li>
   )
 })
-
+// console.log('RealCart',RealCart)
 // 購物車內容顯示　要再做調整
-const dataList = props.data.map((v, i) => {
+const dataList = RealCart.map((v, i) => {
   return (
     <li key={v.Id} className="d-flex Mao-shopcart-check-item">
       <img src="https://fakeimg.pl/100/" alt="" />
@@ -93,12 +89,13 @@ const dataList = props.data.map((v, i) => {
           <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
             <button className="btn btn-danger" 
               onClick={() => {
-                props.minusValue(1)
+                props.AddCartItem(false,i,props.data)
+                setLoad(!load)
               }}>-</button>
             <input
               placeholder=""
               // value={props.handlecount*1+v.count*1}
-              value={props.handlecount*1+v.count*1}
+              value={v.count*1}
               type="text"
               id="count-value"
               className="text-center w-50 m-0"
@@ -106,7 +103,8 @@ const dataList = props.data.map((v, i) => {
             <button
               className="btn btn-danger"
               onClick={() => {
-                props.addValue(1)
+                props.AddCartItem(true,i,props.data)
+                setLoad(!load)
               }}
             >
               +
@@ -153,8 +151,8 @@ const dataList = props.data.map((v, i) => {
 // 告訴redux該怎麼對應它的store中的state到這個元件的props的哪裡
 const mapStateToProps = store => {
   return {
-    data: store.getShop,
-    handlecount:store.counter,
+    //購物車內容
+    data: store.getShop, 
     AddItem:store.AddItem,
     Cart:store.displayShopCart
   }
@@ -164,8 +162,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      getShopCart,
-      addValue,minusValue,AddCart,realCart
+      getShopCart,AddCart,realCart,AddCartItem
     },
     dispatch
   )

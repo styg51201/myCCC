@@ -12,38 +12,15 @@ import {
     FiAlignRight
   } from 'react-icons/fi'
 
-
 export const BLOCK_TYPES = [
-	{ label: " “ ” ", style: "blockquote" },
+    { label: "bold", style: "BOLD", icon: <FiBold />},
+    { label: "italic", style: "ITALIC", icon: <FiItalic />},
+    { label: 'underline', style: 'UNDERLINE', icon: <FiUnderline />},
+    { label: 'align-center', style: "ALIGNCENTER", icon: <FiAlignCenter />},
+    { label: 'align-left', style: "ALIGNLEFT", icon: <FiAlignLeft />},
+    { label: 'align-right', style: "ALIGNRIGHT", icon: <FiAlignRight />},
 	{ label: "UL", style: "unordered-list-item" },
 	{ label: "OL", style: "ordered-list-item" },
-    { label: "{ }", style: "code-block" },
-    {
-        label: "bold",
-        style: "BOLD",
-        icon: <FiBold />
-    },{
-        label: "italic",
-        style: "ITALIC",
-        icon: <FiItalic />
-    },{
-        label: 'underline',
-        style: 'UNDERLINE',
-        icon: <FiUnderline />
-    },{
-        label: 'align-center',
-        style: "ALIGNCENTER",
-        icon: <FiAlignCenter />
-    }
-    ,{
-        label: 'align-left',
-        style: "ALIGNLEFT",
-        icon: <FiAlignLeft />
-    },{
-        label: 'align-right',
-        style: "ALIGNRIGHT",
-        icon: <FiAlignRight />
-    }
 ];
 
 export const HEADER_TYPES = [
@@ -76,6 +53,7 @@ function BlockStyleToolbar(props) {
         .getType();
 
     return (
+        <div className="bk-draft-toolba">
         <span className="RichEditor-controls">
             <HeaderStyleDropdown
                 headerOptions={HEADER_TYPES}
@@ -97,6 +75,7 @@ function BlockStyleToolbar(props) {
                 );
             })}
         </span>
+        </div>
     );
 
 }

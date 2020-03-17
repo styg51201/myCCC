@@ -93,7 +93,7 @@ function App() {
           <Route path="/surrounding">
             <Surrounding/>
           </Route>
-          <Route path="/commidty">
+          <Route path="/commidty/:itemId?">
             <Commidty/>
           </Route>
           <Route path="/comparepages">

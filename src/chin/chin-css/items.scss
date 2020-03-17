@@ -1,6 +1,9 @@
 @import '../../css/variables';
 @import '../../css/main.scss';
 
+a:hover {
+  text-decoration: none;
+}
 .chin-main {
   display: flex;
   flex-direction: column;
@@ -11,6 +14,7 @@
   width: 300px;
 }
 .chin-price {
+  cursor: pointer;
   padding: 20px;
   font-size: 18px;
   font-weight: $font-bold;
@@ -18,6 +22,104 @@
   border-bottom: 1px solid #a0a0a0;
   display: flex;
   justify-content: space-between;
+}
+.chin-price2 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-price3 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-price4 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-brand-checkbox {
+  position: relative;
+  width: 289px;
+  height: 45px;
+}
+.chin-brand-checkbox:hover {
+  background: rgb(211, 211, 211);
+}
+.chin-brand-checkbox2 {
+  position: relative;
+  width: 289px;
+  height: 45px;
+}
+.chin-brand-checkbox2:hover {
+  background: rgb(211, 211, 211);
+}
+.chin-brand-checkbox3 {
+  position: relative;
+  width: 289px;
+  height: 45px;
+}
+.chin-brand-checkbox3:hover {
+  background: rgb(211, 211, 211);
+}
+.chin-brand-checkbox4 {
+  position: relative;
+  width: 289px;
+  height: 45px;
+}
+.chin-brand-checkbox4:hover {
+  background: rgb(211, 211, 211);
+}
+.chin-brand-checkbox5 {
+  position: relative;
+  width: 289px;
+  height: 45px;
+}
+.chin-brand-checkbox5:hover {
+  background: rgb(211, 211, 211);
+}
+#color-input-red + label {
+  display: block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 10px;
+  left: 30px;
+  background: #a0a0a0;
+}
+#color-input-red:checked + label::before {
+  display: flex;
+  justify-content: center;
+  content: '\2714';
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  background: #050505;
+}
+#color-input-red[type='checkbox'] {
+  visibility: hidden;
+}
+.chin-color-input-red span {
+  position: absolute;
+  left: 30px;
+  top: -2px;
+  width: 200px;
 }
 .chin-brand {
   height: 0px;
@@ -149,6 +251,7 @@
 }
 .chin-commodity-item {
   margin: 20px 20px 20px 21px;
+  padding-top: 1px;
   width: 280px;
   height: 400px;
   background: $white;
