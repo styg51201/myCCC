@@ -7,7 +7,7 @@ import {
   getShopCart,
   AddCart,
   realCart,
-  AddCartNewItem,CalShopCart
+  AddCartNewItem,CalShopCart,Handel_AddMyFavorite
 } from './actions/ShopCartAction'
 
 function ProductSlide(props) {
@@ -19,7 +19,6 @@ function ProductSlide(props) {
     RealCart.push(v)
     checkBox.push(v.pId)
   })
-  console.log('propsAddItem',props.AddItem)
   
   useEffect(() => {
     props.getShopCart()
@@ -64,6 +63,15 @@ function ProductSlide(props) {
           >
             加入購物車
           </button>
+          
+          <button
+            className="btn btn-danger px-4 my-1"
+            onClick={() => {
+              props.Handel_AddMyFavorite('true',v.pId,props.MyFavorite)
+            }}
+          >
+            我的最愛
+          </button>
         </div>
       </>
     )
@@ -88,6 +96,7 @@ const mapStateToProps = store => {
     data: store.getShop,
     AddItem: store.AddItem,
     calculator:store.calculator,
+    MyFavorite:store.MyFavorite
   }
 }
 
@@ -99,7 +108,7 @@ const mapDispatchToProps = dispatch => {
       AddCart,
       realCart,
       AddCartNewItem,
-      CalShopCart
+      CalShopCart,Handel_AddMyFavorite
     },
     dispatch
   )

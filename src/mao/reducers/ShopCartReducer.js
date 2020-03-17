@@ -33,6 +33,20 @@ export const AddItem=(state=[],action)=>{
         return state
   }
 }
+
+//我的最愛
+export const MyFavorite=(state=[],action)=>{
+  console.log('action',action)
+    switch(action.type){
+      case 'LIKE_PRODUCT':
+        return action.value
+      default:
+        return state
+    }
+}
+
+
+
 export const displayShopCart=(state=[],action)=>{
   switch (action.type){
     case 'DISPLAY_CART':

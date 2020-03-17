@@ -1,8 +1,6 @@
 
 import {productList} from '../ProductList'
 
-
-
 export const addValue = value => ({ type: 'ADD_VALUE', value: value })
 export const minusValue = value => ({ type: 'MINUS_VALUE', value: value })
 
@@ -48,10 +46,11 @@ export const sendCart =value=>{
     }
   }
 
+  //計算功能 傳至Reduecer
   export const calCart=value=>({type:'CAL_TOTAL',value:value})
 
 
-  // 加入購物車
+  // 加入購物車 (暫時用不到)
   export const realCart=value=>({type:'DISPLAY_CART',value:value})
 
   //刪除
@@ -63,6 +62,8 @@ export const sendCart =value=>{
     }
   }
 
+  // 購物車新增 刪除
+  export const AddCart = value => ({ type: 'ADD_CART', value: value })
   export const DelCart = value =>({type:'DEL_CART',value:value})
 //數量調整
   export const AddCartItem=(val,pId,data)=>{
@@ -86,8 +87,6 @@ export const sendCart =value=>{
     }
   }
 
-  // 購物車新增 刪除
-  export const AddCart = value => ({ type: 'ADD_CART', value: value })
 
   //購物車按鍵
   
@@ -99,3 +98,26 @@ export const sendCart =value=>{
   }
   export const AddCartNewItem = value =>({type:'ADD_CART',value:value})
   
+//加入最愛
+export const Handel_AddMyFavorite=(val,pId,data)=>{
+  let newData=[...data]
+  let box=data.findIndex(e=>e==pId)
+  let delpId=data.filter(e=>e!==pId)
+  console.log('delpId',delpId)
+  console.log('val',val)
+  return dispatch=>{
+    if(val=='true'){
+      if(box==-1){
+        newData.push(pId)
+      }
+    }else{
+      console.log(456)
+      newData=[...delpId]
+    }
+    dispatch(AddMyFavorite(newData))
+  }
+}
+
+
+// export const Handel_DelMyFavorite=()
+export const AddMyFavorite=value=>({type:'LIKE_PRODUCT',value:value})

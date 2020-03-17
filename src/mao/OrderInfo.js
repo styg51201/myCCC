@@ -1,8 +1,16 @@
-import React  from 'react'
+import React, { useState }  from 'react'
 import {Link} from 'react-router-dom'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
 
+
 function OrderInfo(){
+const [buyer_name,setBuyer_name]=useState('')
+const [buyer_mobile,setBuyer_mobile]=useState('')
+const [buyer_shipping ,setBuyer_shipping]=useState('')
+const [buyer_payment,setBuyer_payment]=useState('')
+const [buyer_invoice,setBuyer_invoice]=useState('')
+
+    //月
 function getMonth(){
     let MonthBox=[]
         for(let i=1;i<=12;i++){
@@ -10,6 +18,7 @@ function getMonth(){
         }   
         return MonthBox
     }
+    //年
 function getYear(){
 let yearBox=[]
     for(let i=1920;i<=2020;i++){
@@ -17,18 +26,27 @@ let yearBox=[]
     }   
     return yearBox
 }
+
+function checkCard(e){
+let wordLength=e.target.value
+if(wordLength.length<4){
+    console.log(123)
+}
+}
+
+//表格
     return (<>
-    <div className="container my-3" style={{width:'1300px'}}>
+    <div className="container my-3 d-flex" style={{width:'1300px'}}>
         <div className="px-4 border bg-white p-3" style={{maxWidth:'950px'}}>
             <div className="form-row d-flex flex-column">
             <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
                 <div className="col my-3">
                     <h4>訂購人姓名</h4>
-                    <input type="text" className="form-control" placeholder="First name" style={{border:'none',borderBottom:'1px solid #ddd'}}/>
+                    <input type="text" className="form-control" placeholder="First name" style={{border:'none',borderBottom:'1px solid #ddd'}} value={buyer_name}/>
                 </div>
                 <div className="col my-3">
                     <h4>訂購人電話</h4>
-                    <input type="text" className="form-control" placeholder="Last name" style={{border:'none',borderBottom:'1px solid #ddd'}}/>
+                    <input type="text" className="form-control" placeholder="Last name" style={{border:'none',borderBottom:'1px solid #ddd'}} value={buyer_mobile}/>
                 </div>
             </div>
             <div className="custom-control custom-checkbox">
@@ -41,12 +59,16 @@ let yearBox=[]
                 </div>
                 <div className="d-flex">
                     <div className="custom-control custom-checkbox mr-5">
-                        <input type="radio" className="custom-control-input" name="checkshipping" id="Seven-store" checked/>
+                        <input type="radio" className="custom-control-input" name="checkshipping" id="Seven-store" onChange={()=>{
+                           setBuyer_shipping('Seven-store')
+                        }}checked/>
                         <label className="custom-control-label" htmlFor="Seven-store">7-11超商</label>
                         <Link to="/OrderInfo" className="ml-3">選擇門市</Link>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="radio" className="custom-control-input" name="checkshipping" id="HiLife"/>
+                        <input type="radio" className="custom-control-input" name="checkshipping" id="HiLife" onChange={()=>{
+                           setBuyer_shipping('HiLife')
+                        }}/>
                         <label className="custom-control-label" htmlFor="HiLife">萊爾富</label>
                         <Link to="/OrderInfo" className="ml-3">選擇門市</Link>
                     </div>
@@ -58,15 +80,21 @@ let yearBox=[]
                 </div>
                 <div className="d-flex">
                     <div className="custom-control custom-checkbox mr-5">
-                        <input type="radio" className="custom-control-input" name="payment" id="COD" checked/>
+                        <input type="radio" className="custom-control-input" name="payment" id="COD" onChange={()=>{
+                            setBuyer_payment('COD')
+                        }} checked/>
                         <label className="custom-control-label" htmlFor="COD">貨到付款</label>
                     </div>
                     <div className="custom-control custom-checkbox mr-5">
-                        <input type="radio" className="custom-control-input" name="payment" id="CreditCard"/>
+                        <input type="radio" className="custom-control-input" name="payment" id="CreditCard" onChange={()=>{
+                            setBuyer_payment('CreditCard')
+                        }}/>
                         <label className="custom-control-label" htmlFor="CreditCard">信用卡一次付清</label>
                     </div>
                     <div className="custom-control custom-checkbox">
-                        <input type="radio" className="custom-control-input" name="payment" id="ATM"/>
+                        <input type="radio" className="custom-control-input" name="payment" id="ATM" onChange={()=>{
+                            setBuyer_payment('ATM')
+                        }}/>
                         <label className="custom-control-label" htmlFor="ATM">ATM轉帳</label>
                     </div>
                 </div>
@@ -76,16 +104,16 @@ let yearBox=[]
                     <h4>信用卡號</h4>
                 </div>
                 <div className="col-2">
-                    <input type="text" className="form-control" placeholder=""/>
+                    <input type="text" className="form-control" placeholder="" maxlength="4" onBlur={e=>checkCard(e)}/>
                 </div>
                 <div className="col-2">
-                    <input type="text" className="form-control" placeholder=""/>
+                    <input type="text" className="form-control" placeholder="" maxlength="4" onBlur={e=>checkCard(e)}/>
                 </div>
                 <div className="col-2">
-                    <input type="text" className="form-control" placeholder=""/>
+                    <input type="text" className="form-control" placeholder="" maxlength="4" onBlur={e=>checkCard(e)}/>
                 </div>
                 <div className="col-2">
-                    <input type="text" className="form-control" placeholder=""/>
+                    <input type="text" className="form-control" placeholder="" maxlength="4" onBlur={e=>checkCard(e)}/>
                 </div>
             </div>         
             <div className="form-row my-5 d-flex align-items-center">
@@ -119,15 +147,21 @@ let yearBox=[]
                 <h4>發票</h4>
             </div>
             <div className="custom-control custom-checkbox mr-5">
-                    <input type="radio" className="custom-control-input" name="invoice" id="invoice" checked/>
-                    <label className="custom-control-label" htmlFor="COD">個人電子發票</label>
+                    <input type="radio" className="custom-control-input" name="invoice" id="personal-invoice"  onChange={()=>{
+                        setBuyer_invoice('personalInvoice')
+                    }} checked/>
+                    <label className="custom-control-label" htmlFor="personal-invoice">個人電子發票</label>
                 </div>
                 <div className="custom-control custom-checkbox mr-5">
-                    <input type="radio" className="custom-control-input" name="invoice" id="donate"/>
+                    <input type="radio" className="custom-control-input" name="invoice" id="donate" onChange={()=>{
+                        setBuyer_invoice('donate')
+                    }}/>
                     <label className="custom-control-label" htmlFor="donate">捐贈發票</label>
                 </div>
                 <div className="custom-control custom-checkbox">
-                    <input type="radio" className="custom-control-input" name="invoice" id="company"/>
+                    <input type="radio" className="custom-control-input" name="invoice" id="company" onChange={()=>{
+                        setBuyer_invoice('company')
+                    }}/>
                     <label className="custom-control-label" htmlFor="company">公司戶電子發票</label>
                 </div>
             </div>    
