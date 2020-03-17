@@ -8,9 +8,10 @@ export const sendCart =value=>{
     return {type:'SHOW_CART',value:value}
   }
 
+  //獲取資料庫購物車
   export const getShopCart = item => {
   return async dispatch => {
-  const request = new Request(`http://localhost:5500/shopcart/shopcart`, {
+  const request = new Request(`http://localhost:5500/shopCart/shopCart`, {
     method: 'GET',
     credentials: 'include'
   })
@@ -20,54 +21,52 @@ export const sendCart =value=>{
   let hadleData=data.map((v,i)=>{
     newData.push({pId:v.pId,count:v.count})
   })
-  console.log(newData)
   dispatch(sendCart(newData))
+  dispatch(AddCartNewItem(newData))
   }
   }
+
   // 加入購物車
-  
   export const realCart=value=>({type:'DISPLAY_CART',value:value})
 
-  export const AddCart = value => ({ type: 'ADD_CART', value: value })
+  //刪除
+  export const DelCartItem=(i,data)=>{
+    return dispatch=>{
+      let newData=data.filter(e=>e!==data[i])
+      dispatch(DelCart(newData))
+    }
+  }
+
 //數量調整
-  export const AddCartItem=(val,i,data)=>{
-    return dispatch=>{
+  export const AddCartItem=(val,pId,data)=>{
+    
+    let box=null
+    return dispatch=>{  
+    data.map((v,i)=>{
+      if(v.pId==pId){
+        box=i
+      }
+    })
+    console.log('77777',data)
+
+    console.log('data[box].count',data[box].count)
       if(val){
-        data[i].count+=1
-      }else{
-        if(data[i].count==1){
-          data[i].count=1
+          data[box].count++
         }else{
-          data[i].count-=1
-        }
-      }
-      dispatch(AddCart(data))
-    }
-  }
-  //購物車增加
-  export const AddCartNewItem=(val,data)=>{
-    return dispatch=>{
-      let newData=[]
-      data.map((v,i)=>{
-        newData.push(v.pId)
-      })
-      let test=newData.findIndex(e=>e==val)
-      if(test==-1){
-        
-        let obj={pId:val,count:1}
-        let b=[...data,obj]
-        console.log(b)
-        return [...data,obj]
-      }else{
-        data.map((v,i)=>{
-          if(v.pId==val){
-            v.count+=1
-            return data
+          if(data[box].count==1){
+            data[box].count=1
+          }else{
+            data[box].count--
           }
-        })
       }
-      console.log('data',data)
       dispatch(AddCart(data))
     }
   }
+
+  // 購物車新增 刪除
+  export const AddCart = value => ({ type: 'ADD_CART', value: value })
+  export const DelCart = value =>({type:'DEL_CART',value:value})
+
+  //購物車按鍵
+  export const AddCartNewItem = value =>({type:'ADD_CART',value:value})
   
