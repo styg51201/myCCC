@@ -8,7 +8,6 @@ import './css/Draft.css'
 import './css/draftEditor.scss'
 
 import { connect } from 'react-redux'
-import { Media } from 'react-bootstrap';
 
 function DraftEditor(){
 
@@ -83,13 +82,12 @@ function DraftEditor(){
 
     //button on click
     function confirmMedia(e){
-        // e.preventDefault()
+        // e.preventDefault();
         imgRef.current.click()
     }
 
     function renderMedia(urlValue){
         const contentState = editorState.getCurrentContent()
-        // const urlValue = window.prompt("paste image link")
         const contentStateWithEntity = contentState.createEntity(
             'image',
             'IMMUTABLE',
@@ -114,24 +112,46 @@ function DraftEditor(){
     }
 
     async function fileOnChange(e){
-        setUploading(true)
+        // setUploading(true)
+        e.preventDefault()
+
+        // const reader = new FileReader();
+
+        // reader.addEventListener('load', function(evt){
+        //     renderMedia(evt.target.result)
+        // })
+        // reader.readAsDataURL(imgRef.current.files[0]);
+
 
         const formdata = new FormData(imgFormRef.current)
         formdata.append('foldername', foldername)
 
+        // fetch('http://localhost:5500/stories/api/editor-imgs',{
+        //     method: 'POST',
+        //     body: formdata,
+        // })
+        // .then(r=>r.json())
+        // .then(data=>{
+        //     console.log(data)
+        //     return;
+        // })
+
+        // return;
         const response = await fetch('http://localhost:5500/stories/api/editor-imgs',{
             method: 'POST',
             body: formdata,
-            credentials: 'include',
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
+            // credentials: 'include'
         })
+
         const data = await response.json()
+        console.log(data);
+
         await setFoldername(data.foldername)
-        
-        console.log(data)
+
+        console.log(data.url.length)
         
         for(let i = 0 ; i < data.url.length ; i++){
+            console.log(data.url[i])
             await renderMedia(data.url[i])
         }
     }
