@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import  {getCouponData ,filterCoupon} from '../stacey/reducer/couponReducer'
 import { getItems } from '../chin/reducer/itemsReducer'
 
+
 //老師範例
 // 第一步：建立reducer
 // action = {type, value}

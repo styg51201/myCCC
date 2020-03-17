@@ -1,6 +1,12 @@
 
 
 //------------stacey 優惠券 -----------------
+
+ //回傳coupon
+ export const showCoupon = val =>{
+  return {type:'SHOW_VALUE',value:val}
+}
+
 //跟server要資料
 export const formServerCouponData = val => {
     return async dispatch => {
@@ -25,32 +31,77 @@ export const formServerCouponData = val => {
       const data = await res.json()
       console.log('4444',data)
 
-      dispatch(showCoupon(data))
+      dispatch(nameSort(data))
     }
   }
 
-
-  //回傳coupon
-export const showCoupon = val =>{
-    return {type:'SHOW_VALUE',value:val}
+//排序方式
+//依廠商名 (預設)
+export const nameSort = val =>{
+  return dispatch =>{
+    val.sort(function(a,b){
+      return a.cp_vendor > b.cp_vendor ? 1 : -1
+    })
+    dispatch(showCoupon([...val]))
+  }
 }
+
+//依熱門程度
+export const countSort = val =>{
+  return dispatch =>{
+    val.sort(function(a,b){
+      return a.cp_getedCount > b.cp_getedCount ? -1 : 1
+    })
+    // const newsort = [...val] 
+    // console.log('456',newsort)
+    dispatch(showCoupon([...val]))
+  }
+}
+
+//依最新時間
+export const startTimeSort = val =>{
+  return dispatch =>{
+    val.sort(function(a,b){
+      return a.cp_start > b.cp_start ? -1 : 1
+    })
+    dispatch(showCoupon([...val]))
+  }
+}
+
+//依結束時間
+export const endTimeSort = val =>{
+  return dispatch =>{
+    val.sort(function(a,b){
+      return a.cp_due > b.cp_due ? 1 : -1
+    })
+    dispatch(showCoupon([...val]))
+  }
+}
+
 
 //領取的動作
 export const getCoupon = (item) => {
     return async dispatch => {
-      const request = new Request(`http://localhost:5555/coupon/${item.cp_id}`, {
-        method: 'PATCH',
+      const request = new Request(`http://localhost:5500/getCoupon`, {
+        method: 'POST',
         headers: new Headers({
           Accept: 'application/json',
           'Content-Type': 'application/json',
         }),
-        body: `{"geted":${!item.geted},"cp_getedCount":${+item.cp_getedCount+5}}`,
+        body:JSON.stringify({
+          mb_id:5,
+          cp_id:3
+        })
       })
       const res = await fetch(request)
       const data = await res.json()
-      dispatch(formServerCouponData())
+      // dispatch(formServerCouponData())
     }
   }
+
+
+
+ 
 
 //篩選的動作
 export const addFilterCoupon = (obj,val) =>{
