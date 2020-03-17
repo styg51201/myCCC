@@ -18,7 +18,6 @@ function Features(){
             document.querySelector('.chin-price3 img').classList.add('chin-sort3')
         }
     }
-    
     return(
         <>
             <div className="chin-price3" onClick={Features}>
@@ -27,9 +26,21 @@ function Features(){
             </div>
             <div className="chin-features">
                 <ul>
-                    <li><input type="checkbox" />GPS 定位</li>
-                    <li><input type="checkbox" />運動偵測</li>
-                    <li><input type="checkbox" />藍芽</li>
+                    <li className="chin-brand-checkbox6"  >
+                        <input id="color-input6" type="checkbox"/>
+                        <label for="color-input6"></label>
+                        <span>GPS 定位</span>          
+                    </li>
+                    <li className="chin-brand-checkbox7" >
+                        <input id="color-input7" type="checkbox"/>
+                        <label for="color-input7"></label>
+                        <span>運動偵測</span>          
+                    </li>
+                    <li className="chin-brand-checkbox8" >
+                        <input id="color-input8" type="checkbox"/>
+                        <label for="color-input8"></label>
+                        <span>藍芽</span>          
+                    </li>
                 </ul>
             </div>
         </>

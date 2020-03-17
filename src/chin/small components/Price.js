@@ -1,5 +1,6 @@
 /*-----------------------Commoditylist.js的價格--------------------------*/
 import React,{useState,useEffect} from 'react'
+import $ from "jquery";
 
 function Price(){
 
@@ -17,13 +18,15 @@ function Price(){
             document.querySelector('.chin-price img').classList.add('chin-sort3')
         }
     }
-
     return(
         <>
-        <div className="chin-price" onClick={Price}>
-            <span>價格</span>
-            <img src="./chin-img/chevron-down-black.svg" alt=""/>
-        </div>
+            <div className="chin-price" onClick={Price}>
+                <span>價格</span>
+                <img src="./chin-img/chevron-down-black.svg" alt=""/>
+            </div>
+            <div>
+               
+            </div>
         </>
     )
 }
