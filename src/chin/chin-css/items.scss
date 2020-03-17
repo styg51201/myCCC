@@ -9,9 +9,28 @@ a:hover {
   flex-direction: column;
   overflow: hidden;
 }
+.chin-section {
+  display: flex;
+  flex-direction: row;
+}
+/*-----------------------------------------------------商品list Price價格---------------------------------------------------*/
 .chin-commoditylist {
   margin-right: 17px;
   width: 300px;
+}
+.chin-slide {
+  height: 0;
+  visibility: hidden;
+}
+.chin-totalprice.active {
+  .chin-slide {
+    height: auto;
+    visibility: visible;
+  }
+  .chin-price img {
+    transition: 0.3s;
+    transform: rotate(180deg);
+  }
 }
 .chin-price {
   cursor: pointer;
@@ -23,51 +42,9 @@ a:hover {
   display: flex;
   justify-content: space-between;
 }
-.chin-price2 {
-  cursor: pointer;
-  padding: 20px;
-  font-size: 18px;
-  font-weight: $font-bold;
-  height: 65px;
-  border-bottom: 1px solid #a0a0a0;
-  display: flex;
-  justify-content: space-between;
-}
-.chin-price3 {
-  cursor: pointer;
-  padding: 20px;
-  font-size: 18px;
-  font-weight: $font-bold;
-  height: 65px;
-  border-bottom: 1px solid #a0a0a0;
-  display: flex;
-  justify-content: space-between;
-}
-.chin-price4 {
-  cursor: pointer;
-  padding: 20px;
-  font-size: 18px;
-  font-weight: $font-bold;
-  height: 65px;
-  border-bottom: 1px solid #a0a0a0;
-  display: flex;
-  justify-content: space-between;
-}
-.chin-features {
-  height: 0px;
-  visibility: hidden;
-}
-.chin-features2 {
-  height: auto;
-  visibility: visible;
-}
-.chin-Price {
-  height: 0px;
-  visibility: hidden;
-}
-.chin-Price2 {
-  height: auto;
-  visibility: visible;
+.chin-price img {
+  transition: 0.3s;
+  transform: rotate(0deg);
 }
 .chin-price-input {
   display: flex;
@@ -78,6 +55,86 @@ a:hover {
   width: 100px;
   height: 40px;
 }
+/*--------------------------------------------商品list Brand品牌--------------------------------------------------------------*/
+.chin-price2 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-price2 img {
+  transition: 0.3s;
+  transform: rotate(0deg);
+}
+.chin-brand ul {
+  height: 0px;
+  visibility: hidden;
+}
+.chin-brand.active {
+  ul {
+    height: auto;
+    visibility: visible;
+  }
+  .chin-price2 img {
+    transition: 0.3s;
+    transform: rotate(180deg);
+  }
+}
+/*--------------------------------------商品list  Features功能------------------------------------------------------------------*/
+.chin-price3 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-price3 img {
+  transition: 0.3s;
+  transform: rotate(0deg);
+}
+.chin-features ul {
+  height: 0px;
+  visibility: hidden;
+}
+.chin-features.active {
+  ul {
+    height: auto;
+    visibility: visible;
+  }
+  .chin-price3 img {
+    transition: 0.3s;
+    transform: rotate(180deg);
+  }
+}
+/*------------------------------------------------商品list Discount優惠---------------------------------------------------------*/
+.chin-price4 {
+  cursor: pointer;
+  padding: 20px;
+  font-size: 18px;
+  font-weight: $font-bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-price4 img {
+  transition: 0.3s;
+  transform: rotate(0deg);
+}
+.chin-discount.active {
+  .chin-price4 img {
+    transition: 0.3s;
+    transform: rotate(180deg);
+  }
+}
+/*-------------------------------------------------CompareProductSort比較產品排序------------------------------------------------------------*/
 .chin-commodity-title {
   width: 1000px;
   display: flex;
@@ -87,6 +144,7 @@ a:hover {
   display: flex;
   justify-content: space-between;
 }
+/*-------------------------------------------------名子------------------------*/
 .chin-title-text {
   span {
     letter-spacing: 2px;
@@ -101,6 +159,10 @@ a:hover {
       font-size: 18px;
     }
   }
+}
+/*------------------------------------------------比較跟排序按鍵-----------------------*/
+.chin-comparegoods-sort {
+  display: flex;
 }
 .chin-comparegoods {
   background: $blue;
@@ -121,6 +183,16 @@ a:hover {
   width: 200px;
   margin: 5px 10px 0 0;
 }
+.chin-sort-featuredproducts.active {
+  .chin-sort img {
+    transition: 0.3s;
+    transform: rotate(180deg);
+  }
+  .chin-featuredproducts {
+    visibility: visible;
+    opacity: 1;
+  }
+}
 .chin-sort {
   position: absolute;
   right: 0;
@@ -140,12 +212,6 @@ a:hover {
   width: 20px;
   height: 20px;
   margin-right: 5px;
-}
-.chin-sort2 {
-  transition: 0.3s;
-  transform: rotate(180deg);
-}
-.chin-sort3 {
   transition: 0.3s;
   transform: rotate(0deg);
 }
@@ -158,10 +224,6 @@ a:hover {
   visibility: hidden;
   z-index: 3;
   box-shadow: 0 0 8px #a0a0a0;
-}
-.chin-featuredproducts.active {
-  visibility: visible;
-  opacity: 1;
 }
 .chin-featuredproducts li {
   display: flex;
@@ -180,13 +242,9 @@ a:hover {
   background: rgb(211, 211, 211);
   cursor: pointer;
 }
-.chin-comparegoods-sort {
-  display: flex;
-}
-.chin-section {
-  display: flex;
-  flex-direction: row;
-}
+
+/*-----------------------------------------------------商品頁---------------------------------------------*/
+
 .chin-commodity {
   display: flex;
   flex-direction: row;
@@ -199,6 +257,7 @@ a:hover {
   width: 280px;
   height: 400px;
   background: $white;
+  transition: 0.3s;
   p {
     margin: 2px 0 12px 0;
     font-size: 17px;
@@ -221,8 +280,9 @@ a:hover {
   text-align: center;
 }
 .chin-commodity-item:hover {
-  box-shadow: 0px 0px 9px #a0a0a0;
+  box-shadow: 0px 0px 10px #a0a0a0;
 }
+/*-------------------------------------商品星星愛心購物車hover------------------------------------------------------------*/
 .chin-star-heart-bag {
   list-style: none;
   display: flex;
@@ -323,6 +383,8 @@ a:hover {
   display: flex;
   flex-direction: column;
 }
+
+/*-------------------------------------------------圓圈--------------------------------------------------------------*/
 .circle {
   display: flex;
   justify-content: center;

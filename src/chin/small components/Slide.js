@@ -22,7 +22,7 @@ const AirbnbSlider = withStyles({
     height: 27,
     width: 27,
     backgroundColor: '#fff',
-    border: '5px solid currentColor',
+    border: '7px solid #0ac3ae',
     marginTop: -12,
     marginLeft: -13,
     boxShadow: '#ebebeb 0px 2px 2px',
@@ -44,12 +44,17 @@ const AirbnbSlider = withStyles({
   },
   track: {
     height: 3,
+    backgroundColor:'#0ac3ae',
+
   },
   rail: {
-    color: '#d8d8d8',
+    color: '#a0a0a0',
     opacity: 1,
     height: 3,
   },
+  value:{
+
+  }
 })(Slider);
 
 
@@ -60,8 +65,11 @@ export default function CustomizedSlider() {
     <div className={classes.root}>
       <div className={classes.margin} />
       <AirbnbSlider
+       valueLabelDisplay="auto"
         getAriaLabel={index => (index === 0 ? 'Minimum price' : 'Maximum price')}
-        defaultValue={[20, 40]}
+        defaultValue={[6000, 24000]}
+        min={4000}
+        max={30000}
       />
     </div>
   );

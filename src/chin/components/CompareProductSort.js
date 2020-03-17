@@ -12,21 +12,7 @@ import {PriceHightToLow,PriceLowToHight,NewTimeSort,HotItemsSort,AllItemsSort} f
 function CompareProductSort(props){
     const [featuredproducts,setFeaturedproducts]=useState(false)
     const [sortname,setSortname]=useState('排序方式')
-    const SortClassName= classNames('chin-featuredproducts',{active:featuredproducts})
-
-//     console.log(props)
-//   const Sort = (val)=>{
-//     if (featuredproducts !== true) {
-//         setFeaturedproducts(true)
-//         document.querySelector('.chin-featuredproducts').classList.add('chin-featuredproducts2')
-//         document.querySelector('.chin-sort img').classList.add('chin-sort2')
-//         document.querySelector('.chin-sort img').classList.remove('chin-sort3')}
-//         else{
-//         setFeaturedproducts(false)
-//         document.querySelector('.chin-featuredproducts').classList.remove('chin-featuredproducts2')
-//         document.querySelector('.chin-sort img').classList.remove('chin-sort2')
-//         document.querySelector('.chin-sort img').classList.add('chin-sort3')}
-//     }
+    const SortClassName= classNames('chin-sort-featuredproducts',{active:featuredproducts})
 
     return(
     <div className="chin-title">
@@ -36,19 +22,19 @@ function CompareProductSort(props){
         </div>
         <div className="chin-rwd-sort-features">
             <button className="chin-rwd-features">功能</button>
-            <button className="chin-rwd-sort">{sortname}</button>
+            <button className="chin-rwd-sort">排序方式</button>
         </div>
         <div className="chin-comparegoods-sort">
             <button className="chin-comparegoods">
                 <span>比較商品</span>
                 <img src="./chin-img/align-justify.svg" alt=""/>
             </button>
-            <div className="chin-sort-featuredproducts">
+            <div className={SortClassName}>
                 <label className="chin-sort" onClick={()=>{setFeaturedproducts(!featuredproducts)}}>
                         <span>{sortname}</span>
                         <img src="./chin-img/chevron-down-black.svg" alt=""/>
                 </label>
-                <ul className={SortClassName}>
+                <ul className="chin-featuredproducts">
                     <li onClick={()=>{
                                       setFeaturedproducts(!featuredproducts)
                                       setSortname("排序方式")
