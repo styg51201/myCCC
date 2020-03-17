@@ -14,7 +14,7 @@ import thunk from 'redux-thunk'
 import { rootReducer } from './reducers/index'
 
 // react-hot-loader
-import { AppContainer } from 'react-hot-loader'
+// import { AppContainer } from 'react-hot-loader'
 import LocalServiceWorkerRegister from './sw-register'
 
 // ---- 使用 Middleware時 創建store ----
@@ -27,11 +27,11 @@ const store = createStore(
 
 const render = () => {
   ReactDOM.render(
-    <AppContainer>
+    // <AppContainer>
       <Provider store={store}>
         <App />
-      </Provider>
-    </AppContainer>,
+      </Provider>,
+    // </AppContainer>,
     document.getElementById('root')
   )
 }

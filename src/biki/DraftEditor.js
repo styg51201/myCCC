@@ -86,7 +86,7 @@ function DraftEditor(){
         imgRef.current.click()
     }
 
-    function renderMedia(urlValue){
+    async function renderMedia(urlValue){
         const contentState = editorState.getCurrentContent()
         const contentStateWithEntity = contentState.createEntity(
             'image',
@@ -126,16 +126,6 @@ function DraftEditor(){
         const formdata = new FormData(imgFormRef.current)
         formdata.append('foldername', foldername)
 
-        // fetch('http://localhost:5500/stories/api/editor-imgs',{
-        //     method: 'POST',
-        //     body: formdata,
-        // })
-        // .then(r=>r.json())
-        // .then(data=>{
-        //     console.log(data)
-        //     return;
-        // })
-
         const response = await fetch('http://localhost:5500/stories/api/editor-imgs',{
             method: 'POST',
             body: formdata,
@@ -149,7 +139,7 @@ function DraftEditor(){
         console.log(data.url.length)
         
         for(let i = 0 ; i < data.url.length ; i++){
-            console.log(data.url[i])
+            await console.log(data.url[i])
             await renderMedia(data.url[i])
         }
     }
