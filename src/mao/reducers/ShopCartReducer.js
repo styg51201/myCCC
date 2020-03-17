@@ -14,14 +14,16 @@ export const getShop = (state=[],action)=>{
       return state
   }
 }
-// 加入購物車品項
+// control購物車品項
 export const AddItem=(state=[],action)=>{
+  console.log('state',state)
   console.log('action',action)
   switch (action.type){
     case 'ADD_CART':
       return  action.value
+    case 'DEL_CART':
+      return action.value
       default:
-        // console.log('AddItem,default',action)
         return state
   }
 }

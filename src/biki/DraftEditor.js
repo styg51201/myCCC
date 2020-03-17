@@ -8,7 +8,6 @@ import './css/Draft.css'
 import './css/draftEditor.scss'
 
 import { connect } from 'react-redux'
-import { Media } from 'react-bootstrap';
 
 function DraftEditor(){
 
@@ -16,8 +15,12 @@ function DraftEditor(){
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
     const [showUrlInput, setShowUrlInput] = useState(false)
     const [urlValue, setUrlValue] = useState('')
+    const [uploading, setUploading] = useState(false)
+    const [foldername, setFoldername] = useState('')
 
     const editorRef = useRef(null); //for focusing
+    const imgRef = useRef(null)
+    const imgFormRef = useRef(null)
 
     // basically just sets state...
     const onChange = editorState =>{
@@ -28,10 +31,6 @@ function DraftEditor(){
     const renderInlineStyles = (e, style) =>{
         e.preventDefault()
         setEditorState(RichUtils.toggleInlineStyle(editorState, style))
-    }
-
-    const imgHandler = ()=>{
-        document.querySelector('input[type="file"]').click();
     }
 
     //block styles, eg h1, h2, block quote...etc.
@@ -49,6 +48,7 @@ function DraftEditor(){
       }
 
       
+    // renderer for Editor
     function mediaBlockRenderer(block){
         if(block.getType() === 'atomic'){
             return{
@@ -59,6 +59,7 @@ function DraftEditor(){
         return null
     }
 
+    //the rendered item
     const Image = props =>{
         if(!!props.src){
             return <img src={props.src} />
@@ -66,6 +67,7 @@ function DraftEditor(){
         return null
     }
     
+    //the component
     const Media = props =>{
         const entity = props.contentState.getEntity(props.block.getEntityAt(0))
         const {src} = entity.getData()
@@ -78,34 +80,81 @@ function DraftEditor(){
         return media
     }
 
+    //button on click
     function confirmMedia(e){
-        e.preventDefault()
+        // e.preventDefault();
+        imgRef.current.click()
+    }
+
+    function renderMedia(urlValue){
         const contentState = editorState.getCurrentContent()
-        const urlValue = window.prompt("paste image link")
         const contentStateWithEntity = contentState.createEntity(
             'image',
             'IMMUTABLE',
-            {src: urlValue}
+            {src: urlValue} //entity data
         )
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+
+        //update editor with image
         const newEditorState = EditorState.set(
             editorState,
             {currentContent: contentStateWithEntity}
         )
-
+        
+        //log it into the editorstate hook
         setEditorState(AtomicBlockUtils.insertAtomicBlock(
             newEditorState,
             entityKey,
             ' '
         ))
         setShowUrlInput(false)
-        setUrlValue('', ()=>{
-            setTimeout(()=>{
-                editorRef.focus()
-            }, 0)
-        })
+        setUrlValue('')
     }
 
+    async function fileOnChange(e){
+        // setUploading(true)
+        e.preventDefault()
+
+        // const reader = new FileReader();
+
+        // reader.addEventListener('load', function(evt){
+        //     renderMedia(evt.target.result)
+        // })
+        // reader.readAsDataURL(imgRef.current.files[0]);
+
+
+        const formdata = new FormData(imgFormRef.current)
+        formdata.append('foldername', foldername)
+
+        // fetch('http://localhost:5500/stories/api/editor-imgs',{
+        //     method: 'POST',
+        //     body: formdata,
+        // })
+        // .then(r=>r.json())
+        // .then(data=>{
+        //     console.log(data)
+        //     return;
+        // })
+
+        const response = await fetch('http://localhost:5500/stories/api/editor-imgs',{
+            method: 'POST',
+            body: formdata,
+        })
+
+        const data = await response.json()
+        console.log(data);
+
+        await setFoldername(data.foldername)
+
+        console.log(data.url.length)
+        
+        for(let i = 0 ; i < data.url.length ; i++){
+            console.log(data.url[i])
+            await renderMedia(data.url[i])
+        }
+    }
+
+    //focus back to editor after img insert
     useEffect(()=>{
         setTimeout(()=>{
             editorRef.current.focus()
@@ -121,8 +170,10 @@ function DraftEditor(){
                     editorState={editorState}
                     onToggle={toggleBlockType}
                     confirmMedia={confirmMedia}
+                    imgRef={imgRef}
+                    fileOnChange={fileOnChange}
+                    imgFormRef={imgFormRef}
                      />
-                     {/* <button onClick={confirmMedia}>Click</button> */}
                     <Editor
                     placeholder="hello"
                     editorState={editorState}
@@ -148,3 +199,4 @@ const mapStateToProps = (store)=>{
 }
 
 export default connect(mapStateToProps)(DraftEditor)
+

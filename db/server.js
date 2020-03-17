@@ -54,6 +54,9 @@ app.use('/items', require(__dirname + '/items'));
 //coupon
 app.use('/getCoupon', require(__dirname + '/getCoupon'));
 
+//stories
+app.use('/stories', require(__dirname + '/stories'));
+
 //test
 app.get('/', (req, res)=>{
     res.send("hello")
