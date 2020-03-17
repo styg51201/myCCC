@@ -4,7 +4,7 @@ import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { withRouter,Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getShopCart,AddCart,realCart,AddCartItem,DelCartItem} from './actions/ShopCartAction'
+import { getShopCart,AddCart,realCart,AddCartItem,DelCartItem,CalShopCart} from './actions/ShopCartAction'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import {productList} from './ProductList'
 import ProductSlide from './ProductSlide'
@@ -35,10 +35,8 @@ const [loaded,setLoaded]=useState(false)
   useEffect(() => {
     checkProduct()
     props.getShopCart()
+    setLoaded(true)
   }, [])
-  // useEffect(() => {
-  //   props.AddItem
-  // }, [loaded])
   let RealCart=[] //統整checkBox的品項，然後最後送至資料庫
 
   //從資料庫叫出的購物車內容加入checkBox & RealCart
@@ -54,9 +52,8 @@ const displayRealCart=RealCart.map((v,i)=>{
     <li>產品：{v.pId} / 數量：{v.count}</li>
   )
 })
-console.log('RealCart',RealCart)
 // 購物車內容顯示　要再做調整
-const dataList = RealCart.map((v, i) => {
+const dataList = props.AddItem.map((v, i) => {
   return (
     <li key={v.Id} className="d-flex Mao-shopcart-check-item">
       <img src="https://fakeimg.pl/100/" alt="" />
@@ -68,6 +65,7 @@ const dataList = RealCart.map((v, i) => {
             <button className="btn btn-danger" 
               onClick={() => {
                 props.AddCartItem(false,v.pId,props.AddItem)
+        props.CalShopCart(props.AddItem)
                 setLoaded(!loaded)
               }}>-</button>
             <input
@@ -81,6 +79,7 @@ const dataList = RealCart.map((v, i) => {
               className="btn btn-danger"
               onClick={() => {
                 props.AddCartItem(true,v.pId,props.AddItem)
+        props.CalShopCart(props.AddItem)
                 setLoaded(!loaded)
               }}
             >
@@ -91,10 +90,13 @@ const dataList = RealCart.map((v, i) => {
       </div>
       <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
         <div className="border d-flex align-items-center">
-        <Link to='/ShopCartList' onClick={()=>{props.DelCartItem(i,props.data)}}>
+        <button className="btn btn-dager" onClick={()=>{
+        props.CalShopCart(props.AddItem)
+        props.DelCartItem(i,props.AddItem)
+        }}>
           <img src="..\img\header-footer\heart.svg" alt="" />
           <span>刪除</span>
-        </Link>
+        </button>
         </div>
         <div className="border d-flex align-items-center">
           <img src="..\img\header-footer\search.svg" alt="" />
@@ -141,7 +143,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      getShopCart,AddCart,realCart,AddCartItem,DelCartItem
+      getShopCart,AddCart,realCart,AddCartItem,DelCartItem,CalShopCart
     },
     dispatch
   )
