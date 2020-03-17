@@ -136,11 +136,9 @@ function DraftEditor(){
         //     return;
         // })
 
-        // return;
         const response = await fetch('http://localhost:5500/stories/api/editor-imgs',{
             method: 'POST',
             body: formdata,
-            // credentials: 'include'
         })
 
         const data = await response.json()
