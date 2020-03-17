@@ -13,7 +13,7 @@ import CouponItem from './components/CouponItem'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {formServerCouponData} from './actions/couponAction'
+import {fromServerCouponData} from './actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
@@ -28,7 +28,7 @@ function GetCoupon(props) {
 
   
   useEffect(()=>{
-    props.formServerCouponData()
+    props.fromServerCouponData()
       setLoaded(true)
   },[])
 
@@ -36,13 +36,13 @@ function GetCoupon(props) {
  //篩選過後的
   const filterCouponItem = props.data.map((val,ind)=>{
     if(props.vendor.indexOf(val.cp_vendor) > -1){
-      return <CouponItem key={val.cp_id} data={val} arrIndex={ind} />
+      return <CouponItem key={val.cp_id} item={val} arrIndex={ind} />
     }
   })
 
 //全部顯示
   const allCouponItem = props.data.map((val,ind)=>{
-    return <CouponItem key={val.cp_id} data={val} arrIndex={ind} />
+    return <CouponItem key={val.cp_id} item={val} arrIndex={ind} />
   })
 
 //取得品牌list
@@ -52,8 +52,9 @@ function GetCoupon(props) {
     vendorList.push(props.data[i].cp_vendor)
    }
  }
-  vendorList.sort()
-  console.log('vlist',vendorList)
+//篩選列表照廠商名排序
+vendorList.sort()
+ 
 
   return (
     <>
@@ -85,7 +86,7 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    formServerCouponData
+    fromServerCouponData
   },dispatch)
 }
 
