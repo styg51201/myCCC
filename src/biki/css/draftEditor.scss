@@ -35,6 +35,8 @@
   border-top: solid 1px black;
   padding: $spacing 0;
   min-height: 300px;
+  max-height: 500px;
+  overflow: scroll;
 
   &:hover {
     cursor: text;
