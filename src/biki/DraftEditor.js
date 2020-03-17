@@ -1,6 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {Editor, EditorState, RichUtils, AtomicBlockUtils} from 'draft-js';
-import {v4 as uuidv4} from 'uuid';
 
 import Toolbar, {styleMap, getBlockType} from './components/BlockStyles/Toolbar'
 // import {mediaBlockRenderer} from './components/entities/mediaBlockRenderer'
@@ -117,19 +116,6 @@ function DraftEditor(){
     async function fileOnChange(e){
         setUploading(true)
 
-        //render temporary image till file uploaded
-        // const reader = new FileReader();
-
-        // reader.addEventListener('load', function(evt){
-        //     renderMedia(evt.target.result)
-        // })
-        // reader.readAsDataURL(imgRef.current.files[0]);
-
-
-        //upload file
-        //const images = await imgRef.current.files;
-        // console.log(images)
-
         const formdata = new FormData(imgFormRef.current)
         formdata.append('foldername', foldername)
 
@@ -142,8 +128,12 @@ function DraftEditor(){
         })
         const data = await response.json()
         await setFoldername(data.foldername)
+        
         console.log(data)
-        renderMedia(data.url)
+        
+        for(let i = 0 ; i < data.url.length ; i++){
+            await renderMedia(data.url[i])
+        }
     }
 
     //focus back to editor after img insert
