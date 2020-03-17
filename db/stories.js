@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 const fs = require('fs');
 const multer = require('multer');
-const upload = multer({dest: '../biki/tmp-editor-imgs'});
+const upload = multer({dest: './src/biki/tmp-editor-imgs'});
 const { v4: uuidv4 } = require('uuid');
 
 router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
-    // console.log(req.files)
     // console.log("foldername: ",req.body.foldername, "typeof:", typeof req.body.foldername) //string
     const output = {
         foldername: '',
@@ -16,15 +15,15 @@ router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     }
 
     const foldername = req.body.foldername === '' ? uuidv4() : req.body.foldername ;
-    console.log(req.body.foldername);
 
-    const newpath = '../../public/biki-img/editor-uploads/'+foldername;
+    const newpath = '../public/biki-img/editor-uploads/'+foldername;
 
     if(req.files){
         if(!fs.existsSync(newpath)){
-            fs.mkdir(newpath, (err)=>{
+            fs.mkdirSync(newpath, (err)=>{
                 if(err){
-                    console.log(err)
+                    output.msg = 'failed to make dir'
+                    res.json(output)
                     return;
                 }
             });

@@ -158,30 +158,23 @@
   }
 }
 // 已使用
-.sty-memberCoupon.used {
-  .wrapForImg {
-    position: relative;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background-color: rgba($color: $grey, $alpha: 0.95);
-    }
-    .alreadyGet {
-      display: block;
-    }
-  }
-  .button {
-    button {
-      background-color: $white;
-      border: 1px solid $black;
-      color: $black;
-    }
-  }
-}
+// .sty-memberCoupon.used {
+//   .wrapForImg {
+//     position: relative;
+//     &:before {
+//       content: '';
+//       position: absolute;
+//       top: 0;
+//       left: 0;
+//       bottom: 0;
+//       right: 0;
+//       background-color: rgba($color: $grey, $alpha: 0.95);
+//     }
+//     .alreadyGet {
+//       display: block;
+//     }
+//   }
+// }
 //效期已過
 .sty-memberCoupon.exp {
   .wrapForImg {

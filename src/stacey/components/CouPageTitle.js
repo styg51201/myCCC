@@ -26,9 +26,7 @@ function CouPageTitle(props){
     return (
         <>
             <div className="col-12 sty-pageTitle">
-            <p>
-                <span>Coupon</span>
-                優惠券專區
+            <p>優惠券專區
             </p>
             <div className={couponOrderClassName}>
                 <button onClick={()=>{setClicked(!clicked) 

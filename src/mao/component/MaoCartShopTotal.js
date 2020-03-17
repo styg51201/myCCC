@@ -7,12 +7,12 @@ function MaoCartShopTotal() {
     document.addEventListener('scroll', e => {
       let FixScrollY = e.path[1].scrollY
 
-      if (FixScrollY > 170) {
-        TotalBox.classList.add('position-fixed')
-        // console.log(FixScrollY)
-      } else {
-        TotalBox.classList.remove('position-fixed')
-      }
+      // if (FixScrollY > 170) {
+      //   TotalBox.classList.add('position-fixed')
+      //   // console.log(FixScrollY)
+      // } else {
+      //   TotalBox.classList.remove('position-fixed')
+      // }
     })
   }, [])
   return (
