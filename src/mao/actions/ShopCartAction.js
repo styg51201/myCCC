@@ -1,3 +1,8 @@
+
+import {productList} from '../ProductList'
+
+
+
 export const addValue = value => ({ type: 'ADD_VALUE', value: value })
 export const minusValue = value => ({ type: 'MINUS_VALUE', value: value })
 
@@ -23,8 +28,28 @@ export const sendCart =value=>{
   })
   dispatch(sendCart(newData))
   dispatch(AddCartNewItem(newData))
+  dispatch(CalShopCart(newData))
   }
   }
+
+  // 計算產品總額
+  export const CalShopCart=value=>{
+    return dispatch=>{
+    let total=0
+    productList.map((product,i)=>{
+      value.map((v,i)=>{
+        if(product.pId==v.pId){
+          let sCount=product.price*v.count
+          total+=sCount
+        }
+      })
+    })
+    dispatch(calCart(total))
+    }
+  }
+
+  export const calCart=value=>({type:'CAL_TOTAL',value:value})
+
 
   // 加入購物車
   export const realCart=value=>({type:'DISPLAY_CART',value:value})
@@ -34,12 +59,13 @@ export const sendCart =value=>{
     return dispatch=>{
       let newData=data.filter(e=>e!==data[i])
       dispatch(DelCart(newData))
+      dispatch(CalShopCart(newData))
     }
   }
 
+  export const DelCart = value =>({type:'DEL_CART',value:value})
 //數量調整
   export const AddCartItem=(val,pId,data)=>{
-    
     let box=null
     return dispatch=>{  
     data.map((v,i)=>{
@@ -47,9 +73,6 @@ export const sendCart =value=>{
         box=i
       }
     })
-    console.log('77777',data)
-
-    console.log('data[box].count',data[box].count)
       if(val){
           data[box].count++
         }else{
@@ -65,8 +88,14 @@ export const sendCart =value=>{
 
   // 購物車新增 刪除
   export const AddCart = value => ({ type: 'ADD_CART', value: value })
-  export const DelCart = value =>({type:'DEL_CART',value:value})
 
   //購物車按鍵
+  
+  export const AddCartNewItem_sendcal=(data)=>{
+    return dispatch=>{  
+      dispatch(AddCartNewItem(data))
+      dispatch(CalShopCart(data))
+    }
+  }
   export const AddCartNewItem = value =>({type:'ADD_CART',value:value})
   

@@ -7,7 +7,7 @@ import {
   getShopCart,
   AddCart,
   realCart,
-  AddCartNewItem,
+  AddCartNewItem,CalShopCart
 } from './actions/ShopCartAction'
 
 function ProductSlide(props) {
@@ -19,7 +19,7 @@ function ProductSlide(props) {
     RealCart.push(v)
     checkBox.push(v.pId)
   })
-  // console.log('RealCart',RealCart)
+  console.log('propsAddItem',props.AddItem)
   
   useEffect(() => {
     props.getShopCart()
@@ -39,9 +39,8 @@ function ProductSlide(props) {
       }
     })
     props.AddCartNewItem(RealCart)
+    props.CalShopCart(RealCart)
   }
-
-  console.log('RealCart', RealCart)
   const productItem = productList.map((v, i) => {
     return (
       <>
@@ -88,6 +87,7 @@ const mapStateToProps = store => {
   return {
     data: store.getShop,
     AddItem: store.AddItem,
+    calculator:store.calculator,
   }
 }
 
@@ -99,6 +99,7 @@ const mapDispatchToProps = dispatch => {
       AddCart,
       realCart,
       AddCartNewItem,
+      CalShopCart
     },
     dispatch
   )
