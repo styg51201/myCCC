@@ -2,6 +2,7 @@ const express = require('express') //express
 const session = require('express-session') //session
 const cors = require('cors') //CORS
 const db = require('./db_connect')
+const bodyParser = require('body-parser');//解析POST參數
 
 //建立webserver物件
 const app = express();
@@ -32,6 +33,10 @@ const corsOptions = {
     }
 }
 app.use(cors(corsOptions));
+
+// post 傳送格式有兩種 urlencoded 和 json 
+app.use(bodyParser.urlencoded({ extended: false })); //解析urlencoded格式 
+app.use(bodyParser.json()); //解析json格式
 
 
 //test db
