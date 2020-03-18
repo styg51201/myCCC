@@ -17,8 +17,7 @@ function Stories(){
         const response = await fetch('http://localhost:5500/stories')
         const data = await response.json()
         const story = JSON.parse(data[0].stryContent);
-        console.log(data)
-        console.log(stateToHTML(convertFromRaw(story)))
+
         setStories(data);
     }
 
