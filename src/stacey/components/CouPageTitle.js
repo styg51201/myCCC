@@ -1,6 +1,13 @@
 import React ,{useEffect ,useState}from 'react'
 
+//classnames
 import classNames from 'classnames'
+
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import {countSort,startTimeSort,endTimeSort,nameSort} from '../actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
@@ -8,37 +15,62 @@ import {
   FiChevronDown
 } from 'react-icons/fi'
 
-function CouPageTitle(){
+function CouPageTitle(props){
     
     const [clicked,setClicked]= useState(false)
-    const [order,setOrder]= useState('排序')
+    const [order,setOrder]= useState('排序方式')
     const couponOrderClassName= classNames('sty-orderDiv',{active:clicked})
+
+    console.log('789',props.data)
 
     return (
         <>
             <div className="col-12 sty-pageTitle">
-            <p>
-                <span>Coupon</span>
-                優惠券專區
+            <p>優惠券專區
             </p>
             <div className={couponOrderClassName}>
                 <button onClick={()=>{setClicked(!clicked) 
-                }}>{order}<FiChevronDown /></button>
-                <div className="sty-couponOrder">
-                    <div onClick={()=>{
-                        setClicked(!clicked)
-                        setOrder('依時間排序')
-                    }}>依時間排序</div>
-                    
-                    <div onClick={()=>{
+                }}>
+                <span>{order}</span>
+                <FiChevronDown /></button>
+                <ul className="sty-couponOrder">
+                    <li onClick={()=>{
                         setClicked(!clicked)
                         setOrder('依熱門程度')
-                    }}>依熱門程度</div>
-                </div>
+                        props.countSort(props.data)
+                        }}>依熱門程度排序</li>
+                    <li onClick={()=>{
+                        setClicked(!clicked)
+                        setOrder('依最新時間')
+                        props.startTimeSort(props.data)
+                    }}>依最新時間排序</li>
+                    <li onClick={()=>{
+                        setClicked(!clicked)
+                        setOrder('依結束時間')
+                        props.endTimeSort(props.data)
+                    }}>依結束時間排序</li>
+                    <li onClick={()=>{
+                        setClicked(!clicked)
+                        setOrder('排序方式')
+                        props.nameSort(props.data)
+                    }}>清除</li>
+                </ul>
             </div>
             </div>
         </>
     )
 }
 
-export default CouPageTitle
+// 選擇對應的reducer
+const mapStateToProps = store => {
+    return { data: store.getCouponData}
+  }
+  
+  //action
+  const mapDispatchToProps = dispatch =>{
+    return bindActionCreators({
+        countSort,startTimeSort,endTimeSort,nameSort
+    },dispatch)
+  }
+
+export default connect(mapStateToProps,mapDispatchToProps)(CouPageTitle)

@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.9.5",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -12,7 +13,9 @@
     "bootstrap": "^4.4.1",
     "classnames": "^2.2.6",
     "cors": "^2.8.5",
+    "customize-cra": "^0.9.1",
     "draft-js": "^0.11.4",
+    "draft-js-export-html": "^1.4.1",
     "draft-js-plugins-editor": "^3.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
@@ -23,9 +26,12 @@
     "mysql": "^2.18.1",
     "node-sass": "^4.13.1",
     "react": "^16.13.0",
+    "react-app-rewire-hot-loader": "^2.0.1",
+    "react-app-rewired": "^2.1.5",
     "react-bootstrap": "^1.0.0-beta.17",
     "react-datepicker": "^2.14.0",
     "react-dom": "^16.13.0",
+    "react-hot-loader": "^4.12.20",
     "react-icons": "^3.9.0",
     "react-react": "^1.2.0",
     "react-redux": "^7.2.0",
@@ -33,12 +39,13 @@
     "react-scripts": "3.4.0",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "thunk": "^0.0.1"
+    "thunk": "^0.0.1",
+    "uuid": "^7.0.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

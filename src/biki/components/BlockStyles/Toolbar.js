@@ -32,7 +32,6 @@ export const styleMap = {
 }
 
 export function getBlockType(block){
-    console.log("block.getType(): ",block.getType())
     switch(block.getType()){
         case 'ALIGNCENTER':
             return 'align-center'
@@ -57,13 +56,7 @@ function Toolbar(props){
     //settings for block type elements
     const selection = editorState.getSelection();
 
-    const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType(); //gets the style that's setted above
-    console.log(blockType)
-
-    const imgRef = useRef(null)
-    const imgHandler = ()=>{
-        imgRef.current.click()
-    }
+    const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
 
     return(
         <>
@@ -86,7 +79,9 @@ function Toolbar(props){
 
                 <button onClick={props.confirmMedia}>
                     <FiImage />
-                    <input type="file" ref={imgRef} hidden />
+                    <form name="imgForm" ref={props.imgFormRef}>
+                    <input name="image" type="file" ref={props.imgRef} onChange={props.fileOnChange} hidden multiple accept="image/*" />
+                    </form>
                 </button>
 
             {/* render block styles buttons */}
@@ -112,3 +107,4 @@ function Toolbar(props){
 }
 
 export default Toolbar
+

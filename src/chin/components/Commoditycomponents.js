@@ -16,7 +16,7 @@ function Commoditycomponents(props){
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
                         <li className="chin-heart-bag">
                             <img className="chin-heart" src="./chin-img/heart.svg" alt=""/>
-                            <button><img className="chin-bag" src="./chin-img/shopping-bag.svg" alt=""/></button>
+                            <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt=""/>
                         </li>
                     </ul>
                     <img className="chin-watch" src={`./chin-img/images/${props.data.itemImg}`} alt=""/>

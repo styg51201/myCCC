@@ -38,5 +38,12 @@ router.get('/commidty/:itemId?',(req,res)=>{
         return res.json(r)
     })
 })
+router.get('/multiple_images/:itemId?',(req,res)=>{
+    let sql='SELECT * FROM `multiple_images` WHERE `itemId` = ?'
+    db.queryAsync(sql,[req.params.itemId])
+    .then(r=>{
+        return res.json(r)
+    })
+ })
 
 module.exports = router;

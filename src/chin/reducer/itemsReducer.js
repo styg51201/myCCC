@@ -17,4 +17,12 @@ export const getItemId = (state=[],action)=>{
         return state
     }
   }
-  
+//------------------chin MultipleItemId--------
+export const getMultipleItemId = (state=[],action)=>{
+  switch (action.type){
+    case 'SHOW_MULTIPLE':
+      return action.value
+      default :
+      return state
+  }
+}

@@ -11,16 +11,15 @@ import MemberCouponItem from './components/MemberCouponItem'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {formServerCouponData} from './actions/couponAction'
+import {fromServerMemberCouponData,memberCouponFilter} from './actions/couponAction'
 
 function MemberCoupon(props) {
-  // console.log(props)
-  
+
+  const [state,setState] = useState('get')
 
   useEffect(()=>{
-    props.formServerCouponData()
+    props.fromServerMemberCouponData()
   },[])
-
 
 
   return (
@@ -29,13 +28,21 @@ function MemberCoupon(props) {
       <div className="row wrap">
         {/* <!-- 側邊篩選欄 --> */}
         {/* <SideFilter /> */}
-     <div className="col-3"></div>
+     <div className="col-3">
+       <button onClick={()=>{props.memberCouponFilter(props.data,'get')
+                            setState('get')}}>已領取</button>
+       <button onClick={()=>{props.memberCouponFilter(props.data,'use')
+                            setState('use')}}>已使用</button>
+       <button onClick={()=>{props.memberCouponFilter(props.data,'end')
+                            setState('end')}}>無效</button>
+
+     </div>
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
           <div className="row">
             {/* <!-- 領取 --> */}
-            {props.data.map((val,ind)=>{
-              return <MemberCouponItem key={ind} data={props.data[ind]} />
+            {props.filterData.map((val,ind)=>{
+              return <MemberCouponItem key={val.cpi_cp_id} item={val} state={state} />
             })}
           </div>
         </div>
@@ -46,12 +53,13 @@ function MemberCoupon(props) {
 
 // 選擇對應的reducer
 const mapStateToProps = store => {
-  return { data: store.getCouponData }
+  return { data: store.memberCouponData,
+            filterData :store.memberCouponFilterData }
 }
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    formServerCouponData
+    fromServerMemberCouponData,memberCouponFilter
   },dispatch)
 }
 
