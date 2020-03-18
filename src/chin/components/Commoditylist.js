@@ -10,18 +10,10 @@ function Commoditylist(){
     
     return(
         <ul className="chin-commoditylist">
-            <li>
-                <Price/>
-            </li>
-            <li>
-               <Brand/>
-            </li>
-            <li>
-                <Features/>
-            </li>
-            <li>
-               <Discount/>
-            </li>
+            <Price/>
+            <Brand/>
+            <Features/>
+            <Discount/>
         </ul>
          )
 }

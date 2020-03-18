@@ -4,11 +4,13 @@ import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { withRouter,Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getShopCart,AddCart,realCart,AddCartItem,DelCartItem,CalShopCart} from './actions/ShopCartAction'
+import { getShopCart,AddCart,realCart,AddCartItem,DelCartItem,CalShopCart,Handel_AddMyFavorite} from './actions/ShopCartAction'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import {productList} from './ProductList'
 import ProductSlide from './ProductSlide'
 function ShopCartList(props) {
+
+  console.log(props)
 const [loaded,setLoaded]=useState(false)
   // 從產品ID轉換成產品名稱
   function checkProduct(val) {
@@ -34,7 +36,7 @@ const [loaded,setLoaded]=useState(false)
   // 必打
   useEffect(() => {
     checkProduct()
-    props.getShopCart()
+    // props.getShopCart()
     setLoaded(true)
   }, [])
   let RealCart=[] //統整checkBox的品項，然後最後送至資料庫
@@ -65,7 +67,7 @@ const dataList = props.AddItem.map((v, i) => {
             <button className="btn btn-danger" 
               onClick={() => {
                 props.AddCartItem(false,v.pId,props.AddItem)
-        props.CalShopCart(props.AddItem)
+                props.CalShopCart(props.AddItem)
                 setLoaded(!loaded)
               }}>-</button>
             <input
@@ -79,7 +81,7 @@ const dataList = props.AddItem.map((v, i) => {
               className="btn btn-danger"
               onClick={() => {
                 props.AddCartItem(true,v.pId,props.AddItem)
-        props.CalShopCart(props.AddItem)
+                props.CalShopCart(props.AddItem)
                 setLoaded(!loaded)
               }}
             >
@@ -89,19 +91,21 @@ const dataList = props.AddItem.map((v, i) => {
         </div>
       </div>
       <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
-        <div className="border d-flex align-items-center">
-        <button className="btn btn-dager" onClick={()=>{
+        <button className="btn btn-danger d-flex justify-content-start py-2 my-2" onClick={()=>{
         props.CalShopCart(props.AddItem)
         props.DelCartItem(i,props.AddItem)
         }}>
           <img src="..\img\header-footer\heart.svg" alt="" />
           <span>刪除</span>
         </button>
-        </div>
-        <div className="border d-flex align-items-center">
+        <button className="btn btn-danger d-flex justify-content-start py-2 my-2" onClick={()=>{
+        props.CalShopCart(props.AddItem)
+        props.DelCartItem(i,props.AddItem)
+        props.Handel_AddMyFavorite('true',v.pId,props.MyFavorite)
+        }}>
           <img src="..\img\header-footer\search.svg" alt="" />
           <span>下次購買</span>
-        </div>
+          </button>
       </div>
     </li>
   )
@@ -135,7 +139,8 @@ const mapStateToProps = store => {
     //購物車內容
     data: store.getShop, 
     AddItem:store.AddItem,
-    Cart:store.displayShopCart
+    Cart:store.displayShopCart,
+    MyFavorite:store.MyFavorite
   }
 }
 
@@ -143,7 +148,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      getShopCart,AddCart,realCart,AddCartItem,DelCartItem,CalShopCart
+      getShopCart,AddCart,realCart,AddCartItem,DelCartItem,CalShopCart,Handel_AddMyFavorite
     },
     dispatch
   )
