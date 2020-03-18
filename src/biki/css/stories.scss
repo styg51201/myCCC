@@ -1,10 +1,66 @@
 @import '../../css/variables.scss';
 
+.bk-stories-container{
+  column-count: 3;
+  column-gap: $spacing;
+
+  .bk-masonry-itm{
+    break-inside: avoid;
+    page-break-inside: avoid;
+    -webkit-break-inside: avoid;
+    overflow: hidden;
+    position: relative;
+
+    &.bk-collapse{
+      &:after{
+        content: '點擊閱讀更多';
+        font-size: $font-m;
+        font-weight: $font-bold;
+        text-align: center;
+        display: block;
+        background-image: linear-gradient(rgba(255, 255, 255, .5), $white);
+        width: 100%;
+        height: 100px;
+        line-height: 100px;
+        position: absolute;
+        bottom: $spacing + 49px;
+      }
+    }
+  }
+}
+
 .bk-card {
   margin: $spacing 0;
   border-radius: 0;
+  padding: $spacing;
+  min-height: 300px;
+  max-height: 600px;
 
-  img{
-    width: 100%;
+  .card-header{
+    background-color: transparent;
+  }
+
+  .card-body{
+    overflow: hidden;
+
+    img{
+      width: 100%;
+    }
+  }
+
+  .card-footer{
+    background-color: transparent;
+  }
+}
+
+.bk-card-user{
+  display: flex;
+
+  .bk-card-userimg{
+    width: 50px;
+    height: 50px;
+    background-color: $grey;
+    border-radius: 50%;
+    margin-right: $spacing;
   }
 }
