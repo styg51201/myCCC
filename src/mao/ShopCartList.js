@@ -23,8 +23,6 @@ function ShopCartList(props) {
   const [forCart, setForCart] = useState(true)
   // 從產品ID轉換成產品名稱
   function checkProduct(val) {
-
-
     productList.map((v, i) => {
       if (val == v.pId) {
         val = v.pName
@@ -43,9 +41,9 @@ function ShopCartList(props) {
     return val
   }
   // 必打
-  async function getData(){
+  async function getData() {
     let Ctrl = await props.CtrlData
-    await console.log('CTRL',Ctrl)
+    await console.log('CTRL', Ctrl)
     await props.getShopCart(Ctrl)
   }
   useEffect(() => {
@@ -54,9 +52,6 @@ function ShopCartList(props) {
     setLoaded(true)
     setForCart(false)
   }, [])
-  useEffect(()=>{
-    getData()
-  },[props.AddItem])
   let RealCart = [] //統整checkBox的品項，然後最後送至資料庫
 
   //從資料庫叫出的購物車內容加入checkBox & RealCart
@@ -142,26 +137,25 @@ function ShopCartList(props) {
   })
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
-    <div className="bg-white m-0">
-      <h3 className="Mao-shopcart-check-item">購物內車目前沒有產品</h3>
+    <div className="p-3 text-center Mao-CartNoItem">
+      <h3>趕快去尋找最愛的商品吧！</h3>
+      <Link to="/">
+        <img className="Mao-Like-img" src="./Mao-img/travel1.jpg" />
+      </Link>
     </div>
   )
+  const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
 
   return (
     <>
-      <div className="d-flex">
-        <ul style={{ maxWidth: '100%' }}>
-          {props.data.length > 0 ? dataList : CartNoItem}
+      <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
+        <ul className={props.AddItem.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '960px' }}>
+          {props.AddItem.length > 0 ? dataList : CartNoItem}
         </ul>
-        <MaoCartShopTotal />
+        {props.AddItem.length > 0 ? <MaoCartShopTotal />  :  CartNoItemTotal}
+        
       </div>
       <ProductSlide />
-      <div>
-        <h2>傳輸內容</h2>
-        <ul className="list-unstyled">
-          {displayRealCart.length > 0 ? displayRealCart : CartNoItem}
-        </ul>
-      </div>
     </>
   )
 }
