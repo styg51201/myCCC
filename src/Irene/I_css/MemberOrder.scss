@@ -8,3 +8,7 @@
 table {
   margin: 50px;
 }
+
+button {
+  @include buttonTheme(blackStyle);
+}

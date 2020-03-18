@@ -34,6 +34,23 @@ export const showItemId = val =>{
     dispatch(showItemId(data))
   }
 }
+//回傳showMultipleItemId
+export const showMultipleItemId = val =>{
+  return {type:'SHOW_MULTIPLE',value:val}
+}
+export const multiple_imagesItemId = val =>{
+  return async dispatch => {
+    const request = new Request(`http://localhost:5500/items//multiple_images/${val}`,{
+      method:'GET',
+      credentials: 'include'
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+  console.log()
+  console.log('mmmmmmm', data)
+  dispatch(showMultipleItemId(data))
+}
+}
 //-------------商品排序-------------//
 export const PriceHightToLow =val=>{
   return dispatch=>{
