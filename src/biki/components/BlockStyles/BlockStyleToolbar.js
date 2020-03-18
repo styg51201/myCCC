@@ -53,7 +53,7 @@ function BlockStyleToolbar(props) {
         .getType();
 
     return (
-        <div className="bk-draft-toolba">
+        <div className="bk-draft-toolbar">
         <span className="RichEditor-controls">
             <HeaderStyleDropdown
                 headerOptions={HEADER_TYPES}

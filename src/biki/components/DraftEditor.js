@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 import Toolbar, {styleMap, getBlockType} from './BlockStyles/Toolbar'
+import TagBlock from './TagBlock'
 
 //utils for media rendering
 import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
@@ -19,13 +20,15 @@ function DraftEditor(){
 
     //initialize editor state
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [showUrlInput, setShowUrlInput] = useState(false)
+    const [editorContent, setEditorContent] = useState('');
+    // const [showUrlInput, setShowUrlInput] = useState(false)
     const [urlValue, setUrlValue] = useState('')
-    const [uploading, setUploading] = useState(false)
+    // const [uploading, setUploading] = useState(false)
     const [foldername, setFoldername] = useState('')
     const [title, setTitle] = useState('')
     const [id, setId] = useState(0)
-    const [story, setStory] = useState([]); //for debouncing
+    const [story, setStory] = useState([]) //for debouncing
+    const [tags, setTags] = useState([])
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
@@ -38,8 +41,16 @@ function DraftEditor(){
     }, [])
 
     useEffect(()=>{
+        let content = editorState.getCurrentContent()
+        if(editorContent !== content){
+            setEditorContent(content);
+        }
         setStory([title, editorState])
     }, [editorState, title])
+
+    useEffect(()=>{
+        console.log("content or title or tags changed")
+    }, [editorContent, title, tags])
 
     // editorState每更動，隔三秒存一次
     const dataDebounced = useDebounce(story, 3000)
@@ -48,38 +59,19 @@ function DraftEditor(){
         saveData()
     }, [dataDebounced])
 
-    async function saveData(){
-        const contentState = await editorState.getCurrentContent()
-        const response = await fetch(`http://localhost:5500/stories/user-editor/save-draft/${id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({
-                content: convertToRaw(contentState),
-                title: title
-            }),
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            })
-        })
-        const data = await response.json()
-        await console.log(data)
+    useEffect(()=>{
+
+    }, [tags])
+
+
+    const handleTitle = (e)=>{
+        // console.log(e.target.value)
+        setTitle(e.target.value)
     }
 
-    async function uploadStory(){
-        const contentState = await editorState.getCurrentContent()
-        const response = await fetch(`http://localhost:5500/stories/user-editor/upload-story/${id}`, {
-            method: 'PATCH',
-            body: JSON.stringify({
-                content: convertToRaw(contentState),
-                title: title
-            }),
-            headers: new Headers({
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            })
-        })
-        const data = await response.json()
-        await console.log(data)
+    const handleTags = (e)=>{
+        // console.log(e.target.value.split(' '))
+        setTags(e.target.value.split(' '))
     }
     
     // basically just sets state...
@@ -137,11 +129,6 @@ function DraftEditor(){
         }
     }
 
-    const handleTitle = (e)=>{
-        // console.log(e.target.value)
-        setTitle(e.target.value)
-    }
-
     async function submitData(){
         const contentState = await editorState.getCurrentContent()
 
@@ -162,6 +149,41 @@ function DraftEditor(){
         console.log("submitted data!")
     }
 
+
+    async function saveData(){
+        const contentState = await editorState.getCurrentContent()
+        const response = await fetch(`http://localhost:5500/stories/user-editor/save-draft/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                content: convertToRaw(contentState),
+                title: title
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        const data = await response.json()
+        await console.log(data)
+    }
+
+    async function uploadStory(){
+        const contentState = await editorState.getCurrentContent()
+        const response = await fetch(`http://localhost:5500/stories/user-editor/upload-story/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                content: convertToRaw(contentState),
+                title: title
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        const data = await response.json()
+        await console.log(data)
+    }
+
     //focus back to editor after img insert
     useEffect(()=>{
         setTimeout(()=>{
@@ -174,6 +196,15 @@ function DraftEditor(){
             <div className="bk-form-control">
                 <label>標題</label>
                 <input type="text" onChange={handleTitle} />
+            </div>
+            <div className="bk-form-control">
+                <div className="bk-editor-tags">{!tags ? '' : tags.map((v, i)=>{
+                    if(v !== ''){
+                        return <TagBlock tag={v} />
+                    }
+                })}</div>
+                <label>標籤</label>
+                <input type="text" onChange={handleTags} />
             </div>
             <div className="bk-draft-editor-container">
                 <div>
