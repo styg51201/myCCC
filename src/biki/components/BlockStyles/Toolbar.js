@@ -32,7 +32,6 @@ export const styleMap = {
 }
 
 export function getBlockType(block){
-    // console.log("block.getType(): ",block.getType())
     switch(block.getType()){
         case 'ALIGNCENTER':
             return 'align-center'
@@ -57,13 +56,7 @@ function Toolbar(props){
     //settings for block type elements
     const selection = editorState.getSelection();
 
-    const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType(); //gets the style that's setted above
-    // console.log(blockType)
-
-    // const imgRef = useRef(null)
-    // const imgHandler = ()=>{
-    //     imgRef.current.click()
-    // }
+    const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType();
 
     return(
         <>
