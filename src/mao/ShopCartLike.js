@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './css/mao.css'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
+import MaoSlide from './component/MaoSlide'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -17,7 +18,6 @@ import {
 } from './actions/ShopCartAction'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
-import ProductSlide from './ProductSlide'
 function ShopCartLike(props) {
   const [favorloaded, setFavorloaded] = useState(false)
   // 從產品ID轉換成產品名稱
@@ -118,11 +118,13 @@ function ShopCartLike(props) {
 
   return (
     <>
-      <div className={dataList.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '1300px' }}>
-        <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul>
+      {/* <div className={dataList.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '1300px' }}> */}
+      
+      <MaoSlide/>
+        {/* <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul> */}
         {/* <MaoCartShopTotal/> */}
-      </div>
-      <ProductSlide />
+      {/* </div> */}
+      {/* <ProductSlide /> */}
       {/* <div>
       <h2>傳輸內容</h2>
         <ul className="list-unstyled">{dataList}</ul>
