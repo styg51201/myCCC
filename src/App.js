@@ -26,7 +26,8 @@ import Actioncamera from './chin/Actioncamera'
 import Surrounding from './chin/Surrounding'
 //import mao
 import ShopCartList from './mao/ShopCartList'
-
+import ShopCartLike from './mao/ShopCartLike'
+import OrderInfo from './mao/OrderInfo'
 //import Irene
 import MemberLogin from './Irene/MemberLogin'
 import MemberEdit from './Irene/MemberEdit'
@@ -34,7 +35,6 @@ import MemberEdit from './Irene/MemberEdit'
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
 import MemberCoupon from './stacey/MemberCoupon'
-
 
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
@@ -63,56 +63,61 @@ function App() {
             <Home />
           </Route>
         </Switch>
-      <Container>
-        <Switch>
-        {/*----------------------chin---------------------*/}
-          <Route path="/headset">
-            <Headset/>
-          </Route>
-          <Route path="/watch">
-            <Watch/>
-          </Route>
-          <Route path="/actioncamera">
-            <Actioncamera/>
-          </Route>
-          <Route path="/surrounding">
-            <Surrounding/>
-          </Route>
-          <Route path="/commidty/:itemId?">
-            <Commidty/>
-          </Route>
-          <Route path="/comparepages">
-            <Comparepages/>
-          </Route>
-        {/*---------------------------------------------*/}
-          <Route path="/ShopCartList">
-              {' '}
-              {/*id抓會員ID */}
+        <Container>
+          <Switch>
+            {/*----------------------chin---------------------*/}
+            <Route path="/headset">
+              <Headset />
+            </Route>
+            <Route path="/watch">
+              <Watch />
+            </Route>
+            <Route path="/actioncamera">
+              <Actioncamera />
+            </Route>
+            <Route path="/surrounding">
+              <Surrounding />
+            </Route>
+            <Route path="/commidty/:itemId?">
+              <Commidty />
+            </Route>
+            <Route path="/comparepages">
+              <Comparepages />
+            </Route>
+            {/*---------------------------------------------*/}
+            <Route path="/ShopCartList">
               <ShopCartList />
             </Route>
+            <Route path="/ShopCartLike">
+              <ShopCartLike />
+            </Route>
+            {/* ----------------------------------------- */}
             <Route path="/memberlogin">
               <MemberLogin />
             </Route>
             <Route path="/memberedit">
               <MemberEdit />
             </Route>
-          {/* 連結優惠券專區 */}
-        <Route path="/getCoupon"> 
-          <GetCoupon />
-        </Route>
-        <Route path="/memberCoupon"> 
-          <MemberCoupon />
-        </Route>
-        <Route path="/stories"> 
-          <Stories />
-        </Route>
-        <Route path="/upload-stories">
-          <DraftEditor />
-        </Route>
-        </Switch>
-      </Container>
-      <Footer />
-    </>
+            <Route path="/OrderInfo">
+              <OrderInfo />
+            </Route>
+            {/* 連結優惠券專區 */}
+            <Route path="/getCoupon">
+              <GetCoupon />
+            </Route>
+            <Route path="/memberCoupon">
+              <MemberCoupon />
+            </Route>
+            <Route path="/stories">
+              <Stories />
+            </Route>
+            <Route path="/upload-stories">
+              <DraftEditor />
+            </Route>
+          </Switch>
+        </Container>
+        <Footer />
+      </>
     </Router>
   )
 }
