@@ -1,5 +1,5 @@
 import React from 'react'
-import '../I_css/MemberEdit.css'
+import '../I_css/MemberEdit.scss'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { Form, ListGroup, Button } from 'react-bootstrap'

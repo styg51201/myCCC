@@ -24,6 +24,7 @@ import {
   MyFavorite,
   ControlDataState,
 } from '../mao/reducers/ShopCartReducer'
+import { getMemberID, member } from '../Irene/reducers/memberReducer'
 
 //老師範例
 // 第一步：建立reducer
@@ -57,6 +58,8 @@ const rootReducer = combineReducers({
   calculator,
   MyFavorite,
   ControlDataState,
+  member,
+  getMemberID,
 })
 
 export { rootReducer }
