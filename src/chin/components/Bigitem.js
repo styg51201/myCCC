@@ -1,7 +1,7 @@
 import React from 'react'
 
 function Bigitem(props){
-
+  console.log(props)
     let imgUrl = props.data[0] ? `/chin-img/images/${props.data[0].itemImg}` : ''
     return(
         <>

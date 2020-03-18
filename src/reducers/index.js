@@ -4,7 +4,7 @@ import { combineReducers } from 'redux'
 import  {getCouponData ,filterCoupon,memberCouponData,memberCouponFilterData} from '../stacey/reducer/couponReducer'
 
 //chin
-import { getItems,getItemId } from '../chin/reducer/itemsReducer'
+import { getItems,getItemId,getMultipleItemId } from '../chin/reducer/itemsReducer'
 
 //mao
 import { AddItem,displayShopCart,getShop } from '../mao/reducers/ShopCartReducer'
@@ -31,7 +31,7 @@ import { AddItem,displayShopCart,getShop } from '../mao/reducers/ShopCartReducer
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
 const rootReducer = combineReducers({
     memberCouponFilterData,memberCouponData,getCouponData,filterCoupon, //sty
-    getItems,getItemId,
+    getItems,getItemId,getMultipleItemId,
     AddItem,displayShopCart,getShop
 })
 
