@@ -10,13 +10,18 @@ function StorieyCard(props){
     const [height, setHeight] = useState(0)
 
     useEffect(()=>{
-        // console.log(masonryRef.current.clientHeight);
+        console.log(masonryRef.current.clientHeight);
         setHeight(masonryRef.current.clientHeight)
     }, [])
 
+
+
     return(
         <>
-            <div className={`bk-masonry-itm ${height > 600 ? 'bk-collapse' : ''}`} ref={masonryRef}>
+            <div className={`bk-masonry-itm ${height > 600 ? 'bk-collapse' : ''}`} 
+                ref={masonryRef}
+                onClick={props.onClick}
+            >
                 <Card className="bk-card">
                     <Card.Header>
                     <div className="bk-card-user">
@@ -36,6 +41,7 @@ function StorieyCard(props){
                     </Card.Footer>
                 </Card>
             </div>
+            <div className="bk-masonry-itm-backdrop"></div>
         </>
     )
 }
