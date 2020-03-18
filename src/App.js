@@ -58,21 +58,6 @@ function App() {
     <Router>
       <>
         <Header />
-        {/* <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>This is our Hello World page.我誰~~~~~~</p> */}
-
-        {/* 下面是測試用的 react-bootstrap ExampleToast 物件 */}
-        {/* <ExampleToast className="toast">
-            We now have Toasts
-            <span role="img" aria-label="tada">
-              🎉
-            </span>
-          </ExampleToast> */}
-        {/* 上面是測試用的 react-bootstrap ExampleToast 物件 */}
-        {/* </header>
-      </div> */}
         <Switch>
           <Route exact path="/">
             <Home />
