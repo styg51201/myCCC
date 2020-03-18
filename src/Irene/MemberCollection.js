@@ -1,6 +1,6 @@
 import React from 'react'
 
-import './I_css/MemberCollection.css'
+import './I_css/MemberCollection.scss'
 
 import MemberSidebar from './components/MemberSidebar'
 

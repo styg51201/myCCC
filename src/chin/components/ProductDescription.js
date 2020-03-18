@@ -1,10 +1,11 @@
 import React from 'react'
 
-function ProductDescription(){
+function ProductDescription(props){
+  console.log(props)
     return(
         <div className="chin-productname">
-        <h6>Audio-Technica</h6>
-        <h5>智慧型手機專用耳塞式耳機</h5>
+        <h6>{props.data[0] ? props.data[0].name : ''}</h6>
+        <h5>{props.data[0] ? props.data[0].itemName : ''}</h5>
         <div className="chin-starimg">
           <img src="/chin-img/star.svg" alt="" />
           <img src="/chin-img/star.svg" alt="" />
@@ -13,12 +14,9 @@ function ProductDescription(){
           <img src="/chin-img/star.svg" alt="" />
         <span>4.0 (5)</span>
         </div>
-        <h4>NT$6,400</h4>
+        <h4>NT${props.data[0] ? props.data[0].itemPrice : ''}</h4>
         <p>
-          搭載凝聚高性能精簡設計的Ø9.8mm驅動單元，展現優質的中高音頻。
-          重視佩戴舒適感的袖珍機身，耳型較小也能完美服貼。
-          導線附有智慧型手機用控制器，可接聽電話及控制音樂播放。 XS、S、M、L
-          四種尺寸耳塞，自由選擇佩戴感。
+          {props.data[0] ? props.data[0].itemDescription : ''}
         </p>
         <div className="chin-myfavourite-shopping">
           <div className="chin-myfavourite">

@@ -1,14 +1,27 @@
 import { combineReducers } from 'redux'
 
 // stacey
-import  {getCouponData ,filterCoupon,memberCouponData,memberCouponFilterData} from '../stacey/reducer/couponReducer'
+import {
+  getCouponData,
+  filterCoupon,
+  memberCouponData,
+  memberCouponFilterData,
+} from '../stacey/reducer/couponReducer'
 
 //chin
-import { getItems,getItemId } from '../chin/reducer/itemsReducer'
+import {
+  getItems,
+  getItemId,
+  getMultipleItemId,
+} from '../chin/reducer/itemsReducer'
 
 //mao
-import { AddItem,displayShopCart,getShop } from '../mao/reducers/ShopCartReducer'
-
+import {
+  AddItem,
+  displayShopCart,
+  getShop,
+} from '../mao/reducers/ShopCartReducer'
+import { getMemberID, member } from '../Irene/reducers/memberReducer'
 
 //老師範例
 // 第一步：建立reducer
@@ -27,12 +40,20 @@ import { AddItem,displayShopCart,getShop } from '../mao/reducers/ShopCartReducer
 //   }
 // }
 
-
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
 const rootReducer = combineReducers({
-    memberCouponFilterData,memberCouponData,getCouponData,filterCoupon, //sty
-    getItems,getItemId,
-    AddItem,displayShopCart,getShop
+  memberCouponFilterData,
+  memberCouponData,
+  getCouponData,
+  filterCoupon, //sty
+  getItems,
+  getItemId,
+  getMultipleItemId,
+  AddItem,
+  displayShopCart,
+  getShop,
+  member,
+  getMemberID,
 })
 
 export { rootReducer }
