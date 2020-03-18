@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Editor, EditorState, RichUtils, AtomicBlockUtils} from 'draft-js';
+import {Editor, EditorState, RichUtils, AtomicBlockUtils, convertToRaw} from 'draft-js';
 
 import Toolbar, {styleMap, getBlockType} from './components/BlockStyles/Toolbar'
 // import {mediaBlockRenderer} from './components/entities/mediaBlockRenderer'
@@ -46,7 +46,6 @@ function DraftEditor(){
         }
         return 'not-handled';
       }
-
       
     // renderer for Editor
     function mediaBlockRenderer(block){
@@ -82,7 +81,6 @@ function DraftEditor(){
 
     //button on click
     function confirmMedia(e){
-        // e.preventDefault();
         imgRef.current.click()
     }
 
@@ -115,14 +113,6 @@ function DraftEditor(){
         // setUploading(true)
         e.preventDefault()
 
-        // const reader = new FileReader();
-
-        // reader.addEventListener('load', function(evt){
-        //     renderMedia(evt.target.result)
-        // })
-        // reader.readAsDataURL(imgRef.current.files[0]);
-
-
         const formdata = new FormData(imgFormRef.current)
         formdata.append('foldername', foldername)
 
@@ -135,13 +125,29 @@ function DraftEditor(){
         console.log(data);
 
         await setFoldername(data.foldername)
-
-        console.log(data.url.length)
         
         for(let i = 0 ; i < data.url.length ; i++){
             await console.log(data.url[i])
             await renderMedia(data.url[i])
         }
+    }
+
+    async function handleSubmit(){
+        const contentState = await editorState.getCurrentContent()
+        // console.log('content state', convertToRaw(contentState));
+
+        const response = await fetch('http://localhost:5500/stories/submit-editor', {
+            method: 'post',
+            body: JSON.stringify({
+                content: convertToRaw(contentState)
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        const data = await response.json()
+        await console.log(data)
     }
 
     //focus back to editor after img insert
@@ -177,7 +183,7 @@ function DraftEditor(){
                     />
                 </div>
             </div>
-            <button className="bk-submit-btn">Submit</button>
+            <button className="bk-submit-btn" onClick={handleSubmit}>Submit</button>
         </>
     )
 }
