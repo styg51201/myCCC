@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './css/mao.css'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
+import MaoSlide from './component/MaoSlide'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -17,7 +18,6 @@ import {
 } from './actions/ShopCartAction'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
-import ProductSlide from './ProductSlide'
 function ShopCartLike(props) {
   const [favorloaded, setFavorloaded] = useState(false)
   // 從產品ID轉換成產品名稱
@@ -39,25 +39,6 @@ function ShopCartLike(props) {
     })
     return val
   }
-  // let RealCart=[]
-  // function checkCart(val) {
-  //   let checkBox=props.AddItem
-  //   let obj = { pId: val, count: 0 }
-  //   let index = checkBox.findIndex(e => e == val)
-  //   checkBox.map((v,i)=>{
-  //     let pId=v.pId
-  //     index = checkBox.findIndex(pId => pId == val)
-  //     if (val == pId) {
-  //       v.count += 1
-  //     }
-  //   })
-  //   console.log(index)
-  //   if (index == -1) {
-  //     console.log('FUCK!')
-  //     checkBox.push(obj)
-  //   }
-  //   props.AddCartNewItem(checkBox)
-  // }
   // 必打
   useEffect(() => {
     checkProduct()
@@ -125,21 +106,25 @@ function ShopCartLike(props) {
   })
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
-    <h3 className="p-3" style={{ height: '500px', maxWidth: '1300px' }}>
-      購物內車目前沒有產品
+    <div className="p-3 text-center Mao-CartNoItem">
+    <h3>趕快去尋找最愛的商品吧！
     </h3>
+    <Link to="/">
+    <img className="Mao-Like-img" src="./Mao-img/travel1.jpg"/>
+    </Link>
+    </div>
+    
   )
 
   return (
     <>
-      <div
-        className="d-flex bg-white my-5"
-        style={{ width: '1300px', height: '500px' }}
-      >
-        <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul>
+      {/* <div className={dataList.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '1300px' }}> */}
+      
+      <MaoSlide/>
+        {/* <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul> */}
         {/* <MaoCartShopTotal/> */}
-      </div>
-      <ProductSlide />
+      {/* </div> */}
+      {/* <ProductSlide /> */}
       {/* <div>
       <h2>傳輸內容</h2>
         <ul className="list-unstyled">{dataList}</ul>

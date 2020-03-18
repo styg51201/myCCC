@@ -18,12 +18,19 @@ function MaoCartShopTotal(props) {
   const [fixed, setFixed] = useState(false)
   useEffect(() => {
     props.getShopCart()
+
     $(document).on('scroll', () => {
       let test = $(document).scrollTop()
+      console.log(test)
       if (test > 120) {
         setFixed(true)
+        $('.Mao-total-box-fixed').css({ opacity: 1, height: '145px' })
+        $('.Mao-total-box').css({ opacity: 0, height: '0px' })
       } else {
         setFixed(false)
+        $('.Mao-total-box').css({ opacity: 1, height: '400px' })
+        
+        $('.Mao-total-box-fixed').css({ opacity: 0, height: '0px' })
       }
     })
   }, [])
@@ -40,9 +47,7 @@ function MaoCartShopTotal(props) {
           </div>
           <div>
             <b>小計金額</b>
-            <span className="float-right">
-              {props.sTotal}
-            </span>
+            <span className="float-right">{props.sTotal}</span>
           </div>
           <div>
             <b>活動折扣</b>
@@ -87,11 +92,21 @@ function MaoCartShopTotal(props) {
                 <b>運費</b>
                 <span className="mx-5">100</span>
               </div>
-              <div className="mt-1">
-                <b>小計金額</b>
-                <span id="sTotal">{props.sTotal}</span>
+              <div className="d-flex align-items-center">
+                <div className="mt-1 w-75">
+                  <b>小計金額</b>
+                  <span className="ml-3" id="sTotal">
+                    {props.sTotal}
+                  </span>
+                </div>
+                <p className="mt-3 d-flex Mao-total-box-totalNum-fixed">
+                  <b>總金額</b>
+                  <span className="mx-2">100</span>
+                </p>
               </div>
-              <div className="mt-1">
+            </div>
+            <div className="Mao-total-box-total-fixed">
+              <div>
                 <label
                   htmlFor="coupon"
                   className="Mao-total-box-title-coupon-fixed"
@@ -105,14 +120,11 @@ function MaoCartShopTotal(props) {
                   type="text"
                   placeholder="輸入折扣碼"
                   id="coupon"
+                  onBlur={() => {
+                    console.log('驗證')
+                  }}
                 />
               </div>
-            </div>
-            <div className="Mao-total-box-total-fixed">
-              <p>
-                <b>總金額</b>
-                <span className="mx-2">100</span>
-              </p>
             </div>
           </div>
           {/* ----------------- */}
@@ -136,7 +148,9 @@ function MaoCartShopTotal(props) {
   )
   return (
     <>
-      {fixed ? fixedDisplay : NofixedDisplay}
+      {fixedDisplay}
+      {NofixedDisplay}
+      {/* {fixed ? fixedDisplay : NofixedDisplay} */}
       {/* {fixed?NofixedDisplay:fixedDisplay} */}
     </>
   )

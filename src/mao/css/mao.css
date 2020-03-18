@@ -23,8 +23,9 @@
   text-decoration: none;
 }
 .Mao-shopcart-check-item {
+  transition: .2s;
   width: 900px;
-  margin: 0px 15px;
+  margin: 0px 10px;
   border-bottom: 2px solid #efefef;
   padding: 20px;
 }
@@ -62,11 +63,12 @@
 }
 /* for CartShopTotal */
 .Mao-total-box {
-  height: 435px;
+  transition: 0s;
+  opacity: 1;
+  height: 400px;
   width: 300px;
-  padding: 10px;
-  top: 100px;
-  right: 317px;
+  padding: 5px 10px;
+  margin: 0px 10px;
 }
 .Mao-total-box-title {
   border-bottom: 1px solid #ddd;
@@ -78,14 +80,13 @@
 .Mao-total-box-title-info div {
   margin-bottom: 16px;
 }
-.Mao-total-box-title-info b {
-  font-weight: bold;
-}
 .Mao-total-box-title-coupon div {
+  font-size: 15px;
   margin-bottom: 16px;
 }
 .Mao-total-box-title-coupon input {
-  width: 280px;
+  margin-left: 10px;
+  width: 180px;
   border: none;
   border-bottom: 1px solid #eee;
   outline: none;
@@ -100,10 +101,41 @@
   text-decoration: none;
 }
 
+/*ShopCartLike*/
+.Mao-CartNoItem {
+  max-height: 500px;
+  width: 1300px;
+  position: relative;
+  padding:0;
+  overflow:hidden;
+}
+.Mao-CartNoItem h3{
+color:#666;
+text-shadow: 5px 5px 5px #999;
+position: absolute;
+top:30%;
+left: 13%;
+}
+.Mao-Total-Box-none{
+  background:none;
+  height: 400px;
+  width: 300px;
+}
+.Mao-Like-img{
+  padding:0;
+  margin:0;
+  width:1200px;
+  height: 800px;
+  box-shadow: 6px 6px 10px #aaa;
+}
+
 /* fixed */
 .Mao-total-box-fixed {
+  opacity: 0;
+  transition: 0.3s;
   width: 100%;
-  height: 170px;
+  height: 0;
+  box-shadow: 10px 10px 10px #aaa;
   padding: 6px 0px;
   position: fixed;
   z-index: 99;
@@ -124,11 +156,24 @@
   align-items: center;
 }
 .Mao-total-box-fixed .container div {
-  width: 100%;
+  width: 850px;
 }
 .Mao-total-box-title-info-fixed {
   display: flex;
   flex-direction: column;
+}
+
+.Mao-total-box-totalNum-fixed {
+  position: absolute;
+  top: 35%;
+  right: 40%;
+  font-size: 24px;
+  font-weight: bold;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  width: 300px;
+  border-bottom: 1px solid #ddd;
 }
 .Mao-total-box-title-coupon-fixed {
   margin: 5px 0px;
@@ -138,6 +183,8 @@
   border-bottom: 1px solid #ddd;
 }
 .Mao-total-box-total-fixed {
+  display: flex;
+  align-items: center;
   font-size: '18px';
   text-align: right;
   margin: 5px 0px;
@@ -155,7 +202,7 @@
 }
 
 .Mao-total-box-btn-fixed {
-  width: 30%;
+  width: 80%;
   height: 45px;
   border: 1px solid #000;
   margin: 5px 0px;
