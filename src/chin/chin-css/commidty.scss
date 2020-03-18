@@ -21,20 +21,19 @@ h4 {
   }
 }
 .chin-smallitem {
-  img {
-    width: 128px;
-    height: 128px;
-    margin: 35px 3px 3px 3px;
-    &:nth-child(1) {
-      width: 25px;
-      height: 25px;
-    }
-    &:nth-child(6) {
-      width: 25px;
-      height: 25px;
-    }
-  }
+  padding: 0 5px 0 6px;
 }
+.chin-smallitem-img {
+  width: 128px;
+  height: 128px;
+  margin: 35px 3px 3px 3px;
+}
+.chin-smallitem-Arr {
+  margin-top: 30px;
+  width: 25px;
+  height: 25px;
+}
+
 .chin-productname {
   margin-left: 100px;
 }
@@ -478,9 +477,6 @@ h4 {
   .chin-bigitem img {
     width: 345px;
     height: 369px;
-  }
-  .chin-smallitem {
-    display: none;
   }
   .chin-rwd-circle-circle {
     display: flex;
