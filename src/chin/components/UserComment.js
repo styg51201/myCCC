@@ -23,6 +23,7 @@ function UserComment(){
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
+                5
               </div>
               <div>
                 <img src="/chin-img/star.svg" alt="" />
@@ -30,6 +31,7 @@ function UserComment(){
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
+                4
               </div>
               <div>
                 <img src="/chin-img/star.svg" alt="" />
@@ -37,6 +39,7 @@ function UserComment(){
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
+                3
               </div>
               <div>
                 <img src="/chin-img/star.svg" alt="" />
@@ -44,6 +47,7 @@ function UserComment(){
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
+                2
               </div>
               <div>
                 <img src="/chin-img/star.svg" alt="" />
@@ -51,6 +55,7 @@ function UserComment(){
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
                 <img src="/chin-img/star.svg" alt="" />
+                1
               </div>
             </div>
           </div>

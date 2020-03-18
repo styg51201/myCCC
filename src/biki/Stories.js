@@ -17,8 +17,7 @@ function Stories(){
         const response = await fetch('http://localhost:5500/stories')
         const data = await response.json()
         const story = JSON.parse(data[0].stryContent);
-        console.log(data)
-        console.log(stateToHTML(convertFromRaw(story)))
+
         setStories(data);
     }
 
@@ -29,12 +28,19 @@ function Stories(){
     return(
         <>
             <main className="mt-5">
-                <Row className="row-cols-lg-3  row-cols-md-2 row-cols-1">
+                <div className="bk-stories-container">
                     {stories===null ? '' : stories.map((itm, idx)=>{
                         let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
-                        return <StoryCard key={`${itm.stryId}-${itm.userId}`} content={story} title={itm.stryTitle}  />
+                        // console.log(itm)
+                        return <StoryCard 
+                        key={`${itm.stryId}-${itm.userId}`} 
+                        content={story} 
+                        title={itm.stryTitle}
+                        likes={itm.stryLikes}
+                        user={itm.usrId}
+                        />
                     })}
-                </Row>
+                </div>
                 <Link to="/upload-stories">Post your story</Link>
             </main>
         </>

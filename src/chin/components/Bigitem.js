@@ -1,8 +1,14 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 
 function Bigitem(props){
-  console.log(props)
-    let imgUrl = props.data[0] ? `/chin-img/images/${props.data[0].itemImg}` : ''
+
+  console.log(props.data.multiple)
+  let imgUrl = props.data.data[0] ? `/chin-img/images/${props.data.data[0].itemImg}` : ''
+
+
+  useEffect(()=>{
+   
+  },[])
     return(
         <>
         <div>
@@ -10,12 +16,16 @@ function Bigitem(props){
                 <img src={imgUrl} alt="" />
               </div>
               <div className="chin-smallitem">
-                <img src="/chin-img/chevron-left.svg" alt="" />
-                <img src="/chin-img/images/headset7.jpg" alt="" />
-                <img src="/chin-img/images/headset8.jpg" alt="" />
-                <img src="/chin-img/images/headset9.jpg" alt="" />
-                <img src="/chin-img/images/headset10.jpg" alt="" />
-                <img src="/chin-img/chevron-right.svg" alt="" />
+                <ul className="chin-sliderImg">
+                <li><img src="/chin-img/chevron-left.svg" alt=""  className="chin-smallitem-Arr"/></li>
+                {props.data.multiple.map((val,ind)=>{
+                                return(
+                                  <li>
+                        <img key={ind} src={`/chin-img/images/${val.multipleImageImg}`} className="chin-smallitem-img"/></li>
+                        )
+                                })}
+                <li><img src="/chin-img/chevron-right.svg" alt="" className="chin-smallitem-Arr2"/></li>
+                </ul>
               </div>
               <div className="chin-rwd-circle-circle">
                 <span className="chin-rwd-circle"></span>

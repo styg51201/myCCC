@@ -6,6 +6,8 @@ const upload = multer({dest: './biki/tmp-editor-imgs'});
 const { v4: uuidv4 } = require('uuid');
 const db = require('./db_connect')
 
+
+//upload-images
 router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     // console.log("foldername: ",req.body.foldername, "typeof:", typeof req.body.foldername) //string
     const output = {
@@ -47,30 +49,119 @@ router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     res.json(output)
 })
 
-router.post('/submit-editor', (req, res)=>{
+// router.patch('/user-editor/:action/:id', (req, res)=>{
 
+//     const output = {
+//         success: false,
+//         data: '',
+//         message: ''
+//     }
+
+//     let sql = 'UPDATE `stories` SET `stryTitle`= ?, `stryStatus`= ?,`stryContent`= ? WHERE `usrId` = ? AND `stryId` = ?';;
+//     let status;
+//     let message = {}
+
+//     switch(req.params.action){
+//         case 'save-draft':
+//             status = 'draft';
+//             message.success = 'save success!';
+//             message.fail = 'save fail';
+//             break;
+//         case 'upload-story':
+//             status = 'active';
+//             message.success = 'upload success!';
+//             message.fail = 'upload fail';
+//             break;
+//         default:
+//             output.message = 'wrong directory';
+//             res.json(output);
+//             return;
+//     }
+
+//     db.queryAsync(sql, [
+//         req.body.title,
+//         status,
+//         JSON.stringify(req.body.content),
+//         0, //should be from session
+//         req.params.id
+//     ])
+//     .then(r=>{
+//         output.success = true;
+//         output.data = r;
+//         output.message = message.success;
+//         res.json(output);
+//         return;
+//     })
+//     .catch(err=>{
+//         console.log(err);
+//         output.message = message.fail;
+//         res.json(output);
+//         return;
+//     })
+// })
+
+//update editor contents
+/*
+router.patch('/user-editor', (req, res)=>{
     const output = {
         success: false,
         data: '',
         message: ''
     }
 
-    let sql = 'INSERT INTO `stories`(`usrId`, `stryTitle`, `stryStatus`, `stryContent`) VALUES (0, "asdf", "active", ?)';
+    let sql = 'UPDATE `stories` SET `stryTitle`= ?, `stryStatus`= ?,`stryContent`= ? WHERE `usrId` = ? AND `stryId` = ?';
 
-    db.queryAsync(sql, [JSON.stringify(req.body.content)])
+    db.queryAsync(sql, [
+        req.body.title,
+        'draft',
+        JSON.stringify(req.body.content),
+        0, //should be from session
+        req.body.id
+    ])
     .then(r=>{
         output.success = true;
         output.data = r;
-        output.message = 'success!';
+        output.message = 'save success!';
         res.json(output);
     })
     .catch(err=>{
-        output.data = err;
-        output.message = 'failed';
+        console.log(err);
+        output.message = 'save failure'
         res.json(output);
     })
-    
 })
+*/
+
+
+//first submit editor content
+// router.post('/user-editor', (req, res)=>{
+
+//     const output = {
+//         success: false,
+//         data: '',
+//         message: ''
+//     }
+
+//     let sql = 'INSERT INTO `stories`(`usrId`, `stryTitle`, `stryStatus`, `stryContent`) VALUES (0, ?, "draft", ?)';
+
+//     db.queryAsync(sql, [
+//         req.body.title,
+//         JSON.stringify(req.body.content)])
+//     .then(r=>{
+//         console.log(r.insertId);
+//         output.success = true;
+//         output.data = r.insertId;
+//         output.message = 'upload success!';
+//         res.json(output);
+//     })
+//     .catch(err=>{
+//         output.data = err;
+//         output.message = 'upload failed';
+//         console.log(err);
+//         res.json(output);
+//     })
+    
+// })
 
 router.get('/', (req, res)=>{
     let sql = 'SELECT `usrId`, `stryId`, `stryTitle`, `stryContent`, `stryLikes`, `created_at`, `updated_at` FROM `stories` WHERE `stryStatus`="active"';

@@ -1,11 +1,17 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {Editor, EditorState, RichUtils, AtomicBlockUtils, convertToRaw} from 'draft-js';
+import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
-import Toolbar, {styleMap, getBlockType} from './components/BlockStyles/Toolbar'
-// import {mediaBlockRenderer} from './components/entities/mediaBlockRenderer'
+import Toolbar, {styleMap, getBlockType} from './BlockStyles/Toolbar'
 
-import './css/Draft.css'
-import './css/draftEditor.scss'
+//utils for media rendering
+import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
+
+//utils for debouncing
+import useDebounce from '../utils/useDebounce'
+
+//css
+import '../css/Draft.css'
+import '../css/storyEditor.scss'
 
 import { connect } from 'react-redux'
 
@@ -17,11 +23,65 @@ function DraftEditor(){
     const [urlValue, setUrlValue] = useState('')
     const [uploading, setUploading] = useState(false)
     const [foldername, setFoldername] = useState('')
+    const [title, setTitle] = useState('')
+    const [id, setId] = useState(0)
+    const [story, setStory] = useState([]); //for debouncing
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
     const imgFormRef = useRef(null)
 
+    //進來直接存入db
+    useEffect(()=>{
+        setStory([title, editorState])
+        submitData();
+    }, [])
+
+    useEffect(()=>{
+        setStory([title, editorState])
+    }, [editorState, title])
+
+    // editorState每更動，隔三秒存一次
+    const dataDebounced = useDebounce(story, 3000)
+
+    useEffect(()=>{
+        saveData()
+    }, [dataDebounced])
+
+    async function saveData(){
+        const contentState = await editorState.getCurrentContent()
+        const response = await fetch(`http://localhost:5500/stories/user-editor/save-draft/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                content: convertToRaw(contentState),
+                title: title
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        const data = await response.json()
+        await console.log(data)
+    }
+
+    async function uploadStory(){
+        const contentState = await editorState.getCurrentContent()
+        const response = await fetch(`http://localhost:5500/stories/user-editor/upload-story/${id}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                content: convertToRaw(contentState),
+                title: title
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        const data = await response.json()
+        await console.log(data)
+    }
+    
     // basically just sets state...
     const onChange = editorState =>{
         return  setEditorState(editorState);
@@ -38,6 +98,7 @@ function DraftEditor(){
         setEditorState(RichUtils.toggleBlockType(editorState, block))
     }
 
+    //keyboard shortcuts?
     function  handleKeyCommand(command) {
         const newState = RichUtils.handleKeyCommand(editorState, command);
         if (newState) {
@@ -45,70 +106,14 @@ function DraftEditor(){
           return 'handled';
         }
         return 'not-handled';
-      }
+    }
       
-    // renderer for Editor
-    function mediaBlockRenderer(block){
-        if(block.getType() === 'atomic'){
-            return{
-                component: Media,
-                editable: false
-            }
-        }
-        return null
-    }
-
-    //the rendered item
-    const Image = props =>{
-        if(!!props.src){
-            return <img src={props.src} />
-        }
-        return null
-    }
-    
-    //the component
-    const Media = props =>{
-        const entity = props.contentState.getEntity(props.block.getEntityAt(0))
-        const {src} = entity.getData()
-        const type = entity.getType()
-    
-        let media;
-        if(type === 'image'){
-            media = <Image src={src} />
-        }
-        return media
-    }
-
     //button on click
     function confirmMedia(e){
         imgRef.current.click()
     }
 
-    async function renderMedia(urlValue){
-        const contentState = editorState.getCurrentContent()
-        const contentStateWithEntity = contentState.createEntity(
-            'image',
-            'IMMUTABLE',
-            {src: urlValue} //entity data
-        )
-        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-
-        //update editor with image
-        const newEditorState = EditorState.set(
-            editorState,
-            {currentContent: contentStateWithEntity}
-        )
-        
-        //log it into the editorstate hook
-        setEditorState(AtomicBlockUtils.insertAtomicBlock(
-            newEditorState,
-            entityKey,
-            ' '
-        ))
-        setShowUrlInput(false)
-        setUrlValue('')
-    }
-
+    //when file submitted, upload to public & render element in Editor
     async function fileOnChange(e){
         // setUploading(true)
         e.preventDefault()
@@ -128,18 +133,23 @@ function DraftEditor(){
         
         for(let i = 0 ; i < data.url.length ; i++){
             await console.log(data.url[i])
-            await renderMedia(data.url[i])
+            await renderMedia(data.url[i], editorState, setEditorState, setUrlValue)
         }
     }
 
-    async function handleSubmit(){
-        const contentState = await editorState.getCurrentContent()
-        // console.log('content state', convertToRaw(contentState));
+    const handleTitle = (e)=>{
+        // console.log(e.target.value)
+        setTitle(e.target.value)
+    }
 
-        const response = await fetch('http://localhost:5500/stories/submit-editor', {
+    async function submitData(){
+        const contentState = await editorState.getCurrentContent()
+
+        const response = await fetch('http://localhost:5500/stories/user-editor', {
             method: 'post',
             body: JSON.stringify({
-                content: convertToRaw(contentState)
+                content: convertToRaw(contentState),
+                title: title
             }),
             headers: new Headers({
                 'Accept': 'application/json',
@@ -148,6 +158,8 @@ function DraftEditor(){
         })
         const data = await response.json()
         await console.log(data)
+        setId(data.data)
+        console.log("submitted data!")
     }
 
     //focus back to editor after img insert
@@ -159,6 +171,10 @@ function DraftEditor(){
 
     return(
         <>
+            <div className="bk-form-control">
+                <label>標題</label>
+                <input type="text" onChange={handleTitle} />
+            </div>
             <div className="bk-draft-editor-container">
                 <div>
                     <Toolbar
@@ -183,7 +199,10 @@ function DraftEditor(){
                     />
                 </div>
             </div>
-            <button className="bk-submit-btn" onClick={handleSubmit}>Submit</button>
+            <div className='bk-btn-group'>
+                <button className="bk-btn-black" onClick={uploadStory}>上傳</button>
+                <button className="bk-btn-black-bordered" onClick={saveData}>儲存草稿</button>
+            </div>
         </>
     )
 }

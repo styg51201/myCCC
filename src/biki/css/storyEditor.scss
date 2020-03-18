@@ -1,8 +1,39 @@
 @import "../../css/variables.scss";
 
+.bk-story-editor-container{
+  background-color: $white;
+  padding: $spacing*2;
+  margin-bottom: $spacing*2;
+}
+
+.bk-form-control{
+  label{
+    display: block;
+  }
+
+  input{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px $black;
+    margin-bottom: $spacing;
+    // color: $grey;
+
+    &:nth-last-child(1){
+      margin-bottom: $spacing*2;
+    }
+
+    &:focus{
+      outline: none;
+      // color: $black;
+    }
+  }
+}
+
 .bk-draft-editor-container {
   border: solid 1px black;
   padding: 0 $spacing $spacing $spacing;
+  margin-bottom: $spacing;
 
   .align-center .public-DraftStyleDefault-ltr {
     text-align: center;
