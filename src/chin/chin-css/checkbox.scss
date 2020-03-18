@@ -1,5 +1,18 @@
 @import '../../css/variables';
 @import '../../css/main.scss';
+// .test {
+//   input[type='checkbox'] {
+//     display: none;
+//     &:checked + label::before {
+//       // display: block;
+//       content: '\2714';
+//       text-align: center;
+//       font-size: 14px;
+//       color: white;
+//       background: #050505;
+//     }
+//   }
+// }
 .chin-brand-checkbox {
   position: relative;
   width: 289px;
