@@ -8,6 +8,13 @@ import { bindActionCreators } from 'redux'
 import {addFilterCoupon} from '../actions/couponAction'
 
 
+//icon
+import { IconContext } from 'react-icons'
+import {
+  FiChevronDown
+} from 'react-icons/fi'
+
+
 function SideFilter (props){
 
   console.log('888',props)
@@ -19,14 +26,19 @@ function SideFilter (props){
     return(
         <>
         <div className="col-3 sty-sideFilter">
-          <h3 className="">品牌</h3>
+          <div className="sty-title">
+            <h3>品牌</h3>
+            <FiChevronDown />
+          </div>
           <hr />
           <ul onChange={(e)=>filter(e)}>
           {props.list.map((val,ind)=>{
             return (<li key={ind}>
-              <input type="checkbox" name={val} id={val} value={val}/><label
-                htmlFor={val}
-                >{val}</label>
+              <input type="checkbox" name={val} id={val} value={val}/>
+              <label htmlFor={val}>
+              <div className="sty-box"></div>
+              {val}
+                </label>
             </li>)
           })}
           </ul>

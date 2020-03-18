@@ -1,59 +1,64 @@
 import { combineReducers } from 'redux'
-import {productList} from '../ProductList'
-
+import { productList } from '../ProductList'
 
 //購物車
 
 //產品小計
-export const calculator=(state=0,action)=>{
-  switch(action.type){
+export const calculator = (state = 0, action) => {
+  // console.log('calculator', action)
+  switch (action.type) {
     case 'CAL_TOTAL':
       return action.value
-      default:
-        return state
+    default:
+      return state
   }
 }
 //呼叫會員購物車
-export const getShop = (state=[],action)=>{
-  switch (action.type){
+export const getShop = (state = [], action) => {
+  switch (action.type) {
     case 'SHOW_CART':
       return action.value
-    default :
+    default:
       return state
   }
 }
 // control購物車品項
-export const AddItem=(state=[],action)=>{
-  switch (action.type){
+export const AddItem = (state = [], action) => {
+  switch (action.type) {
     case 'ADD_CART':
-      return  action.value
+      return action.value
     case 'DEL_CART':
       return action.value
-      default:
-        return state
+    default:
+      return state
+  }
+}
+
+export const ControlDataState = (state = true, action) => {
+  switch (action.type) {
+    case 'CTRL_DATA':
+      return action.value
+    default:
+      return state
   }
 }
 
 //我的最愛
-export const MyFavorite=(state=[],action)=>{
-  console.log('action',action)
-    switch(action.type){
-      case 'LIKE_PRODUCT':
-        return action.value
-      default:
-        return state
-    }
-}
-
-
-
-export const displayShopCart=(state=[],action)=>{
-  switch (action.type){
-    case 'DISPLAY_CART':
+export const MyFavorite = (state = [], action) => {
+  // console.log('action',action)
+  switch (action.type) {
+    case 'LIKE_PRODUCT':
       return action.value
     default:
-        return state
+      return state
   }
 }
 
-
+export const displayShopCart = (state = [], action) => {
+  switch (action.type) {
+    case 'DISPLAY_CART':
+      return action.value
+    default:
+      return state
+  }
+}

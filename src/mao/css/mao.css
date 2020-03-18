@@ -1,10 +1,10 @@
 /* for shopCartList  */
 .Mao-shopcart-list {
-  position: 'relative';
+  position: relative;
 }
 .Mao-shopcart-list-items-box {
-  max-width: '975px';
-  margin-left: '1px';
+  max-width: 975px;
+  margin-left: 1px;
 }
 .Mao-shopcart-check-btn {
   border: 1px solid #000;
@@ -64,9 +64,8 @@
 .Mao-total-box {
   height: 435px;
   width: 300px;
-  margin-left: 10px;
   padding: 10px;
-  top: 90px;
+  top: 100px;
   right: 317px;
 }
 .Mao-total-box-title {
@@ -99,4 +98,65 @@
 }
 .Mao-total-box-btn:hover {
   text-decoration: none;
+}
+
+/* fixed */
+.Mao-total-box-fixed {
+  width: 100%;
+  height: 170px;
+  padding: 6px 0px;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+}
+
+.Mao-total-box-title-fixed {
+  border-bottom: 1px solid #ddd;
+  padding: 5px 0px;
+  margin-right: 15px;
+}
+.Mao-total-box-fixed .container {
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.Mao-total-box-fixed .container div {
+  width: 100%;
+}
+.Mao-total-box-title-info-fixed {
+  display: flex;
+  flex-direction: column;
+}
+.Mao-total-box-title-coupon-fixed {
+  margin: 5px 0px;
+}
+.Mao-total-box-title-coupon-fixed-input {
+  border: none;
+  border-bottom: 1px solid #ddd;
+}
+.Mao-total-box-total-fixed {
+  font-size: '18px';
+  text-align: right;
+  margin: 5px 0px;
+  padding: 8px 0px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 50%;
+}
+.Mao-total-box-total-fixed-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Mao-total-box-btn-fixed {
+  width: 30%;
+  height: 45px;
+  border: 1px solid #000;
+  margin: 5px 0px;
 }
