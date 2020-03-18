@@ -84,7 +84,7 @@ function Header() {
                 </li>
                 <li>
                   <Link to="/getCoupon" className="navbarlist">
-                  優惠券專區
+                    優惠券專區
                   </Link>
                 </li>
                 <li>
@@ -98,12 +98,13 @@ function Header() {
         </Container>
       </div>
       <div>
-      <Link to="/memberlogin">
-        <img
-          src="./img/header-footer/user.svg"
-          alt=""
-          className="chin-three-position"
-        /></Link>
+        <Link to="/memberlogin">
+          <img
+            src="./img/header-footer/user.svg"
+            alt=""
+            className="chin-three-position"
+          />
+        </Link>
         <Link to="/ShopCartList/:id?">
           <img
             src="./img/header-footer/shopping-bag.svg"
@@ -159,23 +160,26 @@ function Header() {
               <li>
                 <Link to="/getCoupon" className="headerlist">
                   優惠券專區
-                </Link></li>
-            <li>
-              <Link to="/stories" className="headerlist">
-                故事牆
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <div className="nav-icons-wrapper">
-          <Link to="/ShopCartList/:id?">
-            <div className="nav-icons">
+                </Link>
+              </li>
+              <li>
+                <Link to="/stories" className="headerlist">
+                  故事牆
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div className="nav-icons-wrapper">
+            <Link to="/ShopCartList">
+              <div className="nav-icons">
                 <FiShoppingBag />
               </div>
             </Link>
-            <div className="nav-icons">
-              <FiHeart />
-            </div>
+            <Link to="/ShopCartLike">
+              <div className="nav-icons">
+                <FiHeart />
+              </div>
+            </Link>
             <Link to="/memberlogin">
               <div className="nav-icons">
                 <FiUser />

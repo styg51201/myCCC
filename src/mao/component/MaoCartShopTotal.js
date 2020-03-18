@@ -12,25 +12,22 @@ import {
   calCart,
 } from '../actions/ShopCartAction'
 import { productList } from '../ProductList'
+import $ from 'jquery'
 function MaoCartShopTotal(props) {
   const [loaded, setLoaded] = useState(false)
-
-
+  const [fixed, setFixed] = useState(false)
   useEffect(() => {
     props.getShopCart()
-    let TotalBox = document.querySelector('.Mao-total-box')
-    document.addEventListener('scroll', e => {
-      let FixScrollY = e.path[1].scrollY
-
-      // if (FixScrollY > 170) {
-      //   TotalBox.classList.add('position-fixed')
-      //   // console.log(FixScrollY)
-      // } else {
-      //   TotalBox.classList.remove('position-fixed')
-      // }
+    $(document).on('scroll', () => {
+      let test = $(document).scrollTop()
+      if (test > 120) {
+        setFixed(true)
+      } else {
+        setFixed(false)
+      }
     })
   }, [])
-  return (
+  const NofixedDisplay = (
     <>
       <div className="border bg-white Mao-total-box">
         <p className="Mao-total-box-title">
@@ -43,7 +40,8 @@ function MaoCartShopTotal(props) {
           </div>
           <div>
             <b>小計金額</b>
-            <span className="float-right" id="sTotal">{props.sTotal}
+            <span className="float-right">
+              {props.sTotal}
             </span>
           </div>
           <div>
@@ -74,6 +72,72 @@ function MaoCartShopTotal(props) {
           前往結帳
         </Link>
       </div>
+    </>
+  )
+  const fixedDisplay = (
+    <>
+      <div className="border bg-white Mao-total-box-fixed">
+        <div className="container">
+          <div>
+            <p className="Mao-total-box-title-fixed">
+              <b>TOTAL</b>
+            </p>
+            <div className="Mao-total-box-title-info-fixed">
+              <div>
+                <b>運費</b>
+                <span className="mx-5">100</span>
+              </div>
+              <div className="mt-1">
+                <b>小計金額</b>
+                <span id="sTotal">{props.sTotal}</span>
+              </div>
+              <div className="mt-1">
+                <label
+                  htmlFor="coupon"
+                  className="Mao-total-box-title-coupon-fixed"
+                >
+                  <div className="w-100">
+                    <b>折價券輸入</b>
+                  </div>
+                </label>
+                <input
+                  className="Mao-total-box-title-coupon-fixed-input ml-3 "
+                  type="text"
+                  placeholder="輸入折扣碼"
+                  id="coupon"
+                />
+              </div>
+            </div>
+            <div className="Mao-total-box-total-fixed">
+              <p>
+                <b>總金額</b>
+                <span className="mx-2">100</span>
+              </p>
+            </div>
+          </div>
+          {/* ----------------- */}
+          <div className="Mao-total-box-total-fixed-btn">
+            <Link
+              className="d-flex justify-content-center align-items-center Mao-total-box-btn-fixed text-dark"
+              to=""
+            >
+              繼續購物
+            </Link>
+            <Link
+              className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn-fixed"
+              to="/OrderInfo"
+            >
+              前往結帳
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+  return (
+    <>
+      {fixed ? fixedDisplay : NofixedDisplay}
+      {/* {fixed?NofixedDisplay:fixedDisplay} */}
     </>
   )
 }
