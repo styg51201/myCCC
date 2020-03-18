@@ -1,13 +1,30 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter,
+} from 'react-router-dom'
 import { Form, ListGroup, Button } from 'react-bootstrap'
 // import MemberSidebar from './components/MemberSidebar'
-import './I_css/MemberEdit.css'
+import './I_css/MemberEdit.scss'
 import MemberSidebar from './components/MemberSidebar'
 import MemberOrder from './MemberOrder'
 import MemberCollection from './MemberCollection'
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import { getserverMember } from './actions/memberAction'
 
 function MemberEdit(props) {
+  console.log(props)
+  console.log(props.data.Name)
+  //遇到資料undefined時解法
+  let imgUrl = props.data[0] ? props.data[0].Name : ''
+  useEffect(() => {
+    props.getserverMember()
+  }, [])
   return (
     <>
       <Switch>
@@ -37,7 +54,7 @@ function MemberEdit(props) {
                     readonly
                     className="form-control-plaintext"
                     id="staticEmail"
-                    value="固定的帳號"
+                    value={imgUrl}
                   />
                 </div>
               </div>
@@ -96,7 +113,7 @@ function MemberEdit(props) {
                 </div>
               </div>
               <div className="text-right">
-                <Button variant="dark">送出</Button>
+                <Button className="Irene_submit">送出</Button>
               </div>
             </Form>
           </div>
@@ -106,4 +123,21 @@ function MemberEdit(props) {
   )
 }
 
-export default MemberEdit
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return { data: store.getMemberID }
+}
+
+//action
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      getserverMember,
+    },
+    dispatch
+  )
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MemberEdit)
+)

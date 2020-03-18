@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux'
-import  {getCouponData ,filterCoupon} from '../stacey/reducer/couponReducer'
-import { getItems,getItemId } from '../chin/reducer/itemsReducer'
+import { getCouponData, filterCoupon } from '../stacey/reducer/couponReducer'
+import { getItems, getItemId } from '../chin/reducer/itemsReducer'
+import { getMemberID, member } from '../Irene/reducers/memberReducer'
 
 //老師範例
 // 第一步：建立reducer
@@ -19,10 +20,14 @@ import { getItems,getItemId } from '../chin/reducer/itemsReducer'
 //   }
 // }
 
-
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
 const rootReducer = combineReducers({
- getCouponData,filterCoupon,getItems,getItemId
+  getCouponData,
+  filterCoupon,
+  getItems,
+  getItemId,
+  getMemberID,
+  member,
 })
 
 export { rootReducer }

@@ -1,0 +1,6 @@
+@import '../../css/variables';
+@import '../../css/main.scss';
+
+button {
+  @include buttonTheme(blackStyle);
+}
