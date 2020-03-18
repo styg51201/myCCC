@@ -18,7 +18,7 @@ function Brand(){
                 <img src="./chin-img/chevron-down-black.svg" alt=""/>
             </div>
             <div>
-                <ul>
+                <ul className="test">
                     <li className="chin-brand-checkbox"  >
                         <input id="color-input" type="checkbox" />
                         <label for="color-input"></label>
