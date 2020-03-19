@@ -28,6 +28,17 @@
       // color: $black;
     }
   }
+
+}
+
+.bk-editor-tags{
+  display: flex;
+
+  .bk-editor-tag{
+    background-color: $blue;
+    padding: $spacing/2 $spacing;
+    margin: 0 $spacing/2;
+  }
 }
 
 .bk-draft-editor-container {
