@@ -2,9 +2,12 @@
   display: flex;
 }
 .chin-bigitem {
+  width: 600px;
+  height: 600px;
   img {
     width: 600px;
     height: 600px;
+    margin: 0;
   }
 }
 .chin-cir {
