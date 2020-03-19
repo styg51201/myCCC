@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost
--- 產生時間： 2020 年 03 月 19 日 16:03
+-- 產生時間： 2020 年 03 月 19 日 16:12
 -- 伺服器版本： 10.4.11-MariaDB
 -- PHP 版本： 7.4.2
 
@@ -21,7 +21,8 @@ SET time_zone = "+00:00";
 --
 -- 資料庫： `triplec`
 --
-
+CREATE DATABASE IF NOT EXISTS `triplec` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE `triplec`;
 -- --------------------------------------------------------
 
 --
@@ -837,7 +838,7 @@ CREATE TABLE `stories` (
   `stryId` int(11) NOT NULL,
   `stryTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stryStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `stryContent` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `stryContent` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `stryTags` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `stryLikes` int(50) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
@@ -852,13 +853,13 @@ CREATE TABLE `stories` (
 
 CREATE TABLE `storyDrafts` (
   `usrId` int(50) NOT NULL,
-  `drftId` int(11) NOT NULL,
+  `drftId` int(50) NOT NULL,
   `drftStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftContent` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftTags` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -1383,7 +1384,7 @@ ALTER TABLE `stories`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `storyDrafts`
 --
 ALTER TABLE `storyDrafts`
-  MODIFY `drftId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `drftId` int(50) NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `storyReplies`
