@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
-import Toolbar, {styleMap, getBlockType} from './BlockStyles/Toolbar'
-import TagBlock from './TagBlock'
+import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
+import TagBlock from './EditorComponents/TagBlock'
 
 //utils for media rendering
 import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
@@ -14,13 +14,11 @@ import useDebounce from '../utils/useDebounce'
 import '../css/Draft.css'
 import '../css/storyEditor.scss'
 
-import { connect } from 'react-redux'
-
 function DraftEditor(){
 
     //initialize editor state
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
-    const [editorContent, setEditorContent] = useState('');
+    // const [editorContent, setEditorContent] = useState('');
     // const [showUrlInput, setShowUrlInput] = useState(false)
     const [urlValue, setUrlValue] = useState('')
     // const [uploading, setUploading] = useState(false)
@@ -36,21 +34,19 @@ function DraftEditor(){
 
     //進來直接存入db
     useEffect(()=>{
-        setStory([title, editorState])
-        submitData();
+        let content = editorState.getCurrentContent()
+        let newContent = convertToRaw(content);
+        
+        //確定有內容才存入資料庫
+        if(newContent.blocks.length > 1 || newContent.blocks[0].text !== ''){
+            setStory([title, newContent])
+            submitData();
+        }
     }, [])
 
     useEffect(()=>{
-        let content = editorState.getCurrentContent()
-        if(editorContent !== content){
-            setEditorContent(content);
-        }
-        setStory([title, editorState])
-    }, [editorState, title])
-
-    useEffect(()=>{
-        console.log("content or title or tags changed")
-    }, [editorContent, title, tags])
+        if(story.length) console.log("content or title or tags changed")
+    }, [story, title, tags])
 
     // editorState每更動，隔三秒存一次
     const dataDebounced = useDebounce(story, 3000)
@@ -129,14 +125,16 @@ function DraftEditor(){
         }
     }
 
+    //first submit to draft
     async function submitData(){
         const contentState = await editorState.getCurrentContent()
 
-        const response = await fetch('http://localhost:5500/stories/user-editor', {
+        const response = await fetch('http://localhost:5500/stories/user-editor/draft', {
             method: 'post',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
-                title: title
+                title: title,
+                tags: tags
             }),
             headers: new Headers({
                 'Accept': 'application/json',
@@ -149,14 +147,15 @@ function DraftEditor(){
         console.log("submitted data!")
     }
 
-
+    //autosave to draft
     async function saveData(){
         const contentState = await editorState.getCurrentContent()
-        const response = await fetch(`http://localhost:5500/stories/user-editor/save-draft/${id}`, {
+        const response = await fetch(`http://localhost:5500/stories/user-editor/draft/${id}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
-                title: title
+                title: title,
+                tags: tags
             }),
             headers: new Headers({
                 'Accept': 'application/json',
@@ -167,13 +166,15 @@ function DraftEditor(){
         await console.log(data)
     }
 
+    //final submit
     async function uploadStory(){
         const contentState = await editorState.getCurrentContent()
-        const response = await fetch(`http://localhost:5500/stories/user-editor/upload-story/${id}`, {
-            method: 'PATCH',
+        const response = await fetch(`http://localhost:5500/stories/user-editor/upload`, {
+            method: 'POST',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
-                title: title
+                title: title,
+                tags: tags
             }),
             headers: new Headers({
                 'Accept': 'application/json',
@@ -238,11 +239,5 @@ function DraftEditor(){
     )
 }
 
-//send editor state through props to component
-const mapStateToProps = (store)=>{
-    console.log("map state to props")
-    return { total: store.counter }
-}
-
-export default connect(mapStateToProps)(DraftEditor)
+export default DraftEditor
 
