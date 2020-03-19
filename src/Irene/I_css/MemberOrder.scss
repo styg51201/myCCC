@@ -5,10 +5,10 @@
   text-align: right;
 }
 
-table {
+.irene_memberorder_list table {
   margin: 50px;
 }
 
-button {
+.irene_memberorder_listbutton {
   @include buttonTheme(blackStyle);
 }

@@ -118,7 +118,9 @@ function MemberEdit(props) {
                 </div>
               </div>
               <div className="text-right">
-                <Button className="Irene_submit">送出</Button>
+                <Button className="Irene_submit" type="submit">
+                  更新
+                </Button>
               </div>
             </Form>
           </div>

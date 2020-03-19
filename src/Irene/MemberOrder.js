@@ -88,7 +88,7 @@ function MemberOrder() {
               </Button>
             </div>
           </div>
-          <div>
+          <div className="irene_memberorder_list">
             <Table>
               {/* 抓取訂單資料 */}
               <thead>

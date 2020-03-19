@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import '../css/all.scss'
 import '../css/stories.scss'
@@ -10,7 +10,7 @@ function StorieyCard(props){
     const [height, setHeight] = useState(0)
 
     useEffect(()=>{
-        console.log(masonryRef.current.clientHeight);
+        // console.log(masonryRef.current.clientHeight);
         setHeight(masonryRef.current.clientHeight)
     }, [])
 
