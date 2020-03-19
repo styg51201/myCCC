@@ -56,13 +56,9 @@ export const fromServerorderBuyerInfo = val => {
 }
 
 //控制資料庫呼叫
-export const ControlDataOne = value => {
-  return dispatch => {
-    dispatch(ControlDataTwo(value))
-  }
-}
+export const ControlDataOne = value =>  ({ type: 'CTRL_DATA', value: value })
 
-export const ControlDataTwo = value => ({ type: 'CTRL_DATA', value: value })
+
 // 計算產品總額
 export const CalShopCart = value => {
   // console.log('CalShopCart', value)
@@ -80,8 +76,12 @@ export const CalShopCart = value => {
   }
 }
 
-//計算功能 傳至Reduecer
+//產品小計 計算功能
 export const calCart = value => ({ type: 'CAL_TOTAL', value: value })
+
+
+// 計算總額含運費活動折扣
+export const CalShopCartTotal =value=>({type:'FINAL_TOTAL',value:value})
 
 // 加入購物車 (暫時用不到)
 export const realCart = value => ({ type: 'DISPLAY_CART', value: value })
@@ -95,7 +95,7 @@ export const DelCartItem = (i, data) => {
   }
 }
 
-// 購物車新增 刪除
+// 購物車新增 & 刪除
 export const AddCart = value => ({ type: 'ADD_CART', value: value })
 export const DelCart = value => ({ type: 'DEL_CART', value: value })
 //數量調整
@@ -121,7 +121,6 @@ export const AddCartItem = (val, pId, data) => {
 }
 
 //購物車按鍵
-
 export const AddCartNewItem_sendcal = data => {
   return dispatch => {
     dispatch(AddCartNewItem(data))

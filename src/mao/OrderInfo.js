@@ -3,9 +3,21 @@ import { Link } from 'react-router-dom'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { AddCartItem, fromServerorderBuyerInfo } from './actions/ShopCartAction'
+import {
+    getShopCart,
+    AddCart,
+    realCart,
+    AddCartItem,
+    DelCartItem,
+    CalShopCart,
+    Handel_AddMyFavorite,
+    ControlDataOne, fromServerorderBuyerInfo,CalShopCartTotal,calCart
+} from './actions/ShopCartAction'
+
+
 
 function OrderInfo(props) {
+    console.log('OrderInfo',props)
   //月
   function getMonth() {
     let MonthBox = []
@@ -25,6 +37,7 @@ function OrderInfo(props) {
     return yearBox
   }
 
+  //訂單
   let order = ''
   function getRND() {
     let Numlength = 8
@@ -35,33 +48,26 @@ function OrderInfo(props) {
   }
   getRND()
 
-  function checkCard(e) {
-    let wordLength = e.target.value
-    if (wordLength.length < 4) {
-      console.log(123)
-    }
-  }
-
+    
+  
+  //送出資料
   const buyerInfo = {
     orderId: `${order}`,
     buyer_name: '',
     mobile: '',
+    payment: 'COD',
     shipping: 'Seven-store',
     buyerAdress: '',
-    payment: 'COD',
     invoice: 'personal-invoice',
     taxNo: '',
+    total:props.FinalTotal
   }
 
+  //獲取buyer資訊
   function getformInfo(e, str) {
-    // console.log(e.target.value)
-    // buyerInfo.name='123'
 
     let getInfo = e.currentTarget.value
     let getInfo2 = e.currentTarget.id
-    // console.log('getInfo', typeof(getInfo))
-
-    console.log('buyerInfo', buyerInfo.buyer_name)
     switch (str) {
       case 'buyer_name':
         buyerInfo.buyer_name = getInfo
@@ -79,17 +85,21 @@ function OrderInfo(props) {
         buyerInfo.invoice = getInfo2
         break
       default:
-        return str
+        break
     }
   }
+  
+  //送出
   function POSTorderInfo() {
-    console.log('buyerInfo', buyerInfo)
     props.fromServerorderBuyerInfo(buyerInfo)
   }
+
+  
+
   //表格
   return (
     <>
-      <form method="POST" enctype="multipart/form-data">
+      <form method="POST">
         <div className="container my-3 d-flex" style={{ width: '1300px' }}>
           <div
             className="px-4 border bg-white p-3"
@@ -232,7 +242,6 @@ function OrderInfo(props) {
                   className="form-control"
                   placeholder=""
                   maxlength="4"
-                  onBlur={e => checkCard(e)}
                 />
               </div>
               <div className="col-2">
@@ -241,7 +250,6 @@ function OrderInfo(props) {
                   className="form-control"
                   placeholder=""
                   maxlength="4"
-                  onBlur={e => checkCard(e)}
                 />
               </div>
               <div className="col-2">
@@ -250,7 +258,6 @@ function OrderInfo(props) {
                   className="form-control"
                   placeholder=""
                   maxlength="4"
-                  onBlur={e => checkCard(e)}
                 />
               </div>
               <div className="col-2">
@@ -259,7 +266,6 @@ function OrderInfo(props) {
                   className="form-control"
                   placeholder=""
                   maxlength="4"
-                  onBlur={e => checkCard(e)}
                 />
               </div>
             </div>
@@ -285,6 +291,7 @@ function OrderInfo(props) {
                   type="text"
                   className="form-control mr-3 w-25"
                   placeholder=""
+                  maxLength="3"
                 />
                 <p style={{ width: '50%', margin: 0 }}>卡片背面，後三碼</p>
               </div>
@@ -350,6 +357,7 @@ function OrderInfo(props) {
                   type="text"
                   className="form-control mr-3 w-25"
                   placeholder=""
+                  maxLength="8"
                   onChange={(e, str) => {
                     getformInfo(e, 'taxNo')
                   }}
@@ -389,15 +397,21 @@ const mapStateToProps = store => {
   return {
     //購物車內容
     AddItem: store.AddItem,
+    FinalTotal:store.calculator_total,
   }
 }
 
 //action
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    {
-      AddCartItem,
-      fromServerorderBuyerInfo,
+    { getShopCart,
+        AddCart,
+        realCart,
+        AddCartItem,
+        DelCartItem,
+        CalShopCart,
+        Handel_AddMyFavorite,
+        ControlDataOne, fromServerorderBuyerInfo,CalShopCartTotal,calCart
     },
     dispatch
   )

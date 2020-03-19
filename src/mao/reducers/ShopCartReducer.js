@@ -13,6 +13,28 @@ export const calculator = (state = 0, action) => {
       return state
   }
 }
+
+//計算總額含運費行銷折扣
+export const calculator_total=(state=0,action)=>{
+  switch (action.type){
+    case 'FINAL_TOTAL':
+      return action.value
+    default:
+      return state
+  }
+}
+
+
+//防止重新呼叫data
+export const ControlDataState = (state = true, action) => {
+  switch (action.type) {
+    case 'CTRL_DATA':
+      return action.value
+    default:
+      return state
+  }
+}
+
 //呼叫會員購物車
 export const getShop = (state = [], action) => {
   switch (action.type) {
@@ -22,6 +44,7 @@ export const getShop = (state = [], action) => {
       return state
   }
 }
+
 // control購物車品項
 export const AddItem = (state = [], action) => {
   switch (action.type) {
@@ -34,14 +57,6 @@ export const AddItem = (state = [], action) => {
   }
 }
 
-export const ControlDataState = (state = true, action) => {
-  switch (action.type) {
-    case 'CTRL_DATA':
-      return action.value
-    default:
-      return state
-  }
-}
 
 //我的最愛
 export const MyFavorite = (state = [], action) => {
@@ -54,6 +69,7 @@ export const MyFavorite = (state = [], action) => {
   }
 }
 
+//暫時用不到
 export const displayShopCart = (state = [], action) => {
   switch (action.type) {
     case 'DISPLAY_CART':

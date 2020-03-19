@@ -1,3 +1,5 @@
+@import '../../css/variables.scss';
+
 /* for shopCartList  */
 .Mao-shopcart-list {
   position: relative;
@@ -23,13 +25,13 @@
   text-decoration: none;
 }
 .Mao-shopcart-check-item {
-  transition: .2s;
-  width: 900px;
-  margin: 0px 10px;
+  display: flex;
+  transition: 0.5s;
+  width: 100%;
+  margin: 0px;
   border-bottom: 2px solid #efefef;
   padding: 20px;
 }
-
 .Mao-shopcart-check-item img {
   margin: 0px 20px;
 }
@@ -106,25 +108,25 @@
   max-height: 500px;
   width: 1300px;
   position: relative;
-  padding:0;
-  overflow:hidden;
+  padding: 0;
+  overflow: hidden;
 }
-.Mao-CartNoItem h3{
-color:#666;
-text-shadow: 5px 5px 5px #999;
-position: absolute;
-top:30%;
-left: 13%;
+.Mao-CartNoItem h3 {
+  color: #666;
+  text-shadow: 5px 5px 5px #999;
+  position: absolute;
+  top: 30%;
+  left: 13%;
 }
-.Mao-Total-Box-none{
-  background:none;
+.Mao-Total-Box-none {
+  background: none;
   height: 400px;
   width: 300px;
 }
-.Mao-Like-img{
-  padding:0;
-  margin:0;
-  width:1200px;
+.Mao-Like-img {
+  padding: 0;
+  margin: 0;
+  width: 1200px;
   height: 800px;
   box-shadow: 6px 6px 10px #aaa;
 }
