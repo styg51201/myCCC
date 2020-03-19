@@ -21,7 +21,7 @@ function MaoCartShopTotal(props) {
 
     $(document).on('scroll', () => {
       let test = $(document).scrollTop()
-      console.log(test)
+      // console.log(test)
       if (test > 120) {
         setFixed(true)
         $('.Mao-total-box-fixed').css({ opacity: 1, height: '145px' })
@@ -29,7 +29,7 @@ function MaoCartShopTotal(props) {
       } else {
         setFixed(false)
         $('.Mao-total-box').css({ opacity: 1, height: '400px' })
-        
+
         $('.Mao-total-box-fixed').css({ opacity: 0, height: '0px' })
       }
     })
@@ -131,7 +131,7 @@ function MaoCartShopTotal(props) {
           <div className="Mao-total-box-total-fixed-btn">
             <Link
               className="d-flex justify-content-center align-items-center Mao-total-box-btn-fixed text-dark"
-              to=""
+              to="/"
             >
               繼續購物
             </Link>
