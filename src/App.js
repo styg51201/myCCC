@@ -105,9 +105,6 @@ function App() {
             <Route path="/getCoupon">
               <GetCoupon />
             </Route>
-            <Route path="/memberCoupon">
-              <MemberCoupon />
-            </Route>
             <Route path="/stories">
               <Stories />
             </Route>

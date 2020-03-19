@@ -6,6 +6,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+}
+button {
   &:focus {
     outline: none;
   }
@@ -194,11 +196,18 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    .sty-dashed {
+      border-right: 1px dashed $grey;
+      width: 1px;
+      height: 85%;
+      position: absolute;
+      right: 0;
+    }
     img {
-      width: 100%;
+      width: 90%;
       height: 85%;
       object-fit: contain;
-      border-right: 1px dashed $grey;
+      // border-right: 1px dashed $grey;
     }
     .alreadyGet {
       width: 100%;
@@ -256,9 +265,10 @@
   .button {
     align-self: center;
     padding: 0 0.5rem 0 0;
+
     button {
+      padding: 0.625rem;
       transition: 0.8s;
-      width: 2.8125rem;
       height: 9.375rem;
       background-color: $black;
       border: none;

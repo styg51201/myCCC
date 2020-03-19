@@ -32,7 +32,7 @@ function CouponItem(props){
   })
 
   //設定進度條的外觀
-  let getNum = props.item.cp_getedCount / props.item.cp_count *100
+  let getNum = (props.item.cp_getedCount / props.item.cp_count *100).toFixed(2) //取小數點2位
   let getedCountStyle = {background: `linear-gradient(to right, #0dd2c5 ${getNum}%, #a0a0a0 ${getNum}%)`}
   let endCouponStyle = { background:'#a0a0a0'}
 
@@ -100,14 +100,15 @@ function CouponItem(props){
         <div className={couponClassName}>
               <div className="item">
                 <div className="wrapForImg">
-                  <img src={`./sty-img/${props.item.cp_img}`} alt="" />
+                  <img src={`/img/vendors/${props.item.cp_img}`} alt="" />
                   <div className="alreadyGet"><p>已領取</p></div>
+                  <div className="sty-dashed"></div>
                 </div>
                 <div className="text">
                   <ul>
                     <h3>{props.item.cpr_discount?props.item.cpr_discountNum+'元':props.item.cpr_discountNum+'折'}</h3>
                     <li className="vendorName">[ {props.item.cp_vendor} ]</li>
-                    <li>{object}{rule}{discount}</li>
+                    <li>{object}-{rule}{discount}</li>
                     <li>有效至 {props.item.cp_due}</li>
                   </ul>
                   <div >

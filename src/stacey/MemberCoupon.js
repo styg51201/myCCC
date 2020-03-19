@@ -1,8 +1,11 @@
 import React ,{useEffect ,useState}from 'react'
-import SideFilter from './components/SideFilter'
-import Bread from './components/Bread'
 import { BrowserRouter as Router, Route, Link, Switch ,withRouter} from 'react-router-dom'
 import './css/MemberCoupon.scss'
+import classNames from 'classnames'
+
+
+import MemberSidebar from '../Irene/components/MemberSidebar'
+
 import MemberCouponItem from './components/MemberCouponItem'
 
 
@@ -21,14 +24,16 @@ function MemberCoupon(props) {
     props.fromServerMemberCouponData()
   },[])
 
+  const buttonStyleForGet = classNames({active:state==='get'})
+  const buttonStyleForUse = classNames({active:state==='use'})
+  const buttonStyleForEnd = classNames({active:state==='end'})
 
   return (
     <>
-      <Bread />
       <div className="row wrap">
         {/* <!-- 側邊篩選欄 --> */}
         {/* <SideFilter /> */}
-     <div className="col-3">
+     {/* <div className="col-3">
        <button onClick={()=>{props.memberCouponFilter(props.data,'get')
                             setState('get')}}>已領取</button>
        <button onClick={()=>{props.memberCouponFilter(props.data,'use')
@@ -36,11 +41,22 @@ function MemberCoupon(props) {
        <button onClick={()=>{props.memberCouponFilter(props.data,'end')
                             setState('end')}}>無效</button>
 
-     </div>
+     </div> */}
+     <MemberSidebar />
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
+        <div className="sty-title mb-3">
+          <h3>我的優惠券</h3>
+          <hr />
+            <button className={buttonStyleForGet} onClick={()=>{props.memberCouponFilter(props.data,'get')
+                                  setState('get')}}>已領取</button>
+            <button className={buttonStyleForUse} onClick={()=>{props.memberCouponFilter(props.data,'use')
+                                  setState('use')}}>已使用</button>
+            <button className={buttonStyleForEnd} onClick={()=>{props.memberCouponFilter(props.data,'end')
+                                setState('end')}}>無效</button>
+        </div>
           <div className="row">
-            {/* <!-- 領取 --> */}
+           
             {props.filterData.map((val,ind)=>{
               return <MemberCouponItem key={val.cpi_cp_id} item={val} state={state} />
             })}
