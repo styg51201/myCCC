@@ -11,6 +11,7 @@ const upload = multer({ dest: 'tmp_uploads/' })
 
 // SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 6)
 
+//會員id
 router.get('/',(req,res)=>{
     const sql='SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 5) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE '
     db.queryAsync(sql)
@@ -155,6 +156,24 @@ router.post('/addCoupon', upload.single('cp_img'), (req, res) => {
 })
 
 
+
+// INSERT INTO `coupon`( `cp_vid`, `cp_vendor`, `cp_count` ,`cp_img`, `cp_start`, `cp_due`) VALUES 
+// (55,'APPLE',100,'apple.png',2020-03-11,2020-04-2),
+// (60,'DJI',130,'dji.png',2020-03-09,2020-04-20),
+// (61,'FITBIT',120,'fitbit.png',2020-03-19,2020-04-10),
+// (62,'GoPro',80,'gopro.png',2020-03-15,2020-04-10),
+// (63,'GARMIN',100,'garmin.png',2020-03-19,2020-04-30),
+// (64,'JSMAX',100,'jsmax.jpg',2020-03-19,2020-04-10),
+// (65,'QCY',150,'qcy.jpg',2020-03-19,2020-04-10),
+// (66,'SAMSUNG',100,'samsumg.png',2020-03-15,2020-04-10),
+// (67,'SJCAM',100,'sjcam.png',2020-03-19,2020-04-10),
+// (68,'SONY',130,'somy.png',2020-03-19,2020-04-10),
+// (69,'SUDIO',80,'sudio.png',2020-03-14,2020-04-10),
+// (69,'小米',100,'小米.jpg',2020-03-19,2020-04-10),
+// (70,'Audio-Technica 鐵三角',140,'鐵三角.jpg',2020-03-18,2020-05-10),
+// (71,'Sabbat 魔宴',150,'魔宴.png',2020-03-19,2020-04-10)
+
+// INSERT INTO `coupon_rule`( `cpr_object`, `cpr_rule`, `cpr_ruleNum`, `cpr_discount`, `cpr_discountNum`) VALUES (0,1,2,0,90),(1,2,3000,1,200),(1,0,0,1,300),(3,2,5000,0,85),(1,1,0,0,1,300),(0,2,2500,0,95),(2,1,2,1,400),(0,2,4000,1,400),(3,0,0,0,90),(0,1,3,0,80),(2,2,2500,1,150),(0,1,2,0,88),(2,2,2000,0,79),(2,0,0,1,300)
 
 
 module.exports = router
