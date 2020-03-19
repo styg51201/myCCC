@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import classNames from 'classnames'
-import img from '../img/Swatch.jpg'
+
 
 
 //redux
@@ -89,13 +89,13 @@ function CouponItem(props){
         <div className={couponClassName}>
               <div className="item">
                 <div className="wrapForImg">
-                  <img src={`./sty-img/${props.item.cp_img}`} alt="" />
+                  <img src={`/img/vendors/${props.item.cp_img}`} alt="" />
                   <div className="alreadyGet">{props.item.cpi_use?'已使用':'無效'}</div>
                 </div>
                 <div className="text">
                   <ul>
                   <h3>{props.item.cpr_discount?props.item.cpr_discountNum+'元':props.item.cpr_discountNum+'折'}</h3>
-                  <li className="vendorName">{props.item.cp_vendor}</li>
+                  <li className="vendorName">[ {props.item.cp_vendor} ]</li>
                     <li>{object}{rule}{discount}</li>
                     <li>有效至 {props.item.cp_due}</li>
                   </ul>

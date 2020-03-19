@@ -43,6 +43,26 @@
   h3 {
     font-size: $font-x;
   }
+  button {
+    background-color: transparent;
+    color: $grey;
+    border: 1px solid transparent;
+    transition: 0.2s;
+    &:hover {
+      color: $black;
+      font-weight: $font-bold;
+      border: 1px solid $black;
+    }
+  }
+  button + button {
+    margin-left: 20px;
+  }
+  button.active {
+    font-weight: $font-bold;
+    background-color: $blue;
+    color: $white;
+    border: 1px solid $blue;
+  }
 }
 .sty-memberCoupon {
   padding: 0 0.625rem;
@@ -108,7 +128,7 @@
     align-self: center;
     padding: 8px 0.625rem;
     button {
-      width: 2.8125rem;
+      padding: 0.625rem;
       height: 9.375rem;
       background-color: $black;
       border: none;

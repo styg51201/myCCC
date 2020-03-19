@@ -30,7 +30,7 @@ function MemberEdit(props) {
             <Nav.Link>我的收藏</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
-            <Nav.Link>優惠券</Nav.Link>
+            <Nav.Link href="/memberedit/memberCoupon">優惠券</Nav.Link>
           </ListGroup.Item>
         </ListGroup>
       </div>
