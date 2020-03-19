@@ -858,8 +858,8 @@ CREATE TABLE `storyDrafts` (
   `drftTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftContent` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftTags` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
