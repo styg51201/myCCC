@@ -5,17 +5,14 @@ export const userRegister = userData => ({
 
 export const userRegisterAsync = (userData, callback) => {
   return async dispatch => {
-    const request = new Request(
-      'http://localhost:5500/member/?:memberaccount=' + userData.username,
-      {
-        method: 'POST',
-        body: JSON.stringify(userData),
-        headers: new Headers({
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        }),
-      }
-    )
+    const request = new Request('', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
 
     console.log(JSON.stringify(userData))
 
