@@ -14,7 +14,9 @@ import './css/all.scss'
 import './css/stories.scss'
 
 import StoryCard from './components/StoryCard'
-import Masonry from 'react-masonry-css'
+// import Masonry from 'react-masonry-css'
+
+import Masonry from 'react-masonry-component';
 
 
 function Stories(){
@@ -31,7 +33,16 @@ function Stories(){
     const observer = useRef(null)
 
     const lastStoryElementRef = useCallback(node => {
-        console.log(node);
+        if(loading) return
+        // console.log(node)
+        if(observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver(entries => {
+            if(entries[0].isIntersecting && hasMore){
+                setPageNumber(prevPageNumber => prevPageNumber + 1)
+                console.log('get stuff')
+            }
+        })
+        if(node) observer.current.observe(node)
     })
 
     const breakpointColumnsObj = {
@@ -40,10 +51,12 @@ function Stories(){
         700: 1
       };
 
+
+
     const items =  stories.map((itm, idx)=>{
         let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
 
-        if(stories.length === idx-1){
+        if(stories.length === idx+1){
             return (<>
                 <div className="bk-masonry-brick" 
                     ref={lastStoryElementRef} 
@@ -77,11 +90,16 @@ function Stories(){
         <>
             <main className="mt-5">
                 <div className="bk-stories-container">
-                    <Masonry
-                        ref={lastStoryElementRef}
+                    {/* <Masonry
                         breakpointCols={breakpointColumnsObj}
                         className="bk-masonry-grid"
                         columnClassName="bk-masonry-column"
+                    > */}
+                    <Masonry
+                        className={'my-gallery-class'} // default ''
+                        elementType={'div'} // default 'div'
+                        disableImagesLoaded={false} // default false
+                        updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
                     >
                        {items}
                     </Masonry>

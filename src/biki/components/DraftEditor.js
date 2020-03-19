@@ -154,7 +154,6 @@ function DraftEditor(){
         await console.log(data)
         await setId(data.data)
         await setDraftSaved(true)
-        console.log("submitted data!")
     }
 
     //autosave to draft
