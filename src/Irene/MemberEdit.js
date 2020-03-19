@@ -11,6 +11,8 @@ import './I_css/MemberEdit.scss'
 import MemberSidebar from './components/MemberSidebar'
 import MemberOrder from './MemberOrder'
 import MemberCollection from './MemberCollection'
+
+import MemberCoupon from '../stacey/MemberCoupon'
 //redux
 import { connect } from 'react-redux'
 //action
@@ -33,6 +35,9 @@ function MemberEdit(props) {
         </Route>
         <Route path="/memberedit/membercollection">
           <MemberCollection />
+        </Route>
+        <Route path="/memberedit/memberCoupon">
+          <MemberCoupon />
         </Route>
         {/* //最後要新增一頁，如果路由不對要顯示頁面錯誤然後跳轉。 
     <Route path="*">
@@ -113,7 +118,9 @@ function MemberEdit(props) {
                 </div>
               </div>
               <div className="text-right">
-                <Button className="Irene_submit">送出</Button>
+                <Button className="Irene_submit" type="submit">
+                  更新
+                </Button>
               </div>
             </Form>
           </div>

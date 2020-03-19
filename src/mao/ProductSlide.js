@@ -43,7 +43,7 @@ function ProductSlide(props) {
     return (
       <>
         <div
-          className="card border p-3 d-flex flex-column align-items-center justify-content-between m-3"
+          className="card border p-3 d-flex "
           style={{ width: '15rem' }}
         >
           <img

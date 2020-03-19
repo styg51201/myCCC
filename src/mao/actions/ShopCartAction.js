@@ -12,7 +12,6 @@ export const sendCart = value => {
 
 //獲取資料庫購物車
 export const getShopCart = item => {
-  
   console.log('item', item)
   return async dispatch => {
     const request = new Request(`http://localhost:5500/shopCart/shopCart`, {
@@ -33,6 +32,29 @@ export const getShopCart = item => {
     }
   }
 }
+
+//訂單產生
+export const fromServerorderBuyerInfo = val => {
+  console.log(val)
+  return async dispatch => {
+    const request = new Request(
+      'http://localhost:5500/shopCart/orderBuyerInfo',
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(val),
+      }
+    )
+    const res = await fetch(request)
+    const data = await res.json()
+    await console.log(data)
+  }
+}
+
 //控制資料庫呼叫
 export const ControlDataOne = value => {
   return dispatch => {

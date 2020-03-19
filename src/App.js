@@ -91,6 +91,9 @@ function App() {
             <Route path="/ShopCartLike">
               <ShopCartLike />
             </Route>
+            <Route path="/OrderInfo">
+              <OrderInfo />
+            </Route>
             {/* ----------------------------------------- */}
             <Route path="/memberlogin">
               <MemberLogin />
@@ -104,9 +107,6 @@ function App() {
             {/* 連結優惠券專區 */}
             <Route path="/getCoupon">
               <GetCoupon />
-            </Route>
-            <Route path="/memberCoupon">
-              <MemberCoupon />
             </Route>
             <Route path="/stories">
               <Stories />

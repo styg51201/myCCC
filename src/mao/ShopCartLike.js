@@ -107,22 +107,20 @@ function ShopCartLike(props) {
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
     <div className="p-3 text-center Mao-CartNoItem">
-    <h3>趕快去尋找最愛的商品吧！
-    </h3>
-    <Link to="/">
-    <img className="Mao-Like-img" src="./Mao-img/travel1.jpg"/>
-    </Link>
+      <h3>趕快去尋找最愛的商品吧！</h3>
+      <Link to="/">
+        <img className="Mao-Like-img" src="./Mao-img/travel1.jpg" />
+      </Link>
     </div>
-    
   )
 
   return (
     <>
       {/* <div className={dataList.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '1300px' }}> */}
-      
-      <MaoSlide/>
-        {/* <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul> */}
-        {/* <MaoCartShopTotal/> */}
+
+      <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul>
+      <MaoSlide />
+      {/* <MaoCartShopTotal/> */}
       {/* </div> */}
       {/* <ProductSlide /> */}
       {/* <div>
