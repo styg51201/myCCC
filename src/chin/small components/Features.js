@@ -16,20 +16,26 @@ function Features(){
             </div>
             <div>
                 <ul>
-                    <li className="chin-brand-checkbox6"  >
+                    <li className="chin-brand-checkbox"  >
                         <input id="color-input6" type="checkbox"/>
-                        <label for="color-input6"></label>
-                        <span>GPS 定位</span>          
+                        <label for="color-input6" className="chin-label">
+                        <div className="chin-box"></div>
+                        GPS 定位 
+                        </label>      
                     </li>
-                    <li className="chin-brand-checkbox7" >
+                    <li className="chin-brand-checkbox"  >
                         <input id="color-input7" type="checkbox"/>
-                        <label for="color-input7"></label>
-                        <span>運動偵測</span>          
+                        <label for="color-input7" className="chin-label">
+                        <div className="chin-box"></div>
+                        運動偵測 
+                        </label>      
                     </li>
-                    <li className="chin-brand-checkbox8" >
+                    <li className="chin-brand-checkbox"  >
                         <input id="color-input8" type="checkbox"/>
-                        <label for="color-input8"></label>
-                        <span>藍芽</span>          
+                        <label for="color-input8" className="chin-label">
+                        <div className="chin-box"></div>
+                        藍芽 
+                        </label>      
                     </li>
                 </ul>
             </div>

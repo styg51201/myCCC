@@ -20,6 +20,9 @@ import {
   AddItem,
   displayShopCart,
   getShop,
+  calculator,
+  MyFavorite,
+  ControlDataState,
 } from '../mao/reducers/ShopCartReducer'
 import { getMemberID, member } from '../Irene/reducers/memberReducer'
 
@@ -52,6 +55,9 @@ const rootReducer = combineReducers({
   AddItem,
   displayShopCart,
   getShop,
+  calculator,
+  MyFavorite,
+  ControlDataState,
   member,
   getMemberID,
 })

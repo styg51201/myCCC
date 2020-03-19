@@ -12,6 +12,20 @@ h6.bk-white {
   @include buttonTheme(whiteBorderedStyle);
 }
 
+.bk-btn-group{
+  button{
+    margin-right : $spacing;
+  }
+}
+
+.bk-btn-black {
+  @include buttonTheme(blackStyle);
+}
+
+.bk-btn-black-bordered {
+  @include buttonTheme(borderedStyle);
+}
+
 .bk-btn.bordered {
   border: solid 1px black;
 }

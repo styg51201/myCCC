@@ -12,6 +12,7 @@ button {
     outline: none;
   }
 }
+
 .container {
   width: 1300px;
 }
@@ -40,10 +41,25 @@ button {
 
 .sty-sideFilter {
   padding-right: 1.25rem;
-  h3 {
-    font-size: $font-x;
-    padding-left: 0.9375rem;
+
+  .sty-title {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 1.5625rem;
+    cursor: pointer;
+    h3 {
+      font-size: $font-m;
+      padding-left: 0.9375rem;
+    }
+    svg {
+      width: 1.25rem;
+      height: 1.25rem;
+    }
   }
+  hr {
+    margin: 0.625rem 0;
+  }
+
   ul {
     list-style: none;
     padding: 0.625rem 1.25rem;
@@ -51,19 +67,49 @@ button {
   li {
     font-size: $font-m;
     letter-spacing: 4px;
-    padding: 0 0 0.625rem;
+    padding: 0 0 0 0.625rem;
+    // padding: 0;
     display: flex;
     align-items: center;
+    &:hover {
+      background-color: #c7c7c7;
+    }
   }
-  input {
+  input[type='checkbox'] {
+    display: none;
+    &:checked + label {
+      .sty-box::before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        content: '\2714';
+        text-align: right;
+        font-size: 0.875rem;
+        color: white;
+        background: #000000;
+      }
+    }
+  }
+  label {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0.5rem 0;
+  }
+  .sty-box {
+    position: relative;
+    display: inline-block;
     width: 1.25rem;
     height: 1.25rem;
     margin-right: 0.9375rem;
-  }
-  label {
-    margin: 0;
+    background-color: $grey;
   }
 }
+
 .sty-pageTitle {
   display: flex;
   justify-content: space-between;
@@ -150,11 +196,18 @@ button {
     align-items: center;
     position: relative;
     overflow: hidden;
+    .sty-dashed {
+      border-right: 1px dashed $grey;
+      width: 1px;
+      height: 85%;
+      position: absolute;
+      right: 0;
+    }
     img {
-      width: 100%;
+      width: 90%;
       height: 85%;
       object-fit: contain;
-      border-right: 1px dashed $grey;
+      // border-right: 1px dashed $grey;
     }
     .alreadyGet {
       width: 100%;
@@ -212,9 +265,10 @@ button {
   .button {
     align-self: center;
     padding: 0 0.5rem 0 0;
+
     button {
+      padding: 0.625rem;
       transition: 0.8s;
-      width: 2.8125rem;
       height: 9.375rem;
       background-color: $black;
       border: none;

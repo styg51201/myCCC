@@ -39,35 +39,29 @@
   }
 }
 
-.sty-sideFilter {
-  padding-right: 1.25rem;
-  h3 {
-    font-size: $font-x;
-    padding-left: 0.9375rem;
-  }
-  ul {
-    list-style: none;
-    padding: 0.625rem 1.25rem;
-  }
-  li {
-    font-size: $font-m;
-    letter-spacing: 4px;
-    padding: 0 0 0.625rem;
-    display: flex;
-    align-items: center;
-  }
-  input {
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-right: 0.9375rem;
-  }
-  label {
-    margin: 0;
-  }
-}
 .sty-title {
   h3 {
     font-size: $font-x;
+  }
+  button {
+    background-color: transparent;
+    color: $grey;
+    border: 1px solid transparent;
+    transition: 0.2s;
+    &:hover {
+      color: $black;
+      font-weight: $font-bold;
+      border: 1px solid $black;
+    }
+  }
+  button + button {
+    margin-left: 20px;
+  }
+  button.active {
+    font-weight: $font-bold;
+    background-color: $blue;
+    color: $white;
+    border: 1px solid $blue;
   }
 }
 .sty-memberCoupon {
@@ -134,7 +128,7 @@
     align-self: center;
     padding: 8px 0.625rem;
     button {
-      width: 2.8125rem;
+      padding: 0.625rem;
       height: 9.375rem;
       background-color: $black;
       border: none;

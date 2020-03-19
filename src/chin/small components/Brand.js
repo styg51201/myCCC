@@ -18,31 +18,41 @@ function Brand(){
                 <img src="./chin-img/chevron-down-black.svg" alt=""/>
             </div>
             <div>
-                <ul>
+                <ul className="test">
                     <li className="chin-brand-checkbox"  >
-                        <input id="color-input" type="checkbox" />
-                        <label for="color-input"></label>
-                        <span>Apple</span>          
+                        <input id="color-input" type="checkbox"/>
+                        <label for="color-input" className="chin-label">
+                        <div className="chin-box"></div>
+                        Apple  
+                        </label>      
                     </li>
-                    <li className="chin-brand-checkbox2" >
+                    <li className="chin-brand-checkbox"  >
                         <input id="color-input2" type="checkbox"/>
-                        <label for="color-input2"></label>
-                        <span>Samsung</span>
+                        <label for="color-input2" className="chin-label">
+                        <div className="chin-box"></div>
+                        Samsung 
+                        </label>      
                     </li>
-                    <li className="chin-brand-checkbox3" >
-                        <input id="color-input3"  type="checkbox"/>
-                        <label for="color-input3"></label>
-                        <span>Audio-Technica</span>
+                    <li className="chin-brand-checkbox"  >
+                        <input id="color-input3" type="checkbox"/>
+                        <label for="color-input3" className="chin-label">
+                        <div className="chin-box"></div>
+                        Samsung 
+                        </label>      
                     </li>
-                    <li className="chin-brand-checkbox4" >
-                        <input id="color-input4"  type="checkbox"/>
-                        <label for="color-input4"></label>
-                        <span>Audio-Technica2</span>
+                    <li className="chin-brand-checkbox"  >
+                        <input id="color-input4" type="checkbox"/>
+                        <label for="color-input4" className="chin-label">
+                        <div className="chin-box"></div>
+                        Samsung 
+                        </label>      
                     </li>
-                    <li className="chin-brand-checkbox5" > 
-                        <input id="color-input5"  type="checkbox"/>
-                        <label for="color-input5"></label>
-                        <span>Audio-Technica3</span>
+                    <li className="chin-brand-checkbox"  >
+                        <input id="color-input5" type="checkbox"/>
+                        <label for="color-input5" className="chin-label">
+                        <div className="chin-box"></div>
+                        Samsung 
+                        </label>      
                     </li>
                 </ul>
             </div>

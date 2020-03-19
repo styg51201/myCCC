@@ -125,7 +125,7 @@ export const fromServerMemberCouponData = val => {
           'Content-Type': 'application/json',
         }),
         body:JSON.stringify({
-          mb_id:7
+          mb_id:5
         })
     })
     const res = await fetch(request)

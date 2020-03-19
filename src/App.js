@@ -15,7 +15,7 @@ import Header from './components/common/Header'
 //import biki
 import Home from './biki/Home'
 import Stories from './biki/Stories'
-import DraftEditor from './biki/DraftEditor'
+import UploadStory from './biki/UploadStory'
 
 //import chin
 import Headset from './chin/Headset'
@@ -91,6 +91,9 @@ function App() {
             <Route path="/ShopCartLike">
               <ShopCartLike />
             </Route>
+            <Route path="/OrderInfo">
+              <OrderInfo />
+            </Route>
             {/* ----------------------------------------- */}
             <Route path="/memberlogin">
               <MemberLogin />
@@ -105,14 +108,11 @@ function App() {
             <Route path="/getCoupon">
               <GetCoupon />
             </Route>
-            <Route path="/memberCoupon">
-              <MemberCoupon />
-            </Route>
             <Route path="/stories">
               <Stories />
             </Route>
             <Route path="/upload-stories">
-              <DraftEditor />
+              <UploadStory />
             </Route>
           </Switch>
         </Container>

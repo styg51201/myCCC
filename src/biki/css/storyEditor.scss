@@ -1,0 +1,101 @@
+@import "../../css/variables.scss";
+
+.bk-story-editor-container{
+  background-color: $white;
+  padding: $spacing*2;
+  margin-bottom: $spacing*2;
+}
+
+.bk-form-control{
+  label{
+    display: block;
+  }
+
+  input{
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px $black;
+    margin-bottom: $spacing;
+    // color: $grey;
+
+    &:nth-last-child(1){
+      margin-bottom: $spacing*2;
+    }
+
+    &:focus{
+      outline: none;
+      // color: $black;
+    }
+  }
+
+}
+
+.bk-editor-tags{
+  display: flex;
+
+  .bk-editor-tag{
+    background-color: $blue;
+    padding: $spacing/2 $spacing;
+    margin: 0 $spacing/2;
+  }
+}
+
+.bk-draft-editor-container {
+  border: solid 1px black;
+  padding: 0 $spacing $spacing $spacing;
+  margin-bottom: $spacing;
+
+  .align-center .public-DraftStyleDefault-ltr {
+    text-align: center;
+  }
+  .align-right .public-DraftStyleDefault-ltr {
+    text-align: right;
+  }
+}
+
+.bk-draft-toolbar {
+  display: flex;
+
+  button {
+    margin: $spacing/2;
+    background-color: transparent;
+    border: none;
+    font-size: $icon-regular;
+
+    svg {
+      stroke: $grey;
+    }
+
+    &.active svg {
+      stroke: $black;
+    }
+  }
+}
+
+.DraftEditor-editorContainer {
+  border-top: solid 1px black;
+  padding: $spacing 0;
+  min-height: 300px;
+  max-height: 500px;
+  overflow: scroll;
+
+  &:hover {
+    cursor: text;
+  }
+
+  img{
+      max-width: 100%;
+  }
+}
+
+.public-DraftEditorPlaceholder-root {
+  height: 100%;
+  padding: $spacing 0;
+  top: 0;
+}
+
+.bk-submit-btn {
+  margin-top: $spacing;
+  @include buttonTheme(blackStyle);
+}

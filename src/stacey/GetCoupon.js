@@ -58,9 +58,8 @@ vendorList.sort()
 
   return (
     <>
-    {console.log('666')}
       {/* <Bread /> */}
-      <div className="row wrap mt-5">
+      <div className="row wrap">
         {/* <!-- 側邊篩選欄 --> */}
         <SideFilter list={vendorList}/>
         {/* <!-- 右邊coupon --> */}

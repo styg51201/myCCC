@@ -12,18 +12,17 @@ import {
 
 function ProductSlide(props) {
 
-  
   let RealCart = []
   let checkBox = []
   props.AddItem.map((v, i) => {
     RealCart.push(v)
     checkBox.push(v.pId)
   })
-  
   useEffect(() => {
     props.getShopCart()
   }, [])
 
+  
   function checkCart(val) {
     let obj = { pId: val, count: 0 }
     let index = checkBox.findIndex(e => e == val)
@@ -44,7 +43,7 @@ function ProductSlide(props) {
     return (
       <>
         <div
-          className="card border p-3 d-flex flex-column align-items-center justify-content-between m-3"
+          className="card border p-3 d-flex "
           style={{ width: '15rem' }}
         >
           <img
