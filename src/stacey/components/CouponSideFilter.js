@@ -15,7 +15,7 @@ import {
 } from 'react-icons/fi'
 
 
-function SideFilter (props){
+function CouponSideFilter (props){
 
   console.log('888',props)
 
@@ -61,4 +61,4 @@ const mapDispatchToProps = dispatch =>{
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(SideFilter)
+export default connect(mapStateToProps,mapDispatchToProps)(CouponSideFilter)

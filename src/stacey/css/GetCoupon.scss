@@ -268,17 +268,19 @@ button {
 
     button {
       padding: 0.625rem;
-      transition: 0.8s;
+      transition: 0.2s;
       height: 9.375rem;
       background-color: $black;
       border: none;
       color: $white;
-      transform: 0.8s;
       display: flex;
       justify-content: center;
       align-items: center;
       &:hover {
-        box-shadow: 2px 2px 5px #9e9e9e;
+        box-shadow: 2px 2px 5px #727272;
+      }
+      &:hover span {
+        transform: translateX(-3px);
       }
       span {
         writing-mode: vertical-lr;

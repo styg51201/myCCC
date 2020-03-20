@@ -1,11 +1,10 @@
 import React ,{useEffect ,useState}from 'react'
-import Bread from './components/Bread'
 import { BrowserRouter as Router, Route, Link, Switch ,withRouter } from 'react-router-dom'
 import '../css/main.css'
 import './css/GetCoupon.scss'
 
 //components
-import SideFilter from './components/SideFilter'
+import CouponSideFilter from './components/CouponSideFilter'
 import CouPageTitle from './components/CouPageTitle'
 import CouponItem from './components/CouponItem'
 
@@ -61,7 +60,7 @@ vendorList.sort()
       {/* <Bread /> */}
       <div className="row wrap">
         {/* <!-- 側邊篩選欄 --> */}
-        <SideFilter list={vendorList}/>
+        <CouponSideFilter list={vendorList}/>
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
           <div className="row">

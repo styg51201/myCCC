@@ -1,0 +1,91 @@
+@import './var.scss';
+@import '../../css/variables';
+@import '../../css/main.scss';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+button {
+  &:focus {
+    outline: none;
+  }
+}
+
+.sty-countdown {
+  margin: 50px 0;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h3 {
+      margin: 0;
+      font-size: $font-xl;
+    }
+  }
+  .sty-time {
+    margin-left: 40px;
+    div {
+      width: 30px;
+      height: 40px;
+      background-color: $white;
+      padding: 10px;
+      font-size: $font-x;
+      position: relative;
+      overflow: hidden;
+      p {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        margin: 0;
+        transition: 0.5s;
+        span {
+          width: 30px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+    }
+    div + div {
+      margin-left: 10px;
+    }
+  }
+}
+
+.time0 {
+  transform: translateY(0px);
+}
+.time1 {
+  transform: translateY(-40px);
+}
+.time2 {
+  transform: translateY(-80px);
+}
+.time3 {
+  transform: translateY(-120px);
+}
+.time4 {
+  transform: translateY(-160px);
+}
+.time5 {
+  transform: translateY(-200px);
+}
+.time6 {
+  transform: translateY(-240px);
+}
+.time7 {
+  transform: translateY(-280px);
+}
+.time8 {
+  transform: translateY(-320px);
+}
+.time9 {
+  transform: translateY(-360px);
+}
+.time10 {
+  transform: translateY(-400px);
+}
