@@ -36,6 +36,8 @@ import MemberEdit from './Irene/MemberEdit'
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
 import OnSale from './stacey/OnSale'
+import AdTest from './stacey/AdTest'
+
 
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
@@ -111,6 +113,9 @@ function App() {
             </Route>
             <Route path="/onSale">
               <OnSale />
+            </Route>
+            <Route path="/adTest">
+              <AdTest />
             </Route>
             <Route path="/stories/story">
               <Story />

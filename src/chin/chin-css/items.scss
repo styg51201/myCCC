@@ -17,6 +17,7 @@ input[type='checkbox'] {
   display: none;
   &:checked + label {
     .chin-box::before {
+      padding-left: 4px;
       position: absolute;
       top: 0;
       left: 0;
@@ -288,12 +289,21 @@ input[type='checkbox'] {
   justify-content: flex-start;
   flex-wrap: wrap;
 }
+.chin-article {
+  background: #a0a0a0;
+  height: 120px;
+}
 .chin-commodity-item-watch {
+  top: 0;
+  right: 0;
+  position: absolute;
   width: 55px;
   height: 55px;
   background: #0dd2c5;
+  padding: 15px;
 }
 .chin-commodity-item {
+  position: relative;
   margin: 20px 20px 20px 21px;
   padding-top: 1px;
   width: 280px;

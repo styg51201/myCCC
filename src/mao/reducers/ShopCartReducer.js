@@ -15,15 +15,14 @@ export const calculator = (state = 0, action) => {
 }
 
 //計算總額含運費行銷折扣
-export const calculator_total=(state=0,action)=>{
-  switch (action.type){
+export const calculator_total = (state = 0, action) => {
+  switch (action.type) {
     case 'FINAL_TOTAL':
       return action.value
     default:
       return state
   }
 }
-
 
 //防止重新呼叫data
 export const ControlDataState = (state = true, action) => {
@@ -57,10 +56,9 @@ export const AddItem = (state = [], action) => {
   }
 }
 
-
 //我的最愛
 export const MyFavorite = (state = [], action) => {
-  // console.log('action',action)
+  console.log('action',action)
   switch (action.type) {
     case 'LIKE_PRODUCT':
       return action.value

@@ -67,7 +67,7 @@
 .Mao-total-box {
   transition: 0s;
   opacity: 1;
-  height: 400px;
+  height: 430px;
   width: 300px;
   padding: 5px 10px;
   margin: 0px 10px;
@@ -168,21 +168,25 @@
 .Mao-total-box-totalNum-fixed {
   position: absolute;
   top: 35%;
-  right: 40%;
+  right: 47%;
   font-size: 24px;
   font-weight: bold;
   align-items: center;
   justify-content: center;
   padding: 5px;
-  width: 300px;
+  width: 200px;
   border-bottom: 1px solid #ddd;
 }
 .Mao-total-box-title-coupon-fixed {
   margin: 5px 0px;
 }
-.Mao-total-box-title-coupon-fixed-input {
-  border: none;
-  border-bottom: 1px solid #ddd;
+.Mao-total-box-title-coupon-fixed-coupon {
+  position: absolute;
+  top: 103%;
+  left: 55%;
+  width: 20%;
+  height: 45px;
+  border: 1px solid $grey;
 }
 .Mao-total-box-total-fixed {
   display: flex;
@@ -193,8 +197,8 @@
   padding: 8px 0px;
   width: 100%;
   position: absolute;
-  top: 0;
-  right: 50%;
+  top: 15%;
+  left: 28%;
 }
 .Mao-total-box-total-fixed-btn {
   display: flex;
@@ -208,4 +212,28 @@
   height: 45px;
   border: 1px solid #000;
   margin: 5px 0px;
+}
+
+.Mao-couponBox {
+  opacity: 0;
+  width: 300px;
+  height: 300px;
+  box-shadow: 10px 10px 10px #000;
+  position: fixed;
+  top: calc(50% - 150px);
+  left: calc(50% - 150px);
+  z-index: 999;
+  border: 1px solid $grey;
+}
+.Mao-coupon-exit {
+  width: 30px;
+  height: 30px;
+  color: $white;
+  background: $grey;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
