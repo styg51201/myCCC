@@ -26,18 +26,6 @@ h6.bk-white {
   @include buttonTheme(borderedStyle);
 }
 
-.bk-btn.bordered {
-  border: solid 1px black;
-}
-
-.bk-btn.bordered.white {
-  position: relative;
-  border-color: white;
-  background-color: transparent;
-  color: white;
-  z-index: 1;
-}
-
 .bk-icon {
   font-size: 1.3rem;
 }
