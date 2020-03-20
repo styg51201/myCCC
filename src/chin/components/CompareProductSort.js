@@ -15,21 +15,12 @@ import {
   AllItemsSort,
 } from '../actions/itemsActions'
 
-<<<<<<< HEAD
-function CompareProductSort(props){
-
-
-    const [featuredproducts,setFeaturedproducts]=useState(false)
-    const [sortname,setSortname]=useState('排序方式')
-    const SortClassName= classNames('chin-sort-featuredproducts',{active:featuredproducts})
-=======
 function CompareProductSort(props) {
   const [featuredproducts, setFeaturedproducts] = useState(false)
   const [sortname, setSortname] = useState('排序方式')
   const SortClassName = classNames('chin-sort-featuredproducts', {
     active: featuredproducts,
   })
->>>>>>> 8d6cabacb90acfbdb2dc77b11b6b95dba3dbafb5
 
     return(
       <>
