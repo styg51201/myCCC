@@ -4,23 +4,25 @@ import {Link} from 'react-router-dom'
 import '../css/all.scss'
 import '../css/stories.scss'
 
-function StorieyCard(props){
+function StoryCard(props){
 
-    const masonryRef = useRef(null);
+    const cardRef = useRef(null);
     const [height, setHeight] = useState(0)
 
     useEffect(()=>{
-        // console.log(masonryRef.current.clientHeight);
-        setHeight(masonryRef.current.clientHeight)
-    }, [])
+        // console.log(cardRef.current.clientHeight);
+        setHeight(cardRef.current.clientHeight)
+    }, [props.loading])
 
 
 
     return(
         <>
             <Card className={`bk-card${height > 500 ? ' bk-collapse' : ''}`}
-                ref={masonryRef}
-                onClick={props.onClick}>
+                ref={cardRef}
+                onClick={props.onClick}
+                // data-stry_id={props.stryId}
+                >
                 <Card.Header>
                 <div className="bk-card-user">
                         <div className="bk-card-userimg"></div>
@@ -43,4 +45,4 @@ function StorieyCard(props){
     )
 }
 
-export default StorieyCard
+export default StoryCard

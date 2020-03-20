@@ -48,6 +48,7 @@ router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     res.json(output)
 })
 
+/*
 //first submit editor content to draft
 router.post('/user-editor/draft', (req, res)=>{
 
@@ -180,7 +181,36 @@ router.post('/user-editor/upload', (req, res)=>{
     
 })
 
+*/
 
+router.get('/story', (req, res)=>{
+    // console.log(req.query);
+
+    const output = {
+        success: false,
+        data: '',
+        message: ''
+    }
+    
+    let sql = 'SELECT `usrId`, `stryId`, `stryTitle`, `stryContent`, `stryLikes`, `created_at`, `updated_at` FROM `stories` WHERE `stryId`=? AND `stryStatus` = "active"';
+
+    db.queryAsync(sql, [req.query.id])
+    .then(r=>{
+        output.success = true;
+        output.data = r[0];
+        output.message = 'got story successfully';
+
+        res.json(output);
+    })
+    .catch(err=>{
+        output.data = err;
+        output.message = 'failed to get story';
+        
+        res.json(output);
+    })
+
+    // res.send(req.query);
+})
 
 //stories page
 router.get('/:page?', (req, res)=>{
@@ -190,7 +220,7 @@ router.get('/:page?', (req, res)=>{
 
     let sql = 'SELECT `usrId`, `stryId`, `stryTitle`, `stryContent`, `stryLikes`, `created_at`, `updated_at` FROM `stories` WHERE `stryStatus`="active" LIMIT ' + ((currentPage - 1 ) * perPage) + ', ' + perPage;
 
-    console.log(sql)
+    // console.log(sql)
 
     db.queryAsync(sql)
     .then(r=>{

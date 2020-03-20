@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 // import { Container, Row, Col } from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import { convertFromRaw } from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html';
+import axios from 'axios'
 import {
     FiMoreHorizontal
   } from 'react-icons/fi'
@@ -14,14 +15,24 @@ import './css/all.scss'
 import './css/stories.scss'
 
 import StoryCard from './components/StoryCard'
-// import Masonry from 'react-masonry-css'
-
+import StoryModal from './components/StoryModal'
 import Masonry from 'react-masonry-component';
 
 
-function Stories(){
+function Stories(props){
 
     const [pageNumber, setPageNumber] = useState(1)
+    const [modalOpen, setModalOpen] = useState(false)
+    const [openStry, setOpenStry] = useState({})
+
+
+    useEffect(()=>{
+        console.log(props)
+    },[])
+
+    useEffect(()=>{
+        console.log(openStry)
+    }, [openStry])
 
     const {
         loading,
@@ -38,20 +49,46 @@ function Stories(){
         if(observer.current) observer.current.disconnect()
         observer.current = new IntersectionObserver(entries => {
             if(entries[0].isIntersecting && hasMore){
-                setPageNumber(prevPageNumber => prevPageNumber + 1)
-                console.log('get stuff')
+                //滑動一次需要手動增加頁面
+                if(pageNumber%2 !== 0){
+                    console.log(pageNumber)
+                    console.log('get stuff')
+                    setPageNumber(prevPageNumber => prevPageNumber + 1)
+                }
             }
         })
         if(node) observer.current.observe(node)
     })
 
-    const breakpointColumnsObj = {
-        default: 3,
-        1100: 2,
-        700: 1
-      };
+    const handleButtonMore = ()=>{
+        setPageNumber(prevPageNumber => prevPageNumber + 1)
+    }
 
-
+    const toggleModal = (data)=>{
+        setModalOpen(!modalOpen);
+        // setOpenStryId(evt.target.stryId)
+        
+        if(!modalOpen){
+            console.log("current id", data.stryId)
+            let cancel;
+            axios({
+                method: 'GET',
+                url: `http://localhost:5500/stories/story?id=${data.stryId}`,
+                cancelToken : new axios.CancelToken(c => cancel = c)
+            })
+            .then(res=>{
+                let content = stateToHTML(convertFromRaw(JSON.parse(res.data.data.stryContent)));
+                res.data.data.stryContent = content;
+                // console.log(content)
+                setOpenStry(res.data.data)
+            })
+            .catch(err=>{
+                if(axios.isCancel(err)) return
+            })
+            return ()=> cancel()
+        }
+        setOpenStry({})
+    }
 
     const items =  stories.map((itm, idx)=>{
         let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
@@ -67,6 +104,10 @@ function Stories(){
                         title={itm.stryTitle}
                         likes={itm.stryLikes}
                         user={itm.usrId}
+                        loading={loading}
+                        onClick={()=>{
+                            toggleModal(itm)
+                        }}
                     />
                 </div>
             </>)
@@ -80,6 +121,10 @@ function Stories(){
                         title={itm.stryTitle}
                         likes={itm.stryLikes}
                         user={itm.usrId}
+                        loading={loading}
+                        onClick={()=>{
+                            toggleModal(itm)
+                        }}
                     />
                 </div>
             </>)
@@ -89,12 +134,8 @@ function Stories(){
     return(
         <>
             <main className="mt-5">
+            <Link to="/upload-stories">Your story</Link>
                 <div className="bk-stories-container">
-                    {/* <Masonry
-                        breakpointCols={breakpointColumnsObj}
-                        className="bk-masonry-grid"
-                        columnClassName="bk-masonry-column"
-                    > */}
                     <Masonry
                         className={'my-gallery-class'} // default ''
                         elementType={'div'} // default 'div'
@@ -104,13 +145,17 @@ function Stories(){
                        {items}
                     </Masonry>
                 </div>
-                <button className='bk-btn-more' onClick={()=>{}}>
+                <button className={`bk-btn-more${hasMore ? '' : ' hidden'}`} onClick={handleButtonMore}>
                     <FiMoreHorizontal />
                 </button>
-                <Link to="/upload-stories">Post your story</Link>
             </main>
+            <StoryModal 
+            show={modalOpen} 
+            onClose={toggleModal}
+            data={openStry}
+            />
         </>
     )
 }
 
-export default Stories
+export default withRouter(Stories)
