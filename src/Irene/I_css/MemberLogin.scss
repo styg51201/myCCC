@@ -6,6 +6,10 @@
   margin: 0;
 }
 
+.memberloginindex {
+  height: 400px;
+}
+
 .memberlogin .card {
   padding: 20px 30px 0px;
   border: none;
@@ -31,4 +35,17 @@
 .memberlogin label {
   font-size: $font-x;
   text-align: center;
+}
+
+.irene-checkbox input {
+  display: inline-block;
+}
+.irene-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.irene-checkbox span {
+  margin-left: 10px;
+  font-size: 16px;
 }
