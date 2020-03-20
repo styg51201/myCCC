@@ -1,57 +1,49 @@
 @import '../../css/variables.scss';
 
+
 .bk-stories-container{
-  display: flex;
-  flex-flow: column wrap;
-  align-content: space-between;
-  height: 2000px;
+  // margin: - $spacing/2;
 
-  &:before, &:after{
-    content: "";
-    flex-basis: 100%;
-    width: 0;
-    order: 2;
-  }
-
-  .bk-masonry-itm{
-    width: 32%;
-    position: relative;
+  .bk-masonry-brick{
+    width: 33.33%;
     cursor: pointer;
+    padding: $spacing/2;
 
     &:hover .bk-card{
       box-shadow: 0 0 20px rgba($black, .3);
     }
-
-    &:nth-child(3n+1) { order: 1; }
-    &:nth-child(3n+2) { order: 2; }
-    &:nth-child(3n)   { order: 3; }
-
-    &.bk-collapse{
-      &:after{
-        content: '...更多';
-        font-size: $font-m;
-        font-weight: $font-bold;
-        text-align: center;
-        display: block;
-        background-image: linear-gradient(rgba(255, 255, 255, .5), $white);
-        width: 100%;
-        height: 100px;
-        line-height: 100px;
-        position: absolute;
-        bottom: $spacing + 49px;
-      }
-    }
   }
+
 }
 
+
+
 .bk-card {
-  margin: $spacing 0;
+  background-color: $white;
+  width: 100%;
   border-radius: 0;
   padding: $spacing;
   min-height: 300px;
   max-height: 600px;
   position: relative;
   transition: .3s;
+
+  &.bk-collapse{
+    &:after{
+      content: '...更多';
+      font-size: $font-m;
+      font-weight: $font-bold;
+      text-align: center;
+      display: block;
+      background-image: linear-gradient(rgba(255, 255, 255, .5), $white);
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+      position: absolute;
+      bottom: $spacing + 49px;
+      left: 0;
+    }
+  }
 
   .card-header{
     background-color: transparent;
@@ -82,36 +74,46 @@
   }
 }
 
-.bk-masonry-itm-backdrop{
-  background-color: red;
-  height: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
+.bk-btn-more{
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  border-radius: 50%;
+  margin: 0 auto;
+  display: block;
+  margin-bottom: $spacing*2;
 }
 
+// .bk-masonry-itm-backdrop{
+//   background-color: red;
+//   height: 100px;
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+// }
 
-.bk-modal-backdrop{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba($black, .5);
-  padding: 50px;
-  z-index: 100;
-}
 
-.bk-modal{
-  background-color: $white;
-  border-radius: 5px;
-  max-width: 500px;
-  max-height: calc(100vh - $spacing*3);
-  min-height: 500px;
-  padding: $spacing*2;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 101;
-}
+// .bk-modal-backdrop{
+//   position: fixed;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background-color: rgba($black, .5);
+//   padding: 50px;
+//   z-index: 100;
+// }
+
+// .bk-modal{
+//   background-color: $white;
+//   border-radius: 5px;
+//   max-width: 500px;
+//   max-height: calc(100vh - $spacing*3);
+//   min-height: 500px;
+//   padding: $spacing*2;
+//   position: fixed;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   z-index: 101;
+// }

@@ -21,6 +21,7 @@ import {
   displayShopCart,
   getShop,
   calculator,
+  calculator_total,
   MyFavorite,
   ControlDataState,
 } from '../mao/reducers/ShopCartReducer'
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
   displayShopCart,
   getShop,
   calculator,
+  calculator_total,
   MyFavorite,
   ControlDataState,
   member,

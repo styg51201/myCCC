@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './css/mao.css'
+import './css/mao.scss'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
 import MaoSlide from './component/MaoSlide'
 import { withRouter, Link } from 'react-router-dom'
@@ -53,9 +53,7 @@ function ShopCartLike(props) {
   function checkCart(val) {
     let obj = { pId: val, count: 0 }
     let index = checkBox.findIndex(e => e == val)
-    console.log(index)
     if (index == -1) {
-      console.log('FUCK!')
       RealCart.push(obj)
     }
     RealCart.map((v, i) => {
@@ -64,7 +62,6 @@ function ShopCartLike(props) {
       }
     })
     props.AddCartNewItem_sendcal(RealCart)
-    // props.CalShopCart(RealCart)
   }
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
@@ -97,7 +94,7 @@ function ShopCartLike(props) {
               // checkCart(v)
             }}
           >
-            <img src="..\img\header-footer\heart.svg" alt="" />
+            <img src="..\img\header-footer\shopping-bag.svg" alt="" />
             <span>加入購物車</span>
           </button>
         </div>
@@ -107,22 +104,20 @@ function ShopCartLike(props) {
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
     <div className="p-3 text-center Mao-CartNoItem">
-    <h3>趕快去尋找最愛的商品吧！
-    </h3>
-    <Link to="/">
-    <img className="Mao-Like-img" src="./Mao-img/travel1.jpg"/>
-    </Link>
+      <h3>趕快去尋找最愛的商品吧！</h3>
+      <Link to="/">
+        <img className="Mao-Like-img" src="./Mao-img/travel1.jpg" />
+      </Link>
     </div>
-    
   )
 
   return (
     <>
       {/* <div className={dataList.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '1300px' }}> */}
-      
-      <MaoSlide/>
-        {/* <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul> */}
-        {/* <MaoCartShopTotal/> */}
+
+      <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul>
+      <MaoSlide />
+      {/* <MaoCartShopTotal/> */}
       {/* </div> */}
       {/* <ProductSlide /> */}
       {/* <div>

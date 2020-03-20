@@ -1,30 +1,30 @@
-// export const userRegister = userData => ({
-//   type: 'USER_REGISTER',
-//   data: userData,
-// })
+export const userRegister = userData => ({
+  type: 'USER_REGISTER',
+  data: userData,
+})
 
-// export const userRegisterAsync = (userData, callback) => {
-//   return async dispatch => {
-//     const request = new Request('http://localhost:5500/member', {
-//       method: 'POST',
-//       body: JSON.stringify(userData),
-//       headers: new Headers({
-//         Accept: 'application/json',
-//         'Content-Type': 'application/json',
-//       }),
-//     })
+export const userRegisterAsync = (userData, callback) => {
+  return async dispatch => {
+    const request = new Request('', {
+      method: 'POST',
+      body: JSON.stringify(userData),
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+    })
 
-//     console.log(JSON.stringify(userData))
+    console.log(JSON.stringify(userData))
 
-//     const response = await fetch(request)
-//     const data = await response.json()
-//     console.log(data)
+    const response = await fetch(request)
+    const data = await response.json()
+    console.log(data)
 
-//     // 設定資料
-//     dispatch(userRegister(data))
-//     callback()
-//   }
-// }
+    // 設定資料
+    dispatch(userRegister(data))
+    callback()
+  }
+}
 
 //登入
 export const userLogin = userData => ({
@@ -50,6 +50,9 @@ export const userLoginAsync = (userData, callback) => {
     const response = await fetch(request)
     const data = await response.json()
     console.log('res data', data)
+    if (data != false) {
+      localStorage.setItem('userdata', JSON.stringify(userData))
+    }
 
     if (data.length > 0) {
       if (
@@ -59,7 +62,10 @@ export const userLoginAsync = (userData, callback) => {
         console.log(data)
         // 設定資料
         dispatch(userLogin(userData))
-        alert(`${userData.username}登入成功`)
+        window.location = 'http://localhost:3000/memberedit'
+        //如果之後會員登入應該是以會員編輯資料網址為主http://localhost:3000/memberedit/:memberaccount
+        // alert(`${userData.username}登入成功`)
+        console.log('登入成功')
       } else {
         alert('密碼錯誤')
       }

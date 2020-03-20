@@ -2,32 +2,94 @@
   display: flex;
 }
 .chin-bigitem {
+  width: 600px;
+  height: 600px;
   img {
     width: 600px;
     height: 600px;
+    margin: 0;
   }
 }
-.chin-smallitem {
-  padding: 0 5px 0 6px;
+.chin-cir {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: -15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ffffff;
 }
-.chin-sliderImg {
-  list-style: none;
-  display: flex;
+.chin-cir:hover {
+  border: 1px solid #a0a0a0;
+}
+.chin-cir2 {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -15px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.chin-cir2:hover {
+  border: 1px solid #a0a0a0;
+}
+.chin-arr {
+  margin: 4px 0 0 4px;
+  width: 25px;
+  height: 25px;
+}
+.chin-arr2 {
+  margin: 4px 0 0 5px;
+  width: 25px;
+  height: 25px;
+}
+.chin-hicir {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: -5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.chin-hicir:hover {
+  border: 1px solid #a0a0a0;
+}
+.chin-hicir2 {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: -5px;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.chin-hicir2:hover {
+  border: 1px solid #a0a0a0;
+}
+.chin-hiarr {
+  margin: 4px 0 0 4px;
+  width: 25px;
+  height: 25px;
+}
+.chin-hiarr2 {
+  margin: 4px 0 0 5px;
+  width: 25px;
+  height: 25px;
+}
+.chin-smallitem {
+  position: relative;
+  width: 600px;
 }
 .chin-smallitem-img {
-  width: 128px;
-  height: 128px;
-  margin: 35px 3px 3px 3px;
-}
-.chin-smallitem-Arr {
-  margin-top: 80px;
-  width: 25px;
-  height: 25px;
-}
-.chin-smallitem-Arr2 {
-  margin-top: 80px;
-  width: 25px;
-  height: 25px;
+  width: 130px;
+  height: 130px;
+  margin: 35px 10px 3px 10px;
 }
 .chin-productname {
   margin-left: 100px;
@@ -316,29 +378,15 @@
   text-decoration: none;
 }
 .chin-relatedproducts {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: relative;
   margin: 60px 0 160px 0;
 }
-.chin-relatedproducts button {
-  width: 50px;
-  height: 50px;
-  background: none;
-  border: none;
-}
-.chin-relatedproducts button img {
-  width: 50px;
-  height: 50px;
-}
 .chin-commodity2 {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  flex-wrap: wrap;
+  margin-left: 3px;
 }
 .chin-commodity-item2 {
-  margin: 20px 20px 20px 21px;
+  padding-top: 1px;
+  margin: 15px;
   width: 280px;
   height: 400px;
   background: #fff;
@@ -593,10 +641,7 @@
   .chin-historicalrecord {
     justify-content: space-evenly;
   }
-  .chin-relatedproducts {
-    margin-top: 20px;
-    position: relative;
-  }
+
   .chin-relatedproducts button:nth-child(1) {
     width: 30px;
     height: 30px;
@@ -614,10 +659,6 @@
   .chin-relatedproducts button img {
     width: 30px;
     height: 30px;
-  }
-  .chin-commodity2 {
-    width: 115px;
-    height: 150px;
   }
   .chin-watch2 {
     margin: 0;

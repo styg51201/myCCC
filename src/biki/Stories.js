@@ -1,56 +1,114 @@
-import React, { useState, useEffect } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
+// import { Container, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import { convertFromRaw } from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html';
+import {
+    FiMoreHorizontal
+  } from 'react-icons/fi'
+
+import useStorySearch from './utils/useStorySearch'
+
 
 import './css/all.scss'
 import './css/stories.scss'
 
 import StoryCard from './components/StoryCard'
-import StoryModal from './components/StoryModal'
+// import Masonry from 'react-masonry-css'
+
+import Masonry from 'react-masonry-component';
+
 
 function Stories(){
 
-    const [stories, setStories] = useState(null);
-    const [modalOpen, setModalOpen] = useState(false);
+    const [pageNumber, setPageNumber] = useState(1)
 
-    async function getData(){
-        const response = await fetch('http://localhost:5500/stories')
-        const data = await response.json()
-        const story = JSON.parse(data[0].stryContent);
+    const {
+        loading,
+        hasMore,
+        stories,
+        error
+    } = useStorySearch(pageNumber)
 
-        setStories(data);
-    }
+    const observer = useRef(null)
 
-    useEffect(()=>{
-        getData();
-    }, [])
+    const lastStoryElementRef = useCallback(node => {
+        if(loading) return
+        // console.log(node)
+        if(observer.current) observer.current.disconnect()
+        observer.current = new IntersectionObserver(entries => {
+            if(entries[0].isIntersecting && hasMore){
+                setPageNumber(prevPageNumber => prevPageNumber + 1)
+                console.log('get stuff')
+            }
+        })
+        if(node) observer.current.observe(node)
+    })
 
-    function toggleModal(){
-        setModalOpen(!modalOpen);
-    }
+    const breakpointColumnsObj = {
+        default: 3,
+        1100: 2,
+        700: 1
+      };
+
+
+
+    const items =  stories.map((itm, idx)=>{
+        let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
+
+        if(stories.length === idx+1){
+            return (<>
+                <div className="bk-masonry-brick" 
+                    ref={lastStoryElementRef} 
+                    key={`${itm.stryId}-${itm.userId}`} 
+                >
+                    <StoryCard 
+                        content={story} 
+                        title={itm.stryTitle}
+                        likes={itm.stryLikes}
+                        user={itm.usrId}
+                    />
+                </div>
+            </>)
+        }else{
+            return (<>
+                <div className="bk-masonry-brick" 
+                    key={`${itm.stryId}-${itm.userId}`} 
+                >
+                    <StoryCard 
+                        content={story} 
+                        title={itm.stryTitle}
+                        likes={itm.stryLikes}
+                        user={itm.usrId}
+                    />
+                </div>
+            </>)
+        }
+    })
 
     return(
         <>
             <main className="mt-5">
                 <div className="bk-stories-container">
-                    {stories===null ? '' : stories.map((itm, idx)=>{
-                        let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
-                        // console.log(itm)
-                        return <StoryCard 
-                                key={`${itm.stryId}-${itm.userId}`} 
-                                content={story} 
-                                title={itm.stryTitle}
-                                likes={itm.stryLikes}
-                                user={itm.usrId}
-                                onClick={toggleModal}
-                        />
-                    })}
+                    {/* <Masonry
+                        breakpointCols={breakpointColumnsObj}
+                        className="bk-masonry-grid"
+                        columnClassName="bk-masonry-column"
+                    > */}
+                    <Masonry
+                        className={'my-gallery-class'} // default ''
+                        elementType={'div'} // default 'div'
+                        disableImagesLoaded={false} // default false
+                        updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
+                    >
+                       {items}
+                    </Masonry>
                 </div>
+                <button className='bk-btn-more' onClick={()=>{}}>
+                    <FiMoreHorizontal />
+                </button>
                 <Link to="/upload-stories">Post your story</Link>
             </main>
-            <StoryModal show={modalOpen} onClose={toggleModal} />
         </>
     )
 }

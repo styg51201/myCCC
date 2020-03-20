@@ -28,7 +28,6 @@ function ProductSlide(props) {
     let index = checkBox.findIndex(e => e == val)
     console.log(index)
     if (index == -1) {
-      console.log('FUCK!')
       RealCart.push(obj)
     }
     RealCart.map((v, i) => {
@@ -43,7 +42,7 @@ function ProductSlide(props) {
     return (
       <>
         <div
-          className="card border p-3 d-flex flex-column align-items-center justify-content-between m-3"
+          className="card border p-3 d-flex "
           style={{ width: '15rem' }}
         >
           <img

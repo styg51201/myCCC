@@ -1,0 +1,32 @@
+@import '../../css/variables.scss';
+
+.Mao-btn-amount {
+  padding: 10px;
+  width: 30%;
+  color: $white;
+}
+
+.Mao-btn-amount-whiteDel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  @include buttonTheme(borderedStyle);
+}
+
+.Mao-btn-amount-whiteLike {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include buttonTheme(borderedStyle);
+}
+
+.Mao-btn-amount-white-my {
+  margin: 8px 0px;
+}
+
+.Mao-btn-amount-img {
+  margin-right: 5px;
+}
+.Mao-btn-amount-white-my:hover {
+  @include buttonTheme(greyStyle);
+}

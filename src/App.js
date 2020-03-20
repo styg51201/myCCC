@@ -91,6 +91,9 @@ function App() {
             <Route path="/ShopCartLike">
               <ShopCartLike />
             </Route>
+            <Route path="/OrderInfo">
+              <OrderInfo />
+            </Route>
             {/* ----------------------------------------- */}
             <Route path="/memberlogin">
               <MemberLogin />
