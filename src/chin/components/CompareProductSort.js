@@ -14,6 +14,10 @@ function CompareProductSort(props){
     const [sortname,setSortname]=useState('排序方式')
     const SortClassName= classNames('chin-sort-featuredproducts',{active:featuredproducts})
 
+    const comparegoods =()=>{
+        console.log('123')
+    }
+
     return(
     <div className="chin-title">
         <div className="chin-title-text">
@@ -25,7 +29,7 @@ function CompareProductSort(props){
             <button className="chin-rwd-sort">排序方式</button>
         </div>
         <div className="chin-comparegoods-sort">
-            <button className="chin-comparegoods">
+            <button className="chin-comparegoods" onClick={comparegoods}>
                 <span>比較商品</span>
                 <img src="./chin-img/align-justify.svg" alt=""/>
             </button>
