@@ -13,7 +13,7 @@ const upload = multer({ dest: 'tmp_uploads/' })
 
 //會員id
 router.get('/',(req,res)=>{
-    const sql='SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 5) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE '
+    const sql='SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 4) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE '
     db.queryAsync(sql)
     .then(r=>{
         r.forEach(e => {
@@ -153,6 +153,18 @@ router.post('/addCoupon', upload.single('cp_img'), (req, res) => {
     } else {
         res.json(output);
     }
+})
+
+//廣告測試
+router.post('/adTest',(req,res)=>{
+
+    let memberData = {id:5,collect:1}
+
+    const sqlForAd = 'SELECT * FROM `plan` INNER JOIN `ad` ON `plan`.`planId` = `ad`.`adPlanId` INNER JOIN `promotion_group` ON `plan`.`planId` = `promotion_group`.`groupPlanId` WHERE `planStatus` = "上架" '
+    db.queryAsync(sqlForAd)
+    .then(r=>{
+        res.json(r)
+    })
 })
 
 
