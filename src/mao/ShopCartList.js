@@ -19,6 +19,8 @@ import {
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
+import { FaRegTrashAlt} from "react-icons/fa"
+
 function ShopCartList(props) {
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(true)
@@ -61,6 +63,7 @@ function ShopCartList(props) {
     let count = v.count
     RealCart.push({ pId: val, count: count })
   })
+
   //驗證購物車作用的狀況
   const displayRealCart = RealCart.map((v, i) => {
     return (
@@ -69,7 +72,7 @@ function ShopCartList(props) {
       </li>
     )
   })
-  // 購物車內容顯示　要再做調整
+  // 購物車內容
   const dataList = props.AddItem.map((v, i) => {
     return (
       <li key={v} className="Mao-shopcart-check-item">
@@ -93,8 +96,6 @@ function ShopCartList(props) {
                 placeholder=""
                 value={v.count}
                 type="text"
-                id="count-value"
-                className="text-center w-30 m-0"
               />
               <button
                 className="Mao-btn-amount"
@@ -117,11 +118,7 @@ function ShopCartList(props) {
               props.DelCartItem(i, props.AddItem)
             }}
           >
-            <img
-              src="..\img\header-footer\heart.svg"
-              alt=""
-              className="Mao-btn-amount-img"
-            />
+            <FaRegTrashAlt style={{width:'25px',height:'25px',marginRight:'15px',marginLeft:'18px'}}/>
             <span>刪除</span>
           </button>
           <button
@@ -145,10 +142,11 @@ function ShopCartList(props) {
   })
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
-    <div className="p-3 text-center Mao-CartNoItem">
+   
+    <div className="p-3 text-center Mao-CartNoItem-shoplist">
       <h3>趕快去尋找最愛的商品吧！</h3>
       <Link to="/">
-        <img className="Mao-Like-img" src="./Mao-img/travel1.jpg" />
+        {/* <img className="Mao-Like-img-shoplist" src="./Mao-img/travel1.jpg" /> */}
       </Link>
     </div>
   )
@@ -157,15 +155,8 @@ function ShopCartList(props) {
   return (
     <>
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
-        <ul
-          className={props.AddItem.length > 0 ? 'bg-white' : 'bg-none'}
-          style={{
-            width: '960px',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-          }}
-        >
+        <ul className='Mao-shopcart-check-item-ul'>
+        
           {props.AddItem.length > 0 ? dataList : CartNoItem}
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal /> : CartNoItemTotal}

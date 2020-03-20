@@ -8,7 +8,6 @@ import {
   showCoupon,
 } from '../../stacey/actions/couponAction'
 import $ from 'jquery'
-import { props } from 'bluebird'
 
 function MaoCouponBox(props) {
   console.log('BBBBB', props.getCouponData)

@@ -1,76 +1,14 @@
 @import '../../css/variables.scss';
 
-/* for shopCartList  */
-.Mao-shopcart-list {
-  position: relative;
-}
-.Mao-shopcart-list-items-box {
-  max-width: 975px;
-  margin-left: 1px;
-}
-.Mao-shopcart-check-btn {
-  border: 1px solid #000;
-  max-width: 315px;
-  margin: 30px auto;
-  display: block;
-  text-align: center;
-  padding: 10px;
-  background: #000;
-}
-.Mao-shopcart-check-btn a {
-  color: #fff;
-}
-.Mao-shopcart-check-btn a:hover {
-  color: #fff;
-  text-decoration: none;
-}
-.Mao-shopcart-check-item {
-  display: flex;
-  transition: 0.5s;
-  width: 100%;
-  margin: 0px;
-  border-bottom: 2px solid #efefef;
-  padding: 20px;
-}
-.Mao-shopcart-check-item img {
-  margin: 0px 20px;
-}
-.Mao-shopcart-check-item-info {
-  width: 370px;
-  margin: 0px 50px;
-  font-size: 18px;
-}
-.Mao-shopcart-check-item-count {
-  height: 30px;
-  overflow: hidden;
-  border: 1px solid #ddd;
-  width: 130px;
-}
-.Mao-shopcart-check-item-count input {
-  outline: none;
-  border: none;
-  width: 30px;
-  text-align: center;
-  padding: 0px 10px;
-}
-.Mao-shopcart-check-item-action {
-  margin: 0 auto;
-}
-.Mao-shopcart-check-item-action div {
-  padding: 5px 15px;
-  margin: 5px;
-}
-.Mao-shopcart-check-item-action img {
-  margin-right: 10px;
-}
 /* for CartShopTotal */
 .Mao-total-box {
   transition: 0s;
   opacity: 1;
-  height: 430px;
+  height: 420px;
   width: 300px;
   padding: 5px 10px;
   margin: 0px 10px;
+  transition: 0.3s;
 }
 .Mao-total-box-title {
   border-bottom: 1px solid #ddd;
@@ -94,12 +32,29 @@
   outline: none;
 }
 .Mao-total-box-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 270px;
   height: 45px;
-  border: 1px solid #000;
+  padding: 15px;
+  border: 1px solid $grey;
   margin: 15px 0px;
 }
+
+.Mao-total-box-btn-border-b {
+  margin: 0;
+  color: $black;
+  border: none;
+  border-bottom: 1px solid $grey;
+  transition: 0.3s;
+}
+.Mao-total-box-btn-border-b:hover {
+  color: $blue;
+  border-bottom: 1px solid $blue;
+}
 .Mao-total-box-btn:hover {
+  transition: 0.3s;
   text-decoration: none;
 }
 
@@ -140,7 +95,7 @@
   box-shadow: 10px 10px 10px #aaa;
   padding: 6px 0px;
   position: fixed;
-  z-index: 99;
+  z-index: -10;
   top: 0;
   left: 0;
 }
@@ -180,13 +135,26 @@
 .Mao-total-box-title-coupon-fixed {
   margin: 5px 0px;
 }
+.Mao-total-box-total-fixed-goshop:hover {
+  color: $black;
+}
 .Mao-total-box-title-coupon-fixed-coupon {
   position: absolute;
   top: 103%;
   left: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $white;
   width: 20%;
   height: 45px;
-  border: 1px solid $grey;
+  border-bottom: 1px solid $grey;
+  color: $black;
+}
+.Mao-total-box-title-coupon-fixed-coupon:hover {
+  color: $blue;
+  transition: 0.3s;
+  border-bottom: 1px solid $blue;
 }
 .Mao-total-box-total-fixed {
   display: flex;
@@ -208,13 +176,31 @@
 }
 
 .Mao-total-box-btn-fixed {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $black;
   width: 80%;
   height: 45px;
-  border: 1px solid #000;
+  border: 1px solid $black;
+  color: $white;
+}
+.Mao-total-box-btn-fixed-goshop {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: $white;
+  width: 80%;
+  height: 45px;
+  border: 1px solid $grey;
+  color: $black;
   margin: 5px 0px;
 }
-
+.Mao-total-box-btn-fixed:hover {
+  color: #eee;
+}
 .Mao-couponBox {
+  overflow: hidden;
   opacity: 0;
   width: 300px;
   height: 300px;
@@ -222,10 +208,11 @@
   position: fixed;
   top: calc(50% - 150px);
   left: calc(50% - 150px);
-  z-index: 999;
+  z-index: -10;
   border: 1px solid $grey;
 }
 .Mao-coupon-exit {
+  cursor: pointer;
   width: 30px;
   height: 30px;
   color: $white;
@@ -236,4 +223,23 @@
   position: absolute;
   top: 0;
   right: 0;
+}
+.Mao-ShopCartIcon-box {
+  position: relative;
+}
+.Mao-ShopCartIcon-num {
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  border-radius: 50%;
+  background: $blue;
+  color: $white;
+  position: absolute;
+  top: -40%;
+  left: -0.9%;
+}
+.Mao-ShopCarticon-icon {
+  width: 20px;
+  height: 20px;
 }

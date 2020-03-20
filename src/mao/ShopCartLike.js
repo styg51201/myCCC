@@ -16,6 +16,7 @@ import {
   ControlDataOne,
   AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
+import ShopCartIcon from './component/ShopCartIcon'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
 function ShopCartLike(props) {
@@ -124,9 +125,11 @@ function ShopCartLike(props) {
   return (
     <>
       {/* <div className={dataList.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '1300px' }}> */}
-
-      <ul>{dataList.length == 0 ? CartNoItem : dataList}</ul>
-      <MaoSlide />
+<ShopCartIcon/>
+      <ul className="bg-white d-flex justify-content-center flex-column">{dataList.length == 0 ? CartNoItem : dataList}
+      
+      </ul>
+      {/* <MaoSlide /> */}
       {/* <MaoCartShopTotal/> */}
       {/* </div> */}
       {/* <ProductSlide /> */}

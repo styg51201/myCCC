@@ -39,9 +39,8 @@ export const getShopCart = item => {
   }
 }
 
-//訂單產生
+//訂單購買人資料產生
 export const fromServerorderBuyerInfo = val => {
-  console.log(val)
   return async dispatch => {
     const request = new Request(
       'http://localhost:5500/shopCart/orderBuyerInfo',
@@ -57,6 +56,27 @@ export const fromServerorderBuyerInfo = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
+    await console.log(data)
+  }
+}
+
+//訂單產品資料
+export const forServerorderProductInfo=val=>{
+  return async dispatch=>{
+    const request=new Request(
+      'http://localhost:5500/shopCart/orderproductInfo',
+      {
+        method:'POST',
+        credentials:'include',
+        headers: new Headers({
+          Accept:'application/json',
+          'Content-Type':'application/json',
+        }),
+        body:JSON.stringify(val),
+      }
+    )
+    const res= await fetch(request)
+    const data= await res.json()
     await console.log(data)
   }
 }
