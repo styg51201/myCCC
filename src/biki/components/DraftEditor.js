@@ -1,4 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
+import {withRouter} from 'react-router-dom'
+import {stateToHTML} from 'draft-js-export-html';
 import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
@@ -14,7 +16,9 @@ import useDebounce from '../utils/useDebounce'
 import '../css/Draft.css'
 import '../css/storyEditor.scss'
 
-function DraftEditor(){
+function DraftEditor(props){
+
+    // console.log(props)
 
     //initialize editor state
     const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -158,6 +162,9 @@ function DraftEditor(){
 
     //autosave to draft
     async function saveData(){
+
+        if(!saveDraft) return;
+
         const contentState = await editorState.getCurrentContent()
         const response = await fetch(`http://localhost:5500/stories/user-editor/draft/save-draft/${id}`, {
             method: 'PATCH',
@@ -177,7 +184,29 @@ function DraftEditor(){
 
     //final submit
     async function uploadStory(){
+
         const contentState = await editorState.getCurrentContent()
+
+        //判斷是否有內容
+        let c = convertToRaw(contentState)
+        let str = ''
+        for(let i = 0 ; i < c.blocks.length ; i++){
+            str += c.blocks[i].text
+        }
+
+        if(str === '' || !str.trim().length){
+            console.log("no content")
+            alert('沒有內容不能送出喔')
+            return;
+        }else if(title === '' || !title.trim().length){
+            console.log("no title")
+            alert('請填寫標題喔')
+            return;
+        }
+
+        console.log("you may pass")
+
+        //fetch
         const response = await fetch(`http://localhost:5500/stories/user-editor/upload`, {
             method: 'POST',
             body: JSON.stringify({
@@ -194,6 +223,10 @@ function DraftEditor(){
         await console.log(data)
         await updateDraftAfterSubmit()
         await setSaveDraft(false)
+
+        alert('上傳成功！')
+        props.history.push('/stories')
+        return;
     }
 
     //final submit -> update draft to submitted
@@ -263,5 +296,5 @@ function DraftEditor(){
     )
 }
 
-export default DraftEditor
+export default withRouter(DraftEditor)
 

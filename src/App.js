@@ -16,6 +16,7 @@ import Header from './components/common/Header'
 import Home from './biki/Home'
 import Stories from './biki/Stories'
 import UploadStory from './biki/UploadStory'
+import Story from './biki/Story'
 
 //import chin
 import Headset from './chin/Headset'
@@ -115,6 +116,9 @@ function App() {
             </Route>
             <Route path="/adTest">
               <AdTest />
+            </Route>
+            <Route path="/stories/story">
+              <Story />
             </Route>
             <Route path="/stories">
               <Stories />

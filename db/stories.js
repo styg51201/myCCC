@@ -5,6 +5,8 @@ const multer = require('multer');
 const upload = multer({dest: './biki/tmp-editor-imgs'});
 const { v4: uuidv4 } = require('uuid');
 const db = require('./db_connect')
+const moment = require("moment-timezone");
+moment.locale('zh-tw'); //設置中文
 
 //upload-images
 router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
@@ -48,6 +50,21 @@ router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     res.json(output)
 })
 
+//update views of stories
+router.patch('/api/view-story', (req, res)=>{
+    console.log('adding view...')
+    const sql = 'UPDATE `stories` SET `stryViews`= `stryViews` + 1 WHERE `stryId` = ?';
+
+    db.queryAsync(sql, [req.query.id])
+    .then(r=>{
+        res.json(r);
+    })
+    .catch(err=>{
+        res.json(err);
+    })
+})
+
+/*
 //first submit editor content to draft
 router.post('/user-editor/draft', (req, res)=>{
 
@@ -180,7 +197,37 @@ router.post('/user-editor/upload', (req, res)=>{
     
 })
 
+*/
 
+router.get('/story', (req, res)=>{
+    console.log('getting story...')
+    // console.log(req.query);
+
+    const output = {
+        success: false,
+        data: '',
+        message: ''
+    }
+    
+    let sql = 'SELECT `usrId`, `stryId`, `stryTitle`, `stryContent`, `stryLikes`, `created_at`, `updated_at` FROM `stories` WHERE `stryId`=? AND `stryStatus` = "active"';
+
+    db.queryAsync(sql, [req.query.id])
+    .then(r=>{
+        output.success = true;
+        output.data = r[0];
+        output.message = 'got story successfully';
+
+        res.json(output);
+    })
+    .catch(err=>{
+        output.data = err;
+        output.message = 'failed to get story';
+        
+        res.json(output);
+    })
+
+    // res.send(req.query);
+})
 
 //stories page
 router.get('/:page?', (req, res)=>{
@@ -188,12 +235,18 @@ router.get('/:page?', (req, res)=>{
     let perPage = 15;
     let currentPage = req.params.page ? parseInt(req.params.page) : 1;
 
-    let sql = 'SELECT `usrId`, `stryId`, `stryTitle`, `stryContent`, `stryLikes`, `created_at`, `updated_at` FROM `stories` WHERE `stryStatus`="active" LIMIT ' + ((currentPage - 1 ) * perPage) + ', ' + perPage;
+    const sql = 'SELECT `Name`, `Img`, `stories`.`usrId`, `stories`.`stryId`, `stryViews`, `stryTitle`, `stryContent`, `stryLikes`, `stories`.`created_at`, `stories`.`updated_at`, COUNT(`rplyId`) AS "rplyTotal" FROM `stories` INNER JOIN `member` ON `usrId` = `ID` LEFT JOIN `storyReplies` ON `storyReplies`.`stryId` = `stories`.`stryId` WHERE `stryStatus` = "active" GROUP BY `stories`.`stryId` LIMIT ' + ((currentPage - 1 ) * perPage) + ', ' + perPage;
 
-    console.log(sql)
+    // const format = "YYYY"
+    // console.log(sql)
 
     db.queryAsync(sql)
     .then(r=>{
+        r.forEach((elm, idx)=>{
+            r[idx].fromNow = moment(elm.updated_at).fromNow()
+        })
+
+        // console.log(r)
         res.json(r);
     })
     .catch(err=>{

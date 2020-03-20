@@ -1,4 +1,4 @@
-import React,{useState,useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 
 //classnames
 import classNames from 'classnames'
@@ -7,14 +7,27 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {PriceHightToLow,PriceLowToHight,NewTimeSort,HotItemsSort,AllItemsSort} from '../actions/itemsActions'
+import {
+  PriceHightToLow,
+  PriceLowToHight,
+  NewTimeSort,
+  HotItemsSort,
+  AllItemsSort,
+} from '../actions/itemsActions'
 
-function CompareProductSort(props){
-    const [featuredproducts,setFeaturedproducts]=useState(false)
-    const [sortname,setSortname]=useState('排序方式')
-    const SortClassName= classNames('chin-sort-featuredproducts',{active:featuredproducts})
+function CompareProductSort(props) {
+  const [featuredproducts, setFeaturedproducts] = useState(false)
+  const [sortname, setSortname] = useState('排序方式')
+  const SortClassName = classNames('chin-sort-featuredproducts', {
+    active: featuredproducts,
+  })
+
+    const comparegoods =()=>{
+        console.log('123')
+    }
 
     return(
+      <>
     <div className="chin-title">
         <div className="chin-title-text">
             <span>{props.englishname}</span>
@@ -25,7 +38,7 @@ function CompareProductSort(props){
             <button className="chin-rwd-sort">排序方式</button>
         </div>
         <div className="chin-comparegoods-sort">
-            <button className="chin-comparegoods">
+            <button className="chin-comparegoods" onClick={comparegoods}>
                 <span>比較商品</span>
                 <img src="./chin-img/align-justify.svg" alt=""/>
             </button>
@@ -58,20 +71,28 @@ function CompareProductSort(props){
                 </ul>
             </div>
         </div>
-    </div>
-    )
+      </div>
+    </>
+  )
 }
 
 // 選擇對應的reducer
 const mapStateToProps = store => {
-    return { data: store.getItems}
-  }
-  
-  //action
-  const mapDispatchToProps = dispatch =>{
-    return bindActionCreators({
-        PriceHightToLow,PriceLowToHight,NewTimeSort,HotItemsSort,AllItemsSort
-    },dispatch)
-  }
+  return { data: store.getItems }
+}
 
-export default connect(mapStateToProps,mapDispatchToProps)(CompareProductSort)
+//action
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      PriceHightToLow,
+      PriceLowToHight,
+      NewTimeSort,
+      HotItemsSort,
+      AllItemsSort,
+    },
+    dispatch
+  )
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompareProductSort)
