@@ -10,14 +10,13 @@ function Bigitem(props){
   });
   const slider1 = useRef()
   const slider2 = useRef()
-  console.log(props.data.multiple.length)
-  let imgUrl = props.data.data[0] ? `/chin-img/images/${props.data.data[0].itemImg}` : ''
+  // console.log(props.data.multiple.length)
+  // let imgUrl = props.data.data[0] ? `/chin-img/images/${props.data.data[0].itemImg}` : ''
   function SamplePrevArrow(props) {
     console.log(props)
     const { className, style, onClick } = props;
 
     const img = (<div>hello</div>)
-
     return (
       <div className="chin-cir">
         <img src="/chin-img/chevron-left.svg"
@@ -40,15 +39,14 @@ function Bigitem(props){
     );
   } 
   const settingCarousel={
-    initialSlide:1,
-    slidesToShow:4,
     swipeToSlide:true,
     focusOnSelect:true,
     nextArrow:<SampleNextArrow/>,
     prevArrow:<SamplePrevArrow />
   }
   useEffect(()=>{
-    setState({nav1:slider1.current,
+    setState({
+    nav1:slider1.current,
     nav2:slider2.current})
   },[])
   const{nav1,nav2} = state;
@@ -56,21 +54,21 @@ function Bigitem(props){
         <>
         <div> 
             <div className="chin-bigitem">
-              <Slider asNavFor={nav2} ref={slider=>(slider1.current= slider)} arrows={false} initialSlide={1}>
-              {props.data.multiple.map((val,ind)=>{
-                        return(
-                          <div>
-                <img key={ind} src={`/chin-img/images/${val.multipleImageImg}`} className="chin-smallitem-img"/>
-                          </div>
-                )
+              <Slider asNavFor={nav2} ref={slider=>(slider1.current= slider)} arrows={false}>
+                {props.data.multiple.map((val,ind)=>{
+                          return(
+                            <div>
+                  <img key={ind} src={`/chin-img/images/${val.multipleImageImg}`} className="chin-smallitem-img"/>
+                            </div>
+                  )
                 })}
-                {/* <div className="chin-bigitem">
-                  <img src={imgUrl} alt="" />
-                </div>  */}
+                  {/* <div className="chin-bigitem">
+                    <img src={imgUrl} alt="" />
+                  </div>  */}
               </Slider>
               </div>
               <div className="chin-smallitem">
-              <Slider asNavFor={nav1} ref={slider=>(slider2.current=slider)} {...settingCarousel}>
+              <Slider asNavFor={nav1} ref={slider=> {return(slider2.current=slider)}} slidesToShow={props.data.multiple.length===0?0:4}>
                 {props.data.multiple.map((val,ind)=>{
                         return(
                           <div>

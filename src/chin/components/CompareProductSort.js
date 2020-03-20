@@ -10,13 +10,11 @@ import { bindActionCreators } from 'redux'
 import {PriceHightToLow,PriceLowToHight,NewTimeSort,HotItemsSort,AllItemsSort} from '../actions/itemsActions'
 
 function CompareProductSort(props){
+
+
     const [featuredproducts,setFeaturedproducts]=useState(false)
     const [sortname,setSortname]=useState('排序方式')
     const SortClassName= classNames('chin-sort-featuredproducts',{active:featuredproducts})
-
-    const comparegoods =()=>{
-        console.log('123')
-    }
 
     return(
     <div className="chin-title">
@@ -29,7 +27,7 @@ function CompareProductSort(props){
             <button className="chin-rwd-sort">排序方式</button>
         </div>
         <div className="chin-comparegoods-sort">
-            <button className="chin-comparegoods" onClick={comparegoods}>
+            <button className="chin-comparegoods" onClick={()=>{props.sendText(!props.test)}}>
                 <span>比較商品</span>
                 <img src="./chin-img/align-justify.svg" alt=""/>
             </button>

@@ -5,6 +5,7 @@ import { Col } from 'react-bootstrap'
 import './chin-css/items.scss'
 import '../css/main.scss'
 //components
+import Commoditycomponents2 from './components/Commoditycomponents2'
 import Commoditycomponents from './components/Commoditycomponents'
 import Commoditylist from './components/Commoditylist'
 import CompareProductSort from './components/CompareProductSort'
@@ -17,6 +18,7 @@ import { formServerItemsData } from './actions/itemsActions'
 
 function Watch(props){
     const [englishnameWatch,setEnglishnameWatch]=useState("WEARABLE DEVICES")
+    const [commodity,setCommdity]=useState(false)
     console.log(props)
     console.log(props.data)
     useEffect(()=>{
@@ -31,14 +33,27 @@ function Watch(props){
                 <section className="chin-section">
                 <Commoditylist/>
                     <div className="chin-commodity-title">
-                    <CompareProductSort data={props.data} englishname={englishnameWatch}/>
+                    <CompareProductSort data={props.data} englishname={englishnameWatch}
+                    test={commodity} sendText={text => {
+                        setCommdity(text)
+                    }}/>
                         <div className="chin-commodity">
-                            {props.data.map((val,ind)=>{
+                        {commodity? props.data.map((val,ind)=>{
+                                return(
+                        <Commoditycomponents2 key={ind} data={props.data[ind]}/>
+                        )
+                                })
+                           :
+                               props.data.map((val,ind)=>{
                                 return(
                         <Commoditycomponents key={ind} data={props.data[ind]}/>
                         )
-                                })}
+                                }) 
+                        }
                         </div>
+                        {commodity?<div className="chin-article">
+                adasdas
+            </div>:''}
                         <div className="circle">
                             <div className="circle1">
                                 <div className="circle3"></div>
