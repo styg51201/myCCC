@@ -27,6 +27,7 @@ function CompareProductSort(props) {
     }
 
     return(
+      <>
     <div className="chin-title">
         <div className="chin-title-text">
             <span>{props.englishname}</span>
@@ -71,7 +72,7 @@ function CompareProductSort(props) {
             </div>
         </div>
       </div>
-    </div>
+    </>
   )
 }
 
