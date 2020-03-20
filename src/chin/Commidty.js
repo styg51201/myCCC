@@ -31,7 +31,7 @@ function Commidty(props) {
       <main>
         <div>
           <div className="chin-productdetails">
-            <Bigitem data={props}/>
+            <Bigitem data={props} h1={"hello"}/>
             <ProductDescription data={props.data}/>
           </div>
         </div>

@@ -39,7 +39,7 @@ router.get('/commidty/:itemId?',(req,res)=>{
     })
 })
 router.get('/multiple_images/:itemId?',(req,res)=>{
-    let sql='SELECT * FROM `multiple_images` WHERE `itemId` = ?'
+    let sql='SELECT * FROM `multiple_images` WHERE `itemId` = ? ORDER BY `multipleImageId` ASC'
     db.queryAsync(sql,[req.params.itemId])
     .then(r=>{
         return res.json(r)

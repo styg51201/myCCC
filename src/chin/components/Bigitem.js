@@ -15,6 +15,9 @@ function Bigitem(props){
   function SamplePrevArrow(props) {
     console.log(props)
     const { className, style, onClick } = props;
+
+    const img = (<div>hello</div>)
+
     return (
       <div className="chin-cir">
         <img src="/chin-img/chevron-left.svg"
@@ -37,6 +40,7 @@ function Bigitem(props){
     );
   } 
   const settingCarousel={
+    initialSlide:1,
     slidesToShow:4,
     swipeToSlide:true,
     focusOnSelect:true,
@@ -45,14 +49,14 @@ function Bigitem(props){
   }
   useEffect(()=>{
     setState({nav1:slider1.current,
-    nav2:slider2.current},[])
+    nav2:slider2.current})
   },[])
   const{nav1,nav2} = state;
     return(
         <>
         <div> 
             <div className="chin-bigitem">
-              <Slider asNavFor={nav2} ref={slider=>(slider1.current= slider)} arrows={false}> 
+              <Slider asNavFor={nav2} ref={slider=>(slider1.current= slider)} arrows={false} initialSlide={1}> 
               {props.data.multiple.map((val,ind)=>{
                         return(
                           <div>
