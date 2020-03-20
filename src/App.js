@@ -34,7 +34,7 @@ import MemberEdit from './Irene/MemberEdit'
 
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
-import MemberCoupon from './stacey/MemberCoupon'
+import OnSale from './stacey/OnSale'
 
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
@@ -107,6 +107,9 @@ function App() {
             {/* 連結優惠券專區 */}
             <Route path="/getCoupon">
               <GetCoupon />
+            </Route>
+            <Route path="/onSale">
+              <OnSale />
             </Route>
             <Route path="/stories">
               <Stories />

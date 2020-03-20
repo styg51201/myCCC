@@ -1,15 +1,25 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Slide } from 'react-slideshow-image'
 import ProductSlide from '../ProductSlide'
+import { productList } from '../ProductList'
+
+
 function MaoSlide(props) {
   //放圖片
 
   const slideImages = [
-    './chin-img/images/watch2.jpg',
-    './chin-img/images/watch3.jpg',
-    './chin-img/images/watch4.jpg',
-    './chin-img/images/watch5.jpg',
+    'https://fakeimg.pl/100/',
+    'https://fakeimg.pl/200/',
+    'https://fakeimg.pl/300/',
+    'https://fakeimg.pl/400/',
+    'https://fakeimg.pl/500/',
+    'https://fakeimg.pl/600/',
+    'https://fakeimg.pl/700/',
   ]
+
+
+
+
 
   const properties = {
     duration: 3000,
@@ -29,34 +39,17 @@ function MaoSlide(props) {
   slideImages.map((v, i) => {
     NumBox.push(
       <div className="each-slide">
-        <div className="d-flex">
-          <div
+        <div className="d-flex flex-wrap">
+          <ProductSlide />
+          {/* <div
             className="col"
             style={{
-              backgroundImage: `url(${slideImages[i]})`,
+              backgroundImage: `url(${slideImages[Math.round(Math.random()*slideImages.length)]})`,
               backgroundRepeat: 'no-repeat',
               width: '200px;',
               height: '300px',
             }}
-          ></div>
-          <div
-            className="col"
-            style={{
-              backgroundImage: `url(${slideImages[i]})`,
-              backgroundRepeat: 'no-repeat',
-              width: '200px;',
-              height: '300px',
-            }}
-          ></div>
-          <div
-            className="col"
-            style={{
-              backgroundImage: `url(${slideImages[i + 1]})`,
-              backgroundRepeat: 'no-repeat',
-              width: '200px;',
-              height: '300px',
-            }}
-          ></div>
+          ></div> */}
         </div>
       </div>
     )
@@ -67,7 +60,7 @@ function MaoSlide(props) {
     return (
       <div
         className="slide-container"
-        style={{ width: '600px', height: '300px' }}
+        style={{ width: '1300px', height: '300px' }}
       >
         <Slide {...properties}>{NumBox}</Slide>
       </div>

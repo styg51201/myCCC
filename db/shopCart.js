@@ -10,22 +10,22 @@ router.get('/shopCart', (req, res) => {
 })
 
 router.post('/orderBuyerInfo', (req, res) => {
-  console.log('123123', req.body.orderId)
+  console.log('123123', req.body)
   const output = {
     success: false,
     data: '',
     message: '',
   }
   let sql =
-    'INSERT INTO `orderbuyer`(`orderId`, `buyerName`, `buyerMobile`, `buyerAdress`, `invoiceType`, `taxNo`, `paymentType`) VALUES (?,?,?,?,?,?,?)'
+    'INSERT INTO `orderbuyer`(`orderId`, `buyerName`, `buyerMobile`, `paymentType`,`shipping`, `buyerAdress`, `invoiceType`, `taxNo`) VALUES (?,?,?,?,?,?,?,?)'
 
   db.queryAsync(sql, [
     req.body.orderId,
     req.body.buyer_name,
-    req.body.buyerAdress,
     req.body.mobile,
-    req.body.shipping,
     req.body.payment,
+    req.body.shipping,
+    req.body.buyerAdress,
     req.body.invoice,
     req.body.taxNo,
   ])

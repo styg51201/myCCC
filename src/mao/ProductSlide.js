@@ -28,7 +28,6 @@ function ProductSlide(props) {
     let index = checkBox.findIndex(e => e == val)
     console.log(index)
     if (index == -1) {
-      console.log('FUCK!')
       RealCart.push(obj)
     }
     RealCart.map((v, i) => {

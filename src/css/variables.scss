@@ -45,5 +45,9 @@ $font-xs: 0.875rem; //14px 小文字
     background-color: transparent;
     border: solid 1px $white;
     color: $white;
+  } @else if $style == greyStyle {
+    background-color: $grey;
+    border: solid 1px $white;
+    color: $white;
   }
 }

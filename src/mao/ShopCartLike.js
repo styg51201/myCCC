@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './css/mao.css'
+import './css/mao.scss'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
 import MaoSlide from './component/MaoSlide'
 import { withRouter, Link } from 'react-router-dom'
@@ -53,9 +53,7 @@ function ShopCartLike(props) {
   function checkCart(val) {
     let obj = { pId: val, count: 0 }
     let index = checkBox.findIndex(e => e == val)
-    console.log(index)
     if (index == -1) {
-      console.log('FUCK!')
       RealCart.push(obj)
     }
     RealCart.map((v, i) => {
@@ -64,7 +62,6 @@ function ShopCartLike(props) {
       }
     })
     props.AddCartNewItem_sendcal(RealCart)
-    // props.CalShopCart(RealCart)
   }
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
@@ -97,7 +94,7 @@ function ShopCartLike(props) {
               // checkCart(v)
             }}
           >
-            <img src="..\img\header-footer\heart.svg" alt="" />
+            <img src="..\img\header-footer\shopping-bag.svg" alt="" />
             <span>加入購物車</span>
           </button>
         </div>
