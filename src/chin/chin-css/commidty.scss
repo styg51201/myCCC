@@ -2,9 +2,12 @@
   display: flex;
 }
 .chin-bigitem {
+  width: 600px;
+  height: 600px;
   img {
     width: 600px;
     height: 600px;
+    margin: 0;
   }
 }
 .chin-cir {
@@ -108,7 +111,7 @@
 }
 .chin-productname h4 {
   color: #0ac3ae;
-  font-size: 100px;
+  font-size: 30px;
 }
 .chin-starimg img {
   width: 20px;

@@ -1,14 +1,23 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useRef} from 'react'
 import Slider from "react-slick";
 
 
 function Bigitem(props){
 
+  const [state,setState] = useState({
+    nav1:null,
+    nav2:null
+  });
+  const slider1 = useRef()
+  const slider2 = useRef()
   console.log(props.data.multiple.length)
   let imgUrl = props.data.data[0] ? `/chin-img/images/${props.data.data[0].itemImg}` : ''
   function SamplePrevArrow(props) {
     console.log(props)
     const { className, style, onClick } = props;
+
+    const img = (<div>hello</div>)
+
     return (
       <div className="chin-cir">
         <img src="/chin-img/chevron-left.svg"
@@ -29,59 +38,46 @@ function Bigitem(props){
           />
         </div>
     );
+  } 
+  const settingCarousel={
+    initialSlide:1,
+    slidesToShow:4,
+    swipeToSlide:true,
+    focusOnSelect:true,
+    nextArrow:<SampleNextArrow/>,
+    prevArrow:<SamplePrevArrow />
   }
-  const settings = {
-    infinite: false,
-    speed: 500,
-    slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
-    responsive: [
-      {
-        breakpoint: 1024,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
-  };
- 
-
+  useEffect(()=>{
+    setState({nav1:slider1.current,
+    nav2:slider2.current})
+  },[])
+  const{nav1,nav2} = state;
     return(
         <>
-        <div>
-              <div className="chin-bigitem">
-                <img src={imgUrl} alt="" />
+        <div> 
+            <div className="chin-bigitem">
+              <Slider asNavFor={nav2} ref={slider=>(slider1.current= slider)} arrows={false} initialSlide={1}>
+              {props.data.multiple.map((val,ind)=>{
+                        return(
+                          <div>
+                <img key={ind} src={`/chin-img/images/${val.multipleImageImg}`} className="chin-smallitem-img"/>
+                          </div>
+                )
+                })}
+                {/* <div className="chin-bigitem">
+                  <img src={imgUrl} alt="" />
+                </div>  */}
+              </Slider>
               </div>
               <div className="chin-smallitem">
-                <Slider {...settings}>
+              <Slider asNavFor={nav1} ref={slider=>(slider2.current=slider)} {...settingCarousel}>
                 {props.data.multiple.map((val,ind)=>{
-                                              return(
-                                                <div>
-                                      <img key={ind} src={`/chin-img/images/${val.multipleImageImg}`} className="chin-smallitem-img"/></div>
-                                      )
-                                              })}
-                </Slider>
+                        return(
+                          <div>
+                <img key={ind} src={`/chin-img/images/${val.multipleImageImg}`} className="chin-smallitem-img"/></div>
+                )
+                })}
+              </Slider>
               </div>
               <div className="chin-rwd-circle-circle">
                 <span className="chin-rwd-circle"></span>

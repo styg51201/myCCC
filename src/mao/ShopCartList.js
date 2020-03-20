@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import './css/mao.css'
+import './css/mao.scss'
+import './css/ShopCartList.scss'
+// import '../css/variables.scss'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -18,7 +20,7 @@ import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 function ShopCartList(props) {
-  console.log('ShopCartList', props.CtrlData)
+  // console.log('ShopCartList', props.CtrlData)
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(true)
   // 從產品ID轉換成產品名稱
@@ -30,6 +32,8 @@ function ShopCartList(props) {
     })
     return val
   }
+
+
 
   // 從ID去獲取產品的價格
   function checkProductPrice(val) {
@@ -43,7 +47,7 @@ function ShopCartList(props) {
   // 必打
   async function getData() {
     let Ctrl = await props.CtrlData
-    await console.log('CTRL', Ctrl)
+    // await console.log('CTRL', Ctrl)
     await props.getShopCart(Ctrl)
   }
   useEffect(() => {
@@ -72,7 +76,7 @@ function ShopCartList(props) {
   // 購物車內容顯示　要再做調整
   const dataList = props.AddItem.map((v, i) => {
     return (
-      <li key={v.Id} className="d-flex Mao-shopcart-check-item">
+      <li key={v} className="Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
         <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
           <p>{checkProduct(v.pId)}</p>
@@ -80,7 +84,7 @@ function ShopCartList(props) {
             <p style={{ width: '25%' }}>${checkProductPrice(v.pId)}</p>
             <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
               <button
-                className="btn btn-danger"
+                className="Mao-btn-amount"
                 onClick={() => {
                   props.AddCartItem(false, v.pId, props.AddItem)
                   props.CalShopCart(props.AddItem)
@@ -94,10 +98,10 @@ function ShopCartList(props) {
                 value={v.count}
                 type="text"
                 id="count-value"
-                className="text-center w-50 m-0"
+                className="text-center w-30 m-0"
               />
               <button
-                className="btn btn-danger"
+                className="Mao-btn-amount"
                 onClick={() => {
                   props.AddCartItem(true, v.pId, props.AddItem)
                   props.CalShopCart(props.AddItem)
@@ -111,24 +115,24 @@ function ShopCartList(props) {
         </div>
         <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
           <button
-            className="btn btn-danger d-flex justify-content-start py-2 my-2"
-            onClick={() => {
+            className="Mao-btn-amount-whiteDel Mao-btn-amount-white-my"
+            onClick={() => {  
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
             }}
           >
-            <img src="..\img\header-footer\heart.svg" alt="" />
+            <img src="..\img\header-footer\heart.svg" alt="" className="Mao-btn-amount-img"/>
             <span>刪除</span>
           </button>
           <button
-            className="btn btn-danger d-flex justify-content-start py-2 my-2"
+            className="Mao-btn-amount-whiteLike Mao-btn-amount-white-my"
             onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
               props.Handel_AddMyFavorite('true', v.pId, props.MyFavorite)
             }}
           >
-            <img src="..\img\header-footer\search.svg" alt="" />
+            <img src="..\img\header-footer\shopping-bag.svg" alt="" className="Mao-btn-amount-img"/>
             <span>下次購買</span>
           </button>
         </div>
@@ -149,7 +153,8 @@ function ShopCartList(props) {
   return (
     <>
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
-        <ul className={props.AddItem.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '960px' }}>
+        <ul className={props.AddItem.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '960px',display:'flex',flexDirection:'column',justifyContent:'center' }}>
+        
           {props.AddItem.length > 0 ? dataList : CartNoItem}
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal />  :  CartNoItemTotal}

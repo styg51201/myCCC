@@ -40,7 +40,7 @@ export const showMultipleItemId = val =>{
 }
 export const multiple_imagesItemId = val =>{
   return async dispatch => {
-    const request = new Request(`http://localhost:5500/items//multiple_images/${val}`,{
+    const request = new Request(`http://localhost:5500/items/multiple_images/${val}`,{
       method:'GET',
       credentials: 'include'
     })

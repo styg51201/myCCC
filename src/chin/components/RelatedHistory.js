@@ -7,11 +7,9 @@ function RelatedHistory(props){
     console.log(props)
     const { className, style, onClick } = props;
     return (
-      <div className="chin-hicir">
+      <div className="chin-hicir"  onClick={onClick}>
         <img src="/chin-img/chevron-left.svg"
-          className="chin-hiarr"
-          onClick={onClick}
-        />
+          className="chin-hiarr"/>
       </div>
     );
   }
@@ -19,11 +17,9 @@ function RelatedHistory(props){
     console.log(props)
     const { className, style, onClick } = props;
     return (
-      <div className="chin-hicir2">
+      <div className="chin-hicir2" onClick={onClick}>
         <img src="/chin-img/chevron-right.svg"
-          className="chin-hiarr2"
-          onClick={onClick}
-          />
+          className="chin-hiarr2"/>
         </div>
     );
   }
