@@ -171,3 +171,36 @@ export const memberCouponFilter = (val,state) =>{
     }
 }
 
+//測試廣告
+
+export const showAd = val =>{
+  return {type:'SHOW_AD',value:val}
+}
+
+export const fromServerAdData = val => {
+  // console.log('4444')
+  return async dispatch => {
+    const request = new Request('http://localhost:5500/getCoupon/adTest', {
+      method: 'POST',
+      credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body:JSON.stringify({
+          mb_id:null
+        })
+        
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    dispatch(showAd(data))
+  }
+}
+
+export const showMbData = val =>{
+  return {type:'SHOW_MB_VALUE',value:val}
+}
+export const addMbData = val =>{
+  return {type:'ADD_MB_VALUE',value:val}
+}

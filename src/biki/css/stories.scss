@@ -1,5 +1,5 @@
 @import '../../css/variables.scss';
-
+@import '../css/all.scss';
 
 .bk-stories-container{
   // margin: - $spacing/2;
@@ -10,53 +10,56 @@
     padding: $spacing/2;
 
     &:hover .bk-card{
+      color: $black;
       box-shadow: 0 0 20px rgba($black, .3);
     }
   }
 
 }
+.bk-card-linkwrapper{
+  color: $black;
+  .bk-card {
+    background-color: $white;
+    width: 100%;
+    border-radius: 0;
+    padding: $spacing;
+    min-height: 300px;
+    max-height: 600px;
+    position: relative;
+    transition: .3s;
 
-.bk-card {
-  background-color: $white;
-  width: 100%;
-  border-radius: 0;
-  padding: $spacing;
-  min-height: 300px;
-  max-height: 600px;
-  position: relative;
-  transition: .3s;
-
-  &.bk-collapse{
-    &:after{
-      content: '...更多';
-      font-size: $font-m;
-      font-weight: $font-bold;
-      text-align: center;
-      display: block;
-      background-image: linear-gradient(rgba(255, 255, 255, .5), $white);
-      width: 100%;
-      height: 100px;
-      line-height: 100px;
-      position: absolute;
-      bottom: $spacing + 48.73px;
-      left: 0;
+    &.bk-collapse{
+      &:after{
+        content: '';
+        font-size: $font-m;
+        font-weight: $font-bold;
+        text-align: center;
+        display: block;
+        background-image: linear-gradient(rgba(255, 255, 255, .5), $white);
+        width: 100%;
+        height: 100px;
+        line-height: 100px;
+        position: absolute;
+        bottom: $spacing + 48.73px;
+        left: 0;
+      }
     }
-  }
 
-  .card-header{
-    background-color: transparent;
-  }
-
-  .card-body{
-    overflow: hidden;
-
-    img{
-      width: 100%;
+    .card-header{
+      background-color: transparent;
     }
-  }
 
-  .card-footer{
-    background-color: transparent;
+    .card-body{
+      overflow: hidden;
+
+      img{
+        width: 100%;
+      }
+    }
+
+    .card-footer{
+      background-color: transparent;
+    }
   }
 }
 
@@ -82,41 +85,39 @@
   margin: 0 auto;
   display: block;
   margin-bottom: $spacing*2;
+  transform: scale(1);
+  transition: .3s;
 
   &.hidden{
-    display:none;
+    transform: scale(0)
   }
 }
 
-//-----MODAL-----
-.bk-modal-backdrop{
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba($black, .5);
-  padding: 50px;
-  z-index: 100;
-}
+//-----STORY PAGE-----
 
-.bk-modal{
-  background-color: $white;
-  border-radius: 5px;
-  width: calc(100vw - #{$spacing * 3});
-  max-height: calc(100vh - #{$spacing * 3} - 100px);
-  overflow-y: scroll;
-  min-height: 500px;
-  padding: $spacing*2;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 101;
+.bk-story-container{
 
-  .bk-modal-content{
+  .bk-story-content{
+    overflow: hidden;
+    padding: $spacing*4;
+    background-color: $white;
+
     img{
       width: 100%;
+    }
+  }
+
+  .bk-story-side{
+    // background-color: $white;
+    padding: $spacing*2;
+    // position: fixed;
+
+    .bk-story-bottom{
+      ul{
+        border-top: 1px solid $grey;
+        list-style-type: none;
+        display: flex;
+      }
     }
   }
 }

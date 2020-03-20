@@ -2,10 +2,10 @@ export const userRegister = userData => ({
   type: 'USER_REGISTER',
   data: userData,
 })
-
+//補:檢查填寫格式
 export const userRegisterAsync = (userData, callback) => {
   return async dispatch => {
-    const request = new Request('', {
+    const request = new Request('http://localhost:5500/member/insert', {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: new Headers({
@@ -14,7 +14,7 @@ export const userRegisterAsync = (userData, callback) => {
       }),
     })
 
-    console.log(JSON.stringify(userData))
+    // console.log(JSON.stringify(userData))
 
     const response = await fetch(request)
     const data = await response.json()
