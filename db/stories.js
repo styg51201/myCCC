@@ -64,7 +64,7 @@ router.patch('/api/view-story', (req, res)=>{
     })
 })
 
-/*
+
 //first submit editor content to draft
 router.post('/user-editor/draft', (req, res)=>{
 
@@ -197,8 +197,38 @@ router.post('/user-editor/upload', (req, res)=>{
     
 })
 
-*/
+router.post('/reply', (req, res)=>{
+    let rplyToId = req.query.toId || null;
+    let stryId = req.query.id;
+    let content = req.body.content;
 
+    if(content.trim() === ''){
+        res.json('no content')
+        return;
+    }
+    
+    let replyToId = req.query;
+    let sql = `INSERT INTO \`storyReplies\`(\`stryId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`) 
+                VALUES (?, ?, ?, ?, ?)`;
+
+    db.queryAsync(sql, [
+        stryId,
+        0, //should be from session
+        rplyToId,
+        content,
+        'active'
+    ])
+    .then(r=>{
+        console.log('added reply!')
+        res.json(r)
+    })
+    .catch(err=>{
+        console.log('failed to reply')
+        res.json(err)
+    })
+})
+
+//get story
 router.get('/story', (req, res)=>{
     console.log('getting story...')
     // console.log(req.query);
@@ -209,12 +239,23 @@ router.get('/story', (req, res)=>{
         message: ''
     }
     
-    let sql = 'SELECT `usrId`, `stryId`, `stryTitle`, `stryContent`, `stryLikes`, `created_at`, `updated_at` FROM `stories` WHERE `stryId`=? AND `stryStatus` = "active"';
+    let sql = `
+    SELECT \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryTitle\`, \`stryContent\`, \`stryLikes\`, \`stories\`.\`updated_at\` AS 'stryUpdate',
+    \`Img\`, \`Name\`, 
+    \`rplyId\`, \`rplyTo\`, \`rplyContent\`, \`storyReplies\`.\`updated_at\` AS 'rplyUpdate'
+    FROM \`stories\` 
+    INNER JOIN \`member\` ON \`Id\` = \`stories\`.\`usrId\`
+    LEFT JOIN \`storyReplies\` ON \`storyReplies\`.\`stryId\` = \`stories\`.\`stryId\`
+    WHERE \`stories\`.\`stryId\`=? AND \`stryStatus\` = "active"`;
 
     db.queryAsync(sql, [req.query.id])
     .then(r=>{
+        r.forEach((elm)=>{
+            elm.stryFromNow = moment(r[0].stryUpdate).fromNow()
+            if(elm.rplyUpdate) elm.rplyFromNow = moment(r[0].rplyUpdate).fromNow()
+        })
         output.success = true;
-        output.data = r[0];
+        output.data = r;
         output.message = 'got story successfully';
 
         res.json(output);
@@ -253,17 +294,5 @@ router.get('/:page?', (req, res)=>{
         console.log(err);
     })
 })
-
-// router.get('/', (req, res)=>{
-//     let sql = 'SELECT `usrId`, `stryId`, `stryTitle`, `stryContent`, `stryLikes`, `created_at`, `updated_at` FROM `stories` WHERE `stryStatus`="active"';
-
-//     db.queryAsync(sql)
-//     .then(r=>{
-//         res.json(r);
-//     })
-//     .catch(err=>{
-//         console.log(err);
-//     })
-// })
 
 module.exports = router;

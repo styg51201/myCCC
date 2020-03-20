@@ -120,4 +120,65 @@
       }
     }
   }
+
+  .bk-story-reply{
+    margin-top: $spacing*2;
+    background-color: $white;
+    padding: $spacing*4;
+
+    textarea{
+      width: 100%;
+      resize: none;
+      height: auto;
+      background-color: transparent;
+      border: none;
+      border-bottom: solid 1px $black;
+      padding: $spacing 0;
+
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+
+  .bk-reply-textarea{
+    padding: $spacing*2;
+    background-color: $grey;
+
+    &.hidden{
+      display:none;
+    }
+
+    textarea{
+      width: 100%;
+      resize: none;
+      height: auto;
+      background-color: transparent;
+      border: none;
+      border-bottom: solid 1px $black;
+      padding: $spacing 0;
+
+      &:focus{
+        outline: none;
+      }
+    }
+  }
+
+  .bk-story-replies{
+    padding: $spacing*2;
+    margin-top: $spacing*2;
+
+    .bk-rply-head{
+      display: flex;
+    }
+
+    .bk-rply-foot{
+      display: flex;
+      justify-content: flex-end;
+
+      div[role=button]{
+        cursor: pointer;
+      }
+    }
+  }
 }
