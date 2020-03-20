@@ -82,8 +82,7 @@ function Bigitem(props) {
             asNavFor={nav1}
             ref={slider=>(slider2.current= slider)}
             slidesToShow={props.data.multiple.length === 0 ? 0 : 4}
-            {...settingCarousel}
-          >
+            {...settingCarousel}>
             {props.data.multiple.map((val, ind) => {
               return (
                 <div>
