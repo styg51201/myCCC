@@ -56,7 +56,7 @@ function Bigitem(props){
         <>
         <div> 
             <div className="chin-bigitem">
-              <Slider asNavFor={nav2} ref={slider=>(slider1.current= slider)} arrows={false} initialSlide={1}> 
+              <Slider asNavFor={nav2} ref={slider=>(slider1.current= slider)} arrows={false} initialSlide={1}>
               {props.data.multiple.map((val,ind)=>{
                         return(
                           <div>

@@ -20,11 +20,7 @@ function ProductDescription(props){
         </p>
         <div className="chin-myfavourite-shopping">
           <div className="chin-myfavourite">
-           <div>
-              <img src="/chin-img/minus-circle.svg" alt="" />
-              <span>1</span>
-              <img src="/chin-img/plus-circle.svg" alt="" />
-            </div>
+          
             <div className="chin-shopping">
               <button>加入購物車</button>
               <button>立即購買</button>
