@@ -57,7 +57,7 @@ function Bigitem(props) {
         <div className="chin-bigitem">
           <Slider
             asNavFor={nav2}
-            ref={slider1.current}
+            ref={slider=>(slider1.current= slider)}
             arrows={false}
             slidesToShow={props.data.multiple.length === 0 ? 0 : 1}
           >
@@ -80,7 +80,7 @@ function Bigitem(props) {
         <div className="chin-smallitem">
           <Slider
             asNavFor={nav1}
-            ref={slider2.current}
+            ref={slider=>(slider2.current= slider)}
             slidesToShow={props.data.multiple.length === 0 ? 0 : 4}
             {...settingCarousel}
           >
