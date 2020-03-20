@@ -32,7 +32,10 @@ function CouponItem(props){
   })
 
   //設定進度條的外觀
-  let getNum = (props.item.cp_getedCount / props.item.cp_count *100).toFixed(2) //取小數點2位
+  let getNum = (props.item.cp_getedCount / props.item.cp_count *100) 
+ 
+  getNum = getNum % 1 === 0 ? getNum :  getNum.toFixed(1)//取小數點2位
+
   let getedCountStyle = {background: `linear-gradient(to right, #0dd2c5 ${getNum}%, #a0a0a0 ${getNum}%)`}
   let endCouponStyle = { background:'#a0a0a0'}
 

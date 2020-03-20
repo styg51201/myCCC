@@ -40,7 +40,7 @@ button {
         position: absolute;
         top: 0;
         margin: 0;
-        transition: 0.5s;
+        // transition: 0.5s;
         span {
           width: 30px;
           height: 40px;
@@ -56,36 +56,268 @@ button {
   }
 }
 
-.time0 {
-  transform: translateY(0px);
+// .time0 {
+//   transform: translateY(0px);
+// }
+// .time1 {
+//   transform: translateY(-40px);
+// }
+// .time2 {
+//   transform: translateY(-80px);
+// }
+// .time3 {
+//   transform: translateY(-120px);
+// }
+// .time4 {
+//   transform: translateY(-160px);
+// }
+// .time5 {
+//   transform: translateY(-200px);
+// }
+// .time6 {
+//   transform: translateY(-240px);
+// }
+// .time7 {
+//   transform: translateY(-280px);
+// }
+// .time8 {
+//   transform: translateY(-320px);
+// }
+// .time9 {
+//   transform: translateY(-360px);
+// }
+// .time10 {
+//   transform: translateY(-400px);
+// }
+
+.sec-one {
+  animation-name: sceOne;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
 }
-.time1 {
-  transform: translateY(-40px);
+
+@keyframes sceOne {
+  0% {
+    transform: translateY(0px);
+  }
+  10% {
+    transform: translateY(-40px);
+  }
+  20% {
+    transform: translateY(-80px);
+  }
+  30% {
+    transform: translateY(-120px);
+  }
+  40% {
+    transform: translateY(-160px);
+  }
+  50% {
+    transform: translateY(-200px);
+  }
+  60% {
+    transform: translateY(-240px);
+  }
+  70% {
+    transform: translateY(-280px);
+  }
+  80% {
+    transform: translateY(-320px);
+  }
+  90% {
+    transform: translateY(-360px);
+  }
+  100% {
+    transform: translateY(-400px);
+  }
 }
-.time2 {
-  transform: translateY(-80px);
+
+.sec-ten {
+  animation-name: sceTen;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
 }
-.time3 {
-  transform: translateY(-120px);
+
+@keyframes sceTen {
+  0% {
+    transform: translateY(0px);
+  }
+  1% {
+    transform: translateY(-40px);
+  }
+  // 16.66% {
+  //   //10秒
+  //   transform: translateY(-40px);
+  // }
+  18.33% {
+    //11秒
+    transform: translateY(-80px);
+  }
+  33.33% {
+    //20秒
+    transform: translateY(-80px);
+  }
+  // 35% {
+  //   //21秒
+  //   transform: translateY(-120px);
+  // }
+  50% {
+    //30秒
+    transform: translateY(-120px);
+  }
+  51.66% {
+    //31秒
+    transform: translateY(-160px);
+  }
+  66.66% {
+    //40秒
+    transform: translateY(-160px);
+  }
+  68.33% {
+    //41秒
+    transform: translateY(-200px);
+  }
+  83.33% {
+    //50秒
+    transform: translateY(-200px);
+  }
+  85% {
+    //51秒
+    transform: translateY(-240px);
+  }
+  100% {
+    //60秒
+    transform: translateY(-240px);
+  }
 }
-.time4 {
-  transform: translateY(-160px);
+
+.min-ten {
+  animation-name: minTen;
+  animation-duration: 600s;
+  animation-iteration-count: infinite;
 }
-.time5 {
-  transform: translateY(-200px);
+
+@keyframes minTen {
+  0% {
+    transform: translateY(0px);
+  }
+  1% {
+    transform: translateY(-40px);
+  }
+  // 16.66% {
+  //   //10秒
+  //   transform: translateY(-40px);
+  // }
+  18.33% {
+    //11秒
+    transform: translateY(-80px);
+  }
+  // 33.33% {
+  //   //20秒
+  //   transform: translateY(-80px);
+  // }
+  35% {
+    //21秒
+    transform: translateY(-120px);
+  }
+  // 50% {
+  //   //30秒
+  //   transform: translateY(-120px);
+  // }
+  51.66% {
+    //31秒
+    transform: translateY(-160px);
+  }
+  66.66% {
+    //40秒
+    transform: translateY(-160px);
+  }
+  68.33% {
+    //41秒
+    transform: translateY(-200px);
+  }
+  83.33% {
+    //50秒
+    transform: translateY(-200px);
+  }
+  85% {
+    //51秒
+    transform: translateY(-240px);
+  }
+  100% {
+    //60秒
+    transform: translateY(-240px);
+  }
 }
-.time6 {
-  transform: translateY(-240px);
+
+.min-one {
+  animation-name: minOne;
+  animation-duration: 60s;
+  animation-iteration-count: infinite;
 }
-.time7 {
-  transform: translateY(-280px);
-}
-.time8 {
-  transform: translateY(-320px);
-}
-.time9 {
-  transform: translateY(-360px);
-}
-.time10 {
-  transform: translateY(-400px);
+
+@keyframes minOne {
+  0% {
+    transform: translateY(0px);
+  }
+  9.833% {
+    transform: translateY(0px);
+  }
+  10% {
+    transform: translateY(-40px);
+  }
+  19.833% {
+    transform: translateY(-40px);
+  }
+  20% {
+    transform: translateY(-80px);
+  }
+  29.833% {
+    transform: translateY(-80px);
+  }
+  30% {
+    transform: translateY(-120px);
+  }
+  39.833% {
+    transform: translateY(-120px);
+  }
+  40% {
+    transform: translateY(-160px);
+  }
+  49.833% {
+    transform: translateY(-160px);
+  }
+  50% {
+    transform: translateY(-200px);
+  }
+  59.833% {
+    transform: translateY(-200px);
+  }
+  60% {
+    transform: translateY(-240px);
+  }
+  69.833% {
+    transform: translateY(-240px);
+  }
+  70% {
+    transform: translateY(-280px);
+  }
+  79.833% {
+    transform: translateY(-280px);
+  }
+  80% {
+    transform: translateY(-320px);
+  }
+  89.833% {
+    transform: translateY(-320px);
+  }
+  90% {
+    transform: translateY(-360px);
+  }
+  99.833% {
+    transform: translateY(-360px);
+  }
+  100% {
+    transform: translateY(-400px);
+  }
 }

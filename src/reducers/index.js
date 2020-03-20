@@ -6,6 +6,8 @@ import {
   filterCoupon,
   memberCouponData,
   memberCouponFilterData,
+  adData,
+  memberData,
 } from '../stacey/reducer/couponReducer'
 
 //chin
@@ -49,7 +51,9 @@ const rootReducer = combineReducers({
   memberCouponFilterData,
   memberCouponData,
   getCouponData,
-  filterCoupon, //sty
+  adData,
+  memberData,
+  filterCoupon, //sty 
   getItems,
   getItemId,
   getMultipleItemId,

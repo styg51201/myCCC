@@ -41,3 +41,25 @@ export const memberCouponFilterData = (state=[],action)=>{
       return state
   }
 }
+
+
+//廣告測試
+export const adData = (state=[],action)=>{
+  switch (action.type){
+    case 'SHOW_AD':
+      return action.value
+    default :
+      return state
+  }
+}
+
+export const memberData = (state=[{mc_mb_id:5,mc_p_id:13,vid:5,p_category:1},{mc_mb_id:5,mc_p_id:13,vid:5,p_category:3}],action)=>{
+  switch (action.type){
+    case 'SHOW_MB_VALUE':
+      return action.value
+    case 'ADD_MB_VALUE':
+      return [...state,action.value]
+    default :
+      return state
+  }
+}
