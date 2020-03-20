@@ -12,7 +12,7 @@ import {
   AddCartItem,
   DelCartItem,
   CalShopCart,
-  Handel_AddMyFavorite,
+  Handle_AddMyFavorite,
   ControlDataOne,
   AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
@@ -42,44 +42,48 @@ function ShopCartLike(props) {
   // 必打
   useEffect(() => {
     checkProduct()
+    props.getShopCart()
   }, [])
 
   let RealCart = []
   let checkBox = []
   props.AddItem.map((v, i) => {
+    // console.log(v)
     RealCart.push(v)
     checkBox.push(v.pId)
   })
   function checkCart(val) {
-    let obj = { pId: val, count: 0 }
-    let index = checkBox.findIndex(e => e == val)
+    
+    let index = checkBox.findIndex(e => e == val.pId)
     if (index == -1) {
-      RealCart.push(obj)
+      val.count=1
+      RealCart.push(val)
     }
     RealCart.map((v, i) => {
-      if (val == v.pId) {
-        v.count += 1
+      if (val.pId == v.pId) {
+        v.count=+v.count+1
       }
     })
+    
     props.AddCartNewItem_sendcal(RealCart)
   }
+
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
     return (
-      <li key={v} className="d-flex Mao-shopcart-check-item">
+      <li key={v.pId} className="d-flex Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
         <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
-          <p>{checkProduct(v)}</p>
+          <p>{checkProduct(v.pId)}</p>
           <div className="d-flex justify-content-between">
-            <p style={{ width: '25%' }}>${checkProductPrice(v)}</p>
+            <p style={{ width: '25%' }}>${checkProductPrice(v.pId)}</p>
           </div>
         </div>
         <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
-          {/* <div className="d-flex align-items-center " style={{border:'1px solid #000',}}> */}
           <button
             className="btn btn-danger d-flex justify-content-start py-2 my-2"
             onClick={() => {
-              props.Handel_AddMyFavorite('false', v, props.MyFavorite)
+              props.Handle_AddMyFavorite('false', v, props.MyFavorite)
             }}
           >
             <img src="..\img\header-footer\heart.svg" alt="" />
@@ -89,9 +93,15 @@ function ShopCartLike(props) {
           <button
             className="btn btn-danger d-flex justify-content-start py-2 my-2"
             onClick={() => {
-              props.Handel_AddMyFavorite('false', v, props.MyFavorite)
-              checkCart(v)
-              // checkCart(v)
+              props.Handle_AddMyFavorite('false', v, props.MyFavorite)
+              let productInfo = {
+                pId: v.pId,
+                price: v.price,
+                count: 0,
+                itemCategoryId: v.itemCategoryId,
+                name: v.name,
+              }
+              checkCart(productInfo)
             }}
           >
             <img src="..\img\header-footer\shopping-bag.svg" alt="" />
@@ -151,7 +161,7 @@ const mapDispatchToProps = dispatch => {
       AddCartItem,
       DelCartItem,
       CalShopCart,
-      Handel_AddMyFavorite,
+      Handle_AddMyFavorite,
       AddCartNewItem_sendcal,
     },
     dispatch

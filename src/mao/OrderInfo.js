@@ -4,20 +4,21 @@ import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
-    getShopCart,
-    AddCart,
-    realCart,
-    AddCartItem,
-    DelCartItem,
-    CalShopCart,
-    Handel_AddMyFavorite,
-    ControlDataOne, fromServerorderBuyerInfo,CalShopCartTotal,calCart
+  getShopCart,
+  AddCart,
+  realCart,
+  AddCartItem,
+  DelCartItem,
+  CalShopCart,
+  Handle_AddMyFavorite,
+  ControlDataOne,
+  fromServerorderBuyerInfo,
+  CalShopCartTotal,
+  calCart,
 } from './actions/ShopCartAction'
 
-
-
 function OrderInfo(props) {
-    console.log('OrderInfo',props)
+  console.log('OrderInfo', props)
   //月
   function getMonth() {
     let MonthBox = []
@@ -48,8 +49,6 @@ function OrderInfo(props) {
   }
   getRND()
 
-    
-  
   //送出資料
   const buyerInfo = {
     orderId: `${order}`,
@@ -60,12 +59,11 @@ function OrderInfo(props) {
     buyerAdress: '',
     invoice: 'personal-invoice',
     taxNo: '',
-    total:props.FinalTotal
+    total: props.FinalTotal,
   }
 
   //獲取buyer資訊
   function getformInfo(e, str) {
-
     let getInfo = e.currentTarget.value
     let getInfo2 = e.currentTarget.id
     switch (str) {
@@ -88,13 +86,11 @@ function OrderInfo(props) {
         break
     }
   }
-  
+
   //送出
   function POSTorderInfo() {
     props.fromServerorderBuyerInfo(buyerInfo)
   }
-
-  
 
   //表格
   return (
@@ -397,21 +393,25 @@ const mapStateToProps = store => {
   return {
     //購物車內容
     AddItem: store.AddItem,
-    FinalTotal:store.calculator_total,
+    FinalTotal: store.calculator_total,
   }
 }
 
 //action
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { getShopCart,
-        AddCart,
-        realCart,
-        AddCartItem,
-        DelCartItem,
-        CalShopCart,
-        Handel_AddMyFavorite,
-        ControlDataOne, fromServerorderBuyerInfo,CalShopCartTotal,calCart
+    {
+      getShopCart,
+      AddCart,
+      realCart,
+      AddCartItem,
+      DelCartItem,
+      CalShopCart,
+      Handle_AddMyFavorite,
+      ControlDataOne,
+      fromServerorderBuyerInfo,
+      CalShopCartTotal,
+      calCart,
     },
     dispatch
   )

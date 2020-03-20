@@ -22,11 +22,17 @@ export const getShopCart = item => {
     const data = await res.json()
     let newData = []
     let hadleData = data.map((v, i) => {
-      newData.push({ pId: v.pId, count: v.count })
+      newData.push({
+        pId: v.pId,
+        price: v.price,
+        count: v.count,
+        itemCategoryId: v.itemCategoryId,
+        name: v.name,
+      })
     })
     dispatch(sendCart(newData))
     if (item) {
-      dispatch(AddCartNewItem(newData))
+      dispatch(AddCart(newData))
       dispatch(CalShopCart(newData))
       dispatch(ControlDataOne(false))
     }
@@ -56,22 +62,26 @@ export const fromServerorderBuyerInfo = val => {
 }
 
 //控制資料庫呼叫
-export const ControlDataOne = value =>  ({ type: 'CTRL_DATA', value: value })
-
+export const ControlDataOne = value => ({ type: 'CTRL_DATA', value: value })
 
 // 計算產品總額
 export const CalShopCart = value => {
-  // console.log('CalShopCart', value)
   return dispatch => {
     let total = 0
-    productList.map((product, i) => {
-      value.map((v, i) => {
-        if (product.pId == v.pId) {
-          let sCount = product.price * v.count
-          total += sCount
-        }
-      })
+    value.map((v,i)=>{
+      let sCount=v.price*v.count
+      total+=sCount
     })
+    // productList.map((product, i) => {
+    //   value.map((v, i) => {
+    //     if (product.pId == v.pId) {
+    //       let sCount = product.price * v.count
+    //       total += sCount
+    //     }
+    //   })
+    
+  console.log('CalShopCart', total)
+    // })
     dispatch(calCart(total))
   }
 }
@@ -79,9 +89,8 @@ export const CalShopCart = value => {
 //產品小計 計算功能
 export const calCart = value => ({ type: 'CAL_TOTAL', value: value })
 
-
 // 計算總額含運費活動折扣
-export const CalShopCartTotal =value=>({type:'FINAL_TOTAL',value:value})
+export const CalShopCartTotal = value => ({ type: 'FINAL_TOTAL', value: value })
 
 // 加入購物車 (暫時用不到)
 export const realCart = value => ({ type: 'DISPLAY_CART', value: value })
@@ -123,26 +132,30 @@ export const AddCartItem = (val, pId, data) => {
 //購物車按鍵
 export const AddCartNewItem_sendcal = data => {
   return dispatch => {
-    dispatch(AddCartNewItem(data))
+    dispatch(AddCart(data))
     dispatch(CalShopCart(data))
   }
 }
-export const AddCartNewItem = value => ({ type: 'ADD_CART', value: value })
 
 //加入最愛 目前會出錯 點選加入最愛會出現undefined
-export const Handel_AddMyFavorite = (val, pId, data) => {
-  // console.log(data)
+export const Handle_AddMyFavorite = (val, product, data) => {
+  console.log('Handle_AddMyFavorite',data)
+  let pIdBox=[]
+  data.map((v,i)=>{
+    pIdBox.push(v.pId)
+  })
   let newData = [...data]
   return dispatch => {
     if (val == 'true') {
-      let box = data.findIndex(e => e == pId)
+      let box = pIdBox.findIndex(e => e == product.pId)
+      console.log('box',box)
       if (box == -1) {
-        newData.push(pId)
+        newData.push(product)
       } else {
         return newData
       }
     } else if ((val = 'false')) {
-      let delpId = data.filter(e => e !== pId)
+      let delpId = data.filter(e => e !== product)
       newData = [...delpId]
     } else {
       return newData

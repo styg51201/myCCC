@@ -13,14 +13,13 @@ import {
   AddCartItem,
   DelCartItem,
   CalShopCart,
-  Handel_AddMyFavorite,
+  Handle_AddMyFavorite,
   ControlDataOne,
 } from './actions/ShopCartAction'
 import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 function ShopCartList(props) {
-  // console.log('ShopCartList', props.CtrlData)
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(true)
   // 從產品ID轉換成產品名稱
@@ -32,8 +31,6 @@ function ShopCartList(props) {
     })
     return val
   }
-
-
 
   // 從ID去獲取產品的價格
   function checkProductPrice(val) {
@@ -64,7 +61,6 @@ function ShopCartList(props) {
     let count = v.count
     RealCart.push({ pId: val, count: count })
   })
-
   //驗證購物車作用的狀況
   const displayRealCart = RealCart.map((v, i) => {
     return (
@@ -116,12 +112,16 @@ function ShopCartList(props) {
         <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
           <button
             className="Mao-btn-amount-whiteDel Mao-btn-amount-white-my"
-            onClick={() => {  
+            onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
             }}
           >
-            <img src="..\img\header-footer\heart.svg" alt="" className="Mao-btn-amount-img"/>
+            <img
+              src="..\img\header-footer\heart.svg"
+              alt=""
+              className="Mao-btn-amount-img"
+            />
             <span>刪除</span>
           </button>
           <button
@@ -129,10 +129,14 @@ function ShopCartList(props) {
             onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
-              props.Handel_AddMyFavorite('true', v.pId, props.MyFavorite)
+              props.Handle_AddMyFavorite('true', v.pId, props.MyFavorite)
             }}
           >
-            <img src="..\img\header-footer\shopping-bag.svg" alt="" className="Mao-btn-amount-img"/>
+            <img
+              src="..\img\header-footer\shopping-bag.svg"
+              alt=""
+              className="Mao-btn-amount-img"
+            />
             <span>下次購買</span>
           </button>
         </div>
@@ -153,12 +157,18 @@ function ShopCartList(props) {
   return (
     <>
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
-        <ul className={props.AddItem.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '960px',display:'flex',flexDirection:'column',justifyContent:'center' }}>
-        
+        <ul
+          className={props.AddItem.length > 0 ? 'bg-white' : 'bg-none'}
+          style={{
+            width: '960px',
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+          }}
+        >
           {props.AddItem.length > 0 ? dataList : CartNoItem}
         </ul>
-        {props.AddItem.length > 0 ? <MaoCartShopTotal />  :  CartNoItemTotal}
-        
+        {props.AddItem.length > 0 ? <MaoCartShopTotal /> : CartNoItemTotal}
       </div>
       <ProductSlide />
     </>
@@ -187,7 +197,7 @@ const mapDispatchToProps = dispatch => {
       AddCartItem,
       DelCartItem,
       CalShopCart,
-      Handel_AddMyFavorite,
+      Handle_AddMyFavorite,
       ControlDataOne,
     },
     dispatch
