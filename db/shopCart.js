@@ -11,7 +11,8 @@ router.get('/shopCart', (req, res) => {
 })
 
 router.get('/orderbuyerInfo',(req,res)=>{
-  let sql=`SELECT * FROM \`orderbuyer\` WHERE orderId=\'YRGPIPFY\'`
+  let sql='SELECT * FROM `orderbuyer` WHERE orderId = ? ORDER BY `orderbuyer`.`created_at` DESC LIMIT 1'
+  // SELECT * FROM `orderbuyer` WHERE 會員ID = ? ORDER BY `orderbuyer`.`created_at` DESC LIMIT 1
   db.queryAsync(sql).then(r=>{
     return res.json(r)
   })
@@ -67,7 +68,6 @@ router.post('/orderproductInfo', (req, res) => {
     ])
   
     .then(r => {
-      console.log('rrrrr', r)
       return res.json(r)
     })
     .catch(err => {
