@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 
 export default function useReplyTextarea(){
 
@@ -6,23 +6,39 @@ export default function useReplyTextarea(){
     const [enters, setEnters] = useState(0)
     const [txtContent, setTxtContent] = useState('')
 
-    const handleChange = (evt)=>{
-        // console.log(evt.target.value)
+    const [showReplyTo, setShowReplyTo] = useState(false)
+    const [replyTo, setReplyTo] = useState(null)
+
+    useEffect(()=>{
+        console.log("replying to:" + replyTo)
+    }, [replyTo])
+
+
+    const handleChange = (data, evt)=>{
         setTxtContent(evt.target.value)
+        if(data !== replyTo){
+            setReplyTo(data) // <----- 這裏，為何同一個區塊的不能執行兩次？
+            console.log("not the same reply" + data)
+        }
         if(evt.target.value.match(/\n/gm)){
             setEnters(evt.target.value.match(/\n/gm).length)
-            if(rows < 5){
-                console.log('add')
+            if(rows < 4){
                 setRows(evt.target.value.match(/\n/gm).length + 1)
             }
         }
     }
 
     const handleKey = (evt)=>{
-        if(evt.key === 'Backspace' && enters <= 5 && rows > 1){
+        if(evt.key === 'Backspace' && enters <= 4 && rows > 1){
             setRows(rows - 1)
         }
     }
 
-    return {rows, txtContent, handleChange, handleKey}
+    const handleToggleShow = (props)=>{
+        if(showReplyTo) setTxtContent({})
+        setShowReplyTo(!showReplyTo)
+    }
+
+    return {rows, txtContent, showReplyTo, replyTo, 
+        handleChange, handleKey, handleToggleShow}
 }

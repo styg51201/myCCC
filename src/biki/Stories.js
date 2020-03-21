@@ -4,7 +4,8 @@ import {Link, withRouter} from 'react-router-dom'
 import { convertFromRaw } from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html';
 import {
-    FiMoreHorizontal
+    FiMoreHorizontal,
+    FiChevronDown
   } from 'react-icons/fi'
 
 import useStorySearch from './utils/useStorySearch'
@@ -87,6 +88,7 @@ function Stories(props){
 
     return(
         <>
+        <div>排序 <FiChevronDown /></div>
             <main className="mt-5">
             <Link to="/upload-stories">Your story</Link>
                 <div className="bk-stories-container">

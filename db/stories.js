@@ -77,7 +77,7 @@ router.post('/user-editor/draft', (req, res)=>{
     let sql = 'INSERT INTO `storyDrafts`(`usrId`, `drftTitle`, `drftStatus`, `drftContent`, `drftTags`) VALUES (?,?,?,?,?)';
 
     db.queryAsync(sql, [
-        0, //should come from session
+        1, //should come from session
         req.body.title,
         'active',
         JSON.stringify(req.body.content),
@@ -175,7 +175,7 @@ router.post('/user-editor/upload', (req, res)=>{
     let sql = 'INSERT INTO `stories`(`usrId`, `stryTitle`, `stryStatus`, `stryContent`, `stryTags`) VALUES (?, ?, ?, ?, ?)';
 
     db.queryAsync(sql, [
-        0,
+        1, //should be from session
         req.body.title,
         'active',
         JSON.stringify(req.body.content),
@@ -197,6 +197,7 @@ router.post('/user-editor/upload', (req, res)=>{
     
 })
 
+//submit reply
 router.post('/reply', (req, res)=>{
     let rplyToId = req.query.toId || null;
     let stryId = req.query.id;
@@ -213,7 +214,7 @@ router.post('/reply', (req, res)=>{
 
     db.queryAsync(sql, [
         stryId,
-        0, //should be from session
+        1, //should be from session
         rplyToId,
         content,
         'active'
@@ -250,9 +251,10 @@ router.get('/story', (req, res)=>{
 
     db.queryAsync(sql, [req.query.id])
     .then(r=>{
+        // console.log(r);
         r.forEach((elm)=>{
-            elm.stryFromNow = moment(r[0].stryUpdate).fromNow()
-            if(elm.rplyUpdate) elm.rplyFromNow = moment(r[0].rplyUpdate).fromNow()
+            elm.stryFromNow = moment(elm.stryUpdate).fromNow()
+            if(elm.rplyUpdate) elm.rplyFromNow = moment(elm.rplyUpdate).fromNow()
         })
         output.success = true;
         output.data = r;
