@@ -14,12 +14,12 @@ import {
 import MaoCouponBox from './MaoCouponBox'
 import { productList } from '../ProductList'
 import $ from 'jquery'
+import { FaTicketAlt} from "react-icons/fa"
 
 function MaoCartShopTotal(props) {
 // console.log('MaoCartShopTotal',props.match.path)
   const [shipping,setShipping]=useState(100)
-  const [discount,setDiscount]=useState(0)
-  // console.log(props.AddItem)  
+  const [discount,setDiscount]=useState(0) 
 
 
 let buyerTotal=0
@@ -30,9 +30,9 @@ function CalTotal(){
 }
 
 let CheckrouteName=props.match.path
-console.log(CheckrouteName)
+// console.log(CheckrouteName)
 function showCoupon(){
-    $('.Mao-couponBox').css({ opacity: 1 })
+    $('.Mao-couponBox').css({ opacity: 1,zIndex:1 })
 }
 
   useEffect(() => {
@@ -42,14 +42,20 @@ function showCoupon(){
       let test = $(document).scrollTop()
       // console.log(test)
       if (test > 120) {
-        $('.Mao-total-box-fixed').css({ opacity: 1, height: '145px' })
-        $('.Mao-total-box').css({ opacity: 0, height: '0px' })
+        $('.Mao-total-box-fixed').css({ opacity: 1, height: '145px',zIndex:999 })
+        $('.Mao-total-box').css({ opacity: 0, height: 0 })
       } else {
-        $('.Mao-total-box').css({ opacity: 1, height: '430px' })
+        $('.Mao-total-box').css({ opacity: 1, height: '420px' })
 
-        $('.Mao-total-box-fixed').css({ opacity: 0, height: '0px' })
+        $('.Mao-total-box-fixed').css({ opacity: 0, height: 0,zIndex:-1 })
       }
     })
+    
+$('.Mao-total-box-btn-border-b').on('mouseenter',()=>{
+  $('.Mao-total-box').css({boxShadow:'5px 5px 5px #999'})
+}).on('mouseleave',()=>{
+  $('.Mao-total-box').css({boxShadow:'none'})
+})
   }, [])
 
   useEffect(()=>{
@@ -76,7 +82,7 @@ function showCoupon(){
           </div>
           <label htmlFor="coupon" className="Mao-total-box-title-coupon">
             <div>    
-              <Link className="d-flex justify-content-center align-items-center Mao-total-box-btn text-dark" onClick={()=>{showCoupon()}}><b>折價券帶入</b></Link>
+              <Link className="Mao-total-box-btn Mao-total-box-btn-border-b" onClick={()=>{showCoupon()}}><FaTicketAlt /><b className="mx-2">折價券帶入</b></Link>
             </div>
           </label>
         </div>
@@ -88,7 +94,7 @@ function showCoupon(){
           className="d-flex justify-content-center align-items-center Mao-total-box-btn text-dark"
           to=""
         >
-          繼續購物
+         繼續購物
         </Link>
         <Link
           className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn"
@@ -139,25 +145,24 @@ function showCoupon(){
                 >
                 </label>
                 <div>    
-              <Link className="d-flex justify-content-center align-items-center text-dark Mao-total-box-title-coupon-fixed-coupon" onClick={()=>{showCoupon()}}><b>折價券帶入</b></Link>
+              <Link className="Mao-total-box-title-coupon-fixed-coupon" onClick={()=>{showCoupon()}}><FaTicketAlt /><b className="mx-2">選擇折價券</b></Link>
             </div>
               </div>
             </div>
           </div>
           {/* ----------------- */}
           <div className="Mao-total-box-total-fixed-btn">
-            <Link
-              className="d-flex justify-content-center align-items-center Mao-total-box-btn-fixed text-dark"
+            
+            
+              {CheckrouteName=='/OrderInfo'?(<Link
+              className="Mao-total-box-btn-fixed-goshop"
               to="/"
-            >
-              繼續購物
-            </Link>
-            <Link
-              className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn-fixed"
+            >繼續購物
+            </Link>):(<Link
+              className="Mao-total-box-btn-fixed"
               to="/OrderInfo"
-            >
-              {CheckrouteName=='/OrderInfo'?'確認結帳':'前往結帳'}
-            </Link>
+            >前往結帳
+            </Link>)}
           </div>
         </div>
       </div>

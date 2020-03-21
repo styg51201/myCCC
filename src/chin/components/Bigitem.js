@@ -72,9 +72,6 @@ function Bigitem(props) {
                 </div>
               )
             })}
-            {/* <div className="chin-bigitem">
-                  <img src={imgUrl} alt="" />
-                </div>  */}
           </Slider>
         </div>
         <div className="chin-smallitem">

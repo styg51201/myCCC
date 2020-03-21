@@ -14,11 +14,11 @@ import {
   ControlDataOne,
   fromServerorderBuyerInfo,
   CalShopCartTotal,
-  calCart,
+  calCart,forServerorderProductInfo
 } from './actions/ShopCartAction'
+import Swal from 'sweetalert2'
 
 function OrderInfo(props) {
-  console.log('OrderInfo', props)
   //月
   function getMonth() {
     let MonthBox = []
@@ -49,6 +49,8 @@ function OrderInfo(props) {
   }
   getRND()
 
+
+  let sendTotal=props.FinalTotal
   //送出資料
   const buyerInfo = {
     orderId: `${order}`,
@@ -56,10 +58,10 @@ function OrderInfo(props) {
     mobile: '',
     payment: 'COD',
     shipping: 'Seven-store',
-    buyerAdress: '',
+    buyerAdress: '台北市大安區',
     invoice: 'personal-invoice',
     taxNo: '',
-    total: props.FinalTotal,
+    total: sendTotal,
   }
 
   //獲取buyer資訊
@@ -87,9 +89,60 @@ function OrderInfo(props) {
     }
   }
 
+  const pIdArr=[]
+  const countArr=[]
+//獲取購物車內容
+function getorderProductInfo(){
+  props.AddItem.map((v,i)=>{
+    console.log(v)
+    pIdArr.push(v.pId)
+    countArr.push(v.count)
+  })
+}
+
+useEffect(()=>{
+  getorderProductInfo()
+  getRND()
+},[])
+
+let productInfo={
+  orderId: order,
+  pId:`${pIdArr}`,
+  count:`${countArr}`,
+  outStatus:'訂單處理中',
+}
+
+console.log('pIdArr',pIdArr)
+console.log('countArr',countArr)
   //送出
   function POSTorderInfo() {
+    for(let i=0;i<pIdArr.length;i++){
+      let proBox={
+          orderId: order,
+          pId:`${pIdArr[i]}`,
+          count:`${countArr[i]}`,
+          outStatus:'訂單處理中',
+      }
+      
+    //送出產品
+    props.forServerorderProductInfo(proBox)
+    }
+    console.log('sendTotal',buyerInfo)
+    //送出購買人資訊
     props.fromServerorderBuyerInfo(buyerInfo)
+      
+    Swal.fire({
+      position: 'top-end',
+      icon: 'success',
+      title: '結帳完成',
+      showConfirmButton: false,
+      timer: 1300,
+      position:'center',
+    })
+        setTimeout(()=>{
+        window.location.href='/'
+      },1000)
+    
   }
 
   //表格
@@ -411,7 +464,7 @@ const mapDispatchToProps = dispatch => {
       ControlDataOne,
       fromServerorderBuyerInfo,
       CalShopCartTotal,
-      calCart,
+      calCart,forServerorderProductInfo
     },
     dispatch
   )
