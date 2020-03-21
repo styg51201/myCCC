@@ -1,0 +1,21 @@
+@import '../../css/variables.scss';
+
+.Mao-orderbill-title {
+  border-bottom: 1px solid $grey;
+  padding: 5px 0px;
+}
+
+.Mao-orderbill-border-box {
+  background: $white;
+  padding: 15px;
+  margin-top: 8px;
+}
+.Mao-orderbill-border {
+  border-bottom: 3px solid $blue;
+}
+.Mao-orderbill-border tr th {
+  border: none;
+}
+.Mao-orderbill-Item-thead {
+  border-bottom: 3px solid $grey;
+}

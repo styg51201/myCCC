@@ -59,12 +59,37 @@
 }
 
 /*ShopCartLike*/
+.Mao-ul-bg-white {
+  width: 900px;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  list-style-type: none;
+  margin: 0px 0px 50px 0px;
+}
+.Mao-ul-bg-none {
+  width: 900px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  list-style-type: none;
+}
+.Mao-ul-title {
+  width: 100%;
+  padding: 5px;
+  border-bottom: 5px solid $blue;
+}
 .Mao-CartNoItem {
-  max-height: 500px;
-  width: 1300px;
+  max-height: 505px;
+  width: 1000px;
   position: relative;
   padding: 0;
   overflow: hidden;
+  text-align: center;
 }
 .Mao-CartNoItem h3 {
   color: #666;
@@ -80,9 +105,9 @@
 }
 .Mao-Like-img {
   padding: 0;
-  margin: 0;
-  width: 1200px;
-  height: 800px;
+  margin: 50px 0;
+  width: 1000px;
+  height: 500px;
   box-shadow: 6px 6px 10px #aaa;
 }
 
@@ -141,7 +166,7 @@
 .Mao-total-box-title-coupon-fixed-coupon {
   position: absolute;
   top: 103%;
-  left: 55%;
+  left: 65%;
   display: flex;
   justify-content: center;
   align-items: center;

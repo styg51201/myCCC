@@ -58,9 +58,31 @@ export const AddItem = (state = [], action) => {
 
 //我的最愛
 export const MyFavorite = (state = [], action) => {
-  console.log('action',action)
+  // console.log('action',action)
   switch (action.type) {
     case 'LIKE_PRODUCT':
+      return action.value
+    default:
+      return state
+  }
+}
+
+//呼叫訂單資料
+export const getOrderBuyer=(state=[],action)=>{
+  console.log('getOrderBuyer',action)
+  switch (action.type){
+    case 'SHOW_ORDER':
+      return action.value
+    default:
+      return state
+  }
+}
+
+//呼叫訂單資料
+export const saveOrderBuyerInfoReducer=(state='',action)=>{
+  console.log('saveOrderBuyerInfoReducer',action)
+  switch (action.type){
+    case 'SAVE_ORDER':
       return action.value
     default:
       return state

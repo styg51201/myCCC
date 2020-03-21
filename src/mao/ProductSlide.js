@@ -30,13 +30,13 @@ function ProductSlide(props) {
     if (index == -1) {
       val.count=1
       RealCart.push(val)
-    }
-    RealCart.map((v, i) => {
-      if (val.pId == v.pId) {
-        v.count=+v.count+1
-      }
+    }else{
+      RealCart.map((v, i) => {
+        if (val.pId == v.pId) {
+          v.count=+v.count+1
+        }
     })
-    
+  }
     props.AddCartNewItem_sendcal(RealCart)
   }
 
@@ -59,7 +59,7 @@ function ProductSlide(props) {
               let productInfo = {
                 pId: v.pId,
                 price: v.price,
-                count:1,
+                count:0,
                 itemCategoryId: v.itemCategoryId,
                 name: v.name,
               }
@@ -125,6 +125,7 @@ const mapDispatchToProps = dispatch => {
     dispatch
   )
 }
+
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(ProductSlide)
 )

@@ -14,7 +14,7 @@ import {
   ControlDataOne,
   fromServerorderBuyerInfo,
   CalShopCartTotal,
-  calCart,forServerorderProductInfo
+  calCart,forServerorderProductInfo,saveOrderBuyerInfo
 } from './actions/ShopCartAction'
 import Swal from 'sweetalert2'
 
@@ -43,12 +43,11 @@ function OrderInfo(props) {
   function getRND() {
     let Numlength = 8
     const word = 'QAZWSXEDCRFVTGBYHNUJMIKOLP1234567890'
-    for (let i = 0; i < Numlength; i++) {
-      order += word[Math.round(Math.random() * word.length)]
+    for (let i = 0; i <= Numlength; i++) {
+      order += word[Math.round(Math.random() * (word.length-1))]
     }
   }
   getRND()
-
 
   let sendTotal=props.FinalTotal
   //送出資料
@@ -62,8 +61,9 @@ function OrderInfo(props) {
     invoice: 'personal-invoice',
     taxNo: '',
     total: sendTotal,
+    shipCost:'100',
+    discount:'0'
   }
-
   //獲取buyer資訊
   function getformInfo(e, str) {
     let getInfo = e.currentTarget.value
@@ -102,20 +102,18 @@ function getorderProductInfo(){
 
 useEffect(()=>{
   getorderProductInfo()
-  getRND()
 },[])
 
 let productInfo={
-  orderId: order,
+  orderId: `${buyerInfo.orderId}`,
   pId:`${pIdArr}`,
   count:`${countArr}`,
   outStatus:'訂單處理中',
 }
 
-console.log('pIdArr',pIdArr)
-console.log('countArr',countArr)
+// console.log('6666666666666',productInfo.orderId)
   //送出
-  function POSTorderInfo() {
+  async function POSTorderInfo() {
     for(let i=0;i<pIdArr.length;i++){
       let proBox={
           orderId: order,
@@ -123,32 +121,33 @@ console.log('countArr',countArr)
           count:`${countArr[i]}`,
           outStatus:'訂單處理中',
       }
-      
+    await console.log(buyerInfo.orderId)
+    //送出購買人資訊
+    await props.fromServerorderBuyerInfo(buyerInfo)
+    //暫存訂單編號
+    await props.saveOrderBuyerInfo(buyerInfo.orderId)
     //送出產品
-    props.forServerorderProductInfo(proBox)
+    await props.forServerorderProductInfo(proBox)
     }
     console.log('sendTotal',buyerInfo)
-    //送出購買人資訊
-    props.fromServerorderBuyerInfo(buyerInfo)
       
-    Swal.fire({
+    await Swal.fire({
       position: 'top-end',
       icon: 'success',
       title: '結帳完成',
       showConfirmButton: false,
-      timer: 1300,
+      timer: 1500,
       position:'center',
     })
-        setTimeout(()=>{
-        window.location.href='/'
-      },1000)
+    // window.location.href= await '/Orderbill'
+    
     
   }
 
   //表格
   return (
     <>
-      <form method="POST">
+      {/* <form method="POST"> */}
         <div className="container my-3 d-flex" style={{ width: '1300px' }}>
           <div
             className="px-4 border bg-white p-3"
@@ -426,18 +425,18 @@ console.log('countArr',countArr)
               >
                 上一步
               </Link>
-              <buttno
+              <Link to='/Orderbill'
                 className="btn btn-danger px-3 py-2 rounded-0 mx-2"
                 style={{ width: '30%', background: '#000', border: 'none' }}
                 onClick={() => POSTorderInfo()}
               >
                 結帳
-              </buttno>
+              </Link>
             </div>
           </div>
           <MaoCartShopTotal />
         </div>
-      </form>
+      {/* </form> */}
     </>
   )
 }
@@ -447,6 +446,7 @@ const mapStateToProps = store => {
     //購物車內容
     AddItem: store.AddItem,
     FinalTotal: store.calculator_total,
+    saveOrderBuyerInfoReducer:store.saveOrderBuyerInfoReducer
   }
 }
 
@@ -464,7 +464,7 @@ const mapDispatchToProps = dispatch => {
       ControlDataOne,
       fromServerorderBuyerInfo,
       CalShopCartTotal,
-      calCart,forServerorderProductInfo
+      calCart,forServerorderProductInfo,saveOrderBuyerInfo,
     },
     dispatch
   )

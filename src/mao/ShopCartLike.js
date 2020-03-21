@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './css/mao.scss'
-import MaoCartShopTotal from './component/MaoCartShopTotal'
-import MaoSlide from './component/MaoSlide'
+import ProductSlide from './ProductSlide'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -16,8 +15,7 @@ import {
   ControlDataOne,
   AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
-import ShopCartIcon from './component/ShopCartIcon'
-import MaoShopCartBTN from './component/MaoShopCartBTN'
+import MemberSidebar from '../Irene/components/MemberSidebar'
 import { productList } from './ProductList'
 function ShopCartLike(props) {
   const [favorloaded, setFavorloaded] = useState(false)
@@ -114,29 +112,28 @@ function ShopCartLike(props) {
   })
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
-    <div className="p-3 text-center Mao-CartNoItem">
+    <div className="Mao-CartNoItem">
       <h3>趕快去尋找最愛的商品吧！</h3>
       <Link to="/">
-        <img className="Mao-Like-img" src="./Mao-img/travel1.jpg" />
+        <img className="Mao-Like-img" src="/Mao-img/travel1.jpg" />
       </Link>
     </div>
   )
 
   return (
     <>
-      {/* <div className={dataList.length > 0 ? 'bg-white' : 'bg-none'} style={{ width: '1300px' }}> */}
-<ShopCartIcon/>
-      <ul className="bg-white d-flex justify-content-center flex-column">{dataList.length == 0 ? CartNoItem : dataList}
-      
-      </ul>
-      {/* <MaoSlide /> */}
-      {/* <MaoCartShopTotal/> */}
-      {/* </div> */}
-      {/* <ProductSlide /> */}
-      {/* <div>
-      <h2>傳輸內容</h2>
-        <ul className="list-unstyled">{dataList}</ul>
-      </div> */}
+      <div className="d-flex" style={{margin:'50px 0px'}}>
+      <MemberSidebar/>
+        <div>
+        {dataList.length == 0 ? '' : (<h3 className="Mao-ul-title">
+          我的收藏
+          </h3>)}
+          <ul className={dataList.length>0? 'Mao-ul-bg-white':'Mao-ul-bg-none'}>
+            {dataList.length == 0 ? CartNoItem : dataList} 
+          </ul>
+        </div>
+      </div>
+      <ProductSlide />
     </>
   )
 }

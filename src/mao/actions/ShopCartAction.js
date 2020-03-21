@@ -12,7 +12,7 @@ export const sendCart = value => {
 
 //獲取資料庫購物車
 export const getShopCart = item => {
-  console.log('item', item)
+  // console.log('item', item)
   return async dispatch => {
     const request = new Request(`http://localhost:5500/shopCart/shopCart`, {
       method: 'GET',
@@ -56,7 +56,7 @@ export const fromServerorderBuyerInfo = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
-    await console.log(data)
+    // await console.log(data)
   }
 }
 
@@ -81,7 +81,37 @@ export const forServerorderProductInfo=val=>{
   }
 }
 
-//控制資料庫呼叫
+//呼叫訂單資料
+export const getOrderFromServer=value=>{
+  return async dispatch => {
+    const request = new Request(`http://localhost:5500/shopCart/orderbuyerInfo`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    let newData = []
+    let hadleData = data.map((v, i) => {
+      newData.push({
+        orderId: v.orderId,
+        buyerName: v.buyerName,
+        shipping:v.shipping,
+        buyerAdress: v.buyerAdress,
+        total: v.total,
+        ship:v.shipCost,
+        discount:v.discount
+      })
+    })
+    dispatch(getBuyerInfo(newData))
+  }
+}
+
+export const saveOrderBuyerInfo=value=>({type:'SAVE_ORDER',value:value})
+
+//呼叫訂單資料
+export const getBuyerInfo=value=>({type:'SHOW_ORDER',value:value})
+
+//控制資料庫的呼叫
 export const ControlDataOne = value => ({ type: 'CTRL_DATA', value: value })
 
 // 計算產品總額
@@ -92,16 +122,6 @@ export const CalShopCart = value => {
       let sCount=v.price*v.count
       total+=sCount
     })
-    // productList.map((product, i) => {
-    //   value.map((v, i) => {
-    //     if (product.pId == v.pId) {
-    //       let sCount = product.price * v.count
-    //       total += sCount
-    //     }
-    //   })
-    
-  console.log('CalShopCart', total)
-    // })
     dispatch(calCart(total))
   }
 }
