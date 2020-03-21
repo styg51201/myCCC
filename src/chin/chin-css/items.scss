@@ -290,8 +290,31 @@ input[type='checkbox'] {
   flex-wrap: wrap;
 }
 .chin-article {
-  background: #a0a0a0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  padding-right: 50px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #c7c7c7;
   height: 120px;
+}
+.chin-article button {
+  margin: 5px;
+  padding: 1px 10px;
+  width: 188px;
+  height: 40px;
+}
+.chin-article button:nth-child(2) {
+  margin: 5px;
+  padding: 1px 10px;
+  width: 188px;
+  height: 40px;
+  background: none;
+  color: #050505;
 }
 .chin-commodity-item-watch {
   top: 0;
