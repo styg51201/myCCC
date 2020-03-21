@@ -3,17 +3,59 @@ import { productList } from './ProductList'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import './css/mao.scss'
 import {
   getShopCart,
   AddCart,
-  realCart,
   AddCartNewItem,
   CalShopCart,
   Handle_AddMyFavorite,
   AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
+import Slider from 'react-slick'
+import { FiShoppingBag ,FiHeart} from 'react-icons/fi';
 
 function ProductSlide(props) {
+
+
+
+  let settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 4,
+    initialSlide: 0,
+    arrows:true,
+    responsive: [
+      {
+        breakpoint: 1300,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true
+        }
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1
+        }
+      }
+    ]
+  };
+
+
   let RealCart = []
   let checkBox = []
   props.AddItem.map((v, i) => {
@@ -39,22 +81,23 @@ function ProductSlide(props) {
   }
     props.AddCartNewItem_sendcal(RealCart)
   }
+  
 
-  // console.log('ProductSlide',productList)
+  console.log(props)
+
   const productItem = productList.map((v, i) => {
     return (
       <>
-        <div className="card border p-3 d-flex " style={{ width: '15rem' }}>
+        <div className="card Mao-prodctSlide-card-box ">
           <img
-            className="my-2"
-            src="https://fakeimg.pl/50/"
-            style={{ width: '150px', height: '150px' }}
+            className="Mao-img"
+            src="https://fakeimg.pl/150/"
             alt="..."
           />
           <h4 className="card-title">{v.pName}</h4>
           <p>${v.price}</p>
           <button
-            className="btn btn-primary"
+            className="Mao-prodctSlide-card-btn-add"
             onClick={() => {
               let productInfo = {
                 pId: v.pId,
@@ -66,11 +109,11 @@ function ProductSlide(props) {
               checkCart(productInfo)
             }}
           >
-            加入購物車
+            <FiShoppingBag class="mx-2"/><span>加入購物車</span>
           </button>
 
           <button
-            className="btn btn-danger px-4 my-1"
+            className="Mao-prodctSlide-card-btn-like"
             onClick={() => {
               let productInfo = {
                 pId: v.pId,
@@ -81,20 +124,22 @@ function ProductSlide(props) {
               props.Handle_AddMyFavorite('true', productInfo, props.MyFavorite)
             }}
           >
-            我的最愛
+            <FiHeart className="mr-2"/>
+            <span className="ml-1">我的最愛</span>
           </button>
         </div>
       </>
     )
   })
-  const test = <h1>HELLO~</h1>
   return (
     <>
       <div
-        className="bg-white p-3 d-flex flex-wrap"
+        className="bg-white p-2 my-5"
         style={{ width: '1300px' }}
       >
+      <Slider {...settings}>
         {productItem}
+      </Slider>
       </div>
     </>
   )
@@ -117,7 +162,6 @@ const mapDispatchToProps = dispatch => {
     {
       getShopCart,
       AddCart,
-      realCart,
       CalShopCart,
       Handle_AddMyFavorite,
       AddCartNewItem_sendcal,

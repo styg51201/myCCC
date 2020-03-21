@@ -12,7 +12,6 @@ export const sendCart = value => {
 
 //獲取資料庫購物車
 export const getShopCart = item => {
-  // console.log('item', item)
   return async dispatch => {
     const request = new Request(`http://localhost:5500/shopCart/shopCart`, {
       method: 'GET',
@@ -56,7 +55,7 @@ export const fromServerorderBuyerInfo = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
-    // await console.log(data)
+    await dispatch(saveOrderBuyerInfo(val))
   }
 }
 
@@ -77,7 +76,7 @@ export const forServerorderProductInfo=val=>{
     )
     const res= await fetch(request)
     const data= await res.json()
-    await console.log(data)
+    await dispatch(saveOrderBuyerproduct(val))
   }
 }
 
@@ -105,8 +104,15 @@ export const getOrderFromServer=value=>{
     dispatch(getBuyerInfo(newData))
   }
 }
-
+//儲存會員訂單資訊
 export const saveOrderBuyerInfo=value=>({type:'SAVE_ORDER',value:value})
+
+
+//儲存會員購買產品
+export const saveOrderBuyerproduct=value=>({type:'SAVE_ORDER_PRODUCT',value:value})
+
+//清除儲存會員購買產品
+export const clearOrderBuyerproduct=value=>({type:'CLEAR_ORDER_PRODUCT',value:value})
 
 //呼叫訂單資料
 export const getBuyerInfo=value=>({type:'SHOW_ORDER',value:value})
@@ -132,8 +138,6 @@ export const calCart = value => ({ type: 'CAL_TOTAL', value: value })
 // 計算總額含運費活動折扣
 export const CalShopCartTotal = value => ({ type: 'FINAL_TOTAL', value: value })
 
-// 加入購物車 (暫時用不到)
-export const realCart = value => ({ type: 'DISPLAY_CART', value: value })
 
 //刪除
 export const DelCartItem = (i, data) => {
@@ -179,7 +183,6 @@ export const AddCartNewItem_sendcal = data => {
 
 //加入最愛 目前會出錯 點選加入最愛會出現undefined
 export const Handle_AddMyFavorite = (val, product, data) => {
-  console.log('Handle_AddMyFavorite',data)
   let pIdBox=[]
   data.map((v,i)=>{
     pIdBox.push(v.pId)
@@ -188,7 +191,6 @@ export const Handle_AddMyFavorite = (val, product, data) => {
   return dispatch => {
     if (val == 'true') {
       let box = pIdBox.findIndex(e => e == product.pId)
-      console.log('box',box)
       if (box == -1) {
         newData.push(product)
       } else {

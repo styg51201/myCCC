@@ -58,6 +58,49 @@
   text-decoration: none;
 }
 
+// productslide
+.slick-arrow {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+.slick-arrow:hover {
+  // background: rgba(221, 221, 221, 1);
+}
+.Mao-prodctSlide-card-box {
+  margin: 30px;
+  text-align: center;
+  border: 1px solid $grey;
+  display: flex;
+  transition: 0.1s;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  padding: 20px;
+}
+.Mao-prodctSlide-card-box:hover {
+  border: 1px solid rgba(221, 221, 221, 0.2);
+  box-shadow: 0px 0px 22px rgba(160, 160, 160, 1);
+}
+.Mao-img {
+  margin: 10px auto;
+  width: 150px;
+  height: 150px;
+}
+
+.Mao-prodctSlide-card-btn-add {
+  width: 80%;
+  padding: 15px;
+  @include buttonTheme(borderedStyle);
+  margin: 6px 0;
+}
+.Mao-prodctSlide-card-btn-like {
+  width: 80%;
+  padding: 12px;
+  @include buttonTheme(borderedStyle);
+  margin: 6px 0;
+}
+
 /*ShopCartLike*/
 .Mao-ul-bg-white {
   width: 900px;
@@ -79,8 +122,7 @@
   list-style-type: none;
 }
 .Mao-ul-title {
-  width: 100%;
-  padding: 5px;
+  width: 1000px;
   border-bottom: 5px solid $blue;
 }
 .Mao-CartNoItem {
@@ -105,9 +147,9 @@
 }
 .Mao-Like-img {
   padding: 0;
-  margin: 50px 0;
+  // margin: 50px 0;
   width: 1000px;
-  height: 500px;
+  height: 460px;
   box-shadow: 6px 6px 10px #aaa;
 }
 
@@ -118,17 +160,53 @@
   width: 100%;
   height: 0;
   box-shadow: 10px 10px 10px #aaa;
+  border-bottom: 1px solid $grey;
+  background: $white;
   padding: 6px 0px;
   position: fixed;
   z-index: -10;
   top: 0;
   left: 0;
 }
-
 .Mao-total-box-title-fixed {
   border-bottom: 1px solid #ddd;
   padding: 5px 0px;
+  margin: 0;
   margin-right: 15px;
+}
+// total-fixed-內容
+.Mao-total-content-fixed {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  margin-top: 10px;
+}
+// 運費
+.Mao-total-ship-fixed {
+  width: 30%;
+}
+// 活動折扣
+.Mao-total-coupon-fixed {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+//小計
+.Mao-total-sCount-fixed {
+  width: 30%;
+}
+// 選擇折扣券
+.Mao-coupon-choose-fixed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+  padding-right: 170px;
+  color: $black;
+}
+.Mao-coupon-choose-fixed:hover {
+  color: $blue;
 }
 .Mao-total-box-fixed .container {
   width: 1200px;
@@ -140,17 +218,14 @@
 .Mao-total-box-fixed .container div {
   width: 850px;
 }
-.Mao-total-box-title-info-fixed {
-  display: flex;
-  flex-direction: column;
-}
 
 .Mao-total-box-totalNum-fixed {
   position: absolute;
-  top: 35%;
-  right: 47%;
+  top: 58%;
+  right: 43%;
   font-size: 24px;
   font-weight: bold;
+  display: flex;
   align-items: center;
   justify-content: center;
   padding: 5px;
@@ -162,36 +237,6 @@
 }
 .Mao-total-box-total-fixed-goshop:hover {
   color: $black;
-}
-.Mao-total-box-title-coupon-fixed-coupon {
-  position: absolute;
-  top: 103%;
-  left: 65%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: $white;
-  width: 20%;
-  height: 45px;
-  border-bottom: 1px solid $grey;
-  color: $black;
-}
-.Mao-total-box-title-coupon-fixed-coupon:hover {
-  color: $blue;
-  transition: 0.3s;
-  border-bottom: 1px solid $blue;
-}
-.Mao-total-box-total-fixed {
-  display: flex;
-  align-items: center;
-  font-size: '18px';
-  text-align: right;
-  margin: 5px 0px;
-  padding: 8px 0px;
-  width: 100%;
-  position: absolute;
-  top: 15%;
-  left: 28%;
 }
 .Mao-total-box-total-fixed-btn {
   display: flex;

@@ -102,38 +102,48 @@ $('.Mao-total-box').on('mouseenter',()=>{
   )
   const fixedDisplay = (
     <>
-      <div className="Mao-total-box-fixed">
+      <div className="border bg-white Mao-total-box-fixed">
         <div className="container">
-          <div style={{width:'850px'}}>
+          <div>
             <p className="Mao-total-box-title-fixed">
               <b>TOTAL</b>
             </p>
-            {/* total內容 */}
-            <div className="Mao-total-content-fixed"> 
-            {/* 運費 */}
-              <div className="Mao-total-ship-fixed">
+            <div className="Mao-total-box-title-info-fixed">
+              
+              <div className="d-flex align-items-center">
                 <b>運費</b>
-                <span>{shipping}</span>
-              </div>
-              {/* 活動折扣 */}
-              <div className="Mao-total-coupon-fixed">
-                  
-                  <span className="mx-4"> <b>活動折扣</b>{discount}</span>
-              </div>
-              {/* 小計金額 */}
-              <div className="Mao-total-sCount-fixed">
+                <span className="mx-5">{shipping}</span>
+              </div> 
+              <div className="d-flex align-items-center mt-1">
+                <b>活動折扣</b>
+                <span className="mx-3"> {discount}</span>
+              </div> 
+              <div className="d-flex align-items-center">
+                <div className="mt-1 w-75">
                   <b>小計金額</b>
-                  <span id="sTotal">
+                  <span className="ml-3" id="sTotal">
                     {props.sTotal}
                   </span>
-              </div>
+                </div>
+               
                 <p className="Mao-total-box-totalNum-fixed">
                   <b>總金額</b>
                   <span className="mx-2">{props.FinalTotal}</span>
                 </p>
+              </div>
             </div>
-            
-            <Link  className="Mao-coupon-choose-fixed" onClick={()=>{showCoupon()}}><FaTicketAlt /><b className="mx-2">選擇折價券</b></Link>
+            <div className="Mao-total-box-total-fixed">
+              <div>
+                <label
+                  htmlFor="coupon"
+                  className="Mao-total-box-title-coupon-fixed"
+                >
+                </label>
+                <div>    
+              <Link className="Mao-total-box-title-coupon-fixed-coupon" onClick={()=>{showCoupon()}}><FaTicketAlt /><b className="mx-2">選擇折價券</b></Link>
+            </div>
+              </div>
+            </div>
           </div>
           {/* ----------------- */}
           <div className="Mao-total-box-total-fixed-btn">

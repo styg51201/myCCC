@@ -7,7 +7,6 @@ import { bindActionCreators } from 'redux'
 import {
   getShopCart,
   AddCart,
-  realCart,
   AddCartItem,
   DelCartItem,
   CalShopCart,
@@ -17,6 +16,8 @@ import {
 } from './actions/ShopCartAction'
 import MemberSidebar from '../Irene/components/MemberSidebar'
 import { productList } from './ProductList'
+
+
 function ShopCartLike(props) {
   const [favorloaded, setFavorloaded] = useState(false)
   // 從產品ID轉換成產品名稱
@@ -47,7 +48,6 @@ function ShopCartLike(props) {
   let RealCart = []
   let checkBox = []
   props.AddItem.map((v, i) => {
-    // console.log(v)
     RealCart.push(v)
     checkBox.push(v.pId)
   })
@@ -122,12 +122,14 @@ function ShopCartLike(props) {
 
   return (
     <>
-      <div className="d-flex" style={{margin:'50px 0px'}}>
+   
+      <div className="d-flex">
       <MemberSidebar/>
         <div>
-        {dataList.length == 0 ? '' : (<h3 className="Mao-ul-title">
+        {/* {dataList.length == 0 ? '' : (<h3 className="Mao-ul-title">
           我的收藏
-          </h3>)}
+          </h3>)} */}
+          <h3 className="Mao-ul-title">我的收藏</h3>
           <ul className={dataList.length>0? 'Mao-ul-bg-white':'Mao-ul-bg-none'}>
             {dataList.length == 0 ? CartNoItem : dataList} 
           </ul>
@@ -157,7 +159,6 @@ const mapDispatchToProps = dispatch => {
       ControlDataOne,
       getShopCart,
       AddCart,
-      realCart,
       AddCartItem,
       DelCartItem,
       CalShopCart,

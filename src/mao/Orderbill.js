@@ -4,22 +4,41 @@ import './css/Orderbill.scss'
 import MemberSidebar from '../Irene/components/MemberSidebar'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
+import { productList } from './ProductList'
 import {
     getShopCart,
     AddCart,
-    realCart,
     AddCartItem,
     DelCartItem,
     CalShopCart,
     Handle_AddMyFavorite,
-    ControlDataOne,
-    AddCartNewItem_sendcal,getOrderFromServer
+    ControlDataOne,saveOrderBuyerInfo,
+    AddCartNewItem_sendcal,getOrderFromServer,saveOrderBuyerproduct
   } from './actions/ShopCartAction'
 
+
+
 function Orderbill(props){
-console.log('Orderbill',props)
 
 const [loaded,setLoaded]=useState(false)
+
+function getProductName(val){
+    productList.map((v,i)=>{
+        if(v.pId==val){
+            val=v.pName
+        }
+    })
+    return val
+}
+function checkProductPrice(val) {
+    productList.map((v, i) => {
+      if (val == v.pId) {
+        val = v.price
+      }
+    })
+    return val
+  }
+  
 useEffect(()=>{
     props.getOrderFromServer()
 },[])
@@ -46,114 +65,68 @@ const test=props.getOrderBuyer.map((v,i)=>{
         </>
     )
 })
-const orderListitem=(
-    <>
-    <tr>
-      <td className="d-flex justify-content-between">
-        <div className="mr-5">
-            <span>Apple</span>
-        </div>
-        <div className="mr-5">
-        <span>5</span>
-        </div>
-        <div>
-        <span>500</span>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td className="d-flex justify-content-between">
-        <div className="mr-5">
-            <span>Apple</span>
-        </div>
-        <div className="mr-5">
-        <span>5</span>
-        </div>
-        <div>
-        <span>500</span>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td className="d-flex justify-content-between">
-        <div className="mr-5">
-            <span>Apple</span>
-        </div>
-        <div className="mr-5">
-        <span>5</span>
-        </div>
-        <div>
-        <span>500</span>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td className="d-flex justify-content-between">
-        <div className="mr-5">
-            <span>Apple</span>
-        </div>
-        <div className="mr-5">
-        <span>5</span>
-        </div>
-        <div>
-        <span>500</span>
-        </div>
-      </td>
-    </tr>
-    <tr>
-      <td className="d-flex justify-content-between">
-        <div className="mr-5">
-            <span>Apple</span>
-        </div>
-        <div className="mr-5">
-        <span>5</span>
-        </div>
-        <div>
-        <span>500</span>
-        </div>
-      </td>
-    </tr>
-    </>
-    
-)
+let orderprodInfo=props.saveOrderBuyerProReducer
+
+const orderListitem=orderprodInfo.map((v,i)=>{
+return   (
+        <>
+        <tr>
+          <td className="d-flex">
+            <div className="w-50">
+                <span>{getProductName(v.pId)}</span>
+            </div>
+            <div className="w-25 px-3">
+            <span>{v.count}</span>
+            </div>
+            <div className="w-25 px-3">
+            <span>{checkProductPrice(v.pId)}</span>
+            </div>
+          </td>
+        </tr>
+        </>
+    )    
+})
+
 const orderItemThead=(
     <thead className="Mao-orderbill-Item-thead">
-        <tr className="d-flex justify-content-between p-2">
-            <div className="mr-5">
+        <tr className="d-flex p-2">
+            <div className="w-50">
                 產品名稱
             </div>
-            <div className="mr-5">
+            <div className="w-25">
                 產品數量
             </div>
-            <div>
+            <div className="w-25">
                 產品價格
             </div>
         </tr>    
     </thead>
     
 )
-const orderListBuyerInfo=(
-    <thead className="Mao-orderbill-border">
-    <tr>
-      <th className="d-flex">
-        <div className="mr-5">購買人訂單：<span>F5F4DFS89</span></div>
-        <div className="mr-5">購買人姓名：<span>Alex</span></div>
-        <div>購買人取貨地點：<span>7-11</span></div>
-      </th>
-    </tr>
-    <tr>
-        <th className="d-flex justify-content-between">
-            <div className="mr-5">運費：<span>100</span></div>
-            <div className="mr-5">活動折扣：<span>100</span></div>
-            <div>消費總金額：<span>1900</span></div>
-        </th>
-    </tr>
-  </thead>
-)
+let buyerInfo=props.saveOrderBuyerInfoReducer
+const orderListBuyerInfo=
+    (
+        <thead className="Mao-orderbill-border">
+        <tr>
+          <th className="d-flex">
+            <div className="mr-5">購買人訂單：<span>{buyerInfo.orderId}</span></div>
+            <div className="mr-5">購買人姓名：<span>{buyerInfo.buyer_name}</span></div>
+            <div>購買人取貨地點：<span>{buyerInfo.shipping} {buyerInfo.buyerAdress}</span></div>
+          </th>
+        </tr>
+        <tr>
+            <th className="d-flex justify-content-between">
+                <div className="mr-5">運費：<span>{buyerInfo.shipCost}</span></div>
+                <div className="mr-5">活動折扣：<span>{buyerInfo.discount}</span></div>
+                <div>消費總金額：<span>{buyerInfo.total}</span></div>
+            </th>
+        </tr>
+      </thead>
+    )
 const orderListDataBox=(
     <Table  hover responsive="md" className="w-100">
     {test}
-        {/* {orderListBuyerInfo} */}
+        {orderListBuyerInfo}
         {orderItemThead}
         <tbody>
             {orderListitem}
@@ -204,7 +177,8 @@ const mapStateToProps = store => {
     calculator: store.calculator,
     MyFavorite: store.MyFavorite,
     getOrderBuyer:store.getOrderBuyer,
-    saveOrderBuyrtInfo:store.saveOrderBuyrtInfo
+    saveOrderBuyerInfoReducer:store.saveOrderBuyerInfoReducer,
+    saveOrderBuyerProReducer:store.saveOrderBuyerProReducer
   }
 }
 
@@ -215,12 +189,11 @@ const mapDispatchToProps = dispatch => {
       ControlDataOne,
       getShopCart,
       AddCart,
-      realCart,
       AddCartItem,
       DelCartItem,
       CalShopCart,
-      Handle_AddMyFavorite,
-      AddCartNewItem_sendcal,getOrderFromServer
+      Handle_AddMyFavorite,saveOrderBuyerInfo,
+      AddCartNewItem_sendcal,getOrderFromServer,saveOrderBuyerproduct
     },
     dispatch
   )

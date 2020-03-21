@@ -78,9 +78,8 @@ export const getOrderBuyer=(state=[],action)=>{
   }
 }
 
-//呼叫訂單資料
-export const saveOrderBuyerInfoReducer=(state='',action)=>{
-  console.log('saveOrderBuyerInfoReducer',action)
+//儲存購買人資料
+export const saveOrderBuyerInfoReducer=(state=[],action)=>{
   switch (action.type){
     case 'SAVE_ORDER':
       return action.value
@@ -89,12 +88,16 @@ export const saveOrderBuyerInfoReducer=(state='',action)=>{
   }
 }
 
-//暫時用不到
-export const displayShopCart = (state = [], action) => {
-  switch (action.type) {
-    case 'DISPLAY_CART':
-      return action.value
+//儲存購買人產品資料
+export const saveOrderBuyerProReducer=(state=[],action)=>{
+  let newData=[]
+  switch (action.type){
+    case 'SAVE_ORDER_PRODUCT':
+      return [...state,action.value]
+    case 'CLEAR_ORDER_PRODUCT':
+          return newData
     default:
       return state
   }
 }
+
