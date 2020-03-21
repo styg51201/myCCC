@@ -1,22 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import useReplyTextarea from '../utils/useReplyTextarea'
 
 function StoryReply(props){
-    
+    // if(props.data) console.log(props)
     const {
         rows,
+        showReplyTo,
+        txtContent,
+        handleToggleShow,
         handleChange,
         handleKey
     } = useReplyTextarea()
-
-    const [showReplyTo, setShowReplyTo] = useState(false)
-
-    const handleShow = ()=>{
-        setShowReplyTo(true)
-    }
-    const handleCancel = ()=>{
-        setShowReplyTo(false)
-    }
 
     return (
         <>
@@ -32,12 +26,25 @@ function StoryReply(props){
                     <div>{props.data.content}</div>
                 </div>
                 <div className="bk-rply-foot">
-                    <div onClick={handleShow} role="button">Reply</div>
+                    <div onClick={()=>{
+                        handleToggleShow(props.data.id)
+                        }} 
+                        role="button"
+                    >
+                        {showReplyTo ? 'Cancel' : 'Reply'}
+                    </div>
                 </div>
                 <div className={`bk-reply-textarea${!showReplyTo ? ' hidden' : ''}`}>
-                    <textarea rows={rows} onChange={handleChange} onKeyDown={handleKey} />
-                    <button onClick={handleCancel}>Cancel</button>
-                    <button onClick={props.submit}>Submit</button>
+                    <textarea 
+                        rows={rows}
+                        value={txtContent.content} 
+                        onChange={(evt)=>{
+                            handleChange(props.data.id, evt);
+                        }} 
+                        onKeyDown={handleKey}
+                    ></textarea>
+                    <button onClick={handleToggleShow}>Cancel</button>
+                    <button onClick={props.handlers.submit}>Submit</button>
                 </div>
             </div>
         </>
