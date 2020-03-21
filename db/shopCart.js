@@ -2,6 +2,7 @@ const express = require('express')
 const db = require(__dirname + '/db_connect')
 const router = express.Router()
 
+//呼叫購物車
 router.get('/shopCart', (req, res) => {
   let sql = 'SELECT * from `shopcart`'
   db.queryAsync(sql).then(r => {
@@ -9,26 +10,62 @@ router.get('/shopCart', (req, res) => {
   })
 })
 
+router.get('/orderbuyerInfo',(req,res)=>{
+  let sql=`SELECT * FROM \`orderbuyer\` WHERE orderId=\'YRGPIPFY\'`
+  db.queryAsync(sql).then(r=>{
+    return res.json(r)
+  })
+})
+//訂單成立 購買人資料
 router.post('/orderBuyerInfo', (req, res) => {
-  console.log('123123', req.body)
   const output = {
     success: false,
     data: '',
     message: '',
   }
   let sql =
-    'INSERT INTO `orderbuyer`(`orderId`, `buyerName`, `buyerMobile`, `paymentType`,`shipping`, `buyerAdress`, `invoiceType`, `taxNo`) VALUES (?,?,?,?,?,?,?,?)'
+    'INSERT INTO `orderbuyer`(`orderId`, `buyerName`, `buyerMobile`,`total`, `paymentType`,`shipping`, `buyerAdress`, `invoiceType`, `taxNo`,`shipCost`,`discount`) VALUES (?,?,?,?,?,?,?,?,?,?,?)'
 
   db.queryAsync(sql, [
     req.body.orderId,
     req.body.buyer_name,
     req.body.mobile,
+    req.body.total,
     req.body.payment,
     req.body.shipping,
     req.body.buyerAdress,
     req.body.invoice,
     req.body.taxNo,
+    req.body.shipCost,
+    req.body.discount
   ])
+    .then(r => {
+      return res.json(r)
+    })
+    .catch(err => {
+      output.data = err
+      console.log(err)
+      res.json(output)
+    })
+})
+module.exports = router
+
+//訂單成立 產品資訊
+router.post('/orderproductInfo', (req, res) => {
+  const output = {
+    success: false,
+    data: '',
+    message: '',
+  }
+  let sql =
+    'INSERT INTO `orderdetail`(`orderId`, `pId`, `count`, `outStatus`) VALUES (?,?,?,?)'
+    db.queryAsync(sql, [
+      req.body.orderId,
+      req.body.pId,
+      req.body.count,
+      req.body.outStatus
+    ])
+  
     .then(r => {
       console.log('rrrrr', r)
       return res.json(r)
@@ -37,6 +74,6 @@ router.post('/orderBuyerInfo', (req, res) => {
       output.data = err
       console.log(err)
       res.json(output)
-    })
+    }) 
 })
 module.exports = router

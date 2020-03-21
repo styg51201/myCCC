@@ -6,6 +6,7 @@ import { Form, ListGroup, Button } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import MemberOrder from '../MemberOrder'
 
+
 function MemberEdit(props) {
   return (
     <>
@@ -27,7 +28,7 @@ function MemberEdit(props) {
             <Nav.Link href="/memberedit/memberorder">交易紀錄</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
-            <Nav.Link>我的收藏</Nav.Link>
+            <Nav.Link href="/memberedit/ShopCartLike">我的收藏</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
             <Nav.Link href="/memberedit/memberCoupon">優惠券</Nav.Link>

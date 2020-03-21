@@ -11,7 +11,7 @@ import './I_css/MemberEdit.scss'
 import MemberSidebar from './components/MemberSidebar'
 import MemberOrder from './MemberOrder'
 import MemberCollection from './MemberCollection'
-
+import ShopCartLike from '../mao/ShopCartLike'
 import MemberCoupon from '../stacey/MemberCoupon'
 //redux
 import { connect } from 'react-redux'
@@ -35,6 +35,9 @@ function MemberEdit(props) {
         </Route>
         <Route path="/memberedit/membercollection">
           <MemberCollection />
+        </Route>
+        <Route path="/memberedit/ShopCartLike">
+          <ShopCartLike />
         </Route>
         <Route path="/memberedit/memberCoupon">
           <MemberCoupon />

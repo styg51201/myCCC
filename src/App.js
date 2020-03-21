@@ -29,6 +29,7 @@ import Surrounding from './chin/Surrounding'
 import ShopCartList from './mao/ShopCartList'
 import ShopCartLike from './mao/ShopCartLike'
 import OrderInfo from './mao/OrderInfo'
+import Orderbill from './mao/Orderbill'
 //import Irene
 import MemberLogin from './Irene/MemberLogin'
 import MemberEdit from './Irene/MemberEdit'
@@ -97,15 +98,15 @@ function App() {
             <Route path="/OrderInfo">
               <OrderInfo />
             </Route>
+            <Route path="/Orderbill">
+              <Orderbill />
+            </Route>
             {/* ----------------------------------------- */}
             <Route path="/memberlogin">
               <MemberLogin />
             </Route>
             <Route path="/memberedit">
               <MemberEdit />
-            </Route>
-            <Route path="/OrderInfo">
-              <OrderInfo />
             </Route>
             {/* 連結優惠券專區 */}
             <Route path="/getCoupon">
