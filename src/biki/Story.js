@@ -14,10 +14,12 @@ function Story(props){
 
     const [data, setData] = useState(null)
     const [loaded, setLoaded] = useState(false)
-    const [replyTo, setReplyTo] = useState(null)
+    // const [replyIsOpened, setReplyIsOpened] = useState(0)
 
     const {
         rows,
+        showReplyTo,
+        replyTo,
         txtContent,
         handleChange,
         handleKey
@@ -52,6 +54,7 @@ function Story(props){
         let url = 'http://localhost:5500/stories/reply' + props.location.search + (replyTo ? `&toId:${replyTo}` : '')
         console.log(url)
 
+        return;
         axios({
             method: 'POST',
             url: url,
@@ -90,14 +93,18 @@ function Story(props){
                         </div>
                         <div className="bk-story-reply">
                             <label>留言</label>
-                            <textarea rows={rows} onChange={handleChange} onKeyDown={handleKey} />
+                            <textarea rows={rows} onChange={(evt)=>{
+                                handleChange(null, evt)
+                            }} onKeyDown={handleKey} />
                             <button className="bk-btn-black" onClick={handleSubmit}>Submit</button>
                         </div>
                         {data.map((elm, idx)=>{
                             if(elm.rplyId){
                                 return <StoryReply
                                     key={elm.rplyId}
-                                    submit={handleSubmit}
+                                    handlers={{
+                                        submit: handleSubmit
+                                    }}
                                     data={{
                                         name: elm.Name,
                                         img: elm.Image,

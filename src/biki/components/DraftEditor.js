@@ -190,11 +190,16 @@ function DraftEditor(props){
         //判斷是否有內容
         let c = convertToRaw(contentState)
         let str = ''
+        let flag = false
         for(let i = 0 ; i < c.blocks.length ; i++){
+            // console.log(c.blocks)
             str += c.blocks[i].text
+            if(c.blocks[i].type === 'atomic') flag = true
         }
 
-        if(str === '' || !str.trim().length){
+        console.log(str);
+
+        if(!str.trim().length && !flag){
             console.log("no content")
             alert('沒有內容不能送出喔')
             return;
