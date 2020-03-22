@@ -334,6 +334,7 @@ input[type='checkbox'] {
   background: $white;
   transition: 0.3s;
   p {
+    padding: 5px;
     margin: 2px 0 12px 0;
     font-size: 17px;
     font-weight: $font-bold;
@@ -449,8 +450,8 @@ input[type='checkbox'] {
 .chin-commodity-item:hover .chin-heart {
   opacity: 1;
 }
-.chin-watch {
-  margin: 40px 35px 15px 35px;
+.chin-watchs {
+  margin: 10px 35px 15px 35px;
   width: 210px;
   height: 210px;
 }

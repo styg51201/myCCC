@@ -59,7 +59,7 @@ const rootReducer = combineReducers({
   getMultipleItemId,
   //--------- ShopCart------------
   AddItem,
-  displayShopCart,
+  // displayShopCart,
   getShop,
   calculator,
   calculator_total,
