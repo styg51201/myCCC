@@ -14,11 +14,11 @@ function Story(props){
 
     const [data, setData] = useState(null)
     const [loaded, setLoaded] = useState(false)
+    const [rplyData, setRplyData] = useState(null)
     // const [replyIsOpened, setReplyIsOpened] = useState(0)
 
     const {
         rows,
-        showReplyTo,
         replyTo,
         txtContent,
         handleChange,
@@ -29,32 +29,70 @@ function Story(props){
 
         let url = 'http://localhost:5500' + props.location.pathname + props.location.search
         let url2 = 'http://localhost:5500/stories/api/view-story' + props.location.search
+        let url3 = 'http://localhost:5500/stories/story/replies'  + props.location.search
+        // console.log(props.location.search)
+        console.log(url3)
 
         axios.all([
             axios.get(url),
-            axios.patch(url2)
+            axios.patch(url2),
+            axios.get(url3)
         ])
         .then(axios.spread((...res)=>{
-            // console.log(res[0].data.data)
+            console.log(res[2].data)
             res[0].data.data.forEach(element => {
                 element.stryContent = stateToHTML(convertFromRaw(JSON.parse(element.stryContent)))
             });
-            // console.log(res[0].data.data)
+
+            let arr = [] //沒有
+            let arr2 = [] //有to
+
+            res[2].data.forEach(elm=>{
+                if(!elm.rplyTo){
+                    arr.push(elm)
+                }else{
+                    arr2.push(elm)
+                }
+            })
+            // console.log(arr)
+            // console.log(arr2)
+            
+            const recursive = (children, parents)=>{
+                let leftoutchildren = [...children]
+                children.forEach(child=>{
+                    parents.some(parent=>{
+                        if(parent.rplyId === child.rplyTo){
+                            (parent.children || (parent.children = [])).push(child)
+                            if(leftoutchildren.indexOf(child) !== -1){
+                                leftoutchildren.splice(leftoutchildren.indexOf(child), 1)
+                            }
+                            return true;
+                        }
+                    })
+                })
+                // console.log('leftouts:',leftoutchildren)
+                if(leftoutchildren.length > 0){
+                    recursive(leftoutchildren, children)
+                }
+                return parents;
+            }
+
+            let results = recursive(arr2, arr)
+            // console.log(results)
+
             setData(res[0].data.data)
-            // setTimeout(()=>{
-                setLoaded(true)
-            // }, 1000)
+            setRplyData(results)
+            setLoaded(true)
         }))
         .catch(err=>{
             if(axios.isCancel(err)) return
         })
     }, [])
 
-    const handleSubmit = ()=>{
-        let url = 'http://localhost:5500/stories/reply' + props.location.search + (replyTo ? `&toId:${replyTo}` : '')
+    const handleSubmit = (replyTo, txtContent)=>{
+        let url = 'http://localhost:5500/stories/reply' + props.location.search + (replyTo ? `&toId=${replyTo}` : '')
         console.log(url)
 
-        return;
         axios({
             method: 'POST',
             url: url,
@@ -67,6 +105,32 @@ function Story(props){
         })
     }
 
+    const mapRecursive = (data)=>{
+        return data.map((elm, idx)=>{
+            let child = [
+                <StoryReply
+                    key={elm.rplyId}
+                    handlers={{
+                        submit: handleSubmit
+                    }}
+                    data={{
+                        name: elm.Name,
+                        img: elm.Image,
+                        id: elm.rplyId,
+                        content: elm.rplyContent,
+                        to: elm.rplyToId,
+                        fromNow: elm.rplyFromNow,
+                        date: elm.rplyUpdate
+                    }}
+                />
+            ]
+            if(elm.children){
+                child.push(mapRecursive(elm.children))
+            }
+        return <div className="ttt">{child}</div>
+        })
+    }
+    
     if(loaded){
         return (
             <>
@@ -96,29 +160,33 @@ function Story(props){
                             <textarea rows={rows} onChange={(evt)=>{
                                 handleChange(null, evt)
                             }} onKeyDown={handleKey} />
-                            <button className="bk-btn-black" onClick={handleSubmit}>Submit</button>
+                            <button 
+                            className="bk-btn-black" 
+                            onClick={()=>{
+                                handleSubmit(replyTo, txtContent)
+                            }}>Submit</button>
                         </div>
-                        {data.map((elm, idx)=>{
-                            if(elm.rplyId){
-                                return <StoryReply
-                                    key={elm.rplyId}
-                                    handlers={{
-                                        submit: handleSubmit
-                                    }}
-                                    data={{
-                                        name: elm.Name,
-                                        img: elm.Image,
-                                        id: elm.rplyId,
-                                        content: elm.rplyContent,
-                                        to: elm.rplyToId,
-                                        fromNow: elm.rplyFromNow,
-                                        date: elm.rplyUpdate
-                                    }}
-                                    />
-                            }else{
-                                return 'no replies yet'
-                            }
-                        })}
+                        {/* {rplyData.length ? rplyData.map((elm, idx)=>{
+                            return <StoryReply
+                            key={elm.rplyId}
+                            handlers={{
+                                submit: handleSubmit
+                            }}
+                            data={{
+                                name: elm.Name,
+                                img: elm.Image,
+                                id: elm.rplyId,
+                                content: elm.rplyContent,
+                                to: elm.rplyToId,
+                                fromNow: elm.rplyFromNow,
+                                date: elm.rplyUpdate
+                            }}
+                        />
+                        }) : (<div>no replies yet</div>)
+                     } */}
+                     <div className='bk-recursive-replies-container'>
+                     {mapRecursive(rplyData)}
+                     </div>
                     </Col>
                 </Row>
             </>

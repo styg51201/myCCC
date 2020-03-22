@@ -6,6 +6,7 @@ function StoryReply(props){
     const {
         rows,
         showReplyTo,
+        replyTo,
         txtContent,
         handleToggleShow,
         handleChange,
@@ -37,14 +38,16 @@ function StoryReply(props){
                 <div className={`bk-reply-textarea${!showReplyTo ? ' hidden' : ''}`}>
                     <textarea 
                         rows={rows}
-                        value={txtContent.content} 
+                        value={txtContent} 
                         onChange={(evt)=>{
                             handleChange(props.data.id, evt);
                         }} 
                         onKeyDown={handleKey}
                     ></textarea>
                     <button onClick={handleToggleShow}>Cancel</button>
-                    <button onClick={props.handlers.submit}>Submit</button>
+                    <button onClick={()=>{
+                        props.handlers.submit(replyTo, txtContent)
+                    }}>Submit</button>
                 </div>
             </div>
         </>

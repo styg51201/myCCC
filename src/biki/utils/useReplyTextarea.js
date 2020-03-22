@@ -9,17 +9,9 @@ export default function useReplyTextarea(){
     const [showReplyTo, setShowReplyTo] = useState(false)
     const [replyTo, setReplyTo] = useState(null)
 
-    useEffect(()=>{
-        console.log("replying to:" + replyTo)
-    }, [replyTo])
-
-
     const handleChange = (data, evt)=>{
         setTxtContent(evt.target.value)
-        if(data !== replyTo){
-            setReplyTo(data) // <----- 這裏，為何同一個區塊的不能執行兩次？
-            console.log("not the same reply" + data)
-        }
+        setReplyTo(data)
         if(evt.target.value.match(/\n/gm)){
             setEnters(evt.target.value.match(/\n/gm).length)
             if(rows < 4){
@@ -35,7 +27,7 @@ export default function useReplyTextarea(){
     }
 
     const handleToggleShow = (props)=>{
-        if(showReplyTo) setTxtContent({})
+        if(showReplyTo) setTxtContent('')
         setShowReplyTo(!showReplyTo)
     }
 
