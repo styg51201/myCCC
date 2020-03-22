@@ -70,7 +70,7 @@
 }
 .Mao-shopcart-check-item-info {
   width: 370px;
-  margin: 0px 50px;
+  margin-left: 50px;
   font-size: 18px;
 }
 .Mao-shopcart-check-item-count {
@@ -128,8 +128,8 @@
   margin-right: 5px;
 }
 .Mao-btn-amount-white-my:hover {
-  background: $blue;
+  background: $grey;
   opacity: 0.8;
-  border-color: $blue;
+  border-color: $grey;
   // @include buttonTheme(greyStyle);
 }

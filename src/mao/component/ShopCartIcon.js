@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux'
 import {
     getShopCart,
     AddCart,
-    realCart,
     AddCartItem,
     ControlDataOne,
   } from '../actions/ShopCartAction'

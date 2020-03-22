@@ -9,7 +9,6 @@ import { bindActionCreators } from 'redux'
 import {
   getShopCart,
   AddCart,
-  realCart,
   AddCartItem,
   DelCartItem,
   CalShopCart,
@@ -20,7 +19,7 @@ import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 import { FaRegTrashAlt} from "react-icons/fa"
-
+import { FiHeart} from 'react-icons/fi';
 function ShopCartList(props) {
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(true)
@@ -129,11 +128,7 @@ function ShopCartList(props) {
               props.Handle_AddMyFavorite('true', v.pId, props.MyFavorite)
             }}
           >
-            <img
-              src="..\img\header-footer\shopping-bag.svg"
-              alt=""
-              className="Mao-btn-amount-img"
-            />
+            <FiHeart  style={{width:'25px',height:'25px',marginRight:'15px',marginLeft:'18px'}}/>
             <span>下次購買</span>
           </button>
         </div>
@@ -184,7 +179,6 @@ const mapDispatchToProps = dispatch => {
     {
       getShopCart,
       AddCart,
-      realCart,
       AddCartItem,
       DelCartItem,
       CalShopCart,
