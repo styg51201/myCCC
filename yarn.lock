@@ -7917,11 +7917,7 @@ morgan@^1.9.1:
     debug "2.6.9"
     depd "~2.0.0"
     on-finished "~2.3.0"
-<<<<<<< HEAD
     on-headers "~1.0.2"
-=======
-    on-headers "~1.0.1"
->>>>>>> 063ea0d0172cb9bf83af032719a673e5ecd69e84
 
 move-concurrently@^1.0.1:
   version "1.0.1"
