@@ -8,6 +8,32 @@ const db = require('./db_connect')
 const moment = require("moment-timezone");
 moment.locale('zh-tw'); //設置中文
 
+
+//-------MEMBER--------
+
+//get stories or drafts list
+router.get('/member/:page', (req, res)=>{
+
+    let sql;
+    if(req.params.page === 'stories'){
+        sql = `SELECT \`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryLikes\`, \`stryViews\`, \`updated_at\` FROM \`stories\` WHERE \`usrId\` = ?`;
+    }else if(req.params.page === 'drafts'){
+        sql = 'SELECT `drftId`, `drftTitle`, `drftContent`, `drftTags`, `updated_at` FROM `storyDrafts` WHERE `usrId` = ? AND `drftStatus` = "active"';
+    }
+
+    db.queryAsync(sql, [1]) //should come from session
+    .then(r=>{
+        r.forEach(elm=>{
+            elm.time = moment(elm.updated_at).format("YYYY-MM-DD")
+        })
+        res.json(r)
+    })
+    .catch(err=>{
+        res.json(err)
+    })
+})
+
+
 //upload-images
 router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     // console.log("foldername: ",req.body.foldername, "typeof:", typeof req.body.foldername) //string
@@ -108,6 +134,7 @@ router.patch('/user-editor/draft/:action/:id', (req, res)=>{
             output.data = r;
             output.message = message.success;
             res.json(output);
+            console.log(output)
             return;
         })
         .catch(err=>{
@@ -297,9 +324,17 @@ router.get('/:page?', (req, res)=>{
     let perPage = 15;
     let currentPage = req.params.page ? parseInt(req.params.page) : 1;
 
-    const sql = 'SELECT `Name`, `Img`, `stories`.`usrId`, `stories`.`stryId`, `stryViews`, `stryTitle`, `stryContent`, `stryLikes`, `stories`.`created_at`, `stories`.`updated_at`, COUNT(`rplyId`) AS "rplyTotal" FROM `stories` INNER JOIN `member` ON `usrId` = `ID` LEFT JOIN `storyReplies` ON `storyReplies`.`stryId` = `stories`.`stryId` WHERE `stryStatus` = "active" GROUP BY `stories`.`stryId` LIMIT ' + ((currentPage - 1 ) * perPage) + ', ' + perPage;
+    let sql = `SELECT \`Name\`, \`Img\`, \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryViews\`, \`stryTitle\`, \`stryContent\`, \`stryLikes\`, \`stories\`.\`created_at\`, \`stories\`.\`updated_at\`, COUNT(\`rplyId\`) AS "rplyTotal" 
+    FROM \`stories\` 
+    INNER JOIN \`member\` ON \`usrId\` = \`ID\` 
+    LEFT JOIN \`storyReplies\` ON \`storyReplies\`.\`stryId\` = \`stories\`.\`stryId\` WHERE \`stryStatus\` = "active" GROUP BY \`stories\`.\`stryId\``;
 
-    // const format = "YYYY"
+    if(!req.query.orderby){
+        sql = sql + ` ORDER BY \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`
+    }else{
+        sql = sql + ` ORDER BY ${req.query.orderby} DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`
+    }
+
     // console.log(sql)
 
     db.queryAsync(sql)

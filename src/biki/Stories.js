@@ -3,13 +3,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import {Link, withRouter} from 'react-router-dom'
 import { convertFromRaw } from 'draft-js'
 import {stateToHTML} from 'draft-js-export-html';
+import axios from 'axios'
+
 import {
     FiMoreHorizontal,
     FiChevronDown
   } from 'react-icons/fi'
 
 import useStorySearch from './utils/useStorySearch'
-
 
 // import './css/all.scss'
 import './css/stories.scss'
@@ -22,17 +23,16 @@ function Stories(props){
 
     const [pageNumber, setPageNumber] = useState(1)
     // const [showBtn, setShowBtn] = useState(false)
-
-    useEffect(()=>{
-        console.log(props)
-    },[])
+    const [showSort, setShowSort] = useState(false)
+    const [sortName, setSortName] = useState(null)
+    const [sortNameCn, setSortNameCn] = useState(null)
 
     const {
         loading,
         hasMore,
         stories,
-        error
-    } = useStorySearch(pageNumber)
+        error,
+    } = useStorySearch(pageNumber, sortName)
 
     const observer = useRef(null)
 
@@ -56,6 +56,20 @@ function Stories(props){
     const handleButtonMore = ()=>{
         setPageNumber(prevPageNumber => prevPageNumber + 1)
     }
+
+    const toggleShowSort = ()=>{
+        setShowSort(!showSort)
+    }
+
+    const handleSortName = (name, nameCn)=>{
+        setSortName(name)
+        setSortNameCn(nameCn)
+        setShowSort(false)
+    }
+
+    useEffect(()=>{
+        if(sortName) setPageNumber(1)
+    }, [sortName])
 
     const items =  stories.map((itm, idx)=>{
         let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
@@ -88,13 +102,46 @@ function Stories(props){
 
     return(
         <>
-        <div>排序 <FiChevronDown /></div>
+            <div className = 'bk-page-top'>
+                <div>
+                    <h5>STORIES</h5>
+                    <h6>故事牆</h6>
+                </div>
+                <div className='bk-sort'>
+                    <div role="button" onClick={toggleShowSort}>{sortName ? sortNameCn : '排序方式'} <FiChevronDown /></div>
+                    <ul className={showSort ? 'active' : ''}>
+                        <li onClick={()=>{
+                            handleSortName('`stories`.`updated_at`', '最新故事')
+                            // setPageNumber(1)
+                        }}>最新故事</li>
+                        <li onClick={()=>{
+                            handleSortName('`stryViews`', '觀看次數')
+                            // setPageNumber(1)
+                        }}>觀看次數</li>
+                        <li onClick={()=>{
+                            handleSortName('`stryLikes`', '按讚次數')
+                            // setPageNumber(1)
+                        }}>按讚次數</li>
+                        <li onClick={()=>{
+                            handleSortName('`rplyTotal`', '回覆數量')
+                            // setPageNumber(1)
+                        }}>回覆數量</li>
+                    </ul>
+                </div>
+            </div>
+
             <main className="mt-5">
-            <Link to="/upload-stories">Your story</Link>
+            <Link to="/member/upload-stories">Your story</Link> <br />
+            <Link to="/member/stories">Member Stories (currently set to member 1)</Link> <br />
+            <Link to="/member/stories/drafts">Member Drafts (currently set to member 1)</Link>
+
                 <div className="bk-stories-container">
                     <Masonry
                         className={'my-gallery-class'} // default ''
                         elementType={'div'} // default 'div'
+                        // options={{
+                        //     transitionDuration: 0
+                        // }}
                         disableImagesLoaded={false} // default false
                         updateOnEachImageLoad={false} // default false and works only if disableImagesLoaded is false
                     >

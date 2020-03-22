@@ -42,11 +42,11 @@ function StoryCard(props){
                         <h3>{props.data.stryTitle}</h3>
                         <div dangerouslySetInnerHTML={{__html: props.content}}></div>
                     </Card.Body>
-                    <Card.Footer>
+                    <Card.Footer className='bk-card-footer'>
                         <div>
-                            <FiThumbsUp />{props.data.stryLikes}
-                            <FiMessageSquare />{props.data.rplyTotal}
-                            <FiEye />{props.data.stryViews}
+                            <span><FiThumbsUp /> {props.data.stryLikes}</span>
+                            <span><FiMessageSquare /> {props.data.rplyTotal}</span>
+                            <span><FiEye /> {props.data.stryViews}</span>
                         </div>
                     </Card.Footer>
                 </Card>

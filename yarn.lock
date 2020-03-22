@@ -7917,7 +7917,11 @@ morgan@^1.9.1:
     debug "2.6.9"
     depd "~2.0.0"
     on-finished "~2.3.0"
+<<<<<<< HEAD
     on-headers "~1.0.2"
+=======
+    on-headers "~1.0.1"
+>>>>>>> 063ea0d0172cb9bf83af032719a673e5ecd69e84
 
 move-concurrently@^1.0.1:
   version "1.0.1"
@@ -11677,10 +11681,48 @@ svgo@^1.0.0, svgo@^1.2.2:
     unquote "~1.1.1"
     util.promisify "~1.0.0"
 
+<<<<<<< HEAD
 sweetalert2@^9.10.3:
   version "9.10.4"
   resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-9.10.4.tgz#6cae5d67469d310bda758b3424c63f1e8bb63f82"
   integrity sha512-vUAEfW8MfhTaiSsGre+3KGljM4J5qkBWifwtazYKb865L4HaNhZpjieAvQD00yQjXFQJNkRWZ7YsTQBZ5reDww==
+=======
+<<<<<<< HEAD
+sweetalert2@^9.10.3:
+  version "9.10.4"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-9.10.4.tgz#6cae5d67469d310bda758b3424c63f1e8bb63f82"
+  integrity sha512-vUAEfW8MfhTaiSsGre+3KGljM4J5qkBWifwtazYKb865L4HaNhZpjieAvQD00yQjXFQJNkRWZ7YsTQBZ5reDww==
+=======
+<<<<<<< HEAD
+<<<<<<< HEAD
+sweetalert2@^9.10.3:
+  version "9.10.3"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-9.10.3.tgz#e2e420173b2dd4133a20023174ad6636a90b6061"
+  integrity sha512-i/lDlar8sSH+/YEQ25NXcs0ASB8Upl4JJqKgFHcDtk62vts2hK6i+iOjyCw02s6feS3Qum+MrOHmZNJPFL/g2g==
+=======
+=======
+>>>>>>> 9c29e0efe6451b829c38ef3093240e88477c203f
+sweetalert2-react@^0.8.3:
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/sweetalert2-react/-/sweetalert2-react-0.8.3.tgz#4d4eaf5de807cb8d229edcaa0d7d3f711c36f5b3"
+  integrity sha512-l960IJWHE6BHDEImcn//thzQOY9moVccf6xgg42HDyLwpU/2wLvv9P82fD0sQn0WGAUwbjDz3Xfuj9oQI4iFzQ==
+  dependencies:
+    lodash.pick "^4.4.0"
+    mousetrap "^1.6.0"
+    prop-types "^15.0.0"
+    sweetalert2 "^8.5.0"
+    warning "^4.0.3"
+
+sweetalert2@^8.5.0:
+  version "8.19.0"
+  resolved "https://registry.yarnpkg.com/sweetalert2/-/sweetalert2-8.19.0.tgz#692269bc8ddc5760e2b5070da2cf5e9e278bac0b"
+  integrity sha512-nFL++N3bitkEkd487Tv4i5ZxusmnoAAXHjtk7lp603Opxb8wlvVnz3hqa7qiIw6QFL04JC810E6qVQNf8s0vYQ==
+<<<<<<< HEAD
+>>>>>>> 9c29e0efe6451b829c38ef3093240e88477c203f
+=======
+>>>>>>> 9c29e0efe6451b829c38ef3093240e88477c203f
+>>>>>>> c45bb74b0492008e75b9ed85a9e0128c5b2127bc
+>>>>>>> 063ea0d0172cb9bf83af032719a673e5ecd69e84
 
 symbol-observable@^1.0.4, symbol-observable@^1.2.0:
   version "1.2.0"

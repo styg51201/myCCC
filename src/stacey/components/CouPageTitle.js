@@ -21,7 +21,7 @@ function CouPageTitle(props){
     const [order,setOrder]= useState('排序方式')
     const couponOrderClassName= classNames('sty-orderDiv',{active:clicked})
 
-    console.log('789',props.data)
+  
 
     return (
         <>

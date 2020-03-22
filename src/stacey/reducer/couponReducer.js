@@ -3,6 +3,9 @@ export const getCouponData = (state=[],action)=>{
     switch (action.type){
       case 'SHOW_VALUE':
         return action.value
+      case 'PAGE_VALUE':
+        console.log('9999',action.value)
+        return [...state,...action.value]
       case 'GET_VALUE':
         state[action.index].geted = true
         state[action.index].cp_getedCount+=1
@@ -12,6 +15,16 @@ export const getCouponData = (state=[],action)=>{
     }
   }
   
+//優惠券篩選
+export const couponTotal = (state=0,action)=>{
+  switch (action.type){
+    case 'TOTAL_VALUE':
+        return action.value
+    default :
+      return state
+  }
+}
+
   //優惠券篩選
  export const filterCoupon = (state=[],action)=>{
     switch (action.type){
