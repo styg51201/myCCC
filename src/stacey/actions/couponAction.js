@@ -17,16 +17,22 @@ export const fromServerCouponData = val => {
     return async dispatch => {
       //getCoupon
       const request = new Request('http://localhost:5500/getCoupon', {
-        method: 'GET',
+        method: 'POST',
         credentials: 'include',
           headers: new Headers({
             Accept: 'application/json',
             'Content-Type': 'application/json',
+          }),
+          body:JSON.stringify({
+            page:val
           })
       })
       const res = await fetch(request)
       const data = await res.json()
-      dispatch(nameSort(data))
+  
+      val === 0 ? dispatch(showCoupon(data.couponData)) : dispatch({type:'PAGE_VALUE',value:data.couponData})
+      
+      dispatch({type:'TOTAL_VALUE',value:data.total[0].cp_total})
     }
   }
 
