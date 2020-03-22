@@ -164,24 +164,37 @@
     }
   }
 
-  .bk-story-replies{
-    padding: $spacing*2;
-    margin-top: $spacing*2;
+  .bk-recursive-replies-container{
 
-    .bk-rply-head{
-      display: flex;
+    .ttt{
+      padding-left: $spacing;
+      border-left: solid 1px $black;
     }
 
-    .bk-rply-body{
-      white-space: pre-line;
+    & >.ttt{
+      // border: none;
+      margin-top: $spacing*2;
     }
 
-    .bk-rply-foot{
-      display: flex;
-      justify-content: flex-end;
+    .bk-story-replies{
+      padding: $spacing*2;
+      // margin-top: $spacing*2;
 
-      div[role=button]{
-        cursor: pointer;
+      .bk-rply-head{
+        display: flex;
+      }
+
+      .bk-rply-body{
+        white-space: pre-line;
+      }
+
+      .bk-rply-foot{
+        display: flex;
+        justify-content: flex-end;
+
+        div[role=button]{
+          cursor: pointer;
+        }
       }
     }
   }
