@@ -21,15 +21,30 @@ import { getserverMember } from './actions/memberAction'
 
 function MemberEdit(props) {
   console.log(props)
-  console.log(props.data.Name)
-  //遇到資料undefined時解法
-  let imgUrl = props.data[0] ? props.data[0].Name : ''
+  // console.log(props.data.Name)
+  //固定帳號跟密碼傳自localstorage，剩下資料採用redux
+  let memberaccount = {}
+  memberaccount = JSON.parse(localStorage.getItem('userdata'))
+  console.log(memberaccount.username)
+  //遇到資料undefined時解法，因為第1次先跑時抓到undefined，會擋住後面再跑。
+
+  let email = props.data[0] ? props.data[0].Email : ''
+  let password = props.data[0] ? props.data[0].Pwd : ''
+  let name = props.data[0] ? props.data[0].Name : ''
+  let biethday = props.data[0] ? props.data[0].Birthday : ''
+  let gender = props.data[0] ? props.data[0].gender : ''
+  let addresscity = props.data[0] ? props.data[0].gender : ''
+
   useEffect(() => {
     props.getserverMember()
   }, [])
+  // if (memberaccount != false) {
   return (
     <>
       <Switch>
+        {/* <Route path="/memberedit/:memberaccount">
+          <memberedit />
+        </Route> */}
         <Route path="/memberedit/memberorder">
           <MemberOrder />
         </Route>
@@ -62,14 +77,19 @@ function MemberEdit(props) {
                     readonly
                     className="form-control-plaintext"
                     id="staticEmail"
-                    value={imgUrl}
+                    value={memberaccount.username}
                   />
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">電子信箱</label>
                 <div className="col-sm-4">
-                  <input type="email" className="form-control" id="" />
+                  <input
+                    type="email"
+                    className="form-control"
+                    id=""
+                    value={email}
+                  />
                 </div>
               </div>
               <div className="form-group row">
@@ -131,6 +151,7 @@ function MemberEdit(props) {
       </Switch>
     </>
   )
+  // }
 }
 
 // 選擇對應的reducer
