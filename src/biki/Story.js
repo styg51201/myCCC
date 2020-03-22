@@ -27,9 +27,9 @@ function Story(props){
 
     useEffect(()=>{
 
-        let url = 'http://localhost:5500' + props.location.pathname + props.location.search
-        let url2 = 'http://localhost:5500/stories/api/view-story' + props.location.search
-        let url3 = 'http://localhost:5500/stories/story/replies'  + props.location.search
+        let url = 'http://localhost:5500' + props.location.pathname + props.location.search //gets story
+        let url2 = 'http://localhost:5500/stories/api/view-story' + props.location.search //adds view
+        let url3 = 'http://localhost:5500/stories/story/replies'  + props.location.search //gets replies
         // console.log(props.location.search)
         console.log(url3)
 
@@ -127,7 +127,7 @@ function Story(props){
             if(elm.children){
                 child.push(mapRecursive(elm.children))
             }
-        return <div className="ttt">{child}</div>
+        return <div className="bk-r">{child}</div>
         })
     }
     
@@ -135,7 +135,7 @@ function Story(props){
         return (
             <>
                 <Row className="bk-story-container">
-                    <Col lg={4}>
+                    <Col lg={3}>
                         <div className="bk-story-side">
                             <div className="bk-story-top">
                                 <div>Image</div>
@@ -150,7 +150,7 @@ function Story(props){
                             </div>
                         </div>
                     </Col>
-                    <Col lg={8}>
+                    <Col lg={9}>
                         <div className='bk-story-content'>            
                             <h3>{data[0].stryTitle}</h3>
                             <div dangerouslySetInnerHTML={{__html: data[0].stryContent}}></div>
@@ -166,26 +166,8 @@ function Story(props){
                                 handleSubmit(replyTo, txtContent)
                             }}>Submit</button>
                         </div>
-                        {/* {rplyData.length ? rplyData.map((elm, idx)=>{
-                            return <StoryReply
-                            key={elm.rplyId}
-                            handlers={{
-                                submit: handleSubmit
-                            }}
-                            data={{
-                                name: elm.Name,
-                                img: elm.Image,
-                                id: elm.rplyId,
-                                content: elm.rplyContent,
-                                to: elm.rplyToId,
-                                fromNow: elm.rplyFromNow,
-                                date: elm.rplyUpdate
-                            }}
-                        />
-                        }) : (<div>no replies yet</div>)
-                     } */}
                      <div className='bk-recursive-replies-container'>
-                     {mapRecursive(rplyData)}
+                     {rplyData.length ? mapRecursive(rplyData) : '目前還沒有留言'}
                      </div>
                     </Col>
                 </Row>
