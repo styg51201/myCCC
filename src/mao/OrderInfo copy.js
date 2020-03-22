@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux'
 import {
   getShopCart,
   AddCart,
+  realCart,
   AddCartItem,
   DelCartItem,
   CalShopCart,
@@ -16,12 +17,8 @@ import {
   calCart,forServerorderProductInfo,saveOrderBuyerInfo,clearOrderBuyerproduct
 } from './actions/ShopCartAction'
 import Swal from 'sweetalert2'
-import　$ from 'jquery'
 
 function OrderInfo(props) {
-const [checkFrom,setCheckFrom]=useState(false)
-
-
   //月
   function getMonth() {
     let MonthBox = []
@@ -67,9 +64,6 @@ const [checkFrom,setCheckFrom]=useState(false)
     shipCost:'100',
     discount:'0'
   }
-
-  
-
   //獲取buyer資訊
   function getformInfo(e, str) {
     let getInfo = e.currentTarget.value
@@ -115,7 +109,6 @@ let productInfo={
   count:`${countArr}`,
   outStatus:'訂單處理中',
 }
-
 
   //送出
   async function POSTorderInfo() {
@@ -195,7 +188,7 @@ let productInfo={
                 <h2 className="border-bottom p-3">運送方式</h2>
               </div>
               <div className="d-flex">
-                <div className="custom-control custom-radio mr-5">
+                <div className="custom-control custom-checkbox mr-5">
                   <input
                     type="radio"
                     className="custom-control-input"
@@ -204,6 +197,7 @@ let productInfo={
                     onClick={e => {
                       getformInfo(e, 'shipping')
                     }}
+                    checked
                   />
                   <label className="custom-control-label" htmlFor="Seven-store">
                     7-11超商
@@ -212,7 +206,7 @@ let productInfo={
                     選擇門市
                   </Link>
                 </div>
-                <div className="custom-control custom-radio ">
+                <div className="custom-control custom-checkbox">
                   <input
                     type="radio"
                     className="custom-control-input"
@@ -238,7 +232,7 @@ let productInfo={
                 </h2>
               </div>
               <div className="d-flex">
-                <div className="custom-control custom-radio mr-5">
+                <div className="custom-control custom-checkbox mr-5">
                   <input
                     type="radio"
                     className="custom-control-input"
@@ -247,12 +241,13 @@ let productInfo={
                     onChange={(e, str) => {
                       getformInfo(e, 'payment')
                     }}
+                    checked
                   />
                   <label className="custom-control-label" htmlFor="COD">
                     貨到付款
                   </label>
                 </div>
-                <div className="custom-control custom-radio mr-5">
+                <div className="custom-control custom-checkbox mr-5">
                   <input
                     type="radio"
                     className="custom-control-input"
@@ -266,7 +261,7 @@ let productInfo={
                     信用卡一次付清
                   </label>
                 </div>
-                <div className="custom-control custom-radio">
+                <div className="custom-control custom-checkbox">
                   <input
                     type="radio"
                     className="custom-control-input"
@@ -350,7 +345,7 @@ let productInfo={
               <div className="col-2">
                 <h4>發票</h4>
               </div>
-              <div className="custom-control custom-radio mr-5">
+              <div className="custom-control custom-checkbox mr-5">
                 <input
                   type="radio"
                   className="custom-control-input"
@@ -359,6 +354,7 @@ let productInfo={
                   onClick={(e, str) => {
                     getformInfo(e, 'invoice')
                   }}
+                  checked
                 />
                 <label
                   className="custom-control-label"
@@ -367,7 +363,7 @@ let productInfo={
                   個人電子發票
                 </label>
               </div>
-              <div className="custom-control custom-radio mr-5">
+              <div className="custom-control custom-checkbox mr-5">
                 <input
                   type="radio"
                   className="custom-control-input"
@@ -381,7 +377,7 @@ let productInfo={
                   捐贈發票
                 </label>
               </div>
-              <div className="custom-control custom-radio">
+              <div className="custom-control custom-checkbox">
                 <input
                   type="radio"
                   className="custom-control-input"
@@ -427,11 +423,9 @@ let productInfo={
                 上一步
               </Link>
               <Link to='/Orderbill'
-                className="btn btn-danger px-3 py-2 rounded-0 mx-2" id="sendOrder"
+                className="btn btn-danger px-3 py-2 rounded-0 mx-2"
                 style={{ width: '30%', background: '#000', border: 'none' }}
-                onClick={() => {
-                  POSTorderInfo()
-                }}
+                onClick={() => POSTorderInfo()}
               >
                 結帳
               </Link>
@@ -459,6 +453,7 @@ const mapDispatchToProps = dispatch => {
     {
       getShopCart,
       AddCart,
+      realCart,
       AddCartItem,
       DelCartItem,
       CalShopCart,

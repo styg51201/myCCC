@@ -35,7 +35,7 @@ export const userLogin = userData => ({
 export const userLoginAsync = (userData, callback) => {
   return async dispatch => {
     const request = new Request(
-      'http://localhost:5500/member/?:memberaccount=' + userData.username,
+      'http://localhost:5500/member/test?memberaccount=' + userData.username,
       {
         method: 'GET',
         headers: new Headers({
@@ -50,36 +50,37 @@ export const userLoginAsync = (userData, callback) => {
     const response = await fetch(request)
     const data = await response.json()
     console.log('res data', data)
-    if (data != false) {
-      localStorage.setItem('userdata', JSON.stringify(userData))
-    }
 
     if (data.length > 0) {
       if (
-        data[36].Account === userData.username &&
-        data[36].Pwd === userData.password
+        data[0].Account === userData.username &&
+        data[0].Pwd === userData.password
       ) {
         console.log(data)
         // 設定資料
         dispatch(userLogin(userData))
-        window.location = 'http://localhost:3000/memberedit'
+        //存入localstorage
+        localStorage.setItem('userdata', JSON.stringify(userData))
+        window.location = `http://localhost:3000/memberedit/${userData.username}`
         //如果之後會員登入應該是以會員編輯資料網址為主http://localhost:3000/memberedit/:memberaccount
         // alert(`${userData.username}登入成功`)
         console.log('登入成功')
       } else {
-        alert('密碼錯誤')
+        alert('帳密錯誤')
       }
-    } else {
-      alert('沒有這個帳號')
     }
   }
+}
+
+//回傳memberId
+export const getMember = val => {
+  return { type: 'SHOW_MEMBERID', value: val }
 }
 
 //member跟server要資料
 export const getserverMember = val => {
   return async dispatch => {
-    //getCoupon
-    const request = new Request(`http://localhost:5500/member`, {
+    const request = new Request(`http://localhost:5500/member/`, {
       method: 'GET',
       credentials: 'include',
       headers: new Headers({
@@ -94,9 +95,4 @@ export const getserverMember = val => {
 
     dispatch(getMember(data))
   }
-}
-
-//回傳memberId
-export const getMember = val => {
-  return { type: 'SHOW_MEMBERID', value: val }
 }

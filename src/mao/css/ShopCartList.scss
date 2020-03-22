@@ -1,16 +1,110 @@
 @import '../../css/variables.scss';
-
+/* for shopCartList  */
+.Mao-shopcart-list {
+  position: relative;
+}
+.Mao-shopcart-list-items-box {
+  max-width: 975px;
+  margin-left: 1px;
+}
+.Mao-shopcart-check-btn {
+  border: 1px solid #000;
+  max-width: 315px;
+  margin: 30px auto;
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background: #000;
+}
+.Mao-shopcart-check-btn a {
+  color: #fff;
+}
+.Mao-shopcart-check-btn a:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.Mao-CartNoItem-shoplist {
+  height: 500px;
+  width: 100%;
+  position: relative;
+  padding: 0;
+  background-image: url('/Mao-img/travel1.jpg');
+  background-size: cover;
+}
+.Mao-CartNoItem-shoplist h3 {
+  color: #666;
+  text-shadow: 5px 5px 5px #999;
+  position: absolute;
+  top: 30%;
+  left: 13%;
+  z-index: 10;
+}
+.Mao-Like-img-shoplist {
+  padding: 0;
+  margin: 0;
+  width: 700px;
+  height: 500px;
+  box-shadow: 6px 6px 10px #aaa;
+  position: absolute;
+  top: 50px;
+}
+.Mao-shopcart-check-item-ul {
+  list-style-type: none;
+  width: 990px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $white;
+}
+.Mao-shopcart-check-item {
+  display: flex;
+  transition: 0.5s;
+  width: 90%;
+  margin: 0px;
+  border-bottom: 2px solid #efefef;
+  padding: 20px;
+}
+.Mao-shopcart-check-item img {
+  margin: 0px 20px;
+}
+.Mao-shopcart-check-item-info {
+  width: 370px;
+  margin-left: 50px;
+  font-size: 18px;
+}
+.Mao-shopcart-check-item-count {
+  height: 30px;
+  overflow: hidden;
+  border: 1px solid #ddd;
+  width: 130px;
+}
+.Mao-shopcart-check-item-count input {
+  outline: none;
+  border: none;
+  width: 30px;
+  text-align: center;
+  padding: 0px 10px;
+}
+.Mao-shopcart-check-item-action {
+  margin: 0 auto;
+}
+.Mao-shopcart-check-item-action div {
+  padding: 5px 15px;
+  margin: 5px;
+}
+.Mao-shopcart-check-item-action img {
+  margin-right: 10px;
+}
 .Mao-btn-amount {
   padding: 10px;
   width: 30%;
   color: $white;
 }
-
-.Mao-btn-amount-whiteDel {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  @include buttonTheme(borderedStyle);
+.Mao-btn-amount-input {
+  text-align: center;
+  width: 300px;
+  padding: 0;
 }
 
 .Mao-btn-amount-whiteLike {
@@ -20,6 +114,12 @@
   @include buttonTheme(borderedStyle);
 }
 
+.Mao-btn-amount-whiteDel {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  @include buttonTheme(borderedStyle);
+}
 .Mao-btn-amount-white-my {
   margin: 8px 0px;
 }
@@ -28,5 +128,8 @@
   margin-right: 5px;
 }
 .Mao-btn-amount-white-my:hover {
-  @include buttonTheme(greyStyle);
+  background: $grey;
+  opacity: 0.8;
+  border-color: $grey;
+  // @include buttonTheme(greyStyle);
 }

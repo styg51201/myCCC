@@ -11,10 +11,10 @@ router.get('/', (req, res) => {
 })
 
 //抓會員的account轉json在前端比對登入帳密
-router.get('/:memberaccount?', (req, res) => {
+router.get('/test', (req, res) => {
   // res.json(req.params)
   let sql = 'SELECT * FROM `member` WHERE `Account` = ?'
-  db.queryAsync(sql, [req.params.memberaccount]).then(r => {
+  db.queryAsync(sql, [req.query.memberaccount]).then(r => {
     return res.json(r)
   })
 })
@@ -62,11 +62,11 @@ router.post('/insert', (req, res) => {
     })
 })
 
-//抓會員的account資料轉json貼入資料編輯畫面
-router.get('/edit/:memberaccount?', (req, res) => {
+//抓指定會員的account資料轉json貼入資料編輯畫面
+router.get('/:memberaccount?', (req, res) => {
   // res.json(req.params)
   let sql = 'SELECT * FROM `member` WHERE `Account` = ?'
-  db.queryAsync(sql, [req.params.memberaccount]).then(r => {
+  db.queryAsync(sql, [req.query.body.memberaccount]).then(r => {
     return res.json(r)
   })
 })

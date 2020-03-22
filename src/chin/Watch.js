@@ -52,8 +52,10 @@ function Watch(props){
                         }
                         </div>
                         {commodity?<div className="chin-article">
-                adasdas
-            </div>:''}
+                                            <button>功能比較</button>
+                                            <button>關閉</button>
+                                    </div>
+                                        :''}
                         <div className="circle">
                             <div className="circle1">
                                 <div className="circle3"></div>
