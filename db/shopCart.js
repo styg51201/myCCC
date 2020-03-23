@@ -10,10 +10,11 @@ router.get('/shopCart', (req, res) => {
   })
 })
 
-router.get('/orderbuyerInfo',(req,res)=>{
-  let sql='SELECT * FROM `orderbuyer` WHERE orderId = ? ORDER BY `orderbuyer`.`created_at` DESC LIMIT 1'
+router.get('/orderbuyerInfo', (req, res) => {
+  let sql =
+    'SELECT * FROM `orderbuyer` WHERE orderId = ? ORDER BY `orderbuyer`.`created_at` DESC LIMIT 1'
   // SELECT * FROM `orderbuyer` WHERE 會員ID = ? ORDER BY `orderbuyer`.`created_at` DESC LIMIT 1
-  db.queryAsync(sql).then(r=>{
+  db.queryAsync(sql).then(r => {
     return res.json(r)
   })
 })
@@ -29,7 +30,7 @@ router.post('/orderBuyerInfo', (req, res) => {
 
   db.queryAsync(sql, [
     req.body.orderId,
-    req.body.buyer_name,
+    req.body.buyerName,
     req.body.mobile,
     req.body.total,
     req.body.payment,
@@ -38,7 +39,7 @@ router.post('/orderBuyerInfo', (req, res) => {
     req.body.invoice,
     req.body.taxNo,
     req.body.shipCost,
-    req.body.discount
+    req.body.discount,
   ])
     .then(r => {
       return res.json(r)
@@ -60,13 +61,13 @@ router.post('/orderproductInfo', (req, res) => {
   }
   let sql =
     'INSERT INTO `orderdetail`(`orderId`, `pId`, `count`, `outStatus`) VALUES (?,?,?,?)'
-    db.queryAsync(sql, [
-      req.body.orderId,
-      req.body.pId,
-      req.body.count,
-      req.body.outStatus
-    ])
-  
+  db.queryAsync(sql, [
+    req.body.orderId,
+    req.body.pId,
+    req.body.count,
+    req.body.outStatus,
+  ])
+
     .then(r => {
       return res.json(r)
     })
@@ -74,6 +75,6 @@ router.post('/orderproductInfo', (req, res) => {
       output.data = err
       console.log(err)
       res.json(output)
-    }) 
+    })
 })
 module.exports = router
