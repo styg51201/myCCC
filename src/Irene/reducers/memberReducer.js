@@ -16,7 +16,7 @@ export const member = (state = { isAuth: false }, action) => {
 export const getMemberID = (state = [], action) => {
   switch (action.type) {
     case 'SHOW_MEMBERID':
-      return action.value
+      return { ...action.data }
     default:
       return state
   }

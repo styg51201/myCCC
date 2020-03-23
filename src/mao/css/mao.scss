@@ -31,6 +31,14 @@
   border-bottom: 1px solid #eee;
   outline: none;
 }
+.Mao-total-go-shop {
+  position: relative;
+  color: $black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .Mao-total-box-btn {
   display: flex;
   justify-content: center;
@@ -40,6 +48,29 @@
   padding: 15px;
   border: 1px solid $grey;
   margin: 15px 0px;
+  color: $black;
+  position: relative;
+  overflow: hidden;
+}
+.Mao-total-box-btn:hover {
+  color: $black;
+  background: #eee;
+  border: 1px solid #eee;
+}
+.Mao-total-box-btn:hover .Mao-total-show {
+  color: $black;
+  opacity: 0.2;
+  width: 120%;
+}
+
+.Mao-total-show {
+  position: absolute;
+  transition: 0.5s;
+  opacity: 0;
+  width: 0%;
+  height: 200px;
+  background: #999;
+  transform: skewX(-20deg);
 }
 
 .Mao-total-box-btn-border-b {
@@ -50,7 +81,7 @@
   transition: 0.3s;
 }
 .Mao-total-box-btn-border-b:hover {
-  color: $blue;
+  color: $black;
   border-bottom: 1px solid $blue;
 }
 .Mao-total-box-btn:hover {

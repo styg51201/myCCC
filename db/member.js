@@ -63,12 +63,36 @@ router.post('/insert', (req, res) => {
 })
 
 //抓指定會員的account資料轉json貼入資料編輯畫面
-router.get('/:memberaccount?', (req, res) => {
+router.get('/:account', (req, res) => {
   // res.json(req.params)
   let sql = 'SELECT * FROM `member` WHERE `Account` = ?'
-  db.queryAsync(sql, [req.query.body.memberaccount]).then(r => {
+  db.queryAsync(sql, req.params.account).then(r => {
     return res.json(r)
   })
+})
+
+router.post('/update', (req, res) => {
+  const sql = `UPDATE \`member\` SET \`Email\`=?,\`Pwd\`=?,\`Name\`=?,\`Gender\`=?,\`Birthday\`=?,\`PhoneNumber\`=?,\`Address\`=? WHERE Account=?`
+  db.queryAsync(sql, [
+    req.body.email,
+    req.body.password,
+    req.body.name,
+    req.body.gender,
+    req.body.birthday,
+    req.body.phonenumber,
+    req.body.address,
+    req.params.account,
+  ])
+    .then(r => {
+      output.result = r
+      output.success = true
+      console.log('result:', r)
+      return res.json(output)
+    })
+    .catch(error => {
+      console.log('更新錯誤:', error)
+      return res.json(output)
+    })
 })
 
 module.exports = router
