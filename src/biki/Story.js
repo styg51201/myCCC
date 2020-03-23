@@ -4,6 +4,7 @@ import axios from 'axios'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js'
 import { Row, Col } from 'react-bootstrap'
+import Swal from 'sweetalert2'
 
 import StoryReply from './components/StoryReply'
 import useReplyTextarea from './utils/useReplyTextarea'
@@ -101,6 +102,14 @@ function Story(props){
             }
         })
         .then(res=>{
+            Swal.fire({
+                position: 'top-end',
+                // icon: 'success',
+                text: '成功回覆',
+                showConfirmButton: false,
+                timer: 1500,
+                position:'center',
+              })  
             console.log(res.data)
         })
     }
@@ -119,7 +128,7 @@ function Story(props){
                         id: elm.rplyId,
                         content: elm.rplyContent,
                         to: elm.rplyToId,
-                        fromNow: elm.rplyFromNow,
+                        fromNow: elm.fromNow,
                         date: elm.rplyUpdate
                     }}
                 />

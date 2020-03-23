@@ -301,6 +301,7 @@ input[type='checkbox'] {
   bottom: 0;
   background: #c7c7c7;
   height: 120px;
+  z-index: 2;
 }
 .chin-article button {
   margin: 5px;
@@ -324,7 +325,7 @@ input[type='checkbox'] {
   height: 55px;
   background: #0dd2c5;
   padding: 15px;
-  z-index: 5;
+  z-index: 1;
 }
 .chin-commodity-item {
   position: relative;

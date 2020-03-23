@@ -182,61 +182,61 @@
       }
     }
   }
+}
 
-  .bk-reply-textarea{
-    padding: $spacing*2;
-    background-color: $grey;
+.bk-reply-textarea{
+  padding: $spacing*2;
+  background-color: $grey;
 
-    &.hidden{
-      display:none;
-    }
-
-    textarea{
-      width: 100%;
-      resize: none;
-      height: auto;
-      background-color: transparent;
-      border: none;
-      border-bottom: solid 1px $black;
-      padding: $spacing 0;
-
-      &:focus{
-        outline: none;
-      }
-    }
+  &.hidden{
+    display:none;
   }
 
-  .bk-recursive-replies-container{
+  textarea{
+    width: 100%;
+    resize: none;
+    height: auto;
+    background-color: transparent;
+    border: none;
+    border-bottom: solid 1px $black;
+    padding: $spacing 0;
 
-    .bk-r{
-      padding-left: $spacing;
-      // border-left: solid 1px $black;
+    &:focus{
+      outline: none;
+    }
+  }
+}
+
+.bk-recursive-replies-container{
+
+  .bk-r{
+    padding-left: $spacing;
+    border-left: solid 1px $black;
+  }
+
+  & >.bk-r{
+    // border: none;
+    margin-top: $spacing*2;
+  }
+
+  .bk-story-replies{
+    padding: $spacing;
+    // margin-top: $spacing*2;
+
+    .bk-rply-head{
+      display: flex;
     }
 
-    & >.bk-r{
-      // border: none;
-      margin-top: $spacing*2;
+    .bk-rply-body{
+      white-space: pre-line;
     }
 
-    .bk-story-replies{
-      padding: $spacing;
-      // margin-top: $spacing*2;
+    .bk-rply-foot{
+      display: flex;
+      justify-content: flex-end;
 
-      .bk-rply-head{
-        display: flex;
-      }
-
-      .bk-rply-body{
-        white-space: pre-line;
-      }
-
-      .bk-rply-foot{
-        display: flex;
-        justify-content: flex-end;
-
-        div[role=button]{
-          cursor: pointer;
-        }
+      div[role=button]{
+        cursor: pointer;
       }
     }
   }
@@ -268,8 +268,20 @@
     //   background-color: $background;
     // }
 
+    .bk-story-li-content > div{
+      margin: $spacing/2 0;
+
+      &:nth-last-child(1){
+        margin-bottom: 0;
+      }
+    }
+
     .bk-story-li-fn{
       text-align: right;
+      
+      button{
+        margin-left: $spacing;
+      }
     }
   }
 }
