@@ -100,9 +100,10 @@ function MaoCartShopTotal(props) {
           <span className="float-right">{props.FinalTotal}</span>
         </p>
         <Link
-          className="d-flex justify-content-center align-items-center Mao-total-box-btn text-dark"
+          className="Mao-total-box-btn"
           to=""
         >
+        <div className="Mao-total-show"></div>
           繼續購物
         </Link>
         <Link
@@ -110,6 +111,7 @@ function MaoCartShopTotal(props) {
           to="/OrderInfo"
         >
           {CheckrouteName == '/OrderInfo' ? '確認結帳' : '前往結帳'}
+        <div className="Mao-total-show"></div>
         </Link>
       </div>
     </>
@@ -167,6 +169,7 @@ function MaoCartShopTotal(props) {
             ) : (
               <Link className="Mao-total-box-btn-fixed" to="/OrderInfo">
                 前往結帳
+        <div className="Mao-total-show"></div>
               </Link>
             )}
           </div>
