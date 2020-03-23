@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   BrowserRouter as Router,
   Route,
@@ -15,51 +16,67 @@ import Commoditycomponents2 from './components/Commoditycomponents2'
 import Commoditycomponents from './components/Commoditycomponents'
 import Commoditylist from './components/Commoditylist'
 import CompareProductSort from './components/CompareProductSort'
-//redux
-import { connect } from 'react-redux'
-//action
-import { bindActionCreators } from 'redux'
-import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
 function Surrounding(props) {
   const [englishnameSurrounding, setEnglishnameSurrounding] = useState(
     'SURROUNDING'
   )
   const [commodity, setCommdity] = useState(false)
+  const dispatch = useDispatch()
+  const data = useSelector(state => state.getItems)
+  const Surrounding = useSelector(state => state.getListitemName)
   console.log(props)
-  console.log(props.data)
-  const itemlist = props.data.map((val, ind) => {
-    if (props.Surrounding.indexOf(val.name) > -1) {
+  console.log(data)
+  const itemlist = data.map((val, ind) => {
+    if (Surrounding.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allitemlist = props.data.map((val, ind) => {
+  const allitemlist = data.map((val, ind) => {
     return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
   })
-  const commodityItems = props.data.map((val, ind) => {
-    if (props.Surrounding.indexOf(val.name) > -1) {
+  const commodityItems = data.map((val, ind) => {
+    if (Surrounding.indexOf(val.name) > -1) {
       return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allcommodityItems = props.data.map((val, ind) => {
+  const allcommodityItems = data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
   })
+  const showItems = val => {
+    return { type: 'SHOW_ITEMS', value: val }
+  }
+  //跟node要資料
+  async function formServerItemsData(val) {
+    const request = new Request(`http://localhost:5500/items/${val}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
 
+    console.log('ffff', data)
+    dispatch(showItems(data))
+  }
+  const ResetListItemName = (obj, val) => {
+    const newList = []
+    dispatch({ type: 'ITEMNAME_RESET', value: newList })
+  }
   useEffect(() => {
-    props.formServerItemsData('surrounding')
-    props.ResetListItemName()
+    formServerItemsData('surrounding')
+    ResetListItemName()
   }, [])
 
-  if (!props.data) return <></>
+  if (!data) return <></>
 
   return (
     <>
       <main className="chin-main">
         <section className="chin-section">
-          <Commoditylist data={props.data} />
+          <Commoditylist data={data} />
           <div className="chin-commodity-title">
             <CompareProductSort
-              data={props.data}
+              data={data}
               englishname={englishnameSurrounding}
               test={commodity}
               sendText={text => {
@@ -68,10 +85,10 @@ function Surrounding(props) {
             />
             <div className="chin-commodity">
               {commodity
-                ? props.Surrounding.length
+                ? Surrounding.length
                   ? commodityItems
                   : allcommodityItems
-                : props.Surrounding.length
+                : Surrounding.length
                 ? itemlist
                 : allitemlist}
             </div>
@@ -96,22 +113,5 @@ function Surrounding(props) {
     </>
   )
 }
-// 選擇對應的reducer
-const mapStateToProps = store => {
-  return { data: store.getItems, Surrounding: store.getListitemName }
-}
 
-//action
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      formServerItemsData,
-      ResetListItemName,
-    },
-    dispatch
-  )
-}
-
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Surrounding)
-)
+export default withRouter(Surrounding)
