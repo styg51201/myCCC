@@ -5,7 +5,7 @@ import React,{useState,useEffect} from 'react'
 //classnames
 import classNames from 'classnames'
 
-function Brand(){
+function Brand(props){
 
     const [brand,setBrand] = useState(false)
     const BrandClassName= classNames('chin-brand',{active:brand})
@@ -19,41 +19,15 @@ function Brand(){
             </div>
             <div>
                 <ul>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input" type="checkbox"/>
-                        <label for="color-input" className="chin-label">
+                {props.list.map((val,ind)=>{
+                  return  <li className="chin-brand-checkbox"  key={ind}>
+                        <input name={val} id={val} value={val} type="checkbox"/>
+                        <label for={val} className="chin-label">
                         <div className="chin-box"></div>
-                        Apple  
+                        {val}
                         </label>      
                     </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input2" type="checkbox"/>
-                        <label for="color-input2" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input3" type="checkbox"/>
-                        <label for="color-input3" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input4" type="checkbox"/>
-                        <label for="color-input4" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input5" type="checkbox"/>
-                        <label for="color-input5" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
+                })}
                 </ul>
             </div>
         </li>

@@ -16,30 +16,18 @@ import {
   calCart,forServerorderProductInfo,saveOrderBuyerInfo,clearOrderBuyerproduct
 } from './actions/ShopCartAction'
 import Swal from 'sweetalert2'
+import GetDayRange from './GetDayRange'
+import './css/OrderInfo.scss'
 import　$ from 'jquery'
 
 function OrderInfo(props) {
-const [checkFrom,setCheckFrom]=useState(false)
+
+  const [values,setValues]=useState ({buyerName:'',mobile:'',buyerAdress:'台北市大安區',invoice:'個人電子發票',shipping:'7-11',payment:'貨到付款'})
+  const [errors,setErrors]=useState ({buyerName:'',mobile:'',buyerAdress:'台北市大安區',invoice:'個人電子發票',shipping:'7-11',payment:'貨到付款'})
+  
+  const {getMonth,getYear}=GetDayRange()
 
 
-  //月
-  function getMonth() {
-    let MonthBox = []
-    for (let i = 1; i <= 12; i++) {
-      MonthBox.push(<option value={i}>{i}</option>)
-    }
-    return MonthBox
-  }
-  //年
-  function getYear() {
-    let yearBox = []
-    let MinDate = new Date()
-    let year = MinDate.getFullYear()
-    for (let i = year - 5; i <= year + 5; i++) {
-      yearBox.push(<option value={i}>{i}</option>)
-    }
-    return yearBox
-  }
 
   //訂單
   let order = ''
@@ -56,7 +44,7 @@ const [checkFrom,setCheckFrom]=useState(false)
   //送出資料
   const buyerInfo = {
     orderId: `${order}`,
-    buyer_name: '',
+    buyerName: '',
     mobile: '',
     payment: 'COD',
     shipping: 'Seven-store',
@@ -68,27 +56,55 @@ const [checkFrom,setCheckFrom]=useState(false)
     discount:'0'
   }
 
-  
-
+  function getbuyer(e){
+    $("#mobile").val('0912345678')
+    $("#buyerName").val('Alex')
+    buyerInfo.buyerName = 'Alex'
+    buyerInfo.mobile = '0912345678'
+  }
   //獲取buyer資訊
   function getformInfo(e, str) {
     let getInfo = e.currentTarget.value
     let getInfo2 = e.currentTarget.id
     switch (str) {
-      case 'buyer_name':
-        buyerInfo.buyer_name = getInfo
-        break
+      case 'buyerName':
+        buyerInfo.buyerName = getInfo
+        if(getInfo.length==0){
+          setErrors({...errors,buyerName:"名字不能空白"})
+          console.log("名字不能空白")
+        }else if(/[0-9]|\W/.test(getInfo)){
+            setErrors({...errors,buyerName:"名字不能為數字或符號"})
+            console.log("名字不能為數字或符號")
+        }else if(getInfo.length<2){
+          setErrors({...errors,buyerName:"名字長度有誤"})
+        }else{
+          setErrors({...errors,buyerName:""})
+        }
+        setValues({...values,buyerName:getInfo})
+      break
       case 'mobile':
         buyerInfo.mobile = getInfo
-        break
+        console.log(getInfo)
+        if(getInfo.length==0){
+          setErrors({...errors,mobile:"電話號碼不能為空白"})
+        }else if(!/^09[0-9]\d{7}$/.test(getInfo)){
+          setErrors({...errors,mobile:"電話號碼格式有誤，請以09xxxxxxxx輸入"})
+        }else{
+          setErrors({...errors,mobile:""})
+        }
+        setValues({...values,mobile:getInfo})
+      break
       case 'shipping':
         buyerInfo.shipping = getInfo2
+        setValues({...values,shipping:getInfo2})
         break
       case 'payment':
         buyerInfo.payment = getInfo2
+        setValues({...values,payment:getInfo2})
         break
       case 'invoice':
         buyerInfo.invoice = getInfo2
+        setValues({...values,invoice:getInfo2})
         break
       default:
         break
@@ -104,9 +120,14 @@ function getorderProductInfo(){
     countArr.push(v.count)
   })
 }
+useEffect(()=>{
+console.log(values)
+console.log(errors)
+},[values,buyerInfo])
 
 useEffect(()=>{
   getorderProductInfo()
+  GetDayRange()
 },[])
 
 let productInfo={
@@ -115,6 +136,8 @@ let productInfo={
   count:`${countArr}`,
   outStatus:'訂單處理中',
 }
+
+
 
 
   //送出
@@ -142,10 +165,7 @@ let productInfo={
       showConfirmButton: false,
       timer: 1500,
       position:'center',
-    })
-    // window.location.href= await '/Orderbill'
-    
-    
+    })  
   }
 
   //表格
@@ -163,28 +183,35 @@ let productInfo={
                 <h4>訂購人姓名</h4>
                 <input
                   type="text"
+                  id="buyerName"
                   className="form-control"
                   placeholder="訂購人姓名"
                   style={{ border: 'none', borderBottom: '1px solid #ddd' }}
-                  onChange={(e, str) => getformInfo(e, 'buyer_name')}
+                  onBlur={(e, str) => getformInfo(e, 'buyerName')}
                 />
+                {errors.buyerName=="名字不能為數字或符號"?<p className="Mao-prompt-word">{errors.buyerName}</p>:''}
+                {errors.buyerName=="名字不能空白"?<p className="Mao-prompt-word">{errors.buyerName}</p>:''}
+                {errors.buyerName=="名字長度有誤"?<p className="Mao-prompt-word">{errors.buyerName}</p>:''}
               </div>
               <div className="col my-3">
                 <h4>訂購人電話</h4>
                 <input
                   type="text"
+                  id="mobile"
                   className="form-control"
                   placeholder="Last name"
                   style={{ border: 'none', borderBottom: '1px solid #ddd' }}
-                  onChange={(e, str) => getformInfo(e, 'mobile')}
+                  onBlur={(e, str) => getformInfo(e, 'mobile')}
                 />
+                {errors.mobile=="電話號碼不能為空白"?<p className="Mao-prompt-word">{errors.mobile}</p>:''}
+                {errors.mobile=="電話號碼格式有誤，請以09xxxxxxxx輸入"?<p className="Mao-prompt-word">{errors.mobile}</p>:''}
               </div>
             </div>
             <div className="custom-control custom-checkbox">
               <input
                 type="checkbox"
                 className="custom-control-input"
-                id="customCheck1"
+                id="customCheck1" onClick={e=>{getbuyer(e)}}
               />
               <label className="custom-control-label" htmlFor="customCheck1">
                 同會員資料
@@ -282,6 +309,7 @@ let productInfo={
                 </div>
               </div>
             </div>
+            <div id="creditCardInfo">
             <div className="form-row my-5  d-flex align-items-center">
               <div className="col-2">
                 <h4>信用卡號</h4>
@@ -345,6 +373,7 @@ let productInfo={
                 />
                 <p style={{ width: '50%', margin: 0 }}>卡片背面，後三碼</p>
               </div>
+            </div>
             </div>
             <div className="form-row my-5 d-flex align-items-center">
               <div className="col-2">

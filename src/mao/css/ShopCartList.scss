@@ -108,28 +108,88 @@
 }
 
 .Mao-btn-amount-whiteLike {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
   @include buttonTheme(borderedStyle);
 }
 
 .Mao-btn-amount-whiteDel {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  overflow: hidden;
   @include buttonTheme(borderedStyle);
 }
 .Mao-btn-amount-white-my {
   margin: 8px 0px;
 }
+.Mao-btn-show {
+  transition: 0.3s;
+  opacity: 0;
+  position: absolute;
+  left: 60%;
+  top: -10px;
+  background: #888;
+  width: 5%;
+  height: 200%;
+  transform: skewX(-20deg);
+}
+.Mao-btn-showL {
+  transition: 0.5s;
+  opacity: 0;
+  position: absolute;
+  left: 0%;
+  top: -10px;
+  background: transparent;
+  width: 5%;
+  height: 200%;
+  transform: skewX(-20deg);
+}
+.Mao-btn-amount-white-my:hover .Mao-btn-showL {
+  // left: 80%;
+  opacity: 0.3;
+  width: 10%;
+  animation: mymove 1s;
+}
 
+@keyframes mymove {
+  0% {
+    top: -10px;
+    left: 0%;
+    background: transparent;
+  }
+  50% {
+    top: -10px;
+    left: 100%;
+    background: #888;
+  }
+  100% {
+    top: -10px;
+    left: 150%;
+    background: transparent;
+  }
+}
+.Mao-btn-amount-white-my:hover .Mao-btn-show {
+  left: -10%;
+  opacity: 0.3;
+  width: 150%;
+}
+// .Mao-btn-show:hover {
+//   opacity: 1;
+//   position: absolute;
+//   left: -5px;
+//   top: -10px;
+//   background: aaa;
+//   width: 150%;
+//   height: 100%;
+// }
 .Mao-btn-amount-img {
   margin-right: 5px;
 }
 .Mao-btn-amount-white-my:hover {
-  background: $grey;
-  opacity: 0.8;
-  border-color: $grey;
-  // @include buttonTheme(greyStyle);
+  border: 1px solid #ddd;
 }

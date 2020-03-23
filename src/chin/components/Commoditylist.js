@@ -5,12 +5,20 @@ import Price from '../small components/Price'
 import Discount from '../small components/Discount'
 
 
-function Commoditylist(){
-    
+function Commoditylist(props){
+        console.log(props)
+
+        let nameList = []
+        for(let i=0;i<props.data.length;i++){
+          if(nameList.indexOf(props.data[i].name) === -1){
+            nameList.push(props.data[i].name)
+          }
+        }
+        nameList.sort()
     return(
         <ul className="chin-commoditylist">
             <Price/>
-            <Brand/>
+            <Brand list={nameList}/>
             <Features/>
             <Discount/>
         </ul>
