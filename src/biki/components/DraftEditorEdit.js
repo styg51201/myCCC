@@ -1,8 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {withRouter} from 'react-router-dom'
-import {stateToHTML} from 'draft-js-export-html';
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
 import axios from 'axios'
+import Swal from 'sweetalert2'
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
 import TagBlock from './EditorComponents/TagBlock'
@@ -13,45 +13,27 @@ import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
 
 function DraftEditorEdit(props){
 
+    // console.log(props.editorState);
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
-    const [editorContent, setEditorContent] = useState(null);
+    // const [editorContent, setEditorContent] = useState(null);
     const [urlValue, setUrlValue] = useState('')
     const [foldername, setFoldername] = useState('')
     const [title, setTitle] = useState('')
     const [tags, setTags] = useState([])
     const [message, setMessage] = useState('')
-
+    const [readOnly, setReadOnly] = useState(false)
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
     const imgFormRef = useRef(null)
 
     useEffect(()=>{
-        // console.log(props.location.search)
-        if(!props.location) return;
-        let url = `http://localhost:5500/stories/member/story${props.location.search}`
-
-        axios.get(url)
-        .then(r=>{
-            setTitle(r.data.stryTitle)
-            setTags(JSON.parse(r.data.stryTags))
-            return convertFromRaw(JSON.parse(r.data.stryContent))
-        })
-        .then(content=>{
-            setEditorState(EditorState.createWithContent(content));    
-        })
-    }, [])
-
-
-    //set editor content when Editor has content
-    useEffect(()=>{
-        let content = editorState.getCurrentContent()
-        let newContent = convertToRaw(content);
-
-        if(newContent.blocks.length > 1 || newContent.blocks[0].text !== ''){
-            setEditorContent(newContent)
+        if(props.content){
+            setEditorState(EditorState.createWithContent(props.content))
+            setTitle(props.title)
+            setTags(props.tags)
         }
-    }, [editorState])
+    }, [props.content])
 
     const handleTitle = (e)=>{
         // console.log(e.target.value)
@@ -118,10 +100,8 @@ function DraftEditorEdit(props){
         }
     }
 
-    //final submit
-    async function updateStory(){
-
-        const contentState = await editorState.getCurrentContent()
+    const checkContent = ()=>{
+        const contentState = editorState.getCurrentContent()
 
         //判斷是否有內容
         let c = convertToRaw(contentState)
@@ -132,20 +112,40 @@ function DraftEditorEdit(props){
             str += c.blocks[i].text
             if(c.blocks[i].type === 'atomic') flag = true
         }
-
-        console.log(str);
-
         if(!str.trim().length && !flag){
-            console.log("no content")
-            alert('沒有內容不能送出喔')
-            return;
+            // console.log(title)
+            // console.log("no content")
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                text: '請填寫內容',
+                showConfirmButton: false,
+                timer: 1500,
+                position:'center',
+              })  
+            return false;
         }else if(title === '' || !title.trim().length){
-            console.log("no title")
-            alert('請填寫標題喔')
-            return;
+            // console.log("no title")
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                text: '請填寫標題',
+                showConfirmButton: false,
+                timer: 1500,
+                position:'center',
+              })  
+            return false;
         }
 
         console.log("you may pass")
+        return true;
+    }
+
+    //final submit
+    async function updateStory(){
+
+        if(!checkContent()) return;
+        const contentState = editorState.getCurrentContent()
 
         //fetch
         const response = await fetch(`http://localhost:5500/stories/member/story${props.location.search}`, {
@@ -162,9 +162,20 @@ function DraftEditorEdit(props){
         })
         const data = await response.json()
         await console.log(data)
+        
+        setReadOnly(true)
 
-        alert('上傳成功！')
-        props.history.push('/stories')
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: '更新成功！',
+            showConfirmButton: false,
+            timer: 1500,
+            position:'center',
+          })  
+        setTimeout(()=>{
+            props.history.push('/member/stories')
+        }, 1500)
         return;
     }
 
@@ -178,7 +189,9 @@ function DraftEditorEdit(props){
             <div className='bk-editor-message'>{message ? message : ''}</div>
             <div className="bk-form-control">
                 <label>標題</label>
-                <input type="text" onChange={handleTitle} defaultValue={title} />
+                <input disabled={readOnly} type="text" onChange={(evt)=>{
+                    handleTitle(evt)
+                }} defaultValue={title} />
             </div>
             <div className="bk-form-control">
                 <div className="bk-editor-tags">{!tags ? '' : tags.map((v, i)=>{
@@ -187,7 +200,7 @@ function DraftEditorEdit(props){
                     }
                 })}</div>
                 <label>標籤</label>
-                <input type="text" onChange={handleTags} defaultValue={tags ? tags.join(',') : 'nope'} />
+                <input disabled={readOnly} type="text" onChange={handleTags} defaultValue={tags ? tags.join(',') : 'nope'} />
             </div>
             <div className="bk-draft-editor-container">
                 <div>
@@ -205,6 +218,7 @@ function DraftEditorEdit(props){
                     editorState={editorState}
                     handleKeyCommand={handleKeyCommand}
                     onChange={onChange} //update state on change
+                    readOnly={readOnly}
                     customStyleMap= {styleMap} //custom inline styles
                     blockStyleFn={getBlockType} //custom block type settings with class
                     ref={editorRef}

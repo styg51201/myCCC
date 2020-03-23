@@ -77,7 +77,7 @@ function Stories(props){
         let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
 
         if(stories.length === idx+1){
-            return (<>
+            return (
                 <div className="bk-masonry-brick" 
                     ref={lastStoryElementRef} 
                     key={`${itm.stryId}-${itm.userId}`} 
@@ -87,9 +87,9 @@ function Stories(props){
                         data={itm}
                     />
                 </div>
-            </>)
+            )
         }else{
-            return (<>
+            return (
                 <div className="bk-masonry-brick" 
                     key={`${itm.stryId}-${itm.userId}`} 
                 >
@@ -98,7 +98,7 @@ function Stories(props){
                         data={itm}
                     />
                 </div>
-            </>)
+            )
         }
     })
 
