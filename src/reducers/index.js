@@ -22,12 +22,15 @@ import {
 //mao
 import {
   AddItem,
-  displayShopCart,
+  //displayShopCart,
   getShop,
   calculator,
   calculator_total,
   MyFavorite,
-  ControlDataState,getOrderBuyer,saveOrderBuyerInfoReducer
+  ControlDataState,
+  getOrderBuyer,
+  saveOrderBuyerInfoReducer,
+  saveOrderBuyerProReducer,
 } from '../mao/reducers/ShopCartReducer'
 import { getMemberID, member } from '../Irene/reducers/memberReducer'
 
@@ -55,8 +58,11 @@ const rootReducer = combineReducers({
   getCouponData,
   adData,
   memberData,
+<<<<<<< HEAD
+=======
   couponTotal,
-  filterCoupon, //sty 
+>>>>>>> 1b7484de5dbd5556975fa3ed518b59a276d04296
+  filterCoupon, //sty
   getItems,
   getItemId,
   getMultipleItemId,
@@ -71,6 +77,7 @@ const rootReducer = combineReducers({
   ControlDataState,
   getOrderBuyer,
   saveOrderBuyerInfoReducer,
+  saveOrderBuyerProReducer,
   //
   member,
   getMemberID,
