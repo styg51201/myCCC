@@ -19,7 +19,7 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData } from './actions/itemsActions'
+import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
 function Headset(props) {
   const [englishnameHeadset, setEnglishnameHeadset] = useState(
@@ -47,6 +47,7 @@ function Headset(props) {
   })
   useEffect(() => {
     props.formServerItemsData('headset')
+    props.ResetListItemName()
   }, [])
 
   if (!props.data) return <></>
@@ -105,6 +106,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       formServerItemsData,
+      ResetListItemName,
     },
     dispatch
   )

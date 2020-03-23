@@ -19,7 +19,7 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData } from './actions/itemsActions'
+import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
 function Surrounding(props) {
   const [englishnameSurrounding, setEnglishnameSurrounding] = useState(
@@ -47,6 +47,7 @@ function Surrounding(props) {
 
   useEffect(() => {
     props.formServerItemsData('surrounding')
+    props.ResetListItemName()
   }, [])
 
   if (!props.data) return <></>
@@ -105,6 +106,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       formServerItemsData,
+      ResetListItemName,
     },
     dispatch
   )
