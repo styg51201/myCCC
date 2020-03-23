@@ -488,6 +488,9 @@ input[type='checkbox'] {
   margin: 2px;
 }
 /*--------------RWD------------------*/
+
+@import '../../css/variables';
+@import '../../css/main.scss';
 .chin-rwd-sort-features {
   display: none;
 }
@@ -510,6 +513,7 @@ input[type='checkbox'] {
   }
   .chin-rwd-features {
     background: $white;
+    color: #050505;
     border: 1px solid #c4c4c4;
     border-radius: 5px;
     width: 159px;
@@ -517,6 +521,7 @@ input[type='checkbox'] {
   }
   .chin-rwd-sort {
     background: $white;
+    color: #050505;
     border: 1px solid #c4c4c4;
     border-radius: 5px;
     width: 159px;
@@ -539,26 +544,30 @@ input[type='checkbox'] {
     margin-top: 40px;
   }
   .chin-commodity-item {
-    background: #ddd;
-    width: 155px;
-    height: 363px;
-    margin: 0;
+    background: #fff;
+    width: 160px;
+    height: 260px;
+    margin: 0 0 30px 0;
   }
   .chin-commodity-item h6 {
     margin-top: 10px;
+    font-size: 8px;
+  }
+  .chin-commodity-item h4 {
+    padding: 10px 15px 15px 15px;
     font-size: 12px;
   }
   .chin-commodity-item h5 {
-    font-size: 15px;
+    font-size: 14px;
   }
   .chin-commodity-item p {
     margin-top: 10px;
     font-size: $font-xs;
   }
-  .chin-watch {
-    width: 155px;
-    height: 206px;
-    margin: 0;
+  .chin-watchs {
+    width: 120px;
+    height: 120px;
+    margin: 0 20px;
   }
   .chin-commodity-item:hover {
     box-shadow: unset !important;

@@ -60,7 +60,7 @@ function ProductSlide(props) {
   let checkBox = []
   props.AddItem.map((v, i) => {
     RealCart.push(v)
-    checkBox.push(v.pId)
+    checkBox.push(v.itemId)
   })
   useEffect(() => {
     props.getShopCart()
@@ -68,13 +68,13 @@ function ProductSlide(props) {
 
   function checkCart(val) {
     
-    let index = checkBox.findIndex(e => e == val.pId)
+    let index = checkBox.findIndex(e => e == val.itemId)
     if (index == -1) {
       val.count=1
       RealCart.push(val)
     }else{
       RealCart.map((v, i) => {
-        if (val.pId == v.pId) {
+        if (val.itemId == v.itemId) {
           v.count=+v.count+1
         }
     })
@@ -95,13 +95,13 @@ function ProductSlide(props) {
             alt="..."
           />
           <h4 className="card-title">{v.pName}</h4>
-          <p>${v.price}</p>
+          <p>${v.itemPrice}</p>
           <button
             className="Mao-prodctSlide-card-btn-add"
             onClick={() => {
               let productInfo = {
-                pId: v.pId,
-                price: v.price,
+                itemId: v.itemId,
+                itemPrice: v.itemPrice,
                 count:0,
                 itemCategoryId: v.itemCategoryId,
                 name: v.name,
@@ -116,8 +116,8 @@ function ProductSlide(props) {
             className="Mao-prodctSlide-card-btn-like"
             onClick={() => {
               let productInfo = {
-                pId: v.pId,
-                price: v.price,
+                itemId: v.itemId,
+                itemPrice: v.itemPrice,
                 itemCategoryId: v.itemCategoryId,
                 name: v.name,
               }

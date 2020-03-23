@@ -169,7 +169,6 @@ function MaoCartShopTotal(props) {
             ) : (
               <Link className="Mao-total-box-btn-fixed" to="/OrderInfo">
                 前往結帳
-        <div className="Mao-total-show"></div>
               </Link>
             )}
           </div>
