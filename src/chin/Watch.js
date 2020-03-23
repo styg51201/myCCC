@@ -19,8 +19,26 @@ import { formServerItemsData } from './actions/itemsActions'
 function Watch(props){
     const [englishnameWatch,setEnglishnameWatch]=useState("WEARABLE DEVICES")
     const [commodity,setCommdity]=useState(false)
-    console.log(props)
-    console.log(props.data)
+
+
+    const itemlist = props.data.map((val,ind)=>{
+        if(props.watch.indexOf(val.name)>-1){
+           return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind}/>
+        }
+    })
+    const allitemlist = props.data.map((val,ind)=>{
+           return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind}/>
+    })
+    const commodityItems = props.data.map((val,ind)=>{
+        if(props.watch.indexOf(val.name)>-1){
+           return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind}/>
+        }
+    })
+    const allcommodityItems = props.data.map((val,ind)=>{
+           return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind}/>
+    })
+
+    // const commodityItems = 
     useEffect(()=>{
         props.formServerItemsData("watch")
       },[])
@@ -38,17 +56,11 @@ function Watch(props){
                         setCommdity(text)
                     }}/>
                         <div className="chin-commodity">
-                        {commodity? props.data.map((val,ind)=>{
-                                return(
-                        <Commoditycomponents2 key={ind} data={props.data[ind]}/>
-                        )
-                                })
-                           :
-                               props.data.map((val,ind)=>{
-                                return(
-                        <Commoditycomponents key={ind} data={props.data[ind]}/>
-                        )
-                                }) 
+                        {commodity
+                        ?
+                        props.watch.length ? commodityItems : allcommodityItems
+                        :
+                        props.watch.length ? itemlist : allitemlist
                         }
                         </div>
                         {commodity?<div className="chin-article">
@@ -71,7 +83,8 @@ function Watch(props){
 }
 // 選擇對應的reducer
 const mapStateToProps = store => {
-    return { data: store.getItems}
+    return { data: store.getItems,
+            watch: store.getListitemName}
   }
 
 //action
