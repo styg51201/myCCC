@@ -26,3 +26,12 @@ export const getMultipleItemId = (state=[],action)=>{
       return state
   }
 }
+//-------------------chin ListitemName------------------
+  export const getListitemName = (state=[],action)=>{
+    switch (action.type){
+      case 'ITEMNAME_VALUE':
+          return action.value
+      default :
+        return state
+    }
+  }

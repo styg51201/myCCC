@@ -44,10 +44,10 @@ function Home(){
                     </Row>
                     <div className="bk-arrows">
                         <div className="bk-arrow-r">
-                            ---->
+                            <img src='./biki-img/arrowLeft.svg' />
                         </div>
                         <div className="bk-arrow-l">
-                            >----
+                        <img src='./biki-img/arrowRight.svg' />
                         </div>
                     </div>
                     <div className="bk-ad-list-buttons">

@@ -11,12 +11,62 @@ moment.locale('zh-tw'); //設置中文
 
 //-------MEMBER--------
 
+//get story
+router.get('/member/story', (req, res)=>{
+
+    let stryId = req.query.id;
+    console.log(stryId)
+
+    let sql = `SELECT \`usrId\`, \`stryId\`, \`stryTitle\`, \`stryTags\`, \`stryContent\`, \`stryLikes\`, \`updated_at\`
+    FROM \`stories\` 
+    WHERE \`stryId\`=? AND \`usrId\` = ?`
+
+    db.queryAsync(sql, [stryId, 1]) //should come from session
+    .then(r=>{
+        res.json(r[0])
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
+
+//update story
+router.patch('/member/story', (req, res)=>{
+
+    // console.log(req.body)
+    if(!req.query.id || !req.body) return;
+
+    let id = req.query.id;
+    console.log(id)
+
+    let sql = `UPDATE \`stories\` 
+    SET \`stryTitle\`=?,\`stryContent\`=? ,\`stryTags\`=? , \`updated_at\`= NOW() 
+    WHERE \`stryId\`= ? AND \`usrId\`=?`
+
+    db.queryAsync(sql, [
+        req.body.title,
+        JSON.stringify(req.body.content),
+        JSON.stringify(req.body.tags),
+        id,
+        1 //should be from session
+    ])
+    .then(r=>{
+        res.json(r)
+        // console.log(r)
+    })
+})
+
 //get stories or drafts list
 router.get('/member/:page', (req, res)=>{
 
     let sql;
     if(req.params.page === 'stories'){
-        sql = `SELECT \`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryLikes\`, \`stryViews\`, \`updated_at\` FROM \`stories\` WHERE \`usrId\` = ?`;
+        sql = `SELECT \`s\`.\`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryLikes\`, \`stryViews\`, \`s\`.\`updated_at\`,
+        COUNT(\`rplyId\`) AS \`rplyTotal\`
+        FROM \`stories\` AS \`s\`
+        LEFT JOIN \`storyReplies\` AS \`r\` ON \`r\`.\`stryId\` = \`s\`.\`stryId\`
+        WHERE \`s\`.\`usrId\` = ?
+        GROUP BY \`s\`.\`stryId\``;
     }else if(req.params.page === 'drafts'){
         sql = 'SELECT `drftId`, `drftTitle`, `drftContent`, `drftTags`, `updated_at` FROM `storyDrafts` WHERE `usrId` = ? AND `drftStatus` = "active"';
     }
@@ -32,6 +82,7 @@ router.get('/member/:page', (req, res)=>{
         res.json(err)
     })
 })
+
 
 
 //upload-images
@@ -256,6 +307,8 @@ router.post('/reply', (req, res)=>{
     })
 })
 
+//-------PUBLIC PAGES--------
+
 //get replies to story
 router.get('/story/replies', (req, res)=>{
     // console.log(req.query)
@@ -332,19 +385,42 @@ router.get('/:page?', (req, res)=>{
     if(!req.query.orderby){
         sql = sql + ` ORDER BY \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`
     }else{
-        sql = sql + ` ORDER BY ${req.query.orderby} DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`
+        if(req.query.orderby === 'time'){
+            sql = sql + ` ORDER BY \`stories\`.\`updated_at\` DESC, \`stories\`.\`stryViews\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
+        }else if (req.query.orderby === 'views'){
+            sql = sql + ` ORDER BY \`stories\`.\`stryViews\` DESC, \`stories\`.\`stryLikes\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
+        }else if (req.query.orderby === 'likes'){
+            sql = sql + ` ORDER BY \`stories\`.\`stryLikes\` DESC, \`stories\`.\`stryViews\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
+        }else if (req.query.orderby === 'replies'){
+            sql = sql + ` ORDER BY \`rplyTotal\` DESC, \`stories\`.\`stryViews\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
+        }
     }
 
     // console.log(sql)
 
+    const countsql = 'SELECT COUNT(*) AS "stryTotal" FROM `stories` WHERE `stryStatus`="active"';
+
     db.queryAsync(sql)
     .then(r=>{
-        r.forEach((elm, idx)=>{
-            r[idx].fromNow = moment(elm.updated_at).fromNow()
-        })
 
-        // console.log(r)
-        res.json(r);
+        db.queryAsync(countsql)
+        .then(rs=>{
+            // console.log(rs[0].stryTotal)
+
+            r.forEach((elm, idx)=>{
+                r[idx].fromNow = moment(elm.updated_at).fromNow()
+            })
+            let data = {
+                data: r,
+                stryTotal: rs[0].stryTotal
+            }
+            res.json(data);
+            // console.log(data)
+
+        })
+        .catch(err=>console.log(err))
+
+
     })
     .catch(err=>{
         console.log(err);

@@ -31,6 +31,8 @@ function Stories(props){
         loading,
         hasMore,
         stories,
+        stryTotal,
+        showBtn,
         error,
     } = useStorySearch(pageNumber, sortName)
 
@@ -111,19 +113,19 @@ function Stories(props){
                     <div role="button" onClick={toggleShowSort}>{sortName ? sortNameCn : '排序方式'} <FiChevronDown /></div>
                     <ul className={showSort ? 'active' : ''}>
                         <li onClick={()=>{
-                            handleSortName('`stories`.`updated_at`', '最新故事')
+                            handleSortName('time', '最新故事')
                             // setPageNumber(1)
                         }}>最新故事</li>
                         <li onClick={()=>{
-                            handleSortName('`stryViews`', '觀看次數')
+                            handleSortName('views', '觀看次數')
                             // setPageNumber(1)
                         }}>觀看次數</li>
                         <li onClick={()=>{
-                            handleSortName('`stryLikes`', '按讚次數')
+                            handleSortName('likes', '按讚次數')
                             // setPageNumber(1)
                         }}>按讚次數</li>
                         <li onClick={()=>{
-                            handleSortName('`rplyTotal`', '回覆數量')
+                            handleSortName('replies', '回覆數量')
                             // setPageNumber(1)
                         }}>回覆數量</li>
                     </ul>
@@ -148,7 +150,7 @@ function Stories(props){
                        {items}
                     </Masonry>
                 </div>
-                <button className={`bk-btn-more${hasMore ? '' : ' hidden'}`} onClick={handleButtonMore}>
+                <button className={`bk-btn-more${showBtn ? '' : ' hidden'}`} onClick={handleButtonMore}>
                     <FiMoreHorizontal />
                 </button>
             </main>

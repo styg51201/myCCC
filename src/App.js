@@ -19,6 +19,7 @@ import UploadStory from './biki/UploadStory'
 import Story from './biki/Story'
 import MemberStories from './biki/MemberStories'
 import MemberDrafts from './biki/MemberDrafts'
+import MemberStory from './biki/MemberStory'
 
 //import chin
 import Headset from './chin/Headset'
@@ -122,6 +123,9 @@ function App() {
             </Route>
             <Route path="/member/upload-stories">
               <UploadStory />
+            </Route>
+            <Route path="/member/stories/story">
+              <MemberStory />
             </Route>
             <Route path="/member/stories/drafts">
               <MemberDrafts />
