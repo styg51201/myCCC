@@ -13,6 +13,7 @@ const upload = multer({ dest: 'tmp_uploads/' })
 
 //會員id
 router.post('/',(req,res)=>{
+    console.log(req.body.page)
     const sqlTotal = 'SELECT COUNT(*) AS `cp_total` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 4) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE'
 
     const sql = 'SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 4) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE  ORDER BY `cp_vendor` ASC  LIMIT ?,4'
@@ -25,7 +26,6 @@ router.post('/',(req,res)=>{
                 e.cp_start = moment(e.cp_start).format(fm)
                 e.cp_due = moment(e.cp_due).format(fm)
         })
-          console.log({total,data:r})
           res.json({total,couponData:r})
         });
       
