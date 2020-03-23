@@ -42,7 +42,7 @@ const countArr=[]
 //獲取購物車內容
 function getorderProductInfo(){
 props.AddItem.map((v,i)=>{
-  pIdArr.push(v.pId)
+  pIdArr.push(v.itemId)
   countArr.push(v.count)
 })
 }

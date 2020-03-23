@@ -1,7 +1,8 @@
 import React from 'react'
 import '../css/MaoAD.scss'
 
-function MaoAD() {
+function MaoAD(props) {
+  console.log('MaoAd', props)
   return (
     <>
       <div class="Mao-buyerLine-box">

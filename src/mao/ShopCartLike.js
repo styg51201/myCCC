@@ -69,6 +69,7 @@ function ShopCartLike(props) {
 
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
+    console.log('MyFavorite',v)
     return (
       <li key={v.itemId} className="d-flex Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
@@ -92,7 +93,6 @@ function ShopCartLike(props) {
           <button
             className="btn btn-danger d-flex justify-content-start py-2 my-2"
             onClick={() => {
-              props.Handle_AddMyFavorite('false', v, props.MyFavorite)
               let productInfo = {
                 itemId: v.itemId,
                 itemPrice: v.itemPrice,
@@ -100,6 +100,7 @@ function ShopCartLike(props) {
                 itemCategoryId: v.itemCategoryId,
                 name: v.name,
               }
+              props.Handle_AddMyFavorite('false', v, props.MyFavorite)
               checkCart(productInfo)
             }}
           >

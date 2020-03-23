@@ -74,6 +74,7 @@ function ShopCartList(props) {
   })
   // 購物車內容
   const dataList = props.AddItem.map((v, i) => {
+    console.log('SEEEEE',v)
     return (
       <li key={v} className="Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
@@ -128,7 +129,7 @@ function ShopCartList(props) {
             onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
-              props.Handle_AddMyFavorite('true', v.itemId, props.MyFavorite)
+              props.Handle_AddMyFavorite('true', v, props.MyFavorite)
             }}
           >
             <FiHeart  style={{width:'25px',height:'25px',marginRight:'15px',marginLeft:'18px'}}/>
