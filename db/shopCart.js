@@ -60,10 +60,10 @@ router.post('/orderproductInfo', (req, res) => {
     message: '',
   }
   let sql =
-    'INSERT INTO `orderdetail`(`orderId`, `pId`, `count`, `outStatus`) VALUES (?,?,?,?)'
+    'INSERT INTO `orderdetail`(`orderId`, `itemId`, `count`, `outStatus`) VALUES (?,?,?,?)'
   db.queryAsync(sql, [
     req.body.orderId,
-    req.body.pId,
+    req.body.itemId,
     req.body.count,
     req.body.outStatus,
   ])
