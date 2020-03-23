@@ -21,6 +21,9 @@ function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [commodity, setCommdity] = useState(false)
   const dispatch = useDispatch()
+  
+  const reset = useSelector(state => state.reset)
+
   const data = useSelector(state => state.getItems)
   const watch = useSelector(state => state.getListitemName)
   const itemlist = data.map((val, ind) => {
@@ -51,7 +54,7 @@ function Watch(props) {
     const data = await res.json()
     dispatch(showItems(data))
   }
-  const ResetListItemName = (obj, val) => {
+  const ResetListItemName = (val) => {
     const newList = []
     dispatch({ type: 'ITEMNAME_RESET', value: newList })
   }
@@ -59,7 +62,7 @@ function Watch(props) {
   // const commodityItems =
   useEffect(() => {
     formServerItemsData('watch')
-    ResetListItemName()
+    if(reset)  ResetListItemName()
   }, [])
 
   if (!data) return <></>

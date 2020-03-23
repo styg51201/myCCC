@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {getCouponToServer,getCoupon} from '../actions/couponAction'
+import {getCouponToServer,getCoupon,goShopping,noReset} from '../actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
@@ -18,7 +18,8 @@ import {
 
 function CouponItem(props){
 
-
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+  
   // 設定按鈕裡的字樣
   let couponState = '領取'
   if(props.item.geted){
@@ -101,13 +102,24 @@ function CouponItem(props){
 
   // 設定按鈕種類
   let getButton = (<button disabled={couponState === '發放結束'}
-                        onClick={()=>{props.getCouponToServer() //cp_id 跟 mb_id
-                                      props.getCoupon(props.arrIndex)
+                        onClick={()=>{
+                          if(mb_id){
+                            props.getCouponToServer(props.item.cp_id,mb_id) //cp_id 跟 mb_id
+                            props.getCoupon(props.arrIndex)
+                            }else{
+                              alert('請先登入')
+                            }
                         }}>
                         <span>{couponState}</span>
                      </button>)
   let shopButton = (<button onClick={()=>{
+    props.noReset(false)
+    props.goShopping(props.item.cp_vendor) 
     props.history.push(path)
+    setTimeout(()=>{
+      props.noReset(true)
+    },2000)
+
   }}>
                       <span>{couponState}</span>
                     </button>)
@@ -151,7 +163,7 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    getCouponToServer,getCoupon
+    getCouponToServer,getCoupon,goShopping,noReset
   },dispatch)
 }
 

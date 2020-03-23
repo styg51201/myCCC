@@ -20,8 +20,11 @@ function MemberCoupon(props) {
 
   const [state,setState] = useState('get')
 
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+  
+
   useEffect(()=>{
-    props.fromServerMemberCouponData()
+    props.fromServerMemberCouponData(mb_id)
   },[])
 
   const buttonStyleForGet = classNames({active:state==='get'})
