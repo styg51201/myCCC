@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   BrowserRouter as Router,
   Route,
@@ -26,18 +26,55 @@ function MemberEdit(props) {
   let memberaccount = {}
   memberaccount = JSON.parse(localStorage.getItem('userdata'))
   console.log(memberaccount.username)
+  console.log(memberaccount.password)
   //遇到資料undefined時解法，因為第1次先跑時抓到undefined，會擋住後面再跑。
 
-  let email = props.data[0] ? props.data[0].Email : ''
-  let password = props.data[0] ? props.data[0].Pwd : ''
-  let name = props.data[0] ? props.data[0].Name : ''
-  let biethday = props.data[0] ? props.data[0].Birthday : ''
-  let gender = props.data[0] ? props.data[0].gender : ''
-  let addresscity = props.data[0] ? props.data[0].gender : ''
+  let emaildefault = props.data[0] ? props.data[0].Email : ''
+  // let passworddefault = props.data[0] ? props.data[0].Pwd : ''
+  let namedefault = props.data[0] ? props.data[0].Name : ''
+  let genderdefault = props.data[0] ? props.data[0].Gender : ''
+  let birthdaydefault = props.data[0] ? props.data[0].Birthday : ''
+  let phonenumberdefault = props.data[0] ? props.data[0].PhoneNumber : ''
+  let addressdefault = props.data[0] ? props.data[0].Address : ''
 
+  //設鉤子
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [name, setName] = useState('')
+  const [birthday, setBirthday] = useState('')
+  const [gender, setGender] = useState('')
+  const [phonenumber, setPhonenumber] = useState('')
+  const [address, setAddress] = useState('')
+  const abc = true
   useEffect(() => {
+    // const用props繫結值去抓account
     props.getserverMember()
   }, [])
+
+  const handlesubmit = event => {
+    //防止reload
+    event.preventDefaul()
+
+    //傳入更新資料打包
+    const memberupdate = { email, name, birthday, gender, phonenumber, address }
+    let formData = new FormData()
+    for (let key in memberupdate) {
+      formData.append(`${key}`, memberupdate[key])
+    }
+
+    updateDataToServer(memberupdate, () => alert('更新成功'))
+
+    async function updateDataToServer(memberupdate, callback) {
+      const request = new Request('http://localhost:5500/member/update', {
+        method: 'POST',
+        body: formData,
+      })
+      const response = await fetch(request)
+      const data = await response.json()
+      callback()
+      return data
+    }
+  }
   // if (memberaccount != false) {
   return (
     <>
@@ -73,10 +110,11 @@ function MemberEdit(props) {
                 <label className="col-sm-2 col-form-label">帳號</label>
                 <div className="col-sm-10">
                   <input
+                    readOnly
                     type="text"
-                    readonly
                     className="form-control-plaintext"
-                    id="staticEmail"
+                    id="staticaccount"
+                    name="account"
                     value={memberaccount.username}
                   />
                 </div>
@@ -85,63 +123,100 @@ function MemberEdit(props) {
                 <label className="col-sm-2 col-form-label">電子信箱</label>
                 <div className="col-sm-4">
                   <input
-                    type="email"
+                    type="text"
                     className="form-control"
-                    id=""
-                    value={email}
+                    placeholder={emaildefault}
+                    name="email"
+                    onChange={e => setEmail(e.target.value)}
                   />
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">密碼</label>
                 <div className="col-sm-4">
-                  <input type="password" className="form-control" id="" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    value={memberaccount.password}
+                    name="password"
+                    onChange={e => setPassword(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">姓名</label>
                 <div className="col-sm-4">
-                  <input type="text" className="form-control" id="" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    value={namedefault}
+                    onChange={e => setName(e.target.value)}
+                  />
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">性別</label>
                 <div className="col-sm-10">
-                  <select className="custom-select col-sm-4" required>
-                    <option selected value="">
-                      男
-                    </option>
-                    <option value="">女</option>
-                    <option value="">不便告知</option>
+                  <select
+                    className="custom-select col-sm-4"
+                    required
+                    value={genderdefault}
+                    name="gender"
+                    onChange={e => setGender(e.target.value)}
+                  >
+                    <option value="男">男</option>
+                    <option value="女">女</option>
+                    <option value="不便告知">不便告知</option>
                   </select>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">生日</label>
                 <div className="col-sm-4">
-                  <input type="date" className="form-control" id="" />
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="birthday"
+                    value={birthdaydefault}
+                    onChange={e => setBirthday(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="form-group row">
+                <label className="col-sm-2 col-form-label">電話 </label>
+                <div className="col-sm-10">
+                  <div>
+                    <input
+                      type="text"
+                      className="col-sm-8 form-control"
+                      name="phonenumber"
+                      value={phonenumberdefault}
+                      onChange={e => setPhonenumber(e.target.value)}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">地址 </label>
                 <div className="col-sm-10">
-                  <select className="custom-select col-sm-4" required>
-                    <option selected value="">
-                      台北市
-                    </option>
-                  </select>
-                  <select className="custom-select col-sm-4" required>
-                    <option selected value="">
-                      大安區
-                    </option>
-                  </select>
                   <div>
-                    <input type="text" className="col-sm-8 form-control" />
+                    <input
+                      type="text"
+                      className="col-sm-8 form-control"
+                      name="address"
+                      value={addressdefault}
+                      onChange={e => setAddress(e.target.value)}
+                    />
                   </div>
                 </div>
               </div>
               <div className="text-right">
-                <Button className="Irene_submit" type="submit">
+                <Button
+                  className="Irene_submit"
+                  type="submit"
+                  onClick={event => handlesubmit(event)}
+                >
                   更新
                 </Button>
               </div>
