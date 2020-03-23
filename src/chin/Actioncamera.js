@@ -19,7 +19,7 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData } from './actions/itemsActions'
+import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
 function Actioncamera(props) {
   const [englishnameActioncamera, setEnglishnameActioncamera] = useState(
@@ -46,6 +46,7 @@ function Actioncamera(props) {
   })
   useEffect(() => {
     props.formServerItemsData('actioncamera')
+    props.ResetListItemName()
   }, [])
 
   if (!props.data) return <></>
@@ -104,6 +105,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       formServerItemsData,
+      ResetListItemName,
     },
     dispatch
   )
