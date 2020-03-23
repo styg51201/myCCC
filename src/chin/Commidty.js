@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {BrowserRouter as Router,Route,Link,Switch,withRouter} from 'react-router-dom'
 import './chin-css/commidty.scss'
-import './chin-css/commidtyRWD.scss'
 import '../css/main.scss'
 
 //components
