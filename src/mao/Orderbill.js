@@ -20,6 +20,8 @@ import {
 
 function Orderbill(props){
 
+console.log('Orderbill',props)
+
 const [loaded,setLoaded]=useState(false)
 
 function getProductName(val){
@@ -39,32 +41,32 @@ function checkProductPrice(val) {
     return val
   }
   
-useEffect(()=>{
-    props.getOrderFromServer()
-},[])
+// useEffect(()=>{
+//     props.getOrderFromServer()
+// },[])
 
-const test=props.getOrderBuyer.map((v,i)=>{
-    return (
-        <>
-         <thead className="Mao-orderbill-border">
-    <tr>
-      <th className="d-flex">
-        <div className="mr-5">購買人訂單：<span>{v.orderId}</span></div>
-        <div className="mr-5">購買人姓名：<span>{v.buyerName}</span></div>
-        <div>購買人取貨地點：<span>{v.shipping} {v.buyerAdress}</span></div>
-      </th>
-    </tr>
-    <tr>
-        <th className="d-flex justify-content-between">
-            <div className="mr-5">運費：<span>{v.ship}</span></div>
-            <div className="mr-5">活動折扣：<span>{v.discount}</span></div>
-            <div>消費總金額：<span>{v.total}</span></div>
-        </th>
-    </tr>
-  </thead>
-        </>
-    )
-})
+// const test=props.getOrderBuyer.map((v,i)=>{
+//     return (
+//         <>
+//          <thead className="Mao-orderbill-border">
+//     <tr>
+//       <th className="d-flex">
+//         <div className="mr-5">購買人訂單：<span>{v.orderId}</span></div>
+//         <div className="mr-5">購買人姓名：<span>{v.buyer_name}</span></div>
+//         <div>購買人取貨地點：<span>{v.shipping} {v.buyerAdress}</span></div>
+//       </th>
+//     </tr>
+//     <tr>
+//         <th className="d-flex justify-content-between">
+//             <div className="mr-5">運費：<span>{v.shipping}</span></div>
+//             <div className="mr-5">活動折扣：<span>{v.discount}</span></div>
+//             <div>消費總金額：<span>{v.total}</span></div>
+//         </th>
+//     </tr>
+//   </thead>
+//         </>
+//     )
+// })
 let orderprodInfo=props.saveOrderBuyerProReducer
 
 const orderListitem=orderprodInfo.map((v,i)=>{
@@ -110,7 +112,7 @@ const orderListBuyerInfo=
         <tr>
           <th className="d-flex">
             <div className="mr-5">購買人訂單：<span>{buyerInfo.orderId}</span></div>
-            <div className="mr-5">購買人姓名：<span>{buyerInfo.buyer_name}</span></div>
+            <div className="mr-5">購買人姓名：<span>{buyerInfo.buyerName}</span></div>
             <div>購買人取貨地點：<span>{buyerInfo.shipping} {buyerInfo.buyerAdress}</span></div>
           </th>
         </tr>
@@ -125,7 +127,7 @@ const orderListBuyerInfo=
     )
 const orderListDataBox=(
     <Table  hover responsive="md" className="w-100">
-    {test}
+    {/* {test} */}
         {orderListBuyerInfo}
         {orderItemThead}
         <tbody>
