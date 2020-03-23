@@ -58,10 +58,7 @@ const rootReducer = combineReducers({
   getCouponData,
   adData,
   memberData,
-<<<<<<< HEAD
-=======
   couponTotal,
->>>>>>> 1b7484de5dbd5556975fa3ed518b59a276d04296
   filterCoupon, //sty
   getItems,
   getItemId,
