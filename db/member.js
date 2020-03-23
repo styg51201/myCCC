@@ -72,7 +72,15 @@ router.get('/:account', (req, res) => {
 })
 
 router.post('/update', (req, res) => {
-  const sql = `UPDATE \`member\` SET \`Email\`=?,\`Pwd\`=?,\`Name\`=?,\`Gender\`=?,\`Birthday\`=?,\`PhoneNumber\`=?,\`Address\`=? WHERE Account=?`
+  const output = {
+    success: false,
+    error: '',
+    status: 0,
+    body: req.body,
+    result: {},
+  }
+  const sql =
+    'UPDATE `member` SET `Email`=?,`Pwd`=?,`Name`=?,`Gender`=?,`Birthday`=?,`PhoneNumber`=?,`Address`=? WHERE Account=?'
   db.queryAsync(sql, [
     req.body.email,
     req.body.password,
@@ -81,7 +89,7 @@ router.post('/update', (req, res) => {
     req.body.birthday,
     req.body.phonenumber,
     req.body.address,
-    req.params.account,
+    req.body.account,
   ])
     .then(r => {
       output.result = r
