@@ -119,6 +119,8 @@ function ShopCartList(props) {
           >
             <FaRegTrashAlt style={{width:'25px',height:'25px',marginRight:'15px',marginLeft:'18px'}}/>
             <span>刪除</span>
+            <div className="Mao-btn-show"></div>
+            <div className="Mao-btn-showL"></div>
           </button>
           <button
             className="Mao-btn-amount-whiteLike Mao-btn-amount-white-my"
@@ -130,6 +132,8 @@ function ShopCartList(props) {
           >
             <FiHeart  style={{width:'25px',height:'25px',marginRight:'15px',marginLeft:'18px'}}/>
             <span>下次購買</span>
+            <div className="Mao-btn-show"></div>
+            <div className="Mao-btn-showL"></div>
           </button>
         </div>
       </li>

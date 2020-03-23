@@ -55,6 +55,7 @@ export const fromServerorderBuyerInfo = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
+    await console.log('000000000000000',val)
     await dispatch(saveOrderBuyerInfo(val))
   }
 }
@@ -76,6 +77,7 @@ export const forServerorderProductInfo=val=>{
     )
     const res= await fetch(request)
     const data= await res.json()
+    console.log('444444444444444444444444',val)
     await dispatch(saveOrderBuyerproduct(val))
   }
 }
@@ -205,6 +207,27 @@ export const Handle_AddMyFavorite = (val, product, data) => {
     dispatch(AddMyFavorite(newData))
   }
 }
+
+export const calDiscount=(val,data)=>{
+  return dispatch=>{
+    switch(val){
+      case "8折":
+        data=data*val*0.1
+        break;
+      case "-100":
+        data=data-100
+        break;
+      case "-500":
+        data=data-500
+        break
+      default:
+        console.log(data)
+    }
+    dispatch(CalShopCartTotal(data))
+  }
+}
+
+
 
 // export const Handel_DelMyFavorite=()
 export const AddMyFavorite = value => ({ type: 'LIKE_PRODUCT', value: value })
