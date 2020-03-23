@@ -1,14 +1,24 @@
 /*-----------------------Commoditylist.js的品牌--------------------------*/
 import React,{useState,useEffect} from 'react'
 
-
 //classnames
 import classNames from 'classnames'
 
-function Brand(){
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import {ListItemName} from '../actions/itemsActions'
 
+
+function Brand(props){
+    console.log(props)
     const [brand,setBrand] = useState(false)
     const BrandClassName= classNames('chin-brand',{active:brand})
+
+    const filter = function (e){
+        props.ListItemName({isChecked:e.target.checked,name:e.target.value},props.itemList)
+    }
     
     return(
         <>
@@ -18,47 +28,33 @@ function Brand(){
                 <img src="./chin-img/chevron-down-black.svg" alt=""/>
             </div>
             <div>
-                <ul>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input" type="checkbox"/>
-                        <label for="color-input" className="chin-label">
+                <ul onChange={(e)=>filter(e)}>
+                {props.list.map((val,ind)=>{
+                  return  <li className="chin-brand-checkbox"  key={ind}>
+                        <input name={val} id={val} value={val} type="checkbox"/>
+                        <label for={val} className="chin-label">
                         <div className="chin-box"></div>
-                        Apple  
+                        {val}
                         </label>      
                     </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input2" type="checkbox"/>
-                        <label for="color-input2" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input3" type="checkbox"/>
-                        <label for="color-input3" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input4" type="checkbox"/>
-                        <label for="color-input4" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
-                    <li className="chin-brand-checkbox"  >
-                        <input id="color-input5" type="checkbox"/>
-                        <label for="color-input5" className="chin-label">
-                        <div className="chin-box"></div>
-                        Samsung 
-                        </label>      
-                    </li>
+                })}
                 </ul>
             </div>
         </li>
         </>
     )
 }
-
-export default Brand
+// 選擇對應的reducer
+const mapStateToProps = store => {
+    return {itemList: store.getListitemName}
+  }
+  
+  //action
+  const mapDispatchToProps = dispatch =>{
+    return bindActionCreators({
+        ListItemName
+    },dispatch)
+  }
+  
+  
+  export default connect(mapStateToProps,mapDispatchToProps)(Brand)

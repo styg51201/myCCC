@@ -16,6 +16,7 @@ import {
   getItems,
   getItemId,
   getMultipleItemId,
+  getListitemName,
 } from '../chin/reducer/itemsReducer'
 
 //mao
@@ -59,9 +60,10 @@ const rootReducer = combineReducers({
   getItems,
   getItemId,
   getMultipleItemId,
+  getListitemName,
   //--------- ShopCart------------
   AddItem,
-  displayShopCart,
+  // displayShopCart,
   getShop,
   calculator,
   calculator_total,

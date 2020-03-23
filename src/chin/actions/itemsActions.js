@@ -95,3 +95,21 @@ export const AllItemsSort = val =>{
     dispatch(showItems([...val]))
   }
 }
+
+//list品牌
+
+export const ListItemName = (obj,val) =>{
+  if(obj.isChecked){
+    return {type:'ITEMNAME_VALUE',value:[obj.name,...val]}
+  }else{
+    let ind = val.indexOf(obj.name)
+    //有空可以解bug => 只用splice失靈??? 一定要splice+map
+    val.splice(ind,1)
+    let newList = val.map((val,ind)=>{
+      if(val!==obj.name){
+        return val
+      }
+    })
+    return {type:'ITEMNAME_VALUE',value:newList}
+  }
+}

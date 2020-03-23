@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link, Switch ,withRouter } from 'react-
 import '../css/main.css'
 import './css/GetCoupon.scss'
 
+
+
 //components
 import CouponSideFilter from './components/CouponSideFilter'
 import CouPageTitle from './components/CouPageTitle'
@@ -24,13 +26,12 @@ import {
 function GetCoupon(props) {
 
   const [loading,setLoading] = useState(false)
-  const [page,setPage] = useState(props.data.length)
   const [end,setEnd] = useState(false)
+  const [finish,setFinish] = useState(false)
 
 
-  let rowInfo,rowHeight,cp_total
-  console.log('222',props.cp_total)
-  
+
+  let rowInfo,rowHeight
 
   
   useEffect(()=>{
@@ -43,43 +44,46 @@ function GetCoupon(props) {
   useEffect(()=>{
 
     rowInfo = document.querySelector('.sty-row').getBoundingClientRect()
-    rowHeight = (rowInfo.top + rowInfo.height) - window.screen.availHeight
+
+    //取得絕對位置
+    rowHeight = (rowInfo.top + rowInfo.height) + window.pageYOffset
+ 
 
 
-    // cp_total = props.cp_total
     const handle = () =>{
-      // console.log('222',cp_total)
-      console.log('4444',props.data.length)
-      if(window.scrollY > rowHeight){ 
-        console.log('555')
-        if(props.data.length !== props.cp_total){
-          setLoading(true)
-          // setTimeout(()=>{
-            props.fromServerCouponData(props.data.length)
-            console.log(props.data.length)
-            setLoading(false)
-          // },2000)
-        }else{
-          setLoading(true)
-          // setTimeout(()=>{
-            setEnd(true)
-            setLoading(false)
-          // },2000)
+
+
+
+      if(!finish){
+        if( (window.pageYOffset + (window.screen.availHeight/3)*2)> rowHeight){ 
+  
+          if(props.data.length !== props.cp_total){
+            setLoading(true)
+            setTimeout(()=>{
+              props.fromServerCouponData(props.data.length)
+     
+              setLoading(false)
+            },1000)
+          }else{
+            setLoading(true)
+            setTimeout(()=>{
+              setEnd(true)
+              setLoading(false)
+              setFinish(true)
+            },1000)
+            setTimeout(()=>{
+              setEnd(false)
+            },3000)
+          }
+      window.removeEventListener("scroll", handle);
+
         }
       }
-       
-        
-        window.removeEventListener("scroll", handle);
-        console.log('333',props.data.length)
-
-
     }
     
-  
-
   window.addEventListener('scroll',handle)
 
-  // return () => window.removeEventListener("scroll", handle);
+  return () => window.removeEventListener("scroll", handle);
 
   },[props.data])
 
@@ -106,8 +110,9 @@ function GetCoupon(props) {
 //篩選列表照廠商名排序
 vendorList.sort()
  
-const loadDiv = <div>等等</div>
-const endDiv = <div>無最新資料</div>
+const loadDiv = (<div className="sty-coupon-loading"><div className="spinner-border " role="status"></div></div>)
+
+const endDiv = (<div className="sty-coupon-finish"><div>已是最新資料</div></div>)
 
   return (
     <>
@@ -122,10 +127,12 @@ const endDiv = <div>無最新資料</div>
             <CouPageTitle />
             {/* 優惠券 */}
             {props.vendor.length?filterCouponItem:allCouponItem}
-            {loading ? loadDiv : "" }
-            {end ? endDiv : "" }
+            
+            
 
           </div>
+          {loading ? loadDiv : "" }
+          {end ? endDiv : "" }
         </div>
       </div>
     </>
