@@ -137,12 +137,13 @@ export const fromServerMemberCouponData = val => {
     const res = await fetch(request)
     const data = await res.json()
     dispatch(showMemberCoupon(data))
-    dispatch(memberCouponFilter(data))
+    dispatch(memberCouponFilter(data,'get'))
   }
 }
 
 //會員優惠券-分類
 export const memberCouponFilter = (val,state) =>{
+  console.log('5555',val)
   let useList = []
   let endList = []
   let getList = []
