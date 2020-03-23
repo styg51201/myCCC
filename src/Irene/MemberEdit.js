@@ -137,7 +137,7 @@ function MemberEdit(props) {
                   <input
                     type="text"
                     className="form-control"
-                    value={memberaccount.password}
+                    placeholder={memberaccount.password}
                     name="password"
                     onChange={e => setPassword(e.target.value)}
                   />

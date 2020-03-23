@@ -23,6 +23,9 @@ export const userRegisterAsync = (userData, callback) => {
     // 設定資料
     dispatch(userRegister(data))
     callback()
+
+    localStorage.setItem('userdata', JSON.stringify(userData))
+    window.location = `http://localhost:3000/memberedit/${userData.username}`
   }
 }
 

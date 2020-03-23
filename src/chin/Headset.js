@@ -19,6 +19,8 @@ import CompareProductSort from './components/CompareProductSort'
 
 function Headset(props) {
   const dispatch = useDispatch()
+  const reset = useSelector(state => state.reset)
+
   const data = useSelector(state => state.getItems)
   const Headset = useSelector(state => state.getListitemName)
   const [englishnameHeadset, setEnglishnameHeadset] = useState(
@@ -84,7 +86,7 @@ function Headset(props) {
 
   useEffect(() => {
     formServerItemsData2('headset')
-    ResetListItemName()
+    if(reset) ResetListItemName()
   }, [])
 
   if (!data) return <></>
