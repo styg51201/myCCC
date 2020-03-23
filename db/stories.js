@@ -56,6 +56,13 @@ router.patch('/member/story', (req, res)=>{
     })
 })
 
+router.get('/member/draft', (req, res)=>{
+    let drftId = req.query.id;
+    console.log(drftId)
+
+    let sql = `SELECT \`drftId\`, \`drftStatus\`, \`drftTitle\`, \`drftContent\`, \`drftTags\`, \`updated_at\` FROM \`storyDrafts\` WHERE `
+})
+
 //get stories or drafts list
 router.get('/member/:page', (req, res)=>{
 
@@ -66,9 +73,10 @@ router.get('/member/:page', (req, res)=>{
         FROM \`stories\` AS \`s\`
         LEFT JOIN \`storyReplies\` AS \`r\` ON \`r\`.\`stryId\` = \`s\`.\`stryId\`
         WHERE \`s\`.\`usrId\` = ?
-        GROUP BY \`s\`.\`stryId\``;
+        GROUP BY \`s\`.\`stryId\`
+        ORDER BY \`s\`.\`updated_at\` DESC`;
     }else if(req.params.page === 'drafts'){
-        sql = 'SELECT `drftId`, `drftTitle`, `drftContent`, `drftTags`, `updated_at` FROM `storyDrafts` WHERE `usrId` = ? AND `drftStatus` = "active"';
+        sql = 'SELECT `drftId`, `drftTitle`, `drftContent`, `drftTags`, `updated_at` FROM `storyDrafts` WHERE `usrId` = ? AND `drftStatus` = "active" ORDER BY `updated_at` DESC';
     }
 
     db.queryAsync(sql, [1]) //should come from session
@@ -80,6 +88,35 @@ router.get('/member/:page', (req, res)=>{
     })
     .catch(err=>{
         res.json(err)
+    })
+})
+
+//get story replies
+router.get('/member/:id/replies', (req, res)=>{
+
+    //console.log('id:', req.params.id)
+
+    let id = req.params.id
+
+    let sql = `SELECT \`rplyId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`, \`storyReplies\`.\`updated_at\`,
+    \`Id\`, \`Name\`, \`Img\`
+    FROM \`storyReplies\` 
+    INNER JOIN \`member\` ON \`usrId\` = \`Id\`
+    WHERE \`stryId\` = ?
+    ORDER BY \`storyReplies\`.\`updated_at\` DESC`;
+
+    //AND \`usrId\` != ?
+
+    db.queryAsync(sql, [id])
+    .then(r=>{
+        // console.log(r)
+        r.forEach((elm)=>{
+            elm.fromNow = moment(elm.updated_at).fromNow()
+        })
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
     })
 })
 
@@ -178,66 +215,57 @@ router.post('/user-editor/draft', (req, res)=>{
 
 //auto save to draft || submit draft
 router.patch('/user-editor/draft/:action/:id', (req, res)=>{
-    function queryDb(sql, params, output, res, message){
-        db.queryAsync(sql, params)
-        .then(r=>{
-            output.success = true;
-            output.data = r;
-            output.message = message.success;
-            res.json(output);
-            console.log(output)
-            return;
-        })
-        .catch(err=>{
-            console.log(err);
-            output.message = message.error;
-            res.json(output);
-            return;
-        })
-    };
 
-    (async function(req, res){
+    const output = {
+        success: false,
+        data: '',
+        message: ''
+    }
 
-        const output = {
-            success: false,
-            data: '',
-            message: ''
+    let sql, params, message;
+
+    if(req.params.action === 'save-draft'){
+        sql = 'UPDATE `storyDrafts` SET `drftTitle`= ?, `drftStatus`= ?, `drftContent`= ?, `drftTags`=?, `updated_at`= NOW() WHERE `usrId` = ? AND `drftId` = ?';
+        params = [
+            req.body.title,
+            'active',
+            JSON.stringify(req.body.content),
+            JSON.stringify(req.body.tags),
+            1, //should come from session
+            req.params.id
+        ];
+        message = {
+            success: 'save success',
+            error: 'save fail'
         }
-
-        let sql, params, message;
-
-        switch(req.params.action){
-            case 'save-draft':
-                sql = await 'UPDATE `storyDrafts` SET `drftTitle`= ?, `drftStatus`= ?, `drftContent`= ?, `drftTags`=?, `updated_at`= NOW() WHERE `usrId` = ? AND `drftId` = ?';
-                params = await [
-                    req.body.title,
-                    'active',
-                    JSON.stringify(req.body.content),
-                    JSON.stringify(req.body.tags),
-                    1, //should come from session
-                    req.params.id
-                ];
-                message = await {
-                    success: 'save success',
-                    error: 'save fail'
-                }
-                await queryDb(sql, params, output, res, message);
-                break;
-            case 'submit-draft':
-                sql = await 'UPDATE `storyDrafts` SET `drftStatus`= ? WHERE `usrId` = ? AND `drftId` = ?';
-                params = await [
-                    'submitted',
-                    0, //session
-                    req.params.id
-                ];
-                message = await {
-                    success: 'update to submitted success',
-                    error: 'update to submitted fail'
-                }
-                await queryDb(sql, params, output, res, message);
-                break;
+    }else if(req.params.action === 'submit-draft') {
+        sql = 'UPDATE `storyDrafts` SET `drftStatus`= ? WHERE `usrId` = ? AND `drftId` = ?';
+        params = [
+            'submitted',
+            1, //session
+            req.params.id
+        ];
+        message = {
+            success: 'update to submitted success',
+            error: 'update to submitted fail'
         }
-    })(req, res);
+    }
+
+    db.queryAsync(sql, params)
+    .then(r=>{
+        output.success = true;
+        output.data = r;
+        output.message = message.success;
+        res.json(output);
+        // console.log(output)
+        return;
+    })
+    .catch(err=>{
+        console.log(err);
+        output.message = message.error;
+        res.json(output);
+        return;
+    })
 
 })
 
@@ -260,7 +288,7 @@ router.post('/user-editor/upload', (req, res)=>{
         JSON.stringify(req.body.tags)
     ])
     .then(r=>{
-        console.log(r.insertId);
+        // console.log(r.insertId);
         output.success = true;
         output.data = r.insertId;
         output.message = 'upload success!';
@@ -324,7 +352,7 @@ router.get('/story/replies', (req, res)=>{
     db.queryAsync(sql, [req.query.id])
     .then(r=>{
         r.forEach((elm)=>{
-            elm.stryFromNow = moment(elm.updated_at).fromNow()
+            elm.fromNow = moment(elm.updated_at).fromNow()
         })
         res.json(r)
         // console.log(r)

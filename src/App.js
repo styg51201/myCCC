@@ -19,7 +19,9 @@ import UploadStory from './biki/UploadStory'
 import Story from './biki/Story'
 import MemberStories from './biki/MemberStories'
 import MemberDrafts from './biki/MemberDrafts'
+import MemberDraft from './biki/MemberDraft'
 import MemberStory from './biki/MemberStory'
+import MemberStoryReplies from './biki/MemberStoryReplies'
 
 //import chin
 import Headset from './chin/Headset'
@@ -124,8 +126,14 @@ function App() {
             <Route path="/member/upload-stories">
               <UploadStory />
             </Route>
-            <Route path="/member/stories/story">
+            <Route path="/member/stories/story"> {/** ?id= */}
               <MemberStory />
+            </Route>
+            <Route path="/member/stories/:id/replies">
+              <MemberStoryReplies />
+            </Route>
+            <Route path="/member/stories/draft"> {/** ?id= */}
+              <MemberDraft />
             </Route>
             <Route path="/member/stories/drafts">
               <MemberDrafts />

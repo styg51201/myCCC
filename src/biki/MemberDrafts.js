@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { Row, Col } from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 
 
 function MemberDrafts(){
@@ -60,7 +61,14 @@ function MemberDrafts(){
                                     </Row>
                                 </div>
                                 <div className='bk-story-li-fn col-2'>
-                                    <button class="bk-btn-black">刪除</button>
+                                    {/* <Link to={`/member/stories/${elm.stryId}/replies`}> */}
+                                        <button class="bk-btn-black">刪除</button>
+                                    {/* </Link> */}
+                                    <Link to={`/member/stories/draft?id=${elm.drftId}`}>
+                                        <button className="bk-btn-black-bordered">
+                                                編輯
+                                        </button>
+                                    </Link>
                                 </div>
                             </li>
                             </>)

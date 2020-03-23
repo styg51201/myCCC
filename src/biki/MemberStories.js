@@ -7,10 +7,11 @@ import {Link} from 'react-router-dom'
 
 import {
     FiTrash2,
-    FiChevronDown,
+    // FiChevronDown,
     FiThumbsUp,
     FiMessageSquare,
-    FiEye
+    FiEye,
+    FiEyeOff
   } from 'react-icons/fi'
 
 function MemberStories(){
@@ -58,36 +59,32 @@ function MemberStories(){
                 <Col lg={9} className='bk-member-main-container'>
                     <h3>故事列表</h3>
                     <ul className='bk-story-list'>
-                        {!data ? 'no stories' : data.map(elm=>{
-                            return (<>
+                        {!data ? '沒有張貼故事' : data.map(elm=>{
+                            return (
                             <li key={elm.stryId}>
                                 <div className='bk-story-li-content col-8'>
-                                    <Row>
-                                        <div className="col-lg-4">
-                                            <h5>{elm.stryTitle}</h5>
-                                            <div className='bk-txt-small'>{elm.time}</div>
-                                            {/* <div className='bk-txt-small'>{elm.stryStatus}</div> */}
-                                            <div>
-                                                <span className='bk-stry-icons'><FiThumbsUp /> {elm.stryLikes}</span>
-                                                <span className='bk-stry-icons'><FiEye /> {elm.stryViews}</span>
-                                                <span className='bk-stry-icons'><FiMessageSquare /> {elm.rplyTotal}</span>
-                                            </div>
-                                        </div>
-                                        <div className='col-lg-8'>
-                                            <div>{elm.contentStr}</div>
-                                        </div>
-                                    </Row>
+                                    <h5>{elm.stryTitle}</h5>
+                                    <div className='bk-txt-small'>{elm.time}</div>
+                                    <div>{elm.contentStr}</div>
+
+                                    <div>
+                                        <span className='bk-stry-icons' key={'ak'}><FiThumbsUp /> {elm.stryLikes}</span>
+                                        <span className='bk-stry-icons' key={'bg'}><FiEye /> {elm.stryViews}</span>
+                                        <span className='bk-stry-icons' key={'c'}><FiMessageSquare /> {elm.rplyTotal}</span>
+                                    </div>
                                 </div>
                                 <div className='bk-story-li-fn col-4'>
-                                    <button className="bk-btn-black-bordered">查看評論</button>
-                                    <button className="bk-btn-black-bordered">
-                                        <Link to={`/member/stories/story?id=${elm.stryId}`}>
-                                            編輯
-                                        </Link>
-                                    </button>
+                                    <Link to={`/member/stories/${elm.stryId}/replies`}>
+                                        <button className="bk-btn-black-bordered">查看評論</button>
+                                    </Link>
+                                    <Link to={`/member/stories/story?id=${elm.stryId}`}>
+                                        <button className="bk-btn-black-bordered">
+                                                編輯
+                                        </button>
+                                    </Link>
                                 </div>
                             </li>
-                            </>)
+                            )
                         })}
                     </ul>
                 </Col>

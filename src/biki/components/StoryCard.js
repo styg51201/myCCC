@@ -24,35 +24,33 @@ function StoryCard(props){
 
 
     return(
-        <>
-            <Link to={`/stories/story?id=${props.data.stryId}`} className="bk-card-linkwrapper">
-                <Card className={`bk-card${height > 500 ? ' bk-collapse' : ''}`}
-                    ref={cardRef}
-                    >
-                    <Card.Header>
-                    <div className="bk-card-user">
-                            <div className="bk-card-userimg"></div>
-                            <div>
-                            <div>{props.data.Name}</div>
-                                <div>{props.data.fromNow}</div>
-                            </div>
-                        </div>
-                    </Card.Header>
-                    <Card.Body className="bk-card-body">
-                        <h3>{props.data.stryTitle}</h3>
-                        <div dangerouslySetInnerHTML={{__html: props.content}}></div>
-                    </Card.Body>
-                    <Card.Footer className='bk-card-footer'>
+        <Link to={`/stories/story?id=${props.data.stryId}`} className="bk-card-linkwrapper">
+            <Card className={`bk-card${height > 500 ? ' bk-collapse' : ''}`}
+                ref={cardRef}
+                >
+                <Card.Header>
+                <div className="bk-card-user">
+                        <div className="bk-card-userimg"></div>
                         <div>
-                            <span className='bk-stry-icons'><FiThumbsUp /> {props.data.stryLikes}</span>
-                            <span className='bk-stry-icons'><FiMessageSquare /> {props.data.rplyTotal}</span>
-                            <span className='bk-stry-icons'><FiEye /> {props.data.stryViews}</span>
+                        <div>{props.data.Name}</div>
+                            <div>{props.data.fromNow}</div>
                         </div>
-                    </Card.Footer>
-                </Card>
-                <div className="bk-masonry-itm-backdrop"></div>
-            </Link>
-        </>
+                    </div>
+                </Card.Header>
+                <Card.Body className="bk-card-body">
+                    <h3>{props.data.stryTitle}</h3>
+                    <div dangerouslySetInnerHTML={{__html: props.content}}></div>
+                </Card.Body>
+                <Card.Footer className='bk-card-footer'>
+                    <div>
+                        <span className='bk-stry-icons'><FiThumbsUp /> {props.data.stryLikes}</span>
+                        <span className='bk-stry-icons'><FiMessageSquare /> {props.data.rplyTotal}</span>
+                        <span className='bk-stry-icons'><FiEye /> {props.data.stryViews}</span>
+                    </div>
+                </Card.Footer>
+            </Card>
+            <div className="bk-masonry-itm-backdrop"></div>
+        </Link>
     )
 }
 

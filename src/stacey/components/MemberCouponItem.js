@@ -46,13 +46,13 @@ function CouponItem(props){
     case 2:
       object = "耳機/喇叭分類"
       break
-      case 3:
+    case 3:
      object = "運動攝影機分類"
      break
-     case 4:
+    case 4:
       object = "周邊商品分類"
      break
-     case 5:
+    case 5:
       object = "指定商品"
      break
   }

@@ -55,7 +55,7 @@ function GetCoupon(props) {
 
 
       if(!finish){
-        if( (window.pageYOffset + (window.screen.availHeight/3)*2)> rowHeight){ 
+        if( (window.pageYOffset + (window.screen.availHeight/4)*3)> rowHeight){ 
   
           if(props.data.length !== props.cp_total){
             setLoading(true)
