@@ -20,6 +20,7 @@ import Swal from 'sweetalert2'
 import GetDayRange from './GetDayRange'
 import './css/OrderInfo.scss'
 import $ from 'jquery'
+import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
   const [values, setValues] = useState({
@@ -293,6 +294,7 @@ const taxInfo=(
   return (
     <>
       {/* <form method="POST"> */}
+      <MaoAD/>
       <div className="container my-3 d-flex" style={{ width: '1300px' }}>
         <div className="px-4 border bg-white p-3" style={{ width: '950px' }}>
           <div className="form-row d-flex flex-column">

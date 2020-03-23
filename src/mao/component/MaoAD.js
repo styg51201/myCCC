@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { withRouter } from "react-router";
 import '../css/MaoAD.scss'
 
 function MaoAD(props) {
-  console.log('MaoAd', props)
+  console.log('MaoAd', props.match.path)
+  const [routeName,setRouteName]=useState('')
   return (
     <>
       <div class="Mao-buyerLine-box">
@@ -23,4 +25,4 @@ function MaoAD(props) {
     </>
   )
 }
-export default MaoAD
+export default withRouter(MaoAD)
