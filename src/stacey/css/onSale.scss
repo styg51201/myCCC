@@ -60,7 +60,7 @@ button {
       background-color: #c7c7c7;
     }
   }
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     display: none;
     &:checked + label {
       .sty-box::before {
@@ -69,7 +69,7 @@ button {
         left: 0;
         right: 0;
         bottom: 0;
-        content: "\2714";
+        content: '\2714';
         text-align: right;
         font-size: 0.875rem;
         color: white;
@@ -113,14 +113,12 @@ button {
   }
 }
 
-
-
 //商品
 .chin-commodity-item {
   //   margin: 0 5px 20px;
   padding-top: 1px;
   //   max-width: 280px;
-  height: 400px;
+  // height: 400px;
   background: $white;
   transition: 0.3s;
   p {

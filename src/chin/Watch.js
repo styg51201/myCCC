@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import {
   BrowserRouter as Router,
   Route,
@@ -15,49 +16,65 @@ import Commoditycomponents2 from './components/Commoditycomponents2'
 import Commoditycomponents from './components/Commoditycomponents'
 import Commoditylist from './components/Commoditylist'
 import CompareProductSort from './components/CompareProductSort'
-//redux
-import { connect } from 'react-redux'
-//action
-import { bindActionCreators } from 'redux'
-import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
 function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [commodity, setCommdity] = useState(false)
+  const dispatch = useDispatch()
+  
+  const reset = useSelector(state => state.reset)
 
-  const itemlist = props.data.map((val, ind) => {
-    if (props.watch.indexOf(val.name) > -1) {
+  const data = useSelector(state => state.getItems)
+  const watch = useSelector(state => state.getListitemName)
+  const itemlist = data.map((val, ind) => {
+    if (watch.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allitemlist = props.data.map((val, ind) => {
+  const allitemlist = data.map((val, ind) => {
     return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
   })
-  const commodityItems = props.data.map((val, ind) => {
-    if (props.watch.indexOf(val.name) > -1) {
+  const commodityItems = data.map((val, ind) => {
+    if (watch.indexOf(val.name) > -1) {
       return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allcommodityItems = props.data.map((val, ind) => {
+  const allcommodityItems = data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
   })
+  const showItems = val => {
+    return { type: 'SHOW_ITEMS', value: val }
+  }
+  async function formServerItemsData(val) {
+    const request = new Request(`http://localhost:5500/items/${val}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    dispatch(showItems(data))
+  }
+  const ResetListItemName = (val) => {
+    const newList = []
+    dispatch({ type: 'ITEMNAME_RESET', value: newList })
+  }
 
   // const commodityItems =
   useEffect(() => {
-    props.formServerItemsData('watch')
-    props.ResetListItemName()
+    formServerItemsData('watch')
+    if(reset)  ResetListItemName()
   }, [])
 
-  if (!props.data) return <></>
+  if (!data) return <></>
 
   return (
     <>
       <main className="chin-main">
         <section className="chin-section">
-          <Commoditylist data={props.data} />
+          <Commoditylist data={data} />
           <div className="chin-commodity-title">
             <CompareProductSort
-              data={props.data}
+              data={data}
               englishname={englishnameWatch}
               test={commodity}
               sendText={text => {
@@ -66,10 +83,10 @@ function Watch(props) {
             />
             <div className="chin-commodity">
               {commodity
-                ? props.watch.length
+                ? watch.length
                   ? commodityItems
                   : allcommodityItems
-                : props.watch.length
+                : watch.length
                 ? itemlist
                 : allitemlist}
             </div>
@@ -95,19 +112,5 @@ function Watch(props) {
   )
 }
 // 選擇對應的reducer
-const mapStateToProps = store => {
-  return { data: store.getItems, watch: store.getListitemName }
-}
 
-//action
-const mapDispatchToProps = dispatch => {
-  return bindActionCreators(
-    {
-      formServerItemsData,
-      ResetListItemName,
-    },
-    dispatch
-  )
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Watch))
+export default withRouter(Watch)

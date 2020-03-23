@@ -20,13 +20,14 @@ import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 import { FaRegTrashAlt} from "react-icons/fa"
 import { FiHeart} from 'react-icons/fi';
+import MaoAD from './component/MaoAD'
 function ShopCartList(props) {
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(true)
   // 從產品ID轉換成產品名稱
   function checkProduct(val) {
     productList.map((v, i) => {
-      if (val == v.pId) {
+      if (val == v.itemId) {
         val = v.pName
       }
     })
@@ -36,8 +37,8 @@ function ShopCartList(props) {
   // 從ID去獲取產品的價格
   function checkProductPrice(val) {
     productList.map((v, i) => {
-      if (val == v.pId) {
-        val = v.price
+      if (val == v.itemId) {
+        val = v.itemPrice
       }
     })
     return val
@@ -58,16 +59,16 @@ function ShopCartList(props) {
 
   //從資料庫叫出的購物車內容加入checkBox & RealCart
   const ShopCartFromServer = props.AddItem.map((v, i) => {
-    let val = v.pId
+    let val = v.itemId
     let count = v.count
-    RealCart.push({ pId: val, count: count })
+    RealCart.push({ itemId: val, count: count })
   })
 
   //驗證購物車作用的狀況
   const displayRealCart = RealCart.map((v, i) => {
     return (
       <li>
-        產品：{v.pId} / 數量：{v.count}
+        產品：{v.itemId} / 數量：{v.count}
       </li>
     )
   })
@@ -77,14 +78,14 @@ function ShopCartList(props) {
       <li key={v} className="Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
         <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
-          <p>{checkProduct(v.pId)}</p>
+          <p>{checkProduct(v.itemId)}</p>
           <div className="d-flex justify-content-between">
-            <p style={{ width: '25%' }}>${checkProductPrice(v.pId)}</p>
+            <p style={{ width: '25%' }}>${checkProductPrice(v.itemId)}</p>
             <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
               <button
                 className="Mao-btn-amount"
                 onClick={() => {
-                  props.AddCartItem(false, v.pId, props.AddItem)
+                  props.AddCartItem(false, v.itemId, props.AddItem)
                   props.CalShopCart(props.AddItem)
                   setLoaded(!loaded)
                 }}
@@ -99,7 +100,7 @@ function ShopCartList(props) {
               <button
                 className="Mao-btn-amount"
                 onClick={() => {
-                  props.AddCartItem(true, v.pId, props.AddItem)
+                  props.AddCartItem(true, v.itemId, props.AddItem)
                   props.CalShopCart(props.AddItem)
                   setLoaded(!loaded)
                 }}
@@ -127,7 +128,7 @@ function ShopCartList(props) {
             onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
-              props.Handle_AddMyFavorite('true', v.pId, props.MyFavorite)
+              props.Handle_AddMyFavorite('true', v.itemId, props.MyFavorite)
             }}
           >
             <FiHeart  style={{width:'25px',height:'25px',marginRight:'15px',marginLeft:'18px'}}/>
@@ -153,6 +154,7 @@ function ShopCartList(props) {
 
   return (
     <>
+      <MaoAD/>
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
         <ul className='Mao-shopcart-check-item-ul'>
         

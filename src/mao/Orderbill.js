@@ -26,7 +26,7 @@ function Orderbill(props) {
 
   function getProductName(val) {
     productList.map((v, i) => {
-      if (v.pId == val) {
+      if (v.itemId == val) {
         val = v.pName
       }
     })
@@ -34,8 +34,8 @@ function Orderbill(props) {
   }
   function checkProductPrice(val) {
     productList.map((v, i) => {
-      if (val == v.pId) {
-        val = v.price
+      if (val == v.itemId) {
+        val = v.itemPrice
       }
     })
     return val
@@ -49,13 +49,13 @@ function Orderbill(props) {
         <tr>
           <td className="d-flex">
             <div className="w-50">
-              <span>{getProductName(v.pId)}</span>
+              <span>{getProductName(v.itemId)}</span>
             </div>
             <div className="w-25 px-3">
               <span>{v.count}</span>
             </div>
             <div className="w-25 px-3">
-              <span>{checkProductPrice(v.pId)}</span>
+              <span>{checkProductPrice(v.itemId)}</span>
             </div>
           </td>
         </tr>

@@ -22,8 +22,8 @@ export const getShopCart = item => {
     let newData = []
     let hadleData = data.map((v, i) => {
       newData.push({
-        pId: v.pId,
-        price: v.price,
+        itemId: v.itemId,
+        itemPrice: v.itemPrice,
         count: v.count,
         itemCategoryId: v.itemCategoryId,
         name: v.name,
@@ -138,7 +138,7 @@ export const CalShopCart = value => {
   return dispatch => {
     let total = 0
     value.map((v, i) => {
-      let sCount = v.price * v.count
+      let sCount = v.itemPrice * v.count
       total += sCount
     })
     dispatch(calCart(total))
@@ -164,11 +164,11 @@ export const DelCartItem = (i, data) => {
 export const AddCart = value => ({ type: 'ADD_CART', value: value })
 export const DelCart = value => ({ type: 'DEL_CART', value: value })
 //數量調整
-export const AddCartItem = (val, pId, data) => {
+export const AddCartItem = (val, itemId, data) => {
   let box = null
   return dispatch => {
     data.map((v, i) => {
-      if (v.pId == pId) {
+      if (v.itemId == itemId) {
         box = i
       }
     })
@@ -197,12 +197,12 @@ export const AddCartNewItem_sendcal = data => {
 export const Handle_AddMyFavorite = (val, product, data) => {
   let pIdBox = []
   data.map((v, i) => {
-    pIdBox.push(v.pId)
+    pIdBox.push(v.itemId)
   })
   let newData = [...data]
   return dispatch => {
     if (val == 'true') {
-      let box = pIdBox.findIndex(e => e == product.pId)
+      let box = pIdBox.findIndex(e => e == product.itemId)
       if (box == -1) {
         newData.push(product)
       } else {

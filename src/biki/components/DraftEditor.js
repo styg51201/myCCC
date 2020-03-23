@@ -5,6 +5,7 @@ import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
 import TagBlock from './EditorComponents/TagBlock'
+import Swal from 'sweetalert2'
 
 //utils for media rendering
 import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
@@ -207,11 +208,25 @@ function DraftEditor(props){
 
         if(!str.trim().length && !flag){
             console.log("no content")
-            alert('沒有內容不能送出喔')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                text: '請填寫內容',
+                showConfirmButton: false,
+                timer: 1500,
+                position:'center',
+              })  
             return;
         }else if(title === '' || !title.trim().length){
             console.log("no title")
-            alert('請填寫標題喔')
+            Swal.fire({
+                position: 'top-end',
+                icon: 'warning',
+                text: '請填寫標題',
+                showConfirmButton: false,
+                timer: 1500,
+                position:'center',
+              })  
             return;
         }
 
@@ -235,8 +250,17 @@ function DraftEditor(props){
         await updateDraftAfterSubmit()
         await setSaveDraft(false)
 
-        alert('上傳成功！')
-        props.history.push('/stories')
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: '上傳成功',
+            showConfirmButton: false,
+            timer: 1500,
+            position:'center',
+          })  
+        setTimeout(()=>{
+            props.history.push('/stories')
+        }, 1500)
         return;
     }
 

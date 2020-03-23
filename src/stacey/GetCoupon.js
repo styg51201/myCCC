@@ -4,7 +4,6 @@ import '../css/main.css'
 import './css/GetCoupon.scss'
 
 
-
 //components
 import CouponSideFilter from './components/CouponSideFilter'
 import CouPageTitle from './components/CouPageTitle'
@@ -29,13 +28,14 @@ function GetCoupon(props) {
   const [end,setEnd] = useState(false)
   const [finish,setFinish] = useState(false)
 
-
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+  console.log(mb_id)
 
   let rowInfo,rowHeight
 
   
   useEffect(()=>{
-    props.fromServerCouponData(props.data.length)
+    props.fromServerCouponData(props.data.length,mb_id)
  
   },[])
 
@@ -55,7 +55,7 @@ function GetCoupon(props) {
 
 
       if(!finish){
-        if( (window.pageYOffset + (window.screen.availHeight/3)*2)> rowHeight){ 
+        if( (window.pageYOffset + (window.screen.availHeight/4)*3)> rowHeight){ 
   
           if(props.data.length !== props.cp_total){
             setLoading(true)

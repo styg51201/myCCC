@@ -1,12 +1,13 @@
 import React,{useState,useEffect} from 'react'
 import classNames from 'classnames'
-import img from '../img/Swatch.jpg'
+import { withRouter } from 'react-router-dom';
+
 
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {getCouponToServer,getCoupon} from '../actions/couponAction'
+import {getCouponToServer,getCoupon,goShopping,noReset} from '../actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
@@ -14,9 +15,11 @@ import {
   IoMdArrowDropright
 } from 'react-icons/io'
 
+
 function CouponItem(props){
 
-
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+  
   // 設定按鈕裡的字樣
   let couponState = '領取'
   if(props.item.geted){
@@ -39,35 +42,33 @@ function CouponItem(props){
   let getedCountStyle = {background: `linear-gradient(to right, #0dd2c5 ${getNum}%, #a0a0a0 ${getNum}%)`}
   let endCouponStyle = { background:'#a0a0a0'}
 
-  // 設定按鈕種類
-  let getButton = (<button disabled={couponState === '發放結束'}
-                        onClick={()=>{props.getCouponToServer() //cp_id 跟 mb_id
-                                      props.getCoupon(props.arrIndex)
-                        }}>
-                        <span>{couponState}</span>
-                     </button>)
-  let shopButton = (<button onClick={()=>{}}>
-                      <span>{couponState}</span>
-                    </button>)
+  
 
   //設定優惠字樣
+ //連結
+  let path = ''
   //目標
   let object = ""
   switch(props.item.cpr_object){
     case 0:
      object = "全部商品"
+     path = '/watch'
      break
     case 1:
       object = "穿戴式裝置分類"
+      path = '/watch'
      break
     case 2:
       object = "耳機/喇叭分類"
+      path = '/headset'
       break
       case 3:
      object = "運動攝影機分類"
+     path = '/actioncamera'
      break
      case 4:
       object = "周邊商品分類"
+      path = '/surrounding'
      break
      case 5:
       object = "指定商品"
@@ -97,6 +98,31 @@ function CouponItem(props){
       discount = `折扣${props.item.cpr_discountNum}元`
      break
   }
+
+
+  // 設定按鈕種類
+  let getButton = (<button disabled={couponState === '發放結束'}
+                        onClick={()=>{
+                          if(mb_id){
+                            props.getCouponToServer(props.item.cp_id,mb_id) //cp_id 跟 mb_id
+                            props.getCoupon(props.arrIndex)
+                            }else{
+                              alert('請先登入')
+                            }
+                        }}>
+                        <span>{couponState}</span>
+                     </button>)
+  let shopButton = (<button onClick={()=>{
+    props.noReset(false)
+    props.goShopping(props.item.cp_vendor) 
+    props.history.push(path)
+    setTimeout(()=>{
+      props.noReset(true)
+    },2000)
+
+  }}>
+                      <span>{couponState}</span>
+                    </button>)
 
     return (
         <>
@@ -137,9 +163,9 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    getCouponToServer,getCoupon
+    getCouponToServer,getCoupon,goShopping,noReset
   },dispatch)
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(CouponItem)
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(CouponItem))

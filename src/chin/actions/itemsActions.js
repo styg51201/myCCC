@@ -13,7 +13,7 @@ export const formServerItemsData = val => {
     const res = await fetch(request)
     const data = await res.json()
 
-    console.log('ddddddd', data)
+    console.log('ffff', data)
     dispatch(showItems(data))
   }
 }

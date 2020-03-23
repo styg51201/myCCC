@@ -14,7 +14,7 @@ function ProductDescription(props){
           <img src="/chin-img/star.svg" alt="" />
         <span>4.0 (5)</span>
         </div>
-        <h4>NT${props.data[0] ? props.data[0].itemPrice : ''}</h4>
+        <h4>NT{props.data[0] ? props.data[0].itemPrice : ''}</h4>
         <p>
           {props.data[0] ? props.data[0].itemDescription : ''}
         </p>

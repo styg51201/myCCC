@@ -47,6 +47,14 @@ function Bigitem(props) {
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   }
+  const settingsRWD = {
+    dots:true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows:false,
+  };
   useEffect(() => {
     setState({ nav1: slider1.current, nav2: slider2.current })
   }, [])
@@ -54,6 +62,21 @@ function Bigitem(props) {
   return (
     <>
       <div>
+        <div className="chin-sliderRWD">
+        <Slider {...settingsRWD}>
+          {props.data.multiple.map((val, ind) => {
+                return (
+                  <div>
+                    <img
+                      key={ind}
+                      src={`/chin-img/images/${val.itemName}/${val.multipleImageImg}`}
+                      className="chin-sm-RWD"
+                    />
+                  </div>
+                )
+              })}
+        </Slider>
+        </div>
         <div className="chin-bigitem">
           <Slider
             asNavFor={nav2}
@@ -92,12 +115,6 @@ function Bigitem(props) {
               )
             })}
           </Slider>
-        </div>
-        <div className="chin-rwd-circle-circle">
-          <span className="chin-rwd-circle"></span>
-          <span className="chin-rwd-circle"></span>
-          <span className="chin-rwd-circle"></span>
-          <span className="chin-rwd-circle"></span>
         </div>
       </div>
     </>

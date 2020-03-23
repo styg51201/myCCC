@@ -56,40 +56,6 @@ button {
   }
 }
 
-// .time0 {
-//   transform: translateY(0px);
-// }
-// .time1 {
-//   transform: translateY(-40px);
-// }
-// .time2 {
-//   transform: translateY(-80px);
-// }
-// .time3 {
-//   transform: translateY(-120px);
-// }
-// .time4 {
-//   transform: translateY(-160px);
-// }
-// .time5 {
-//   transform: translateY(-200px);
-// }
-// .time6 {
-//   transform: translateY(-240px);
-// }
-// .time7 {
-//   transform: translateY(-280px);
-// }
-// .time8 {
-//   transform: translateY(-320px);
-// }
-// .time9 {
-//   transform: translateY(-360px);
-// }
-// .time10 {
-//   transform: translateY(-400px);
-// }
-
 .sec-one {
   animation-name: sceOne;
   animation-duration: 10s;
@@ -145,10 +111,10 @@ button {
   1% {
     transform: translateY(-40px);
   }
-  // 16.66% {
-  //   //10秒
-  //   transform: translateY(-40px);
-  // }
+  16.66% {
+    //10秒
+    transform: translateY(-40px);
+  }
   18.33% {
     //11秒
     transform: translateY(-80px);
@@ -157,10 +123,10 @@ button {
     //20秒
     transform: translateY(-80px);
   }
-  // 35% {
-  //   //21秒
-  //   transform: translateY(-120px);
-  // }
+  35% {
+    //21秒
+    transform: translateY(-120px);
+  }
   50% {
     //30秒
     transform: translateY(-120px);
@@ -191,68 +157,10 @@ button {
   }
 }
 
-.min-ten {
-  animation-name: minTen;
-  animation-duration: 600s;
-  animation-iteration-count: infinite;
-}
-
-@keyframes minTen {
-  0% {
-    transform: translateY(0px);
-  }
-  1% {
-    transform: translateY(-40px);
-  }
-  // 16.66% {
-  //   //10秒
-  //   transform: translateY(-40px);
-  // }
-  18.33% {
-    //11秒
-    transform: translateY(-80px);
-  }
-  // 33.33% {
-  //   //20秒
-  //   transform: translateY(-80px);
-  // }
-  35% {
-    //21秒
-    transform: translateY(-120px);
-  }
-  // 50% {
-  //   //30秒
-  //   transform: translateY(-120px);
-  // }
-  51.66% {
-    //31秒
-    transform: translateY(-160px);
-  }
-  66.66% {
-    //40秒
-    transform: translateY(-160px);
-  }
-  68.33% {
-    //41秒
-    transform: translateY(-200px);
-  }
-  83.33% {
-    //50秒
-    transform: translateY(-200px);
-  }
-  85% {
-    //51秒
-    transform: translateY(-240px);
-  }
-  100% {
-    //60秒
-    transform: translateY(-240px);
-  }
-}
-
 .min-one {
   animation-name: minOne;
-  animation-duration: 60s;
+  animation-duration: 600s;
+  animation-delay: -180s;
   animation-iteration-count: infinite;
 }
 
@@ -319,5 +227,64 @@ button {
   }
   100% {
     transform: translateY(-400px);
+  }
+}
+
+.min-ten {
+  animation-name: minTen;
+  animation-duration: 3600s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes minTen {
+  0% {
+    transform: translateY(0px);
+  }
+  16.6389% {
+    transform: translateY(0px);
+  }
+  16.6667% {
+    //10秒
+    transform: translateY(-40px);
+  }
+  33.3056% {
+    //11秒
+    transform: translateY(-40px);
+  }
+  33.3333% {
+    //20秒
+    transform: translateY(-80px);
+  }
+  49.9722% {
+    //21秒
+    transform: translateY(-80px);
+  }
+  50% {
+    //30秒
+    transform: translateY(-120px);
+  }
+  66.6389% {
+    //31秒
+    transform: translateY(-120px);
+  }
+  66.6667% {
+    //40秒
+    transform: translateY(-160px);
+  }
+  83.3056% {
+    //41秒
+    transform: translateY(-160px);
+  }
+  83.3333% {
+    //50秒
+    transform: translateY(-200px);
+  }
+  99.9722% {
+    //51秒
+    transform: translateY(-200px);
+  }
+  100% {
+    //60秒
+    transform: translateY(-240px);
   }
 }

@@ -13,7 +13,7 @@ export const getCoupon = val =>{
 
 
 //跟server要資料
-export const fromServerCouponData = val => {
+export const fromServerCouponData = (val,id) => {
     return async dispatch => {
       //getCoupon
       const request = new Request('http://localhost:5500/getCoupon', {
@@ -24,7 +24,8 @@ export const fromServerCouponData = val => {
             'Content-Type': 'application/json',
           }),
           body:JSON.stringify({
-            page:val
+            page:val,
+            mb_id:id
           })
       })
       const res = await fetch(request)
@@ -79,17 +80,17 @@ export const endTimeSort = val =>{
 
 
 //領取的動作
-export const getCouponToServer = (item) => {
+export const getCouponToServer = (cp_id,mb_id) => {
     return async dispatch => {
-      const request = new Request(`http://localhost:5500/getCoupon`, {
+      const request = new Request(`http://localhost:5500/getCoupon/geted`, {
         method: 'POST',
         headers: new Headers({
           Accept: 'application/json',
           'Content-Type': 'application/json',
         }),
         body:JSON.stringify({
-          mb_id:5,
-          cp_id:3
+          mb_id,
+          cp_id
         })
       })
       const res = await fetch(request)
@@ -131,18 +132,19 @@ export const fromServerMemberCouponData = val => {
           'Content-Type': 'application/json',
         }),
         body:JSON.stringify({
-          mb_id:5
+          mb_id:val
         })
     })
     const res = await fetch(request)
     const data = await res.json()
     dispatch(showMemberCoupon(data))
-    dispatch(memberCouponFilter(data))
+    dispatch(memberCouponFilter(data,'get'))
   }
 }
 
 //會員優惠券-分類
 export const memberCouponFilter = (val,state) =>{
+  console.log('5555',val)
   let useList = []
   let endList = []
   let getList = []
@@ -209,4 +211,15 @@ export const showMbData = val =>{
 }
 export const addMbData = val =>{
   return {type:'ADD_MB_VALUE',value:val}
+}
+
+
+
+
+export const goShopping = val =>{
+  return { type: 'ITEMNAME_VALUE', value: [val] }
+}
+
+export const noReset = val =>{
+  return { type: 'NO_RESET', value: val }
 }

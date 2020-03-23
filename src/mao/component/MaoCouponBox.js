@@ -16,7 +16,7 @@ function MaoCouponBox(props) {
   function closeBox() {
     $('.Mao-couponBox').css({ opacity: 0 })
   }
-  console.log(props.couponData)
+  // console.log(props.couponData)
 
   const coupon = props.couponData.map((val, ind) => {
     //設定優惠字樣
@@ -88,7 +88,10 @@ function MaoCouponBox(props) {
 
   return (
     <>
-      <div>{CouponBox}</div>
+      <div>
+        <div className="Mao-coupon-exit" onClick={()=>{closeBox()}}>x</div>
+        {CouponBox}
+      </div>
     </>
   )
 }
