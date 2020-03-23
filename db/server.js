@@ -61,6 +61,8 @@ app.use('/stories', require(__dirname + '/stories'))
 
 //stories
 app.use('/member', require(__dirname + '/member'))
+//home page
+app.use('/home', require(__dirname + '/home'))
 
 //test
 app.get('/', (req, res) => {

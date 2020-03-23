@@ -44,9 +44,9 @@ function StoryCard(props){
                     </Card.Body>
                     <Card.Footer className='bk-card-footer'>
                         <div>
-                            <span><FiThumbsUp /> {props.data.stryLikes}</span>
-                            <span><FiMessageSquare /> {props.data.rplyTotal}</span>
-                            <span><FiEye /> {props.data.stryViews}</span>
+                            <span className='bk-stry-icons'><FiThumbsUp /> {props.data.stryLikes}</span>
+                            <span className='bk-stry-icons'><FiMessageSquare /> {props.data.rplyTotal}</span>
+                            <span className='bk-stry-icons'><FiEye /> {props.data.stryViews}</span>
                         </div>
                     </Card.Footer>
                 </Card>
