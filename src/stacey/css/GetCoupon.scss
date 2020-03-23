@@ -13,6 +13,20 @@ button {
   }
 }
 
+.sty-coupon-loading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  div {
+    width: 60px;
+    height: 60px;
+  }
+}
+.sty-coupon-finish {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
 .sty-wrap {
   // width: 1300px;
   // transform: translate(0, 0);

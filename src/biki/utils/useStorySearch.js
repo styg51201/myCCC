@@ -8,6 +8,8 @@ export default function useStorySearch(pageNumber, sortName){
     const [hasMore, setHasMore] = useState(false)
     const [stories, setStories] = useState([])
     const [error, setError] = useState(false)
+    const [stryTotal, setStryTotal] = useState(0)
+    const [showBtn, setShowBtn] = useState(false)
 
     useEffect(()=>{
         setLoading(true)
@@ -16,48 +18,42 @@ export default function useStorySearch(pageNumber, sortName){
 
         let cancel;
 
-        if(sortName){
-            axios({
-                method: 'GET',
-                url: `http://localhost:5500/stories/${pageNumber}?orderby=${sortName}`,
-                headers: {
-                    'content-type': 'application/json'
-                }
-            }).then(response=>{
-                console.log(response)
-                setStories(prevStories=>{
-                    return [...prevStories, ...response.data]
-                })
-                setHasMore(response.data.length > 0)
-                setLoading(false)
-            }).catch(err=>{
-                // if(axios.isCancel(err)) return
-                console.log('error:', err)
-                setError(true)
-                // return;
-            })
-        }else{
-            axios({
-                method: 'GET',
-                url: `http://localhost:5500/stories/${pageNumber}`,
-                headers: {
-                    'content-type': 'application/json'
-                }
-                // cancelToken : new axios.CancelToken(c => cancel = c)
-            }).then(response=>{
-                setStories(prevStories=>{
-                    return [...prevStories, ...response.data]
-                })
-                setHasMore(response.data.length > 0)
-                setLoading(false)
-            }).catch(err=>{
-                // if(axios.isCancel(err)) return
-                console.log('error:', err)
-                setError(true)
-                // return;
-            })
+        if(pageNumber === Math.ceil(stryTotal / 15)){
+            setShowBtn(false)
         }
-        
+
+        let url;
+        if(sortName){
+            url = `http://localhost:5500/stories/${pageNumber}?orderby=${sortName}`;
+        }else{
+            url = `http://localhost:5500/stories/${pageNumber}`
+        }
+
+        axios({
+            method: 'GET',
+            url: url,
+            headers: {
+                'content-type': 'application/json'
+            }
+        }).then(response=>{
+            // console.log(response)
+            setStories(prevStories=>{
+                return [...prevStories, ...response.data.data]
+            })
+            setStryTotal(response.data.stryTotal)
+            setHasMore(response.data.data.length > 0)
+            if(pageNumber === Math.ceil(stryTotal / 15)){
+                setShowBtn(false)
+            }else{
+                setShowBtn(response.data.data.length > 0)
+            }
+            setLoading(false)
+        }).catch(err=>{
+            // if(axios.isCancel(err)) return
+            console.log('error:', err)
+            setError(true)
+            // return;
+        })
         // return ()=> cancel()
 
     }, [pageNumber, sortName])
@@ -69,5 +65,5 @@ export default function useStorySearch(pageNumber, sortName){
         }
     }, [sortName])
 
-    return {loading, hasMore, stories, error}
+    return {loading, hasMore, stories, stryTotal, showBtn, error}
 }
