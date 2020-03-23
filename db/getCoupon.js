@@ -12,15 +12,23 @@ const upload = multer({ dest: 'tmp_uploads/' })
 // SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 6)
 
 //會員id
-router.get('/',(req,res)=>{
-    const sql='SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 4) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE '
-    db.queryAsync(sql)
+router.post('/',(req,res)=>{
+    console.log(req.body.page)
+    const sqlTotal = 'SELECT COUNT(*) AS `cp_total` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 4) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE'
+
+    const sql = 'SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = 4) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE  ORDER BY `cp_vendor` ASC  LIMIT ?,4'
+    db.queryAsync(sqlTotal,[req.body.page])
     .then(r=>{
-        r.forEach(e => {
-            e.cp_start = moment(e.cp_start).format(fm)
-            e.cp_due = moment(e.cp_due).format(fm)
+        const total = r 
+        db.queryAsync(sql,[req.body.page])
+        .then(r=>{
+            r.forEach(e => {
+                e.cp_start = moment(e.cp_start).format(fm)
+                e.cp_due = moment(e.cp_due).format(fm)
+        })
+          res.json({total,couponData:r})
         });
-        res.json(r)
+      
     })
 })
 //cp_id 會員id 
@@ -186,6 +194,43 @@ router.post('/adTest',(req,res)=>{
 // (71,'Sabbat 魔宴',150,'魔宴.png',2020-03-19,2020-04-10)
 
 // INSERT INTO `coupon_rule`( `cpr_object`, `cpr_rule`, `cpr_ruleNum`, `cpr_discount`, `cpr_discountNum`) VALUES (0,1,2,0,90),(1,2,3000,1,200),(1,0,0,1,300),(3,2,5000,0,85),(1,1,0,0,1,300),(0,2,2500,0,95),(2,1,2,1,400),(0,2,4000,1,400),(3,0,0,0,90),(0,1,3,0,80),(2,2,2500,1,150),(0,1,2,0,88),(2,2,2000,0,79),(2,0,0,1,300)
+
+
+
+router.get('/list/:page?', (req, res) => {
+    const perPage = 8;
+    let totalRows, totalPages;
+    let page = req.params.page ? parseInt(req.params.page) : 1;
+
+    const t_sql = "SELECT COUNT(1) num FROM `students`";
+    db.queryAsync(t_sql)
+        .then(result => {
+            totalRows = result[0].num; // 總筆數
+            totalPages = Math.ceil(totalRows / perPage);
+
+            // 限定 page 範圍
+            if (page < 1) page = 1;
+            if (page > totalPages) page = totalPages;
+
+            const sql = `SELECT * FROM students LIMIT  ${(page - 1) * perPage}, ${perPage}`;
+
+            return db.queryAsync(sql)
+        })
+        .then(result => {
+            //轉日期文字格式
+
+            result.forEach((row, idx) => {
+                row.studentBirthday = moment(row.studentBirthday).format(fm)
+            })
+
+            res.render('address-book/list', {
+                totalRows,
+                totalPages,
+                page,
+                rows: result
+            })
+        })
+})
 
 
 module.exports = router

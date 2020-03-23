@@ -18,7 +18,7 @@ function UploadStory(){
                         </ul>
                     </div>
                 </Col>
-                <Col lg={9} className='bk-story-editor-container'>
+                <Col lg={9} className='bk-member-main-container'>
                     <h3>上傳故事</h3>
                     <DraftEditor />
                 </Col>

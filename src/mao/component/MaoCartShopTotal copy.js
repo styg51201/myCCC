@@ -8,7 +8,7 @@ import {
   AddCart,
   AddCartItem,
   DelCartItem,
-  calCart,CalShopCartTotal
+  calCart,CalShopCartTotal,saveOrderBuyerproduct
 } from '../actions/ShopCartAction'
 import MaoCouponBox from './MaoCouponBox'
 import { productList } from '../ProductList'
@@ -94,6 +94,7 @@ $('.Mao-total-box').on('mouseenter',()=>{
         <Link
           className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn"
           to="/OrderInfo"
+          
         >
           {CheckrouteName=='/OrderInfo'?'確認結帳':'前往結帳'}
         </Link>
@@ -191,7 +192,7 @@ const mapDispatchToProps = dispatch => {
       AddCart,
       AddCartItem,
       DelCartItem,
-      calCart,CalShopCartTotal,
+      calCart,CalShopCartTotal,saveOrderBuyerproduct
     },
     dispatch
   )

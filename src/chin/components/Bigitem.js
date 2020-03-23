@@ -66,7 +66,7 @@ function Bigitem(props) {
                 <div>
                   <img
                     key={ind}
-                    src={`/chin-img/images/${val.multipleImageImg}`}
+                    src={`/chin-img/images/${val.itemName}/${val.multipleImageImg}`}
                     className="chin-smallitem-img"
                   />
                 </div>
@@ -85,7 +85,7 @@ function Bigitem(props) {
                 <div>
                   <img
                     key={ind}
-                    src={`/chin-img/images/${val.multipleImageImg}`}
+                    src={`/chin-img/images/${val.itemName}/${val.multipleImageImg}`}
                     className="chin-smallitem-img"
                   />
                 </div>

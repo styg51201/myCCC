@@ -3,6 +3,8 @@ import { BrowserRouter as Router, Route, Link, Switch ,withRouter } from 'react-
 import '../css/main.css'
 import './css/GetCoupon.scss'
 
+
+
 //components
 import CouponSideFilter from './components/CouponSideFilter'
 import CouPageTitle from './components/CouPageTitle'
@@ -23,13 +25,67 @@ import {
 
 function GetCoupon(props) {
 
-  const [loaded,setLoaded] = useState(false)
+  const [loading,setLoading] = useState(false)
+  const [end,setEnd] = useState(false)
+  const [finish,setFinish] = useState(false)
+
+
+
+  let rowInfo,rowHeight
 
   
   useEffect(()=>{
-    props.fromServerCouponData()
-      setLoaded(true)
+    props.fromServerCouponData(props.data.length)
+ 
   },[])
+
+
+
+  useEffect(()=>{
+
+    rowInfo = document.querySelector('.sty-row').getBoundingClientRect()
+
+    //取得絕對位置
+    rowHeight = (rowInfo.top + rowInfo.height) + window.pageYOffset
+ 
+
+
+    const handle = () =>{
+
+
+
+      if(!finish){
+        if( (window.pageYOffset + (window.screen.availHeight/3)*2)> rowHeight){ 
+  
+          if(props.data.length !== props.cp_total){
+            setLoading(true)
+            setTimeout(()=>{
+              props.fromServerCouponData(props.data.length)
+     
+              setLoading(false)
+            },1000)
+          }else{
+            setLoading(true)
+            setTimeout(()=>{
+              setEnd(true)
+              setLoading(false)
+              setFinish(true)
+            },1000)
+            setTimeout(()=>{
+              setEnd(false)
+            },3000)
+          }
+      window.removeEventListener("scroll", handle);
+
+        }
+      }
+    }
+    
+  window.addEventListener('scroll',handle)
+
+  return () => window.removeEventListener("scroll", handle);
+
+  },[props.data])
 
 
  //篩選過後的
@@ -54,21 +110,29 @@ function GetCoupon(props) {
 //篩選列表照廠商名排序
 vendorList.sort()
  
+const loadDiv = (<div className="sty-coupon-loading"><div className="spinner-border " role="status"></div></div>)
+
+const endDiv = (<div className="sty-coupon-finish"><div>已是最新資料</div></div>)
 
   return (
     <>
       {/* <Bread /> */}
-      <div className="row wrap">
+      <div className="row sty-wrap">
         {/* <!-- 側邊篩選欄 --> */}
         <CouponSideFilter list={vendorList}/>
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
-          <div className="row">
+          <div className="row sty-row">
             {/* <!-- title --> */}
             <CouPageTitle />
             {/* 優惠券 */}
             {props.vendor.length?filterCouponItem:allCouponItem}
+            
+            
+
           </div>
+          {loading ? loadDiv : "" }
+          {end ? endDiv : "" }
         </div>
       </div>
     </>
@@ -78,7 +142,8 @@ vendorList.sort()
 // 選擇對應的reducer
 const mapStateToProps = store => {
   return { data: store.getCouponData ,
-            vendor: store.filterCoupon,}
+            vendor: store.filterCoupon,
+          cp_total:store.couponTotal}
 }
 
 //action

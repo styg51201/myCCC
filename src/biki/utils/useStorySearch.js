@@ -2,31 +2,51 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
-export default function useStorySearch(pageNumber){
+export default function useStorySearch(pageNumber, sortName){
 
     const [loading, setLoading] = useState(true)
     const [hasMore, setHasMore] = useState(false)
     const [stories, setStories] = useState([])
     const [error, setError] = useState(false)
+    const [stryTotal, setStryTotal] = useState(0)
+    const [showBtn, setShowBtn] = useState(false)
 
     useEffect(()=>{
         setLoading(true)
         setError(false)
+        // console.log('page or sortname has been changed')
 
         let cancel;
 
+        if(pageNumber === Math.ceil(stryTotal / 15)){
+            setShowBtn(false)
+        }
+
+        let url;
+        if(sortName){
+            url = `http://localhost:5500/stories/${pageNumber}?orderby=${sortName}`;
+        }else{
+            url = `http://localhost:5500/stories/${pageNumber}`
+        }
+
         axios({
             method: 'GET',
-            url: `http://localhost:5500/stories/${pageNumber}`,
+            url: url,
             headers: {
                 'content-type': 'application/json'
             }
-            // cancelToken : new axios.CancelToken(c => cancel = c)
         }).then(response=>{
+            // console.log(response)
             setStories(prevStories=>{
-                return [...prevStories, ...response.data]
+                return [...prevStories, ...response.data.data]
             })
-            setHasMore(response.data.length > 0)
+            setStryTotal(response.data.stryTotal)
+            setHasMore(response.data.data.length > 0)
+            if(pageNumber === Math.ceil(stryTotal / 15)){
+                setShowBtn(false)
+            }else{
+                setShowBtn(response.data.data.length > 0)
+            }
             setLoading(false)
         }).catch(err=>{
             // if(axios.isCancel(err)) return
@@ -34,10 +54,16 @@ export default function useStorySearch(pageNumber){
             setError(true)
             // return;
         })
-        
         // return ()=> cancel()
 
-    }, [pageNumber])
+    }, [pageNumber, sortName])
 
-    return {loading, hasMore, stories, error}
+    useEffect(()=>{
+        if(sortName){
+            console.log('resetting stories..')
+            setStories([])
+        }
+    }, [sortName])
+
+    return {loading, hasMore, stories, stryTotal, showBtn, error}
 }

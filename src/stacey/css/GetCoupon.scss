@@ -13,34 +13,28 @@ button {
   }
 }
 
-.container {
-  width: 1300px;
+.sty-coupon-loading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  div {
+    width: 60px;
+    height: 60px;
+  }
 }
-.sty-bread {
-  h3 {
-    font-size: $font-x;
-    text-align: center;
-    color: $grey;
-    margin: 0;
-  }
-  .mobileFilter {
-    // display: flex;
-    display: none;
-    justify-content: flex-end;
-    button {
-      display: flex;
-      color: $grey;
-      font-size: $font-x;
-      @include buttonTheme(borderedStyle);
-      width: 140px;
-      padding: 0 0.5rem;
-    }
-  }
-  padding: 50px 0;
+.sty-coupon-finish {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.sty-wrap {
+  // width: 1300px;
+  // transform: translate(0, 0);
 }
 
 .sty-sideFilter {
   padding-right: 1.25rem;
+  // position: fixed;
 
   .sty-title {
     display: flex;

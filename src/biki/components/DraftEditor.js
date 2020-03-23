@@ -32,6 +32,7 @@ function DraftEditor(props){
     const [id, setId] = useState(0)
     const [story, setStory] = useState([]) //for debouncing & checking content
     const [tags, setTags] = useState([])
+    const [message, setMessage] = useState('')
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
@@ -53,23 +54,29 @@ function DraftEditor(props){
             // console.log(editorContent)
             setStory([{'content': editorContent}, {'title': title}, {'tags': tags}])
             setSaveDraft(true)
+            // setMessage('已儲存至草稿')
         }
     }, [editorContent, title, tags])
 
     //auto save when Story has content
-    const dataDebounced = useDebounce(story, 1000)
+    const {debouncedValue, msg} = useDebounce(story, 1000, '正在儲存至草稿...', saveDraft)
 
     useEffect(()=>{
         if(story.length && draftSaved && saveDraft){
-            console.log('auto saving...')
+            console.log('autosaving...')
             saveData()
         }
-    }, [dataDebounced])
+    }, [debouncedValue])
+
+    useEffect(()=>{
+        if(msg) setMessage(msg)
+    }, [msg])
 
     useEffect(()=>{
         if(saveDraft){
             console.log('submitting draft...')
             submitDraft()
+            setMessage('已儲存至草稿')
         }
     }, [saveDraft])
 
@@ -162,9 +169,7 @@ function DraftEditor(props){
 
     //autosave to draft
     async function saveData(){
-
         if(!saveDraft) return;
-
         const contentState = await editorState.getCurrentContent()
         const response = await fetch(`http://localhost:5500/stories/user-editor/draft/save-draft/${id}`, {
             method: 'PATCH',
@@ -180,6 +185,7 @@ function DraftEditor(props){
         })
         const data = await response.json()
         await console.log(data)
+        setMessage('已儲存至草稿')
     }
 
     //final submit
@@ -256,6 +262,7 @@ function DraftEditor(props){
 
     return(
         <>
+            <div className='bk-editor-message'>{message ? message : ''}</div>
             <div className="bk-form-control">
                 <label>標題</label>
                 <input type="text" onChange={handleTitle} />

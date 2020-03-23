@@ -55,38 +55,43 @@ export const fromServerorderBuyerInfo = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
+    await console.log('000000000000000', val)
     await dispatch(saveOrderBuyerInfo(val))
   }
 }
 
 //訂單產品資料
-export const forServerorderProductInfo=val=>{
-  return async dispatch=>{
-    const request=new Request(
+export const forServerorderProductInfo = val => {
+  return async dispatch => {
+    const request = new Request(
       'http://localhost:5500/shopCart/orderproductInfo',
       {
-        method:'POST',
-        credentials:'include',
+        method: 'POST',
+        credentials: 'include',
         headers: new Headers({
-          Accept:'application/json',
-          'Content-Type':'application/json',
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
         }),
-        body:JSON.stringify(val),
+        body: JSON.stringify(val),
       }
     )
-    const res= await fetch(request)
-    const data= await res.json()
+    const res = await fetch(request)
+    const data = await res.json()
+    console.log('444444444444444444444444', data)
     await dispatch(saveOrderBuyerproduct(val))
   }
 }
 
 //呼叫訂單資料
-export const getOrderFromServer=value=>{
+export const getOrderFromServer = value => {
   return async dispatch => {
-    const request = new Request(`http://localhost:5500/shopCart/orderbuyerInfo`, {
-      method: 'GET',
-      credentials: 'include',
-    })
+    const request = new Request(
+      `http://localhost:5500/shopCart/orderbuyerInfo`,
+      {
+        method: 'GET',
+        credentials: 'include',
+      }
+    )
     const res = await fetch(request)
     const data = await res.json()
     let newData = []
@@ -94,28 +99,36 @@ export const getOrderFromServer=value=>{
       newData.push({
         orderId: v.orderId,
         buyerName: v.buyerName,
-        shipping:v.shipping,
+        shipping: v.shipping,
         buyerAdress: v.buyerAdress,
         total: v.total,
-        ship:v.shipCost,
-        discount:v.discount
+        ship: v.shipCost,
+        discount: v.discount,
       })
     })
     dispatch(getBuyerInfo(newData))
   }
 }
 //儲存會員訂單資訊
-export const saveOrderBuyerInfo=value=>({type:'SAVE_ORDER',value:value})
-
+export const saveOrderBuyerInfo = value => ({
+  type: 'SAVE_ORDER',
+  value: value,
+})
 
 //儲存會員購買產品
-export const saveOrderBuyerproduct=value=>({type:'SAVE_ORDER_PRODUCT',value:value})
+export const saveOrderBuyerproduct = value => ({
+  type: 'SAVE_ORDER_PRODUCT',
+  value: value,
+})
 
 //清除儲存會員購買產品
-export const clearOrderBuyerproduct=value=>({type:'CLEAR_ORDER_PRODUCT',value:value})
+export const clearOrderBuyerproduct = value => ({
+  type: 'CLEAR_ORDER_PRODUCT',
+  value: value,
+})
 
 //呼叫訂單資料
-export const getBuyerInfo=value=>({type:'SHOW_ORDER',value:value})
+export const getBuyerInfo = value => ({ type: 'SHOW_ORDER', value: value })
 
 //控制資料庫的呼叫
 export const ControlDataOne = value => ({ type: 'CTRL_DATA', value: value })
@@ -124,9 +137,9 @@ export const ControlDataOne = value => ({ type: 'CTRL_DATA', value: value })
 export const CalShopCart = value => {
   return dispatch => {
     let total = 0
-    value.map((v,i)=>{
-      let sCount=v.price*v.count
-      total+=sCount
+    value.map((v, i) => {
+      let sCount = v.price * v.count
+      total += sCount
     })
     dispatch(calCart(total))
   }
@@ -137,7 +150,6 @@ export const calCart = value => ({ type: 'CAL_TOTAL', value: value })
 
 // 計算總額含運費活動折扣
 export const CalShopCartTotal = value => ({ type: 'FINAL_TOTAL', value: value })
-
 
 //刪除
 export const DelCartItem = (i, data) => {
@@ -183,8 +195,8 @@ export const AddCartNewItem_sendcal = data => {
 
 //加入最愛 目前會出錯 點選加入最愛會出現undefined
 export const Handle_AddMyFavorite = (val, product, data) => {
-  let pIdBox=[]
-  data.map((v,i)=>{
+  let pIdBox = []
+  data.map((v, i) => {
     pIdBox.push(v.pId)
   })
   let newData = [...data]
@@ -203,6 +215,25 @@ export const Handle_AddMyFavorite = (val, product, data) => {
       return newData
     }
     dispatch(AddMyFavorite(newData))
+  }
+}
+
+export const calDiscount = (val, data) => {
+  return dispatch => {
+    switch (val) {
+      case '8折':
+        data = data * val * 0.1
+        break
+      case '-100':
+        data = data - 100
+        break
+      case '-500':
+        data = data - 500
+        break
+      default:
+        console.log(data)
+    }
+    dispatch(CalShopCartTotal(data))
   }
 }
 

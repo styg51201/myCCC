@@ -12,34 +12,34 @@ import {
   Handle_AddMyFavorite,
   ControlDataOne,
   fromServerorderBuyerInfo,
-  CalShopCartTotal,
-  calCart,forServerorderProductInfo,saveOrderBuyerInfo,clearOrderBuyerproduct
+  forServerorderProductInfo,
+  saveOrderBuyerInfo,
+  clearOrderBuyerproduct,
 } from './actions/ShopCartAction'
 import Swal from 'sweetalert2'
-import　$ from 'jquery'
+import GetDayRange from './GetDayRange'
+import './css/OrderInfo.scss'
+import $ from 'jquery'
 
 function OrderInfo(props) {
-const [checkFrom,setCheckFrom]=useState(false)
+  const [values, setValues] = useState({
+    buyerName: '',
+    mobile: '',
+    buyerAdress: '台北市大安區',
+    invoice: '個人電子發票',
+    shipping: '7-11',
+    payment: '貨到付款',
+  })
+  const [errors, setErrors] = useState({
+    buyerName: '',
+    mobile: '',
+    buyerAdress: '台北市大安區',
+    invoice: '個人電子發票',
+    shipping: '7-11',
+    payment: '貨到付款',
+  })
 
-
-  //月
-  function getMonth() {
-    let MonthBox = []
-    for (let i = 1; i <= 12; i++) {
-      MonthBox.push(<option value={i}>{i}</option>)
-    }
-    return MonthBox
-  }
-  //年
-  function getYear() {
-    let yearBox = []
-    let MinDate = new Date()
-    let year = MinDate.getFullYear()
-    for (let i = year - 5; i <= year + 5; i++) {
-      yearBox.push(<option value={i}>{i}</option>)
-    }
-    return yearBox
-  }
+  const { getMonth, getYear } = GetDayRange()
 
   //訂單
   let order = ''
@@ -47,16 +47,16 @@ const [checkFrom,setCheckFrom]=useState(false)
     let Numlength = 8
     const word = 'QAZWSXEDCRFVTGBYHNUJMIKOLP1234567890'
     for (let i = 0; i <= Numlength; i++) {
-      order += word[Math.round(Math.random() * (word.length-1))]
+      order += word[Math.round(Math.random() * (word.length - 1))]
     }
   }
-  getRND()
 
-  let sendTotal=props.FinalTotal
+  let sendTotal = props.FinalTotal
+
   //送出資料
-  const buyerInfo = {
+  const [buyerInfo, setBuyerInfo] = useState({
     orderId: `${order}`,
-    buyer_name: '',
+    buyerName: '',
     mobile: '',
     payment: 'COD',
     shipping: 'Seven-store',
@@ -64,76 +64,129 @@ const [checkFrom,setCheckFrom]=useState(false)
     invoice: 'personal-invoice',
     taxNo: '',
     total: sendTotal,
-    shipCost:'100',
-    discount:'0'
-  }
+    shipCost: '100',
+    discount: '0',
+  })
 
-  
+  //插入資料
+  // function getbuyer(e) {
+  //   $('#mobile').val('0912345678')
+  //   $('#buyerName').val('Alex')
+  //   buyerInfo.buyerName = 'Alex'
+  //   buyerInfo.mobile = '0912345678'
+  //   console.log(buyerInfo)
+  // }
 
   //獲取buyer資訊
   function getformInfo(e, str) {
     let getInfo = e.currentTarget.value
     let getInfo2 = e.currentTarget.id
     switch (str) {
-      case 'buyer_name':
-        buyerInfo.buyer_name = getInfo
+      case 'buyerName':
+        buyerInfo.buyerName = getInfo
+        setBuyerInfo({ ...buyerInfo, buyerName: getInfo })
+        if (getInfo.length == 0) {
+          setErrors({ ...errors, buyerName: '名字不能空白' })
+        } else if (/[0-9]|\W/.test(getInfo)) {
+          setErrors({ ...errors, buyerName: '名字不能為數字或符號' })
+        } else if (getInfo.length < 2) {
+          setErrors({ ...errors, buyerName: '名字長度有誤' })
+        } else {
+          setErrors({ ...errors, buyerName: '' })
+        }
+        setValues({ ...values, buyerName: getInfo })
         break
       case 'mobile':
         buyerInfo.mobile = getInfo
+        setBuyerInfo({ ...buyerInfo, mobile: getInfo })
+        console.log(getInfo)
+        if (getInfo.length == 0) {
+          setErrors({ ...errors, mobile: '電話號碼不能為空白' })
+        } else if (!/^09[0-9]\d{7}$/.test(getInfo)) {
+          setErrors({
+            ...errors,
+            mobile: '電話號碼格式有誤，請以09xxxxxxxx輸入',
+          })
+        } else {
+          setErrors({ ...errors, mobile: '' })
+        }
+        setValues({ ...values, mobile: getInfo })
         break
       case 'shipping':
         buyerInfo.shipping = getInfo2
+        setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
+        setValues({ ...values, shipping: getInfo2 })
         break
       case 'payment':
         buyerInfo.payment = getInfo2
+        console.log(getInfo2)
+        setBuyerInfo({ ...buyerInfo, payment: getInfo2 })
+        setValues({ ...values, payment: getInfo2 })
         break
       case 'invoice':
         buyerInfo.invoice = getInfo2
+        setBuyerInfo({ ...buyerInfo, invoice: getInfo2 })
+        setValues({ ...values, invoice: getInfo2 })
         break
       default:
         break
     }
   }
 
-  const pIdArr=[]
-  const countArr=[]
-//獲取購物車內容
-function getorderProductInfo(){
-  props.AddItem.map((v,i)=>{
-    pIdArr.push(v.pId)
-    countArr.push(v.count)
-  })
-}
+  const [pIdArr,setPIdArr]=useState([])
+  const [countArr,setCountArr]=useState([])
+  //獲取購物車內容
+  function getorderProductInfo() {
+    const pIdArrBox = []
+    const countArrBox=[]
+    props.AddItem.map((v, i) => {
+      countArrBox.push(v.count)
+      pIdArrBox.push(v.pId)
+    })
+    setPIdArr(pIdArrBox)
+    setCountArr(countArrBox)
+  }
 
-useEffect(()=>{
-  getorderProductInfo()
-},[])
 
-let productInfo={
-  orderId: `${buyerInfo.orderId}`,
-  pId:`${pIdArr}`,
-  count:`${countArr}`,
-  outStatus:'訂單處理中',
-}
+  useEffect(() => {
+    getRND()
+    getorderProductInfo()
+    GetDayRange()
+  }, [])
 
+  useEffect(() => {
+    console.log('pIdArr in useEffect',pIdArr)
+    console.log('pIdArr in getorderProductInfo',pIdArr)
+    console.log('countArr in getorderProductInfo',countArr)
+  }, [pIdArr])
+  useEffect(() => {
+    buyerInfo.orderId = order
+    console.log('countArr in getorderProductInfo',countArr)
+  }, [order])
+
+  useEffect(() => {
+    console.log('buyerInfo2', buyerInfo)
+    console.log('pIdArr in order',pIdArr)
+  }, [buyerInfo])
 
   //送出
   async function POSTorderInfo() {
-    let noneObj={}
-     //清理暫存
-     await props.clearOrderBuyerproduct(noneObj)
-     //送出購買人資訊
-     await props.fromServerorderBuyerInfo(buyerInfo)
-
-    for(let i=0;i<pIdArr.length;i++){
-      let proBox={
-          orderId: order,
-          pId:`${pIdArr[i]}`,
-          count:`${countArr[i]}`,
-          outStatus:'訂單處理中',
+    let noneObj = {}
+    //清理暫存
+    await props.clearOrderBuyerproduct(noneObj)
+    //送出購買人資訊
+    await props.fromServerorderBuyerInfo(buyerInfo)
+    console.log('pIdArr', pIdArr)
+    for (let i = 0; i < pIdArr.length; i++) {
+      console.log('pIdArr', pIdArr[i])
+      let proBox = {
+        orderId: buyerInfo.orderId,
+        pId: `${pIdArr[i]}`,
+        count: `${countArr[i]}`,
+        outStatus: '訂單處理中',
       }
-    //送出產品
-    await props.forServerorderProductInfo(proBox)
+      //送出產品
+      props.forServerorderProductInfo(proBox)
     }
     await Swal.fire({
       position: 'top-end',
@@ -141,147 +194,174 @@ let productInfo={
       title: '結帳完成',
       showConfirmButton: false,
       timer: 1500,
-      position:'center',
+      position: 'center',
     })
-    // window.location.href= await '/Orderbill'
-    
-    
   }
 
   //表格
   return (
     <>
       {/* <form method="POST"> */}
-        <div className="container my-3 d-flex" style={{ width: '1300px' }}>
-          <div
-            className="px-4 border bg-white p-3"
-            style={{ maxWidth: '950px' }}
-          >
-            <div className="form-row d-flex flex-column">
-              <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
-              <div className="col my-3">
-                <h4>訂購人姓名</h4>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="訂購人姓名"
-                  style={{ border: 'none', borderBottom: '1px solid #ddd' }}
-                  onChange={(e, str) => getformInfo(e, 'buyer_name')}
-                />
-              </div>
-              <div className="col my-3">
-                <h4>訂購人電話</h4>
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder="Last name"
-                  style={{ border: 'none', borderBottom: '1px solid #ddd' }}
-                  onChange={(e, str) => getformInfo(e, 'mobile')}
-                />
-              </div>
-            </div>
-            <div className="custom-control custom-checkbox">
+      <div className="container my-3 d-flex" style={{ width: '1300px' }}>
+        <div className="px-4 border bg-white p-3" style={{ maxWidth: '950px' }}>
+          <div className="form-row d-flex flex-column">
+            <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
+            <div className="col my-3">
+              <h4>訂購人姓名</h4>
               <input
-                type="checkbox"
-                className="custom-control-input"
-                id="customCheck1"
+                type="text"
+                id="buyerName"
+                className="form-control"
+                placeholder="訂購人姓名"
+                style={{ border: 'none', borderBottom: '1px solid #ddd' }}
+                onBlur={(e, str) => getformInfo(e, 'buyerName')}
+                onChange={(e, str) => getformInfo(e, 'buyerName')}
               />
-              <label className="custom-control-label" htmlFor="customCheck1">
-                同會員資料
-              </label>
+              {errors.buyerName == '名字不能為數字或符號' ? (
+                <p className="Mao-prompt-word">{errors.buyerName}</p>
+              ) : (
+                ''
+              )}
+              {errors.buyerName == '名字不能空白' ? (
+                <p className="Mao-prompt-word">{errors.buyerName}</p>
+              ) : (
+                ''
+              )}
+              {errors.buyerName == '名字長度有誤' ? (
+                <p className="Mao-prompt-word">{errors.buyerName}</p>
+              ) : (
+                ''
+              )}
             </div>
-            <div>
-              <div className="form-row d-flex flex-column my-5">
-                <h2 className="border-bottom p-3">運送方式</h2>
-              </div>
-              <div className="d-flex">
-                <div className="custom-control custom-radio mr-5">
-                  <input
-                    type="radio"
-                    className="custom-control-input"
-                    name="checkshipping"
-                    id="Seven-store"
-                    onClick={e => {
-                      getformInfo(e, 'shipping')
-                    }}
-                  />
-                  <label className="custom-control-label" htmlFor="Seven-store">
-                    7-11超商
-                  </label>
-                  <Link to="/OrderInfo" className="ml-3">
-                    選擇門市
-                  </Link>
-                </div>
-                <div className="custom-control custom-radio ">
-                  <input
-                    type="radio"
-                    className="custom-control-input"
-                    name="checkshipping"
-                    id="HiLife"
-                    onClick={e => {
-                      getformInfo(e, 'shipping')
-                    }}
-                  />
-                  <label className="custom-control-label" htmlFor="HiLife">
-                    萊爾富
-                  </label>
-                  <Link to="/OrderInfo" className="ml-3">
-                    選擇門市
-                  </Link>
-                </div>
-              </div>
+            <div className="col my-3">
+              <h4>訂購人電話</h4>
+              <input
+                type="text"
+                id="mobile"
+                className="form-control"
+                placeholder="Last name"
+                style={{ border: 'none', borderBottom: '1px solid #ddd' }}
+                onChange={(e, str) => getformInfo(e, 'mobile')}
+                onBlur={(e, str) => getformInfo(e, 'mobile')}
+              />
+              {errors.mobile == '電話號碼不能為空白' ? (
+                <p className="Mao-prompt-word">{errors.mobile}</p>
+              ) : (
+                ''
+              )}
+              {errors.mobile == '電話號碼格式有誤，請以09xxxxxxxx輸入' ? (
+                <p className="Mao-prompt-word">{errors.mobile}</p>
+              ) : (
+                ''
+              )}
             </div>
-            <div>
-              <div className="form-row d-flex flex-column my-5">
-                <h2 className="border-bottom p-3" style={{ display: 'block' }}>
-                  選擇付款方式
-                </h2>
+          </div>
+          {/* <div className="custom-control custom-checkbox">
+            <input
+              type="checkbox"
+              className="custom-control-input"
+              id="customCheck1"
+              onClick={e => {
+                getbuyer(e)
+              }}
+            />
+            <label className="custom-control-label" htmlFor="customCheck1">
+              同會員資料
+            </label>
+          </div> */}
+          <div>
+            <div className="form-row d-flex flex-column my-5">
+              <h2 className="border-bottom p-3">運送方式</h2>
+            </div>
+            <div className="d-flex">
+              <div className="custom-control custom-radio mr-5">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="checkshipping"
+                  id="Seven-store"
+                  onClick={e => {
+                    getformInfo(e, 'shipping')
+                  }}
+                />
+                <label className="custom-control-label" htmlFor="Seven-store">
+                  7-11超商
+                </label>
+                <Link to="/OrderInfo" className="ml-3">
+                  選擇門市
+                </Link>
               </div>
-              <div className="d-flex">
-                <div className="custom-control custom-radio mr-5">
-                  <input
-                    type="radio"
-                    className="custom-control-input"
-                    name="payment"
-                    id="COD"
-                    onChange={(e, str) => {
-                      getformInfo(e, 'payment')
-                    }}
-                  />
-                  <label className="custom-control-label" htmlFor="COD">
-                    貨到付款
-                  </label>
-                </div>
-                <div className="custom-control custom-radio mr-5">
-                  <input
-                    type="radio"
-                    className="custom-control-input"
-                    name="payment"
-                    id="CreditCard"
-                    onChange={(e, str) => {
-                      getformInfo(e, 'payment')
-                    }}
-                  />
-                  <label className="custom-control-label" htmlFor="CreditCard">
-                    信用卡一次付清
-                  </label>
-                </div>
-                <div className="custom-control custom-radio">
-                  <input
-                    type="radio"
-                    className="custom-control-input"
-                    name="payment"
-                    id="ATM"
-                    onChange={(e, str) => {
-                      getformInfo(e, 'payment')
-                    }}
-                  />
-                  <label className="custom-control-label" htmlFor="ATM">
-                    ATM轉帳
-                  </label>
-                </div>
+              <div className="custom-control custom-radio ">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="checkshipping"
+                  id="HiLife"
+                  onClick={e => {
+                    getformInfo(e, 'shipping')
+                  }}
+                />
+                <label className="custom-control-label" htmlFor="HiLife">
+                  萊爾富
+                </label>
+                <Link to="/OrderInfo" className="ml-3">
+                  選擇門市
+                </Link>
               </div>
             </div>
+          </div>
+          <div>
+            <div className="form-row d-flex flex-column my-5">
+              <h2 className="border-bottom p-3" style={{ display: 'block' }}>
+                選擇付款方式
+              </h2>
+            </div>
+            <div className="d-flex">
+              <div className="custom-control custom-radio mr-5">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="payment"
+                  id="COD"
+                  onChange={(e, str) => {
+                    getformInfo(e, 'payment')
+                  }}
+                />
+                <label className="custom-control-label" htmlFor="COD">
+                  貨到付款
+                </label>
+              </div>
+              <div className="custom-control custom-radio mr-5">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="payment"
+                  id="CreditCard"
+                  onChange={(e, str) => {
+                    getformInfo(e, 'payment')
+                  }}
+                />
+                <label className="custom-control-label" htmlFor="CreditCard">
+                  信用卡一次付清
+                </label>
+              </div>
+              <div className="custom-control custom-radio">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="payment"
+                  id="ATM"
+                  onChange={(e, str) => {
+                    getformInfo(e, 'payment')
+                  }}
+                />
+                <label className="custom-control-label" htmlFor="ATM">
+                  ATM轉帳
+                </label>
+              </div>
+            </div>
+          </div>
+          <div id="creditCardInfo">
             <div className="form-row my-5  d-flex align-items-center">
               <div className="col-2">
                 <h4>信用卡號</h4>
@@ -346,99 +426,102 @@ let productInfo={
                 <p style={{ width: '50%', margin: 0 }}>卡片背面，後三碼</p>
               </div>
             </div>
-            <div className="form-row my-5 d-flex align-items-center">
-              <div className="col-2">
-                <h4>發票</h4>
-              </div>
-              <div className="custom-control custom-radio mr-5">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="invoice"
-                  id="personal-invoice"
-                  onClick={(e, str) => {
-                    getformInfo(e, 'invoice')
-                  }}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor="personal-invoice"
-                >
-                  個人電子發票
-                </label>
-              </div>
-              <div className="custom-control custom-radio mr-5">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="invoice"
-                  id="donate"
-                  onClick={(e, str) => {
-                    getformInfo(e, 'invoice')
-                  }}
-                />
-                <label className="custom-control-label" htmlFor="donate">
-                  捐贈發票
-                </label>
-              </div>
-              <div className="custom-control custom-radio">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="invoice"
-                  id="company"
-                  onClick={(e, str) => {
-                    getformInfo(e, 'invoice')
-                  }}
-                />
-                <label className="custom-control-label" htmlFor="company">
-                  公司戶電子發票
-                </label>
-              </div>
+          </div>
+          <div className="form-row my-5 d-flex align-items-center">
+            <div className="col-2">
+              <h4>發票</h4>
             </div>
-
-            <div className="form-row my-5 d-flex align-items-center">
-              <div className="col-2">
-                <h4>統一編號</h4>
-              </div>
-              <div className="col-10 d-flex align-items-center">
-                <input
-                  type="text"
-                  className="form-control mr-3 w-25"
-                  placeholder=""
-                  maxLength="8"
-                  onChange={(e, str) => {
-                    getformInfo(e, 'taxNo')
-                  }}
-                />
-              </div>
+            <div className="custom-control custom-radio mr-5">
+              <input
+                type="radio"
+                className="custom-control-input"
+                name="invoice"
+                id="personal-invoice"
+                onClick={(e, str) => {
+                  getformInfo(e, 'invoice')
+                }}
+              />
+              <label
+                className="custom-control-label"
+                htmlFor="personal-invoice"
+              >
+                個人電子發票
+              </label>
             </div>
-            <br />
-            <div className="d-flex justify-content-center my-4">
-              <Link
-                to="./ShopCartList"
-                className="btn btn-light px-3 py-2 rounded-0 mx-2"
-                style={{
-                  width: '30%',
-                  background: '#fff',
-                  border: '1px solid #000',
+            <div className="custom-control custom-radio mr-5">
+              <input
+                type="radio"
+                className="custom-control-input"
+                name="invoice"
+                id="donate"
+                onClick={(e, str) => {
+                  getformInfo(e, 'invoice')
                 }}
-              >
-                上一步
-              </Link>
-              <Link to='/Orderbill'
-                className="btn btn-danger px-3 py-2 rounded-0 mx-2" id="sendOrder"
-                style={{ width: '30%', background: '#000', border: 'none' }}
-                onClick={() => {
-                  POSTorderInfo()
+              />
+              <label className="custom-control-label" htmlFor="donate">
+                捐贈發票
+              </label>
+            </div>
+            <div className="custom-control custom-radio">
+              <input
+                type="radio"
+                className="custom-control-input"
+                name="invoice"
+                id="company"
+                onClick={(e, str) => {
+                  getformInfo(e, 'invoice')
                 }}
-              >
-                結帳
-              </Link>
+              />
+              <label className="custom-control-label" htmlFor="company">
+                公司戶電子發票
+              </label>
             </div>
           </div>
-          <MaoCartShopTotal />
+
+          <div className="form-row my-5 d-flex align-items-center">
+            <div className="col-2">
+              <h4>統一編號</h4>
+            </div>
+            <div className="col-10 d-flex align-items-center">
+              <input
+                type="text"
+                className="form-control mr-3 w-25"
+                placeholder=""
+                maxLength="8"
+                onChange={(e, str) => {
+                  getformInfo(e, 'taxNo')
+                }}
+              />
+            </div>
+          </div>
+          <br />
+          <div className="d-flex justify-content-center my-4">
+            <Link
+              to="./ShopCartList"
+              className="btn btn-light px-3 py-2 rounded-0 mx-2"
+              style={{
+                width: '30%',
+                background: '#fff',
+                border: '1px solid #000',
+              }}
+            >
+              上一步
+            </Link>
+            <Link
+              to="/Orderbill"
+              className="btn btn-danger px-3 py-2 rounded-0 mx-2"
+              id="sendOrder"
+              style={{ width: '30%', background: '#000', border: 'none' }}
+              onClick={() => {
+                POSTorderInfo()
+              }}
+            >
+              結帳
+            </Link>
+          </div>
         </div>
+        <MaoCartShopTotal />
+      </div>
       {/* </form> */}
     </>
   )
@@ -449,7 +532,7 @@ const mapStateToProps = store => {
     //購物車內容
     AddItem: store.AddItem,
     FinalTotal: store.calculator_total,
-    saveOrderBuyerInfoReducer:store.saveOrderBuyerInfoReducer
+    saveOrderBuyerInfoReducer: store.saveOrderBuyerInfoReducer,
   }
 }
 
@@ -465,8 +548,9 @@ const mapDispatchToProps = dispatch => {
       Handle_AddMyFavorite,
       ControlDataOne,
       fromServerorderBuyerInfo,
-      CalShopCartTotal,
-      calCart,forServerorderProductInfo,saveOrderBuyerInfo,clearOrderBuyerproduct
+      forServerorderProductInfo,
+      saveOrderBuyerInfo,
+      clearOrderBuyerproduct,
     },
     dispatch
   )

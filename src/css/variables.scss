@@ -22,7 +22,7 @@ $font-xl: 2rem; //超大標題 (首頁)
 $font-x: 1.375rem; //22px 標題
 $font-m: 1.125rem; //18px 小標題
 $font-s: 1rem; //16px 內文
-$font-xs: 0.875rem; //14px 小文字
+$font-xs: 0.8rem; //13px 小文字
 
 //按鈕樣式(橫的)
 @mixin buttonTheme($style, $padding: 0.5rem 2rem, $width: auto) {
