@@ -17,7 +17,7 @@ import MemberCoupon from '../stacey/MemberCoupon'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { getserverMember } from './actions/memberAction'
+import { getserverMember, updateServerMember } from './actions/memberAction'
 
 function MemberEdit(props) {
   console.log(props)
@@ -28,15 +28,6 @@ function MemberEdit(props) {
   console.log(memberaccount.username)
   console.log(memberaccount.password)
   //遇到資料undefined時解法，因為第1次先跑時抓到undefined，會擋住後面再跑。
-
-  let emaildefault = props.data[0] ? props.data[0].Email : ''
-  // let passworddefault = props.data[0] ? props.data[0].Pwd : ''
-  let namedefault = props.data[0] ? props.data[0].Name : ''
-  let genderdefault = props.data[0] ? props.data[0].Gender : ''
-  let birthdaydefault = props.data[0] ? props.data[0].Birthday : ''
-  let phonenumberdefault = props.data[0] ? props.data[0].PhoneNumber : ''
-  let addressdefault = props.data[0] ? props.data[0].Address : ''
-
   //設鉤子
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -45,35 +36,49 @@ function MemberEdit(props) {
   const [gender, setGender] = useState('')
   const [phonenumber, setPhonenumber] = useState('')
   const [address, setAddress] = useState('')
-  const abc = true
+  const [test, setTest] = useState(false)
+
+  let emaildefault = props.data[0] ? props.data[0].Email : ''
+  // let passworddefault = props.data[0] ? props.data[0].Pwd : ''
+  let namedefault = props.data[0] ? props.data[0].Name : ''
+  let genderdefault = props.data[0] ? props.data[0].Gender : ''
+  let birthdaydefault = props.data[0] ? props.data[0].Birthday : ''
+  let phonenumberdefault = props.data[0] ? props.data[0].PhoneNumber : ''
+  let addressdefault = props.data[0] ? props.data[0].Address : ''
+  // useEffect(() => {
+  //   setEmail(emaildefault)
+  //   setTest(true)
+  // }, [namedefault])
+  // useEffect(() => {
+  //
+  //   setName(namedefault)
+  //   console.log('effect有用')
+  // }, [test])
+
   useEffect(() => {
     // const用props繫結值去抓account
+    props.updateServerMember()
     props.getserverMember()
   }, [])
+  const account = memberaccount.username
 
   const handlesubmit = event => {
-    //防止reload
-    event.preventDefaul()
-
-    //傳入更新資料打包
-    const memberupdate = { email, name, birthday, gender, phonenumber, address }
-    let formData = new FormData()
-    for (let key in memberupdate) {
-      formData.append(`${key}`, memberupdate[key])
+    // alert('有按到喔')
+    //改用redux
+    const updateData = {
+      email,
+      password,
+      name,
+      birthday,
+      gender,
+      phonenumber,
+      address,
+      account,
     }
-
-    updateDataToServer(memberupdate, () => alert('更新成功'))
-
-    async function updateDataToServer(memberupdate, callback) {
-      const request = new Request('http://localhost:5500/member/update', {
-        method: 'POST',
-        body: formData,
-      })
-      const response = await fetch(request)
-      const data = await response.json()
-      callback()
-      return data
-    }
+    // event.preventDefault()
+    // setTest(true)
+    props.updateServerMember(updateData)
+    // console.log(updateData)
   }
   // if (memberaccount != false) {
   return (
@@ -105,7 +110,7 @@ function MemberEdit(props) {
           <div className="memberedit col-9">
             <h3>基本資料管理</h3>
             <hr />
-            <Form>
+            <Form encType="multipart/form-data" method="post">
               <div className="form-group row">
                 <label className="col-sm-2 col-form-label">帳號</label>
                 <div className="col-sm-10">
@@ -115,7 +120,7 @@ function MemberEdit(props) {
                     className="form-control-plaintext"
                     id="staticaccount"
                     name="account"
-                    value={memberaccount.username}
+                    defaultValue={memberaccount.username}
                   />
                 </div>
               </div>
@@ -125,8 +130,8 @@ function MemberEdit(props) {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder={emaildefault}
                     name="email"
+                    defaultValue={email}
                     onChange={e => setEmail(e.target.value)}
                   />
                 </div>
@@ -139,6 +144,7 @@ function MemberEdit(props) {
                     className="form-control"
                     placeholder={memberaccount.password}
                     name="password"
+                    defaultValue={password}
                     onChange={e => setPassword(e.target.value)}
                   />
                 </div>
@@ -150,7 +156,8 @@ function MemberEdit(props) {
                     type="text"
                     className="form-control"
                     name="name"
-                    value={namedefault}
+                    defaultValue={namedefault}
+                    // placeholder={namedefault}
                     onChange={e => setName(e.target.value)}
                   />
                 </div>
@@ -161,10 +168,12 @@ function MemberEdit(props) {
                   <select
                     className="custom-select col-sm-4"
                     required
-                    value={genderdefault}
                     name="gender"
                     onChange={e => setGender(e.target.value)}
                   >
+                    <option value={genderdefault} selected>
+                      {genderdefault}
+                    </option>
                     <option value="男">男</option>
                     <option value="女">女</option>
                     <option value="不便告知">不便告知</option>
@@ -178,7 +187,7 @@ function MemberEdit(props) {
                     type="text"
                     className="form-control"
                     name="birthday"
-                    value={birthdaydefault}
+                    defaultValue={birthdaydefault}
                     onChange={e => setBirthday(e.target.value)}
                   />
                 </div>
@@ -191,7 +200,7 @@ function MemberEdit(props) {
                       type="text"
                       className="col-sm-8 form-control"
                       name="phonenumber"
-                      value={phonenumberdefault}
+                      defaultValue={phonenumberdefault}
                       onChange={e => setPhonenumber(e.target.value)}
                     />
                   </div>
@@ -205,7 +214,7 @@ function MemberEdit(props) {
                       type="text"
                       className="col-sm-8 form-control"
                       name="address"
-                      value={addressdefault}
+                      defaultValue={addressdefault}
                       onChange={e => setAddress(e.target.value)}
                     />
                   </div>
@@ -214,7 +223,7 @@ function MemberEdit(props) {
               <div className="text-right">
                 <Button
                   className="Irene_submit"
-                  type="submit"
+                  type="button"
                   onClick={event => handlesubmit(event)}
                 >
                   更新
@@ -231,7 +240,7 @@ function MemberEdit(props) {
 
 // 選擇對應的reducer
 const mapStateToProps = store => {
-  return { data: store.getMemberID }
+  return { data: store.updateMember, data: store.getMemberID }
 }
 
 //action
@@ -239,6 +248,7 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       getserverMember,
+      updateServerMember,
     },
     dispatch
   )
