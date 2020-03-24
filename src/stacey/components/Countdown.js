@@ -52,28 +52,7 @@ function Countdown(props){
             <div className="col">
               <h3>剩餘時間</h3>
               <div className="sty-time">
-                <div>
-                    <p className="hour-ten">
-                        <span>0</span>
-                        <span>1</span>
-                        <span>2</span>
-                        <span>0</span>
-                  </p>
-                </div>
-                <div>
-                    <p className="hour-one">
-                        <span>0</span>
-                        <span>1</span>
-                        <span>2</span>
-                        <span>3</span>
-                        <span>4</span>
-                        <span>5</span>
-                        <span>6</span>
-                        <span>7</span>
-                        <span>8</span>
-                        <span>9</span>
-                  </p>
-                </div>
+              
                 <div>
                     <p className="min-ten">
                         <span>0</span>
@@ -102,7 +81,7 @@ function Countdown(props){
                   </p>
                 </div>
                 <div>
-                    <p className={"sec-ten"}>
+                    <p className="sec-ten">
                         <span>0</span>
                         <span>5</span>
                         <span>4</span>
@@ -114,7 +93,7 @@ function Countdown(props){
                   </p>
                 </div>
                 <div>
-                    <p className={"sec-one"}>
+                    <p className="sec-one">
                         <span>0</span>
                         <span>9</span>
                         <span>8</span>

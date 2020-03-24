@@ -148,7 +148,8 @@ router.patch('/member/story/:id', (req, res)=>{
     })
 })
 //update draft
-router.patch('/member/:page/:id', (req, res)=>{
+/*
+router.patch('/member/draft/:id', (req, res)=>{
 
     let usrId = req.query.usrId
     let id = req.params.id;
@@ -173,6 +174,7 @@ router.patch('/member/:page/:id', (req, res)=>{
         throw err
     })
 })
+*/
 
 //---
 //save to draft
@@ -190,6 +192,8 @@ router.patch('/member/draft/save-draft/:id', (req, res)=>{
 
     let sql = 'UPDATE `storyDrafts` SET `drftTitle`= ?, `drftStatus`= ?, `drftContent`= ?, `drftTags`=?, `updated_at`= NOW() WHERE `usrId` = ? AND `drftId` = ?';
 
+    // console.log(req.body)
+    // return;
     let params = [
         req.body.title,
         'active',
@@ -218,7 +222,7 @@ router.patch('/member/draft/save-draft/:id', (req, res)=>{
 })
 //submit-draft
 router.patch('/member/draft/submit-draft/:id', (req, res)=>{
-
+    console.log("yay")
     let usrId = req.query.usrId
     let id = req.params.id
 

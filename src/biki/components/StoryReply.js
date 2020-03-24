@@ -43,7 +43,7 @@ function StoryReply(props){
                     }} 
                     onKeyDown={handleKey}
                 ></textarea>
-                <div class='bk-reply-btn-group'>
+                <div className='bk-reply-btn-group'>
                     <button onClick={handleToggleShow}>取消</button>
                     <button onClick={()=>{
                         props.handlers.submit(replyTo, txtContent)
