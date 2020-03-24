@@ -12,23 +12,24 @@ import {
   CalShopCart,
   Handle_AddMyFavorite,
   ControlDataOne,
-  AddCartNewItem_sendcal,
+  AddCartNewItem_sendcal
 } from './actions/ShopCartAction'
 import MemberSidebar from '../Irene/components/MemberSidebar'
 import { productList } from './ProductList'
 
 
 function ShopCartLike(props) {
+  // console.log('I want to see the data',props)
   const [favorloaded, setFavorloaded] = useState(false)
   // 從產品ID轉換成產品名稱
-  function checkProduct(val) {
-    productList.map((v, i) => {
-      if (val == v.itemId) {
-        val = v.pName
-      }
-    })
-    return val
-  }
+  // function checkProduct(val) {
+  //   productList.map((v, i) => {
+  //     if (val == v.itemId) {
+  //       val = v.pName
+  //     }
+  //   })
+  //   return val
+  // }
 
   // 從ID去獲取產品的價格
   function checkProductPrice(val) {
@@ -41,7 +42,7 @@ function ShopCartLike(props) {
   }
   // 必打
   useEffect(() => {
-    checkProduct()
+    // checkProduct()
     props.getShopCart()
   }, [])
 
@@ -51,34 +52,33 @@ function ShopCartLike(props) {
     RealCart.push(v)
     checkBox.push(v.itemId)
   })
-  function checkCart(val) {
-    
-    let index = checkBox.findIndex(e => e == val.itemId)
-    if (index == -1) {
-      val.count=1
-      RealCart.push(val)
-    }else{
-      RealCart.map((v, i) => {
-        if (val.itemId == v.itemId) {
-          v.count=+v.count+1
-        }
-      })
-    }
-    
-    
-    props.AddCartNewItem_sendcal(RealCart)
-  }
+  // function checkCart(val) {
+  //   let index = checkBox.findIndex(e => e == val.itemId)
+  //   if (index == -1) {
+  //     val.count=1
+  //     RealCart.push(val)
+  //   }else{
+  //     RealCart.map((v, i) => {
+  //       if (val.itemId == v.itemId) {
+  //         v.count=+v.count+1
+  //       }
+  //     })
+  //   }
+  //   props.AddCartNewItem_sendcal(RealCart)
+  // }
 
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
-    console.log('MyFavorite',v)
+    // console.log('MyFavorite',v)
     return (
       <li key={v.itemId} className="d-flex Mao-shopcart-check-item">
-        <img src="https://fakeimg.pl/100/" alt="" />
+        <img src=
+        {`./chin-img/images/${v.itemName}/${v.itemImg}`}  alt="" style={{width:'100px',height:'100px'}}/>
+
         <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
-          <p>{checkProduct(v.itemId)}</p>
+          <p>{v.itemName}</p>
           <div className="d-flex justify-content-between">
-            <p style={{ width: '25%' }}>${checkProductPrice(v.itemId)}</p>
+            <p style={{ width: '25%' }}>${v.itemPrice}</p>
           </div>
         </div>
         <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
@@ -103,7 +103,7 @@ function ShopCartLike(props) {
                 name: v.name,
               }
               props.Handle_AddMyFavorite('false', v, props.MyFavorite)
-              checkCart(productInfo)
+              // checkCart(productInfo)
             }}
           >
             <img src="..\img\header-footer\shopping-bag.svg" alt="" />
@@ -151,7 +151,7 @@ const mapStateToProps = store => {
     AddItem: store.AddItem,
     Cart: store.displayShopCart,
     calculator: store.calculator,
-    MyFavorite: store.MyFavorite,
+    MyFavorite: store.MyFavorite
   }
 }
 
@@ -166,7 +166,7 @@ const mapDispatchToProps = dispatch => {
       DelCartItem,
       CalShopCart,
       Handle_AddMyFavorite,
-      AddCartNewItem_sendcal,
+      AddCartNewItem_sendcal
     },
     dispatch
   )

@@ -74,7 +74,6 @@ function OrderInfo(props) {
   //插入資料
   const [getBuyerbasic,setGetBuyerbasic]=useState(true)
    function getbuyer(e) {
-     console.log('what is e.target',e.target)
      if(getBuyerbasic){
       $('#mobile').val('0912345678')
       $('#buyerName').val('Alex')
@@ -183,12 +182,15 @@ function OrderInfo(props) {
 
   //送出
   async function POSTorderInfo() {
+    // console.log('BuyertInfo==',buyerInfo)
+    console.log('pIdArr==',pIdArr)
+    // console.log('countArr==',countArr)
     let noneObj = {}
     //清理暫存
     await props.clearOrderBuyerproduct(noneObj)
     //送出購買人資訊
     await props.fromServerorderBuyerInfo(buyerInfo)
-    console.log('pIdArr', pIdArr)
+    console.log('pIdArr inFOR', pIdArr)
     for (let i = 0; i < pIdArr.length; i++) {
       console.log('pIdArr', pIdArr[i])
       let proBox = {
@@ -318,7 +320,7 @@ const demo2={
   payment: 'COD',
   shipping: 'HiLife',
   buyerAdress: '台北市大安 信興門市',
-  invoice: 'company',
+  invoice: 'donate',
   taxNo: '',
   total: sendTotal,
   shipCost: '100',
@@ -328,7 +330,7 @@ const demo3={
   orderId: buyerInfo.orderId,
   buyerName: 'Clex',
   mobile: '0912345558',
-  payment: 'CreditCard',
+  payment: 'COD',
   shipping: 'Seven-store',
   buyerAdress: '台北市大安 信興門市',
   invoice: 'company',
@@ -349,24 +351,27 @@ function getDemoOne(val){
   // console.log('getdemo',val)
   $('#mobile').val(val.mobile)
   $('#buyerName').val(val.buyerName)
-  console.log('getdemo',val)
   if(val.shipping=='Seven-store'){
     setShipType(1)
   }else{
     setShipType(2)
   }
   if(val.payment=='COD'){
+    setOpenCard(false)
     setPaymentType(1)
   }else if(val.payment=='CreditCard'){
     setPaymentType(2)
     setOpenCard(true)
   }else{
+    setOpenCard(false)
     setPaymentType(3)
   }
   if(val.invoice=='personal-invoice'){
     setInvoiceType(1)
+    setOpentaxNo(false)
   }else if(val.invoice=='donate'){
     setInvoiceType(2)
+    setOpentaxNo(false)
   }else{
     setInvoiceType(3)
     setOpentaxNo(true)

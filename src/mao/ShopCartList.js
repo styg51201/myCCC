@@ -15,7 +15,6 @@ import {
   Handle_AddMyFavorite,
   ControlDataOne,
 } from './actions/ShopCartAction'
-import MaoShopCartBTN from './component/MaoShopCartBTN'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 import { FaRegTrashAlt} from "react-icons/fa"
@@ -23,7 +22,7 @@ import { FiHeart} from 'react-icons/fi';
 import MaoAD from './component/MaoAD'
 function ShopCartList(props) {
   const [loaded, setLoaded] = useState(false)
-  const [forCart, setForCart] = useState(true)
+  const [forCart, setForCart] = useState(false)
   // 從產品ID轉換成產品名稱
   function checkProduct(val) {
     productList.map((v, i) => {
@@ -54,7 +53,14 @@ function ShopCartList(props) {
     getData()
     setLoaded(true)
     setForCart(false)
+    console.log(props)
   }, [])
+
+
+  useEffect(()=>{
+    console.log('我是生命週期裡的東西 = ',props.AddItem)
+  },[props.AddItem,<ProductSlide/>])
+
   let RealCart = [] //統整checkBox的品項，然後最後送至資料庫
 
   //從資料庫叫出的購物車內容加入checkBox & RealCart
@@ -78,9 +84,9 @@ function ShopCartList(props) {
       <li key={v} className="Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
         <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
-          <p>{checkProduct(v.itemId)}</p>
+          <p>{v.itemName}</p>
           <div className="d-flex justify-content-between">
-            <p style={{ width: '25%' }}>${checkProductPrice(v.itemId)}</p>
+            <p style={{ width: '25%' }}>${v.itemPrice}</p>
             <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
               <button
                 className="Mao-btn-amount"
@@ -146,7 +152,6 @@ function ShopCartList(props) {
     <div className="p-3 text-center Mao-CartNoItem-shoplist">
       <h3>趕快去尋找最愛的商品吧！</h3>
       <Link to="/">
-        {/* <img className="Mao-Like-img-shoplist" src="./Mao-img/travel1.jpg" /> */}
       </Link>
     </div>
   )
@@ -157,11 +162,11 @@ function ShopCartList(props) {
       <MaoAD/>
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
         <ul className='Mao-shopcart-check-item-ul'>
-        
           {props.AddItem.length > 0 ? dataList : CartNoItem}
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal /> : CartNoItemTotal}
       </div>
+      {displayRealCart}
       <ProductSlide />
     </>
   )

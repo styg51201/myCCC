@@ -65,25 +65,11 @@ function ProductSlide(props) {
   useEffect(() => {
     props.getShopCart()
   }, [])
-
-  function checkCart(val) {
-    
-    let index = checkBox.findIndex(e => e == val.itemId)
-    if (index == -1) {
-      val.count=1
-      RealCart.push(val)
-    }else{
-      RealCart.map((v, i) => {
-        if (val.itemId == v.itemId) {
-          v.count=+v.count+1
-        }
-    })
-  }
-    props.AddCartNewItem_sendcal(RealCart)
-  }
+  useEffect(() => {
+    props.getShopCart()
+  }, [props.AddItem])
   
 
-  console.log(props)
 
   const productItem = productList.map((v, i) => {
     return (
@@ -91,22 +77,24 @@ function ProductSlide(props) {
         <div className="card Mao-prodctSlide-card-box ">
           <img
             className="Mao-img"
-            src="https://fakeimg.pl/150/"
+            src={`./chin-img/images/${v.itemName}/${v.itemImg}`}  
             alt="..."
           />
-          <h4 className="card-title">{v.pName}</h4>
-          <p>${v.itemPrice}</p>
+          <h4 className="card-title" style={{fontSize:'16px',overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap',}}>{v.itemName}</h4>
+          <p>{v.itemPrice}</p>
           <button
             className="Mao-prodctSlide-card-btn-add"
             onClick={() => {
-              let productInfo = {
-                itemId: v.itemId,
-                itemPrice: v.itemPrice,
-                count:0,
-                itemCategoryId: v.itemCategoryId,
-                name: v.name,
+  let truePrice=v.itemPrice.split('$').join('')
+              let newProduct={
+                itemId:v.itemId,
+                name:v.name,
+                itemName: v.itemName,
+                itemImg:v.itemImg,
+                itemPrice:truePrice,
+                itemCategoryId: v.itemCategoryId
               }
-              checkCart(productInfo)
+              props.AddCartNewItem_sendcal(newProduct,props.AddItem)
             }}
           >
             <FiShoppingBag class="mx-2"/><span>加入購物車</span>
