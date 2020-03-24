@@ -1,0 +1,45 @@
+@import '../../css/variables.scss';
+
+.Mao-buyerLine {
+  width: 70%;
+  position: relative;
+  margin: 0 40px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Mao-circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  background: $blue;
+  border-radius: 50%;
+  margin: 0px 100px;
+}
+.Mao-line-color-blue {
+  background: $blue;
+}
+.Mao-line-color-blue {
+  background: $grey;
+}
+.Mao-line {
+  position: absolute;
+  width: 70%;
+  height: 3px;
+  top: 50%;
+  left: 15%;
+  background: $black;
+  z-index: -1;
+}
+
+.Mao-buyerLine-info {
+  display: flex;
+  list-style-type: none;
+}
+.Mao-buyerLine-info li {
+  margin: 15px 100px 10px 130px;
+}

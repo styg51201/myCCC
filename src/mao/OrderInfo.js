@@ -20,6 +20,7 @@ import Swal from 'sweetalert2'
 import GetDayRange from './GetDayRange'
 import './css/OrderInfo.scss'
 import $ from 'jquery'
+import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
   const [values, setValues] = useState({
@@ -39,6 +40,8 @@ function OrderInfo(props) {
     payment: '貨到付款',
   })
 
+  const [openCard,setOpenCard]=useState(false)
+  const [opentaxNo,setOpentaxNo]=useState(false)
   const { getMonth, getYear } = GetDayRange()
 
   //訂單
@@ -60,7 +63,7 @@ function OrderInfo(props) {
     mobile: '',
     payment: 'COD',
     shipping: 'Seven-store',
-    buyerAdress: '台北市大安區',
+    buyerAdress: '台北市大安 信興門市',
     invoice: 'personal-invoice',
     taxNo: '',
     total: sendTotal,
@@ -69,13 +72,12 @@ function OrderInfo(props) {
   })
 
   //插入資料
-  // function getbuyer(e) {
-  //   $('#mobile').val('0912345678')
-  //   $('#buyerName').val('Alex')
-  //   buyerInfo.buyerName = 'Alex'
-  //   buyerInfo.mobile = '0912345678'
-  //   console.log(buyerInfo)
-  // }
+   function getbuyer(e) {
+    $('#mobile').val('0912345678')
+    $('#buyerName').val('Alex')
+    setBuyerInfo({ ...buyerInfo, buyerName: 'Alex' , mobile: '0912345678' })
+    
+  }
 
   //獲取buyer資訊
   function getformInfo(e, str) {
@@ -114,6 +116,11 @@ function OrderInfo(props) {
         break
       case 'shipping':
         buyerInfo.shipping = getInfo2
+        if(getInfo2=='Seven-store'){
+          getInfo2='7-11'
+        }else if(getInfo2 =='HiLife'){
+          getInfo2='萊爾富'
+        }
         setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
         setValues({ ...values, shipping: getInfo2 })
         break
@@ -141,7 +148,7 @@ function OrderInfo(props) {
     const countArrBox=[]
     props.AddItem.map((v, i) => {
       countArrBox.push(v.count)
-      pIdArrBox.push(v.pId)
+      pIdArrBox.push(v.itemId)
     })
     setPIdArr(pIdArrBox)
     setCountArr(countArrBox)
@@ -154,14 +161,14 @@ function OrderInfo(props) {
     GetDayRange()
   }, [])
 
-  useEffect(() => {
-    console.log('pIdArr in useEffect',pIdArr)
-    console.log('pIdArr in getorderProductInfo',pIdArr)
-    console.log('countArr in getorderProductInfo',countArr)
-  }, [pIdArr])
+  // useEffect(() => {
+  //   console.log('pIdArr in useEffect',pIdArr)
+  //   console.log('pIdArr in getorderProductInfo',pIdArr)
+  //   console.log('countArr in getorderProductInfo',countArr)
+  // }, [pIdArr])
   useEffect(() => {
     buyerInfo.orderId = order
-    console.log('countArr in getorderProductInfo',countArr)
+    // console.log('countArr in getorderProductInfo',countArr)
   }, [order])
 
   useEffect(() => {
@@ -181,7 +188,7 @@ function OrderInfo(props) {
       console.log('pIdArr', pIdArr[i])
       let proBox = {
         orderId: buyerInfo.orderId,
-        pId: `${pIdArr[i]}`,
+        itemId: `${pIdArr[i]}`,
         count: `${countArr[i]}`,
         outStatus: '訂單處理中',
       }
@@ -198,12 +205,98 @@ function OrderInfo(props) {
     })
   }
 
+  const CreditCardInfo=(<div id="creditCardInfo">
+  <div className="form-row my-5  d-flex align-items-center">
+    <div className="col-2">
+      <h4>信用卡號</h4>
+    </div>
+    <div className="col-2">
+      <input
+        type="text"
+        className="form-control"
+        placeholder=""
+        maxlength="4"
+      />
+    </div>
+    <div className="col-2">
+      <input
+        type="text"
+        className="form-control"
+        placeholder=""
+        maxlength="4"
+      />
+    </div>
+    <div className="col-2">
+      <input
+        type="text"
+        className="form-control"
+        placeholder=""
+        maxlength="4"
+      />
+    </div>
+    <div className="col-2">
+      <input
+        type="text"
+        className="form-control"
+        placeholder=""
+        maxlength="4"
+      />
+    </div>
+  </div>
+  <div className="form-row my-5 d-flex align-items-center">
+    <div className="col-2">
+      <h4>有效期限</h4>
+    </div>
+    <div className="col-2 d-flex align-items-center">
+      <select className="custom-select mr-3">{getMonth()}</select>
+      <span>月</span>
+    </div>
+    <div className="col-3 d-flex align-items-center">
+      <select className="custom-select mr-3">{getYear()}</select>
+      <span>年</span>
+    </div>
+  </div>
+  <div className="form-row my-5 d-flex align-items-center">
+    <div className="col-2">
+      <h4>檢核碼</h4>
+    </div>
+    <div className="col-5 d-flex align-items-center">
+      <input
+        type="text"
+        className="form-control mr-3 w-25"
+        placeholder=""
+        maxLength="3"
+      />
+      <p style={{ width: '50%', margin: 0 }}>卡片背面，後三碼</p>
+    </div>
+  </div>
+</div>)
+
+const taxInfo=(
+  <div className="form-row my-5 d-flex align-items-center">
+            <div className="col-2">
+              <h4>統一編號</h4>
+            </div>
+            <div className="col-10 d-flex align-items-center">
+              <input
+                type="text"
+                className="form-control mr-3 w-25"
+                placeholder=""
+                maxLength="8"
+                onChange={(e, str) => {
+                  getformInfo(e, 'taxNo')
+                }}
+              />
+            </div>
+          </div>
+)
   //表格
   return (
     <>
       {/* <form method="POST"> */}
+      <MaoAD/>
       <div className="container my-3 d-flex" style={{ width: '1300px' }}>
-        <div className="px-4 border bg-white p-3" style={{ maxWidth: '950px' }}>
+        <div className="px-4 border bg-white p-3" style={{ width: '950px' }}>
           <div className="form-row d-flex flex-column">
             <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
             <div className="col my-3">
@@ -256,7 +349,7 @@ function OrderInfo(props) {
               )}
             </div>
           </div>
-          {/* <div className="custom-control custom-checkbox">
+          <div className="custom-control custom-checkbox">
             <input
               type="checkbox"
               className="custom-control-input"
@@ -268,7 +361,7 @@ function OrderInfo(props) {
             <label className="custom-control-label" htmlFor="customCheck1">
               同會員資料
             </label>
-          </div> */}
+          </div>
           <div>
             <div className="form-row d-flex flex-column my-5">
               <h2 className="border-bottom p-3">運送方式</h2>
@@ -326,6 +419,7 @@ function OrderInfo(props) {
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
+                  onClick={()=>setOpenCard(false)}
                 />
                 <label className="custom-control-label" htmlFor="COD">
                   貨到付款
@@ -340,6 +434,7 @@ function OrderInfo(props) {
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
+                  onClick={()=>setOpenCard(true)}
                 />
                 <label className="custom-control-label" htmlFor="CreditCard">
                   信用卡一次付清
@@ -354,6 +449,7 @@ function OrderInfo(props) {
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
+                  onClick={()=>setOpenCard(false)}
                 />
                 <label className="custom-control-label" htmlFor="ATM">
                   ATM轉帳
@@ -361,76 +457,17 @@ function OrderInfo(props) {
               </div>
             </div>
           </div>
-          <div id="creditCardInfo">
-            <div className="form-row my-5  d-flex align-items-center">
-              <div className="col-2">
-                <h4>信用卡號</h4>
-              </div>
-              <div className="col-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder=""
-                  maxlength="4"
-                />
-              </div>
-              <div className="col-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder=""
-                  maxlength="4"
-                />
-              </div>
-              <div className="col-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder=""
-                  maxlength="4"
-                />
-              </div>
-              <div className="col-2">
-                <input
-                  type="text"
-                  className="form-control"
-                  placeholder=""
-                  maxlength="4"
-                />
-              </div>
+          {openCard?CreditCardInfo:''}
+          <div className="form-row my-5 d-flex flex-column">
+          <div className="form-row d-flex flex-column mt-5">
+              <h2 className="border-bottom p-3" style={{ display: 'block' }}>
+              發票
+              </h2>
             </div>
-            <div className="form-row my-5 d-flex align-items-center">
-              <div className="col-2">
-                <h4>有效期限</h4>
-              </div>
-              <div className="col-2 d-flex align-items-center">
-                <select className="custom-select mr-3">{getMonth()}</select>
-                <span>月</span>
-              </div>
-              <div className="col-3 d-flex align-items-center">
-                <select className="custom-select mr-3">{getYear()}</select>
-                <span>年</span>
-              </div>
-            </div>
-            <div className="form-row my-5 d-flex align-items-center">
-              <div className="col-2">
-                <h4>檢核碼</h4>
-              </div>
-              <div className="col-5 d-flex align-items-center">
-                <input
-                  type="text"
-                  className="form-control mr-3 w-25"
-                  placeholder=""
-                  maxLength="3"
-                />
-                <p style={{ width: '50%', margin: 0 }}>卡片背面，後三碼</p>
-              </div>
-            </div>
-          </div>
-          <div className="form-row my-5 d-flex align-items-center">
-            <div className="col-2">
+            {/* <div className="col-2">
               <h4>發票</h4>
-            </div>
+            </div> */}
+            <div className="d-flex ">
             <div className="custom-control custom-radio mr-5">
               <input
                 type="radio"
@@ -439,6 +476,7 @@ function OrderInfo(props) {
                 id="personal-invoice"
                 onClick={(e, str) => {
                   getformInfo(e, 'invoice')
+                  setOpentaxNo(false)
                 }}
               />
               <label
@@ -456,6 +494,7 @@ function OrderInfo(props) {
                 id="donate"
                 onClick={(e, str) => {
                   getformInfo(e, 'invoice')
+                  setOpentaxNo(false)
                 }}
               />
               <label className="custom-control-label" htmlFor="donate">
@@ -470,6 +509,7 @@ function OrderInfo(props) {
                 id="company"
                 onClick={(e, str) => {
                   getformInfo(e, 'invoice')
+                  setOpentaxNo(true)
                 }}
               />
               <label className="custom-control-label" htmlFor="company">
@@ -477,22 +517,7 @@ function OrderInfo(props) {
               </label>
             </div>
           </div>
-
-          <div className="form-row my-5 d-flex align-items-center">
-            <div className="col-2">
-              <h4>統一編號</h4>
-            </div>
-            <div className="col-10 d-flex align-items-center">
-              <input
-                type="text"
-                className="form-control mr-3 w-25"
-                placeholder=""
-                maxLength="8"
-                onChange={(e, str) => {
-                  getformInfo(e, 'taxNo')
-                }}
-              />
-            </div>
+          {opentaxNo?taxInfo:''}
           </div>
           <br />
           <div className="d-flex justify-content-center my-4">

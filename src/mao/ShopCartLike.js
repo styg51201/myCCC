@@ -23,7 +23,7 @@ function ShopCartLike(props) {
   // 從產品ID轉換成產品名稱
   function checkProduct(val) {
     productList.map((v, i) => {
-      if (val == v.pId) {
+      if (val == v.itemId) {
         val = v.pName
       }
     })
@@ -33,8 +33,8 @@ function ShopCartLike(props) {
   // 從ID去獲取產品的價格
   function checkProductPrice(val) {
     productList.map((v, i) => {
-      if (val == v.pId) {
-        val = v.price
+      if (val == v.itemId) {
+        val = v.itemPrice
       }
     })
     return val
@@ -49,17 +49,17 @@ function ShopCartLike(props) {
   let checkBox = []
   props.AddItem.map((v, i) => {
     RealCart.push(v)
-    checkBox.push(v.pId)
+    checkBox.push(v.itemId)
   })
   function checkCart(val) {
     
-    let index = checkBox.findIndex(e => e == val.pId)
+    let index = checkBox.findIndex(e => e == val.itemId)
     if (index == -1) {
       val.count=1
       RealCart.push(val)
     }
     RealCart.map((v, i) => {
-      if (val.pId == v.pId) {
+      if (val.itemId == v.itemId) {
         v.count=+v.count+1
       }
     })
@@ -69,13 +69,14 @@ function ShopCartLike(props) {
 
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
+    console.log('MyFavorite',v)
     return (
-      <li key={v.pId} className="d-flex Mao-shopcart-check-item">
+      <li key={v.itemId} className="d-flex Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
         <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
-          <p>{checkProduct(v.pId)}</p>
+          <p>{checkProduct(v.itemId)}</p>
           <div className="d-flex justify-content-between">
-            <p style={{ width: '25%' }}>${checkProductPrice(v.pId)}</p>
+            <p style={{ width: '25%' }}>${checkProductPrice(v.itemId)}</p>
           </div>
         </div>
         <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
@@ -92,14 +93,14 @@ function ShopCartLike(props) {
           <button
             className="btn btn-danger d-flex justify-content-start py-2 my-2"
             onClick={() => {
-              props.Handle_AddMyFavorite('false', v, props.MyFavorite)
               let productInfo = {
-                pId: v.pId,
-                price: v.price,
+                itemId: v.itemId,
+                itemPrice: v.itemPrice,
                 count: 0,
                 itemCategoryId: v.itemCategoryId,
                 name: v.name,
               }
+              props.Handle_AddMyFavorite('false', v, props.MyFavorite)
               checkCart(productInfo)
             }}
           >

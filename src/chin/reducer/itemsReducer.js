@@ -30,9 +30,20 @@ export const getMultipleItemId = (state = [], action) => {
 export const getListitemName = (state = [], action) => {
   switch (action.type) {
     case 'ITEMNAME_VALUE':
+      console.log('77777',action.value )
       return action.value
     case 'ITEMNAME_RESET':
       return []
+    default:
+      return state
+  }
+}
+
+//-------------------chin 是否reset------------------
+export const reset = (state =true, action) => {
+  switch (action.type) {
+    case 'NO_RESET':
+      return action.value
     default:
       return state
   }
