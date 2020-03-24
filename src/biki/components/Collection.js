@@ -13,7 +13,10 @@ function Collection(props){
             props.theme === 'white' ? "bk-collection mt-5 " + props.theme : "bk-collection " + props.theme
         }>
             <div className="bottom">
-                <img src={ props.bg} />
+                <img 
+                src={ props.bg}
+                style={{ objectPosition: props.position }}
+                 />
             </div>
 
             <Container className='bk-collection-content'>
@@ -30,8 +33,7 @@ function Collection(props){
                         </div>
                     </div>
                     <div className="collection-img">
-                        {/* <img src={props.img} /> */}
-                        asdf
+                        <img src={props.img} />
                     </div>
             </Container>
         </div>

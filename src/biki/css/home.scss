@@ -2,6 +2,17 @@
 
 $bk-full-page: calc(100vh - 100px);
 $bk-ad-duration: .6s;
+$bk-container-min-height: 660px;
+
+.bk-page-load{
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: $black;
+  top: 0;
+  left: 0;
+  z-index:100;
+}
 
 .bk-mouse{
   width: 24px;
@@ -9,7 +20,7 @@ $bk-ad-duration: .6s;
   border-radius: 50px;
   border: 1px solid $white;
   position: absolute;
-  bottom: $spacing*2;
+  bottom: $spacing*3;
   left: 50%;
   margin-left: -12px;
   animation-delay: .5s;
@@ -27,6 +38,7 @@ $bk-ad-duration: .6s;
 
 .bk-home-slider {
   height: calc(100vh - 218px);
+  min-height: $bk-container-min-height - 100px;
   background-color: grey;
   margin-bottom: $spacing*2;
   position: relative;
@@ -34,21 +46,36 @@ $bk-ad-duration: .6s;
   .bk-slides{
     background-color: grey;
     height: 100%;
+    position: relative;
+
+    img{
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      // z-index: 0;
+    }
     
     .bk-slide-content{
+      position: relative;
+      // z-index: 1;
       height: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       color: white;
-
     }
   }
 }
 
 /* ----- ADS ----- */
 .bk-ads {
-  height: 100vh;
+  height: $bk-full-page;
+  min-height: $bk-container-min-height;
+
 
   .bk-ads-container{
     width: 100%;
@@ -56,6 +83,7 @@ $bk-ad-duration: .6s;
     position: relative;
     display: flex;
     align-items: center;
+    overflow: hidden;
 
     .bk-ad{
       position: absolute;
@@ -114,7 +142,9 @@ $bk-ad-duration: .6s;
 
         .bk-ad-img {
           background-color: grey;
-          height: calc(100vh - 200px);
+          height: calc(100vh - 300px);
+          min-height: $bk-container-min-height - 200px;
+          max-height: 600px;
           width: 100%;
         }
       }
@@ -362,6 +392,7 @@ $bk-ad-duration: .6s;
 
 .bk-collection{
   height: $bk-full-page;
+  min-height: $bk-container-min-height;
   position: relative;
 
   &.white{
@@ -392,8 +423,9 @@ $bk-ad-duration: .6s;
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(8px);
-      transform: scale(1.3);
+      // object-position: bottom;
+      // filter: blur(8px);
+      // transform: scale(1.3);
     }
   }
 
@@ -404,7 +436,7 @@ $bk-ad-duration: .6s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: $spacing * 2 0;
+    padding: $spacing * 6 0;
 
     .content-bottom{
       display: flex;
@@ -420,6 +452,10 @@ $bk-ad-duration: .6s;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
+
+      img{
+        max-width: 300px;
+      }
     }
   }
 }
