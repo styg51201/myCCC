@@ -139,7 +139,7 @@
   transform: skewX(-20deg);
 }
 .Mao-btn-showL {
-  transition: 0.5s;
+  transition: 0.2s;
   opacity: 0;
   position: absolute;
   left: 0%;
@@ -153,7 +153,7 @@
   // left: 80%;
   opacity: 0.3;
   width: 10%;
-  animation: mymove 1s;
+  animation: mymove 0.8s;
 }
 
 @keyframes mymove {
@@ -178,15 +178,6 @@
   opacity: 0.3;
   width: 150%;
 }
-// .Mao-btn-show:hover {
-//   opacity: 1;
-//   position: absolute;
-//   left: -5px;
-//   top: -10px;
-//   background: aaa;
-//   width: 150%;
-//   height: 100%;
-// }
 .Mao-btn-amount-img {
   margin-right: 5px;
 }

@@ -135,7 +135,7 @@ function ProductSlide(props) {
     <>
       <div
         className="bg-white p-2 my-5"
-        style={{ width: '1300px' }}
+        style={{ width: "1300px"}}
       >
       <Slider {...settings}>
         {productItem}

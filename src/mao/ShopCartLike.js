@@ -57,12 +57,14 @@ function ShopCartLike(props) {
     if (index == -1) {
       val.count=1
       RealCart.push(val)
+    }else{
+      RealCart.map((v, i) => {
+        if (val.itemId == v.itemId) {
+          v.count=+v.count+1
+        }
+      })
     }
-    RealCart.map((v, i) => {
-      if (val.itemId == v.itemId) {
-        v.count=+v.count+1
-      }
-    })
+    
     
     props.AddCartNewItem_sendcal(RealCart)
   }

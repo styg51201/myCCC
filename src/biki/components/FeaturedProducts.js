@@ -3,17 +3,19 @@ import '../css/home.scss'
 import { FiShoppingBag, FiHeart, FiStar } from "react-icons/fi";
 import {Col} from 'react-bootstrap'
 
-function FeaturedProducts(){
+function FeaturedProducts(props){
 
     return(
     <>
         <Col>
             <div className="bk-featured-product-item">
-                <div className="bk-featured-img"></div>
+                <div className="bk-featured-img">
+                    <img src={props.img} />
+                </div>
                 <div className="bk-featured-hover">
                 <div className="bk-featured-icon-list bk-icon">
-                    <FiHeart />
-                    <FiShoppingBag />
+                    <div role="button"><FiHeart /></div>
+                    <div role="button"><FiShoppingBag /></div>
                 </div>
                 <div className="bk-featured-stars">
                     <FiStar />

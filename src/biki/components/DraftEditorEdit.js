@@ -20,7 +20,7 @@ function DraftEditorEdit(props){
     const [foldername, setFoldername] = useState('')
     const [title, setTitle] = useState('')
     const [tags, setTags] = useState([])
-    const [message, setMessage] = useState('')
+    // const [message, setMessage] = useState('')
     const [readOnly, setReadOnly] = useState(false)
     const [functionSubmit, setFunctionSubmit] = useState(null)
     const [usrId, setUsrId] = useState(null)
@@ -46,7 +46,7 @@ function DraftEditorEdit(props){
             case 'draft':
                 setButtons(
                     <>
-                    <button className="bk-btn-black" onClick={updateDraft}>上傳</button>
+                    <button className="bk-btn-black" onClick={uploadDraft}>上傳</button>
                     <button className="bk-btn-black-bordered" onClick={saveDraft}>儲存草稿</button>
                     </>
                 )
@@ -175,14 +175,14 @@ function DraftEditorEdit(props){
         return true;
     }
 
-    //final submit for STORY
+    //update STORY
     async function updateStory(){
 
         if(!checkContent()) return;
         const contentState = await editorState.getCurrentContent()
 
         //fetch
-        const response = await fetch(`http://localhost:5500/stories/member/story${id}?usrId=${usrId}`, {
+        const response = await fetch(`http://localhost:5500/stories/member/story/${id}?usrId=${usrId}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
@@ -213,34 +213,14 @@ function DraftEditorEdit(props){
         return;
     }
 
-    //final submit for DRAFT
-    const updateDraft = ()=>{
+    //save DRAFT to STORY
+    async function uploadDraft(){
 
         if(!checkContent()) return;
         const contentState = editorState.getCurrentContent()
-        
-        axios({
-            method: 'PATCH',
-            url: 'http://localhost:5500/stories/member/draft' + props.location.search,
-            data: {
-                content: convertToRaw(contentState),
-                title: title,
-                tags: tags
-            }
-        })
-        .then(r=>{
-            console.log(r)
-        })
-    }
 
-    //save draft
-    const saveDraft = ()=>{
-        if(!saveDraft) return;
-        const contentState = editorState.getCurrentContent()
-        console.log(convertToRaw(contentState))
-        axios({
+        const response = await fetch(`http://localhost:5500/stories/member/draft/submit-draft/${props.match.params.id}?usrId=${localStorage.getItem('userId')}`,{
             method: 'PATCH',
-            url: `http://localhost:5500/stories/member/draft/save-draft/${id}?usrId=${usrId}`,
             body: JSON.stringify({
                 content: convertToRaw(contentState),
                 title: title,
@@ -251,22 +231,69 @@ function DraftEditorEdit(props){
                 'Content-Type': 'application/json'
             })
         })
-        .then(r=>{
-            console.log(r)
-            setMessage('已儲存至草稿')
-
-            Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                text: '儲存成功',
-                showConfirmButton: false,
-                timer: 1500,
-                position:'center',
-              })  
-            // setTimeout(()=>{
-            //     props.history.push('/member/stories/drafts')
-            // }, 1500)
+        const data = await response.json()
+        const r = await fetch(`http://localhost:5500/stories/member/upload?usrId=${localStorage.getItem('userId')}`,{
+            method: 'POST',
+            body: JSON.stringify({
+                content: convertToRaw(contentState),
+                title: title,
+                tags: tags
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
         })
+        const d = await r.json()
+
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: '上傳成功',
+            showConfirmButton: false,
+            timer: 1500,
+            position:'center',
+            })  
+        setTimeout(()=>{
+            props.history.push('/member/stories')
+        }, 1500)
+
+        console.log(r)
+
+    }
+
+    //save draft
+    async function saveDraft(){
+        if(!saveDraft) return;
+        const contentState = editorState.getCurrentContent()
+        console.log(convertToRaw(contentState))
+
+        const response = await fetch(`http://localhost:5500/stories/member/draft/save-draft/${id}?usrId=${usrId}`, {
+            method: 'PATCH',
+            body: JSON.stringify({
+                content: convertToRaw(contentState),
+                title: title,
+                tags: tags
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        const data = await response.json()
+        // setMessage('已儲存至草稿')
+
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: '儲存成功',
+            showConfirmButton: false,
+            timer: 1500,
+            position:'center',
+            })  
+        setTimeout(()=>{
+            props.history.push('/member/stories/drafts')
+        }, 1500)
     }
 
     //focus back to editor after img insert
@@ -276,7 +303,7 @@ function DraftEditorEdit(props){
 
     return(
         <>
-            <div className='bk-editor-message'>{message ? message : ''}</div>
+            {/* <div className='bk-editor-message'>{message ? message : ''}</div> */}
             <div className="bk-form-control">
                 <label>標題</label>
                 <input disabled={readOnly} type="text" onChange={(evt)=>{
@@ -317,7 +344,15 @@ function DraftEditorEdit(props){
                 </div>
             </div>
             <div className='bk-btn-group'>
-                {buttons ? buttons : 'no buttons'}
+                {props.type === 'story' &&
+                    <button className="bk-btn-black" onClick={updateStory}>更新</button>
+                }
+                {props.type === 'draft' &&
+                    <>
+                        <button className="bk-btn-black" onClick={uploadDraft}>上傳</button>
+                        <button className="bk-btn-black-bordered" onClick={saveDraft}>儲存草稿</button>
+                    </>
+                }
             </div>
         </>
     )

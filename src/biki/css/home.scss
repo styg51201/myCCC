@@ -1,107 +1,151 @@
 @import '../../css/variables.scss';
 
 $bk-full-page: calc(100vh - 100px);
+$bk-ad-duration: .6s;
+
+.bk-mouse{
+  width: 24px;
+  height: 38px;
+  border-radius: 50px;
+  border: 1px solid $white;
+  position: absolute;
+  bottom: $spacing*2;
+  left: 50%;
+  margin-left: -12px;
+  animation-delay: .5s;
+
+  .bk-mouse-ball{
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: $white;
+    margin: 5px auto 0 auto;
+    animation-duration: 1.2s;
+    animation-delay: 1s;
+  }
+}
 
 .bk-home-slider {
   height: calc(100vh - 218px);
   background-color: grey;
-  margin-bottom: 5rem;
+  margin-bottom: $spacing*2;
   position: relative;
 
   .bk-slides{
     background-color: grey;
     height: 100%;
     
-    img{
-      width: 100%;
+    .bk-slide-content{
       height: 100%;
-      object-fit: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+
     }
   }
 }
-
-
-// 覆蓋navbar選單部分
-// .bk-home-slider {
-//   height: calc(100vh - 100px);
-//   margin-bottom: 5rem;
-//   position: relative;
-
-//   .bk-slides{
-//     position: absolute;
-//     top: -121px;
-//     background-color: grey;
-//     height: 100%;
-
-//     img{
-//       width: 100%;
-//       height: 100%;
-//       object-fit: cover;
-//     }
-//   }
-// }
 
 /* ----- ADS ----- */
 .bk-ads {
-  position: relative;
-  padding: 0 5rem;
-  margin-bottom: 5rem;
-}
+  height: 100vh;
 
-.bk-ad-block {
-  position: absolute;
-  display: flex;
-  left: 7rem;
-  z-index: 3;
-  
-  .bk-block-num {
-    width: 140px;
-    height: 140px;
-    line-height: 140px;
-    text-align: center;
-    background-color: #050505;
-    color: white;
-    font-size: 4rem;
-    font-weight: 800;
-  }
+  .bk-ads-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
 
-  .bk-block-text {
-    margin: 1rem 0 0 2rem;
+    .bk-ad{
+      position: absolute;
+      width: calc(100% - 130px);
+      left: 50%;
+      transform: translateX(-50%);
 
-    .bk-h3 {
-      font-size: 2rem;
-      font-weight: 800;
+      &.hidden{
+        // visibility: hidden;
+      }
+
+      .bk-ad-block {
+        position: absolute;
+        display: flex;
+        left: 7rem;
+        top: -80px;
+        z-index: 3;
+        animation-duration: $bk-ad-duration;
+
+        &.fadeInRight{
+          animation-delay: .3s;
+        }
+
+        .bk-block-num {
+          width: 140px;
+          height: 140px;
+          line-height: 140px;
+          text-align: center;
+          background-color: #050505;
+          color: white;
+          font-size: 4rem;
+          font-weight: 800;
+        }
+      
+        .bk-block-text {
+          margin: 1rem 0 0 2rem;
+          font-weight: 800;
+      
+          .bk-h3 {
+            font-size: $font-xl;
+          }
+          .bk-h5 {
+            padding-left: $spacing;
+            font-size: $font-m;
+          }
+        }
+      }
+      
+      .bk-ad-slide {
+        width: 85%;
+        animation-duration: $bk-ad-duration;
+
+        &.fadeInRight{
+          animation-delay: .3s;
+        }
+
+        .bk-ad-img {
+          background-color: grey;
+          height: calc(100vh - 200px);
+          width: 100%;
+        }
+      }
+      
+      .bk-ad-text {
+        background-color: #050505;
+        position: absolute;
+        top: 50%;
+        width: 350px;
+        //transform: translateY(-50%);
+        right: 0;
+        padding: $spacing*4 $spacing*2;
+        color: white;
+        text-align: center;
+        animation-duration: $bk-ad-duration;
+
+        &.fadeInRight{
+          animation-delay: .3s;
+        }
+
+        h3{
+          margin-bottom: $spacing;
+        }
+        button{
+          margin-top: $spacing;
+        }
+      }
     }
-
-    .bk-h6 {
-      margin-left: 15px;
-      font-size: 1.2rem;
-      font-weight: 800;
-    }
   }
 }
 
-.bk-ad-slide {
-  position: relative;
-  padding: 4rem 0;
-  display: flex;
-}
-
-.bk-ad {
-  background-color: grey;
-  height: 550px;
-}
-
-.bk-ad-text {
-  background-color: #050505;
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 0;
-  padding: 30px;
-  color: white;
-  text-align: center;
-}
 
 .bk-arrows {
   width: 100%;
@@ -111,27 +155,38 @@ $bk-full-page: calc(100vh - 100px);
   top: 50%;
   left: 0;
   transform: translateY(-50%);
+  >div{
+    cursor: pointer;
+  }
 }
 
 .bk-ad-list-buttons {
   position: absolute;
-  bottom: 2rem;
-}
+  bottom: 50px;
+  left: 65px;
 
-.bk-ad-list-buttons ul {
-  display: flex;
-  margin: 0;
-  padding: 0;
-}
-.bk-ad-list-buttons ul li {
-  list-style: none;
-  width: 100px;
-  height: 5px;
-  background-color: black;
-  margin: 0 1rem;
-}
-.bk-ad-list-buttons ul li:first-child {
-  margin-left: 0;
+  ul {
+    display: flex;
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      width: 100px;
+      height: 5px;
+      background-color: $black;
+      margin: 0 1rem;
+      cursor: pointer;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &.active{
+        background-color: $blue;
+      }
+    }
+  }
 }
 
 /* ----FEATURED PRODUCTS----- */
@@ -149,6 +204,44 @@ $bk-full-page: calc(100vh - 100px);
   height: 520px;
   position: relative;
   margin: $spacing 0;
+
+  &:hover .bk-featured-hover{
+    opacity: 1;
+
+    .bk-featured-stars{
+      @for $i from 1 through 5 {
+        svg:nth-child(#{$i}){
+          left: #{($i - 1) * 18}px;
+        }
+      }
+    }
+
+    .bk-featured-icon-list{
+      @for $i from 1 through 2 {
+        >div:nth-child(#{$i}){
+          top: #{($i - 1) * 30}px;
+        }
+      }
+    }
+    
+    .bk-featured-name{
+      //left: 1.5rem;
+      bottom: 1.5rem;
+    }
+    .bk-featured-price{
+      right: 1.5rem;
+    }
+  }
+
+  .bk-featured-hover{
+    background-color: rgba($black, .5);
+    position: absolute;
+    color: $white;
+    width: 100%;
+    height: 100%;
+    opacity : 0;
+    transition: .3s;
+  }
 
   &.bk-box {
     background-color: transparent;
@@ -177,50 +270,75 @@ $bk-full-page: calc(100vh - 100px);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 100px;
-    height: 100px;
+    width: 240px;
+    height: 240px;
     background-color: grey;
+
+    img{
+      width: 100%;
+    }
   }
 
   .bk-featured-icon-list {
     position: absolute;
-    right: 0;
-    top: 0;
-    padding: 1.5rem;
+    right: 1.5rem;
+    top: 1.5rem;
+    width: 1.5rem;
     display: flex;
     flex-direction: column;
+    font-size: $icon-regular;
 
-    svg {
+    >div{
+      position: absolute;
+      top: 0;
       margin-bottom: 1rem;
+      transition: .3s;
+      cursor: pointer;
+
+      svg{
+        vertical-align: top;
+        transition: .3s;
+      }
+
+      &:hover svg{
+        stroke: $blue;
+      }
     }
   }  
 
   .bk-featured-stars {
     position: absolute;
-    left: 0;
-    top: 0;
-    padding: 1.5rem;
+    left: 1.5rem;
+    top: 1.5rem;
 
-    svg {
-      vertical-align: baseline;
+    svg{
+      position: absolute;
+      transition: .3s;
+      left: 0;
     }
   }
 
   .bk-featured-info {
     position: absolute;
     width: 100%;
+    //bottom: 1.5rem;
     bottom: 0;
-    padding: 1.5rem;
+    transition: .3s;
     display: flex;
     flex: 1 1 0;
     justify-content: space-between;
     align-items: flex-end;
 
     .bk-featured-name {
+      position: absolute;
+      //left: 0;
+      left: 1.5rem;
+      bottom:0;
       display: flex;
       flex-direction: column;
       word-break: break-word;
-      padding-right: 2rem;
+      width: calc(50% - 1.5rem);
+      transition: .3s;
 
       .bk-ftr-product-name {
         font-size: 1.2rem;
@@ -228,11 +346,17 @@ $bk-full-page: calc(100vh - 100px);
     }
 
     .bk-featured-price {
+      position: absolute;
+      right: 0;
+      bottom: 1.5rem;
+      //right: 1.5rem;
       font-size: 1.2rem;
+      width: calc(50% - 1.5rem);
+      text-align: right;
+      transition: .3s;
     }
   }
 }
-
 
 //------- COLLECTIONS ------
 

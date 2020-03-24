@@ -114,6 +114,7 @@ function Story(props){
 
     const mapRecursive = (data)=>{
         return data.map((elm, idx)=>{
+            let key = elm.rplyId
             let child = [
                 <StoryReply
                     key={elm.rplyId}
@@ -135,7 +136,7 @@ function Story(props){
             if(elm.children){
                 child.push(mapRecursive(elm.children))
             }
-        return <div className="bk-r">{child}</div>
+            return <div className="bk-r" key={key+'r'}>{child}</div>
         })
     }
     
