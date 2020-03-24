@@ -15,7 +15,7 @@ function Commoditylist(props) {
   nameList.sort()
   return (
     <ul className="chin-commoditylist">
-      <Price />
+      <Price price={props.data}/>
       <Brand list={nameList} />
       <Features />
       <Discount />

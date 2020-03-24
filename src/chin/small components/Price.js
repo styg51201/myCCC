@@ -3,16 +3,27 @@ import React,{useState,useEffect} from 'react'
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Slider from '@material-ui/core/Slider';
 import ValueLabel from "@material-ui/core/Slider/ValueLabel";
+import Typography from '@material-ui/core/Typography';
 //classnames
 import classNames from 'classnames'
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import {ListItemPrice} from '../actions/itemsActions'
 
-function Price(){
-    const [volume, setVolume] = useState();
+function Price(props){
+  console.log(props)
+    const [volume, setVolume] = useState([10000,40000]);
+    const [value,setValue]=useState([20,37])
     const [price,setPrice] = useState(false)
     
     const PriceClassName= classNames('chin-totalprice',{active:price})
     const handleSliderChange = (event, value) => {
         setVolume(value);
+      };
+      const handleChange = (event, newValue) => {
+        setValue(newValue);
       };
       const StyledValueLabel = withStyles({
         offset: {
@@ -85,28 +96,45 @@ function Price(){
       
         }
       })(Slider);
-
+      function valuetext(value) {
+        return `${value}°C`;
+      }
 
       function CustomizedSlider() {
         const classes = useStyles();
         
         return (
           <div className={classes.root}>
-            <div className={classes.margin} />
-            <AirbnbSlider
+          <Typography id="range-slider" gutterBottom>
+            Temperature range
+          </Typography>
+          <Slider
+            value={value}
             ValueLabelComponent={StyledValueLabel}
-             valueLabelDisplay="auto"
-              getAriaLabel={index => (index === 0 ? 'Minimum price' : 'Maximum price')}
-              defaultValue={[10000, 40000]}
-              min={10000}
-              max={40000}
-              value={volume}
-              onChange={handleSliderChange}
-            />
-          </div>
+            onChange={handleChange}
+            valueLabelDisplay="auto"
+            aria-labelledby="range-slider"
+            getAriaValueText={valuetext}
+          />
+        </div>
+          // <div className={classes.root}>
+          //   <div className={classes.margin} />
+          //   <AirbnbSlider
+          //   ValueLabelComponent={StyledValueLabel}
+          //    valueLabelDisplay="auto"
+          //     getAriaLabel={index => (index === 0 ? 'Minimum price' : 'Maximum price')}
+          //     defaultValue={[10000, 40000]}
+          //     min={10000}
+          //     max={40000}
+          //     // value={volume}
+          //     // onChange={handleSliderChange}
+          //   />
+          // </div>
         );
       }
-
+      const Itemprice = function (e){
+        props.ListItemPrice({itemPrice:e.target.value},props.ItemPrice)
+    }
     return(
         <>
             <li className={PriceClassName}>
@@ -116,14 +144,26 @@ function Price(){
                 </div>
                 <div className="chin-slide">
                     <div className="chin-price-input">
-                        <input type="text" value={volume}/>
-                        <input type="text" placeholder="NT$2,929"/>
+                        <input type="text" onChange={(e)=>Itemprice(e)}/>
+                        <input type="text" value={volume[1]}/>
                     </div>
-                    {CustomizedSlider()}
+                    {/* {CustomizedSlider()} */}
                 </div>
             </li>
         </>
     )
 }
 
-export default Price
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return {ItemPrice: store.getListitemPrice}
+}
+
+//action
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({
+    ListItemPrice
+  },dispatch)
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Price)
