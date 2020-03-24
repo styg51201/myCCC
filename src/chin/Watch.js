@@ -20,10 +20,11 @@ import CompareProductSort from './components/CompareProductSort'
 function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [commodity, setCommdity] = useState(false)
+  const [comparegoods,setComparegoods]=useState('')
   const dispatch = useDispatch()
+  console.log(comparegoods)
   
   const reset = useSelector(state => state.reset)
-
   const data = useSelector(state => state.getItems)
   const watch = useSelector(state => state.getListitemName)
   const itemlist = data.map((val, ind) => {
@@ -36,11 +37,15 @@ function Watch(props) {
   })
   const commodityItems = data.map((val, ind) => {
     if (watch.indexOf(val.name) > -1) {
-      return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
+      return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} itemId={comparegoods} sendId={itemId=>{
+          setComparegoods(itemId)
+      }}/>
     }
   })
   const allcommodityItems = data.map((val, ind) => {
-    return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
+    return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} itemId={comparegoods} sendId={itemId=>{
+      setComparegoods(itemId)
+  }}/>
   })
   const showItems = val => {
     return { type: 'SHOW_ITEMS', value: val }

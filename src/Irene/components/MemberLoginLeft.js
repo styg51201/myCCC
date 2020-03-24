@@ -67,7 +67,7 @@ function MemberLoginLeft(props) {
               <input
                 name="password"
                 className="form-control col-6"
-                type="text"
+                type="password"
                 onChange={e => setPassword(e.target.value)}
               />
             </div>

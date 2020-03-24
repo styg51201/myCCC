@@ -76,11 +76,12 @@ router.post('/update', (req, res) => {
     success: false,
     error: '',
     status: 0,
-    body: req.body,
+    body: req,
     result: {},
   }
   const sql =
     'UPDATE `member` SET `Email`=?,`Pwd`=?,`Name`=?,`Gender`=?,`Birthday`=?,`PhoneNumber`=?,`Address`=? WHERE Account=?'
+  // 'UPDATE `member` SET `Name`=? WHERE Account=?'
   db.queryAsync(sql, [
     req.body.email,
     req.body.password,
