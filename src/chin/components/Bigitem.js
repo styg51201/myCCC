@@ -15,9 +15,6 @@ function Bigitem(props) {
   function SamplePrevArrow(props) {
     console.log(props)
     const { className, style, onClick } = props
-
-    const img = <div>hello</div>
-
     return (
       <div className="chin-cir">
         <img
