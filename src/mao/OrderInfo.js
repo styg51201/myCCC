@@ -72,10 +72,21 @@ function OrderInfo(props) {
   })
 
   //插入資料
+  const [getBuyerbasic,setGetBuyerbasic]=useState(true)
    function getbuyer(e) {
-    $('#mobile').val('0912345678')
-    $('#buyerName').val('Alex')
-    setBuyerInfo({ ...buyerInfo, buyerName: 'Alex' , mobile: '0912345678' })
+     console.log('what is e.target',e.target)
+     if(getBuyerbasic){
+      $('#mobile').val('0912345678')
+      $('#buyerName').val('Alex')
+      setBuyerInfo({ ...buyerInfo, buyerName: 'Alex' , mobile: '0912345678' })
+      setGetBuyerbasic(false)
+     }else{
+      $('#mobile').val('')
+      $('#buyerName').val('')
+      setBuyerInfo({ ...buyerInfo, buyerName: '', mobile: '' })
+      setGetBuyerbasic(true)
+     }
+    
     
   }
 
@@ -101,7 +112,7 @@ function OrderInfo(props) {
       case 'mobile':
         buyerInfo.mobile = getInfo
         setBuyerInfo({ ...buyerInfo, mobile: getInfo })
-        console.log(getInfo)
+        // console.log(getInfo)
         if (getInfo.length == 0) {
           setErrors({ ...errors, mobile: '電話號碼不能為空白' })
         } else if (!/^09[0-9]\d{7}$/.test(getInfo)) {
@@ -126,7 +137,7 @@ function OrderInfo(props) {
         break
       case 'payment':
         buyerInfo.payment = getInfo2
-        console.log(getInfo2)
+        // console.log(getInfo2)
         setBuyerInfo({ ...buyerInfo, payment: getInfo2 })
         setValues({ ...values, payment: getInfo2 })
         break
@@ -161,19 +172,13 @@ function OrderInfo(props) {
     GetDayRange()
   }, [])
 
-  // useEffect(() => {
-  //   console.log('pIdArr in useEffect',pIdArr)
-  //   console.log('pIdArr in getorderProductInfo',pIdArr)
-  //   console.log('countArr in getorderProductInfo',countArr)
-  // }, [pIdArr])
   useEffect(() => {
     buyerInfo.orderId = order
-    // console.log('countArr in getorderProductInfo',countArr)
   }, [order])
 
   useEffect(() => {
     console.log('buyerInfo2', buyerInfo)
-    console.log('pIdArr in order',pIdArr)
+    // console.log('pIdArr in order',pIdArr)
   }, [buyerInfo])
 
   //送出
@@ -290,6 +295,107 @@ const taxInfo=(
             </div>
           </div>
 )
+
+//demo1帶入資料庫
+
+const demo1={
+  orderId: buyerInfo.orderId,
+  buyerName: 'Alex',
+  mobile: '0912345678',
+  payment: 'CreditCard',
+  shipping: 'Seven-store',
+  buyerAdress: '台北市大安 信興門市',
+  invoice: 'company',
+  taxNo: '',
+  total: sendTotal,
+  shipCost: '100',
+  discount: '0',
+}
+const demo2={
+  orderId: buyerInfo.orderId,
+  buyerName: 'Blex',
+  mobile: '0913755678',
+  payment: 'COD',
+  shipping: 'HiLife',
+  buyerAdress: '台北市大安 信興門市',
+  invoice: 'company',
+  taxNo: '',
+  total: sendTotal,
+  shipCost: '100',
+  discount: '0',
+}
+const demo3={
+  orderId: buyerInfo.orderId,
+  buyerName: 'Clex',
+  mobile: '0912345558',
+  payment: 'CreditCard',
+  shipping: 'Seven-store',
+  buyerAdress: '台北市大安 信興門市',
+  invoice: 'company',
+  taxNo: '',
+  total: sendTotal,
+  shipCost: '100',
+  discount: '0',
+}
+const demobox=[demo1,demo2,demo3]
+// shipsType
+const [shipType,setShipType]=useState(0)
+// paymentType
+const [paymentType,setPaymentType]=useState(0)
+// invoice
+const [invoiceType,setInvoiceType]=useState(0)
+const [demoType,setDemoType]=useState(0)
+function getDemoOne(val){
+  // console.log('getdemo',val)
+  $('#mobile').val(val.mobile)
+  $('#buyerName').val(val.buyerName)
+  console.log('getdemo',val)
+  if(val.shipping=='Seven-store'){
+    setShipType(1)
+  }else{
+    setShipType(2)
+  }
+  if(val.payment=='COD'){
+    setPaymentType(1)
+  }else if(val.payment=='CreditCard'){
+    setPaymentType(2)
+    setOpenCard(true)
+  }else{
+    setPaymentType(3)
+  }
+  if(val.invoice=='personal-invoice'){
+    setInvoiceType(1)
+  }else if(val.invoice=='donate'){
+    setInvoiceType(2)
+  }else{
+    setInvoiceType(3)
+    setOpentaxNo(true)
+  }
+  setBuyerInfo(val)
+}
+
+const quickInsertInfo=demobox.map((v,i)=>{
+  return (
+<div className="custom-control custom-checkbox mr-3">
+      <input
+        type="checkbox"
+        className="custom-control-input"
+        id={`'quickInsertInfo${i}'`}
+        onClick={() => {
+          let trueDemo=i+1
+          getDemoOne(v)
+          setDemoType(i+1)
+        }}
+        checked={demoType==i+1?true:false}
+      />
+      <label className="custom-control-label" htmlFor={`'quickInsertInfo${i}'`}>
+        預設訂購人資料組合${i+1}
+      </label>
+  </div>
+  )
+  
+})
+
   //表格
   return (
     <>
@@ -297,6 +403,7 @@ const taxInfo=(
       <MaoAD/>
       <div className="container my-3 d-flex" style={{ width: '1300px' }}>
         <div className="px-4 border bg-white p-3" style={{ width: '950px' }}>
+        {quickInsertInfo}
           <div className="form-row d-flex flex-column">
             <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
             <div className="col my-3">
@@ -332,7 +439,7 @@ const taxInfo=(
                 type="text"
                 id="mobile"
                 className="form-control"
-                placeholder="Last name"
+                placeholder="手機號碼"
                 style={{ border: 'none', borderBottom: '1px solid #ddd' }}
                 onChange={(e, str) => getformInfo(e, 'mobile')}
                 onBlur={(e, str) => getformInfo(e, 'mobile')}
@@ -375,7 +482,9 @@ const taxInfo=(
                   id="Seven-store"
                   onClick={e => {
                     getformInfo(e, 'shipping')
+                    setShipType(1)
                   }}
+                  checked={shipType==1?true:false}
                 />
                 <label className="custom-control-label" htmlFor="Seven-store">
                   7-11超商
@@ -392,7 +501,9 @@ const taxInfo=(
                   id="HiLife"
                   onClick={e => {
                     getformInfo(e, 'shipping')
+                    setShipType(2)
                   }}
+                  checked={shipType==2?true:false}
                 />
                 <label className="custom-control-label" htmlFor="HiLife">
                   萊爾富
@@ -419,7 +530,12 @@ const taxInfo=(
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
-                  onClick={()=>setOpenCard(false)}
+                  onClick={()=>{
+                    setOpenCard(false)
+                    setPaymentType(1)
+                  }
+                  }
+                  checked={paymentType==1?true:false}
                 />
                 <label className="custom-control-label" htmlFor="COD">
                   貨到付款
@@ -434,7 +550,10 @@ const taxInfo=(
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
-                  onClick={()=>setOpenCard(true)}
+                  onClick={()=>
+                  {setOpenCard(true)
+                  setPaymentType(2)}}
+                  checked={paymentType==2?true:false}
                 />
                 <label className="custom-control-label" htmlFor="CreditCard">
                   信用卡一次付清
@@ -449,7 +568,9 @@ const taxInfo=(
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
-                  onClick={()=>setOpenCard(false)}
+                  onClick={()=>{setOpenCard(false)
+                  setPaymentType(3)}}
+                  checked={paymentType==3?true:false}
                 />
                 <label className="custom-control-label" htmlFor="ATM">
                   ATM轉帳
@@ -477,7 +598,9 @@ const taxInfo=(
                 onClick={(e, str) => {
                   getformInfo(e, 'invoice')
                   setOpentaxNo(false)
+                  setInvoiceType(1)
                 }}
+                checked={invoiceType==1?true:false}
               />
               <label
                 className="custom-control-label"
@@ -495,7 +618,9 @@ const taxInfo=(
                 onClick={(e, str) => {
                   getformInfo(e, 'invoice')
                   setOpentaxNo(false)
+                  setInvoiceType(2)
                 }}
+                checked={invoiceType==2?true:false}
               />
               <label className="custom-control-label" htmlFor="donate">
                 捐贈發票
@@ -510,7 +635,9 @@ const taxInfo=(
                 onClick={(e, str) => {
                   getformInfo(e, 'invoice')
                   setOpentaxNo(true)
+                  setInvoiceType(3)
                 }}
+                checked={invoiceType==3?true:false}
               />
               <label className="custom-control-label" htmlFor="company">
                 公司戶電子發票
