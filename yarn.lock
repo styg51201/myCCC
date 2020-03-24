@@ -10141,6 +10141,14 @@ react-slideshow-image@^1.4.0:
     prop-types "^15.5.10"
     style-loader "^0.20.2"
 
+react-spring@^8.0.27:
+  version "8.0.27"
+  resolved "https://registry.yarnpkg.com/react-spring/-/react-spring-8.0.27.tgz#97d4dee677f41e0b2adcb696f3839680a3aa356a"
+  integrity sha512-nDpWBe3ZVezukNRandTeLSPcwwTMjNVu1IDq9qA/AMiUqHuRN4BeSWvKr3eIxxg1vtiYiOLy4FqdfCP5IoP77g==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+    prop-types "^15.5.8"
+
 react-sticky@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/react-sticky/-/react-sticky-6.0.3.tgz#7a18b643e1863da113d7f7036118d2a75d9ecde4"

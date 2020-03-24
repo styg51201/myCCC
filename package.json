@@ -42,6 +42,7 @@
     "react-scripts": "3.4.0",
     "react-slick": "^0.25.2",
     "react-slideshow-image": "^1.4.0",
+    "react-spring": "^8.0.27",
     "react-sticky": "^6.0.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
