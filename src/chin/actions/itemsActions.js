@@ -121,3 +121,10 @@ export const ResetListItemName = (obj, val) => {
   const newList = []
   return { type: 'ITEMNAME_RESET', value: newList }
 }
+//Price金錢塞選
+
+export const ListItemPrice = (obj,val)=>{
+  if(obj.val){
+    return { type: 'ITEMPRICE_VALUE', value: [obj.name, ...val] }
+  }
+}

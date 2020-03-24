@@ -37,7 +37,7 @@ function Commidty(props) {
         </div>
         <DescriptionTechnique data={props.data}/>
         <UserComment/>
-        <RelatedHistory/>
+        <RelatedHistory data={props.data}/>
       </main>
     </>
   )

@@ -48,3 +48,25 @@ export const reset = (state =true, action) => {
       return state
   }
 }
+
+//------------------chin Price------------------------
+export const getListitemPrice = (state = [], action) => {
+  switch (action.type) {
+    case 'ITEMPRICE_VALUE':
+      console.log('77777',action.value )
+      return action.value
+    case 'ITEMPRICE_VALUE':
+      return []
+    default:
+      return state
+  }
+}
+//------------------chin ItemNamehis--------
+export const getItemNamehis = (state = [], action) => {
+  switch (action.type) {
+    case 'SHOW_ITEMSHIS':
+      return action.value
+    default:
+      return state
+  }
+}
