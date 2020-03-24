@@ -24,7 +24,7 @@ function StoryCard(props){
 
 
     return(
-        <Link to={`/stories/story?id=${props.data.stryId}`} className="bk-card-linkwrapper">
+        <Link to={`/stories/story/${props.data.stryId}`} className="bk-card-linkwrapper">
             <Card className={`bk-card${height > 500 ? ' bk-collapse' : ''}`}
                 ref={cardRef}
                 >
@@ -32,7 +32,7 @@ function StoryCard(props){
                 <div className="bk-card-user">
                         <div className="bk-card-userimg"></div>
                         <div>
-                        <div>{props.data.Name}</div>
+                        <div>{props.data.Name || props.data.Account}</div>
                             <div>{props.data.fromNow}</div>
                         </div>
                     </div>

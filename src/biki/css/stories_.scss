@@ -1,15 +1,6 @@
 @import '../../css/variables.scss';
 @import '../css/all.scss';
 
-.bk-tmp-img{
-  width: 50px;
-  height: 50px;
-  background-color: $yellow;
-  line-height: 50px;
-  text-align: center;
-  border-radius: 50%;
-}
-
 .bk-stories-container{
   margin: (-$spacing/2) (-$spacing/2) $spacing*2;
 
@@ -107,19 +98,6 @@
 .bk-page-top{
   display: flex;
   justify-content: space-between;
-  align-items: center;
-
-  .bk-page-title{
-    font-weight: $font-bold;
-
-    span:nth-child(1){
-      font-size: $font-x;
-      margin-right: $spacing;
-    }
-    span:nth-child(2){
-      font-size: $font-m;
-    }
-  }
 
 }
 
@@ -136,20 +114,20 @@
   ul{
     position: absolute;
     z-index: 1;
-    max-height: 0;
+    height: 0;
     width: 100%;
     overflow: hidden;
     transition: .3s;
+    background-color: $background;
     // background-color: red;
 
     &.active{
-      max-height: 400px;
+      height: 215px;
     }
 
     li{
       list-style: none;
       padding: $spacing;
-      background-color: $background;
 
       &:hover{
         background-color: $grey;
@@ -159,70 +137,48 @@
 }
 
 
-.bk-story-head{
-  text-align: center;
-  padding: $spacing*3;
+.bk-story-container{
 
-  .title{
-    font-size: $font-xl;
-    font-weight: $font-bold;
+  .bk-story-content{
+    overflow: hidden;
+    padding: $spacing*4;
+    background-color: $white;
+
+    img{
+      width: 100%;
+    }
   }
-  .name{
-    margin-top: $spacing;
-    font-size: $font-m;
-    font-weight: $font-bold;
-  }
-  .date{
-    font-size: $font-xs;
-  }
-}
 
-.bk-story-wrapper{
-  background-color: $white;
+  .bk-story-side{
+    // background-color: $white;
+    padding: $spacing*2;
+    // position: fixed;
 
-  .bk-story-container{
-    margin: 0 auto;
-    max-width: 75%;
-
-    .bk-story-content{
-      overflow: hidden;
-      padding: $spacing*6 $spacing*2;
-
-      img{
-        width: 100%;
+    .bk-story-bottom{
+      ul{
+        border-top: 1px solid $grey;
+        list-style-type: none;
+        display: flex;
       }
     }
   }
-}
 
-.bk-reply-wrapper{
+  .bk-story-reply{
+    margin-top: $spacing*2;
+    background-color: $white;
+    padding: $spacing*4;
 
-  .bk-reply-container{
-    max-width: 75%;
-    margin: 0 auto;
-    padding: $spacing*2;
-    
-    .bk-story-reply{
-      // margin-top: $spacing*2;
-      // background-color: $white;
-      padding: $spacing*4 0;
+    textarea{
+      width: 100%;
+      resize: none;
+      height: auto;
+      background-color: transparent;
+      border: none;
+      border-bottom: solid 1px $black;
+      padding: $spacing 0;
 
-      textarea{
-        width: 100%;
-        resize: none;
-        height: auto;
-        background-color: transparent;
-        border: none;
-        border-bottom: solid 1px $black;
-        padding: $spacing 0;
-
-        &:focus{
-          outline: none;
-        }
-      }
-      
-      button{
-        margin-top: $spacing;
+      &:focus{
+        outline: none;
       }
     }
   }
@@ -249,43 +205,23 @@
       outline: none;
     }
   }
-  .bk-reply-btn-group{
-    display: flex;
-    justify-content: flex-end;
-    margin-top: $spacing;
-
-    button{
-      margin-left: $spacing;
-    }
-  }
 }
 
 .bk-recursive-replies-container{
-  padding-bottom: $spacing*4;
 
   .bk-r{
-    padding-left: $spacing*3;
-    // border-left: solid 1px $grey;
-    border: none;
-
+    padding-left: $spacing;
+    border-left: solid 1px $black;
   }
 
   & >.bk-r{
-    // border-bottom: solid 1px $grey;
-
     // border: none;
     margin-top: $spacing*2;
-    padding-left: 0;
-
-    >.bk-story-replies{
-      background-color: $white;
-    }
   }
 
   .bk-story-replies{
-    padding: $spacing*3;
-    margin-top: $spacing*2;
-    background-color: rgba($white, .5);
+    padding: $spacing;
+    // margin-top: $spacing*2;
 
     .bk-rply-head{
       display: flex;
@@ -298,7 +234,6 @@
     .bk-rply-foot{
       display: flex;
       justify-content: flex-end;
-      color: $grey;
 
       div[role=button]{
         cursor: pointer;

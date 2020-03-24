@@ -11,17 +11,31 @@ moment.locale('zh-tw'); //設置中文
 
 //-------MEMBER--------
 
+//---
 //get story
-router.get('/member/story', (req, res)=>{
-
-    let stryId = req.query.id;
-    console.log(stryId)
-
+router.get('/member/story/:id', (req, res)=>{
+    let usrId = req.query.usrId
+    let id = req.params.id;
     let sql = `SELECT \`usrId\`, \`stryId\`, \`stryTitle\`, \`stryTags\`, \`stryContent\`, \`stryLikes\`, \`updated_at\`
-    FROM \`stories\` 
-    WHERE \`stryId\`=? AND \`usrId\` = ?`
-
-    db.queryAsync(sql, [stryId, 1]) //should come from session
+        FROM \`stories\` 
+        WHERE \`stryId\`=? AND \`usrId\` = ?`
+    
+    db.queryAsync(sql, [id, usrId]) //should come from session
+    .then(r=>{
+        res.json(r[0])
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+})
+router.get('/member/draft/:id', (req, res)=>{
+    let usrId = req.query.usrId
+    let id = req.params.id;
+    let sql = `SELECT \`drftId\`, \`drftTitle\`, \`drftContent\`, \`drftTags\`, \`updated_at\` 
+        FROM \`storydrafts\` 
+        WHERE \`drftId\` = ? AND \`usrId\` = ?`;
+    
+    db.queryAsync(sql, [id, usrId]) //should come from session
     .then(r=>{
         res.json(r[0])
     })
@@ -30,56 +44,45 @@ router.get('/member/story', (req, res)=>{
     })
 })
 
-//update story
-router.patch('/member/story', (req, res)=>{
+//---
+//get stories
+router.get('/member/stories', (req, res)=>{
 
-    // console.log(req.body)
-    if(!req.query.id || !req.body) return;
+    let usrId = req.query.usrId
+    // console.log(req.query)
 
-    let id = req.query.id;
-    console.log(id)
+    // return;
 
-    let sql = `UPDATE \`stories\` 
-    SET \`stryTitle\`=?,\`stryContent\`=? ,\`stryTags\`=? , \`updated_at\`= NOW() 
-    WHERE \`stryId\`= ? AND \`usrId\`=?`
-
-    db.queryAsync(sql, [
-        req.body.title,
-        JSON.stringify(req.body.content),
-        JSON.stringify(req.body.tags),
-        id,
-        1 //should be from session
-    ])
-    .then(r=>{
-        res.json(r)
-        // console.log(r)
-    })
-})
-
-router.get('/member/draft', (req, res)=>{
-    let drftId = req.query.id;
-    console.log(drftId)
-
-    let sql = `SELECT \`drftId\`, \`drftStatus\`, \`drftTitle\`, \`drftContent\`, \`drftTags\`, \`updated_at\` FROM \`storyDrafts\` WHERE `
-})
-
-//get stories or drafts list
-router.get('/member/:page', (req, res)=>{
-
-    let sql;
-    if(req.params.page === 'stories'){
-        sql = `SELECT \`s\`.\`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryLikes\`, \`stryViews\`, \`s\`.\`updated_at\`,
+    let sql = `SELECT \`s\`.\`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryLikes\`, \`stryViews\`, \`s\`.\`updated_at\`,
         COUNT(\`rplyId\`) AS \`rplyTotal\`
         FROM \`stories\` AS \`s\`
         LEFT JOIN \`storyReplies\` AS \`r\` ON \`r\`.\`stryId\` = \`s\`.\`stryId\`
         WHERE \`s\`.\`usrId\` = ?
         GROUP BY \`s\`.\`stryId\`
         ORDER BY \`s\`.\`updated_at\` DESC`;
-    }else if(req.params.page === 'drafts'){
-        sql = 'SELECT `drftId`, `drftTitle`, `drftContent`, `drftTags`, `updated_at` FROM `storyDrafts` WHERE `usrId` = ? AND `drftStatus` = "active" ORDER BY `updated_at` DESC';
-    }
 
-    db.queryAsync(sql, [1]) //should come from session
+    db.queryAsync(sql, [usrId]) //should come from session
+    .then(r=>{
+        r.forEach(elm=>{
+            elm.time = moment(elm.updated_at).format("YYYY-MM-DD")
+        })
+        res.json(r)
+    })
+    .catch(err=>{
+        res.json(err)
+    })
+})
+//get drafts
+router.get('/member/drafts', (req, res)=>{
+
+    let usrId = req.query.usrId
+    // console.log(req.query)
+
+    // return;
+
+    let sql = 'SELECT `drftId`, `drftTitle`, `drftContent`, `drftTags`, `updated_at` FROM `storyDrafts` WHERE `usrId` = ? AND `drftStatus` = "active" ORDER BY `updated_at` DESC';
+
+    db.queryAsync(sql, [usrId]) //should come from session
     .then(r=>{
         r.forEach(elm=>{
             elm.time = moment(elm.updated_at).format("YYYY-MM-DD")
@@ -120,6 +123,242 @@ router.get('/member/:id/replies', (req, res)=>{
     })
 })
 
+//---
+//update story
+router.patch('/member/story/:id', (req, res)=>{
+
+    let usrId = req.query.usrId
+    let id = req.params.id;
+    // console.log(id)
+    
+    let sql = `UPDATE \`stories\` 
+        SET \`stryTitle\`=?,\`stryContent\`=? ,\`stryTags\`=? , \`updated_at\`= NOW() 
+        WHERE \`stryId\`= ? AND \`usrId\`=?`;
+
+    db.queryAsync(sql, [
+        req.body.title,
+        JSON.stringify(req.body.content),
+        JSON.stringify(req.body.tags),
+        id,
+        usrId
+    ])
+    .then(r=>{
+        res.json(r)
+        // console.log(r)
+    })
+})
+//update draft
+router.patch('/member/:page/:id', (req, res)=>{
+
+    let usrId = req.query.usrId
+    let id = req.params.id;
+    console.log(id)
+
+    let sql = `UPDATE \`storydrafts\` 
+    SET \`drftTitle\`=?,\`drftContent\`=?,\`drftTags\`=?, \`updated_at\`= NOW() 
+    WHERE \`usrId\` =? AND \`drftId\` =?`;
+
+    db.queryAsync(sql, [
+        req.body.title,
+        JSON.stringify(req.body.content),
+        JSON.stringify(req.body.tags),
+        id,
+        usrId
+    ])
+    .then(r=>{
+        res.json(r)
+        // console.log(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+
+//---
+//save to draft
+router.patch('/member/draft/save-draft/:id', (req, res)=>{
+
+    let action = req.params.action
+    let usrId = req.query.usrId
+    let id = req.params.id
+
+    const output = {
+        success: false,
+        data: '',
+        message: ''
+    }
+
+    let sql = 'UPDATE `storyDrafts` SET `drftTitle`= ?, `drftStatus`= ?, `drftContent`= ?, `drftTags`=?, `updated_at`= NOW() WHERE `usrId` = ? AND `drftId` = ?';
+
+    let params = [
+        req.body.title,
+        'active',
+        JSON.stringify(req.body.content),
+        JSON.stringify(req.body.tags),
+        usrId,
+        id
+    ];
+
+    db.queryAsync(sql, params)
+    .then(r=>{
+        output.success = true;
+        output.data = r;
+        output.message = 'save success';
+        res.json(output);
+        // console.log(output)
+        return;
+    })
+    .catch(err=>{
+        console.log(err);
+        output.message = 'save fail';
+        res.json(output);
+        return;
+    })
+
+})
+//submit-draft
+router.patch('/member/draft/submit-draft/:id', (req, res)=>{
+
+    let usrId = req.query.usrId
+    let id = req.params.id
+
+    const output = {
+        success: false,
+        data: '',
+        message: ''
+    }
+
+    let sql = 'UPDATE `storyDrafts` SET `drftStatus`= ? WHERE `usrId` = ? AND `drftId` = ?';
+    let params = [
+            'submitted',
+            usrId,
+            id
+        ];
+
+    db.queryAsync(sql, params)
+    .then(r=>{
+        output.success = true;
+        output.data = r;
+        output.message = 'update to submitted success';
+        res.json(output);
+        // console.log(output)
+        return;
+    })
+    .catch(err=>{
+        console.log(err);
+        output.message = 'update to submitted fail';
+        res.json(output);
+        return;
+    })
+
+})
+
+//---
+//first submit editor content to draft
+router.post('/member/initiate-draft', (req, res)=>{
+
+    const output = {
+        success: false,
+        data: '',
+        message: ''
+    }
+
+    let usrId = req.query.usrId
+    let sql = 'INSERT INTO `storyDrafts`(`usrId`, `drftTitle`, `drftStatus`, `drftContent`, `drftTags`) VALUES (?,?,?,?,?)';
+
+    db.queryAsync(sql, [
+        usrId,
+        req.body.title,
+        'active',
+        JSON.stringify(req.body.content),
+        JSON.stringify(req.body.tags)
+    ])
+    .then(r=>{
+        console.log(r.insertId);
+        output.success = true;
+        output.data = r.insertId;
+        output.message = 'draft upload success!';
+        res.json(output);
+    })
+    .catch(err=>{
+        output.data = err;
+        output.message = 'draft upload failed';
+        console.log(err);
+        res.json(output);
+    })
+    
+})
+//final submit editor content to stories
+router.post('/member/upload', (req, res)=>{
+
+    const output = {
+        success: false,
+        data: '',
+        message: ''
+    }
+
+    let usrId = req.query.usrId
+    let sql = 'INSERT INTO `stories`(`usrId`, `stryTitle`, `stryStatus`, `stryContent`, `stryTags`) VALUES (?, ?, ?, ?, ?)';
+
+    db.queryAsync(sql, [
+        usrId,
+        req.body.title,
+        'active',
+        JSON.stringify(req.body.content),
+        JSON.stringify(req.body.tags)
+    ])
+    .then(r=>{
+        // console.log(r.insertId);
+        output.success = true;
+        output.data = r.insertId;
+        output.message = 'upload success!';
+        res.json(output);
+    })
+    .catch(err=>{
+        output.data = err;
+        output.message = 'upload failed';
+        console.log(err);
+        res.json(output);
+    })
+    
+})
+
+//submit reply
+router.post('/reply/:id', (req, res)=>{
+    console.log('submitting reply...')
+    let rplyToId = req.query.toId || null;
+    let usrId = req.query.usrId
+
+    let stryId = req.params.id;
+    let content = req.body.content;
+
+    console.log('stryId:', stryId)
+
+    if(content.trim() === ''){
+        res.json('no content')
+        return;
+    }
+    
+    let replyToId = req.query;
+    let sql = `INSERT INTO \`storyReplies\`(\`stryId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`) 
+                VALUES (?, ?, ?, ?, ?)`;
+
+    db.queryAsync(sql, [
+        stryId,
+        usrId,
+        rplyToId,
+        content,
+        'active'
+    ])
+    .then(r=>{
+        console.log('added reply!')
+        res.json(r)
+    })
+    .catch(err=>{
+        console.log('failed to reply')
+        res.json(err)
+    })
+})
 
 
 //upload-images
@@ -165,11 +404,11 @@ router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
 })
 
 //update views of stories
-router.patch('/api/view-story', (req, res)=>{
+router.patch('/api/view-story/:id', (req, res)=>{
     console.log('adding view...')
     const sql = 'UPDATE `stories` SET `stryViews`= `stryViews` + 1 WHERE `stryId` = ?';
 
-    db.queryAsync(sql, [req.query.id])
+    db.queryAsync(sql, [req.params.id])
     .then(r=>{
         res.json(r);
     })
@@ -179,177 +418,21 @@ router.patch('/api/view-story', (req, res)=>{
 })
 
 
-//first submit editor content to draft
-router.post('/user-editor/draft', (req, res)=>{
-
-    const output = {
-        success: false,
-        data: '',
-        message: ''
-    }
-
-    let sql = 'INSERT INTO `storyDrafts`(`usrId`, `drftTitle`, `drftStatus`, `drftContent`, `drftTags`) VALUES (?,?,?,?,?)';
-
-    db.queryAsync(sql, [
-        1, //should come from session
-        req.body.title,
-        'active',
-        JSON.stringify(req.body.content),
-        JSON.stringify(req.body.tags)
-    ])
-    .then(r=>{
-        console.log(r.insertId);
-        output.success = true;
-        output.data = r.insertId;
-        output.message = 'draft upload success!';
-        res.json(output);
-    })
-    .catch(err=>{
-        output.data = err;
-        output.message = 'draft upload failed';
-        console.log(err);
-        res.json(output);
-    })
-    
-})
-
-//auto save to draft || submit draft
-router.patch('/user-editor/draft/:action/:id', (req, res)=>{
-
-    const output = {
-        success: false,
-        data: '',
-        message: ''
-    }
-
-    let sql, params, message;
-
-    if(req.params.action === 'save-draft'){
-        sql = 'UPDATE `storyDrafts` SET `drftTitle`= ?, `drftStatus`= ?, `drftContent`= ?, `drftTags`=?, `updated_at`= NOW() WHERE `usrId` = ? AND `drftId` = ?';
-        params = [
-            req.body.title,
-            'active',
-            JSON.stringify(req.body.content),
-            JSON.stringify(req.body.tags),
-            1, //should come from session
-            req.params.id
-        ];
-        message = {
-            success: 'save success',
-            error: 'save fail'
-        }
-    }else if(req.params.action === 'submit-draft') {
-        sql = 'UPDATE `storyDrafts` SET `drftStatus`= ? WHERE `usrId` = ? AND `drftId` = ?';
-        params = [
-            'submitted',
-            1, //session
-            req.params.id
-        ];
-        message = {
-            success: 'update to submitted success',
-            error: 'update to submitted fail'
-        }
-    }
-
-    db.queryAsync(sql, params)
-    .then(r=>{
-        output.success = true;
-        output.data = r;
-        output.message = message.success;
-        res.json(output);
-        // console.log(output)
-        return;
-    })
-    .catch(err=>{
-        console.log(err);
-        output.message = message.error;
-        res.json(output);
-        return;
-    })
-
-})
-
-//final submit editor content to stories
-router.post('/user-editor/upload', (req, res)=>{
-
-    const output = {
-        success: false,
-        data: '',
-        message: ''
-    }
-
-    let sql = 'INSERT INTO `stories`(`usrId`, `stryTitle`, `stryStatus`, `stryContent`, `stryTags`) VALUES (?, ?, ?, ?, ?)';
-
-    db.queryAsync(sql, [
-        1, //should be from session
-        req.body.title,
-        'active',
-        JSON.stringify(req.body.content),
-        JSON.stringify(req.body.tags)
-    ])
-    .then(r=>{
-        // console.log(r.insertId);
-        output.success = true;
-        output.data = r.insertId;
-        output.message = 'upload success!';
-        res.json(output);
-    })
-    .catch(err=>{
-        output.data = err;
-        output.message = 'upload failed';
-        console.log(err);
-        res.json(output);
-    })
-    
-})
-
-//submit reply
-router.post('/reply', (req, res)=>{
-    let rplyToId = req.query.toId || null;
-    let stryId = req.query.id;
-    let content = req.body.content;
-
-    if(content.trim() === ''){
-        res.json('no content')
-        return;
-    }
-    
-    let replyToId = req.query;
-    let sql = `INSERT INTO \`storyReplies\`(\`stryId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`) 
-                VALUES (?, ?, ?, ?, ?)`;
-
-    db.queryAsync(sql, [
-        stryId,
-        1, //should be from session
-        rplyToId,
-        content,
-        'active'
-    ])
-    .then(r=>{
-        console.log('added reply!')
-        res.json(r)
-    })
-    .catch(err=>{
-        console.log('failed to reply')
-        res.json(err)
-    })
-})
-
 //-------PUBLIC PAGES--------
 
 //get replies to story
-router.get('/story/replies', (req, res)=>{
+router.get('/story/replies/:id', (req, res)=>{
     // console.log(req.query)
 
     console.log("getting replies to story...")
 
     let sql = `SELECT \`rplyId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`, \`storyReplies\`.\`updated_at\` ,
-    \`Img\`, \`Name\`
+    \`Img\`, \`Name\`, \`Account\`
     FROM \`storyReplies\` 
     INNER JOIN \`member\` ON \`Id\` = \`usrId\`
     WHERE \`stryId\` = ?`;
 
-    db.queryAsync(sql, [req.query.id])
+    db.queryAsync(sql, [req.params.id])
     .then(r=>{
         r.forEach((elm)=>{
             elm.fromNow = moment(elm.updated_at).fromNow()
@@ -360,7 +443,7 @@ router.get('/story/replies', (req, res)=>{
 })
 
 //get story
-router.get('/story', (req, res)=>{
+router.get('/story/:id', (req, res)=>{
     console.log('getting story...')
     // console.log(req.query);
 
@@ -372,12 +455,12 @@ router.get('/story', (req, res)=>{
     
     let sql = `
     SELECT \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryTitle\`, \`stryContent\`, \`stryLikes\`, \`stories\`.\`updated_at\`,
-    \`Img\`, \`Name\`
+    \`Img\`, \`Name\`, \`Account\`
     FROM \`stories\` 
     INNER JOIN \`member\` ON \`Id\` = \`stories\`.\`usrId\`
     WHERE \`stories\`.\`stryId\`=? AND \`stryStatus\` = "active"`;
 
-    db.queryAsync(sql, [req.query.id])
+    db.queryAsync(sql, [req.params.id])
     .then(r=>{
         // console.log(r);
         r.forEach((elm)=>{
@@ -395,8 +478,6 @@ router.get('/story', (req, res)=>{
         
         res.json(output);
     })
-
-    // res.send(req.query);
 })
 
 //stories page
@@ -405,7 +486,7 @@ router.get('/:page?', (req, res)=>{
     let perPage = 15;
     let currentPage = req.params.page ? parseInt(req.params.page) : 1;
 
-    let sql = `SELECT \`Name\`, \`Img\`, \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryViews\`, \`stryTitle\`, \`stryContent\`, \`stryLikes\`, \`stories\`.\`created_at\`, \`stories\`.\`updated_at\`, COUNT(\`rplyId\`) AS "rplyTotal" 
+    let sql = `SELECT \`Name\`, \`Img\`, \`Account\`, \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryViews\`, \`stryTitle\`, \`stryContent\`, \`stryLikes\`, \`stories\`.\`created_at\`, \`stories\`.\`updated_at\`, COUNT(\`rplyId\`) AS "rplyTotal" 
     FROM \`stories\` 
     INNER JOIN \`member\` ON \`usrId\` = \`ID\` 
     LEFT JOIN \`storyReplies\` ON \`storyReplies\`.\`stryId\` = \`stories\`.\`stryId\` WHERE \`stryStatus\` = "active" GROUP BY \`stories\`.\`stryId\``;

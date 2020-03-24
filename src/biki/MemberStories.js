@@ -6,7 +6,7 @@ import { Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 
 import {
-    FiTrash2,
+    // FiTrash2,
     // FiChevronDown,
     FiThumbsUp,
     FiMessageSquare,
@@ -16,12 +16,14 @@ import {
 
 function MemberStories(){
 
-    const [data, setData] = useState(null)
+    const [data, setData] = useState([])
+    // const [usrId, setUsrId] = useState(null)
 
     useEffect(()=>{
+    
         axios({
             method: 'GET',
-            url: 'http://localhost:5500/stories/member/stories'
+            url: `http://localhost:5500/stories/member/stories?usrId=${localStorage.getItem('userId')}`
         })
         .then(r=>{
             if(r.data){
@@ -59,7 +61,7 @@ function MemberStories(){
                 <Col lg={9} className='bk-member-main-container'>
                     <h3>故事列表</h3>
                     <ul className='bk-story-list'>
-                        {!data ? '沒有張貼故事' : data.map(elm=>{
+                        {!data.length ? '沒有張貼故事' : data.map(elm=>{
                             return (
                             <li key={elm.stryId}>
                                 <div className='bk-story-li-content col-8'>
@@ -77,7 +79,7 @@ function MemberStories(){
                                     <Link to={`/member/stories/${elm.stryId}/replies`}>
                                         <button className="bk-btn-black-bordered">查看評論</button>
                                     </Link>
-                                    <Link to={`/member/stories/story?id=${elm.stryId}`}>
+                                    <Link to={`/member/stories/story/${elm.stryId}`}>
                                         <button className="bk-btn-black-bordered">
                                                 編輯
                                         </button>

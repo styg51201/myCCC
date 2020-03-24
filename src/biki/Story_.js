@@ -122,7 +122,6 @@ function Story(props){
                     }}
                     data={{
                         name: elm.Name,
-                        account: elm.Account,
                         img: elm.Image,
                         id: elm.rplyId,
                         content: elm.rplyContent,
@@ -142,20 +141,27 @@ function Story(props){
     if(loaded){
         return (
             <>
-                <div className="bk-story-head">
-                    <div className='title'>{data[0].stryTitle}</div>
-                    <div className='name'>{data[0].Name || data[0].Account}</div>
-                    <div className='date'>{data[0].stryFromNow}</div>
-                </div>
-                <div className="bk-story-wrapper">
-                    <div className='bk-story-container'>
+                <Row className="bk-story-container">
+                    <Col lg={3}>
+                        <div className="bk-story-side">
+                            <div className="bk-story-top">
+                                <div>Image</div>
+                                <div>{data[0].Name}</div>
+                                <div>{data[0].stryFromNow}</div>
+                            </div>
+                            <div className="bk-story-bottom">
+                                <ul>
+                                    <li>Comment</li>
+                                    <li>Add to fav</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col lg={9}>
                         <div className='bk-story-content'>            
+                            <h3>{data[0].stryTitle}</h3>
                             <div dangerouslySetInnerHTML={{__html: data[0].stryContent}}></div>
                         </div>
-                    </div>
-                </div>
-                <div className='bk-reply-wrapper'>
-                    <div className='bk-reply-container'>
                         <div className="bk-story-reply">
                             <label>留言</label>
                             <textarea rows={rows} onChange={(evt)=>{
@@ -165,19 +171,19 @@ function Story(props){
                             className="bk-btn-black" 
                             onClick={()=>{
                                 handleSubmit(replyTo, txtContent)
-                            }}>回覆</button>
+                            }}>Submit</button>
                         </div>
-                        <div className='bk-recursive-replies-container'>
-                            {rplyData.length ? mapRecursive(rplyData) : '目前還沒有留言'}
-                        </div>
-                    </div>
-                </div>
+                     <div className='bk-recursive-replies-container'>
+                     {rplyData.length ? mapRecursive(rplyData) : '目前還沒有留言'}
+                     </div>
+                    </Col>
+                </Row>
             </>
         )
     }else{
         return (
             <>
-                <div className="bk-story-container">
+                <Row className="bk-story-container">
                     <Col lg={4}>
                         <div className="bk-story-side">
                             <div className="bk-story-top">
@@ -192,7 +198,7 @@ function Story(props){
                         <div className="bk-story-replies">
                         </div>
                     </Col>
-                </div>
+                </Row>
             </>
         )
     }

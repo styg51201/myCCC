@@ -105,9 +105,9 @@ function Stories(props){
     return(
         <>
             <div className = 'bk-page-top'>
-                <div>
-                    <h5>STORIES</h5>
-                    <h6>故事牆</h6>
+                <div className='bk-page-title'>
+                    <span>STORIES</span>
+                    <span>故事牆</span>
                 </div>
                 <div className='bk-sort'>
                     <div role="button" onClick={toggleShowSort}>{sortName ? sortNameCn : '排序方式'} <FiChevronDown /></div>

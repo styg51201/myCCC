@@ -6,12 +6,12 @@ import {Link} from 'react-router-dom'
 
 function MemberDrafts(){
 
-    const [data, setData] = useState(null)
+    const [data, setData] = useState([])
 
     useEffect(()=>{
         axios({
             method: 'GET',
-            url: 'http://localhost:5500/stories/member/drafts'
+            url: `http://localhost:5500/stories/member/drafts?usrId=${localStorage.getItem('userId')}`
         })
         .then(r=>{
             // console.log(r.data)
@@ -45,9 +45,9 @@ function MemberDrafts(){
                 <Col lg={9} className='bk-member-main-container'>
                     <h3>草稿列表</h3>
                     <ul className='bk-story-list'>
-                        {!data ? 'no stories' : data.map(elm=>{
-                            return (<>
-                            <li>
+                        {!data.length ? '沒有草稿' : data.map(elm=>{
+                            return (
+                            <li key={elm.drftId}>
                                 <div className='bk-story-li-content col-10'>
                                     <Row>
                                         <div className="col-lg-4">
@@ -62,16 +62,16 @@ function MemberDrafts(){
                                 </div>
                                 <div className='bk-story-li-fn col-2'>
                                     {/* <Link to={`/member/stories/${elm.stryId}/replies`}> */}
-                                        <button class="bk-btn-black">刪除</button>
+                                        <button className="bk-btn-black">刪除</button>
                                     {/* </Link> */}
-                                    <Link to={`/member/stories/draft?id=${elm.drftId}`}>
+                                    <Link to={`/member/stories/draft/${elm.drftId}`}>
                                         <button className="bk-btn-black-bordered">
                                                 編輯
                                         </button>
                                     </Link>
                                 </div>
                             </li>
-                            </>)
+                            )
                         })}
                     </ul>
                 </Col>

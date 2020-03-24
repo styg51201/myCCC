@@ -34,10 +34,16 @@ function DraftEditor(props){
     const [story, setStory] = useState([]) //for debouncing & checking content
     const [tags, setTags] = useState([])
     const [message, setMessage] = useState('')
+    const [usrId, setUsrId] = useState(null)
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
     const imgFormRef = useRef(null)
+
+    useEffect(()=>{
+        setUsrId(localStorage.getItem('userId'))
+    }, [])
+
 
     //set editor content when Editor has content
     useEffect(()=>{
@@ -64,6 +70,7 @@ function DraftEditor(props){
 
     useEffect(()=>{
         if(story.length && draftSaved && saveDraft){
+            // console.log(saveDraft)
             console.log('autosaving...')
             saveData()
         }
@@ -150,7 +157,7 @@ function DraftEditor(props){
     async function submitDraft(){
         const contentState = await editorState.getCurrentContent()
 
-        const response = await fetch('http://localhost:5500/stories/user-editor/draft', {
+        const response = await fetch(`http://localhost:5500/stories/member/initiate-draft?usrId=${usrId}`, {
             method: 'post',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
@@ -172,7 +179,7 @@ function DraftEditor(props){
     async function saveData(){
         if(!saveDraft) return;
         const contentState = await editorState.getCurrentContent()
-        const response = await fetch(`http://localhost:5500/stories/user-editor/draft/save-draft/${id}`, {
+        const response = await fetch(`http://localhost:5500/stories/member/draft/save-draft/${id}?usrId=${usrId}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
@@ -189,10 +196,8 @@ function DraftEditor(props){
         setMessage('已儲存至草稿')
     }
 
-    //final submit
-    async function uploadStory(){
-
-        const contentState = await editorState.getCurrentContent()
+    const checkContent = ()=>{
+        const contentState = editorState.getCurrentContent()
 
         //判斷是否有內容
         let c = convertToRaw(contentState)
@@ -203,11 +208,9 @@ function DraftEditor(props){
             str += c.blocks[i].text
             if(c.blocks[i].type === 'atomic') flag = true
         }
-
-        console.log(str);
-
         if(!str.trim().length && !flag){
-            console.log("no content")
+            // console.log(title)
+            // console.log("no content")
             Swal.fire({
                 position: 'top-end',
                 icon: 'warning',
@@ -216,9 +219,9 @@ function DraftEditor(props){
                 timer: 1500,
                 position:'center',
               })  
-            return;
+            return false;
         }else if(title === '' || !title.trim().length){
-            console.log("no title")
+            // console.log("no title")
             Swal.fire({
                 position: 'top-end',
                 icon: 'warning',
@@ -227,13 +230,22 @@ function DraftEditor(props){
                 timer: 1500,
                 position:'center',
               })  
-            return;
+            return false;
         }
 
         console.log("you may pass")
+        return true;
+    }
+
+    //final submit
+    async function uploadStory(){
+
+        if(!checkContent()) return;
+
+        const contentState = await editorState.getCurrentContent()
 
         //fetch
-        const response = await fetch(`http://localhost:5500/stories/user-editor/upload`, {
+        const response = await fetch(`http://localhost:5500/stories/member/upload?usrId=${usrId}`, {
             method: 'POST',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
@@ -266,7 +278,7 @@ function DraftEditor(props){
 
     //final submit -> update draft to submitted
     async function updateDraftAfterSubmit(){
-        const response = await fetch(`http://localhost:5500/stories/user-editor/draft/submit-draft/${id}`, {
+        const response = await fetch(`http://localhost:5500/stories/member/draft/submit-draft/${id}?usrId=${usrId}`, {
             method: 'PATCH',
             headers: new Headers({
                 'Accept': 'application/json',
@@ -275,6 +287,20 @@ function DraftEditor(props){
         })
         const data = await response.json()
         await console.log(data)
+    }
+
+    const btnClickSave = ()=>{
+        Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            text: '儲存成功',
+            showConfirmButton: false,
+            timer: 1500,
+            position:'center',
+          })  
+        setTimeout(()=>{
+            props.history.push('/member/stories/drafts')
+        }, 1500)
     }
 
     //focus back to editor after img insert
@@ -326,7 +352,10 @@ function DraftEditor(props){
             </div>
             <div className='bk-btn-group'>
                 <button className="bk-btn-black" onClick={uploadStory}>上傳</button>
-                <button className="bk-btn-black-bordered" onClick={saveData}>儲存草稿</button>
+                <button className="bk-btn-black-bordered" onClick={()=>{
+                    saveData();
+                    btnClickSave();
+                }}>儲存草稿</button>
             </div>
         </>
     )

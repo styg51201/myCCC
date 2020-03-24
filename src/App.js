@@ -126,13 +126,13 @@ function App() {
             <Route path="/member/upload-stories">
               <UploadStory />
             </Route>
-            <Route path="/member/stories/story"> {/** ?id= */}
+            <Route path="/member/stories/story/:id">
               <MemberStory />
             </Route>
             <Route path="/member/stories/:id/replies">
               <MemberStoryReplies />
             </Route>
-            <Route path="/member/stories/draft"> {/** ?id= */}
+            <Route path="/member/stories/draft/:id">
               <MemberDraft />
             </Route>
             <Route path="/member/stories/drafts">
@@ -141,7 +141,7 @@ function App() {
             <Route path="/member/stories">
               <MemberStories />
             </Route>
-            <Route path="/stories/story">
+            <Route path="/stories/story/:id">
               <Story />
             </Route>
             <Route path="/stories">

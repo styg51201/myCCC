@@ -15,7 +15,7 @@ function MemberStory(props){
     useEffect(()=>{
         // console.log(props.location.search)
         if(!props.location) return;
-        let url = `http://localhost:5500/stories/member/story${props.location.search}`
+        let url = `http://localhost:5500/stories/member/story/${props.match.params.id}?usrId=${localStorage.getItem('userId')}`
 
         axios.get(url)
         .then(r=>{
@@ -43,6 +43,7 @@ function MemberStory(props){
                 <Col lg={9} className='bk-member-main-container'>
                     <h3>編輯故事</h3>
                     <DraftEditorEdit
+                        type = 'story'
                         content = {c}
                         tags = {tgs}
                         title = {t}

@@ -22,10 +22,37 @@ function DraftEditorEdit(props){
     const [tags, setTags] = useState([])
     const [message, setMessage] = useState('')
     const [readOnly, setReadOnly] = useState(false)
+    const [functionSubmit, setFunctionSubmit] = useState(null)
+    const [usrId, setUsrId] = useState(null)
+    const [id, setId] = useState(null)
+    const [buttons, setButtons] = useState(null)
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
     const imgFormRef = useRef(null)
+
+    useEffect(()=>{
+        setUsrId(localStorage.getItem('userId'))
+        if(props.match) setId(props.match.params.id)
+    }, [])
+
+    useEffect(()=>{
+        
+        console.log(props.type)
+        switch(props.type){
+            case 'story':
+                setButtons(<button className="bk-btn-black" onClick={updateStory}>更新</button>)
+                break;
+            case 'draft':
+                setButtons(
+                    <>
+                    <button className="bk-btn-black" onClick={updateDraft}>上傳</button>
+                    <button className="bk-btn-black-bordered" onClick={saveDraft}>儲存草稿</button>
+                    </>
+                )
+                break;
+        }
+    }, [props.type])
 
     useEffect(()=>{
         if(props.content){
@@ -47,8 +74,13 @@ function DraftEditorEdit(props){
     
     // basically just sets state...
     const onChange = editorState =>{
-        return  setEditorState(editorState);
+        return setEditorState(editorState);
     };
+
+    useEffect(()=>{
+        let s = editorState.getCurrentContent()
+        console.log(convertToRaw(s))
+    },[editorState])
 
     //inline styles
     const renderInlineStyles = (e, style) =>{
@@ -100,6 +132,7 @@ function DraftEditorEdit(props){
         }
     }
 
+    //檢查內容（在submit之前）
     const checkContent = ()=>{
         const contentState = editorState.getCurrentContent()
 
@@ -107,10 +140,11 @@ function DraftEditorEdit(props){
         let c = convertToRaw(contentState)
         let str = ''
         let flag = false
+        console.log(c)
         for(let i = 0 ; i < c.blocks.length ; i++){
             // console.log(c.blocks)
             str += c.blocks[i].text
-            if(c.blocks[i].type === 'atomic') flag = true
+            if(c.blocks[i].type === 'atomic') return flag = true
         }
         if(!str.trim().length && !flag){
             // console.log(title)
@@ -141,14 +175,14 @@ function DraftEditorEdit(props){
         return true;
     }
 
-    //final submit
+    //final submit for STORY
     async function updateStory(){
 
         if(!checkContent()) return;
-        const contentState = editorState.getCurrentContent()
+        const contentState = await editorState.getCurrentContent()
 
         //fetch
-        const response = await fetch(`http://localhost:5500/stories/member/story${props.location.search}`, {
+        const response = await fetch(`http://localhost:5500/stories/member/story${id}?usrId=${usrId}`, {
             method: 'PATCH',
             body: JSON.stringify({
                 content: convertToRaw(contentState),
@@ -177,6 +211,62 @@ function DraftEditorEdit(props){
             props.history.push('/member/stories')
         }, 1500)
         return;
+    }
+
+    //final submit for DRAFT
+    const updateDraft = ()=>{
+
+        if(!checkContent()) return;
+        const contentState = editorState.getCurrentContent()
+        
+        axios({
+            method: 'PATCH',
+            url: 'http://localhost:5500/stories/member/draft' + props.location.search,
+            data: {
+                content: convertToRaw(contentState),
+                title: title,
+                tags: tags
+            }
+        })
+        .then(r=>{
+            console.log(r)
+        })
+    }
+
+    //save draft
+    const saveDraft = ()=>{
+        if(!saveDraft) return;
+        const contentState = editorState.getCurrentContent()
+        console.log(convertToRaw(contentState))
+        axios({
+            method: 'PATCH',
+            url: `http://localhost:5500/stories/member/draft/save-draft/${id}?usrId=${usrId}`,
+            body: JSON.stringify({
+                content: convertToRaw(contentState),
+                title: title,
+                tags: tags
+            }),
+            headers: new Headers({
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            })
+        })
+        .then(r=>{
+            console.log(r)
+            setMessage('已儲存至草稿')
+
+            Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                text: '儲存成功',
+                showConfirmButton: false,
+                timer: 1500,
+                position:'center',
+              })  
+            // setTimeout(()=>{
+            //     props.history.push('/member/stories/drafts')
+            // }, 1500)
+        })
     }
 
     //focus back to editor after img insert
@@ -214,7 +304,7 @@ function DraftEditorEdit(props){
                     imgFormRef={imgFormRef}
                      />
                     <Editor
-                    placeholder="hello"
+                    // placeholder=""
                     editorState={editorState}
                     handleKeyCommand={handleKeyCommand}
                     onChange={onChange} //update state on change
@@ -227,7 +317,7 @@ function DraftEditorEdit(props){
                 </div>
             </div>
             <div className='bk-btn-group'>
-                <button className="bk-btn-black" onClick={updateStory}>更新</button>
+                {buttons ? buttons : 'no buttons'}
             </div>
         </>
     )
