@@ -182,11 +182,12 @@
 
   .bk-story-container{
     margin: 0 auto;
-    max-width: 75%;
+    width: 75%;
+    max-width: 680px;
 
     .bk-story-content{
       overflow: hidden;
-      padding: $spacing*6 $spacing*2;
+      padding: $spacing*6 0;
 
       img{
         width: 100%;

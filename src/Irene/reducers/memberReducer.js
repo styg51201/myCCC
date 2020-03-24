@@ -21,3 +21,13 @@ export const getMemberID = (state = [], action) => {
       return state
   }
 }
+
+//會員資料更新
+export const updateMember = (state = [], action) => {
+  switch (action.type) {
+    case 'UPDATE_MEMBERINFO':
+      return { ...action.data }
+    default:
+      return state
+  }
+}

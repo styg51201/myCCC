@@ -5,7 +5,7 @@ import {Col, Container} from 'react-bootstrap'
 
 function Collection(props){
 
-    console.log(props)
+    // console.log(props)
 
     return(
     <>
