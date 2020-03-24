@@ -195,7 +195,7 @@ export const AddCartNewItem_sendcal = data => {
 
 //加入最愛 目前會出錯 點選加入最愛會出現undefined
 export const Handle_AddMyFavorite = (val, product, data) => {
-  console.log('9999999999', product)
+  // console.log('9999999999', product)
   let pIdBox = []
   data.map((v, i) => {
     pIdBox.push(v.itemId)
@@ -204,7 +204,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
   return dispatch => {
     if (val == 'true') {
       let box = pIdBox.findIndex(e => e == product.itemId)
-     console.log('dddddd',box)
+    //  console.log('dddddd',box)
       if (box == -1) {
         newData.push(product)
       } else {

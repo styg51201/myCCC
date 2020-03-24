@@ -74,7 +74,6 @@ function ShopCartList(props) {
   })
   // 購物車內容
   const dataList = props.AddItem.map((v, i) => {
-    console.log('SEEEEE',v)
     return (
       <li key={v} className="Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
@@ -172,9 +171,9 @@ function ShopCartList(props) {
 const mapStateToProps = store => {
   return {
     //購物車內容
-    data: store.getShop,
+    // data: store.getShop,
     AddItem: store.AddItem,
-    Cart: store.displayShopCart,
+    // Cart: store.displayShopCart,
     MyFavorite: store.MyFavorite,
     CtrlData: store.ControlDataState,
   }
