@@ -1,20 +1,40 @@
-import React, {useState, useEffect} from 'react'
-import useReplyTextarea from '../utils/useReplyTextarea'
+import React, {useState, useRef, useEffect} from 'react'
+// import useReplyTextarea from '../utils/useReplyTextarea'
+import useTextareaRows from '../utils/useTextareaRows'
 
 function StoryReply(props){
-    // if(props.data) console.log(props)
+
+    const [txtContent, setTxtContent] = useState('')
+    const [showReplyTo, setShowReplyTo] = useState(false)
+    const [replyTo, setReplyTo] = useState(null)
+
     const {
-        rows,
-        showReplyTo,
-        replyTo,
-        txtContent,
-        handleToggleShow,
-        handleChange,
+        rows, 
+        handleRows, 
         handleKey
-    } = useReplyTextarea()
+    } = useTextareaRows()
+
+    useEffect(()=>{
+        if(props.openRplyTo !== props.id){
+            setShowReplyTo(false)
+            setTxtContent('')
+        }
+    }, [props.openRplyTo])
+
+    const handleChange = (data, evt)=>{
+        setTxtContent(evt.target.value)
+        setReplyTo(data)
+    }
+
+    const handleToggleShow = (id)=>{
+        if(showReplyTo) setTxtContent('')
+        setShowReplyTo(!showReplyTo)
+    }
+
+    const rplyRef = useRef(null)
 
     return (
-        <div className="bk-story-replies">
+        <div className="bk-story-replies" id={props.id} ref={rplyRef}>
             <div className='bk-rply-head'>
                 <div>image</div>
                 <div>
@@ -27,7 +47,8 @@ function StoryReply(props){
             </div>
             <div className="bk-rply-foot">
                 <div onClick={()=>{
-                    handleToggleShow(props.data.id)
+                    handleToggleShow(props.id)
+                    props.onClick(props.id)
                     }} 
                     role="button"
                 >
@@ -39,6 +60,7 @@ function StoryReply(props){
                     rows={rows}
                     value={txtContent} 
                     onChange={(evt)=>{
+                        handleRows(evt);
                         handleChange(props.data.id, evt);
                     }} 
                     onKeyDown={handleKey}

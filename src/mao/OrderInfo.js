@@ -40,8 +40,8 @@ function OrderInfo(props) {
     payment: '貨到付款',
   })
 
-  const [openCard,setOpenCard]=useState(false)
-  const [opentaxNo,setOpentaxNo]=useState(false)
+  const [openCard, setOpenCard] = useState(false)
+  const [opentaxNo, setOpentaxNo] = useState(false)
   const { getMonth, getYear } = GetDayRange()
 
   //訂單
@@ -72,21 +72,19 @@ function OrderInfo(props) {
   })
 
   //插入資料
-  const [getBuyerbasic,setGetBuyerbasic]=useState(true)
-   function getbuyer(e) {
-     if(getBuyerbasic){
+  const [getBuyerbasic, setGetBuyerbasic] = useState(true)
+  function getbuyer(e) {
+    if (getBuyerbasic) {
       $('#mobile').val('0912345678')
       $('#buyerName').val('Alex')
-      setBuyerInfo({ ...buyerInfo, buyerName: 'Alex' , mobile: '0912345678' })
+      setBuyerInfo({ ...buyerInfo, buyerName: 'Alex', mobile: '0912345678' })
       setGetBuyerbasic(false)
-     }else{
+    } else {
       $('#mobile').val('')
       $('#buyerName').val('')
       setBuyerInfo({ ...buyerInfo, buyerName: '', mobile: '' })
       setGetBuyerbasic(true)
-     }
-    
-    
+    }
   }
 
   //獲取buyer資訊
@@ -126,10 +124,10 @@ function OrderInfo(props) {
         break
       case 'shipping':
         buyerInfo.shipping = getInfo2
-        if(getInfo2=='Seven-store'){
-          getInfo2='7-11'
-        }else if(getInfo2 =='HiLife'){
-          getInfo2='萊爾富'
+        if (getInfo2 == 'Seven-store') {
+          getInfo2 = '7-11'
+        } else if (getInfo2 == 'HiLife') {
+          getInfo2 = '萊爾富'
         }
         setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
         setValues({ ...values, shipping: getInfo2 })
@@ -150,25 +148,45 @@ function OrderInfo(props) {
     }
   }
 
-  const [pIdArr,setPIdArr]=useState([])
-  const [countArr,setCountArr]=useState([])
+  const [pIdArr, setPIdArr] = useState([])
+  const [countArr, setCountArr] = useState([])
+  const [itemNameArr, setItemNameArr] = useState([])
+  const [nameArr, setNameArr] = useState([])
+  const [itemImgArr, setItemImgArr] = useState([])
+  const [itemPriceArr, setItemPriceArr] = useState([])
+  const [itemCategoryIdArr, setItemCategoryIdArr] = useState([])
   //獲取購物車內容
   function getorderProductInfo() {
     const pIdArrBox = []
-    const countArrBox=[]
+    const itemNameArrBox = []
+    const nameArrBox = []
+    const itemImgArrBox = []
+    const itemPriceArrBox = []
+    const itemCategoryIdArrBox = []
+    const countArrBox = []
     props.AddItem.map((v, i) => {
+      itemNameArrBox.push(v.itemName)
+      itemImgArrBox.push(v.nameArrBox)
+      itemPriceArrBox.push(v.itemPrice)
+      nameArrBox.push(v.nameArr)
+      itemCategoryIdArrBox.push(v.itemCategoryId)
       countArrBox.push(v.count)
       pIdArrBox.push(v.itemId)
     })
     setPIdArr(pIdArrBox)
+    setItemNameArr(itemNameArrBox)
+    setNameArr(nameArrBox)
+    setItemImgArr(itemImgArrBox)
+    setItemPriceArr(itemPriceArrBox)
+    setItemCategoryIdArr(itemCategoryIdArrBox)
     setCountArr(countArrBox)
   }
-
 
   useEffect(() => {
     getRND()
     getorderProductInfo()
     GetDayRange()
+    console.log(props.AddItem.length)
   }, [])
 
   useEffect(() => {
@@ -183,7 +201,7 @@ function OrderInfo(props) {
   //送出
   async function POSTorderInfo() {
     // console.log('BuyertInfo==',buyerInfo)
-    console.log('pIdArr==',pIdArr)
+    console.log('pIdArr==', pIdArr)
     // console.log('countArr==',countArr)
     let noneObj = {}
     //清理暫存
@@ -195,7 +213,12 @@ function OrderInfo(props) {
       console.log('pIdArr', pIdArr[i])
       let proBox = {
         orderId: buyerInfo.orderId,
+        name: `${nameArr[i]}`,
         itemId: `${pIdArr[i]}`,
+        itemName: `${itemNameArr[i]}`,
+        itemPrice: `${itemPriceArr[i]}`,
+        itemCategoryId: `${itemCategoryIdArr[i]}`,
+        itemImg: `${itemImgArr[i]}`,
         count: `${countArr[i]}`,
         outStatus: '訂單處理中',
       }
@@ -212,203 +235,207 @@ function OrderInfo(props) {
     })
   }
 
-  const CreditCardInfo=(<div id="creditCardInfo">
-  <div className="form-row my-5  d-flex align-items-center">
-    <div className="col-2">
-      <h4>信用卡號</h4>
+  const CreditCardInfo = (
+    <div id="creditCardInfo">
+      <div className="form-row my-5  d-flex align-items-center">
+        <div className="col-2">
+          <h4>信用卡號</h4>
+        </div>
+        <div className="col-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder=""
+            maxlength="4"
+          />
+        </div>
+        <div className="col-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder=""
+            maxlength="4"
+          />
+        </div>
+        <div className="col-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder=""
+            maxlength="4"
+          />
+        </div>
+        <div className="col-2">
+          <input
+            type="text"
+            className="form-control"
+            placeholder=""
+            maxlength="4"
+          />
+        </div>
+      </div>
+      <div className="form-row my-5 d-flex align-items-center">
+        <div className="col-2">
+          <h4>有效期限</h4>
+        </div>
+        <div className="col-2 d-flex align-items-center">
+          <select className="custom-select mr-3">{getMonth()}</select>
+          <span>月</span>
+        </div>
+        <div className="col-3 d-flex align-items-center">
+          <select className="custom-select mr-3">{getYear()}</select>
+          <span>年</span>
+        </div>
+      </div>
+      <div className="form-row my-5 d-flex align-items-center">
+        <div className="col-2">
+          <h4>檢核碼</h4>
+        </div>
+        <div className="col-5 d-flex align-items-center">
+          <input
+            type="text"
+            className="form-control mr-3 w-25"
+            placeholder=""
+            maxLength="3"
+          />
+          <p style={{ width: '50%', margin: 0 }}>卡片背面，後三碼</p>
+        </div>
+      </div>
     </div>
-    <div className="col-2">
-      <input
-        type="text"
-        className="form-control"
-        placeholder=""
-        maxlength="4"
-      />
-    </div>
-    <div className="col-2">
-      <input
-        type="text"
-        className="form-control"
-        placeholder=""
-        maxlength="4"
-      />
-    </div>
-    <div className="col-2">
-      <input
-        type="text"
-        className="form-control"
-        placeholder=""
-        maxlength="4"
-      />
-    </div>
-    <div className="col-2">
-      <input
-        type="text"
-        className="form-control"
-        placeholder=""
-        maxlength="4"
-      />
-    </div>
-  </div>
-  <div className="form-row my-5 d-flex align-items-center">
-    <div className="col-2">
-      <h4>有效期限</h4>
-    </div>
-    <div className="col-2 d-flex align-items-center">
-      <select className="custom-select mr-3">{getMonth()}</select>
-      <span>月</span>
-    </div>
-    <div className="col-3 d-flex align-items-center">
-      <select className="custom-select mr-3">{getYear()}</select>
-      <span>年</span>
-    </div>
-  </div>
-  <div className="form-row my-5 d-flex align-items-center">
-    <div className="col-2">
-      <h4>檢核碼</h4>
-    </div>
-    <div className="col-5 d-flex align-items-center">
-      <input
-        type="text"
-        className="form-control mr-3 w-25"
-        placeholder=""
-        maxLength="3"
-      />
-      <p style={{ width: '50%', margin: 0 }}>卡片背面，後三碼</p>
-    </div>
-  </div>
-</div>)
-
-const taxInfo=(
-  <div className="form-row my-5 d-flex align-items-center">
-            <div className="col-2">
-              <h4>統一編號</h4>
-            </div>
-            <div className="col-10 d-flex align-items-center">
-              <input
-                type="text"
-                className="form-control mr-3 w-25"
-                placeholder=""
-                maxLength="8"
-                onChange={(e, str) => {
-                  getformInfo(e, 'taxNo')
-                }}
-              />
-            </div>
-          </div>
-)
-
-//demo1帶入資料庫
-
-const demo1={
-  orderId: buyerInfo.orderId,
-  buyerName: 'Alex',
-  mobile: '0912345678',
-  payment: 'CreditCard',
-  shipping: 'Seven-store',
-  buyerAdress: '台北市大安 信興門市',
-  invoice: 'company',
-  taxNo: '',
-  total: sendTotal,
-  shipCost: '100',
-  discount: '0',
-}
-const demo2={
-  orderId: buyerInfo.orderId,
-  buyerName: 'Blex',
-  mobile: '0913755678',
-  payment: 'COD',
-  shipping: 'HiLife',
-  buyerAdress: '台北市大安 信興門市',
-  invoice: 'donate',
-  taxNo: '',
-  total: sendTotal,
-  shipCost: '100',
-  discount: '0',
-}
-const demo3={
-  orderId: buyerInfo.orderId,
-  buyerName: 'Clex',
-  mobile: '0912345558',
-  payment: 'COD',
-  shipping: 'Seven-store',
-  buyerAdress: '台北市大安 信興門市',
-  invoice: 'company',
-  taxNo: '',
-  total: sendTotal,
-  shipCost: '100',
-  discount: '0',
-}
-const demobox=[demo1,demo2,demo3]
-// shipsType
-const [shipType,setShipType]=useState(0)
-// paymentType
-const [paymentType,setPaymentType]=useState(0)
-// invoice
-const [invoiceType,setInvoiceType]=useState(0)
-const [demoType,setDemoType]=useState(0)
-function getDemoOne(val){
-  // console.log('getdemo',val)
-  $('#mobile').val(val.mobile)
-  $('#buyerName').val(val.buyerName)
-  if(val.shipping=='Seven-store'){
-    setShipType(1)
-  }else{
-    setShipType(2)
-  }
-  if(val.payment=='COD'){
-    setOpenCard(false)
-    setPaymentType(1)
-  }else if(val.payment=='CreditCard'){
-    setPaymentType(2)
-    setOpenCard(true)
-  }else{
-    setOpenCard(false)
-    setPaymentType(3)
-  }
-  if(val.invoice=='personal-invoice'){
-    setInvoiceType(1)
-    setOpentaxNo(false)
-  }else if(val.invoice=='donate'){
-    setInvoiceType(2)
-    setOpentaxNo(false)
-  }else{
-    setInvoiceType(3)
-    setOpentaxNo(true)
-  }
-  setBuyerInfo(val)
-}
-
-const quickInsertInfo=demobox.map((v,i)=>{
-  return (
-<div className="custom-control custom-checkbox mr-3">
-      <input
-        type="checkbox"
-        className="custom-control-input"
-        id={`'quickInsertInfo${i}'`}
-        onClick={() => {
-          let trueDemo=i+1
-          getDemoOne(v)
-          setDemoType(i+1)
-        }}
-        checked={demoType==i+1?true:false}
-      />
-      <label className="custom-control-label" htmlFor={`'quickInsertInfo${i}'`}>
-        預設訂購人資料組合${i+1}
-      </label>
-  </div>
   )
-  
-})
+
+  const taxInfo = (
+    <div className="form-row my-5 d-flex align-items-center">
+      <div className="col-2">
+        <h4>統一編號</h4>
+      </div>
+      <div className="col-10 d-flex align-items-center">
+        <input
+          type="text"
+          className="form-control mr-3 w-25"
+          placeholder=""
+          maxLength="8"
+          onChange={(e, str) => {
+            getformInfo(e, 'taxNo')
+          }}
+        />
+      </div>
+    </div>
+  )
+
+  //demo1帶入資料庫
+
+  const demo1 = {
+    orderId: buyerInfo.orderId,
+    buyerName: 'Alex',
+    mobile: '0912345678',
+    payment: 'CreditCard',
+    shipping: 'Seven-store',
+    buyerAdress: '台北市大安 信興門市',
+    invoice: 'company',
+    taxNo: '',
+    total: sendTotal,
+    shipCost: '100',
+    discount: '0',
+  }
+  const demo2 = {
+    orderId: buyerInfo.orderId,
+    buyerName: 'Blex',
+    mobile: '0913755678',
+    payment: 'COD',
+    shipping: 'HiLife',
+    buyerAdress: '台北市大安 信興門市',
+    invoice: 'donate',
+    taxNo: '',
+    total: sendTotal,
+    shipCost: '100',
+    discount: '0',
+  }
+  const demo3 = {
+    orderId: buyerInfo.orderId,
+    buyerName: 'Clex',
+    mobile: '0912345558',
+    payment: 'COD',
+    shipping: 'Seven-store',
+    buyerAdress: '台北市大安 信興門市',
+    invoice: 'company',
+    taxNo: '',
+    total: sendTotal,
+    shipCost: '100',
+    discount: '0',
+  }
+  const demobox = [demo1, demo2, demo3]
+  // shipsType
+  const [shipType, setShipType] = useState(0)
+  // paymentType
+  const [paymentType, setPaymentType] = useState(0)
+  // invoice
+  const [invoiceType, setInvoiceType] = useState(0)
+  const [demoType, setDemoType] = useState(0)
+  function getDemoOne(val) {
+    // console.log('getdemo',val)
+    $('#mobile').val(val.mobile)
+    $('#buyerName').val(val.buyerName)
+    if (val.shipping == 'Seven-store') {
+      setShipType(1)
+    } else {
+      setShipType(2)
+    }
+    if (val.payment == 'COD') {
+      setOpenCard(false)
+      setPaymentType(1)
+    } else if (val.payment == 'CreditCard') {
+      setPaymentType(2)
+      setOpenCard(true)
+    } else {
+      setOpenCard(false)
+      setPaymentType(3)
+    }
+    if (val.invoice == 'personal-invoice') {
+      setInvoiceType(1)
+      setOpentaxNo(false)
+    } else if (val.invoice == 'donate') {
+      setInvoiceType(2)
+      setOpentaxNo(false)
+    } else {
+      setInvoiceType(3)
+      setOpentaxNo(true)
+    }
+    setBuyerInfo(val)
+  }
+
+  const quickInsertInfo = demobox.map((v, i) => {
+    return (
+      <div className="custom-control custom-checkbox mr-3">
+        <input
+          type="checkbox"
+          className="custom-control-input"
+          id={`'quickInsertInfo${i}'`}
+          onClick={() => {
+            let trueDemo = i + 1
+            getDemoOne(v)
+            setDemoType(i + 1)
+          }}
+          checked={demoType == i + 1 ? true : false}
+        />
+        <label
+          className="custom-control-label"
+          htmlFor={`'quickInsertInfo${i}'`}
+        >
+          預設訂購人資料組合${i + 1}
+        </label>
+      </div>
+    )
+  })
 
   //表格
   return (
     <>
       {/* <form method="POST"> */}
-      <MaoAD/>
+      <MaoAD />
       <div className="container my-3 d-flex" style={{ width: '1300px' }}>
         <div className="px-4 border bg-white p-3" style={{ width: '950px' }}>
-        {quickInsertInfo}
+          {quickInsertInfo}
           <div className="form-row d-flex flex-column">
             <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
             <div className="col my-3">
@@ -489,7 +516,7 @@ const quickInsertInfo=demobox.map((v,i)=>{
                     getformInfo(e, 'shipping')
                     setShipType(1)
                   }}
-                  checked={shipType==1?true:false}
+                  checked={shipType == 1 ? true : false}
                 />
                 <label className="custom-control-label" htmlFor="Seven-store">
                   7-11超商
@@ -508,7 +535,7 @@ const quickInsertInfo=demobox.map((v,i)=>{
                     getformInfo(e, 'shipping')
                     setShipType(2)
                   }}
-                  checked={shipType==2?true:false}
+                  checked={shipType == 2 ? true : false}
                 />
                 <label className="custom-control-label" htmlFor="HiLife">
                   萊爾富
@@ -535,12 +562,11 @@ const quickInsertInfo=demobox.map((v,i)=>{
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
-                  onClick={()=>{
+                  onClick={() => {
                     setOpenCard(false)
                     setPaymentType(1)
-                  }
-                  }
-                  checked={paymentType==1?true:false}
+                  }}
+                  checked={paymentType == 1 ? true : false}
                 />
                 <label className="custom-control-label" htmlFor="COD">
                   貨到付款
@@ -555,10 +581,11 @@ const quickInsertInfo=demobox.map((v,i)=>{
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
-                  onClick={()=>
-                  {setOpenCard(true)
-                  setPaymentType(2)}}
-                  checked={paymentType==2?true:false}
+                  onClick={() => {
+                    setOpenCard(true)
+                    setPaymentType(2)
+                  }}
+                  checked={paymentType == 2 ? true : false}
                 />
                 <label className="custom-control-label" htmlFor="CreditCard">
                   信用卡一次付清
@@ -573,9 +600,11 @@ const quickInsertInfo=demobox.map((v,i)=>{
                   onChange={(e, str) => {
                     getformInfo(e, 'payment')
                   }}
-                  onClick={()=>{setOpenCard(false)
-                  setPaymentType(3)}}
-                  checked={paymentType==3?true:false}
+                  onClick={() => {
+                    setOpenCard(false)
+                    setPaymentType(3)
+                  }}
+                  checked={paymentType == 3 ? true : false}
                 />
                 <label className="custom-control-label" htmlFor="ATM">
                   ATM轉帳
@@ -583,73 +612,73 @@ const quickInsertInfo=demobox.map((v,i)=>{
               </div>
             </div>
           </div>
-          {openCard?CreditCardInfo:''}
+          {openCard ? CreditCardInfo : ''}
           <div className="form-row my-5 d-flex flex-column">
-          <div className="form-row d-flex flex-column mt-5">
+            <div className="form-row d-flex flex-column mt-5">
               <h2 className="border-bottom p-3" style={{ display: 'block' }}>
-              發票
+                發票
               </h2>
             </div>
             {/* <div className="col-2">
               <h4>發票</h4>
             </div> */}
             <div className="d-flex ">
-            <div className="custom-control custom-radio mr-5">
-              <input
-                type="radio"
-                className="custom-control-input"
-                name="invoice"
-                id="personal-invoice"
-                onClick={(e, str) => {
-                  getformInfo(e, 'invoice')
-                  setOpentaxNo(false)
-                  setInvoiceType(1)
-                }}
-                checked={invoiceType==1?true:false}
-              />
-              <label
-                className="custom-control-label"
-                htmlFor="personal-invoice"
-              >
-                個人電子發票
-              </label>
+              <div className="custom-control custom-radio mr-5">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="invoice"
+                  id="personal-invoice"
+                  onClick={(e, str) => {
+                    getformInfo(e, 'invoice')
+                    setOpentaxNo(false)
+                    setInvoiceType(1)
+                  }}
+                  checked={invoiceType == 1 ? true : false}
+                />
+                <label
+                  className="custom-control-label"
+                  htmlFor="personal-invoice"
+                >
+                  個人電子發票
+                </label>
+              </div>
+              <div className="custom-control custom-radio mr-5">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="invoice"
+                  id="donate"
+                  onClick={(e, str) => {
+                    getformInfo(e, 'invoice')
+                    setOpentaxNo(false)
+                    setInvoiceType(2)
+                  }}
+                  checked={invoiceType == 2 ? true : false}
+                />
+                <label className="custom-control-label" htmlFor="donate">
+                  捐贈發票
+                </label>
+              </div>
+              <div className="custom-control custom-radio">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  name="invoice"
+                  id="company"
+                  onClick={(e, str) => {
+                    getformInfo(e, 'invoice')
+                    setOpentaxNo(true)
+                    setInvoiceType(3)
+                  }}
+                  checked={invoiceType == 3 ? true : false}
+                />
+                <label className="custom-control-label" htmlFor="company">
+                  公司戶電子發票
+                </label>
+              </div>
             </div>
-            <div className="custom-control custom-radio mr-5">
-              <input
-                type="radio"
-                className="custom-control-input"
-                name="invoice"
-                id="donate"
-                onClick={(e, str) => {
-                  getformInfo(e, 'invoice')
-                  setOpentaxNo(false)
-                  setInvoiceType(2)
-                }}
-                checked={invoiceType==2?true:false}
-              />
-              <label className="custom-control-label" htmlFor="donate">
-                捐贈發票
-              </label>
-            </div>
-            <div className="custom-control custom-radio">
-              <input
-                type="radio"
-                className="custom-control-input"
-                name="invoice"
-                id="company"
-                onClick={(e, str) => {
-                  getformInfo(e, 'invoice')
-                  setOpentaxNo(true)
-                  setInvoiceType(3)
-                }}
-                checked={invoiceType==3?true:false}
-              />
-              <label className="custom-control-label" htmlFor="company">
-                公司戶電子發票
-              </label>
-            </div>
-          </div>
-          {opentaxNo?taxInfo:''}
+            {opentaxNo ? taxInfo : ''}
           </div>
           <br />
           <div className="d-flex justify-content-center my-4">
