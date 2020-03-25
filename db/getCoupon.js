@@ -14,35 +14,47 @@ const upload = multer({ dest: 'tmp_uploads/' })
 //會員id
 router.post('/',(req,res)=>{
 
-    // console.log(req.body.page)
+    console.log('9999',req.body.page,req.body.mb_id)
 
-    const sqlTotalMember = 'SELECT COUNT(*) AS `cp_total` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = ?) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE'
+    const sqlTotalMember = 'SELECT COUNT(*) AS `cp_total` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = ?) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE AND `cp_countdown` = 0'
 
-    const sqlTotalNoMember = 'SELECT COUNT(*) AS `cp_total` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE'
+    const sqlTotalNoMember = 'SELECT COUNT(*) AS `cp_total` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE AND `cp_countdown` = 0'
 
 
-    const sqlMember = 'SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = ?) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE  ORDER BY `cp_vendor` ASC  LIMIT ?,4'
+    const sqlMember = 'SELECT *   FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = ?) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE AND `cp_countdown` = 0  ORDER BY `cp_vendor` ASC  LIMIT ?,?'
 
-    const sqlNoMember = 'SELECT *  ,(SELECT COUNT(*) FROM `coupon_item` WHERE `cpi_cp_id`=`cp_id`) AS `cp_getedCount` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE  ORDER BY `cp_vendor` ASC  LIMIT ?,4'
+    const sqlNoMember = 'SELECT *  FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE AND `cp_countdown` = 0  ORDER BY `cp_vendor` ASC  LIMIT ?,?'
 
+    let start = null
+    let end = null
+    if(req.body.page === 0){
+        start = 0
+        end = 10
+    }else{
+        start = req.body.page
+        end = 6
+    }
+    
     if(req.body.mb_id){
         db.queryAsync(sqlTotalMember,[req.body.mb_id])
         .then(r=>{
             const total = r 
-            db.queryAsync(sqlMember,[req.body.mb_id,req.body.page])
+            db.queryAsync(sqlMember,[req.body.mb_id,start,end])
             .then(r=>{
                 r.forEach(e => {
                     e.cp_start = moment(e.cp_start).format(fm)
                     e.cp_due = moment(e.cp_due).format(fm)
             })
-              res.json({total,couponData:r})
+            console.log('777',r)
+            res.json({total,couponData:r})
+              
             });
         })
     }else{
         db.queryAsync(sqlTotalNoMember)
         .then(r=>{
             const total = r 
-            db.queryAsync(sqlNoMember,[req.body.page])
+            db.queryAsync(sqlNoMember,[start,end])
             .then(r=>{
                 r.forEach(e => {
                     e.cp_start = moment(e.cp_start).format(fm)
@@ -55,20 +67,57 @@ router.post('/',(req,res)=>{
 
 })
 
+router.post('/countdownCoupon',(req,res)=>{
+    // console.log('req.body.mb_id',req.body.mb_id)
+
+    const sqlCountdownCoupon = 'SELECT *  FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE  AND `cp_countdown` = 1  ORDER BY `cp_vendor` ASC '
+
+    let countdownCoupon = null
+    db.queryAsync(sqlCountdownCoupon)
+    .then(r=>{
+        countdownCoupon = r
+    
+
+        if(req.body.mb_id){
+            const sql = 'SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = ? AND `cpi_cp_id` IN (SELECT `cp_id` FROM `coupon` WHERE `cp_countdown` = 1)'
+            db.queryAsync(sql,[req.body.mb_id])
+            .then(r=>{
+                let arr = []
+                if(r.length > 0){
+                r.forEach(e=>{
+                    arr.push(e.cpi_cp_id)
+                })
+                countdownCoupon.forEach(e=>{
+                    if (arr.indexOf(e.cp_id) > -1 ) {
+                        e.geted = true
+                    }
+                })
+                }
+                res.json(countdownCoupon)
+            })
+
+        }else{
+            res.json(countdownCoupon)
+        }
+    })
+})
 
 //cp_id 會員id 
 router.post('/geted',(req,res)=>{
-    console.log('45456',req.body.mb_id)
-    const sql = 'INSERT INTO `coupon_item`( `cpi_cp_id`, `cpi_mb_id`, `cpi_use`) VALUES (?,?,0)'
-    db.queryAsync(sql,[req.body.cp_id,req.body.mb_id])
+    // console.log('45456',req.body.mb_id)
+    const sqlmbGet = 'INSERT INTO `coupon_item`( `cpi_cp_id`, `cpi_mb_id`, `cpi_use`) VALUES (?,?,0)'
+    const sqlcpCount = 'UPDATE `coupon` SET `cp_getedCount`= `cp_getedCount`  + 1 WHERE `cp_id` = ?'
+    db.queryAsync(sqlmbGet,[req.body.cp_id,req.body.mb_id])
     .then(r=>{
-        res.json(r)
+        db.queryAsync(sqlcpCount,[req.body.cp_id])
+        .then(r=>{
+            res.json(r)
+        })
     })
-
 })
 
 router.post('/memberCoupon',(req,res)=>{
-    const sql = 'SELECT * FROM `coupon_item` INNER JOIN `coupon` ON `cpi_cp_id` = `cp_id` INNER JOIN `coupon_rule` ON `cp_rule` = `cpr_id` WHERE cpi_mb_id = ?'
+    const sql = 'SELECT * FROM `coupon_item` INNER JOIN `coupon` ON `cpi_cp_id` = `cp_id` INNER JOIN `coupon_rule` ON `cp_rule` = `cpr_id` WHERE `cpi_mb_id` = ? AND `cp_due` >= CURRENT_DATE'
     db.queryAsync(sql,[req.body.mb_id])
     .then(r=>{
         r.forEach(e => {

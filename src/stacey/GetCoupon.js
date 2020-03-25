@@ -37,10 +37,9 @@ function GetCoupon(props) {
 
   
   useEffect(()=>{
-    props.fromServerCouponData(props.data.length,mb_id)
+    props.fromServerCouponData(0,mb_id)
  
   },[])
-
 
 
   useEffect(()=>{
@@ -51,10 +50,7 @@ function GetCoupon(props) {
     rowHeight = (rowInfo.top + rowInfo.height) + window.pageYOffset
  
 
-
     const handle = () =>{
-
-
 
       if(!finish){
         if( (window.pageYOffset + (window.screen.availHeight/4)*3)> rowHeight){ 
@@ -62,8 +58,7 @@ function GetCoupon(props) {
           if(props.data.length !== props.cp_total){
             setLoading(true)
             setTimeout(()=>{
-              props.fromServerCouponData(props.data.length)
-     
+              props.fromServerCouponData(props.data.length,mb_id)
               setLoading(false)
             },1000)
           }else{
@@ -83,6 +78,7 @@ function GetCoupon(props) {
       }
     }
     
+  
   window.addEventListener('scroll',handle)
 
   return () => window.removeEventListener("scroll", handle);
@@ -116,13 +112,6 @@ const loadDiv = (<div className="sty-coupon-loading"><div className="spinner-bor
 
 const endDiv = (<div className="sty-coupon-finish"><div>已是最新資料</div></div>)
 
-let countdown = []
-if(props.data.length>2){
-  for(let i = 0;i<2;i++){
-    countdown.push(props.data[i])
-  }
-}
-
 
   return (
     <>
@@ -136,10 +125,9 @@ if(props.data.length>2){
           <div className="row sty-row">
             {/* <!-- title --> */}
             <CouPageTitle />
-            <CountdownCoupon item={countdown}/>
+            <CountdownCoupon />
             
-            
-            {props.vendor.length?filterCouponItem:allCouponItem}
+            {props.vendor.length ? filterCouponItem : allCouponItem}
           </div>
           {loading ? loadDiv : "" }
           {end ? endDiv : "" }

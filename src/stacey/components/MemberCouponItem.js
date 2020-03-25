@@ -16,7 +16,7 @@ function CouponItem(props){
   //設定優惠券的外觀
   let couponClassName = classNames('col','col-sm-6','sty-memberCoupon',{
     used:props.state==='use',
-    exp:props.state==='use'?false:props.state==='end',
+    dueEnd:props.state==='use' ? false : props.state ==='dueEnd',
   })
 
 // 設定按鈕種類
@@ -28,8 +28,6 @@ function CouponItem(props){
     buttonType = (<button onClick={()=> {}}>
                       <span>查看訂單</span>
                   </button>)
-  }else if(props.state==='end'){
-    buttonType = (<button disabled='true'><span>效期已過</span></button>)
   }
 
 
@@ -90,7 +88,8 @@ function CouponItem(props){
               <div className="item">
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${props.item.cp_img}`} alt="" />
-                  <div className="alreadyGet">{props.item.cpi_use?'已使用':'無效'}</div>
+                  <div className="alreadyGet">已使用</div>
+                <div className="sty-dashed"></div>
                 </div>
                 <div className="text">
                   <ul>
