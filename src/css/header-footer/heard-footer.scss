@@ -1,0 +1,243 @@
+@import '../variables.scss';
+
+header {
+  /* height: 310px; */
+  /* background: #efefef; */
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+}
+
+.header-logo {
+  width: 180px;
+}
+
+.chin-bigtitle {
+  height: 100px;
+  background: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.chin-search {
+  margin: 40px 0 0 20px;
+}
+.chin-product {
+  max-width: 1300px;
+  padding: 35px 0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-productoptions {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+.chin-productoptions li {
+  font-size: 1.1rem;
+  font-weight: bold;
+  letter-spacing: 4px;
+  padding: 10px 5px;
+  margin: 0 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chin-productoptions li:after {
+  width: 100%;
+  /* transform: scaleX(0); */
+  height: 3px;
+  content: '';
+  display: block;
+  position: absolute;
+  left: -101%;
+  bottom: 0;
+  box-shadow: 0 0 0 3px inset black;
+  transition: 0.3s;
+}
+
+.chin-productoptions li:hover:after {
+  /* transform: scaleX(1); */
+  left: 0;
+}
+
+.nav-icons-wrapper {
+  display: flex;
+}
+
+.nav-icons {
+  margin: 0 5px;
+  padding: 10px 5px;
+  font-size: 1.3rem;
+}
+
+.nav-icons svg {
+  vertical-align: -1px;
+}
+
+.headerlist {
+  text-decoration: none;
+  color: #050505;
+}
+.headerlist:hover {
+  text-decoration: none;
+  color: #050505;
+}
+/*----------------------------------------------------*/
+.navbarlist {
+  text-decoration: none;
+  color: #ffffff;
+}
+.navbarlist:hover {
+  text-decoration: none;
+  color: #ffffff;
+}
+.chin-black {
+  width: 100%;
+  position: fixed;
+  margin: 0 auto;
+  background: #050505;
+  top: 0;
+}
+.chin-blackcome {
+  position: fixed;
+}
+.chin-othernavbar {
+  margin: 0 auto;
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-title-sea img {
+  margin-top: 30px;
+}
+.chin-title-sea img:nth-child(2) {
+  margin-left: 60px;
+}
+.chin-classtext ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  color: #ffffff;
+}
+.chin-classtext ul li {
+  margin: 30px 0 0 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+.chin-three-position {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 45%;
+  right: -25px;
+  transition: 0.8s;
+}
+.chin-three-position2 {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 50%;
+  right: -50px;
+  transition: 0.8s;
+}
+.chin-three-position3 {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 55%;
+  right: -75px;
+  transition: 0.8s;
+}
+.chin-three-positioncome {
+  right: 32px;
+}
+.chin-three-position img {
+  margin-top: 20px;
+}
+/*----------------------------------------*/
+footer {
+  background: #050505;
+  overflow: hidden;
+}
+.chin-everything-triplec {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 770px;
+  /* width: 1300px; */
+  margin: 0 auto;
+}
+.chin-everything {
+  width: 1300px;
+  margin-top: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.chin-customerservice {
+  display: flex;
+  flex-direction: row;
+}
+.chin-triplec {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  margin-left: 55px;
+}
+.chin-triplec ul {
+  margin: 0;
+  padding-left: 30px;
+  text-align: left;
+  list-style: none;
+}
+.chin-triplec ul li {
+  padding-bottom: 10px;
+}
+.chin-followus {
+  display: flex;
+  flex-direction: row;
+  color: #fff;
+  margin-right: 55px;
+}
+.chin-followus ul {
+  margin: 0;
+  padding-left: 30px;
+  text-align: left;
+  list-style: none;
+}
+.chin-followus ul li {
+  padding-bottom: 10px;
+}
+
+
+.bk-search{
+  cursor: pointer;
+
+  input{
+    position: absolute;
+    width: 0px;
+    padding: 0;
+    opacity: 0;
+    z-index: 1;
+    border: none;
+    border-bottom: solid 1px $black;
+    background-color: $background;
+    transition: .3s;
+    font-size: $font-s;
+    margin-left: $spacing;
+
+    &:focus{
+      outline: none;
+    }
+
+    &.active{
+      width: 200px;
+      padding: 0 $spacing;
+      opacity: 1;
+    }
+  }
+}
