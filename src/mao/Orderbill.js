@@ -44,18 +44,19 @@ function Orderbill(props) {
   let orderprodInfo = props.saveOrderBuyerProReducer
 
   const orderListitem = orderprodInfo.map((v, i) => {
+    console.log('I WANT TO SEE',v)
     return (
       <>
         <tr>
           <td className="d-flex">
             <div className="w-50">
-              <span>{getProductName(v.itemId)}</span>
+              <span>{v.itemName}</span>
             </div>
             <div className="w-25 px-3">
               <span>{v.count}</span>
             </div>
             <div className="w-25 px-3">
-              <span>{checkProductPrice(v.itemId)}</span>
+              <span>{v.itemPrice}</span>
             </div>
           </td>
         </tr>

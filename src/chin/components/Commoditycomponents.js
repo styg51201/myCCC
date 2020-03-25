@@ -15,8 +15,7 @@ function Commoditycomponents(props){
     // console.log('Commmm',props)
     return(
         <>
-            <Link to={'/commidty/'+props.data.itemId}>
-                <div className="chin-commodity-item">
+              <div className="chin-commodity-item">
                     <ul className="chin-star-heart-bag">
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
@@ -34,12 +33,14 @@ function Commoditycomponents(props){
                             }}/>
                         </li>
                     </ul>
-                    <img className="chin-watchs" src={`./chin-img/images/${props.data.itemName}/${props.data.itemImg}`} alt=""/>
-                    <h6>{props.data.name}</h6>
-                    <h4>{props.data.itemName}</h4>
-                    <h5>NT{props.data.itemPrice}</h5>
+                    <Link to={'/commidty/'+props.data.itemId}>
+                      <img className="chin-watchs" src={`./chin-img/images/${props.data.itemName}/${props.data.itemImg}`} alt=""/>
+                      <h6>{props.data.name}</h6>
+                      <h4>{props.data.itemName}</h4>
+                      <h5>NT{props.data.itemPrice}</h5>
+                    </Link>
             </div>
-            </Link>
+          
         </>
     )
 }

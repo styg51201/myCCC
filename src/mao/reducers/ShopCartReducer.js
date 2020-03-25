@@ -44,9 +44,19 @@ export const getShop = (state = [], action) => {
   }
 }
 
+// 隨機產品產生
+export const getRANDitemid=(state=[],action)=>{
+  switch (action.type){
+    case 'SHOW_RAND_ITEMID':
+      return action.value
+    default:
+      return state
+  }
+}
+
 // control購物車品項
 export const AddItem = (state = [], action) => {
-  // console.log('加入購物車在這裡',action)
+  // console.log('加入購物車在這裡', action)
   switch (action.type) {
     case 'ADD_CART':
       return action.value
@@ -59,6 +69,7 @@ export const AddItem = (state = [], action) => {
 
 //我的最愛
 export const MyFavorite = (state = [], action) => {
+  // console.log('I am favor ==', action)
   switch (action.type) {
     case 'LIKE_PRODUCT':
       return action.value
@@ -66,7 +77,6 @@ export const MyFavorite = (state = [], action) => {
       return state
   }
 }
-
 
 //呼叫訂單資料
 export const getOrderBuyer = (state = [], action) => {
@@ -80,7 +90,6 @@ export const getOrderBuyer = (state = [], action) => {
 
 //儲存購買人資料
 export const saveOrderBuyerInfoReducer = (state = [], action) => {
-
   switch (action.type) {
     case 'SAVE_ORDER':
       return action.value

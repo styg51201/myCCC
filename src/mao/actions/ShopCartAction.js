@@ -23,12 +23,12 @@ export const getShopCart = item => {
     let hadleData = data.map((v, i) => {
       // let truePrice=v.itemPrice.split('$').join('')
       newData.push({
-        itemId:v.itemId,
-        name:v.name,
+        itemId: v.itemId,
+        name: v.name,
         itemName: v.itemName,
-        itemImg:v.itemImg,
-        itemPrice:v.itemPrice,
-        itemCategoryId: v.itemCategoryId
+        itemImg: v.itemImg,
+        itemPrice: v.itemPrice,
+        itemCategoryId: v.itemCategoryId,
       })
     })
     dispatch(sendCart(newData))
@@ -55,15 +55,11 @@ export const fromServerorderBuyerInfo = val => {
         body: JSON.stringify(val),
       }
     )
-    
-    // await console.log('000000000000000', val)
+
     await dispatch(saveOrderBuyerInfo(val))
     const res = await fetch(request)
-    // await console.log('111111111111', val)
     const data = await res.json()
     await dispatch(saveOrderBuyerInfo(val))
-    // await console.log('2222222222222', val)
-    
   }
 }
 
@@ -83,11 +79,8 @@ export const forServerorderProductInfo = val => {
       }
     )
     await dispatch(saveOrderBuyerproduct(val))
-    // await console.log('00000000000', val)
     const res = await fetch(request)
-    // await console.log('11111111111111111', val)
     const data = await res.json()
-    // await console.log('222222222222222222222', val)
   }
 }
 
@@ -147,7 +140,10 @@ export const CalShopCart = value => {
   return dispatch => {
     let total = 0
     value.map((v, i) => {
-      let sCount = v.itemPrice * v.count
+      let truePrice = v.itemPrice.split('$').join('')
+      let finalPrice = truePrice.split(',').join('')
+
+      let sCount = finalPrice * v.count
       total += sCount
     })
     dispatch(calCart(total))
@@ -195,19 +191,18 @@ export const AddCartItem = (val, itemId, data) => {
 }
 
 //購物車按鍵
-export const AddCartNewItem_sendcal = (val,data) => {
+export const AddCartNewItem_sendcal = (val, data) => {
   return dispatch => {
-    
-    let itemIdBox=[]
-    data.map((v,i)=>{
+    let itemIdBox = []
+    data.map((v, i) => {
       itemIdBox.push(v.itemId)
     })
-    let index=itemIdBox.findIndex(e=>e==val.itemId)
-    if(index ==-1){
-      let newVal={...val,count:1}
+    let index = itemIdBox.findIndex(e => e == val.itemId)
+    if (index == -1) {
+      let newVal = { ...val, count: 1 }
       data.push(newVal)
-    }else{
-      data[index].count=+data[index].count+1
+    } else {
+      data[index].count = +data[index].count + 1
     }
 
     dispatch(AddCart(data))
@@ -215,17 +210,16 @@ export const AddCartNewItem_sendcal = (val,data) => {
   }
 }
 
-
 //加入最愛 目前會出錯 點選加入最愛會出現undefined
 export const Handle_AddMyFavorite = (val, product, data) => {
-  let truePrice=product.itemPrice.split('$').join('')
-  let newProduct={
-    itemId:product.itemId,
-    name:product.name,
+  let truePrice = product.itemPrice.split('$').join('')
+  let newProduct = {
+    itemId: product.itemId,
+    name: product.name,
     itemName: product.itemName,
-    itemImg:product.itemImg,
-    itemPrice:truePrice,
-    itemCategoryId: product.itemCategoryId
+    itemImg: product.itemImg,
+    itemPrice: truePrice,
+    itemCategoryId: product.itemCategoryId,
   }
   let pIdBox = []
   data.map((v, i) => {
@@ -235,7 +229,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
   return dispatch => {
     if (val == 'true') {
       let box = pIdBox.findIndex(e => e == newProduct.itemId)
-    //  console.log('dddddd',box)
+      //  console.log('dddddd',box)
       if (box == -1) {
         newData.push(newProduct)
       } else {
@@ -245,7 +239,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
     } else if ((val = 'false')) {
       let delIndex = pIdBox.findIndex(e => e == newProduct.itemId)
       let delpId = data.filter(e => e !== data[delIndex])
-  
+
       newData = [...delpId]
     } else {
       return newData

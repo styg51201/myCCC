@@ -1,7 +1,6 @@
 import React from 'react'
 
 function ProductDescription(props){
-  console.log(props)
     return(
         <div className="chin-productname">
         <h6>{props.data[0] ? props.data[0].name : ''}</h6>

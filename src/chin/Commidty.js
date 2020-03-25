@@ -25,7 +25,7 @@ function Commidty(props) {
     props.commidtyItemId(itemId)
     props.multiple_imagesItemId(itemId)
     // console.log('hello', props.data)
-  }, [])
+  }, [itemId])
   return (
     <>
       <main>
