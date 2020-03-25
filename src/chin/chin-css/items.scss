@@ -336,6 +336,7 @@ input[type='checkbox'] {
   height: 400px;
   background: $white;
   transition: 0.3s;
+  z-index: 1;
   h4 {
     margin: 0;
     padding: 20px;
@@ -436,6 +437,7 @@ input[type='checkbox'] {
   height: 20px;
   opacity: 0;
   transition: 0.3s;
+  z-index: 999;
 }
 .chin-commodity-item:hover .chin-bag {
   opacity: 1;
@@ -449,6 +451,7 @@ input[type='checkbox'] {
   height: 20px;
   opacity: 0;
   transition: 0.3s;
+  z-index: 2;
 }
 .chin-commodity-item:hover .chin-heart {
   opacity: 1;

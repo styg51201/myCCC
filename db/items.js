@@ -45,9 +45,10 @@ router.get('/multiple_images/:itemId?',(req,res)=>{
         return res.json(r)
     })
  })
-router.get('/itemhis/:itemName?',(req,res)=>{
-    let sql='SELECT * FROM `items` WHERE `itemName` = ?'
-    db.queryAsync(sql,[req.params.itemName])
+router.get('/itemhis/:name?',(req,res)=>{
+    let sql='SELECT * FROM `items` WHERE `name` = ?'
+    console.log(req.params)
+    db.queryAsync(sql,[req.params.name])
     .then(r=>{
         return res.json(r)
     })
