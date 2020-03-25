@@ -16,7 +16,7 @@ import {
 
 
 function CouponSideFilter (props){
-console.log(props)
+
 
   const filter = function (e){
       props.addFilterCoupon({isChecked:e.target.checked,vendorName:e.target.value},props.filterList)
