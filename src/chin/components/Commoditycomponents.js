@@ -15,7 +15,7 @@ function Commoditycomponents(props){
     // console.log('Commmm',props)
     return(
         <>
-                <div className="chin-commodity-item">
+              <div className="chin-commodity-item">
                     <ul className="chin-star-heart-bag">
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>

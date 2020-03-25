@@ -8,7 +8,6 @@ console.log(props)
 const Itemhis = useSelector(state => state.getItemNamehis)
 const dispatch = useDispatch()
 const dataname = props.data[0]?props.data[0].name:''
-console.log(dataname)
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -78,10 +77,12 @@ console.log(dataname)
     console.log('123123231', data)
     dispatch(showItemshis(data))
   }
+
   useEffect(() => {
     formServerItemshis(dataname)
   }, [props.data])
 
+  
     return(
         <>
         <div className="chin-historicalrecord">
@@ -89,44 +90,41 @@ console.log(dataname)
         <a href="">歷史紀錄</a>
       </div>
       <div className="chin-relatedproducts">
-        {/* <button>
-          <img src="/chin-img/chevron-left.svg" alt="" />
-        </button> */}
         <Slider {...settings}>
-        <div className="chin-commodity2">
-          <div className="chin-commodity-item2">
-            <ul className="chin-star-heart-bag2">
-              <li>
-                <img className="chin-star2" src="/chin-img/star.svg" alt="" />
-              </li>
-              <li>
-                <img className="chin-star2" src="/chin-img/star.svg" alt="" />
-              </li>
-              <li>
-                <img className="chin-star2" src="/chin-img/star.svg" alt="" />
-              </li>
-              <li>
-                <img className="chin-star2" src="/chin-img/star.svg"  alt="" />
-              </li>
-              <li>
-                <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
-              </li>
-              <li className="chin-heart-bag2">
-                <img className="chin-heart2" src="/chin-img/heart.svg" alt="" />
-                <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
-              </li>
-            </ul>
-            <img className="chin-watch2" src="/chin-img/images/watch.jpg" alt="" />
-            <h6>{Itemhis.name}</h6>
-            <p>Apple Watch Nike</p>
-            <h5>NT$6,400</h5>
-          </div>
-        </div>
-        
+          {Itemhis.map((val,ind)=>{
+            return(<div className="chin-commodity2">
+                      <div className="chin-commodity-item2">
+                        <ul className="chin-star-heart-bag2">
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg"  alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
+                          </li>
+                          <li className="chin-heart-bag2">
+                            <img className="chin-heart2" src="/chin-img/heart.svg" alt="" />
+                            <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
+                          </li>
+                        </ul>
+                        <Link to={'/commidty/'+ val.itemId}>
+                          <img className="chin-watch2"  src={`/chin-img/images/${val.itemName}/${val.itemImg}`}  alt="" />
+                          <h6>{val.name}</h6>
+                          <p>{val.itemName}</p>
+                          <h5>{val.itemPrice}</h5>
+                        </Link>
+                      </div>
+                    </div>)
+          })}
         </Slider>
-        {/* <button>
-          <img src="/chin-img/chevron-right.svg" alt="" />
-        </button> */}
       </div>
       </>
     )
