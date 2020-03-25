@@ -154,7 +154,14 @@ export const Itemscompare = val => {
 export const formServerItemscompare = (val,data) => {
   console.log(val,data)
   return dispatch =>{
-      let newdata = [...data,val]
+    let newdata = [val,...data]
+    if(newdata.length>4){
+      
+    }
   dispatch(Itemscompare(newdata))
   }
+  }
+  export const ResetListItemNameCom = (obj, val) => {
+    const newdata = []
+    return { type: 'ITEMNAME_RESETCOM', value: newdata }
   }

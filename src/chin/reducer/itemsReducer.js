@@ -88,3 +88,12 @@ export const getItemscompare = (state=[],action)=>{
       return state
   }
 }
+//---------------------------------------------------------
+export const resetcom = (state =true, action) => {
+  switch (action.type) {
+    case 'NO_RESET':
+      return action.value
+    default:
+      return state
+  }
+}
