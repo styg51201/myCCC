@@ -79,6 +79,8 @@ router.post('/update', (req, res) => {
     body: req,
     result: {},
   }
+  console.log(req.body)
+  // return
   const sql =
     'UPDATE `member` SET `Email`=?,`Pwd`=?,`Name`=?,`Gender`=?,`Birthday`=?,`PhoneNumber`=?,`Address`=? WHERE Account=?'
   // 'UPDATE `member` SET `Name`=? WHERE Account=?'
