@@ -14,6 +14,7 @@ import {
   FiShoppingBag,
   FiHeart,
   FiHome,
+  FiLogOut,
 } from 'react-icons/fi'
 
 import $ from 'jquery'
@@ -22,6 +23,7 @@ function Header(props) {
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [searchTxt, setSearchTxt] = useState('')
+  const [member, setMember] = useState(true)
 
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
@@ -39,6 +41,9 @@ function Header(props) {
         document
           .querySelector('.chin-three-position3')
           .classList.add('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position4')
+          .classList.add('chin-three-positioncome')
         document.querySelector('.chin-black').classList.add('chin-blackcome')
       } else {
         setScrolled(false)
@@ -50,6 +55,9 @@ function Header(props) {
           .classList.remove('chin-three-positioncome')
         document
           .querySelector('.chin-three-position3')
+          .classList.remove('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position4')
           .classList.remove('chin-three-positioncome')
         document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
@@ -92,8 +100,8 @@ function Header(props) {
   const handleSearchText = evt => {
     setSearchTxt(evt.target.value)
   }
-  const memberstate = localStorage.getItem('userdata')
-  console.log('memberstate', memberstate)
+  let memberstate = localStorage.getItem('userdata') || member
+  // console.log('memberstate', memberstate)
   const navbar = (
     <>
       <div className="chin-black">
@@ -141,13 +149,38 @@ function Header(props) {
         </Container>
       </div>
       <div>
-        <Link to="/memberlogin">
-          <img
-            src="./img/header-footer/user.svg"
-            alt=""
-            className="chin-three-position"
-          />
-        </Link>
+        {!memberstate ? (
+          <Link to="/memberedit">
+            <img
+              src="./img/header-footer/user.svg"
+              alt=""
+              className="chin-three-position"
+            />
+          </Link>
+        ) : (
+          <Link to="/memberlogin">
+            <img
+              src="./img/header-footer/user.svg"
+              alt=""
+              className="chin-three-position"
+            />
+          </Link>
+        )}
+        {!memberstate ? (
+          <Link to="/memberlogin">
+            <div className="chin-three-position4 irene_member_logout">
+              <FiLogOut
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  color: 'black',
+                }}
+              />
+            </div>
+          </Link>
+        ) : (
+          ''
+        )}
         <Link to="/ShopCartList/:id?">
           <img
             src="./img/header-footer/shopping-bag.svg"

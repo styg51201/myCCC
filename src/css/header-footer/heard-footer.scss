@@ -1,4 +1,4 @@
-@import "../variables.scss";
+@import '../variables.scss';
 
 header {
   /* height: 310px; */
@@ -49,7 +49,7 @@ header {
   width: 100%;
   /* transform: scaleX(0); */
   height: 3px;
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   left: -101%;
@@ -149,6 +149,14 @@ header {
   position: fixed;
   top: 55%;
   right: -75px;
+  transition: 0.8s;
+}
+.chin-three-position4 {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 60%;
+  right: -100px;
   transition: 0.8s;
 }
 .chin-three-positioncome {
