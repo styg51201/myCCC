@@ -19,7 +19,7 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData, ResetListItemName,ResetListItemNameCom} from './actions/itemsActions'
+import { formServerItemsData, ResetListItemName,ResetListItemNameCom,DelItemscompare} from './actions/itemsActions'
 
 function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
@@ -83,7 +83,7 @@ function Watch(props) {
                 {props.compares.map((val,ind)=>{
                   return(
                       <div className="chin-compares">
-                        <img src="./chin-img/x.svg" className="chin-x"/>
+                        <img src="./chin-img/x.svg" className="chin-x" onClick={()=>{props.DelItemscompare(ind, props.compares)}}/>
                         <div><img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} className="chin-watch3"/></div>
                         <span>{val.itemName}</span>
                       </div>
@@ -125,6 +125,7 @@ const mapDispatchToProps = dispatch => {
       formServerItemsData,
       ResetListItemName,
       ResetListItemNameCom,
+      DelItemscompare,
     },
     dispatch
   )
