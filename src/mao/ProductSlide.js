@@ -16,9 +16,6 @@ import Slider from 'react-slick'
 import { FiShoppingBag ,FiHeart} from 'react-icons/fi';
 
 function ProductSlide(props) {
-console.log('看我~~ ==SLIDE',props)
-
-
   let settings = {
     dots: true,
     infinite: true,
@@ -65,9 +62,6 @@ console.log('看我~~ ==SLIDE',props)
   useEffect(() => {
     props.getShopCart()
   }, [])
-  // useEffect(() => {
-  //   props.getShopCart()
-  // }, [props.AddItem])
   
 
 

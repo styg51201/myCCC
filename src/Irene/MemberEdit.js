@@ -36,7 +36,6 @@ function MemberEdit(props) {
   const [gender, setGender] = useState('')
   const [phonenumber, setPhonenumber] = useState('')
   const [address, setAddress] = useState('')
-  const [test, setTest] = useState(false)
 
   let emaildefault = props.data[0] ? props.data[0].Email : ''
   let passworddefault = props.data[0] ? props.data[0].Pwd : ''
@@ -52,39 +51,33 @@ function MemberEdit(props) {
     props.getserverMember()
   }, [])
 
-  // useEffect(() => {
-  //   //setEmail(props.data[0].Email)
-  //   setPassword(passworddefault)
-  //   //setName(namedefault)
-  //   setBirthday(birthdaydefault)
-  //   setGender(genderdefault)
-  //   setPhonenumber(phonenumberdefault)
-  //   setAddress(addressdefault)
-  // }, [])
-
   useEffect(() => {
     setEmail(emaildefault)
   }, [emaildefault])
-
-  useEffect(() => {
-    setName(namedefault)
-  }, [namedefault])
 
   useEffect(() => {
     setPassword(passworddefault)
   }, [passworddefault])
 
   useEffect(() => {
-    setBirthday(birthdaydefault)
-  }, [birthdaydefault])
+    setName(namedefault)
+  }, [namedefault])
 
   useEffect(() => {
     setGender(genderdefault)
   }, [genderdefault])
 
   useEffect(() => {
+    setBirthday(birthdaydefault)
+  }, [birthdaydefault])
+
+  useEffect(() => {
     setAddress(addressdefault)
   }, [addressdefault])
+
+  useEffect(() => {
+    setAddress(phonenumberdefault)
+  }, [phonenumberdefault])
 
   const account = memberaccount.username
   const handlesubmit = event => {

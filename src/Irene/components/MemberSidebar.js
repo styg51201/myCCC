@@ -7,6 +7,8 @@ import Nav from 'react-bootstrap/Nav'
 import MemberOrder from '../MemberOrder'
 
 function MemberSidebar(props) {
+  const memberdata = localStorage.getItem('userdata')
+  const account = memberdata.username
   return (
     <>
       {/* 要加<div className="row d-flex justify-content-center">才可以flex */}
@@ -21,7 +23,7 @@ function MemberSidebar(props) {
             <Nav.Link className="edit">編輯</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
-            <Nav.Link href="/memberedit">基本資料管理</Nav.Link>
+            <Nav.Link href="/memberedit/:member">基本資料管理</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
             <Nav.Link href="/memberedit/memberorder">交易紀錄</Nav.Link>
@@ -34,7 +36,6 @@ function MemberSidebar(props) {
           </ListGroup.Item>
         </ListGroup>
       </div>
-      <div></div>
     </>
   )
 }
