@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
-import '../../css/header-footer/heard-footer.css'
+import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
 
 //icons
-import { IconContext } from 'react-icons'
+// import { IconContext } from 'react-icons'
 import {
   FiSearch,
   FiUser,
@@ -17,6 +17,7 @@ import {
 
 function Header() {
   const [scrolled, setScrolled] = useState(false)
+  const [openSearch, setOpenSearch] = useState(false)
 
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
@@ -50,6 +51,10 @@ function Header() {
       }
     })
   }, [])
+
+  const toggleSearch = ()=>{
+    setOpenSearch(!openSearch)
+  }
 
   const navbar = (
     <>
@@ -132,7 +137,10 @@ function Header() {
         <div className="chin-product">
           <div className="nav-icons-wrapper">
             <div className="nav-icons">
-              <FiSearch />
+              <div role='button' className='bk-search' >
+                <FiSearch onClick={toggleSearch} />
+                <input type='text' className={openSearch ? 'active' : ''} />
+              </div>
             </div>
           </div>
           <div>

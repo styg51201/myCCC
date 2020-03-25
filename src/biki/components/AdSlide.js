@@ -13,7 +13,7 @@ function AdSlide(props){
         setBlockTxtHeight(height)
     },[])
 
-    console.log(props)
+    // console.log(props)
     return(
         <div className={`bk-ad${props.show ? '' : ' hidden'}`}>
             <div className={`bk-ad-block animated ${props.show ? 'fadeInRight' : 'fadeOutLeft'}`}>

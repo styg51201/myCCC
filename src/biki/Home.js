@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { Container, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 // import chunk from 'lodash/chunk';
 // import {throttle} from 'lodash';
 import {useSpring, animated} from 'react-spring'
-// import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
+import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
 
 import './css/all.scss'
 import './css/home.scss'
@@ -17,17 +17,14 @@ import AdSlide from './components/AdSlide'
 function Home(){
 
     const [loaded, setLoaded] = useState(false)
+    const [adNum, setAdNum] = useState(0);
 
     useEffect(()=>{
         setTimeout(()=>{
             setLoaded(true)
         })
     }, [])
-    
-    const [adNum, setAdNum] = useState(0);
-    const handleScroll = (evt)=>{
 
-    }
 
     //假資料
     const arr=[
@@ -96,7 +93,7 @@ function Home(){
     //     from:{opacity:1}
     // })
 
-const parallax = useRef()
+// const parallax = useRef()
 
     return(
         <>
@@ -108,7 +105,7 @@ const parallax = useRef()
                         Hello~
                     </div>
                 </div>
-                <div className='bk-mouse animated fadeIn' onScroll={handleScroll}>
+                <div className='bk-mouse animated fadeIn'>
                     <div className='bk-mouse-ball animated fadeOutDown infinite'></div>
                 </div>
             </section>
@@ -140,7 +137,7 @@ const parallax = useRef()
                                      onClick={()=>{
                                         setAdNum(idx)
                                     }}
-                                    className={adNum === idx && 'active'}
+                                    className={adNum === idx ? 'active' : ''}
                                     ></li>
                                 )
                             })}
@@ -151,9 +148,11 @@ const parallax = useRef()
             <section className="bk-featured-products">
                 <Container>
                     <Row className='bk-featured-wrapper row-cols-xl-3 row-cols-md-2 row-cols-1'>
-                        <FeaturedProducts 
-                            img={`./chin-img/images/SONY 重低音降噪藍牙耳罩式耳機 WH-XB900N/0.jpg`}
-                        />
+                        {/* <div ref={element}> */}
+                            <FeaturedProducts 
+                                img={`./chin-img/images/SONY 重低音降噪藍牙耳罩式耳機 WH-XB900N/0.jpg`}
+                            />
+                        {/* </div> */}
                         <FeaturedProducts 
                             img={`./chin-img/images/繽特力 Plantronics Voyager 6200UC 雙向降噪藍牙耳機 白色/0.jpg`}
                         />
