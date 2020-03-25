@@ -22,6 +22,7 @@ import MemberDrafts from './biki/MemberDrafts'
 import MemberDraft from './biki/MemberDraft'
 import MemberStory from './biki/MemberStory'
 import MemberStoryReplies from './biki/MemberStoryReplies'
+import Search from './biki/Search'
 
 //import chin
 import Headset from './chin/Headset'
@@ -146,6 +147,9 @@ function App() {
             </Route>
             <Route path="/stories">
               <Stories />
+            </Route>
+            <Route path="/search"> {/**?key=asdf */}
+              <Search />
             </Route>
           </Switch>
         </Container>

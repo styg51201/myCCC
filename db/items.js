@@ -2,6 +2,16 @@ const express = require('express');
 const db = require(__dirname + '/db_connect');
 const router = express.Router();
 
+
+
+router.get('/allitems', (req, res)=>{
+    let sql='SELECT * FROM `items` ORDER BY RAND() LIMIT 25'
+    db.queryAsync(sql)
+    .then(r=>{
+        return res.json(r)
+    })
+})
+
 router.get('/watch', (req, res)=>{
     let sql='SELECT * FROM `items` WHERE `itemCategoryId`="穿戴式裝置"'
     db.queryAsync(sql)
