@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 // import 'bootstrap/dist/css/bootstrap.min.css'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
-import '../../css/header-footer/heard-footer.css'
+import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
+import {withRouter} from 'react-router-dom'
+
 
 //icons
-import { IconContext } from 'react-icons'
+// import { IconContext } from 'react-icons'
 import {
   FiSearch,
   FiUser,
@@ -15,8 +17,10 @@ import {
   FiHome,
 } from 'react-icons/fi'
 
-function Header() {
+function Header(props) {
   const [scrolled, setScrolled] = useState(false)
+  const [openSearch, setOpenSearch] = useState(false)
+  const [searchTxt, setSearchTxt] = useState('')
 
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
@@ -49,7 +53,39 @@ function Header() {
         document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
     })
+    
   }, [])
+
+
+  const inputRef = useRef(null)
+
+  const handleOpenSearch = ()=>{
+    if(!openSearch){
+      setOpenSearch(true)
+      inputRef.current.focus()
+    }
+  }
+  
+  const handleSearch = (evt)=>{
+    if(evt.key === 'Enter'){
+      if(!evt.target.value.trim().length){
+        //console.log('沒有值')
+        return;
+      }
+      setOpenSearch(false)
+      props.history.push(`/search?key=${evt.target.value}`)
+    }
+  }
+
+  const handleSearchBlur = (evt)=>{
+    //console.log(evt.target)
+    setOpenSearch(false)
+    setSearchTxt('')
+  }
+
+  const handleSearchText = (evt)=>{
+    setSearchTxt(evt.target.value)
+  }
 
   const navbar = (
     <>
@@ -132,7 +168,21 @@ function Header() {
         <div className="chin-product">
           <div className="nav-icons-wrapper">
             <div className="nav-icons">
-              <FiSearch />
+              <div role='button' 
+              className='bk-search' 
+              //ref={searchRef}
+               >
+                <FiSearch onClick={handleOpenSearch} />
+                <input type='text' 
+                className={openSearch ? 'active' : ''}
+                onKeyDown={handleSearch}
+                onBlur={handleSearchBlur}
+                onChange={handleSearchText}
+                value={searchTxt}
+                placeholder='搜尋商品'
+                ref={inputRef}
+                 />
+              </div>
             </div>
           </div>
           <div>
@@ -200,4 +250,4 @@ function Header() {
   )
 }
 
-export default Header
+export default withRouter(Header)

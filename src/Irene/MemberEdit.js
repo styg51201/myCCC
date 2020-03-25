@@ -39,29 +39,54 @@ function MemberEdit(props) {
   const [test, setTest] = useState(false)
 
   let emaildefault = props.data[0] ? props.data[0].Email : ''
-  // let passworddefault = props.data[0] ? props.data[0].Pwd : ''
+  let passworddefault = props.data[0] ? props.data[0].Pwd : ''
   let namedefault = props.data[0] ? props.data[0].Name : ''
   let genderdefault = props.data[0] ? props.data[0].Gender : ''
   let birthdaydefault = props.data[0] ? props.data[0].Birthday : ''
   let phonenumberdefault = props.data[0] ? props.data[0].PhoneNumber : ''
   let addressdefault = props.data[0] ? props.data[0].Address : ''
-  // useEffect(() => {
-  //   setEmail(emaildefault)
-  //   setTest(true)
-  // }, [namedefault])
-  // useEffect(() => {
-  //
-  //   setName(namedefault)
-  //   console.log('effect有用')
-  // }, [test])
 
   useEffect(() => {
     // const用props繫結值去抓account
     props.updateServerMember()
     props.getserverMember()
   }, [])
-  const account = memberaccount.username
 
+  // useEffect(() => {
+  //   //setEmail(props.data[0].Email)
+  //   setPassword(passworddefault)
+  //   //setName(namedefault)
+  //   setBirthday(birthdaydefault)
+  //   setGender(genderdefault)
+  //   setPhonenumber(phonenumberdefault)
+  //   setAddress(addressdefault)
+  // }, [])
+
+  useEffect(() => {
+    setEmail(emaildefault)
+  }, [emaildefault])
+
+  useEffect(() => {
+    setName(namedefault)
+  }, [namedefault])
+
+  useEffect(() => {
+    setPassword(passworddefault)
+  }, [passworddefault])
+
+  useEffect(() => {
+    setBirthday(birthdaydefault)
+  }, [birthdaydefault])
+
+  useEffect(() => {
+    setGender(genderdefault)
+  }, [genderdefault])
+
+  useEffect(() => {
+    setAddress(addressdefault)
+  }, [addressdefault])
+
+  const account = memberaccount.username
   const handlesubmit = event => {
     // alert('有按到喔')
     //改用redux
@@ -131,7 +156,7 @@ function MemberEdit(props) {
                     type="text"
                     className="form-control"
                     name="email"
-                    defaultValue={email}
+                    value={email}
                     onChange={e => setEmail(e.target.value)}
                   />
                 </div>
@@ -156,7 +181,7 @@ function MemberEdit(props) {
                     type="text"
                     className="form-control"
                     name="name"
-                    defaultValue={namedefault}
+                    value={name}
                     // placeholder={namedefault}
                     onChange={e => setName(e.target.value)}
                   />
@@ -187,7 +212,7 @@ function MemberEdit(props) {
                     type="text"
                     className="form-control"
                     name="birthday"
-                    defaultValue={birthdaydefault}
+                    value={birthday}
                     onChange={e => setBirthday(e.target.value)}
                   />
                 </div>
@@ -200,7 +225,7 @@ function MemberEdit(props) {
                       type="text"
                       className="col-sm-8 form-control"
                       name="phonenumber"
-                      defaultValue={phonenumberdefault}
+                      value={phonenumber}
                       onChange={e => setPhonenumber(e.target.value)}
                     />
                   </div>
@@ -214,7 +239,7 @@ function MemberEdit(props) {
                       type="text"
                       className="col-sm-8 form-control"
                       name="address"
-                      defaultValue={addressdefault}
+                      value={address}
                       onChange={e => setAddress(e.target.value)}
                     />
                   </div>

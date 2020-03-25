@@ -16,7 +16,7 @@ import Slider from 'react-slick'
 import { FiShoppingBag ,FiHeart} from 'react-icons/fi';
 
 function ProductSlide(props) {
-
+console.log('看我~~ ==SLIDE',props)
 
 
   let settings = {
@@ -65,13 +65,13 @@ function ProductSlide(props) {
   useEffect(() => {
     props.getShopCart()
   }, [])
-  useEffect(() => {
-    props.getShopCart()
-  }, [props.AddItem])
+  // useEffect(() => {
+  //   props.getShopCart()
+  // }, [props.AddItem])
   
 
 
-  const productItem = productList.map((v, i) => {
+  const productItem = props.getRANDitemid.map((v, i) => {
     return (
       <>
         <div className="card Mao-prodctSlide-card-box ">
@@ -95,6 +95,8 @@ function ProductSlide(props) {
                 itemCategoryId: v.itemCategoryId
               }
               props.AddCartNewItem_sendcal(newProduct,props.AddItem)
+              props.sendData(!props.getdata)
+              
             }}
           >
             <FiShoppingBag class="mx-2"/><span>加入購物車</span>
@@ -141,6 +143,7 @@ const mapStateToProps = store => {
     AddItem: store.AddItem,
     calculator: store.calculator,
     MyFavorite: store.MyFavorite,
+    getRANDitemid:store.getRANDitemid,
   }
 }
 

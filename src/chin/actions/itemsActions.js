@@ -17,6 +17,25 @@ export const formServerItemsData = val => {
     dispatch(showItems(data))
   }
 }
+//  I AM YOUR FATHER
+
+export const showRANDItemId = val => {
+  return { type: 'SHOW_RAND_ITEMID', value: val }
+}
+
+export const commidtyRANDItemId = val => {
+  return async dispatch => {
+    const request = new Request(`http://localhost:5500/items/allitems`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    await console.log('lllllll', data)
+    dispatch(showRANDItemId(data))
+  }
+}
+
 //回傳showItemId
 export const showItemId = val => {
   return { type: 'SHOW_ITEMID', value: val }

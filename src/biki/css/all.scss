@@ -1,4 +1,4 @@
-@import '../../css/variables.scss';
+@import "../../css/variables.scss";
 
 // h5 {
 //   color: $black;
@@ -8,25 +8,27 @@ h6.bk-white {
   color: $white;
 }
 
-.bk-txt-small{
-  font-size: $font-xs
+.bk-txt-small {
+  font-size: $font-xs;
 }
 
 .bk-btn-white {
   @include buttonTheme(whiteBorderedStyle);
 }
 
-.bk-btn-group{
-  button{
-    margin-right : $spacing;
+.bk-btn-group {
+  button {
+    margin-right: $spacing;
   }
 }
 
 .bk-btn-black {
   @include buttonTheme(blackStyle);
+  transition: 0.3s;
 
-  &:hover{
-    box-shadow: 0 0 20px rgba($black, .3);
+  &:hover {
+    background: $blue;
+    border-color: $blue;
   }
 }
 
@@ -37,4 +39,3 @@ h6.bk-white {
 .bk-icon {
   font-size: 1.3rem;
 }
-

@@ -8,12 +8,12 @@ function Bigitem(props) {
   })
   const slider1 = useRef()
   const slider2 = useRef()
-  console.log(props.data.multiple.length)
+
   let imgUrl = props.data.data[0]
     ? `/chin-img/images/${props.data.data[0].itemImg}`
     : ''
   function SamplePrevArrow(props) {
-    console.log(props)
+
     const { className, style, onClick } = props
     return (
       <div className="chin-cir">
@@ -26,7 +26,7 @@ function Bigitem(props) {
     )
   }
   function SampleNextArrow(props) {
-    console.log(props)
+
     const { className, style, onClick } = props
     return (
       <div className="chin-cir2">

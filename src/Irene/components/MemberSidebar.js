@@ -6,8 +6,7 @@ import { Form, ListGroup, Button } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
 import MemberOrder from '../MemberOrder'
 
-
-function MemberEdit(props) {
+function MemberSidebar(props) {
   return (
     <>
       {/* 要加<div className="row d-flex justify-content-center">才可以flex */}
@@ -35,8 +34,9 @@ function MemberEdit(props) {
           </ListGroup.Item>
         </ListGroup>
       </div>
+      <div></div>
     </>
   )
 }
 
-export default MemberEdit
+export default MemberSidebar
