@@ -4,15 +4,14 @@ import { Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemscompare } from '../actions/itemsActions'
+import { formServerItemscompare,ItemscompareNo } from '../actions/itemsActions'
 
 function Commoditycomponents(props){
-    const compare = function (e){
-        props.formServerItemscompare(props.data,props.compare)
-    }
     return(
         <>
-            <div className="chin-commodity-item" onClick={(e)=>compare(e)}>
+            <div className="chin-commodity-item" onClick={()=>{
+                                                          props.formServerItemscompare(props.data,props.compare)
+                                                          props.ItemscompareNo('true', props.data, props.MyFavorite)     }}>
                 <div className="chin-commodity-item-watch">
                     <img src="./chin-img/plus.svg"/>
                 </div>
@@ -35,6 +34,7 @@ const mapStateToProps = store => {
     return bindActionCreators(
       {
         formServerItemscompare,
+        ItemscompareNo
       },
       dispatch
     )

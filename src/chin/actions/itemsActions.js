@@ -154,7 +154,61 @@ export const Itemscompare = val => {
 export const formServerItemscompare = (val,data) => {
   console.log(val,data)
   return dispatch =>{
-      let newdata = [...data,val]
+    let newdata = [val,...data]
+    if(newdata.length>4){
+      
+    }
   dispatch(Itemscompare(newdata))
   }
+}
+export const Delcompare = value => ({ type: 'DEL_ITEMSCOMPARE', value: value })
+export const DelItemscompare = (ind, data) => {
+  console.log(ind)
+  return dispatch => {
+    let newitemscompare = data.filter(e => e !== data[ind])
+    console.log(newitemscompare)
+    dispatch(Delcompare(newitemscompare))
+  }
+}
+export const AddMyFavorite = value => ({ type: 'NP_COMPARE', value: value })
+export const ItemscompareNo = (val, product, data) => {
+  console.log(val)
+  let truePrice = product.itemPrice.split('$').join('')
+  let newProduct = {
+    itemId: product.itemId,
+    name: product.name,
+    itemName: product.itemName,
+    itemImg: product.itemImg,
+    itemPrice: truePrice,
+    itemCategoryId: product.itemCategoryId,
+  }
+  let pIdBox = []
+  data.map((v, i) => {
+    pIdBox.push(v.itemId)
+  })
+  let newData = [...data]
+  return dispatch => {
+    if (val == 'true') {
+      let box = pIdBox.findIndex(e => e == newProduct.itemId)
+      //  console.log('dddddd',box)
+      if (box == -1) {
+        newData.push(newProduct)
+      } else {
+        console.log('false')
+        return newData
+      }
+    } else if ((val = 'false')) {
+      let delIndex = pIdBox.findIndex(e => e == newProduct.itemId)
+      let delpId = data.filter(e => e !== data[delIndex])
+
+      newData = [...delpId]
+    } else {
+      return newData
+    }
+    dispatch(AddMyFavorite(newData))
+  }
+}
+  export const ResetListItemNameCom = (obj, val) => {
+    const newdata = []
+    return { type: 'ITEMNAME_RESETCOM', value: newdata }
   }

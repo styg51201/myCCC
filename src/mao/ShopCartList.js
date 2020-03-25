@@ -18,19 +18,18 @@ import {commidtyRANDItemId} from '../chin/actions/itemsActions'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 import RelatedHistory from '../chin/components/RelatedHistory'
-import { FaRegTrashAlt } from 'react-icons/fa'
+import { FaRegTrashAlt ,FaShoppingBasket} from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
 import PicSlide from './component/PicSlide'
 function ShopCartList(props) {
-  console.log('看我這邊~~ == ',props)
+
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(false)
   const [newItem,setNewItem] =useState(false)
   // 必打
   async function getData() {
     let Ctrl = await props.CtrlData
-    // await console.log('CTRL', Ctrl)
     await props.getShopCart(Ctrl)
   }
   useEffect(() => {
@@ -40,9 +39,6 @@ function ShopCartList(props) {
     props.commidtyRANDItemId()
   }, [])
 
-  // useEffect(() => {
-  //   console.log('我是生命週期裡的東西 = ', props.AddItem)
-  // }, [props.AddItem])
 
   let RealCart = [] //統整checkBox的品項，然後最後送至資料庫
 
@@ -54,13 +50,13 @@ function ShopCartList(props) {
   })
 
   //驗證購物車作用的狀況
-  const displayRealCart = RealCart.map((v, i) => {
-    return (
-      <li>
-        產品：{v.itemId} / 數量：{v.count}
-      </li>
-    )
-  })
+  // const displayRealCart = RealCart.map((v, i) => {
+  //   return (
+  //     <li>
+  //       產品：{v.itemId} / 數量：{v.count}
+  //     </li>
+  //   )
+  // })
   // 購物車內容
   const dataList = props.AddItem.map((v, i) => {
     return (
@@ -147,6 +143,7 @@ function ShopCartList(props) {
   const CartNoItem = (
     <div className="p-3 text-center Mao-CartNoItem-shoplist">
       <h3>趕快去尋找最愛的商品吧！</h3>
+      <FaShoppingBasket style={{width:"300px",height:"300px",opacity:'0.5',margin:"15px"}}/>
     </div>
   )
   const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
@@ -160,7 +157,7 @@ function ShopCartList(props) {
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal /> : ADrand}
       </div>
-      {displayRealCart}
+      {/* {displayRealCart} */}
       <ProductSlide 
       getdata={newItem} //hook
       sendData={items=>{ //func

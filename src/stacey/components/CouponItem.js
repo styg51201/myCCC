@@ -17,7 +17,7 @@ import {
 
 
 function CouponItem(props){
-  console.log(props)
+ 
 
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
   
