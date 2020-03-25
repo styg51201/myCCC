@@ -2,16 +2,17 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import { Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
-
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 function MemberDrafts(){
 
+    const [user, setUser] = useState(localStorage.getItem('userId'))
     const [data, setData] = useState([])
 
     useEffect(()=>{
         axios({
             method: 'GET',
-            url: `http://localhost:5500/stories/member/drafts?usrId=${localStorage.getItem('userId')}`
+            url: `http://localhost:5500/stories/member/drafts?usrId=${user}`
         })
         .then(r=>{
             // console.log(r.data)
@@ -28,6 +29,50 @@ function MemberDrafts(){
             setData(r.data)
         })
     }, [])
+
+    const handleDelete = (id)=>{
+        Swal.fire({
+            position: 'top-end',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: '確定',
+            cancelButtonText: '取消',
+            text: '確定要刪除？',
+            position:'center',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+                confirmButton: 'bk-swl-confirm-button',
+                cancelButton: 'bk-swl-cancel-button',
+              }
+          }) 
+          .then(result=>{
+              if(result.value){
+                axios({
+                    method: 'DELETE',
+                    url: `http://localhost:5500/stories/member/draft/${id}?usrId=${user}`
+                })
+                .then(r=>{
+                    console.log(r)
+                    Swal.fire({
+                        text: '刪除成功！',
+                        icon: 'success',
+                        buttonsStyling: false,
+                        confirmButtonText: '確定',
+                        customClass: {
+                            popup: 'bk-swl-popup',
+                            icon: 'bk-swl-icon',
+                            content: 'bk-swl-content',
+                            confirmButton: 'bk-swl-confirm-button',
+                            cancelButton: 'bk-swl-cancel-button',
+                          }
+                    })
+                })
+              }
+          })
+    }
 
     return(
         <>
@@ -61,9 +106,9 @@ function MemberDrafts(){
                                     </Row>
                                 </div>
                                 <div className='bk-story-li-fn col-2'>
-                                    {/* <Link to={`/member/stories/${elm.stryId}/replies`}> */}
-                                        <button className="bk-btn-black">刪除</button>
-                                    {/* </Link> */}
+                                        <button className="bk-btn-black" onClick={()=>{
+                                            handleDelete(elm.drftId)
+                                        }}>刪除</button>
                                     <Link to={`/member/stories/draft/${elm.drftId}`}>
                                         <button className="bk-btn-black-bordered">
                                                 編輯
