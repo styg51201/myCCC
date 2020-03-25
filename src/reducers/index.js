@@ -20,6 +20,7 @@ import {
   reset,
   getListitemPrice,
   getItemNamehis,
+  getitemCategoryId,
 } from '../chin/reducer/itemsReducer'
 
 //mao
@@ -70,6 +71,7 @@ const rootReducer = combineReducers({
   reset,
   getListitemPrice,
   getItemNamehis,
+  getitemCategoryId,
   //--------- ShopCart------------
   AddItem,
   // displayShopCart,

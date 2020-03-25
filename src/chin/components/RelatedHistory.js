@@ -4,10 +4,11 @@ import {BrowserRouter as Router,Route,Link,Switch,withRouter} from 'react-router
 import { useSelector, useDispatch } from 'react-redux'
 
 function RelatedHistory(props){
-console.log(props)
 const Itemhis = useSelector(state => state.getItemNamehis)
+const itemsCategoryId = useSelector(state => state.getitemCategoryId)
 const dispatch = useDispatch()
 const dataname = props.data[0]?props.data[0].name:''
+const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -77,8 +78,22 @@ const dataname = props.data[0]?props.data[0].name:''
     console.log('123123231', data)
     dispatch(showItemshis(data))
   }
-
+  const showitemCategoryId = val => {
+    return { type: 'SHOW_ITEMSCATEGORY', value: val }
+  }
+  async function formServeritemCategoryId(val) {
+    console.log(val)
+    const request = new Request(`http://localhost:5500/items/itemCategoryId/${val}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    console.log('11', data)
+    dispatch(showitemCategoryId(data))
+  }
   useEffect(() => {
+    formServeritemCategoryId(dataitemCategoryId)
     formServerItemshis(dataname)
   }, [props.data])
 
@@ -86,12 +101,13 @@ const dataname = props.data[0]?props.data[0].name:''
     return(
         <>
         <div className="chin-historicalrecord">
-        <a href="">相關商品</a>
-        <a href="">歷史紀錄</a>
+        <Link to="">相關商品</Link>
+        <Link to="">歷史紀錄</Link>
       </div>
       <div className="chin-relatedproducts">
         <Slider {...settings}>
-          {Itemhis.map((val,ind)=>{
+          {Itemhis.length < 3 ?
+            itemsCategoryId.map((val,ind)=>{
             return(<div className="chin-commodity2">
                       <div className="chin-commodity-item2">
                         <ul className="chin-star-heart-bag2">
@@ -123,7 +139,42 @@ const dataname = props.data[0]?props.data[0].name:''
                         </Link>
                       </div>
                     </div>)
-          })}
+          })
+          :
+          Itemhis.map((val,ind)=>{
+            return(<div className="chin-commodity2">
+                      <div className="chin-commodity-item2">
+                        <ul className="chin-star-heart-bag2">
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2" src="/chin-img/star.svg"  alt="" />
+                          </li>
+                          <li>
+                            <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
+                          </li>
+                          <li className="chin-heart-bag2">
+                            <img className="chin-heart2" src="/chin-img/heart.svg" alt="" />
+                            <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
+                          </li>
+                        </ul>
+                        <Link to={'/commidty/'+ val.itemId}>
+                          <img className="chin-watch2"  src={`/chin-img/images/${val.itemName}/${val.itemImg}`}  alt="" />
+                          <h6>{val.name}</h6>
+                          <p>{val.itemName}</p>
+                          <h5>{val.itemPrice}</h5>
+                        </Link>
+                      </div>
+                    </div>)
+          })
+        }
         </Slider>
       </div>
       </>

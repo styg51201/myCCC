@@ -22,7 +22,7 @@ function Watch(props) {
   const [commodity, setCommdity] = useState(false)
   const [comparegoods,setComparegoods]=useState('')
   const dispatch = useDispatch()
-  console.log(comparegoods)
+  document.documentElement.scrollTop = document.body.scrollTop =0;
   
   const reset = useSelector(state => state.reset)
   const data = useSelector(state => state.getItems)
