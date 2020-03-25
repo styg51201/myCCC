@@ -191,7 +191,7 @@ function OrderInfo(props) {
 
   useEffect(() => {
     buyerInfo.orderId = order
-  }, [order])
+  }, [ order])
 
   useEffect(() => {
     console.log('buyerInfo2', buyerInfo)
@@ -232,7 +232,7 @@ function OrderInfo(props) {
       showConfirmButton: false,
       timer: 1500,
       position: 'center',
-    })
+    }) 
   }
 
   const CreditCardInfo = (
