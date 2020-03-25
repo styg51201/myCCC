@@ -30,10 +30,13 @@
   @include buttonTheme(blueStyle);
 }
 
-.memberedit label {
-  font-size: $font-m;
-  text-align: center;
-  // color: red;
+.memberedit {
+  margin-bottom: 50px;
+  label {
+    font-size: $font-m;
+    text-align: center;
+    // color: red;
+  }
 }
 
 // sidebar RWD
