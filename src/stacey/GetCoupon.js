@@ -8,6 +8,8 @@ import './css/GetCoupon.scss'
 import CouponSideFilter from './components/CouponSideFilter'
 import CouPageTitle from './components/CouPageTitle'
 import CouponItem from './components/CouponItem'
+import CountdownCoupon from './components/CountdownCoupon'
+
 
 //redux
 import { connect } from 'react-redux'
@@ -114,6 +116,14 @@ const loadDiv = (<div className="sty-coupon-loading"><div className="spinner-bor
 
 const endDiv = (<div className="sty-coupon-finish"><div>已是最新資料</div></div>)
 
+let countdown = []
+if(props.data.length>2){
+  for(let i = 0;i<2;i++){
+    countdown.push(props.data[i])
+  }
+}
+
+
   return (
     <>
       {/* <Bread /> */}
@@ -122,14 +132,14 @@ const endDiv = (<div className="sty-coupon-finish"><div>已是最新資料</div>
         <CouponSideFilter list={vendorList}/>
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
+          
           <div className="row sty-row">
             {/* <!-- title --> */}
             <CouPageTitle />
-            {/* 優惠券 */}
+            <CountdownCoupon item={countdown}/>
+            
+            
             {props.vendor.length?filterCouponItem:allCouponItem}
-            
-            
-
           </div>
           {loading ? loadDiv : "" }
           {end ? endDiv : "" }

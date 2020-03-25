@@ -17,6 +17,7 @@ import {
 
 
 function CouponItem(props){
+  console.log(props)
 
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
   
@@ -128,6 +129,8 @@ function CouponItem(props){
         <>
         <div className={couponClassName}>
               <div className="item">
+        <span className="sty-alertText">還剩 5 張 ! </span>
+
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${props.item.cp_img}`} alt="" />
                   <div className="alreadyGet"><p>已領取</p></div>
@@ -135,14 +138,16 @@ function CouponItem(props){
                 </div>
                 <div className="text">
                   <ul>
-                    <h3>{props.item.cpr_discount?props.item.cpr_discountNum+'元':props.item.cpr_discountNum+'折'}</h3>
+                    <h3>{props.item.cpr_discount?props.item.cpr_discountNum+'元':props.item.cpr_discountNum+'折'} </h3>
                     <li className="vendorName">[ {props.item.cp_vendor} ]</li>
                     <li>{object}-{rule}{discount}</li>
                     <li>有效至 {props.item.cp_due}</li>
                   </ul>
                   <div >
-                    <div className="state" style={props.item.cp_getedCount >= props.item.cp_count?endCouponStyle:getedCountStyle}></div>
-                    <p>{props.item.cp_getedCount >= props.item.cp_count?'全數領取完畢':getNum +'% 已領取'}</p>
+                    <div className="state" style={props.item.cp_getedCount >= props.item.cp_count?endCouponStyle:getedCountStyle}>
+                    <span>{props.item.cp_getedCount >= props.item.cp_count?'全數領取完畢':getNum +' % 已領取'}</span>
+                    </div>
+                    {/* <p>還剩 5 張 !</p> */}
                   </div>
                 </div>
                 <div className="button">

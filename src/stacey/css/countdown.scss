@@ -14,23 +14,25 @@ button {
 }
 
 .sty-countdown {
-  margin: 50px 0;
+  display: flex;
+  margin: 0 30px;
+  > p {
+    align-self: center;
+    font-size: $font-m;
+    margin: 0;
+  }
   div {
     display: flex;
     justify-content: center;
     align-items: center;
-    h3 {
-      margin: 0;
-      font-size: $font-xl;
-    }
   }
   .sty-time {
-    margin-left: 40px;
+    margin-left: 25px;
     div {
-      width: 30px;
-      height: 40px;
+      width: 20px;
+      height: 30px;
       background-color: $white;
-      padding: 10px;
+      // padding: 10px;
       font-size: $font-x;
       position: relative;
       overflow: hidden;
@@ -42,17 +44,24 @@ button {
         margin: 0;
         // transition: 0.5s;
         span {
-          width: 30px;
-          height: 40px;
+          width: 25px;
+          height: 30px;
           display: flex;
           align-items: center;
           justify-content: center;
         }
       }
     }
-    div + div {
-      margin-left: 10px;
-    }
+  }
+}
+
+.sty-space {
+  display: flex;
+  span {
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 
@@ -89,34 +98,34 @@ button {
     transform: translateY(0px);
   }
   10% {
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
   20% {
-    transform: translateY(-80px);
+    transform: translateY(-60px);
   }
   30% {
-    transform: translateY(-120px);
+    transform: translateY(-90px);
   }
   40% {
-    transform: translateY(-160px);
+    transform: translateY(-120px);
   }
   50% {
-    transform: translateY(-200px);
+    transform: translateY(-150px);
   }
   60% {
-    transform: translateY(-240px);
+    transform: translateY(-180px);
   }
   70% {
-    transform: translateY(-280px);
+    transform: translateY(-210px);
   }
   80% {
-    transform: translateY(-320px);
+    transform: translateY(-240px);
   }
   90% {
-    transform: translateY(-360px);
+    transform: translateY(-270px);
   }
   100% {
-    transform: translateY(-400px);
+    transform: translateY(-300px);
   }
 }
 
@@ -125,51 +134,51 @@ button {
 //     transform: translateY(0px);
 //   }
 //   1% {
-//     transform: translateY(-40px);
+//     transform: translateY(-30px);
 //   }
 //   16.66% {
 //     //10秒
-//     transform: translateY(-40px);
+//     transform: translateY(-30px);
 //   }
 //   18.33% {
 //     //11秒
-//     transform: translateY(-80px);
+//     transform: translateY(-60px);
 //   }
 //   33.33% {
 //     //20秒
-//     transform: translateY(-80px);
+//     transform: translateY(-60px);
 //   }
 //   35% {
 //     //21秒
-//     transform: translateY(-120px);
+//     transform: translateY(-90px);
 //   }
 //   50% {
 //     //30秒
-//     transform: translateY(-120px);
+//     transform: translateY(-90px);
 //   }
 //   51.66% {
 //     //31秒
-//     transform: translateY(-160px);
+//     transform: translateY(-120px);
 //   }
 //   66.66% {
 //     //40秒
-//     transform: translateY(-160px);
+//     transform: translateY(-120px);
 //   }
 //   68.33% {
 //     //41秒
-//     transform: translateY(-200px);
+//     transform: translateY(-150px);
 //   }
 //   83.33% {
 //     //50秒
-//     transform: translateY(-200px);
+//     transform: translateY(-150px);
 //   }
 //   85% {
 //     //51秒
-//     transform: translateY(-240px);
+//     transform: translateY(-180px);
 //   }
 //   100% {
 //     //60秒
-//     transform: translateY(-240px);
+//     transform: translateY(-180px);
 //   }
 // }
 
@@ -182,47 +191,47 @@ button {
   }
   16.66% {
     //10秒
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
   31.66% {
     //11秒
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
   33.33% {
     //20秒
-    transform: translateY(-80px);
+    transform: translateY(-60px);
   }
   48.33% {
     //21秒
-    transform: translateY(-80px);
+    transform: translateY(-60px);
   }
   50% {
     //30秒
-    transform: translateY(-120px);
+    transform: translateY(-90px);
   }
   65% {
     //31秒
-    transform: translateY(-120px);
+    transform: translateY(-90px);
   }
   66.66% {
     //40秒
-    transform: translateY(-160px);
+    transform: translateY(-120px);
   }
   81.66% {
     //41秒
-    transform: translateY(-160px);
+    transform: translateY(-120px);
   }
   83.33% {
     //50秒
-    transform: translateY(-200px);
+    transform: translateY(-150px);
   }
   98.33% {
     //51秒
-    transform: translateY(-200px);
+    transform: translateY(-150px);
   }
   100% {
     //60秒
-    transform: translateY(-240px);
+    transform: translateY(-180px);
   }
 }
 
@@ -234,61 +243,61 @@ button {
     transform: translateY(0px);
   }
   10% {
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
   19.833% {
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
   20% {
-    transform: translateY(-80px);
+    transform: translateY(-60px);
   }
   29.833% {
-    transform: translateY(-80px);
+    transform: translateY(-60px);
   }
   30% {
-    transform: translateY(-120px);
+    transform: translateY(-90px);
   }
   39.833% {
-    transform: translateY(-120px);
+    transform: translateY(-90px);
   }
   40% {
-    transform: translateY(-160px);
+    transform: translateY(-120px);
   }
   49.833% {
-    transform: translateY(-160px);
+    transform: translateY(-120px);
   }
   50% {
-    transform: translateY(-200px);
+    transform: translateY(-150px);
   }
   59.833% {
-    transform: translateY(-200px);
+    transform: translateY(-150px);
   }
   60% {
-    transform: translateY(-240px);
+    transform: translateY(-180px);
   }
   69.833% {
-    transform: translateY(-240px);
+    transform: translateY(-180px);
   }
   70% {
-    transform: translateY(-280px);
+    transform: translateY(-210px);
   }
   79.833% {
-    transform: translateY(-280px);
+    transform: translateY(-210px);
   }
   80% {
-    transform: translateY(-320px);
+    transform: translateY(-240px);
   }
   89.833% {
-    transform: translateY(-320px);
+    transform: translateY(-240px);
   }
   90% {
-    transform: translateY(-360px);
+    transform: translateY(-270px);
   }
   99.833% {
-    transform: translateY(-360px);
+    transform: translateY(-270px);
   }
   100% {
-    transform: translateY(-400px);
+    transform: translateY(-300px);
   }
 }
 
@@ -301,46 +310,46 @@ button {
   }
   16.6667% {
     //10秒
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
   33.3056% {
     //11秒
-    transform: translateY(-40px);
+    transform: translateY(-30px);
   }
   33.3333% {
     //20秒
-    transform: translateY(-80px);
+    transform: translateY(-60px);
   }
   49.9722% {
     //21秒
-    transform: translateY(-80px);
+    transform: translateY(-60px);
   }
   50% {
     //30秒
-    transform: translateY(-120px);
+    transform: translateY(-90px);
   }
   66.6389% {
     //31秒
-    transform: translateY(-120px);
+    transform: translateY(-90px);
   }
   66.6667% {
     //40秒
-    transform: translateY(-160px);
+    transform: translateY(-120px);
   }
   83.3056% {
     //41秒
-    transform: translateY(-160px);
+    transform: translateY(-120px);
   }
   83.3333% {
     //50秒
-    transform: translateY(-200px);
+    transform: translateY(-150px);
   }
   99.9722% {
     //51秒
-    transform: translateY(-200px);
+    transform: translateY(-150px);
   }
   100% {
     //60秒
-    transform: translateY(-240px);
+    transform: translateY(-180px);
   }
 }
