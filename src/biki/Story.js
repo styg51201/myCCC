@@ -7,7 +7,9 @@ import { Row, Col } from 'react-bootstrap'
 import Swal from 'sweetalert2'
 
 import StoryReply from './components/StoryReply'
-import useReplyTextarea from './utils/useReplyTextarea'
+// import useReplyTextarea from './utils/useReplyTextarea'
+import useTextareaRows from './utils/useTextareaRows'
+
 
 import './css/stories.scss'
 
@@ -16,15 +18,26 @@ function Story(props){
     const [data, setData] = useState(null)
     const [loaded, setLoaded] = useState(false)
     const [rplyData, setRplyData] = useState(null)
-    // const [replyIsOpened, setReplyIsOpened] = useState(0)
+    const [user, setUser] = useState(localStorage.getItem('userId'))
+    const [txtContent, setTxtContent] = useState('')
+    const [replyTo, setReplyTo] = useState(null)
+
+    const [openRplyTo, setOpenRplyTo] = useState(null)
 
     const {
-        rows,
-        replyTo,
-        txtContent,
-        handleChange,
+        rows, 
+        handleRows, 
         handleKey
-    } = useReplyTextarea()
+    } = useTextareaRows()
+
+    const handleChange = (data, evt)=>{
+        setTxtContent(evt.target.value)
+        setReplyTo(data)
+    }
+
+    const handleOnclick = (id)=>{
+        setOpenRplyTo(id)
+    }
 
     useEffect(()=>{
         console.log(props)
@@ -131,6 +144,9 @@ function Story(props){
                         fromNow: elm.fromNow,
                         date: elm.rplyUpdate
                     }}
+                    id={`${elm.rplyId}-${elm.usrId}`}
+                    onClick={handleOnclick}
+                    openRplyTo={openRplyTo}
                 />
             ]
             if(elm.children){
@@ -160,13 +176,15 @@ function Story(props){
                         <div className="bk-story-reply">
                             <label>留言</label>
                             <textarea rows={rows} onChange={(evt)=>{
+                                handleRows(evt);
                                 handleChange(null, evt)
                             }} onKeyDown={handleKey} />
                             <button 
                             className="bk-btn-black" 
                             onClick={()=>{
                                 handleSubmit(replyTo, txtContent)
-                            }}>回覆</button>
+                            }}
+                            >回覆</button>
                         </div>
                         <div className='bk-recursive-replies-container'>
                             {rplyData.length ? mapRecursive(rplyData) : '目前還沒有留言'}
