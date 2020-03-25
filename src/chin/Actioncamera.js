@@ -6,7 +6,6 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
 //scss
 import './chin-css/items.scss'
 import '../css/main.scss'
@@ -26,8 +25,7 @@ function Actioncamera(props) {
     'ACTION CAMERA'
   )
   const [commodity, setCommdity] = useState(false)
-  console.log(props)
-  console.log(props.data)
+  document.documentElement.scrollTop = document.body.scrollTop =0;
   const itemlist = props.data.map((val, ind) => {
     if (props.actioncamera.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />

@@ -1,13 +1,18 @@
 import React,{useState} from 'react'
 import { Link} from 'react-router-dom'
-import {AddCart} from '../../mao/actions/ShopCartAction'
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import { formServerItemscompare } from '../actions/itemsActions'
 
 function Commoditycomponents(props){
-    // console.log(props.data.itemId)
-    // console.log(props)
+    const compare = function (e){
+        props.formServerItemscompare(props.data,props.compare)
+    }
     return(
         <>
-            <div className="chin-commodity-item" onClick={()=>{props.sendId(props.itemId==props.data.itemId)}}>
+            <div className="chin-commodity-item" onClick={(e)=>compare(e)}>
                 <div className="chin-commodity-item-watch">
                     <img src="./chin-img/plus.svg"/>
                 </div>
@@ -21,6 +26,19 @@ function Commoditycomponents(props){
         </>
     )
 }
-
-
-export default Commoditycomponents
+const mapStateToProps = store => {
+    return { compare: store.getItemscompare }
+  }
+  
+  //action
+  const mapDispatchToProps = dispatch => {
+    return bindActionCreators(
+      {
+        formServerItemscompare,
+      },
+      dispatch
+    )
+  }
+  
+  export default connect(mapStateToProps, mapDispatchToProps)(Commoditycomponents)
+  

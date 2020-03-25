@@ -292,9 +292,9 @@ input[type='checkbox'] {
 }
 .chin-article {
   display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: row;
   width: 100%;
   padding-right: 50px;
   position: fixed;
@@ -304,13 +304,35 @@ input[type='checkbox'] {
   height: 120px;
   z-index: 2;
 }
-.chin-article button {
+.chin-compares {
+  display: flex;
+  align-items: center;
+  padding-left: 20px;
+  width: 310px;
+  height: 120px;
+  border-right: 1px solid #050505;
+  border-left: 1px solid #050505;
+}
+.chin-compares span {
+  font-size: 15px;
+  margin: 0 auto;
+}
+.chin-compares img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+}
+.chin-button-compares {
+  display: flex;
+  flex-direction: column;
+}
+.chin-button-compares button {
   margin: 5px;
   padding: 1px 10px;
   width: 188px;
   height: 40px;
 }
-.chin-article button:nth-child(2) {
+.chin-button-compares button:nth-child(2) {
   margin: 5px;
   padding: 1px 10px;
   width: 188px;

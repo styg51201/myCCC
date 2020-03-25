@@ -25,8 +25,7 @@ function Surrounding(props) {
   const dispatch = useDispatch()
   const data = useSelector(state => state.getItems)
   const Surrounding = useSelector(state => state.getListitemName)
-  console.log(props)
-  console.log(data)
+  document.documentElement.scrollTop = document.body.scrollTop =0;
   const itemlist = data.map((val, ind) => {
     if (Surrounding.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />

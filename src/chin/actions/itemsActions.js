@@ -147,3 +147,14 @@ export const ListItemPrice = (obj,val)=>{
     return { type: 'ITEMPRICE_VALUE', value: [obj.name, ...val] }
   }
 }
+//-----itemscompare------------------------
+export const Itemscompare = val => {
+  return { type: 'SHOW_ITEMSCOMPARE', value: val }
+}
+export const formServerItemscompare = (val,data) => {
+  console.log(val,data)
+  return dispatch =>{
+      let newdata = [...data,val]
+  dispatch(Itemscompare(newdata))
+  }
+  }
