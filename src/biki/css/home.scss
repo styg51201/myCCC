@@ -1,31 +1,31 @@
-@import '../../css/variables.scss';
+@import "../../css/variables.scss";
 
 $bk-full-page: calc(100vh - 100px);
-$bk-ad-duration: .6s;
+$bk-ad-duration: 0.6s;
 $bk-container-min-height: 660px;
 
-.bk-page-load{
+.bk-page-load {
   width: 100%;
   height: 100%;
   position: fixed;
   background-color: $black;
   top: 0;
   left: 0;
-  z-index:100;
+  z-index: 100;
 }
 
-.bk-mouse{
+.bk-mouse {
   width: 24px;
   height: 38px;
   border-radius: 50px;
   border: 1px solid $white;
   position: absolute;
-  bottom: $spacing*3;
+  bottom: $spacing * 3;
   left: 50%;
   margin-left: -12px;
-  animation-delay: .5s;
+  animation-delay: 0.5s;
 
-  .bk-mouse-ball{
+  .bk-mouse-ball {
     width: 6px;
     height: 6px;
     border-radius: 100%;
@@ -40,15 +40,15 @@ $bk-container-min-height: 660px;
   height: calc(100vh - 218px);
   min-height: $bk-container-min-height - 100px;
   background-color: grey;
-  margin-bottom: $spacing*2;
+  margin-bottom: $spacing * 2;
   position: relative;
 
-  .bk-slides{
+  .bk-slides {
     background-color: grey;
     height: 100%;
     position: relative;
 
-    img{
+    img {
       position: absolute;
       left: 0;
       top: 0;
@@ -58,8 +58,8 @@ $bk-container-min-height: 660px;
       object-position: center;
       // z-index: 0;
     }
-    
-    .bk-slide-content{
+
+    .bk-slide-content {
       position: relative;
       // z-index: 1;
       height: 100%;
@@ -76,8 +76,7 @@ $bk-container-min-height: 660px;
   height: $bk-full-page;
   min-height: $bk-container-min-height;
 
-
-  .bk-ads-container{
+  .bk-ads-container {
     width: 100%;
     height: 100%;
     position: relative;
@@ -85,13 +84,13 @@ $bk-container-min-height: 660px;
     align-items: center;
     overflow: hidden;
 
-    .bk-ad{
+    .bk-ad {
       position: absolute;
       width: calc(100% - 130px);
       left: 50%;
       transform: translateX(-50%);
 
-      &.hidden{
+      &.hidden {
         // visibility: hidden;
       }
 
@@ -103,8 +102,8 @@ $bk-container-min-height: 660px;
         z-index: 3;
         animation-duration: $bk-ad-duration;
 
-        &.fadeInRight{
-          animation-delay: .3s;
+        &.fadeInRight {
+          animation-delay: 0.3s;
         }
 
         .bk-block-num {
@@ -117,11 +116,11 @@ $bk-container-min-height: 660px;
           font-size: 4rem;
           font-weight: 800;
         }
-      
+
         .bk-block-text {
           margin: 1rem 0 0 2rem;
           font-weight: 800;
-      
+
           .bk-h3 {
             font-size: $font-xl;
           }
@@ -131,13 +130,13 @@ $bk-container-min-height: 660px;
           }
         }
       }
-      
+
       .bk-ad-slide {
         width: 85%;
         animation-duration: $bk-ad-duration;
 
-        &.fadeInRight{
-          animation-delay: .3s;
+        &.fadeInRight {
+          animation-delay: 0.3s;
         }
 
         .bk-ad-img {
@@ -148,7 +147,7 @@ $bk-container-min-height: 660px;
           width: 100%;
         }
       }
-      
+
       .bk-ad-text {
         background-color: #050505;
         position: absolute;
@@ -156,26 +155,25 @@ $bk-container-min-height: 660px;
         width: 350px;
         //transform: translateY(-50%);
         right: 0;
-        padding: $spacing*4 $spacing*2;
+        padding: $spacing * 4 $spacing * 2;
         color: white;
         text-align: center;
         animation-duration: $bk-ad-duration;
 
-        &.fadeInRight{
-          animation-delay: .3s;
+        &.fadeInRight {
+          animation-delay: 0.3s;
         }
 
-        h3{
+        h3 {
           margin-bottom: $spacing;
         }
-        button{
+        button {
           margin-top: $spacing;
         }
       }
     }
   }
 }
-
 
 .bk-arrows {
   width: 100%;
@@ -185,7 +183,7 @@ $bk-container-min-height: 660px;
   top: 50%;
   left: 0;
   transform: translateY(-50%);
-  >div{
+  > div {
     cursor: pointer;
   }
 }
@@ -212,7 +210,7 @@ $bk-container-min-height: 660px;
         margin-left: 0;
       }
 
-      &.active{
+      &.active {
         background-color: $blue;
       }
     }
@@ -226,7 +224,7 @@ $bk-container-min-height: 660px;
 }
 
 .bk-featured-wrapper {
-  padding: 5rem;
+  padding: 15rem 5rem 3rem 5rem;
 }
 
 .bk-featured-product-item {
@@ -235,42 +233,42 @@ $bk-container-min-height: 660px;
   position: relative;
   margin: $spacing 0;
 
-  &:hover .bk-featured-hover{
+  &:hover .bk-featured-hover {
     opacity: 1;
 
-    .bk-featured-stars{
+    .bk-featured-stars {
       @for $i from 1 through 5 {
-        svg:nth-child(#{$i}){
+        svg:nth-child(#{$i}) {
           left: #{($i - 1) * 18}px;
         }
       }
     }
 
-    .bk-featured-icon-list{
+    .bk-featured-icon-list {
       @for $i from 1 through 2 {
-        >div:nth-child(#{$i}){
+        > div:nth-child(#{$i}) {
           top: #{($i - 1) * 30}px;
         }
       }
     }
-    
-    .bk-featured-name{
+
+    .bk-featured-name {
       //left: 1.5rem;
       bottom: 1.5rem;
     }
-    .bk-featured-price{
+    .bk-featured-price {
       right: 1.5rem;
     }
   }
 
-  .bk-featured-hover{
-    background-color: rgba($black, .5);
+  .bk-featured-hover {
+    background-color: rgba($black, 0.5);
     position: absolute;
     color: $white;
     width: 100%;
     height: 100%;
-    opacity : 0;
-    transition: .3s;
+    opacity: 0;
+    transition: 0.3s;
   }
 
   &.bk-box {
@@ -287,7 +285,7 @@ $bk-container-min-height: 660px;
 
       h3 {
         line-height: 2.5rem;
-      }      
+      }
 
       button {
         margin-top: 3rem;
@@ -304,7 +302,7 @@ $bk-container-min-height: 660px;
     height: 240px;
     background-color: grey;
 
-    img{
+    img {
       width: 100%;
     }
   }
@@ -318,32 +316,36 @@ $bk-container-min-height: 660px;
     flex-direction: column;
     font-size: $icon-regular;
 
-    >div{
+    > div {
       position: absolute;
       top: 0;
       margin-bottom: 1rem;
-      transition: .3s;
+      transition: 0.3s;
       cursor: pointer;
 
-      svg{
+      svg {
         vertical-align: top;
-        transition: .3s;
+        transition: 0.3s;
+
+        &.active {
+          stroke: $blue;
+        }
       }
 
-      &:hover svg{
+      &:hover svg {
         stroke: $blue;
       }
     }
-  }  
+  }
 
   .bk-featured-stars {
     position: absolute;
     left: 1.5rem;
     top: 1.5rem;
 
-    svg{
+    svg {
       position: absolute;
-      transition: .3s;
+      transition: 0.3s;
       left: 0;
     }
   }
@@ -353,7 +355,7 @@ $bk-container-min-height: 660px;
     width: 100%;
     //bottom: 1.5rem;
     bottom: 0;
-    transition: .3s;
+    transition: 0.3s;
     display: flex;
     flex: 1 1 0;
     justify-content: space-between;
@@ -363,12 +365,12 @@ $bk-container-min-height: 660px;
       position: absolute;
       //left: 0;
       left: 1.5rem;
-      bottom:0;
+      bottom: 0;
       display: flex;
       flex-direction: column;
       word-break: break-word;
       width: calc(50% - 1.5rem);
-      transition: .3s;
+      transition: 0.3s;
 
       .bk-ftr-product-name {
         font-size: 1.2rem;
@@ -383,43 +385,42 @@ $bk-container-min-height: 660px;
       font-size: 1.2rem;
       width: calc(50% - 1.5rem);
       text-align: right;
-      transition: .3s;
+      transition: 0.3s;
     }
   }
 }
 
 //------- COLLECTIONS ------
 
-.bk-collection{
+.bk-collection {
   height: $bk-full-page;
   min-height: $bk-container-min-height;
   position: relative;
 
-  &.white{
+  &.white {
     background-color: $white;
     color: $white;
-    .collection-titles{
+    .collection-titles {
       color: $black;
     }
   }
-  &.blue{
+  &.blue {
     background-color: $blue;
     color: $white;
   }
-  &.orange{
+  &.orange {
     background-color: $orange;
     color: $white;
   }
 
-
-  .bottom{
+  .bottom {
     height: 50%;
     width: 100%;
     position: absolute;
     bottom: 0;
     overflow: hidden;
 
-    img{
+    img {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -429,7 +430,7 @@ $bk-container-min-height: 660px;
     }
   }
 
-  .bk-collection-content{
+  .bk-collection-content {
     position: relative;
     width: 100%;
     height: 100%;
@@ -438,22 +439,22 @@ $bk-container-min-height: 660px;
     justify-content: space-between;
     padding: $spacing * 6 0;
 
-    .content-bottom{
+    .content-bottom {
       display: flex;
       justify-content: space-between;
 
-      button{
-        @include buttonTheme(whiteBorderedStyle)
+      button {
+        @include buttonTheme(whiteBorderedStyle);
       }
     }
 
-    .collection-img{
+    .collection-img {
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
 
-      img{
+      img {
         max-width: 300px;
       }
     }

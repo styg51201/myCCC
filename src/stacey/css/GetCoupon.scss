@@ -163,7 +163,6 @@ button {
   padding: 0 0.625rem;
   margin-bottom: 1.875rem;
   .item {
-    // padding: 8px;
     background-color: $white;
     display: flex;
     justify-content: space-between;
@@ -176,10 +175,11 @@ button {
     font-weight: $font-bold;
     color: $orange;
     margin: 0;
-    font-size: 15px;
+    font-size: 16px;
     right: 65px;
-    top: 15px;
+    top: 10px;
   }
+  
   .wrapForImg {
     width: 9.375rem;
     display: flex;
@@ -198,7 +198,6 @@ button {
       width: 90%;
       height: 85%;
       object-fit: contain;
-      // border-right: 1px dashed $grey;
     }
     .alreadyGet {
       width: 100%;
@@ -241,7 +240,7 @@ button {
     div {
       width: 100%;
       .state {
-        height: 15px;
+        height: 17px;
         border-radius: 1.875rem;
         position: relative;
         // background: linear-gradient(to right, $green 80%, $deepGray 80%);
@@ -249,7 +248,7 @@ button {
           font-size: $font-xs;
           font-weight: $font-bold;
           position: absolute;
-          top: -3px;
+          top: -2px;
           left: 50%;
           transform: translateX(-50%);
         }

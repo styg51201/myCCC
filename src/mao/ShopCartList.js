@@ -21,6 +21,7 @@ import RelatedHistory from '../chin/components/RelatedHistory'
 import { FaRegTrashAlt } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
+import PicSlide from './component/PicSlide'
 function ShopCartList(props) {
   console.log('看我這邊~~ == ',props)
   const [loaded, setLoaded] = useState(false)
@@ -146,11 +147,10 @@ function ShopCartList(props) {
   const CartNoItem = (
     <div className="p-3 text-center Mao-CartNoItem-shoplist">
       <h3>趕快去尋找最愛的商品吧！</h3>
-      <Link to="/"></Link>
     </div>
   )
   const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
-
+  const ADrand =<PicSlide />
   return (
     <>
       <MaoAD />
@@ -158,7 +158,7 @@ function ShopCartList(props) {
         <ul className="Mao-shopcart-check-item-ul">
           {props.AddItem.length > 0 ? dataList : CartNoItem}
         </ul>
-        {props.AddItem.length > 0 ? <MaoCartShopTotal /> : CartNoItemTotal}
+        {props.AddItem.length > 0 ? <MaoCartShopTotal /> : ADrand}
       </div>
       {displayRealCart}
       <ProductSlide 

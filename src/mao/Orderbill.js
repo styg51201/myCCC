@@ -21,7 +21,7 @@ import {
 
 function Orderbill(props) {
   // console.log('Orderbill', props)
-
+  
   const [loaded, setLoaded] = useState(false)
 
   function getProductName(val) {
@@ -40,6 +40,7 @@ function Orderbill(props) {
     })
     return val
   }
+  document.documentElement.scrollTop = document.body.scrollTop=0
 
   let orderprodInfo = props.saveOrderBuyerProReducer
 
