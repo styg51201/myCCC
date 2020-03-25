@@ -13,20 +13,6 @@ button {
   }
 }
 
-.sty-coupon-loading {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-  div {
-    width: 60px;
-    height: 60px;
-  }
-}
-.sty-coupon-finish {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
 .sty-wrap {
   // width: 1300px;
   // transform: translate(0, 0);
@@ -182,6 +168,17 @@ button {
     display: flex;
     justify-content: space-between;
     box-shadow: 0px 0px 8px #bbbbbb;
+    position: relative;
+  }
+  .sty-alertText {
+    position: absolute;
+    text-align: right;
+    font-weight: $font-bold;
+    color: $orange;
+    margin: 0;
+    font-size: 15px;
+    right: 65px;
+    top: 15px;
   }
   .wrapForImg {
     width: 9.375rem;
@@ -244,15 +241,25 @@ button {
     div {
       width: 100%;
       .state {
-        height: 0.3125rem;
+        height: 15px;
         border-radius: 1.875rem;
+        position: relative;
         // background: linear-gradient(to right, $green 80%, $deepGray 80%);
+        span {
+          font-size: $font-xs;
+          font-weight: $font-bold;
+          position: absolute;
+          top: -3px;
+          left: 50%;
+          transform: translateX(-50%);
+        }
       }
       p {
         text-align: right;
-        color: $grey;
+        font-weight: $font-bold;
+        color: $orange;
         margin: 0;
-        font-size: $font-xs;
+        font-size: 15px;
       }
     }
   }
@@ -287,6 +294,23 @@ button {
     }
   }
 }
+
+//讀取圖示
+.sty-coupon-loading {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  div {
+    width: 60px;
+    height: 60px;
+  }
+}
+.sty-coupon-finish {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
 // 已領取
 .sty-coupon.geted {
   .alreadyGet {

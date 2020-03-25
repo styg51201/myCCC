@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 import classNames from 'classnames'
 
-
 import '../css/countdown.scss'
 
 //redux
@@ -14,45 +13,44 @@ import {} from '../actions/couponAction'
 
 function Countdown(props){
 
-    const [time,setTime] = useState(true)
-
-    // let secTenStyle = `time0`
-    // let secOneStyle = `time0`
-
-    // console.log( sec)
-
-    let setIntervalId = setInterval(() => {
-        setTime(!time)
-    }, 30);
-
-        let secTenNum = null
-        let secOneNum = null
-        let td = new Date()
-        let sec = (td.getSeconds()+"").split("")
-    
-        if(sec.length > 1){
-            secTenNum = sec[0]
-            secOneNum = sec[1]
-        }else{
-            secTenNum = '0'
-            secOneNum = sec[0]
-        }
-    
-        let secTenStyle = `time${secTenNum}`
-        let secOneStyle = `time${secOneNum}`
-        // console.log(sec)
    
-
-    
 
 
     return (
         <>
-            <div className="row sty-countdown">
-            <div className="col">
-              <h3>剩餘時間</h3>
+            <div className="sty-countdown">
+              <p>剩餘時間</p>
               <div className="sty-time">
-              
+              <div>
+                    <p className="hour-ten">
+                        <span>0</span>
+                        <span>5</span>
+                        <span>4</span>
+                        <span>3</span>
+                        <span>2</span>
+                        <span>1</span>
+                        <span>0</span>
+                  </p>
+                </div>
+                <div>
+                    <p className="hour-one">
+                        <span>0</span>
+                        <span>9</span>
+                        <span>8</span>
+                        <span>7</span>
+                        <span>6</span>
+                        <span>5</span>
+                        <span>4</span>
+                        <span>3</span>
+                        <span>2</span>
+                        <span>1</span>
+                        <span>0</span>
+
+                  </p>
+                </div>
+                <div className="sty-space">
+                  <span> : </span>
+                </div>              
                 <div>
                     <p className="min-ten">
                         <span>0</span>
@@ -79,6 +77,9 @@ function Countdown(props){
                         <span>0</span>
 
                   </p>
+                </div>
+                <div className="sty-space">
+                  <span> : </span>
                 </div>
                 <div>
                     <p className="sec-ten">
@@ -108,7 +109,6 @@ function Countdown(props){
                   </p>
                 </div>
               </div>
-            </div>
           </div>
         </>
     )

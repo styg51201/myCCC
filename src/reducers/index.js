@@ -33,7 +33,7 @@ import {
   ControlDataState,
   getOrderBuyer,
   saveOrderBuyerInfoReducer,
-  saveOrderBuyerProReducer,
+  saveOrderBuyerProReducer
 } from '../mao/reducers/ShopCartReducer'
 import { getMemberID, member } from '../Irene/reducers/memberReducer'
 

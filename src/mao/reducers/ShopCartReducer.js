@@ -46,6 +46,7 @@ export const getShop = (state = [], action) => {
 
 // control購物車品項
 export const AddItem = (state = [], action) => {
+  // console.log('加入購物車在這裡',action)
   switch (action.type) {
     case 'ADD_CART':
       return action.value
@@ -58,7 +59,6 @@ export const AddItem = (state = [], action) => {
 
 //我的最愛
 export const MyFavorite = (state = [], action) => {
-  // console.log('action',action)
   switch (action.type) {
     case 'LIKE_PRODUCT':
       return action.value
@@ -67,9 +67,9 @@ export const MyFavorite = (state = [], action) => {
   }
 }
 
+
 //呼叫訂單資料
 export const getOrderBuyer = (state = [], action) => {
-  // console.log('getOrderBuyer',action)
   switch (action.type) {
     case 'SHOW_ORDER':
       return action.value
@@ -80,6 +80,7 @@ export const getOrderBuyer = (state = [], action) => {
 
 //儲存購買人資料
 export const saveOrderBuyerInfoReducer = (state = [], action) => {
+
   switch (action.type) {
     case 'SAVE_ORDER':
       return action.value
@@ -91,6 +92,7 @@ export const saveOrderBuyerInfoReducer = (state = [], action) => {
 //儲存購買人產品資料
 export const saveOrderBuyerProReducer = (state = [], action) => {
   let newData = []
+  // console.log('acttion',action)
   switch (action.type) {
     case 'SAVE_ORDER_PRODUCT':
       console.log('sdfasdfasdf', action.value)
