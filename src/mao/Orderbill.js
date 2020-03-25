@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Table, bordered, tr } from 'react-bootstrap'
 import './css/Orderbill.scss'
 import MemberSidebar from '../Irene/components/MemberSidebar'
+import {Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { productList } from './ProductList'
@@ -23,7 +24,7 @@ function Orderbill(props) {
   // console.log('Orderbill', props)
   
   const [loaded, setLoaded] = useState(false)
-
+  const [waitOrder,setWaitOrder] =useState(false)
   function getProductName(val) {
     productList.map((v, i) => {
       if (v.itemId == val) {
@@ -45,21 +46,22 @@ function Orderbill(props) {
   let orderprodInfo = props.saveOrderBuyerProReducer
 
   const orderListitem = orderprodInfo.map((v, i) => {
-    console.log('I WANT TO SEE',v)
     return (
       <>
-        <tr>
-          <td className="d-flex">
-            <div className="w-50">
-              <span>{v.itemName}</span>
-            </div>
-            <div className="w-25 px-3">
-              <span>{v.count}</span>
-            </div>
-            <div className="w-25 px-3">
-              <span>{v.itemPrice}</span>
-            </div>
-          </td>
+      <tr>
+        <Link to={`commidty/${v.itemId}`} style={{color:'#000'}}>
+            <td className="d-flex">
+              <div className="w-50">
+                <span>{v.itemName}</span>
+              </div>
+              <div className="w-25 px-3">
+                <span>{v.count}</span>
+              </div>
+              <div className="w-25 px-3">
+                <span>{v.itemPrice}</span>
+              </div>
+            </td>
+          </Link>
         </tr>
       </>
     )
@@ -124,7 +126,7 @@ function Orderbill(props) {
   )
 
   const waitingDisplay = (
-    <div style={{ background: '#fff', width: '100vw', height: '100vh' }}></div>
+    <div className="Mao-waiting-display"></div>
   )
 
   const displayOK = (
@@ -138,7 +140,7 @@ function Orderbill(props) {
   )
   setTimeout(() => {
     setLoaded(true)
-  }, 1500)
+  }, 2000)
 
   return <>{loaded ? displayOK : waitingDisplay}</>
 }

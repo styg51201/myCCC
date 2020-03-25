@@ -35,7 +35,7 @@ function PisSlide() {
     initialSlide: 0,
     arrows: false,
     autoplay: true,
-    autoplaySpeed: 700,
+    autoplaySpeed: 600,
   }
 
   const RNDRoute = ['/watch', '/headset', '/actioncamera', '/surrounding']

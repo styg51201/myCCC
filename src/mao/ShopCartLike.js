@@ -12,15 +12,17 @@ import {
   CalShopCart,
   Handle_AddMyFavorite,
   ControlDataOne,
-  AddCartNewItem_sendcal,
+  AddCartNewItem_sendcal
 } from './actions/ShopCartAction'
+import {commidtyRANDItemId} from '../chin/actions/itemsActions'
 import MemberSidebar from '../Irene/components/MemberSidebar'
 import { productList } from './ProductList'
+import {FaShoppingBasket} from 'react-icons/fa'
 
 function ShopCartLike(props) {
   console.log('I want to see the data from ShopCartLike==', props)
   const [favorloaded, setFavorloaded] = useState(false)
-
+  const [newItem,setNewItem] =useState(false)
   // 從ID去獲取產品的價格
   function checkProductPrice(val) {
     productList.map((v, i) => {
@@ -33,6 +35,7 @@ function ShopCartLike(props) {
   // 必打
   useEffect(() => {
     props.getShopCart()
+    props.commidtyRANDItemId()
   }, [])
 
   let RealCart = []
@@ -95,9 +98,9 @@ function ShopCartLike(props) {
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
     <div className="Mao-CartNoItem">
+      <Link to="/" style={{color:"#000"}}>
       <h3>趕快去尋找最愛的商品吧！</h3>
-      <Link to="/">
-        <img className="Mao-Like-img" src="/Mao-img/travel1.jpg" />
+      <FaShoppingBasket style={{width:"300px",height:"300px",opacity:'0.5',margin:"40px"}}/>
       </Link>
     </div>
   )
@@ -106,21 +109,23 @@ function ShopCartLike(props) {
     <>
       <div className="d-flex">
         <MemberSidebar />
-        <div>
-          {/* {dataList.length == 0 ? '' : (<h3 className="Mao-ul-title">
-          我的收藏
-          </h3>)} */}
-          <h3 className="Mao-ul-title">我的收藏</h3>
+        <div className="Mao-Like-box">
+        {dataList.length == 0 ? CartNoItem : dataList}
           <ul
             className={
               dataList.length > 0 ? 'Mao-ul-bg-white' : 'Mao-ul-bg-none'
             }
           >
-            {dataList.length == 0 ? CartNoItem : dataList}
+           
           </ul>
         </div>
       </div>
-      <ProductSlide />
+      <ProductSlide 
+      getdata={newItem} //hook
+      sendData={items=>{ //func
+        setNewItem(items)
+      }}
+      />
     </>
   )
 }
@@ -134,6 +139,7 @@ const mapStateToProps = store => {
     Cart: store.displayShopCart,
     calculator: store.calculator,
     MyFavorite: store.MyFavorite,
+    getRANDitemid:store.getRANDitemid,
   }
 }
 
@@ -148,7 +154,7 @@ const mapDispatchToProps = dispatch => {
       DelCartItem,
       CalShopCart,
       Handle_AddMyFavorite,
-      AddCartNewItem_sendcal,
+      AddCartNewItem_sendcal,commidtyRANDItemId
     },
     dispatch
   )
