@@ -26,8 +26,6 @@ function MemberStory(props){
             setC(content);    
         })
     }, [])
-    // console.log("props:", props)
-    // console.log('localstorage', localStorage.getItem('userdata'));
 
     return(
         <Row>

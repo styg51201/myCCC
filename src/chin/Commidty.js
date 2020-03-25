@@ -17,14 +17,14 @@ import { bindActionCreators } from 'redux'
 import { commidtyItemId,multiple_imagesItemId } from './actions/itemsActions'
 
 function Commidty(props) {
-  console.log('back', props.data)
+  // console.log('back', props.data)
   console.log('back2', props)
   const itemId = props.match.params.itemId ? props.match.params.itemId : ''
 
   useEffect(() => {
     props.commidtyItemId(itemId)
     props.multiple_imagesItemId(itemId)
-    console.log('hello', props.data)
+    // console.log('hello', props.data)
   }, [])
   return (
     <>
@@ -37,7 +37,7 @@ function Commidty(props) {
         </div>
         <DescriptionTechnique data={props.data}/>
         <UserComment/>
-        <RelatedHistory/>
+        <RelatedHistory data={props.data}/>
       </main>
     </>
   )
@@ -46,7 +46,8 @@ function Commidty(props) {
 // 選擇對應的reducer
 const mapStateToProps = store => {
   return { data: store.getItemId ,
-           multiple: store.getMultipleItemId
+           multiple: store.getMultipleItemId,
+           AddItem: store.AddItem,
         }
 }
 

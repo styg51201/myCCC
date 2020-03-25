@@ -17,7 +17,9 @@ import {
   getItemId,
   getMultipleItemId,
   getListitemName,
-  reset
+  reset,
+  getListitemPrice,
+  getItemNamehis,
 } from '../chin/reducer/itemsReducer'
 
 //mao
@@ -31,7 +33,7 @@ import {
   ControlDataState,
   getOrderBuyer,
   saveOrderBuyerInfoReducer,
-  saveOrderBuyerProReducer,
+  saveOrderBuyerProReducer
 } from '../mao/reducers/ShopCartReducer'
 import { getMemberID, member } from '../Irene/reducers/memberReducer'
 
@@ -66,6 +68,8 @@ const rootReducer = combineReducers({
   getMultipleItemId,
   getListitemName,
   reset,
+  getListitemPrice,
+  getItemNamehis,
   //--------- ShopCart------------
   AddItem,
   // displayShopCart,

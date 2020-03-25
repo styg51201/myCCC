@@ -1,12 +1,13 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link} from 'react-router-dom'
 import {AddCart} from '../../mao/actions/ShopCartAction'
 
 function Commoditycomponents(props){
-    
+    // console.log(props.data.itemId)
+    // console.log(props)
     return(
         <>
-            <div className="chin-commodity-item">
+            <div className="chin-commodity-item" onClick={()=>{props.sendId(props.itemId==props.data.itemId)}}>
                 <div className="chin-commodity-item-watch">
                     <img src="./chin-img/plus.svg"/>
                 </div>

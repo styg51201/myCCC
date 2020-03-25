@@ -3,8 +3,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 // import chunk from 'lodash/chunk';
 // import {throttle} from 'lodash';
-import {useSpring, animated} from 'react-spring'
-// import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
+import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
 
 import './css/all.scss'
 import './css/home.scss'
@@ -15,15 +14,9 @@ import Collection from './components/Collection'
 import AdSlide from './components/AdSlide'
 
 function Home(){
-
-    const [loaded, setLoaded] = useState(false)
-
-    useEffect(()=>{
-        setTimeout(()=>{
-            setLoaded(true)
-        })
-    }, [])
     
+    
+
     const [adNum, setAdNum] = useState(0);
     const handleScroll = (evt)=>{
 
@@ -88,41 +81,32 @@ function Home(){
         })
     }
 
-    // const loadProps = useSpring({
-    //     to: async (next, cancel)=>{
-    //         await next({opacity: 0})
-    //         await next({display: 'none'})
-    //     },
-    //     from:{opacity:1}
-    // })
 
-const parallax = useRef()
 
     return(
         <>
-        {/* <animated.div className='bk-page-load' style={loadProps}></animated.div> */}
             <section className="bk-home-slider">
-                <div className='bk-slides'>
-                    <img src="./biki-img/josh-nuttall-uNQ-TTg_qNY-unsplash_.jpg" />
+                <div className='bk-mouse animated fadeIn' onScroll={handleScroll}>
+                    <div className='bk-mouse-ball animated fadeOutDown infinite'></div>
+                </div>
+                <div className='bk-slides' style={{
+                    background: `url('./biki-img/josh-nuttall-uNQ-TTg_qNY-unsplash.jpg') center center`,
+                    backgroundSize: 'cover'
+                }}>
                     <div className='bk-slide-content'>
                         Hello~
                     </div>
-                </div>
-                <div className='bk-mouse animated fadeIn' onScroll={handleScroll}>
-                    <div className='bk-mouse-ball animated fadeOutDown infinite'></div>
                 </div>
             </section>
             <section className="bk-ads">
                 <Container className='bk-ads-container'>
                     {arr.length && arr.map((elm, idx)=>{
-                        return (
-                            <AdSlide 
-                            key={idx+'a'} 
-                            data={elm}
-                            show={adNum===idx}
-                            num={idx+1}
-                            />
-                        )
+                        return <AdSlide 
+                        key={idx+'a'} 
+                        data={elm}
+                        show={adNum===idx}
+                        num={idx+1}
+                        />
                     })}
                     <div className="bk-arrows">
                         <div className="bk-arrow-r" onClick={btnPrevSlide}>
@@ -148,6 +132,7 @@ const parallax = useRef()
                     </div>
                 </Container>
             </section>
+
             <section className="bk-featured-products">
                 <Container>
                     <Row className='bk-featured-wrapper row-cols-xl-3 row-cols-md-2 row-cols-1'>
@@ -192,30 +177,24 @@ const parallax = useRef()
             title="WEARIBLE DEVICES" 
             titleCn="穿戴式裝置" 
             info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
-            img="./biki-img/MTP52_VW_PF+watch-40-alum-silver-nc-5s_VW_PF_WF_CO_GEO_TW_.png" 
-            bg="./biki-img/person-on-body-of-water-2104152_.jpg" 
-            position="center"
-            />
+            img="asdf" 
+            bg="./biki-img/geronimo-giqueaux-ahPZamckL7A-unsplash.jpg" />
 
             <Collection 
             theme="blue" 
-            title="EARPHONES / SPEAKERS" 
-            titleCn="耳機/喇吧" 
+            title="WEARIBLE DEVICES" 
+            titleCn="穿戴式裝置" 
             info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
-            img="./biki-img/000001_1572937548_.png" 
-            bg="./biki-img/man-standing-on-the-end-of-the-rock-1908647_.jpg" 
-            position="bottom"
-            />  
+            img="asdf" 
+            bg="./biki-img/geronimo-giqueaux-ahPZamckL7A-unsplash.jpg" />  
 
             <Collection 
             theme="orange" 
-            title="ACTION CAMERAS" 
-            titleCn="運動攝影機" 
+            title="WEARIBLE DEVICES" 
+            titleCn="穿戴式裝置" 
             info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
-            img="./biki-img/h8b-1366-2X.png" 
-            bg="./biki-img/person-doing-parkour-exhibition-316769_.jpg" 
-            position="bottom"
-            />
+            img="asdf" 
+            bg="./biki-img/geronimo-giqueaux-ahPZamckL7A-unsplash.jpg" />
         </>
     )
 }

@@ -20,7 +20,7 @@ import {
 } from './actions/ShopCartAction'
 
 function Orderbill(props) {
-  console.log('Orderbill', props)
+  // console.log('Orderbill', props)
 
   const [loaded, setLoaded] = useState(false)
 
