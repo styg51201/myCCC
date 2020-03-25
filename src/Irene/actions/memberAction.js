@@ -125,10 +125,10 @@ export const updateServerMember = val => {
     const request = new Request('http://localhost:5500/member/update', {
       method: 'POST',
       credentials: 'include',
-      headers: new Headers({
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      }),
+      // headers: new Headers({
+      //   Accept: 'application/json',
+      //   'Content-Type': 'application/json',
+      // }),
       body: JSON.stringify(val),
     })
     // console.log('datafromlocalstorage', datafromlocalstorage.username)
@@ -138,10 +138,10 @@ export const updateServerMember = val => {
     console.log('upval', val)
     console.log('updata', data)
     dispatch(updateMember(data))
-    // if (data.result.affectedRows) {
-    //   Swal.fire('更新成功囉!')
-    // } else {
-    //   // alert('無成功更新')
-    // }
+    if (data.result.affectedRows) {
+      Swal.fire('更新成功!')
+    } else {
+      // alert('無成功更新')
+    }
   }
 }
