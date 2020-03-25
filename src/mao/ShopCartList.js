@@ -120,7 +120,7 @@ function ShopCartList(props) {
             onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
-              props.Handle_AddMyFavorite('true', v, props.MyFavorite)
+              props.Handle_AddMyFavorite(true, v, props.MyFavorite)
             }}
           >
             <FiHeart

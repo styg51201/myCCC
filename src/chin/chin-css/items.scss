@@ -472,6 +472,7 @@ input[type='checkbox'] {
   height: 20px;
   opacity: 0;
   transition: 0.3s;
+  cursor: pointer;
   z-index: 999;
 }
 .chin-commodity-item:hover .chin-bag {

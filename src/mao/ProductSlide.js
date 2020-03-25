@@ -79,7 +79,7 @@ function ProductSlide(props) {
           <button
             className="Mao-prodctSlide-card-btn-add"
             onClick={() => {
-  let truePrice=v.itemPrice.split('$').join('')
+              let truePrice=v.itemPrice.split('$').join('')
               let newProduct={
                 itemId:v.itemId,
                 name:v.name,
@@ -99,13 +99,16 @@ function ProductSlide(props) {
           <button
             className="Mao-prodctSlide-card-btn-like"
             onClick={() => {
-              let productInfo = {
-                itemId: v.itemId,
-                itemPrice: v.itemPrice,
-                itemCategoryId: v.itemCategoryId,
-                name: v.name,
+              let truePrice=v.itemPrice.split('$').join('')
+              let newProduct={
+                itemId:v.itemId,
+                name:v.name,
+                itemName: v.itemName,
+                itemImg:v.itemImg,
+                itemPrice:truePrice,
+                itemCategoryId: v.itemCategoryId
               }
-              props.Handle_AddMyFavorite('true', productInfo, props.MyFavorite)
+              props.Handle_AddMyFavorite(true, newProduct, props.MyFavorite)
             }}
           >
             <FiHeart className="mr-2"/>

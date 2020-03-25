@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -9,10 +9,49 @@ import {
     DelCartItem,
     CalShopCart,
     Handle_AddMyFavorite,AddCartNewItem_sendcal} from '../../mao/actions/ShopCartAction'
-
-
+import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
+import Swal from 'sweetalert2'
 function Commoditycomponents(props){
-    // console.log('Commmm',props)
+
+
+const [forMyfavor,setForMyfavor]=useState(false)
+
+const [alertType,setAlertType]=useState('')
+
+const checkAlertType=showTpye=>{
+  switch(showTpye){
+      case '加入購物車':
+          Swal.fire({
+              position: 'center',
+              icon: 'success',
+              title: '已加入購物車',
+              showConfirmButton: false,
+              timer: 1000
+            })
+            break
+      case '加入我的最愛':
+          Swal.fire({
+              position: 'center',
+              icon:'success',
+              title: '已加入我的最愛',
+              showConfirmButton: false,
+              timer: 1000
+            })
+            break
+            case '已取消我的最愛':
+                Swal.fire({
+                    position: 'center',
+                    icon:'error',
+                    title: '已取消我的最愛',
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
+                  break
+      default:
+          break                
+  }
+}
+
     return(
         <>
               <div className="chin-commodity-item">
@@ -23,14 +62,28 @@ function Commoditycomponents(props){
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
                         <li className="chin-heart-bag">
-                            <img className="chin-heart" src="./chin-img/heart.svg" alt="" onClick={()=>{
+                        
+                        <FiHeart className={`chin-heart ${forMyfavor?'Mao-like-red':''}`}  
+                        onClick={()=>{
+                          props.Handle_AddMyFavorite(!forMyfavor,props.data, props.MyFavorite)
+                          setForMyfavor(!forMyfavor)
+                          let info=!forMyfavor?"加入我的最愛":"已取消我的最愛"
+                          checkAlertType(info)
+                          }
+                                }/>
+                            {/* <img className="chin-heart" style={{background:'#f00'}} src="./chin-img/heart.svg" alt="" onClick={()=>{
                                 props.Handle_AddMyFavorite('true', props.data, props.MyFavorite)
+                            // }}
+                            /> */}
+                            <FiShoppingBag  className="chin-bag"  onClick={()=>{
+                              props.AddCartNewItem_sendcal(props.data,props.AddItem) 
+                              checkAlertType("已加入購物車")
                             }}
-                                
                             />
-                            <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt="" onClick={()=>{
-                                props.AddCartNewItem_sendcal(props.data,props.AddItem)
-                            }}/>
+                            {/* <img className="chin-bag" src="./chin-img/shopping-bag.svg" alt="" onClick={()=>{
+                              props.AddCartNewItem_sendcal(props.data,props.AddItem) 
+                              checkAlertType("已加入購物車")
+                            }}/> */}
                         </li>
                     </ul>
                     <Link to={'/commidty/'+props.data.itemId}>
@@ -38,6 +91,7 @@ function Commoditycomponents(props){
                       <h6>{props.data.name}</h6>
                       <h4>{props.data.itemName}</h4>
                       <h5>NT{props.data.itemPrice}</h5>
+                      
                     </Link>
             </div>
           

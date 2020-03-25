@@ -161,15 +161,15 @@
   position: relative;
   padding: 0;
   overflow: hidden;
-  margin-top:50px;
+  margin-top: 50px;
   background: $white;
-  padding:30px;
+  padding: 30px;
   text-align: center;
 }
 .Mao-CartNoItem h3 {
   color: #666;
-  padding:15px;
-  border-bottom:1px solid #666;
+  padding: 15px;
+  border-bottom: 1px solid #666;
 }
 .Mao-Total-Box-none {
   background: none;
@@ -183,8 +183,8 @@
   height: 460px;
   box-shadow: 6px 6px 10px #aaa;
 }
-.Mao-Like-box{
-  width:900px;
+.Mao-Like-box {
+  width: 900px;
 }
 /* fixed */
 .Mao-total-box-fixed {
@@ -346,4 +346,9 @@
 .Mao-ShopCarticon-icon {
   width: 20px;
   height: 20px;
+}
+// for like color
+.Mao-like-red {
+  fill: #e55;
+  stroke: #e55;
 }

@@ -192,6 +192,7 @@ export const AddCartItem = (val, itemId, data) => {
 
 //購物車按鍵
 export const AddCartNewItem_sendcal = (val, data) => {
+  console.log('確認是否有執行')
   return dispatch => {
     let itemIdBox = []
     data.map((v, i) => {
@@ -210,7 +211,7 @@ export const AddCartNewItem_sendcal = (val, data) => {
   }
 }
 
-//加入最愛 目前會出錯 點選加入最愛會出現undefined
+//加入最愛
 export const Handle_AddMyFavorite = (val, product, data) => {
   let truePrice = product.itemPrice.split('$').join('')
   let newProduct = {
@@ -227,7 +228,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
   })
   let newData = [...data]
   return dispatch => {
-    if (val == 'true') {
+    if (val == true) {
       let box = pIdBox.findIndex(e => e == newProduct.itemId)
       //  console.log('dddddd',box)
       if (box == -1) {
@@ -236,7 +237,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
         console.log('false')
         return newData
       }
-    } else if ((val = 'false')) {
+    } else if ((val == false)) {
       let delIndex = pIdBox.findIndex(e => e == newProduct.itemId)
       let delpId = data.filter(e => e !== data[delIndex])
 
