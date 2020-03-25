@@ -76,10 +76,9 @@ router.post('/update', (req, res) => {
     success: false,
     error: '',
     status: 0,
-    body: req,
+    body: req.body,
     result: {},
   }
-  console.log(req.body)
   // return
   const sql =
     'UPDATE `member` SET `Email`=?,`Pwd`=?,`Name`=?,`Gender`=?,`Birthday`=?,`PhoneNumber`=?,`Address`=? WHERE Account=?'
@@ -97,7 +96,7 @@ router.post('/update', (req, res) => {
     .then(r => {
       output.result = r
       output.success = true
-      console.log('result:', r)
+      console.log('result:', output)
       return res.json(output)
     })
     .catch(error => {

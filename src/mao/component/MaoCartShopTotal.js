@@ -62,9 +62,35 @@ function MaoCartShopTotal(props) {
   useEffect(() => {
     CalTotal()
   }, [CalTotal, props.AddItem, props.sTotal])
+
+ 
+  const changeCheckout=(
+    <>
+      <Link className="Mao-total-box-btn" to="/">
+        <div className="Mao-total-show"></div>
+        繼續購物
+      </Link>
+      <Link
+        className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn"
+        to="/OrderInfo"
+      >
+        {CheckrouteName == '/OrderInfo' ? '確認結帳' : '前往結帳'}
+        <div className="Mao-total-show"></div>
+      </Link>
+    </>
+  )
+  const goshopNow=(
+    <>
+      <Link className="Mao-total-box-btn" to="/">
+        <div className="Mao-total-show"></div>
+        繼續購物
+      </Link>
+    </>
+  )
+  const stylechange={height:"390px"}
   const NofixedDisplay = (
     <>
-      <div className="border bg-white Mao-total-box">
+      <div className="Mao-total-box">
         <p className="Mao-total-box-title">
           <b>TOTAL</b>
         </p>
@@ -99,20 +125,7 @@ function MaoCartShopTotal(props) {
           <b>總金額</b>
           <span className="float-right">{props.FinalTotal}</span>
         </p>
-        <Link
-          className="Mao-total-box-btn"
-          to=""
-        >
-        <div className="Mao-total-show"></div>
-          繼續購物
-        </Link>
-        <Link
-          className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn"
-          to="/OrderInfo"
-        >
-          {CheckrouteName == '/OrderInfo' ? '確認結帳' : '前往結帳'}
-        <div className="Mao-total-show"></div>
-        </Link>
+        {CheckrouteName == '/OrderInfo' ? goshopNow : changeCheckout}
       </div>
     </>
   )

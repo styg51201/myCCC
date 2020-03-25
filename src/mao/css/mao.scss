@@ -8,7 +8,10 @@
   width: 300px;
   padding: 5px 10px;
   margin: 0px 10px;
-  transition: 0.3s;
+  transition: 0.1s;
+  border: 1px solid #eee;
+  background: $white;
+  // z-index: -1;
 }
 .Mao-total-box-title {
   border-bottom: 1px solid #ddd;
@@ -16,7 +19,7 @@
 }
 .Mao-total-box-title-info {
   font-size: 15px;
-  z-index: -1;
+  // z-index: -1;
 }
 .Mao-total-box-title-info div {
   margin-bottom: 16px;
@@ -152,24 +155,21 @@
   flex-direction: column;
   list-style-type: none;
 }
-.Mao-ul-title {
-  width: 1000px;
-  border-bottom: 5px solid $blue;
-}
 .Mao-CartNoItem {
-  max-height: 505px;
+  height: 460px;
   width: 1000px;
   position: relative;
   padding: 0;
   overflow: hidden;
+  margin-top:50px;
+  background: $white;
+  padding:30px;
   text-align: center;
 }
 .Mao-CartNoItem h3 {
   color: #666;
-  text-shadow: 5px 5px 5px #999;
-  position: absolute;
-  top: 30%;
-  left: 13%;
+  padding:15px;
+  border-bottom:1px solid #666;
 }
 .Mao-Total-Box-none {
   background: none;
@@ -183,7 +183,9 @@
   height: 460px;
   box-shadow: 6px 6px 10px #aaa;
 }
-
+.Mao-Like-box{
+  width:900px;
+}
 /* fixed */
 .Mao-total-box-fixed {
   opacity: 0;
