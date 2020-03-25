@@ -101,9 +101,9 @@ const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
     return(
         <>
         <div className="chin-historicalrecord">
-        <Link to="">相關商品</Link>
-        <Link to="">歷史紀錄</Link>
-      </div>
+          <Link to="">相關商品</Link>
+          <Link to="">歷史紀錄</Link>
+        </div>
       <div className="chin-relatedproducts">
         <Slider {...settings}>
           {Itemhis.length < 3 ?

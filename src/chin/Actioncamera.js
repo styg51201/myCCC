@@ -6,7 +6,6 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
 //scss
 import './chin-css/items.scss'
 import '../css/main.scss'

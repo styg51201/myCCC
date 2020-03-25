@@ -79,3 +79,12 @@ export const getitemCategoryId = (state = [], action) => {
       return state
   }
 }
+///------------------------chin Itemscompare-------------
+export const getItemscompare = (state=[],action)=>{
+  switch(action.type){
+    case'SHOW_ITEMSCOMPARE':
+      return action.value
+    default:
+      return state
+  }
+}
