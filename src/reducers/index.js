@@ -5,10 +5,10 @@ import {
   getCouponData,
   filterCoupon,
   memberCouponData,
-  memberCouponFilterData,
   adData,
   memberData,
   couponTotal,
+  countdownCouponData,
 } from '../stacey/reducer/couponReducer'
 
 //chin
@@ -20,6 +20,8 @@ import {
   reset,
   getListitemPrice,
   getItemNamehis,
+  getitemCategoryId,
+  getItemscompare,
 } from '../chin/reducer/itemsReducer'
 
 //mao
@@ -55,13 +57,13 @@ import { getMemberID, member } from '../Irene/reducers/memberReducer'
 
 // 合併多個reducer (必要，為了要配合瀏覽器開發外掛使用)
 const rootReducer = combineReducers({
-  memberCouponFilterData,
   memberCouponData,
   getCouponData,
   adData,
   memberData,
   couponTotal,
-  filterCoupon, //sty
+  filterCoupon,
+  countdownCouponData, //sty
   getItems,
   getItemId,
   getMultipleItemId,
@@ -69,6 +71,8 @@ const rootReducer = combineReducers({
   reset,
   getListitemPrice,
   getItemNamehis,
+  getitemCategoryId,
+  getItemscompare,
   //--------- ShopCart------------
   AddItem,
   getRANDitemid,

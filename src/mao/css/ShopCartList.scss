@@ -28,15 +28,15 @@
   width: 100%;
   position: relative;
   padding: 0;
-  background-image: url('/Mao-img/travel1.jpg');
   background-size: cover;
 }
 .Mao-CartNoItem-shoplist h3 {
   color: #666;
-  text-shadow: 5px 5px 5px #999;
-  position: absolute;
-  top: 30%;
-  left: 13%;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 10px;
+  // position: absolute;
+  // top: 30%;
+  // left: 13%;
   z-index: 10;
 }
 .Mao-Like-img-shoplist {
@@ -56,6 +56,7 @@
   justify-content: center;
   align-items: center;
   background: $white;
+  height: 100%;
 }
 .Mao-shopcart-check-item {
   display: flex;
@@ -183,4 +184,64 @@
 }
 .Mao-btn-amount-white-my:hover {
   border: 1px solid #ddd;
+}
+.Mao-rand-AD-title-box {
+  position: relative;
+  overflow: hidden;
+}
+.Mao-rand-AD-title {
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  background: rgba(220, 220, 220, 0.6);
+  letter-spacing: 5px;
+  width: 100%;
+  padding: 20px;
+  bottom: -10px;
+  left: 0;
+  z-index: 999;
+}
+.Mao-rand-AD {
+  width: 350px;
+  height: 500px;
+  overflow: hidden;
+  margin: 0 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  // animation: ADpic 10s;
+  // animation-iteration-count: infinite;
+}
+
+@keyframes ADpic {
+  0% {
+    background-image: url('/Mao-img/01.jpg');
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  25% {
+    background-image: url('/Mao-img/02.jpg');
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  50% {
+    background-image: url('/Mao-img/03.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  75% {
+    background-image: url('/Mao-img/04.jpg');
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  100% {
+    background-image: url('/Mao-img/05.jpg');
+    height: 500px;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 }

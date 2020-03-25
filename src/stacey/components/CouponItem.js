@@ -17,7 +17,7 @@ import {
 
 
 function CouponItem(props){
-  console.log(props)
+ 
 
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
   
@@ -43,6 +43,11 @@ function CouponItem(props){
   let getedCountStyle = {background: `linear-gradient(to right, #0dd2c5 ${getNum}%, #a0a0a0 ${getNum}%)`}
   let endCouponStyle = { background:'#a0a0a0'}
 
+  //設定剩餘張數
+  let canGetNum = null
+  if(props.item.cp_getedCount >= props.item.cp_count * 0.8) {
+     canGetNum = props.item.cp_count - props.item.cp_getedCount
+  }
   
 
   //設定優惠字樣
@@ -129,7 +134,7 @@ function CouponItem(props){
         <>
         <div className={couponClassName}>
               <div className="item">
-        <span className="sty-alertText">還剩 5 張 ! </span>
+        {canGetNum ? <span className="sty-alertText">還剩 {canGetNum} 張 ! </span> : ''}
 
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${props.item.cp_img}`} alt="" />

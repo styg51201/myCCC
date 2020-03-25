@@ -14,7 +14,7 @@ import MemberCouponItem from './components/MemberCouponItem'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {fromServerMemberCouponData,memberCouponFilter} from './actions/couponAction'
+import {fromServerMemberCouponData} from './actions/couponAction'
 
 function MemberCoupon(props) {
 
@@ -29,40 +29,65 @@ function MemberCoupon(props) {
 
   const buttonStyleForGet = classNames({active:state==='get'})
   const buttonStyleForUse = classNames({active:state==='use'})
-  const buttonStyleForEnd = classNames({active:state==='end'})
+  const buttonStyleForDueEndList = classNames({active:state==='dueEnd'})
+
+
+  let useList = []
+  let dueEndList = []
+  let getList = []
+  const today = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()}`
+  const add3days = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()+4}`
+
+  const todayDateTime = (Date.parse(today)).valueOf()
+  const add3daysTime = (Date.parse(add3days)).valueOf()
+
+
+  for(let i=0;i<props.data.length;i++){
+
+    let dueDateTime =  (Date.parse(props.data[i].cp_due)).valueOf()
+
+    if(props.data[i].cpi_use){
+      useList.push(props.data[i])
+    }else if( dueDateTime <= add3daysTime){
+      dueEndList.push(props.data[i])
+    }else{
+      getList.push(props.data[i])
+    }
+  }
+  
+  const getListData = getList.map((val,ind)=>{
+    return <MemberCouponItem key={val.cpi_cp_id} item={val} state={state} />
+  })
+  const useListData = useList.map((val,ind)=>{
+    return <MemberCouponItem key={val.cpi_cp_id} item={val} state={state} />
+  })
+  const dueEndListData = dueEndList.map((val,ind)=>{
+    return <MemberCouponItem key={val.cpi_cp_id} item={val} state={state} />
+  })
+
 
   return (
     <>
       <div className="row wrap">
-        {/* <!-- 側邊篩選欄 --> */}
-        {/* <SideFilter /> */}
-     {/* <div className="col-3">
-       <button onClick={()=>{props.memberCouponFilter(props.data,'get')
-                            setState('get')}}>已領取</button>
-       <button onClick={()=>{props.memberCouponFilter(props.data,'use')
-                            setState('use')}}>已使用</button>
-       <button onClick={()=>{props.memberCouponFilter(props.data,'end')
-                            setState('end')}}>無效</button>
-
-     </div> */}
+       
      <MemberSidebar />
         {/* <!-- 右邊coupon --> */}
         <div className="col col-sm-9">
-        <div className="sty-title mb-3">
+        <div className="sty-memberTitle mb-3">
           <h3>我的優惠券</h3>
           <hr />
-            <button className={buttonStyleForGet} onClick={()=>{props.memberCouponFilter(props.data,'get')
-                                  setState('get')}}>已領取</button>
-            <button className={buttonStyleForUse} onClick={()=>{props.memberCouponFilter(props.data,'use')
-                                  setState('use')}}>已使用</button>
-            <button className={buttonStyleForEnd} onClick={()=>{props.memberCouponFilter(props.data,'end')
-                                setState('end')}}>無效</button>
+            <button className={buttonStyleForGet} onClick={()=>{setState('get')}}>已領取</button>
+            
+            <button className={buttonStyleForDueEndList} onClick={()=>{setState('dueEnd')}}>即將過期
+                                {dueEndListData.length > 0 && <span className="sty-alertNum">{dueEndListData.length}</span>}
+                                </button>
+                                
+            <button className={buttonStyleForUse} onClick={()=>{setState('use')}}>已使用</button>                    
         </div>
           <div className="row">
-           
-            {props.filterData.map((val,ind)=>{
-              return <MemberCouponItem key={val.cpi_cp_id} item={val} state={state} />
-            })}
+            {state === 'get' ? getListData :''}
+            {state === 'dueEnd' ? dueEndListData :''}
+            {state === 'use' ? useListData :''}
           </div>
         </div>
       </div>
@@ -73,12 +98,12 @@ function MemberCoupon(props) {
 // 選擇對應的reducer
 const mapStateToProps = store => {
   return { data: store.memberCouponData,
-            filterData :store.memberCouponFilterData }
+            }
 }
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    fromServerMemberCouponData,memberCouponFilter
+    fromServerMemberCouponData
   },dispatch)
 }
 

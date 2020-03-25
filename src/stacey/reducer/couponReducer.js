@@ -14,6 +14,20 @@ export const getCouponData = (state=[],action)=>{
         return state
     }
   }
+
+  export const countdownCouponData = (state=[],action)=>{
+    switch (action.type){
+      case 'COUNTDOWN_VALUE':
+        return action.value
+      case 'COUNTDOWN_GET':
+        state[action.index].geted = true
+        state[action.index].cp_getedCount+=1
+        return [...state]
+      default :
+        return state
+    }
+  }
+
   
 //優惠券篩選
 export const couponTotal = (state=0,action)=>{

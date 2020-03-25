@@ -4,8 +4,7 @@ import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
-import {withRouter} from 'react-router-dom'
-
+import { withRouter } from 'react-router-dom'
 
 //icons
 // import { IconContext } from 'react-icons'
@@ -16,6 +15,8 @@ import {
   FiHeart,
   FiHome,
 } from 'react-icons/fi'
+
+import $ from 'jquery'
 
 function Header(props) {
   const [scrolled, setScrolled] = useState(false)
@@ -53,40 +54,46 @@ function Header(props) {
         document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
     })
-    
-  }, [])
 
+    //會員登出功能
+    $('.irene_member_logout').click(function() {
+      localStorage.removeItem('userdata')
+      localStorage.removeItem('userId')
+      window.location.replace('http://localhost:3000/memberlogin')
+    })
+  }, [])
 
   const inputRef = useRef(null)
 
-  const handleOpenSearch = ()=>{
-    if(!openSearch){
+  const handleOpenSearch = () => {
+    if (!openSearch) {
       setOpenSearch(true)
       inputRef.current.focus()
     }
   }
-  
-  const handleSearch = (evt)=>{
-    if(evt.key === 'Enter'){
-      if(!evt.target.value.trim().length){
+
+  const handleSearch = evt => {
+    if (evt.key === 'Enter') {
+      if (!evt.target.value.trim().length) {
         //console.log('沒有值')
-        return;
+        return
       }
       setOpenSearch(false)
       props.history.push(`/search?key=${evt.target.value}`)
     }
   }
 
-  const handleSearchBlur = (evt)=>{
+  const handleSearchBlur = evt => {
     //console.log(evt.target)
     setOpenSearch(false)
     setSearchTxt('')
   }
 
-  const handleSearchText = (evt)=>{
+  const handleSearchText = evt => {
     setSearchTxt(evt.target.value)
   }
-
+  const memberstate = localStorage.getItem('userdata')
+  console.log('memberstate', memberstate)
   const navbar = (
     <>
       <div className="chin-black">
@@ -168,20 +175,22 @@ function Header(props) {
         <div className="chin-product">
           <div className="nav-icons-wrapper">
             <div className="nav-icons">
-              <div role='button' 
-              className='bk-search' 
-              //ref={searchRef}
-               >
+              <div
+                role="button"
+                className="bk-search"
+                //ref={searchRef}
+              >
                 <FiSearch onClick={handleOpenSearch} />
-                <input type='text' 
-                className={openSearch ? 'active' : ''}
-                onKeyDown={handleSearch}
-                onBlur={handleSearchBlur}
-                onChange={handleSearchText}
-                value={searchTxt}
-                placeholder='搜尋商品'
-                ref={inputRef}
-                 />
+                <input
+                  type="text"
+                  className={openSearch ? 'active' : ''}
+                  onKeyDown={handleSearch}
+                  onBlur={handleSearchBlur}
+                  onChange={handleSearchText}
+                  value={searchTxt}
+                  placeholder="搜尋商品"
+                  ref={inputRef}
+                />
               </div>
             </div>
           </div>
@@ -230,11 +239,27 @@ function Header(props) {
                 <FiHeart />
               </div>
             </Link>
-            <Link to="/memberlogin">
-              <div className="nav-icons">
-                <FiUser />
-              </div>
-            </Link>
+            {/* 會員依照登入狀態icon功能不同，登入連會員中心，未登入連登入畫面 */}
+            {memberstate ? (
+              <Link to="/memberedit">
+                <div className="nav-icons">
+                  <FiUser />
+                </div>
+              </Link>
+            ) : (
+              <Link to="/memberlogin">
+                <div className="nav-icons">
+                  <FiUser />
+                </div>
+              </Link>
+            )}
+            {memberstate ? (
+              <Link to="/memberlogin" class="irene_member_logout">
+                登出
+              </Link>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </Container>

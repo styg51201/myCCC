@@ -69,14 +69,14 @@ button {
   animation-name: sceOne;
   animation-duration: 10s;
   animation-iteration-count: infinite;
-  animation-delay: -1s;
+  animation-delay: -8s;
 }
 
 .sec-ten {
   animation-name: sceTen;
   animation-duration: 60s;
   animation-iteration-count: infinite;
-  animation-delay: -20s;
+  animation-delay: -57s;
 }
 
 .min-one {
@@ -90,7 +90,14 @@ button {
   animation-name: minTen;
   animation-duration: 3600s;
   animation-iteration-count: infinite;
-  animation-delay: -3670s;
+  animation-delay: -1270s;
+}
+
+.hour-one {
+  animation-name: hourOne;
+  animation-duration: 36000s;
+  animation-iteration-count: infinite;
+  animation-delay: -22270s;
 }
 
 @keyframes sceOne {
@@ -128,59 +135,6 @@ button {
     transform: translateY(-300px);
   }
 }
-
-// @keyframes sceTen {
-//   0% {
-//     transform: translateY(0px);
-//   }
-//   1% {
-//     transform: translateY(-30px);
-//   }
-//   16.66% {
-//     //10秒
-//     transform: translateY(-30px);
-//   }
-//   18.33% {
-//     //11秒
-//     transform: translateY(-60px);
-//   }
-//   33.33% {
-//     //20秒
-//     transform: translateY(-60px);
-//   }
-//   35% {
-//     //21秒
-//     transform: translateY(-90px);
-//   }
-//   50% {
-//     //30秒
-//     transform: translateY(-90px);
-//   }
-//   51.66% {
-//     //31秒
-//     transform: translateY(-120px);
-//   }
-//   66.66% {
-//     //40秒
-//     transform: translateY(-120px);
-//   }
-//   68.33% {
-//     //41秒
-//     transform: translateY(-150px);
-//   }
-//   83.33% {
-//     //50秒
-//     transform: translateY(-150px);
-//   }
-//   85% {
-//     //51秒
-//     transform: translateY(-180px);
-//   }
-//   100% {
-//     //60秒
-//     transform: translateY(-180px);
-//   }
-// }
 
 @keyframes sceTen {
   0% {
@@ -351,5 +305,71 @@ button {
   100% {
     //60秒
     transform: translateY(-180px);
+  }
+}
+
+@keyframes hourOne {
+  0% {
+    transform: translateY(0px);
+  }
+  9.99722% {
+    transform: translateY(0px);
+  }
+  10% {
+    transform: translateY(-30px);
+  }
+  19.99722% {
+    transform: translateY(-30px);
+  }
+  20% {
+    transform: translateY(-60px);
+  }
+  29.99722% {
+    transform: translateY(-60px);
+  }
+  30% {
+    transform: translateY(-90px);
+  }
+  39.99722% {
+    transform: translateY(-90px);
+  }
+  40% {
+    transform: translateY(-120px);
+  }
+  49.99722% {
+    transform: translateY(-120px);
+  }
+  50% {
+    transform: translateY(-150px);
+  }
+  59.99722% {
+    transform: translateY(-150px);
+  }
+  60% {
+    transform: translateY(-180px);
+  }
+  69.99722% {
+    transform: translateY(-180px);
+  }
+  70% {
+    transform: translateY(-210px);
+  }
+  79.99722% {
+    transform: translateY(-210px);
+  }
+  80% {
+    transform: translateY(-240px);
+  }
+  89.99722% {
+    transform: translateY(-240px);
+  }
+  90% {
+    transform: translateY(-270px);
+  }
+  99.99722% {
+    transform: translateY(-270px);
+  }
+  100% {
+    transform: translateY(-300px);
   }
 }

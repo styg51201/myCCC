@@ -125,10 +125,10 @@ export const updateServerMember = val => {
     const request = new Request('http://localhost:5500/member/update', {
       method: 'POST',
       credentials: 'include',
-      // headers: new Headers({
-      //   Accept: 'application/json',
-      //   'Content-Type': 'application/json',
-      // }),
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
       body: JSON.stringify(val),
     })
     // console.log('datafromlocalstorage', datafromlocalstorage.username)

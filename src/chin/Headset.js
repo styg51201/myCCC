@@ -27,8 +27,7 @@ function Headset(props) {
     'HEADPHONE/SPEAKER'
   )
   const [commodity, setCommdity] = useState(false)
-  console.log(props)
-  console.log(data)
+  document.documentElement.scrollTop = document.body.scrollTop =0;
 
   const itemlist = data.map((val, ind) => {
     if (Headset.indexOf(val.name) > -1) {
