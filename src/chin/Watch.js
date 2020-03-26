@@ -47,7 +47,9 @@ function Watch(props) {
   // const commodityItems =
   useEffect(() => {
     props.formServerItemsData('watch')
-    props.ResetListItemName()
+   
+    return ()=> props.ResetListItemName()
+    
   }, [])
 
 
@@ -112,7 +114,8 @@ function Watch(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
            watch: store.getListitemName,
-           compares:store.getItemscompare,}
+           compares:store.getItemscompare,
+          rest:store.rest}
 }
 
 //action

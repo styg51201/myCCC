@@ -30,10 +30,11 @@ export const getMultipleItemId = (state = [], action) => {
 export const getListitemName = (state = [], action) => {
   switch (action.type) {
     case 'ITEMNAME_VALUE':
-      console.log('77777',action.value )
+      console.log('新增',action.value )
       return action.value
     case 'ITEMNAME_RESET':
-      return []
+      console.log('清空')
+      return action.value
     default:
       return state
   }
@@ -48,6 +49,19 @@ export const reset = (state =true, action) => {
       return state
   }
 }
+
+//------------------chin 是否顯示優惠------------------------
+
+
+export const showDiscount = (state = false, action) => {
+  switch (action.type) {
+    case 'SHOW_DISCOUNT':
+      return action.value
+    default:
+      return state
+  }
+}
+
 
 //------------------chin Price------------------------
 export const getListitemPrice = (state = [], action) => {
