@@ -34,10 +34,10 @@ function OrderInfo(props) {
   const [errors, setErrors] = useState({
     buyerName: '',
     mobile: '',
-    buyerAdress: '請選擇門市',
-    invoice: '請選擇發票類型',
-    shipping: '請選擇取貨超商',
-    payment: '請選擇付款方式',
+    buyerAdress: '',
+    invoice: '',
+    shipping: '',
+    payment: '',
   })
 
   const [openCard, setOpenCard] = useState(false)
@@ -339,7 +339,7 @@ const quickInsertInfo = demobox.map((v, i) => {
     buyerInfo.orderId = order
   }, [ order])
   const [errorBox,setErrorBox]=useState([
-    'buyerName','mobile','shipping','payment','invoice'
+    'buyerName','mobile','buyerAdress','shipping','payment','invoice'
   ])
   // useEffect(() => {
   //   console.log('buyerInfo2', buyerInfo)
@@ -381,10 +381,31 @@ const quickInsertInfo = demobox.map((v, i) => {
         position: 'center',
       }) 
     }else{
-      console.log(Object.keys(errors))
+      console.log('我是keys',Object.keys(errors))
+      console.log('我是errorBox',errorBox)
       let getKey=Object.keys(errors)
       errorBox.map((v,i)=>{
-        getKey
+        console.log('look at me ==',v)
+        switch(v){
+          case 'buyerName':
+            setErrors({...errors,buyerName:'請填寫姓名'})
+            break
+          case 'mobile':
+            setErrors({...errors,mobile:'請填寫電話'})
+            break
+          case 'buyerAdress':
+            setErrors({...errors,buyerAdress:'請選擇門市'})
+            break
+            case 'shipping':
+              setErrors({...errors,shipping:'請選擇取貨超商'})
+              break
+            case 'payment':
+              setErrors({...errors,payment:'請選擇付款方式'})
+            case 'invoice':
+              setErrors({...errors,invoice:'請選擇發票類型'})
+              default:
+                break
+        }
       })
     }
     
