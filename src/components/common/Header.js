@@ -14,6 +14,7 @@ import {
   FiShoppingBag,
   FiHeart,
   FiHome,
+  FiLogOut,
 } from 'react-icons/fi'
 
 import $ from 'jquery'
@@ -22,46 +23,53 @@ function Header(props) {
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [searchTxt, setSearchTxt] = useState('')
+  const [member, setMember] = useState(true)
 
-  useEffect(() => {
-    const product = document.querySelector('.chin-bigtitle img').offsetTop
-    const height = product - 20
-    window.addEventListener('scroll', () => {
-      const isTop = window.scrollY < height
-      if (isTop !== true) {
-        setScrolled(true)
-        document
-          .querySelector('.chin-three-position')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position2')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position3')
-          .classList.add('chin-three-positioncome')
-        document.querySelector('.chin-black').classList.add('chin-blackcome')
-      } else {
-        setScrolled(false)
-        document
-          .querySelector('.chin-three-position')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position2')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position3')
-          .classList.remove('chin-three-positioncome')
-        document.querySelector('.chin-black').classList.remove('chin-blackcome')
-      }
-    })
+  // useEffect(() => {
+  //   const product = document.querySelector('.chin-bigtitle img').offsetTop
+  //   const height = product - 20
+  //   window.addEventListener('scroll', () => {
+  //     const isTop = window.scrollY < height
+  //     if (isTop !== true) {
+  //       setScrolled(true)
+  //       document
+  //         .querySelector('.chin-three-position')
+  //         .classList.add('chin-three-positioncome')
+  //       document
+  //         .querySelector('.chin-three-position2')
+  //         .classList.add('chin-three-positioncome')
+  //       document
+  //         .querySelector('.chin-three-position3')
+  //         .classList.add('chin-three-positioncome')
+  //       document
+  //         .querySelector('.chin-three-position4')
+  //         .classList.add('chin-three-positioncome')
+  //       document.querySelector('.chin-black').classList.add('chin-blackcome')
+  //     } else {
+  //       setScrolled(false)
+  //       document
+  //         .querySelector('.chin-three-position')
+  //         .classList.remove('chin-three-positioncome')
+  //       document
+  //         .querySelector('.chin-three-position2')
+  //         .classList.remove('chin-three-positioncome')
+  //       document
+  //         .querySelector('.chin-three-position3')
+  //         .classList.remove('chin-three-positioncome')
+  //       document
+  //         .querySelector('.chin-three-position4')
+  //         .classList.remove('chin-three-positioncome')
+  //       document.querySelector('.chin-black').classList.remove('chin-blackcome')
+  //     }
+  //   })
 
     //會員登出功能
-    $('.irene_member_logout').click(function() {
-      localStorage.removeItem('userdata')
-      localStorage.removeItem('userId')
-      window.location.replace('http://localhost:3000/memberlogin')
-    })
-  }, [])
+  //   $('.irene_member_logout').click(function() {
+  //     localStorage.removeItem('userdata')
+  //     localStorage.removeItem('userId')
+  //     window.location.replace('http://localhost:3000/memberlogin')
+  //   })
+  // }, [])
 
   const inputRef = useRef(null)
 
@@ -92,8 +100,8 @@ function Header(props) {
   const handleSearchText = evt => {
     setSearchTxt(evt.target.value)
   }
-  const memberstate = localStorage.getItem('userdata')
-  console.log('memberstate', memberstate)
+  let memberstate = localStorage.getItem('userdata')
+  // console.log('memberstate', memberstate)
   const navbar = (
     <>
       <div className="chin-black">
@@ -141,13 +149,38 @@ function Header(props) {
         </Container>
       </div>
       <div>
-        <Link to="/memberlogin">
-          <img
-            src="./img/header-footer/user.svg"
-            alt=""
-            className="chin-three-position"
-          />
-        </Link>
+        {!memberstate ? (
+          <Link to="/memberedit">
+            <img
+              src="./img/header-footer/user.svg"
+              alt=""
+              className="chin-three-position"
+            />
+          </Link>
+        ) : (
+          <Link to="/memberlogin">
+            <img
+              src="./img/header-footer/user.svg"
+              alt=""
+              className="chin-three-position"
+            />
+          </Link>
+        )}
+        {!memberstate ? (
+          <Link to="/memberlogin">
+            <div className="chin-three-position4 irene_member_logout">
+              <FiLogOut
+                style={{
+                  width: '24px',
+                  height: '24px',
+                  color: 'black',
+                }}
+              />
+            </div>
+          </Link>
+        ) : (
+          ''
+        )}
         <Link to="/ShopCartList/:id?">
           <img
             src="./img/header-footer/shopping-bag.svg"

@@ -189,6 +189,12 @@
   position: relative;
   overflow: hidden;
 }
+.Mao-rand-AD-title-box:hover {
+  opacity: 0.7;
+}
+.Mao-rand-AD-title-box:hover .Mao-rand-AD-title {
+  opacity: 1;
+}
 .Mao-rand-AD-title {
   display: flex;
   justify-content: center;
@@ -199,7 +205,8 @@
   padding: 20px;
   bottom: -10px;
   left: 0;
-  z-index: 999;
+  z-index: 1;
+  color: $black;
 }
 .Mao-rand-AD {
   width: 350px;

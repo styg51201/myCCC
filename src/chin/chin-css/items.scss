@@ -296,35 +296,49 @@ input[type='checkbox'] {
   justify-content: flex-end;
   flex-direction: row;
   width: 100%;
-  padding-right: 50px;
   position: fixed;
   left: 0;
   bottom: 0;
   background: #c7c7c7;
-  height: 120px;
   z-index: 2;
+}
+.chin-itemcompares {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 .chin-compares {
   display: flex;
   align-items: center;
   padding-left: 20px;
-  width: 310px;
+  width: 100%;
   height: 120px;
   border-right: 1px solid #050505;
-  border-left: 1px solid #050505;
+  position: relative;
 }
 .chin-compares span {
   font-size: 15px;
   margin: 0 auto;
+  padding: 25px;
 }
-.chin-compares img {
+.chin-watch3 {
   width: 75px;
   height: 75px;
   border-radius: 50%;
 }
+.chin-x {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 20px;
+  height: 20px;
+}
 .chin-button-compares {
   display: flex;
   flex-direction: column;
+  width: 250px;
+  height: 120px;
+  padding: 20px 30px;
 }
 .chin-button-compares button {
   margin: 5px;

@@ -13,6 +13,7 @@ import {
   NewTimeSort,
   HotItemsSort,
   AllItemsSort,
+  ResetListItemNameCom,
 } from '../actions/itemsActions'
 
 function CompareProductSort(props) {
@@ -34,7 +35,8 @@ function CompareProductSort(props) {
             <button className="chin-rwd-sort">排序方式</button>
         </div>
         <div className="chin-comparegoods-sort">
-            <button className="chin-comparegoods" onClick={()=>{props.sendText(!props.test)}}>
+            <button className="chin-comparegoods" onClick={()=>{props.sendText(!props.test)
+                                                                props.ResetListItemNameCom()}}>
                 <span>比較商品</span>
                 <img src="./chin-img/align-justify.svg" alt=""/>
             </button>
@@ -86,6 +88,7 @@ const mapDispatchToProps = dispatch => {
       NewTimeSort,
       HotItemsSort,
       AllItemsSort,
+      ResetListItemNameCom,
     },
     dispatch
   )

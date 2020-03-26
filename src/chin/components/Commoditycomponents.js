@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -13,6 +13,7 @@ import {
 
 function Commoditycomponents(props){
     // console.log('Commmm',props)
+    const [test,setTest] = useState(false)
     return(
         <>
               <div className="chin-commodity-item">
@@ -24,7 +25,7 @@ function Commoditycomponents(props){
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
                         <li className="chin-heart-bag">
                             <img className="chin-heart" src="./chin-img/heart.svg" alt="" onClick={()=>{
-                                props.Handle_AddMyFavorite('true', props.data, props.MyFavorite)
+                                props.Handle_AddMyFavorite(!test, props.data, props.MyFavorite) 
                             }}
                                 
                             />

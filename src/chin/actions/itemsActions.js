@@ -154,7 +154,45 @@ export const Itemscompare = val => {
 export const formServerItemscompare = (val,data) => {
   console.log(val,data)
   return dispatch =>{
-      let newdata = [...data,val]
+    let newdata = [val,...data]
   dispatch(Itemscompare(newdata))
   }
+}
+export const Delcompare = value => ({ type: 'DEL_ITEMSCOMPARE', value: value })
+export const DelItemscompare = (ind, data) => {
+  console.log(ind)
+  return dispatch => {
+    let newitemscompare = data.filter(e => e !== data[ind])
+    console.log(newitemscompare)
+    dispatch(Delcompare(newitemscompare))
+  }
+}
+export const AddMyFavorite = value => ({ type: 'NP_COMPARE', value: value })
+export const ItemscompareNo = (val, product, data) => {
+  console.log(val, product, data)
+  let pIdBox = []
+  data.map((v, i) => {
+    pIdBox.push(v.itemId)
+  })
+  let newData = [...data]
+  return dispatch => {
+    if (val == true) {
+      if(newData.length<4){
+        newData.push(product)
+      }else{
+         newData=data
+      }
+    } else if (val == false) {
+      let delIndex = pIdBox.findIndex(e => e == product.itemId)
+      let delpId = data.filter(e => e !== data[delIndex])
+      newData = [...delpId]
+    } else {
+      return newData
+    }
+    dispatch(AddMyFavorite(newData))
+  }
+}
+  export const ResetListItemNameCom = (obj, val) => {
+    const newdata = []
+    return { type: 'ITEMNAME_RESETCOM', value: newdata }
   }

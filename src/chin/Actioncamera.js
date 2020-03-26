@@ -25,7 +25,7 @@ function Actioncamera(props) {
     'ACTION CAMERA'
   )
   const [commodity, setCommdity] = useState(false)
-  document.documentElement.scrollTop = document.body.scrollTop =0;
+  // document.documentElement.scrollTop = document.body.scrollTop =0;
   const itemlist = props.data.map((val, ind) => {
     if (props.actioncamera.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />

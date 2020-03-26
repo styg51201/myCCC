@@ -1,18 +1,21 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { Link} from 'react-router-dom'
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemscompare } from '../actions/itemsActions'
+import { formServerItemscompare,ItemscompareNo} from '../actions/itemsActions'
+import { Popper } from '@material-ui/core'
 
 function Commoditycomponents(props){
-    const compare = function (e){
-        props.formServerItemscompare(props.data,props.compare)
-    }
+  const [compatrtrue,setCompatrtrue]=useState(false)
     return(
         <>
-            <div className="chin-commodity-item" onClick={(e)=>compare(e)}>
+            <div className="chin-commodity-item" onClick={()=>{
+                                                          props.formServerItemscompare(props.data,props.compare)
+                                                          props.ItemscompareNo(!compatrtrue,props.data,props.compare)
+                                                          setCompatrtrue(!compatrtrue)
+                                                          }}>
                 <div className="chin-commodity-item-watch">
                     <img src="./chin-img/plus.svg"/>
                 </div>
@@ -27,7 +30,7 @@ function Commoditycomponents(props){
     )
 }
 const mapStateToProps = store => {
-    return { compare: store.getItemscompare }
+    return { compare: store.getItemscompare}
   }
   
   //action
@@ -35,6 +38,7 @@ const mapStateToProps = store => {
     return bindActionCreators(
       {
         formServerItemscompare,
+        ItemscompareNo,
       },
       dispatch
     )
