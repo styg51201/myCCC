@@ -30,10 +30,11 @@ export const getMultipleItemId = (state = [], action) => {
 export const getListitemName = (state = [], action) => {
   switch (action.type) {
     case 'ITEMNAME_VALUE':
-      console.log('77777',action.value )
+      console.log('新增',action.value )
       return action.value
     case 'ITEMNAME_RESET':
-      return []
+      console.log('清空')
+      return action.value
     default:
       return state
   }
@@ -48,6 +49,19 @@ export const reset = (state =true, action) => {
       return state
   }
 }
+
+//------------------chin 是否顯示優惠------------------------
+
+
+export const showDiscount = (state ={isShow:false,value:{}}, action) => {
+  switch (action.type) {
+    case 'SHOW_DISCOUNT':
+      return action.value
+    default:
+      return state
+  }
+}
+
 
 //------------------chin Price------------------------
 export const getListitemPrice = (state = [], action) => {
@@ -84,28 +98,14 @@ export const getItemscompare = (state=[],action)=>{
   console.log(action)
   console.log(state)
   switch(action.type){
-    case'SHOW_ITEMSCOMPARE':
-      return action.value
     case'DEL_ITEMSCOMPARE':
       return action.value
-    default:
-      return state
-  }
-}
-export const getcompare = (state = [], action) => {
-  // console.log('I am favor ==', action)
-  switch (action.type) {
     case 'NP_COMPARE':
       return action.value
-    default:
-      return state
-  }
-}
-//---------------------------------------------------------
-export const resetcom = (state =true, action) => {
-  switch (action.type) {
-    case 'NO_RESET':
+    case 'SELECT_ITEMSCOMPARE':
       return action.value
+    case 'ITEMNAME_RESETCOM':
+      return []
     default:
       return state
   }

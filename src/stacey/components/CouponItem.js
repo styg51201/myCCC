@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {getCouponToServer,getCoupon,goShopping,noReset} from '../actions/couponAction'
+import {getCouponToServer,getCoupon,goShopping,noReset,showDiscountAction} from '../actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
@@ -119,14 +119,10 @@ function CouponItem(props){
                         <span>{couponState}</span>
                      </button>)
   let shopButton = (<button onClick={()=>{
-    props.noReset(false)
-    props.goShopping(props.item.cp_vendor) 
-    props.history.push(path)
-    setTimeout(()=>{
-      props.noReset(true)
-    },2000)
-
-  }}>
+                      props.showDiscountAction(true,props.item)
+                      props.goShopping(props.item.cp_vendor) 
+                      props.history.push(path)
+                    }}>
                       <span>{couponState}</span>
                     </button>)
 
@@ -173,7 +169,7 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    getCouponToServer,getCoupon,goShopping,noReset
+    getCouponToServer,getCoupon,goShopping,noReset,showDiscountAction,
   },dispatch)
 }
 

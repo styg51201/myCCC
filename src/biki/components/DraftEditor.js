@@ -5,7 +5,7 @@ import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
 import TagBlock from './EditorComponents/TagBlock'
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 //utils for media rendering
 import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
@@ -209,15 +209,20 @@ function DraftEditor(props){
             if(c.blocks[i].type === 'atomic') flag = true
         }
         if(!str.trim().length && !flag){
-            // console.log(title)
-            // console.log("no content")
             Swal.fire({
                 position: 'top-end',
                 icon: 'warning',
                 text: '請填寫內容',
-                showConfirmButton: false,
-                timer: 1500,
+                confirmButtonText: '確定',
+                buttonsStyling: false,
+                showConfirmButton: true,
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    icon: 'bk-swl-icon',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             return false;
         }else if(title === '' || !title.trim().length){
@@ -226,9 +231,16 @@ function DraftEditor(props){
                 position: 'top-end',
                 icon: 'warning',
                 text: '請填寫標題',
-                showConfirmButton: false,
-                timer: 1500,
+                confirmButtonText: '確定',
+                showConfirmButton: true,
+                buttonsStyling: false,
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    icon: 'bk-swl-icon',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             return false;
         }
@@ -266,13 +278,20 @@ function DraftEditor(props){
             position: 'top-end',
             icon: 'success',
             text: '上傳成功',
-            showConfirmButton: false,
-            timer: 1500,
+            confirmButtonText: '確定',
+            showConfirmButton: true,
+            buttonsStyling: false,
+            // timer: 1500,
             position:'center',
-          })  
-        setTimeout(()=>{
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
+          })
+          .then(r=>{
             props.history.push('/stories')
-        }, 1500)
+          })
         return;
     }
 
@@ -294,13 +313,21 @@ function DraftEditor(props){
             position: 'top-end',
             icon: 'success',
             text: '儲存成功',
-            showConfirmButton: false,
-            timer: 1500,
+            confirmButtonText: '確定',
+            showConfirmButton: true,
+            buttonsStyling: false,
+            // timer: 1500,
             position:'center',
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
           })  
-        setTimeout(()=>{
+          .then(result=>{
             props.history.push('/member/stories/drafts')
-        }, 1500)
+            console.log(result)
+          })
     }
 
     //focus back to editor after img insert

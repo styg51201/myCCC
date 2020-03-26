@@ -4,11 +4,12 @@ import {Link} from 'react-router-dom'
 // import chunk from 'lodash/chunk';
 // import {throttle} from 'lodash';
 import {useSpring, animated} from 'react-spring'
-// import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
+import {Parallax, Background } from 'react-parallax'
 
+import 'animate.css/animate.min.css'
 import './css/all.scss'
 import './css/home.scss'
-import 'animate.css/animate.min.css'
+import './css/homeRWD.scss'
 
 import FeaturedProducts from './components/FeaturedProducts'
 import Collection from './components/Collection'
@@ -16,35 +17,70 @@ import AdSlide from './components/AdSlide'
 
 function Home(){
 
-    const [loaded, setLoaded] = useState(false)
-    const [adNum, setAdNum] = useState(0);
-    const [docHeight, setDocHeight] = useState(0)
+    const [loaded, setLoaded] = useState(false) //for loading animation 還沒做
+    const [adNum, setAdNum] = useState(0); //for ad slides
+    const [docWidth, setDocWidth] = useState(window.innerWidth)
+    const [showMouse, setShowMouse] = useState(true)
+
+    const [props, set] = useSpring(()=>({
+        offset: 0,
+        // offsetSlide: 0
+        // opacity: 0
+    }))
+
+    const parallaxRef = useRef()
+    const mouseRef = useRef()
+    // const slideRef = useRef()
 
     useEffect(()=>{
         setTimeout(()=>{
             setLoaded(true)
         })
+
         window.addEventListener('scroll', handleScroll)
+        window.addEventListener('resize', handleWindowResize)
 
         return ()=>{
             window.removeEventListener('scroll', handleScroll)
+            window.removeEventListener('resize', handleWindowResize)
         }
-
     }, [])
-
-
-    const parallaxRef = useRef()
-    const [{offset}, set] = useSpring(()=>({offset: 0}))
 
     const handleScroll = ()=>{
         const posY = parallaxRef.current.getBoundingClientRect().top
         const offset = posY - window.pageYOffset
-        console.log(offset)
+        // console.log(offset)
         set({offset})
+
+        const opacity = window.pageYOffset - posY
+        set({opacity})
+        // console.log(opacity)
+
+        const mouseY = mouseRef.current.getBoundingClientRect().top
+        const offsetMouse = mouseY - window.pageYOffset
+        
+        // const slideY = slideRef.current.getBoundingClientRect().top
+        // const offsetSlide = window.pageYOffset - slideY
+        // set({offsetSlide})
+        // console.log(offsetSlide)
+
+
+        if(offsetMouse < 0){
+            // console.log('hide mouse!')
+            setShowMouse(false)
+        }else{
+            setShowMouse(true)
+        }
     }
 
     const calc = o => `translateY(${o* 0.1}px)`;
     const calc2 = o => `translateY(${o* 0.1 * 0.5}px)`;
+
+    //------之後把handleScroll拿掉用的
+    const handleWindowResize = ()=>{
+        console.log(window.innerWidth)
+        setDocWidth(window.innerWidth)
+    }
 
     //假資料
     const arr=[
@@ -105,20 +141,26 @@ function Home(){
         })
     }
 
-
 const parallax = useRef()
 
     return(
         <>
         <div className='bk-home-container'>
-            <section className="bk-home-slider">
-                <div className='bk-slides'>
-                    <img src="./biki-img/josh-nuttall-uNQ-TTg_qNY-unsplash_.jpg" />
-                    <div className='bk-slide-content'>
+            <section className="bk-home-slider" >
+                <Parallax
+                    bgImage={"./biki-img/josh-nuttall-uNQ-TTg_qNY-unsplash_.jpg"}
+                    bgImageAlt='TRIPLEC'
+                    strength={600}
+                    className='bk-slides'
+                    contentClassName='bk-slide-content'
+                >
+                    {/* <div className='bk-slide-content'> */}
                         Hello~
-                    </div>
-                </div>
-                <div className='bk-mouse animated fadeIn' onScroll={handleScroll}>
+                    {/* </div> */}
+                </Parallax>
+                <div className={`bk-mouse animated ${showMouse ? 'fadeInDown' : 'fadeOutUp'}`}
+                    ref={mouseRef}
+                >
                     <div className='bk-mouse-ball animated fadeOutDown infinite'></div>
                 </div>
             </section>
@@ -150,7 +192,7 @@ const parallax = useRef()
                                      onClick={()=>{
                                         setAdNum(idx)
                                     }}
-                                    className={adNum === idx && 'active'}
+                                    className={adNum === idx ? 'active' : ''}
                                     ></li>
                                 )
                             })}
@@ -158,34 +200,60 @@ const parallax = useRef()
                     </div>
                 </Container>
             </section>
-            <section className="bk-featured-products" ref={parallaxRef}>
+            <section className="bk-featured-products" 
+                ref={parallaxRef} >
+                {/* <animated.div className='bk-featured-bg' 
+                style={{
+                    opacity: props.opacity.interpolate(value => `${value * (0.001)}`)
+                }} 
+                /> */}
                 <Container>
                     <Row className='bk-featured-wrapper row-cols-xl-3 row-cols-md-2 row-cols-1'>
-                        <animated.div style={{transform: offset.interpolate(calc)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/SONY 重低音降噪藍牙耳罩式耳機 WH-XB900N/0.jpg`}
                                 url='/commidty/116'
+                                data={{
+                                    brand: 'SONY',
+                                    name: 'SONY 重低音降噪藍牙耳罩式耳機 WH-XB900N',
+                                    price: 'NT$26,990'
+                                }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc2)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc2)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/繽特力 Plantronics Voyager 6200UC 雙向降噪藍牙耳機 白色/0.jpg`}
                                 url='/commidty/171'
+                                data={{
+                                    brand: 'Plantronics繽特力',
+                                    name: '繽特力 Plantronics Voyager 6200UC 雙向降噪藍牙耳機 白色',
+                                    price: 'NT$12,800'
+                                }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/GoPro-HERO8 Black全方位運動攝影機 單車騎士升級組/0.jpg`}
                                 url='/commidty/161'
+                                data={{
+                                    brand: 'GoPro',
+                                    name: 'GoPro-HERO8 Black全方位運動攝影機 單車騎士升級組',
+                                    price: 'NT$23,154'
+                                }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/Mavic Mini 充電管家/0.jpg`}
                                 url='/commidty/191'
+                                data={{
+                                    brand: 'DJI',
+                                    name: 'Mavic Mini 充電管家',
+                                    price: 'NT$12,659'
+                                }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc2)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc2)}}>
                         <Col>
                             <div className="bk-featured-product-item bk-box">
                                 <div className="bk-box-content">
@@ -196,28 +264,48 @@ const parallax = useRef()
                             </div>
                         </Col>
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/小米手環34 腕帶 替換帶 尼龍編織回環式錶帶 透氣舒適 運動智能錶帶/0.jpg`}
                                 url='/commidty/191'
+                                data={{
+                                    brand: 'DJI',
+                                    name: 'Mavic Mini 充電管家',
+                                    price: 'NT$12,659'
+                                }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/HTR 螺旋槳4726F 金銀槳 For Mavic Mini/0.jpg`}
                                 url='/commidty/191'
+                                data={{
+                                    brand: 'DJI',
+                                    name: 'Mavic Mini 充電管家',
+                                    price: 'NT$12,659'
+                                }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc2)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc2)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/SONY 運動藍牙入耳式耳機 WI-SP500/0.jpg`}
                                 url='/commidty/191'
+                                data={{
+                                    brand: 'DJI',
+                                    name: 'Mavic Mini 充電管家',
+                                    price: 'NT$12,659'
+                                }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: offset.interpolate(calc)}}>
+                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/Holy Stone HS210 迷你遙控飛機-三電版/0.jpg`}
                                 url='/commidty/191'
+                                data={{
+                                    brand: 'DJI',
+                                    name: 'Mavic Mini 充電管家',
+                                    price: 'NT$12,659'
+                                }}
                             />
                         </animated.div>
                     </Row>

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   BrowserRouter as Router,
   Route,
@@ -7,7 +6,6 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
 //scss
 import './chin-css/items.scss'
 import '../css/main.scss'
@@ -16,66 +14,51 @@ import Commoditycomponents2 from './components/Commoditycomponents2'
 import Commoditycomponents from './components/Commoditycomponents'
 import Commoditylist from './components/Commoditylist'
 import CompareProductSort from './components/CompareProductSort'
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
 function Surrounding(props) {
   const [englishnameSurrounding, setEnglishnameSurrounding] = useState(
     'SURROUNDING'
   )
   const [commodity, setCommdity] = useState(false)
-  const dispatch = useDispatch()
-  const data = useSelector(state => state.getItems)
-  const Surrounding = useSelector(state => state.getListitemName)
-  document.documentElement.scrollTop = document.body.scrollTop =0;
-  const itemlist = data.map((val, ind) => {
-    if (Surrounding.indexOf(val.name) > -1) {
+  // document.documentElement.scrollTop = document.body.scrollTop =0;
+  const itemlist = props.data.map((val, ind) => {
+    if (props.surrounding.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allitemlist = data.map((val, ind) => {
+  const allitemlist = props.data.map((val, ind) => {
     return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
   })
-  const commodityItems = data.map((val, ind) => {
-    if (Surrounding.indexOf(val.name) > -1) {
+  const commodityItems = props.data.map((val, ind) => {
+    if (props.surrounding.indexOf(val.name) > -1) {
       return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allcommodityItems = data.map((val, ind) => {
+  const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
   })
-  const showItems = val => {
-    return { type: 'SHOW_ITEMS', value: val }
-  }
-  //跟node要資料
-  async function formServerItemsData(val) {
-    const request = new Request(`http://localhost:5500/items/${val}`, {
-      method: 'GET',
-      credentials: 'include',
-    })
-    const res = await fetch(request)
-    const data = await res.json()
-
-    console.log('ffff', data)
-    dispatch(showItems(data))
-  }
-  const ResetListItemName = (obj, val) => {
-    const newList = []
-    dispatch({ type: 'ITEMNAME_RESET', value: newList })
-  }
   useEffect(() => {
-    formServerItemsData('surrounding')
-    ResetListItemName()
+    props.formServerItemsData('surrounding')
+   
+
+    return ()=> props.ResetListItemName()
+
   }, [])
 
-  if (!data) return <></>
 
   return (
     <>
       <main className="chin-main">
         <section className="chin-section">
-          <Commoditylist data={data} />
+          <Commoditylist data={props.data} />
           <div className="chin-commodity-title">
             <CompareProductSort
-              data={data}
+              data={props.data}
               englishname={englishnameSurrounding}
               test={commodity}
               sendText={text => {
@@ -84,10 +67,10 @@ function Surrounding(props) {
             />
             <div className="chin-commodity">
               {commodity
-                ? Surrounding.length
+                ? props.surrounding.length
                   ? commodityItems
                   : allcommodityItems
-                : Surrounding.length
+                :  props.surrounding.length
                 ? itemlist
                 : allitemlist}
             </div>
@@ -113,4 +96,24 @@ function Surrounding(props) {
   )
 }
 
-export default withRouter(Surrounding)
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return { data: store.getItems, 
+          surrounding: store.getListitemName,
+          rest:store.rest}
+}
+
+//action
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      formServerItemsData,
+      ResetListItemName,
+    },
+    dispatch
+  )
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Surrounding)
+)

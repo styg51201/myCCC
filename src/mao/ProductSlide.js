@@ -12,6 +12,7 @@ import {
   Handle_AddMyFavorite,
   AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
+import {commidtyRANDItemId} from '../chin/actions/itemsActions'
 import Slider from 'react-slick'
 import { FiShoppingBag ,FiHeart} from 'react-icons/fi';
 
@@ -61,6 +62,7 @@ function ProductSlide(props) {
   })
   useEffect(() => {
     props.getShopCart()
+    props.commidtyRANDItemId()
   }, [])
   
 
@@ -152,7 +154,7 @@ const mapDispatchToProps = dispatch => {
       AddCart,
       CalShopCart,
       Handle_AddMyFavorite,
-      AddCartNewItem_sendcal,
+      AddCartNewItem_sendcal,commidtyRANDItemId
     },
     dispatch
   )

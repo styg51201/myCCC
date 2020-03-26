@@ -18,7 +18,6 @@ export const formServerItemsData = val => {
   }
 }
 //  I AM YOUR FATHER
-
 export const showRANDItemId = val => {
   return { type: 'SHOW_RAND_ITEMID', value: val }
 }
@@ -148,17 +147,12 @@ export const ListItemPrice = (obj,val)=>{
   }
 }
 //-----itemscompare------------------------
-export const Itemscompare = val => {
-  return { type: 'SHOW_ITEMSCOMPARE', value: val }
-}
-export const formServerItemscompare = (val,data) => {
-  console.log(val,data)
-  return dispatch =>{
-    let newdata = [val,...data]
-    if(newdata.length>4){
-      
-    }
-  dispatch(Itemscompare(newdata))
+export const Selectcompare = value => ({ type: 'SELECT_ITEMSCOMPARE', value: value })
+export const SelectItemscompare = (data) => {
+  console.log(data)
+  return dispatch => {
+    console.log(data)
+    dispatch(Selectcompare(data))
   }
 }
 export const Delcompare = value => ({ type: 'DEL_ITEMSCOMPARE', value: value })
@@ -170,42 +164,29 @@ export const DelItemscompare = (ind, data) => {
     dispatch(Delcompare(newitemscompare))
   }
 }
-export const AddMyFavorite = value => ({ type: 'NP_COMPARE', value: value })
+export const ItemscompareNocompare = value => ({ type: 'NP_COMPARE', value: value })
 export const ItemscompareNo = (val, product, data) => {
-  console.log(val)
-  let truePrice = product.itemPrice.split('$').join('')
-  let newProduct = {
-    itemId: product.itemId,
-    name: product.name,
-    itemName: product.itemName,
-    itemImg: product.itemImg,
-    itemPrice: truePrice,
-    itemCategoryId: product.itemCategoryId,
-  }
+  console.log(val, product, data)
   let pIdBox = []
   data.map((v, i) => {
     pIdBox.push(v.itemId)
   })
   let newData = [...data]
   return dispatch => {
-    if (val == 'true') {
-      let box = pIdBox.findIndex(e => e == newProduct.itemId)
-      //  console.log('dddddd',box)
-      if (box == -1) {
-        newData.push(newProduct)
-      } else {
-        console.log('false')
-        return newData
+    if (val == true) {
+      if(newData.length<4){
+        newData.push(product)
+      }else{
+         newData=data
       }
-    } else if ((val = 'false')) {
-      let delIndex = pIdBox.findIndex(e => e == newProduct.itemId)
+    } else if (val == false) {
+      let delIndex = pIdBox.findIndex(e => e == product.itemId)
       let delpId = data.filter(e => e !== data[delIndex])
-
       newData = [...delpId]
     } else {
       return newData
     }
-    dispatch(AddMyFavorite(newData))
+    dispatch(ItemscompareNocompare(newData))
   }
 }
   export const ResetListItemNameCom = (obj, val) => {

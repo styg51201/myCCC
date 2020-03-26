@@ -365,6 +365,46 @@ router.post('/reply/:id', (req, res)=>{
 })
 
 
+//---
+//delete draft
+router.delete('/member/draft/:id', (req, res)=>{
+    let sql = 'DELETE FROM `storydrafts` WHERE `usrId` = ? AND `drftId` = ?';
+
+    let id = req.params.id;
+    let usrId = req.query.usrId;
+
+    console.log(id, usrId)
+
+    db.queryAsync(sql, [usrId, id])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.json(err)
+    })
+})
+//delete story
+router.delete('/member/story/:id', (req, res)=>{
+    let sql = 'DELETE FROM `stories` WHERE `usrId` =? AND `stryId` =?';
+
+    let id = req.params.id
+    let usrId = req.query.usrId
+    console.log(id, usrId)
+
+    return;
+
+    db.queryAsync(sql, [usrId, id])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.json(err)
+    })
+})
+
+
 //upload-images
 router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     // console.log("foldername: ",req.body.foldername, "typeof:", typeof req.body.foldername) //string
@@ -420,6 +460,7 @@ router.patch('/api/view-story/:id', (req, res)=>{
         res.json(err);
     })
 })
+
 
 
 //-------PUBLIC PAGES--------

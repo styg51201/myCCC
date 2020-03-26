@@ -4,12 +4,12 @@ import axios from 'axios'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js'
 import { Row, Col } from 'react-bootstrap'
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 import StoryReply from './components/StoryReply'
 // import useReplyTextarea from './utils/useReplyTextarea'
 import useTextareaRows from './utils/useTextareaRows'
-
+import {getRecursiveJson} from './utils/useRecursive'
 
 import './css/stories.scss'
 
@@ -68,28 +68,8 @@ function Story(props){
                     arr2.push(elm)
                 }
             })
-            
-            const recursive = (children, parents)=>{
-                let leftoutchildren = [...children]
-                children.forEach(child=>{
-                    parents.some(parent=>{
-                        if(parent.rplyId === child.rplyTo){
-                            (parent.children || (parent.children = [])).push(child)
-                            if(leftoutchildren.indexOf(child) !== -1){
-                                leftoutchildren.splice(leftoutchildren.indexOf(child), 1)
-                            }
-                            return true;
-                        }
-                    })
-                })
-                // console.log('leftouts:',leftoutchildren)
-                if(leftoutchildren.length > 0){
-                    recursive(leftoutchildren, children)
-                }
-                return parents;
-            }
 
-            let results = recursive(arr2, arr)
+            let results = getRecursiveJson(arr2, arr)
             // console.log(results)
 
             setData(res[0].data.data)
@@ -115,11 +95,15 @@ function Story(props){
         .then(res=>{
             Swal.fire({
                 position: 'top-end',
-                // icon: 'success',
                 text: '成功回覆',
-                showConfirmButton: false,
-                timer: 1500,
+                showConfirmButton: true,
+                // timer: 1500,
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             console.log(res.data)
         })

@@ -14,7 +14,6 @@ import {
   Handle_AddMyFavorite,
   ControlDataOne
 } from './actions/ShopCartAction'
-import {commidtyRANDItemId} from '../chin/actions/itemsActions'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 import RelatedHistory from '../chin/components/RelatedHistory'
@@ -23,7 +22,7 @@ import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
 import PicSlide from './component/PicSlide'
 function ShopCartList(props) {
-
+console.log('我要看資料有沒有',props)
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(false)
   const [newItem,setNewItem] =useState(false)
@@ -36,7 +35,6 @@ function ShopCartList(props) {
     getData()
     setLoaded(true)
     setForCart(false)
-    props.commidtyRANDItemId()
   }, [])
 
 
@@ -191,7 +189,7 @@ const mapDispatchToProps = dispatch => {
       DelCartItem,
       CalShopCart,
       Handle_AddMyFavorite,
-      ControlDataOne,commidtyRANDItemId
+      ControlDataOne
     },
     dispatch
   )

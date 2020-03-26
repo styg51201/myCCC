@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
 -- 產生時間： 
--- 伺服器版本： 10.4.10-MariaDB
--- PHP 版本： 7.3.12
+-- 伺服器版本： 10.4.8-MariaDB
+-- PHP 版本： 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- 資料庫： `triplec`
 --
+CREATE DATABASE IF NOT EXISTS `triplec` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `triplec`;
 
 -- --------------------------------------------------------
 
@@ -28,8 +30,8 @@ SET time_zone = "+00:00";
 -- 資料表結構 `ad`
 --
 
-CREATE TABLE `ad` (
-  `adId` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ad` (
+  `adId` int(5) NOT NULL AUTO_INCREMENT,
   `adName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片名稱',
   `adImg` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片',
   `adTitle` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片標題',
@@ -38,9 +40,15 @@ CREATE TABLE `ad` (
   `adLinkPlace` int(11) NOT NULL COMMENT '連結產品id',
   `adPlanId` int(11) NOT NULL COMMENT '廣告ID',
   `ad_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `ad_updates_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `ad_updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`adId`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `ad`
+--
+
+TRUNCATE TABLE `ad`;
 --
 -- 傾印資料表的資料 `ad`
 --
@@ -55,14 +63,20 @@ INSERT INTO `ad` (`adId`, `adName`, `adImg`, `adTitle`, `adContent`, `adLink`, `
 -- 資料表結構 `admin`
 --
 
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '使用者帳號',
   `pwd` char(40) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '使用者密碼',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理者帳號';
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理者帳號';
 
+--
+-- 資料表新增資料前，先清除舊資料 `admin`
+--
+
+TRUNCATE TABLE `admin`;
 --
 -- 傾印資料表的資料 `admin`
 --
@@ -77,14 +91,20 @@ INSERT INTO `admin` (`id`, `username`, `pwd`, `created_at`, `updated_at`) VALUES
 -- 資料表結構 `categoryies`
 --
 
-CREATE TABLE `categoryies` (
-  `categoryId` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `categoryies` (
+  `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '類別名稱',
   `categoryParentId` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '上層編號',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`categoryId`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `categoryies`
+--
+
+TRUNCATE TABLE `categoryies`;
 --
 -- 傾印資料表的資料 `categoryies`
 --
@@ -108,40 +128,55 @@ CREATE TABLE `coupon` (
   `cp_count` int(11) NOT NULL COMMENT '優惠券發放數量',
   `cp_rule` int(11) NOT NULL COMMENT '優惠券使用規則',
   `cp_img` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '優惠券圖片',
+  `cp_countdown` int(11) NOT NULL COMMENT '限時優惠券',
   `cp_start` date NOT NULL COMMENT '優惠券開始時間',
   `cp_due` date NOT NULL COMMENT '優惠券結束時間',
+  `cp_getedCount` int(11) NOT NULL COMMENT '已領取數量',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updates_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
+-- 資料表新增資料前，先清除舊資料 `coupon`
+--
+
+TRUNCATE TABLE `coupon`;
+--
 -- 傾印資料表的資料 `coupon`
 --
 
-INSERT INTO `coupon` (`cp_id`, `cp_vid`, `cp_vendor`, `cp_count`, `cp_rule`, `cp_img`, `cp_start`, `cp_due`, `created_at`, `updates_at`) VALUES
-(1, 0, 'SWATCH', 100, 1, 'Swatch.jpg', '2020-03-12', '2020-03-31', '2020-03-12 13:19:22', '2020-03-12 13:19:22'),
-(16, 55, 'APPLE', 100, 4, 'apple.png', '2020-03-11', '2020-04-02', '2020-03-19 09:44:13', '2020-03-19 09:44:13'),
-(17, 61, 'FITBIT', 120, 6, 'fitbit.png', '2020-03-09', '2020-04-20', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(18, 62, 'GoPro', 80, 7, 'gopro.png', '2020-03-15', '2020-04-30', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(19, 63, 'GARMIN', 100, 8, 'garmin.png', '2020-03-19', '2020-04-10', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(20, 64, 'JSMAX', 100, 9, 'jsmax.jpg', '2020-03-19', '2020-04-10', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(21, 65, 'QCY', 150, 10, 'qcy.jpg', '2020-03-19', '2020-04-10', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(22, 66, 'SAMSUNG', 100, 11, 'samsung.png', '2020-03-15', '2020-04-23', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(23, 67, 'SJCAM', 100, 12, 'sjcam.jpg', '2020-03-11', '2020-04-14', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(24, 68, 'SONY', 130, 13, 'sony.png', '2020-03-13', '2020-05-08', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(25, 69, 'SUDIO', 80, 14, 'sudio.jpg', '2020-03-04', '2020-04-11', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(26, 69, '小米', 100, 15, '小米.jpg', '2020-03-09', '2020-04-18', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(27, 70, '鐵三角', 140, 16, '鐵三角.jpg', '2020-03-06', '2020-05-21', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(28, 71, 'Sabbat 魔宴', 150, 17, '魔宴.png', '2020-03-05', '2020-04-18', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(29, 69, '小米', 100, 17, '小米.jpg', '2020-03-09', '2020-03-18', '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
-(30, 60, 'DJI', 130, 5, 'dji.png', '2020-02-25', '2020-04-24', '2020-03-20 09:55:02', '2020-03-20 09:55:02');
-
+INSERT INTO `coupon` (`cp_id`, `cp_vid`, `cp_vendor`, `cp_count`, `cp_rule`, `cp_img`, `cp_countdown`, `cp_start`, `cp_due`, `cp_getedCount`, `created_at`, `updates_at`) VALUES
+(16, 55, 'APPLE', 100, 4, 'apple.png', 0, '2020-03-11', '2020-04-02', 100, '2020-03-19 09:44:13', '2020-03-19 09:44:13'),
+(17, 61, 'Fitbit', 120, 6, 'fitbit.png', 0, '2020-03-09', '2020-03-28', 50, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(18, 62, 'GoPro', 80, 7, 'gopro.png', 0, '2020-03-15', '2020-04-30', 61, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(19, 63, 'GARMIN', 100, 8, 'garmin.png', 0, '2020-03-19', '2020-04-10', 87, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(20, 64, 'JSmax', 100, 9, 'jsmax.jpg', 0, '2020-03-19', '2020-04-10', 100, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(21, 65, 'QCY', 150, 10, 'qcy.jpg', 0, '2020-03-19', '2020-04-10', 21, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(22, 66, 'SAMSUNG', 100, 11, 'samsung.png', 0, '2020-03-15', '2020-04-23', 55, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(23, 67, 'SJCAM', 100, 12, 'sjcam.jpg', 0, '2020-03-11', '2020-04-14', 81, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(24, 68, 'SONY', 130, 13, 'sony.png', 0, '2020-03-13', '2020-05-08', 45, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(25, 69, 'SUDIO', 80, 14, 'sudio.jpg', 0, '2020-03-04', '2020-04-11', 71, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(26, 69, '小米', 100, 15, '小米.jpg', 0, '2020-03-09', '2020-04-18', 34, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(27, 70, '鐵三角', 140, 16, '鐵三角.jpg', 0, '2020-03-06', '2020-05-21', 101, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(28, 71, 'Sabbat 魔宴', 150, 17, '魔宴.png', 0, '2020-03-05', '2020-04-18', 112, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(29, 69, '小米', 100, 17, '小米.jpg', 0, '2020-03-09', '2020-03-18', 20, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(30, 60, 'DJI', 130, 5, 'dji.png', 0, '2020-02-25', '2020-04-24', 68, '2020-03-20 09:55:02', '2020-03-20 09:55:02'),
+(31, 73, 'AFAMIC 艾法', 100, 18, 'AFAMIC 艾法.jpg', 0, '2020-03-17', '2020-05-15', 78, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(32, 79, 'GOLiFE', 130, 19, 'GOLiFE.png', 0, '2020-03-19', '2020-04-09', 130, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(33, 81, 'HTR', 120, 20, 'HTR.jpg', 0, '2020-03-11', '2020-04-07', 89, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(34, 82, 'JLab', 80, 21, 'JLab.jpg', 0, '2020-02-28', '2020-04-17', 73, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(35, 83, 'Plantronics繽特力', 100, 22, 'Plantronics繽特力.jpg', 0, '2020-03-20', '2020-06-19', 94, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(36, 85, 'Holy Stone', 100, 23, 'Holy Stone.png', 0, '2020-03-16', '2020-05-20', 74, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(37, 86, 'JOBY', 150, 24, 'JOBY.jpg', 0, '2020-03-07', '2020-04-11', 124, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(38, 87, 'Jenova 吉尼佛', 100, 25, 'Jenova 吉尼佛.jpg', 0, '2020-02-17', '2020-04-21', 84, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(39, 88, 'Incase', 100, 26, 'Incase.jpg', 0, '2020-03-05', '2020-04-12', 48, '2020-03-24 15:30:06', '2020-03-24 15:30:06'),
+(40, 70, '鐵三角', 140, 16, '鐵三角.jpg', 1, '2020-03-25', '2020-05-25', 78, '2020-03-19 09:46:02', '2020-03-19 09:46:02'),
+(41, 61, 'Fitbit', 120, 6, 'fitbit.png', 1, '2020-03-25', '2020-04-25', 73, '2020-03-19 09:46:02', '2020-03-19 09:46:02');
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `coupon_item`
 --
-
 CREATE TABLE `coupon_item` (
   `cpi_id` int(11) NOT NULL COMMENT '個人優惠券id',
   `cpi_cp_id` int(11) NOT NULL COMMENT '對應的優惠券id',
@@ -152,23 +187,39 @@ CREATE TABLE `coupon_item` (
   `created_at` datetime NOT NULL,
   `updates_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+--
+-- 資料表新增資料前，先清除舊資料 `coupon_item`
+--
 
+TRUNCATE TABLE `coupon_item`;
 --
 -- 傾印資料表的資料 `coupon_item`
 --
 
 INSERT INTO `coupon_item` (`cpi_id`, `cpi_cp_id`, `cpi_mb_id`, `cpi_use`, `cpi_useDate`, `cpi_order_id`, `created_at`, `updates_at`) VALUES
-(1, 1, 4, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(2, 1, 5, 1, '2020-03-13', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(3, 2, 6, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(4, 2, 7, 1, '2020-03-14', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(5, 3, 7, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(6, 3, 8, 1, '2020-03-17', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(7, 23, 5, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(28, 25, 5, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(30, 27, 5, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(33, 20, 5, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
-(45, 29, 5, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+(46, 17, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(120, 31, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(131, 22, 37, 1, '2020-03-23', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(132, 36, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(133, 33, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(134, 34, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(135, 35, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(136, 25, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(137, 19, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(138, 39, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(139, 30, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(140, 38, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(141, 18, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(142, 41, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(143, 37, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(144, 28, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(145, 21, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(146, 23, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(147, 24, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(148, 26, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(149, 27, 37, 0, '0000-00-00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+--
 
 -- --------------------------------------------------------
 
@@ -176,8 +227,8 @@ INSERT INTO `coupon_item` (`cpi_id`, `cpi_cp_id`, `cpi_mb_id`, `cpi_use`, `cpi_u
 -- 資料表結構 `coupon_rule`
 --
 
-CREATE TABLE `coupon_rule` (
-  `cpr_id` int(11) NOT NULL COMMENT '優惠券規則id',
+CREATE TABLE IF NOT EXISTS `coupon_rule` (
+  `cpr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券規則id',
   `cpr_cp_id` int(11) NOT NULL COMMENT '對應的優惠券id',
   `cpr_object` int(11) NOT NULL COMMENT '優惠券目標',
   `cpr_rule` int(11) NOT NULL COMMENT '優惠券規則',
@@ -185,9 +236,15 @@ CREATE TABLE `coupon_rule` (
   `cpr_discount` int(11) NOT NULL COMMENT '優惠券折扣',
   `cpr_discountNum` int(11) NOT NULL COMMENT '優惠券折扣數量',
   `created_at` int(11) NOT NULL,
-  `updates_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updates_at` int(11) NOT NULL,
+  PRIMARY KEY (`cpr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `coupon_rule`
+--
+
+TRUNCATE TABLE `coupon_rule`;
 --
 -- 傾印資料表的資料 `coupon_rule`
 --
@@ -197,7 +254,7 @@ INSERT INTO `coupon_rule` (`cpr_id`, `cpr_cp_id`, `cpr_object`, `cpr_rule`, `cpr
 (2, 2, 1, 2, 1000, 1, 200, 0, 0),
 (3, 3, 2, 0, 0, 0, 9, 0, 0),
 (4, 0, 0, 1, 2, 0, 90, 0, 0),
-(5, 0, 1, 2, 3000, 1, 200, 0, 0),
+(5, 0, 3, 2, 3000, 1, 200, 0, 0),
 (6, 0, 1, 0, 0, 1, 300, 0, 0),
 (7, 0, 3, 2, 5000, 0, 85, 0, 0),
 (8, 0, 1, 0, 0, 1, 300, 0, 0),
@@ -209,7 +266,16 @@ INSERT INTO `coupon_rule` (`cpr_id`, `cpr_cp_id`, `cpr_object`, `cpr_rule`, `cpr
 (14, 0, 2, 2, 2500, 1, 150, 0, 0),
 (15, 0, 0, 1, 2, 0, 88, 0, 0),
 (16, 0, 2, 2, 2000, 0, 79, 0, 0),
-(17, 0, 2, 0, 0, 1, 300, 0, 0);
+(17, 0, 2, 0, 0, 1, 300, 0, 0),
+(18, 0, 1, 2, 15000, 0, 90, 0, 0),
+(19, 0, 1, 0, 0, 1, 3000, 0, 0),
+(20, 0, 4, 1, 3, 0, 86, 0, 0),
+(21, 0, 2, 1, 2, 1, 5000, 0, 0),
+(22, 0, 2, 0, 0, 0, 77, 0, 0),
+(23, 0, 3, 2, 20000, 1, 4000, 0, 0),
+(24, 0, 4, 1, 3, 1, 3000, 0, 0),
+(25, 0, 4, 0, 0, 0, 95, 0, 0),
+(26, 0, 4, 2, 10000, 1, 3500, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -217,15 +283,21 @@ INSERT INTO `coupon_rule` (`cpr_id`, `cpr_cp_id`, `cpr_object`, `cpr_rule`, `cpr
 -- 資料表結構 `customer`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `customer` (
   `csId` varchar(11) NOT NULL,
   `csName` varchar(20) NOT NULL,
   `csAdress` varchar(999) NOT NULL,
   `csPhone` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`csId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `customer`
+--
+
+TRUNCATE TABLE `customer`;
 --
 -- 傾印資料表的資料 `customer`
 --
@@ -244,8 +316,8 @@ INSERT INTO `customer` (`csId`, `csName`, `csAdress`, `csPhone`, `created_at`, `
 -- 資料表結構 `items`
 --
 
-CREATE TABLE `items` (
-  `itemId` int(11) NOT NULL COMMENT '商品編號',
+CREATE TABLE IF NOT EXISTS `items` (
+  `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品編號',
   `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廠商名稱',
   `itemName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名稱',
   `itemImg` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品照片',
@@ -254,9 +326,15 @@ CREATE TABLE `items` (
   `itemQty` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品數量',
   `itemCategoryId` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品類別',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`itemId`)
+) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `items`
+--
+
+TRUNCATE TABLE `items`;
 --
 -- 傾印資料表的資料 `items`
 --
@@ -337,9 +415,9 @@ INSERT INTO `items` (`itemId`, `name`, `itemName`, `itemImg`, `itemDescription`,
 (73, 'JSmax', 'JSmax SW-Q9 旗艦款智慧健康運動管理手錶', '0.jpg', '●多種健康數據監測\n●健康數據參考趨勢\n●心律、BP、運動心律\n●抬手亮屏\n●睡眠監測', '$13,500', '621', '穿戴式裝置', '2020-03-23 00:56:53', '2020-03-23 00:56:53'),
 (74, 'GOLiFE', 'GOLiFE 第二代Care 健康智慧手環', '0.jpg', '●完整記錄您日夜生活動態\n●偵測睡眠品質及睡眠時間\n●來電提醒、步數記錄、消耗熱量\n●距離顯示、鬧鐘提醒、時間模式、日期顯示\n●IP66/IP67 防塵防水，日常使用不設限', '$12,662', '985', '穿戴式裝置', '2020-03-23 00:56:53', '2020-03-23 00:56:53'),
 (75, 'AFAMIC 艾法', 'AFAMIC 艾法 C18智能心率GPS運動手環 運動手錶', '0.jpg', '●磁吸式錶帶人性化調整適合任何人\n●記錄個人健康數據的管家\n●來電提示 FB 訊息提示', '$21,452', '682', '穿戴式裝置', '2020-03-23 00:56:53', '2020-03-23 00:56:53'),
-(76, 'QCY\n', 'QCY L1藍牙耳機', '0.jpg', '●記憶鋼圈設計 貼合頸脖\n●6.5小時通話時長\n●TPE扁面耳機線 抗拉扯防打結\n●9mm小巧機身 2g輕巧配戴\n●磁吸設計 輕易配戴', '$16,458', '505', '耳機/喇叭', '2020-03-23 00:56:53', '2020-03-23 00:56:53'),
+(76, 'QCY', 'QCY L1藍牙耳機', '0.jpg', '●記憶鋼圈設計 貼合頸脖\n●6.5小時通話時長\n●TPE扁面耳機線 抗拉扯防打結\n●9mm小巧機身 2g輕巧配戴\n●磁吸設計 輕易配戴', '$16,458', '505', '耳機/喇叭', '2020-03-23 00:56:53', '2020-03-26 16:38:47'),
 (77, 'JLab', 'JLab Epic Air Sport 真無線運動耳機', '0.jpg', '●最新藍牙5.0，自動開機連線\n●IP66高防水，適合各類運動\n●電力10hr，搭充電盒70hr\n●專利矽膠人體工學耳掛，舒適穩定\n●3種EQ模式，各種曲風都能駕馭', '$14,655', '628', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
-(78, 'QCY\n', 'QCY Q25藍牙耳機', '0.jpg', '●CVC6.0 回聲降噪\n●4.1版藍牙相容性提升\n●0.83cm纖薄機身設計', '$32,444', '930', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
+(78, 'QCY', 'QCY Q25藍牙耳機', '0.jpg', '●CVC6.0 回聲降噪\n●4.1版藍牙相容性提升\n●0.83cm纖薄機身設計', '$32,444', '930', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-26 16:38:52'),
 (79, 'JLab', 'JLab Epic Executive 抗噪耳機', '0.jpg', '●有效阻隔 90% 環境噪音\n●內附 3.5 mm Aux-in 轉接頭可變有線耳機使用\n●內建 MEM 數位麥克風，可作免持聽筒使用', '$13,999', '111', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
 (80, 'JLab', 'JLab JBuddies Folding 兒童耳機', '0.jpg', '●美國家長推薦安全及舒適兒童耳機\n●專為2歲以上孩童設計\n●安全音量限制85分貝，保護聽力\n●可摺疊式設計，攜帶方便\n●內附3D貼紙，讓孩子自選風格', '$16,800', '565', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
 (81, 'SONY', 'SONY WI-C310 藍牙耳機', '0.jpg', '●Bluetooth 5.0版本\n●15hr長效電池享受音樂不間斷\n●充電10分鐘可播放60分鐘\n●磁性吸附耳機便利配戴\n●台灣SONY公司貨', '$21,490', '526', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
@@ -349,7 +427,7 @@ INSERT INTO `items` (`itemId`, `name`, `itemName`, `itemImg`, `itemDescription`,
 (85, 'SONY', 'SONY WI-SP500 無線藍牙 運動防水入耳式耳機 續航力8HR', '0.jpg', '●NFC 功能\n●續航力 8小時\n●IPX4 防汗與防潑', '$22,390', '426', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
 (86, 'SONY', 'SONY WI-SP600N 無線藍牙 降噪運動防水繞頸式耳機', '0.jpg', '●數位降噪給您零噪音干擾純粹音效\n●支援降噪環境音讓您選擇聽見聲音\n●NFC 功能\n●IPX4 防汗與防潑\n●輕巧且穩固貼合的後掛式設計', '$24,490', '185', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
 (87, 'JLab', 'JLab JBuds Air Sport 真無線藍牙耳機', '0.jpg', '●IP66高防水，專為運動設計\n●電力6hr，充電盒再加34hr\n●支援外部環境音聆聽功能\n●最新藍牙5.0，自動開機連線\n●專利矽膠人體工學耳掛，舒適穩定', '$12,799', '812', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
-(88, 'QCY\n', 'QCY T1 雙耳 立體聲 藍牙 5.0 真無線 耳機', '0.jpg', '●從充電倉取出，雙耳自動配對\n●輕按一下，即可召喚Siri\n●可單耳機使用，分別連接不同設備\n●立體高清音質，令你陶醉其中\n●支援雙耳通話', '$21,445', '366', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
+(88, 'QCY', 'QCY T1 雙耳 立體聲 藍牙 5.0 真無線 耳機', '0.jpg', '●從充電倉取出，雙耳自動配對\n●輕按一下，即可召喚Siri\n●可單耳機使用，分別連接不同設備\n●立體高清音質，令你陶醉其中\n●支援雙耳通話', '$21,445', '366', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-26 16:38:54'),
 (89, 'JLab', 'JLab JBuds Air 真無線藍牙耳機', '0.jpg', '●最新藍牙5.0規格，收訊穩定快速\n●高強度 IP55 防水，運動流汗沒問題\n●單次電力 3-4 hr，搭充電盒加 10hr', '$11,999', '644', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
 (90, 'SONY', 'SONY Hi-Res 無線藍牙耳罩式耳機 WH-H800', '0.jpg', '●無線藍牙耳機\n●全新小巧耳罩設計\n●支援 App 可調整個人音樂偏好\n●24 小時電池續航力且支援快充\n●多種時尚色彩可供選擇', '$14,790', '634', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
 (91, '鐵三角', '鐵三角 ATH-C200BT 無線藍芽耳塞式耳機', '0.jpg', '●最多可記錄8台裝置的配對資訊\n●無線方式收看行動電視\n●按鍵播放或通話相關功能\n●9小時連續播放\n●享原廠一年保固', '$11,650', '755', '耳機/喇叭', '2020-03-23 00:56:54', '2020-03-23 00:56:54'),
@@ -410,17 +488,17 @@ INSERT INTO `items` (`itemId`, `name`, `itemName`, `itemImg`, `itemDescription`,
 (146, '鐵三角', '鐵三角ATH-SPORT7TW真無線運動耳機', '0.jpg', '●充足電一次可持續使用3.5小時\n●充電盒可提供額外的14小時電力\n●可以隨意切換聽音樂或者接聽來電\n●Ø5.8mm驅動單元提供卓越的音質\n●IPX5防水認證', '$34,980', '365', '耳機/喇叭', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
 (147, 'Sabbat 魔宴', '魔宴 Sabbat X12 Ultra 高通版 HIFI 無線藍芽耳機 充電艙', '0.jpg', '●水轉印迷彩、雲石、潑漆系列\n●半入耳式設計，貼合耳廓\n●雙耳無線配戴，附充電艙收納\n●藍芽5.0高通晶片支援aptX\n●質感高、音質好，適合運動時使用', '$29,555', '571', '耳機/喇叭', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
 (148, 'SJCAM', 'SJCAM A10 警用專業級密錄器運動攝影機', '0.jpg', '●Sony IMX323感測器\n●聯詠 96658晶片\n●兩吋觸控 LCD 140度廣角\n●1080P 30 FPS\n●6小時超持久電力、IP65級防潑水', '$26,415', '675', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
-(149, 'DJI\n', 'DJI Mavic Mini 摺疊航拍機 暢飛套裝版', '0.jpg', '●聯強公司貨\n●249 克 超輕型無人機\n●視覺 + GPS 精準懸停', '$13,590', '695', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
+(149, 'DJI', 'DJI Mavic Mini 摺疊航拍機 暢飛套裝版', '0.jpg', '●聯強公司貨\n●249 克 超輕型無人機\n●視覺 + GPS 精準懸停', '$13,590', '695', '運動攝影機', '2020-03-23 00:56:56', '2020-03-26 16:40:08'),
 (150, 'SJCAM', 'SJCAM SJ5000 防水型運動攝影機', '0.jpg', '●WIFI防水攝影機/行車紀錄器\n●IMX078cqk圖像處理器\n●1400萬高解析廣角鏡頭\n●潛高達30米\n●170º寬FOV', '$33,215', '684', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
-(151, 'DJI\n', 'DJI Mavic2 Pro折疊式空拍機專業版', '0.jpg', '●專業Hasselblad哈蘇相機\n●1英寸CMOS 2000萬像素感光\n●f/2.8–f/11可調光圈\n●10-bit Dlog-M 色彩模式\n●4K HDR影片', '$36,899', '494', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
+(151, 'DJI', 'DJI Mavic2 Pro折疊式空拍機專業版', '0.jpg', '●專業Hasselblad哈蘇相機\n●1英寸CMOS 2000萬像素感光\n●f/2.8–f/11可調光圈\n●10-bit Dlog-M 色彩模式\n●4K HDR影片', '$36,899', '494', '運動攝影機', '2020-03-23 00:56:56', '2020-03-26 16:40:10'),
 (152, 'SJCAM', 'SJCAM SJ8 Plus防水型運動攝影機4K高畫質', '0.jpg', '●聯詠96683芯片,4K高解析170度廣角鏡頭,Sony鏡頭\n●Sony IMX117傳感器,支援最高128G儲存卡\n●30FPS、觸控螢幕、WIFI\n●多種拍攝模式 單拍 自動連拍\n●6軸電子防手震', '$25,431', '499', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
 (153, 'GoPro', 'GoPro-HERO8 Black運動攝影機 超大電量升級組', '0.jpg', '●史上功能最多手持最穩的相機\n●精簡化設計更貼合口袋大小\n●摺疊式接頭快速更換固定座\n●HyperSmooth 2.0\n●可拍攝令人驚嘆不已的慢動作鏡頭', '$24,980', '819', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
 (154, 'GoPro', 'GoPro-HERO8 Black全方位運動攝影機 初新者必備升級組', '0.jpg', '●史上功能最多手持最穩的相機\n●精簡化設計更貼合口袋大小\n●摺疊式接頭快速更換固定座\n●HyperSmooth 2.0\n●可拍攝令人驚嘆不已的慢動作鏡頭', '$29,880', '827', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
 (155, 'GoPro', 'GoPro-HERO7 Black運動攝影機 首購容量升級組', '0.jpg', '●更多GoPro 活動\n●https://tiny.cc/GPxY\n●本組合含Hero 7B($15900)+電池 ($1000)x2 (含主機附贈)\n+矽膠護套跟繫繩 ($900)+64GB記憶卡($799)', '$13,777', '846', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
 (156, 'Holy Stone', 'Holy Stone HS210 迷你遙控飛機-三電版', '0.jpg', '●三種速度靈活切換\n●急停模式\n●貼心的低電量警報\n●適合於室內或無風環境下使用\n●一鍵起降，輕鬆上手', '$21,598', '466', '運動攝影機', '2020-03-23 00:56:56', '2020-03-23 00:56:56'),
-(157, 'DJI\n', 'DJI Phantom 4 Pro V2.0 空拍機', '0.jpg', '●先創獨家新手訓練營\n●1英寸2000萬像素感光元件\n●五向感知、智能跟隨\n●指點飛行、智能返航\n●手勢自拍、冗餘系統', '$19,567', '331', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
+(157, 'DJI', 'DJI Phantom 4 Pro V2.0 空拍機', '0.jpg', '●先創獨家新手訓練營\n●1英寸2000萬像素感光元件\n●五向感知、智能跟隨\n●指點飛行、智能返航\n●手勢自拍、冗餘系統', '$19,567', '331', '運動攝影機', '2020-03-23 00:56:57', '2020-03-26 16:40:13'),
 (158, 'GoPro', 'GoPro-HERO8 Black全方位運動攝影機', '0.jpg', '●史上功能最多手持最穩的相機\n●精簡化設計更貼合口袋大小\n●摺疊式接頭快速更換固定座\n●HyperSmooth 2.0\n●可拍攝令人驚嘆不已的慢動作鏡頭', '$15,900', '701', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(159, 'DJI\n', 'DJI Ryze 特洛Tello 迷你無人機', '0.jpg', '●空中特技、花式飛行，簡單上手。只需使用手機，即可透過APP操控。\n●一鍵創意影片。100米圖傳距離、720p圖傳。13分鐘續航。\n●低電量警告、失控保護等安全機制。飛凡樂趣，從 Tello 開始。', '$21,354', '706', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
+(159, 'DJI', 'DJI Ryze 特洛Tello 迷你無人機', '0.jpg', '●空中特技、花式飛行，簡單上手。只需使用手機，即可透過APP操控。\n●一鍵創意影片。100米圖傳距離、720p圖傳。13分鐘續航。\n●低電量警告、失控保護等安全機制。飛凡樂趣，從 Tello 開始。', '$21,354', '706', '運動攝影機', '2020-03-23 00:56:57', '2020-03-26 16:40:14'),
 (160, 'GoPro', 'GoPro-HERO 8 Black 假日旅遊組合', '0.jpg', '●更多GoPro 活動\n●https://tiny.cc/GPxY\n●本組合含Hero 7B($15900)+電池 ($1000)x2 (含主機附贈)\n+矽膠護套跟繫繩 ($900)+64GB記憶卡($799)', '$12,888', '627', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (161, 'GoPro', 'GoPro-HERO8 Black全方位運動攝影機 單車騎士升級組', '0.jpg', '●史上功能最多手持最穩的相機\n●精簡化設計更貼合口袋大小\n●摺疊式接頭快速更換固定座\n●HyperSmooth 2.0\n●可拍攝令人驚嘆不已的慢動作鏡頭', '$31,589', '957', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (162, 'SJCAM', 'SJCAM SJ5000 防水型運動攝影機2', '0.jpg', '超高清2.0寸顯示屏\n車載攝影記錄功能\n170 度超大無畸變攝像頭\n多種視頻錄製格式\n多種拍攝模式 單拍 自動連拍', '$11,354', '300', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
@@ -430,40 +508,41 @@ INSERT INTO `items` (`itemId`, `name`, `itemName`, `itemImg`, `itemDescription`,
 (166, 'SJCAM', 'SJCAM SJ4000 AV 防水型運動攝影機 1080P高畫質', '0.jpg', '●原廠晶片\n●深度防水30 米\n●超高清1080P 1200萬超高清廣角鏡頭\n●低光拍攝升級\n●專業錄音效果專業級拍攝畫質', '$14,452', '455', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (167, 'GoPro', 'GoPro-HERO8 Black運動攝影機 輕旅自拍升級組', '0.jpg', '●史上功能最多手持最穩的相機\n●精簡化設計更貼合口袋大小\n●摺疊式接頭快速更換固定座\n●HyperSmooth 2.0\n●可拍攝令人驚嘆不已的慢動作鏡頭', '$39,540', '626', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (168, 'GoPro', 'GoPro-MAX 360度多功能攝影機', '0.jpg', '●拍攝影相片和錄製360度影片\n●享受前所未有的絕佳立體聲音效\n●不須平移即可拍攝只要按下即可\n●無法撼動的穩定功能', '$25,680', '652', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(169, 'DJI\n', 'DJI OSMO ACTION 運動攝影機 + Action 充電管家套裝', '0.jpg', '●雙彩色螢幕\n●4K HDR 影片\n●RockSteady\n●8 倍慢動作\n●智能充電設計，提升充電效率', '$11,685', '218', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
+(169, 'DJI', 'DJI OSMO ACTION 運動攝影機 + Action 充電管家套裝', '0.jpg', '●雙彩色螢幕\n●4K HDR 影片\n●RockSteady\n●8 倍慢動作\n●智能充電設計，提升充電效率', '$11,685', '218', '運動攝影機', '2020-03-23 00:56:57', '2020-03-26 16:40:17'),
 (170, 'Holy Stone', 'Holy Stone HS550 折疊式空拍無人機-雙電版', '0.jpg', '●GPS/GONASS雙定位系統\n●智慧跟隨、興趣點環繞、指點飛行\n●2K全高清，110度廣角鏡頭\n●電子防抖，減輕相機晃動和抖動\n●5G圖傳頻率，干擾更少', '$18,028', '653', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (171, 'GoPro', 'GoPro-HERO8 Black全方位運動攝影機 潛水遨遊升級組', '0.jpg', '●史上功能最多手持最穩的相機\n●精簡化設計更貼合口袋大小\n●摺疊式接頭快速更換固定座\n●HyperSmooth 2.0\n●可拍攝令人驚嘆不已的慢動作鏡頭', '$23,154', '602', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (172, 'Holy Stone', 'Holy Stone HS160P 摺疊式口袋空拍機-雙電版', '0.jpg', '●GPS/GONASS雙定位系統\n●智慧跟隨、興趣點環繞、指點飛行\n●2K全高清，110度廣角鏡頭\n●電子防抖，減輕相機晃動和抖動\n●5G圖傳頻率，干擾更少', '$18,027', '215', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (173, 'SJCAM', 'SJCAM SJ4000 Wifi 防水型運動攝影機2', '0.jpg', '●原廠晶片\n●深度防水30 米\n●1200萬超高清廣角鏡頭\n●低光拍攝升級\n●專業錄音效果專業級拍攝畫質', '$21,345', '225', '運動攝影機', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(174, 'JOBY ', 'JOBY 金剛爪 500 運動腳架 GorillaPod 500 Action -JB54', '0.jpg', '●最大載重3 kg\n●90° 俯仰角\n●全景拍攝 360° 刻度輔助\n●適 微單/單反 連接使用\n●可與 JOBY 腳架系列搭配使用', '$34,590', '981', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(175, 'TAKEWAY ', 'TAKEWAY 鉗式運動夾 R1 mini', '0.jpg', '●適合單車/自行車/腳踏車\n●適用各種尺寸的管徑/板狀\n●本體材質-航太鋁合金\n●獨創專利，免工具安裝，強力耐震\n●適用4-6.5吋智慧型手機', '$35,980', '500', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(176, 'JOBY ', 'JOBY 金剛爪遙控運動套組 GripTight Action Kit -JB62', '0.jpg', '●適各廠牌運動相機/360°攝相機\n●適 56-91mm 寬度的智慧型手機\n●專利 GorillaPod 腳腿\n●適 各種不平或圓柱 場景\n●扳手式 夾具調整鎖', '$26,980', '651', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(177, 'TAKEWAY ', 'TAKEWAY 鉗式運動夾 R2', '0.jpg', '●本體材質-航太鋁合金\n●適用各種廠牌、型號的運動攝影機\n●完全針對「動態使用」需求所設計\n●劇烈動態也能維持長時間穩固\n●世界首創設計可固定圓管、桌板等', '$32,495', '281', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
+(174, 'JOBY', 'JOBY 金剛爪 500 運動腳架 GorillaPod 500 Action -JB54', '0.jpg', '●最大載重3 kg\n●90° 俯仰角\n●全景拍攝 360° 刻度輔助\n●適 微單/單反 連接使用\n●可與 JOBY 腳架系列搭配使用', '$34,590', '981', '周邊', '2020-03-23 00:56:57', '2020-03-26 16:41:41'),
+(175, 'TAKEWAY', 'TAKEWAY 鉗式運動夾 R1 mini', '0.jpg', '●適合單車/自行車/腳踏車\n●適用各種尺寸的管徑/板狀\n●本體材質-航太鋁合金\n●獨創專利，免工具安裝，強力耐震\n●適用4-6.5吋智慧型手機', '$35,980', '500', '周邊', '2020-03-23 00:56:57', '2020-03-26 16:42:03'),
+(176, 'JOBY', 'JOBY 金剛爪遙控運動套組 GripTight Action Kit -JB62', '0.jpg', '●適各廠牌運動相機/360°攝相機\n●適 56-91mm 寬度的智慧型手機\n●專利 GorillaPod 腳腿\n●適 各種不平或圓柱 場景\n●扳手式 夾具調整鎖', '$26,980', '651', '周邊', '2020-03-23 00:56:57', '2020-03-26 16:41:44'),
+(177, 'TAKEWAY', 'TAKEWAY 鉗式運動夾 R2', '0.jpg', '●本體材質-航太鋁合金\n●適用各種廠牌、型號的運動攝影機\n●完全針對「動態使用」需求所設計\n●劇烈動態也能維持長時間穩固\n●世界首創設計可固定圓管、桌板等', '$32,495', '281', '周邊', '2020-03-23 00:56:57', '2020-03-26 16:42:05'),
 (178, 'Jenova 吉尼佛', '吉尼佛 JENOVA SPORTS 34G 極速炫風-攝影運動背包', '0.jpg', '●外尺寸：約24x14x22cm\n●底部設有止滑墊\n●可繫於腰際間，方便使用\n●容量：約1機+2鏡或1閃+配件\n●防雨罩：有', '$18,354', '201', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(179, 'JOBY ', 'JOBY Action Clamp & GorillaPod Arm 運動攝影機固定臂鎖', '0.jpg', '●適 56-91mm寬度的手機\n●輕便折疊攜帶設計\n●鋁製微型球頭提供精確的角度控制\n●鋅合金腳腿提供高強度的稳定', '$22,168', '867', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
+(179, 'JOBY', 'JOBY Action Clamp & GorillaPod Arm 運動攝影機固定臂鎖', '0.jpg', '●適 56-91mm寬度的手機\n●輕便折疊攜帶設計\n●鋁製微型球頭提供精確的角度控制\n●鋅合金腳腿提供高強度的稳定', '$22,168', '867', '周邊', '2020-03-23 00:56:57', '2020-03-26 16:41:46'),
 (180, 'GoPro', '嚴選 GoPro HERO34567 專用運動型可調節雙肩胸背帶', '0.jpg', '●嚴選優質塑料，經久耐用\n●柔軟彈力帶，延展性高，配戴舒適\n●可調節鎖扣依照身形任意調節尺寸\n●可呈現多元拍攝畫面', '$11,560', '448', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (181, 'HTR', 'HTR 收納包1號For Mavic Mini', '0.jpg', '●精準空拍機開模設計\n●內部尼龍材質加強保護\n●雙邊拉鍊 拿取容易方便\n●耐用 不易刮傷 手感舒適', '$12,455', '581', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (182, 'HTR', 'HTR 收納包2號For Mavic Mini', '0.jpg', '●精準空拍機開模設計\n●內部尼龍材質加強保護\n●雙邊拉鍊 拿取容易方便\n●耐用 不易刮傷 手感舒適', '$12,777', '104', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (183, 'GoPro', '嚴選 GoPro HERO347 極限運動型專用可調式頭部綁帶', '0.jpg', '●搭載GoPro相機，直接固定\n●防滑膠條，避免滑落\n●透氣海綿墊，避免塑料接觸皮膚\n●柔軟彈力帶，延展性高\n●可調式綁帶，調節頭圍大小', '$22,680', '157', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
-(184, 'DJI\n', 'Mavic Mini小背包', '0.jpg', '●MAVIC MINI 專用配件', '$16,899', '619', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
+(184, 'DJI', 'Mavic Mini小背包', '0.jpg', '●MAVIC MINI 專用配件', '$16,899', '619', '周邊', '2020-03-23 00:56:57', '2020-03-26 16:40:19'),
 (185, 'GOLiFE', 'GOLiFE極簡都市雙肩包', '0.jpg', '●多重防盜設計\n●可外接USB接頭\n●180度全開式開合設計\n●符合人體工學設計\n●簡約俐落外表', '$22,654', '133', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (186, 'HTR', 'HTR 收納包4號 2件式 For Mavic Mini', '0.jpg', '●精準空拍機開模設計\n●內部尼龍材質加強保護\n●雙邊拉鍊 拿取容易方便\n●主機配件分開放置 減少碰撞', '$22,484', '117', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (187, 'GoPro', '嚴選 GoPro HERO567 360度水上騎行運動型旋轉手腕套', '0.jpg', '●戶外騎行、水上運動皆適用\n●360度旋轉雲台，角度任意拍攝\n●旋轉雲台一鍵鎖定\n●手腕套加厚，防止布料摩擦皮膚', '$36,980', '154', '周邊', '2020-03-23 00:56:57', '2020-03-23 00:56:57'),
 (188, 'HTR', 'HTR 通用型 96顆LED攝影補光燈', '0.jpg', '●擁有96顆LED燈珠\n●亮度可隨拍攝環境調整\n●雙色色溫片隨時替換\n●底部含有冷靴及1/4通用螺孔\n●適用單眼/反 相機 GOPRO', '$23,977', '746', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
 (189, 'Jenova 吉尼佛', '吉尼佛 JENOVA SPORTS 33B 極速炫風-攝影運動背包', '0.jpg', '●外尺寸：\n●約23x14x19.5cm\n●內尺寸：\n●約21x13.5x17.5cm\n●容量：約1機+2鏡或1閃+配件', '$22,960', '156', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
 (190, 'HTR', 'HTR 螺旋槳4726F 三色槳 For Mavic Mini', '0.jpg', '●平衡性能佳 輕巧好攜帶\n●飛行安全 低噪音\n●機體外觀上更加分\n●顏色多變化 可任意挑選', '$35,144', '366', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
-(191, 'DJI\n', 'Mavic Mini 充電管家', '0.jpg', '●MAVIC MINI 專用配件', '$12,659', '349', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
+(191, 'DJI', 'Mavic Mini 充電管家', '0.jpg', '●MAVIC MINI 專用配件', '$12,659', '349', '周邊', '2020-03-23 00:56:58', '2020-03-26 16:40:21'),
 (192, 'HTR', 'HTR 螺旋槳4726F 金銀槳 For Mavic Mini', '0.jpg', '●平衡性能佳 輕巧好攜帶\n●飛行安全 低噪音\n●機體外觀上更加分\n●顏色多變化 可任意挑選', '$22,465', '332', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
 (193, 'Incase', 'Incase Camera Pro Pack 15吋 專業單眼相機空拍機兩用後背包-黑', '0.jpg', '●耐磨840D尼龍材質\n●最大可容納15吋筆電與平板電腦\n●內部可自行拆卸組合的可調式隔板\n●柔軟刷毛內襯提供完善安全的保護\n●側邊拉鍊口袋穿孔設計', '$12,567', '218', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
 (194, 'HTR', 'HTR 螺旋槳4726F 白槳 For Mavic Mini', '0.jpg', '●平衡性能佳 輕巧好攜帶\n●飛行安全 低噪音\n●機體外觀上更加分\n●顏色多變化 可任意挑選', '$11,784', '368', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
 (195, 'Incase', 'Incase Camera Side Bag 單眼相機 空拍機 單肩斜肩腰包', '0.jpg', '●可容納單眼數位相機、數位相機、DJI Mavic Pro或類似尺寸的空拍機\n●側邊半身拉鍊可以輕鬆拿取鏡頭與配件\n●可容納13吋筆電\n●可單純當作相機包使用\n●可放 DJI OSMO 手持', '$20,168', '507', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
 (196, 'Incase', 'Incase Camera Sling Pack 13吋 單眼相機空拍機兩用單肩包-黑', '0.jpg', '●可容納單眼數位相機、數位相機、DJI Mavic Pro或類似尺寸的空拍機\n●側邊半身拉鍊可以輕鬆拿取鏡頭與配件\n●可容納13吋筆電\n●可單純當作相機包使用\n●可放 DJI OSMO 手持穩', '$39,264', '201', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
-(197, 'DJI\n', 'Mavic Mini 充電底座', '0.jpg', '●MAVIC MINI 專用配件', '$20,167', '113', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
+(197, 'DJI', 'Mavic Mini 充電底座', '0.jpg', '●MAVIC MINI 專用配件', '$20,167', '113', '周邊', '2020-03-23 00:56:58', '2020-03-26 16:40:23'),
 (198, 'SJCAM', 'SJCAM SJ2000 夜視加強 防水型運動攝影機 機車行車記錄器-自', '0.jpg', '●聯詠96650晶片\n●200萬A+ 級高解析鏡頭\n●可更換鋰電池\n●邊充邊錄影\n●支援高容量32G micrso SD card。', '$13,542', '914', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
-(199, 'DJI\n', 'DJI Osmo Pocket 擴充配件轉接器', '0.jpg', '●為設備提供藍牙/Wi-Fi鏈接\n●提供固定平台\n●可同時為主機充電\n●使拍攝更加靈活方便', '$31,345', '384', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
-(200, 'DJI\n', 'DJI Osmo Pocket 無線模組', '0.jpg', '●為設備提供藍牙/Wi-Fi鏈接\n●提供固定平台\n●可同時為主機充電\n●使拍攝更加靈活方便', '$22,100', '375', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
-(201, 'DJI\n', 'DJI Osmo Pocket 聲音轉接頭', '0.jpg', '●轉接頭外接3.5mm麥克風\n●可通過音頻轉接頭外接', '$21,399', '730', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58'),
-(202, 'DJI\n', 'DJI Osmo Pocket 擴充配件組', '0.jpg', '●實現大幅度無損防震\n●1/2.3 英吋感光元件\n●80度廣角鏡頭\n●f/2.0 大光圈\n●拍攝4K/60fps超高清影像', '$22,168', '946', '周邊', '2020-03-23 00:56:58', '2020-03-23 00:56:58');
+(199, 'DJI', 'DJI Osmo Pocket 擴充配件轉接器', '0.jpg', '●為設備提供藍牙/Wi-Fi鏈接\n●提供固定平台\n●可同時為主機充電\n●使拍攝更加靈活方便', '$31,345', '384', '周邊', '2020-03-23 00:56:58', '2020-03-26 16:40:26'),
+(200, 'DJI', 'DJI Osmo Pocket 無線模組', '0.jpg', '●為設備提供藍牙/Wi-Fi鏈接\n●提供固定平台\n●可同時為主機充電\n●使拍攝更加靈活方便', '$22,100', '375', '周邊', '2020-03-23 00:56:58', '2020-03-26 16:40:28'),
+(201, 'DJI', 'DJI Osmo Pocket 聲音轉接頭', '0.jpg', '●轉接頭外接3.5mm麥克風\n●可通過音頻轉接頭外接', '$21,399', '730', '周邊', '2020-03-23 00:56:58', '2020-03-26 16:40:31'),
+(202, 'DJI', 'DJI Osmo Pocket 擴充配件組', '0.jpg', '●實現大幅度無損防震\n●1/2.3 英吋感光元件\n●80度廣角鏡頭\n●f/2.0 大光圈\n●拍攝4K/60fps超高清影像', '$22,168', '946', '周邊', '2020-03-23 00:56:58', '2020-03-26 16:40:33');
+
 
 -- --------------------------------------------------------
 
@@ -471,8 +550,8 @@ INSERT INTO `items` (`itemId`, `name`, `itemName`, `itemImg`, `itemDescription`,
 -- 資料表結構 `member`
 --
 
-CREATE TABLE `member` (
-  `ID` int(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `member` (
+  `ID` int(50) NOT NULL AUTO_INCREMENT,
   `Account` varchar(50) NOT NULL,
   `AccountActivated` int(1) NOT NULL,
   `Email` varchar(100) NOT NULL,
@@ -488,9 +567,16 @@ CREATE TABLE `member` (
   `VIP_Start` date NOT NULL,
   `VIP_Due` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Account` (`Account`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `member`
+--
+
+TRUNCATE TABLE `member`;
 --
 -- 傾印資料表的資料 `member`
 --
@@ -539,15 +625,21 @@ INSERT INTO `member` (`ID`, `Account`, `AccountActivated`, `Email`, `Pwd`, `Name
 -- 資料表結構 `multiple_images`
 --
 
-CREATE TABLE `multiple_images` (
-  `multipleImageId` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `multiple_images` (
+  `multipleImageId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `multipleImageImg` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片名稱',
   `itemId` int(11) NOT NULL COMMENT '商品編號',
   `itemName` varchar(3000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名稱',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間	',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`multipleImageId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1380 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `multiple_images`
+--
+
+TRUNCATE TABLE `multiple_images`;
 --
 -- 傾印資料表的資料 `multiple_images`
 --
@@ -1941,7 +2033,8 @@ INSERT INTO `multiple_images` (`multipleImageId`, `multipleImageImg`, `itemId`, 
 -- 資料表結構 `orderbuyer`
 --
 
-CREATE TABLE `orderbuyer` (
+CREATE TABLE IF NOT EXISTS `orderbuyer` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `orderId` varchar(20) NOT NULL COMMENT '訂單編號',
   `buyerName` varchar(20) NOT NULL COMMENT '購買人姓名',
   `buyerMobile` varchar(10) NOT NULL COMMENT '購買人電話',
@@ -1954,19 +2047,76 @@ CREATE TABLE `orderbuyer` (
   `taxNo` int(10) DEFAULT NULL COMMENT '統一編號',
   `shipping` varchar(20) NOT NULL COMMENT '運送方式',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `orderbuyer`
+--
 
-
+TRUNCATE TABLE `orderbuyer`;
 --
 -- 傾印資料表的資料 `orderbuyer`
 --
 
-INSERT INTO `orderbuyer` (`orderId`, `buyerName`, `buyerMobile`, `discount`, `shipcost`, `total`, `buyerAdress`, `invoiceType`, `paymentType`, `taxNo`, `shipping`, `created_at`, `updated_at`) VALUES
-('XLI856Y9I', '', '', '0', '100', 1300, '台北市大安區', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-23 11:48:25', '2020-03-23 11:48:25'),
-('BAWVCDE1F', '', '', '0', '100', 800, '台北市大安區', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-23 11:51:37', '2020-03-23 11:51:37');
-COMMIT;
+INSERT INTO `orderbuyer` (`Id`, `orderId`, `buyerName`, `buyerMobile`, `discount`, `shipcost`, `total`, `buyerAdress`, `invoiceType`, `paymentType`, `taxNo`, `shipping`, `created_at`, `updated_at`) VALUES
+(1, 'XLI856Y9I', '', '', '0', '100', 1300, '台北市大安區', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-23 11:48:25', '2020-03-23 11:48:25'),
+(2, 'BAWVCDE1F', '', '', '0', '100', 800, '台北市大安區', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-23 11:51:37', '2020-03-23 11:51:37'),
+(3, 'BZKH4H35Y', '', '', '0', '100', 0, '台北市大安 信興門市', 'donate', 'COD', 0, 'Seven-store', '2020-03-24 15:33:32', '2020-03-24 15:33:32'),
+(4, 'POGOMNK86', '', '', '0', '100', 2700, '台北市大安 信興門市', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-24 16:54:44', '2020-03-24 16:54:44'),
+(5, 'UG87SD6ZT', '', '', '0', '100', 800, '台北市大安 信興門市', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-24 16:57:23', '2020-03-24 16:57:23'),
+(6, 'X76HKWCM7', 'Alex', '0912345678', '0', '100', 800, '台北市大安 信興門市', 'company', 'CreditCard', 0, 'Seven-store', '2020-03-24 16:59:47', '2020-03-24 16:59:47'),
+(7, '2QMEXJAKA', 'Blex', '0913755678', '0', '100', 800, '台北市大安 信興門市', 'company', 'COD', 0, 'HiLife', '2020-03-24 16:59:57', '2020-03-24 16:59:57'),
+(8, 'IJHHVZV4N', 'Clex', '0912345558', '0', '100', 900, '台北市大安 信興門市', 'company', 'CreditCard', 0, 'Seven-store', '2020-03-24 17:00:13', '2020-03-24 17:00:13'),
+(9, 'O7GN2CW5F', 'Blex', '0913755678', '0', '100', 200, '台北市大安 信興門市', 'company', 'COD', 0, 'HiLife', '2020-03-24 17:00:25', '2020-03-24 17:00:25'),
+(10, 'TLPFU724F', 'Blex', '0913755678', '0', '100', 38589, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 11:57:16', '2020-03-25 11:57:16'),
+(11, '8JHG7VBFJ', 'Blex', '0913755678', '0', '100', 47671, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 12:00:12', '2020-03-25 12:00:12'),
+(12, 'F4Z9II282', 'Blex', '0913755678', '0', '100', 126033, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 12:03:18', '2020-03-25 12:03:18'),
+(13, 'E9RQAA7ZP', 'Blex', '0913755678', '0', '100', 126033, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 12:04:08', '2020-03-25 12:04:08'),
+(14, '7CLGUN3OI', 'Blex', '0913755678', '0', '100', 30557, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 12:08:35', '2020-03-25 12:08:35'),
+(15, 'NXCMUABZW', 'Blex', '0913755678', '0', '100', 92175, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 12:18:16', '2020-03-25 12:18:16'),
+(16, 'MFVCW3PWB', 'Blex', '0913755678', '0', '100', 31213, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 13:44:10', '2020-03-25 13:44:10'),
+(17, 'OC92VQJA6', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:39:24', '2020-03-25 14:39:24'),
+(18, '9R3ISWXR7', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:47:41', '2020-03-25 14:47:41'),
+(19, 'L74371WU7', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:52:12', '2020-03-25 14:52:12'),
+(20, 'HKS6T6XSN', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:53:23', '2020-03-25 14:53:23'),
+(21, 'QIBNK9NXW', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:53:45', '2020-03-25 14:53:45'),
+(22, 'FWC8X88B0', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:54:31', '2020-03-25 14:54:31'),
+(23, 'BUESH5DRI', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:55:01', '2020-03-25 14:55:01'),
+(24, 'N2OMW4HO4', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:55:39', '2020-03-25 14:55:39'),
+(25, 'Y0BVOIS3V', 'Blex', '0913755678', '0', '100', 135101, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:56:01', '2020-03-25 14:56:01'),
+(26, 'XDMF72TFE', 'Blex', '0913755678', '0', '100', 100, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:57:36', '2020-03-25 14:57:36'),
+(27, 'ONYDPDNNO', 'Blex', '0913755678', '0', '100', 45327, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 14:57:51', '2020-03-25 14:57:51'),
+(28, '6YH62Y2XZ', 'Blex', '0913755678', '0', '100', 31700, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 15:06:48', '2020-03-25 15:06:48'),
+(29, '0N7111W1T', 'Blex', '0913755678', '0', '100', 31700, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 15:11:19', '2020-03-25 15:11:19'),
+(30, 'R547X5H9I', 'Alex', '0912345678', '0', '100', 51119, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 17:06:29', '2020-03-25 17:06:29'),
+(31, 'LAMRMCFEB', 'Blex', '0913755678', '0', '100', 65885, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:17:40', '2020-03-25 20:17:40'),
+(32, '7LGV1F8B8', '', '', '0', '100', 65885, '台北市大安 信興門市', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-25 20:17:52', '2020-03-25 20:17:52'),
+(33, 'F7VFPW986', 'Clex', '0912345558', '0', '100', 100, '台北市大安 信興門市', 'company', 'COD', 0, 'Seven-store', '2020-03-25 20:46:03', '2020-03-25 20:46:03'),
+(34, 'I1QAEWVXY', 'Blex', '0913755678', '0', '100', 50214, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:49:32', '2020-03-25 20:49:32'),
+(35, '78DNW5BBK', 'Blex', '0913755678', '0', '100', 87440, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:50:11', '2020-03-25 20:50:11'),
+(36, 'PESKH6Q7P', 'Blex', '0913755678', '0', '100', 87440, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:50:29', '2020-03-25 20:50:29'),
+(37, 'EXTM3WU35', 'Blex', '0913755678', '0', '100', 87440, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:50:52', '2020-03-25 20:50:52'),
+(38, 'LXXPU6RCN', 'Blex', '0913755678', '0', '100', 22584, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:51:27', '2020-03-25 20:51:27'),
+(39, '628CGG9Y7', 'Blex', '0913755678', '0', '100', 22584, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:51:44', '2020-03-25 20:51:44'),
+(40, 'PXVYDONMP', 'Blex', '0913755678', '0', '100', 22584, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:52:05', '2020-03-25 20:52:05'),
+(41, 'EEBDEA237', 'Blex', '0913755678', '0', '100', 58532, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:55:17', '2020-03-25 20:55:17'),
+(42, 'GNVJ46PI3', 'Blex', '0913755678', '0', '100', 58532, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:56:19', '2020-03-25 20:56:19'),
+(43, 'DPNM39BD5', 'Blex', '0913755678', '0', '100', 58532, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:56:35', '2020-03-25 20:56:35'),
+(44, '8T4C79CLE', 'Blex', '0913755678', '0', '100', 58532, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:56:51', '2020-03-25 20:56:51'),
+(45, 'BXYD3PVUG', 'Blex', '0913755678', '0', '100', 71059, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:57:29', '2020-03-25 20:57:29'),
+(46, 'MO9I1T2XB', 'Blex', '0913755678', '0', '100', 55450, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:58:07', '2020-03-25 20:58:07'),
+(47, 'BDR2EKP9X', 'Blex', '0913755678', '0', '100', 55664, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 21:25:34', '2020-03-25 21:25:34'),
+(48, 'ZCWUI7B34', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:20:35', '2020-03-26 14:20:35'),
+(49, 'RUVC9CC6O', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:20:50', '2020-03-26 14:20:50'),
+(50, 'AOVXKK19J', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:21:55', '2020-03-26 14:21:55'),
+(51, '17K1JPAWV', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:22:22', '2020-03-26 14:22:22'),
+(52, 'TL7W17CH3', 'Blex', '0913755678', '0', '100', 68620, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:22:37', '2020-03-26 14:22:37'),
+(53, 'CGT563GBI', 'Blex', '0913755678', '0', '100', 100, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 15:35:04', '2020-03-26 15:35:04'),
+(54, 'KR7GMJKVR', '', '', '0', '100', 13600, '台北市大安 信興門市', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-26 15:35:19', '2020-03-26 15:35:19'),
+(55, 'A5S3406BO', 'Blex', '0913755678', '0', '100', 63687, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 15:44:59', '2020-03-26 15:44:59'),
+(56, 'B9KTNDLXI', 'Blex', '0913755678', '0', '100', 63687, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 15:52:26', '2020-03-26 15:52:26');
 
 -- --------------------------------------------------------
 
@@ -1974,35 +2124,90 @@ COMMIT;
 -- 資料表結構 `orderdetail`
 --
 
-CREATE TABLE `orderdetail` (
-  `orderId` int(20) NOT NULL COMMENT '訂單編號',
-  `pId` varchar(20) NOT NULL COMMENT '產品ID',
+CREATE TABLE IF NOT EXISTS `orderdetail` (
+  `orderId` varchar(20) NOT NULL COMMENT '訂單編號',
+  `itemId` varchar(20) NOT NULL COMMENT '產品ID',
+  `name` varchar(99) NOT NULL COMMENT '品牌名稱',
+  `itemName` varchar(99) NOT NULL COMMENT '產品名稱',
+  `itemImg` varchar(99) NOT NULL COMMENT '產品圖片',
+  `itemPrice` varchar(99) NOT NULL COMMENT '產品價格',
+  `itemCategoryId` varchar(99) NOT NULL COMMENT '分類名稱',
   `count` int(20) NOT NULL COMMENT '購買數量',
   `outStatus` varchar(20) NOT NULL COMMENT '產品狀態',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `orderdetail`
+--
+
+TRUNCATE TABLE `orderdetail`;
 --
 -- 傾印資料表的資料 `orderdetail`
 --
 
-INSERT INTO `orderdetail` (`orderId`, `pId`, `count`, `outStatus`, `created_at`, `updated_at`) VALUES
-(1, 'p006', 1, '已出貨', '2020-02-16 10:41:53', '2020-02-16 10:41:53'),
-(1, 'p008', 1, '退貨處理中', '2020-02-16 10:41:53', '2020-02-16 10:41:53'),
-(2, 'p007', 2, '退貨處理中', '2020-02-16 10:42:00', '2020-02-16 10:42:00'),
-(2, 'p001', 1, '退貨處理中', '2020-02-16 10:42:00', '2020-02-16 10:42:00'),
-(3, 'p006', 2, '退貨完成', '2020-02-16 10:42:05', '2020-02-16 10:42:05'),
-(3, 'p003', 1, '已出貨', '2020-02-16 10:42:05', '2020-02-16 10:42:05'),
-(4, 'p002', 1, '退貨完成', '2020-02-16 10:43:07', '2020-02-16 10:43:07'),
-(5, 'p005', 1, '退貨完成', '2020-02-16 10:43:11', '2020-02-16 10:43:11'),
-(6, 'p008', 1, '退貨處理中', '2020-02-16 11:07:04', '2020-02-16 11:07:04'),
-(6, 'p003', 1, '退貨處理中', '2020-02-16 11:07:04', '2020-02-16 11:07:04'),
-(7, 'p003', 1, '', '2020-02-16 11:12:25', '2020-02-16 11:12:25'),
-(8, 'p006', 2, '', '2020-02-16 11:12:32', '2020-02-16 11:12:32'),
-(8, 'p005', 1, '', '2020-02-16 11:12:32', '2020-02-16 11:12:32'),
-(9, 'p004', 1, '', '2020-02-16 13:31:29', '2020-02-16 13:31:29'),
-(9, 'p006', 1, '', '2020-02-16 13:31:29', '2020-02-16 13:31:29');
+INSERT INTO `orderdetail` (`orderId`, `itemId`, `name`, `itemName`, `itemImg`, `itemPrice`, `itemCategoryId`, `count`, `outStatus`, `created_at`, `updated_at`, `Id`) VALUES
+('11', 'undefined', '', '', '', '', '', 0, 'undefined', '2020-03-25 15:06:48', '2020-03-25 15:06:48', 70),
+('27', 'undefined', '', '', '', '', '', 0, 'undefined', '2020-03-25 15:06:48', '2020-03-25 15:06:48', 71),
+('0N7111W1T', '11', 'undefined', 'ANTIAN 小米手環3 矽膠錶帶', 'undefined', '11,700', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 15:11:19', '2020-03-25 15:11:19', 72),
+('0N7111W1T', '27', 'undefined', 'GARMIN Vivoactive 3 Music GPS音樂智慧錶', 'undefined', '19,900', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 15:11:19', '2020-03-25 15:11:19', 73),
+('R547X5H9I', '29', 'undefined', 'Fitbit Versa 2 健康運動智慧手錶', 'undefined', '22,569', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 17:06:29', '2020-03-25 17:06:29', 74),
+('R547X5H9I', '80', 'undefined', 'JLab JBuddies Folding 兒童耳機', 'undefined', '16,800', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 17:06:29', '2020-03-25 17:06:29', 75),
+('R547X5H9I', '91', 'undefined', '鐵三角 ATH-C200BT 無線藍芽耳塞式耳機', 'undefined', '11,650', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 17:06:29', '2020-03-25 17:06:29', 76),
+('LAMRMCFEB', '22', 'undefined', 'GARMIN fenix 5 Plus 行動支付音樂GPS複合式心率腕錶-光耀橘', 'undefined', '26,990', '穿戴式裝置', 2, '訂單處理中', '2020-03-25 20:17:40', '2020-03-25 20:17:40', 77),
+('LAMRMCFEB', '128', 'undefined', '鐵三角 ATH-CK200BT 頸掛耳塞式藍牙無線耳機', 'undefined', '11,805', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 20:17:40', '2020-03-25 20:17:40', 78),
+('7LGV1F8B8', '22', 'undefined', 'GARMIN fenix 5 Plus 行動支付音樂GPS複合式心率腕錶-光耀橘', 'undefined', '26,990', '穿戴式裝置', 2, '訂單處理中', '2020-03-25 20:17:52', '2020-03-25 20:17:52', 79),
+('7LGV1F8B8', '128', 'undefined', '鐵三角 ATH-CK200BT 頸掛耳塞式藍牙無線耳機', 'undefined', '11,805', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 20:17:52', '2020-03-25 20:17:52', 80),
+('I1QAEWVXY', '179', 'undefined', 'JOBY Action Clamp & GorillaPod Arm 運動攝影機固定臂鎖', 'undefined', '22,168', '周邊', 1, '訂單處理中', '2020-03-25 20:49:32', '2020-03-25 20:49:32', 81),
+('I1QAEWVXY', '90', 'undefined', 'SONY Hi-Res 無線藍牙耳罩式耳機 WH-H800', 'undefined', '14,790', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 20:49:32', '2020-03-25 20:49:32', 82),
+('I1QAEWVXY', '69', 'undefined', 'GOLiFE Care Xu 智慧全彩悠遊心率手環', 'undefined', '13,156', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:49:32', '2020-03-25 20:49:32', 83),
+('78DNW5BBK', '1', 'undefined', 'ANTIAN 小米手環3 米蘭尼斯金屬腕帶', 'undefined', '25,495', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:50:11', '2020-03-25 20:50:11', 84),
+('78DNW5BBK', '6', 'undefined', 'GARMIN D2 Charlie 鈦金航空錶', 'undefined', '32,290', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:50:11', '2020-03-25 20:50:11', 85),
+('78DNW5BBK', '147', 'undefined', '魔宴 Sabbat X12 Ultra 高通版 HIFI 無線藍芽耳機 充電艙', 'undefined', '29,555', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 20:50:11', '2020-03-25 20:50:11', 86),
+('PESKH6Q7P', '1', 'undefined', 'ANTIAN 小米手環3 米蘭尼斯金屬腕帶', 'undefined', '25,495', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:50:29', '2020-03-25 20:50:29', 87),
+('PESKH6Q7P', '6', 'undefined', 'GARMIN D2 Charlie 鈦金航空錶', 'undefined', '32,290', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:50:29', '2020-03-25 20:50:29', 88),
+('PESKH6Q7P', '147', 'undefined', '魔宴 Sabbat X12 Ultra 高通版 HIFI 無線藍芽耳機 充電艙', 'undefined', '29,555', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 20:50:29', '2020-03-25 20:50:29', 89),
+('EXTM3WU35', '1', 'undefined', 'ANTIAN 小米手環3 米蘭尼斯金屬腕帶', 'undefined', '25,495', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:50:52', '2020-03-25 20:50:52', 90),
+('EXTM3WU35', '6', 'undefined', 'GARMIN D2 Charlie 鈦金航空錶', 'undefined', '32,290', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:50:52', '2020-03-25 20:50:52', 91),
+('EXTM3WU35', '147', 'undefined', '魔宴 Sabbat X12 Ultra 高通版 HIFI 無線藍芽耳機 充電艙', 'undefined', '29,555', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 20:50:52', '2020-03-25 20:50:52', 92),
+('LXXPU6RCN', '186', 'undefined', 'HTR 收納包4號 2件式 For Mavic Mini', 'undefined', '22,484', '周邊', 1, '訂單處理中', '2020-03-25 20:51:27', '2020-03-25 20:51:27', 93),
+('628CGG9Y7', '186', 'undefined', 'HTR 收納包4號 2件式 For Mavic Mini', 'undefined', '22,484', '周邊', 1, '訂單處理中', '2020-03-25 20:51:44', '2020-03-25 20:51:44', 94),
+('PXVYDONMP', '186', 'undefined', 'HTR 收納包4號 2件式 For Mavic Mini', 'undefined', '22,484', '周邊', 1, '訂單處理中', '2020-03-25 20:52:06', '2020-03-25 20:52:06', 95),
+('EEBDEA237', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:55:17', '2020-03-25 20:55:17', 96),
+('EEBDEA237', '165', 'undefined', 'SJCAM SJ8 Plus 防水型運動攝影機單機4K高畫質', 'undefined', '31,542', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:55:17', '2020-03-25 20:55:17', 97),
+('GNVJ46PI3', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:56:19', '2020-03-25 20:56:19', 98),
+('GNVJ46PI3', '165', 'undefined', 'SJCAM SJ8 Plus 防水型運動攝影機單機4K高畫質', 'undefined', '31,542', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:56:19', '2020-03-25 20:56:19', 99),
+('DPNM39BD5', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:56:35', '2020-03-25 20:56:35', 100),
+('DPNM39BD5', '165', 'undefined', 'SJCAM SJ8 Plus 防水型運動攝影機單機4K高畫質', 'undefined', '31,542', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:56:35', '2020-03-25 20:56:35', 101),
+('8T4C79CLE', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:56:51', '2020-03-25 20:56:51', 102),
+('8T4C79CLE', '165', 'undefined', 'SJCAM SJ8 Plus 防水型運動攝影機單機4K高畫質', 'undefined', '31,542', '運動攝影機', 1, '訂單處理中', '2020-03-25 20:56:51', '2020-03-25 20:56:51', 103),
+('BXYD3PVUG', '37', 'undefined', 'GARMIN fenix 5X Plus 行動支付音樂GPS複合式心率腕錶', 'undefined', '35,990', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:57:29', '2020-03-25 20:57:29', 104),
+('BXYD3PVUG', '29', 'undefined', 'Fitbit Versa 2 健康運動智慧手錶', 'undefined', '22,569', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:57:29', '2020-03-25 20:57:29', 105),
+('BXYD3PVUG', '99', 'undefined', 'SONY WF-SP700N 真無線藍牙 降噪運動防水耳機 續航力9HR', 'undefined', '12,400', '耳機/喇叭', 1, '訂單處理中', '2020-03-25 20:57:29', '2020-03-25 20:57:29', 106),
+('MO9I1T2XB', '65', 'undefined', 'GARMIN vivosmart 4 健康心率手環', 'undefined', '13,880', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:58:07', '2020-03-25 20:58:07', 107),
+('MO9I1T2XB', '61', 'undefined', 'GARMIN Vivofit jr2 小童手環', 'undefined', '20,480', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:58:07', '2020-03-25 20:58:07', 108),
+('MO9I1T2XB', '59', 'undefined', 'GARMIN Vivofit 4 健身運動手環', 'undefined', '20,990', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:58:07', '2020-03-25 20:58:07', 109),
+('BDR2EKP9X', '193', 'undefined', 'Incase Camera Pro Pack 15吋 專業單眼相機空拍機兩用後背包-黑', 'undefined', '12,567', '周邊', 1, '訂單處理中', '2020-03-25 21:25:34', '2020-03-25 21:25:34', 110),
+('BDR2EKP9X', '156', 'undefined', 'Holy Stone HS210 迷你遙控飛機-三電版', 'undefined', '21,598', '運動攝影機', 1, '訂單處理中', '2020-03-25 21:25:34', '2020-03-25 21:25:34', 111),
+('BDR2EKP9X', '201', 'undefined', 'DJI Osmo Pocket 聲音轉接頭', 'undefined', '21,399', '周邊', 1, '訂單處理中', '2020-03-25 21:25:34', '2020-03-25 21:25:34', 112),
+('ZCWUI7B34', '[object Object]', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:20:35', '2020-03-26 14:20:35', 113),
+('RUVC9CC6O', '[object Object]', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:20:50', '2020-03-26 14:20:50', 114),
+('17K1JPAWV', '96', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:22:22', '2020-03-26 14:22:22', 115),
+('17K1JPAWV', '122', 'undefined', '鐵三角 ATH-CKS5TW  真無線運動耳機', 'undefined', '24,888', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 14:22:22', '2020-03-26 14:22:22', 116),
+('17K1JPAWV', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-26 14:22:22', '2020-03-26 14:22:22', 117),
+('TL7W17CH3', '96', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:22:37', '2020-03-26 14:22:37', 118),
+('TL7W17CH3', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-26 14:22:37', '2020-03-26 14:22:37', 119),
+('TL7W17CH3', '91', 'undefined', '鐵三角 ATH-C200BT 無線藍芽耳塞式耳機', 'undefined', '11,650', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 14:22:37', '2020-03-26 14:22:37', 120),
+('KR7GMJKVR', '73', 'undefined', 'JSmax SW-Q9 旗艦款智慧健康運動管理手錶', 'undefined', '13,500', '穿戴式裝置', 1, '訂單處理中', '2020-03-26 15:35:19', '2020-03-26 15:35:19', 121),
+('A5S3406BO', '202', 'undefined', 'DJI Osmo Pocket 擴充配件組', 'undefined', '22,168', '周邊', 1, '訂單處理中', '2020-03-26 15:44:59', '2020-03-26 15:44:59', 122),
+('A5S3406BO', '127', 'undefined', '鐵三角 ATH-CKS770XBT 繞頸式入耳式耳機 藍芽重低音 7HR續航', 'undefined', '24,999', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 15:44:59', '2020-03-26 15:44:59', 123),
+('A5S3406BO', '49', 'undefined', 'SAMSUNG Galaxy Watch 46mm  智慧手錶', 'undefined', '16,420', '穿戴式裝置', 1, '訂單處理中', '2020-03-26 15:44:59', '2020-03-26 15:44:59', 124),
+('B9KTNDLXI', '202', 'undefined', 'DJI Osmo Pocket 擴充配件組', 'undefined', '22,168', '周邊', 1, '訂單處理中', '2020-03-26 15:52:26', '2020-03-26 15:52:26', 125),
+('B9KTNDLXI', '49', 'undefined', 'SAMSUNG Galaxy Watch 46mm  智慧手錶', 'undefined', '16,420', '穿戴式裝置', 1, '訂單處理中', '2020-03-26 15:52:26', '2020-03-26 15:52:26', 126),
+('B9KTNDLXI', '127', 'undefined', '鐵三角 ATH-CKS770XBT 繞頸式入耳式耳機 藍芽重低音 7HR續航', 'undefined', '24,999', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 15:52:26', '2020-03-26 15:52:26', 127);
 
 -- --------------------------------------------------------
 
@@ -2010,8 +2215,8 @@ INSERT INTO `orderdetail` (`orderId`, `pId`, `count`, `outStatus`, `created_at`,
 -- 資料表結構 `orderlist`
 --
 
-CREATE TABLE `orderlist` (
-  `orderId` int(100) NOT NULL COMMENT '訂單編號',
+CREATE TABLE IF NOT EXISTS `orderlist` (
+  `orderId` int(100) NOT NULL AUTO_INCREMENT COMMENT '訂單編號',
   `csId` varchar(20) NOT NULL COMMENT '會員ID',
   `total` varchar(20) NOT NULL COMMENT '訂單總額',
   `marketingType` varchar(99) NOT NULL COMMENT '行銷類別',
@@ -2019,9 +2224,15 @@ CREATE TABLE `orderlist` (
   `shippingWay` varchar(20) NOT NULL COMMENT '運送類別',
   `outStatus` varchar(20) NOT NULL COMMENT '訂單狀態',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_time` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_time` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`orderId`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `orderlist`
+--
+
+TRUNCATE TABLE `orderlist`;
 --
 -- 傾印資料表的資料 `orderlist`
 --
@@ -2043,29 +2254,41 @@ INSERT INTO `orderlist` (`orderId`, `csId`, `total`, `marketingType`, `paymentTy
 -- 資料表結構 `outlist`
 --
 
-CREATE TABLE `outlist` (
-  `outId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `outlist` (
+  `outId` int(11) NOT NULL AUTO_INCREMENT,
   `csId` varchar(20) NOT NULL,
   `orderId` int(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `undated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `undated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`outId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `outlist`
+--
+
+TRUNCATE TABLE `outlist`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `payment`
 --
 
-CREATE TABLE `payment` (
-  `paymentId` int(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `payment` (
+  `paymentId` int(20) NOT NULL AUTO_INCREMENT,
   `paymentName` varchar(20) NOT NULL,
   `paymentCName` varchar(20) NOT NULL,
   `paymentImg` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`paymentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `payment`
+--
+
+TRUNCATE TABLE `payment`;
 --
 -- 傾印資料表的資料 `payment`
 --
@@ -2084,8 +2307,8 @@ INSERT INTO `payment` (`paymentId`, `paymentName`, `paymentCName`, `paymentImg`,
 -- 資料表結構 `plan`
 --
 
-CREATE TABLE `plan` (
-  `planId` int(3) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `plan` (
+  `planId` int(3) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `planUsername` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廠商名',
   `planName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '名稱',
   `planPlace` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廣告位置',
@@ -2096,9 +2319,15 @@ CREATE TABLE `plan` (
   `planStartTime` date NOT NULL,
   `planDueTime` date NOT NULL,
   `plan_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `plan_updates_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `plan_updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`planId`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `plan`
+--
+
+TRUNCATE TABLE `plan`;
 --
 -- 傾印資料表的資料 `plan`
 --
@@ -2113,8 +2342,8 @@ INSERT INTO `plan` (`planId`, `planUsername`, `planName`, `planPlace`, `planGrou
 -- 資料表結構 `platformadmins`
 --
 
-CREATE TABLE `platformadmins` (
-  `aId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `platformadmins` (
+  `aId` int(11) NOT NULL AUTO_INCREMENT,
   `aRoleId` int(10) NOT NULL,
   `aFName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aLName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2127,9 +2356,15 @@ CREATE TABLE `platformadmins` (
   `aLogoutTime` datetime DEFAULT NULL,
   `aLoginTime` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`aId`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformadmins`
+--
+
+TRUNCATE TABLE `platformadmins`;
 --
 -- 傾印資料表的資料 `platformadmins`
 --
@@ -2145,11 +2380,17 @@ INSERT INTO `platformadmins` (`aId`, `aRoleId`, `aFName`, `aLName`, `aEmail`, `a
 -- 資料表結構 `platformpermissions`
 --
 
-CREATE TABLE `platformpermissions` (
+CREATE TABLE IF NOT EXISTS `platformpermissions` (
   `adminPrmId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adminPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `adminPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`adminPrmId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformpermissions`
+--
+
+TRUNCATE TABLE `platformpermissions`;
 --
 -- 傾印資料表的資料 `platformpermissions`
 --
@@ -2167,24 +2408,35 @@ INSERT INTO `platformpermissions` (`adminPrmId`, `adminPrmName`) VALUES
 -- 資料表結構 `platformresetpass`
 --
 
-CREATE TABLE `platformresetpass` (
+CREATE TABLE IF NOT EXISTS `platformresetpass` (
   `aEmail` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aToken` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aHash` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aExpireDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformresetpass`
+--
+
+TRUNCATE TABLE `platformresetpass`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `platformroles`
 --
 
-CREATE TABLE `platformroles` (
-  `aRoleId` int(10) NOT NULL,
-  `aRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS `platformroles` (
+  `aRoleId` int(10) NOT NULL AUTO_INCREMENT,
+  `aRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`aRoleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformroles`
+--
+
+TRUNCATE TABLE `platformroles`;
 --
 -- 傾印資料表的資料 `platformroles`
 --
@@ -2200,14 +2452,20 @@ INSERT INTO `platformroles` (`aRoleId`, `aRoleName`) VALUES
 -- 資料表結構 `product`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE IF NOT EXISTS `product` (
   `pId` varchar(20) NOT NULL,
   `pName` varchar(20) NOT NULL,
   `price` int(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_time` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_time` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`pId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `product`
+--
+
+TRUNCATE TABLE `product`;
 --
 -- 傾印資料表的資料 `product`
 --
@@ -2228,8 +2486,8 @@ INSERT INTO `product` (`pId`, `pName`, `price`, `created_at`, `updated_time`) VA
 -- 資料表結構 `promotion_group`
 --
 
-CREATE TABLE `promotion_group` (
-  `groupId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `promotion_group` (
+  `groupId` int(11) NOT NULL AUTO_INCREMENT,
   `groupPlanId` int(11) NOT NULL COMMENT '廣告id',
   `groupBuyItems` int(11) NOT NULL COMMENT '買過我的商品',
   `groupHistoryItems` int(11) NOT NULL COMMENT '瀏覽過我的商品',
@@ -2238,9 +2496,15 @@ CREATE TABLE `promotion_group` (
   `groupCollectCategory` int(11) NOT NULL COMMENT '收藏某類別',
   `groupCartCategory` int(11) NOT NULL COMMENT '購物車有某類別',
   `group_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `group_updates_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `group_updates_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`groupId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `promotion_group`
+--
+
+TRUNCATE TABLE `promotion_group`;
 --
 -- 傾印資料表的資料 `promotion_group`
 --
@@ -2256,11 +2520,16 @@ INSERT INTO `promotion_group` (`groupId`, `groupPlanId`, `groupBuyItems`, `group
 -- 資料表結構 `rel_platform_permissions`
 --
 
-CREATE TABLE `rel_platform_permissions` (
+CREATE TABLE IF NOT EXISTS `rel_platform_permissions` (
   `aId` int(10) NOT NULL COMMENT '管理者',
   `aPermissionId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '權限'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `rel_platform_permissions`
+--
+
+TRUNCATE TABLE `rel_platform_permissions`;
 --
 -- 傾印資料表的資料 `rel_platform_permissions`
 --
@@ -2287,11 +2556,16 @@ INSERT INTO `rel_platform_permissions` (`aId`, `aPermissionId`) VALUES
 -- 資料表結構 `rel_vendor_permissions`
 --
 
-CREATE TABLE `rel_vendor_permissions` (
+CREATE TABLE IF NOT EXISTS `rel_vendor_permissions` (
   `vaId` int(10) NOT NULL,
   `vaPermissionId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `rel_vendor_permissions`
+--
+
+TRUNCATE TABLE `rel_vendor_permissions`;
 --
 -- 傾印資料表的資料 `rel_vendor_permissions`
 --
@@ -2328,14 +2602,20 @@ INSERT INTO `rel_vendor_permissions` (`vaId`, `vaPermissionId`) VALUES
 -- 資料表結構 `reply_comment`
 --
 
-CREATE TABLE `reply_comment` (
-  `replyId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `reply_comment` (
+  `replyId` int(10) NOT NULL AUTO_INCREMENT,
   `commentId` int(10) NOT NULL,
   `replyText` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`replyId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `reply_comment`
+--
+
+TRUNCATE TABLE `reply_comment`;
 --
 -- 傾印資料表的資料 `reply_comment`
 --
@@ -2351,7 +2631,7 @@ INSERT INTO `reply_comment` (`replyId`, `commentId`, `replyText`, `created_at`, 
 -- 資料表結構 `returndetail`
 --
 
-CREATE TABLE `returndetail` (
+CREATE TABLE IF NOT EXISTS `returndetail` (
   `returnId` int(11) NOT NULL COMMENT '退貨編號',
   `pId` varchar(20) NOT NULL COMMENT '產品ID',
   `count` varchar(20) NOT NULL COMMENT '退貨數量',
@@ -2359,6 +2639,11 @@ CREATE TABLE `returndetail` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `returndetail`
+--
+
+TRUNCATE TABLE `returndetail`;
 --
 -- 傾印資料表的資料 `returndetail`
 --
@@ -2377,8 +2662,8 @@ INSERT INTO `returndetail` (`returnId`, `pId`, `count`, `created_at`, `updated_a
 -- 資料表結構 `returnlist`
 --
 
-CREATE TABLE `returnlist` (
-  `returnId` int(11) NOT NULL COMMENT '退貨編號',
+CREATE TABLE IF NOT EXISTS `returnlist` (
+  `returnId` int(11) NOT NULL AUTO_INCREMENT COMMENT '退貨編號',
   `orderId` varchar(20) NOT NULL COMMENT '訂單編號',
   `returnStatus` varchar(20) NOT NULL COMMENT '退貨狀態',
   `returnPay` varchar(20) NOT NULL COMMENT '退款金額',
@@ -2387,9 +2672,15 @@ CREATE TABLE `returnlist` (
   `buyerAdress` varchar(30) NOT NULL COMMENT '購買人地址',
   `returnReason` varchar(150) NOT NULL COMMENT '退貨原因',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`returnId`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `returnlist`
+--
+
+TRUNCATE TABLE `returnlist`;
 --
 -- 傾印資料表的資料 `returnlist`
 --
@@ -2410,44 +2701,35 @@ INSERT INTO `returnlist` (`returnId`, `orderId`, `returnStatus`, `returnPay`, `b
 -- 資料表結構 `shopcart`
 --
 
-CREATE TABLE `shopcart` (
+CREATE TABLE IF NOT EXISTS `shopcart` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `csId` varchar(20) NOT NULL COMMENT '會員ID',
-  `pId` varchar(20) NOT NULL COMMENT '產品ID',
+  `itemId` varchar(20) NOT NULL COMMENT '產品ID',
+  `name` varchar(99) NOT NULL COMMENT '品牌名稱',
+  `itemName` varchar(99) NOT NULL COMMENT '產品名稱',
+  `itemImg` varchar(99) NOT NULL COMMENT '產品圖片',
+  `itemCategoryId` varchar(99) NOT NULL COMMENT '產品分類',
+  `itemPrice` varchar(20) NOT NULL COMMENT '價格',
   `count` int(20) DEFAULT NULL COMMENT '產品數量',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_time` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
 --
--- 傾印資料表的資料 `shopcart`
+-- 資料表新增資料前，先清除舊資料 `shopcart`
 --
 
-INSERT INTO `shopcart` (`csId`, `pId`, `count`, `created_at`, `updated_time`) VALUES
-('CS001', 'p003', 1, '2020-02-04 15:40:42', '2020-02-04 15:40:42'),
-('CS001', 'p008', 3, '2020-02-04 15:40:46', '2020-02-06 09:09:38'),
-('CS005', 'p006', 1, '2020-02-05 18:45:34', '2020-02-05 18:45:34'),
-('CS005', 'p005', 3, '2020-02-05 18:53:57', '2020-02-05 18:53:59'),
-('CS005', 'p001', 4, '2020-02-05 19:03:23', '2020-02-05 19:14:07'),
-('CS001', 'p001', 4, '2020-02-06 09:26:52', '2020-02-06 09:27:01'),
-('CS001', 'p005', 1, '2020-02-06 09:27:03', '2020-02-06 09:27:03'),
-('', 'p003', 2, '2020-02-07 13:19:11', '2020-02-07 17:08:04'),
-('', 'p001', 3, '2020-02-07 13:19:14', '2020-02-07 17:09:59'),
-('', 'p002', 1, '2020-02-07 17:06:53', '2020-02-07 17:06:53'),
-('', 'p006', 2, '2020-02-07 17:06:54', '2020-02-07 17:08:05'),
-('', 'p007', 1, '2020-02-07 17:09:07', '2020-02-07 17:09:07'),
-('', '', 1, '2020-02-07 17:10:34', '2020-02-07 17:10:34'),
-('CS004', 'p005', 1, '2020-02-07 17:31:56', '2020-02-07 17:31:56'),
-('CS004', 'p007', 1, '2020-02-07 17:31:58', '2020-02-07 17:31:58');
-
+TRUNCATE TABLE `shopcart`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `stories`
 --
 
-CREATE TABLE `stories` (
+CREATE TABLE IF NOT EXISTS `stories` (
   `usrId` int(50) NOT NULL,
-  `stryId` int(11) NOT NULL,
+  `stryId` int(11) NOT NULL AUTO_INCREMENT,
   `stryTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stryStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stryContent` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2455,9 +2737,15 @@ CREATE TABLE `stories` (
   `stryLikes` int(50) NOT NULL DEFAULT 0,
   `stryViews` int(50) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`stryId`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `stories`
+--
+
+TRUNCATE TABLE `stories`;
 --
 -- 傾印資料表的資料 `stories`
 --
@@ -2494,17 +2782,23 @@ INSERT INTO `stories` (`usrId`, `stryId`, `stryTitle`, `stryStatus`, `stryConten
 -- 資料表結構 `storydrafts`
 --
 
-CREATE TABLE `storydrafts` (
+CREATE TABLE IF NOT EXISTS `storydrafts` (
   `usrId` int(50) NOT NULL,
-  `drftId` int(50) NOT NULL,
+  `drftId` int(50) NOT NULL AUTO_INCREMENT,
   `drftStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftContent` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftTags` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`drftId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `storydrafts`
+--
+
+TRUNCATE TABLE `storydrafts`;
 --
 -- 傾印資料表的資料 `storydrafts`
 --
@@ -2524,17 +2818,23 @@ INSERT INTO `storydrafts` (`usrId`, `drftId`, `drftStatus`, `drftTitle`, `drftCo
 -- 資料表結構 `storyreplies`
 --
 
-CREATE TABLE `storyreplies` (
-  `rplyId` int(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `storyreplies` (
+  `rplyId` int(50) NOT NULL AUTO_INCREMENT,
   `stryId` int(50) NOT NULL,
   `usrId` int(50) NOT NULL,
   `rplyTo` int(50) DEFAULT NULL,
   `rplyContent` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `rplyStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`rplyId`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `storyreplies`
+--
+
+TRUNCATE TABLE `storyreplies`;
 --
 -- 傾印資料表的資料 `storyreplies`
 --
@@ -2552,8 +2852,8 @@ INSERT INTO `storyreplies` (`rplyId`, `stryId`, `usrId`, `rplyTo`, `rplyContent`
 -- 資料表結構 `students`
 --
 
-CREATE TABLE `students` (
-  `id` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `students` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `studentId` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '學號',
   `studentName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '學生姓名',
   `studentGender` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '學生性別',
@@ -2562,9 +2862,15 @@ CREATE TABLE `students` (
   `studentDescription` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '個人描述',
   `studentImg` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '照片檔案名稱',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='學生資料表';
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='學生資料表';
 
+--
+-- 資料表新增資料前，先清除舊資料 `students`
+--
+
+TRUNCATE TABLE `students`;
 --
 -- 傾印資料表的資料 `students`
 --
@@ -2583,7 +2889,7 @@ INSERT INTO `students` (`id`, `studentId`, `studentName`, `studentGender`, `stud
 -- 資料表結構 `table 9`
 --
 
-CREATE TABLE `table 9` (
+CREATE TABLE IF NOT EXISTS `table 9` (
   `categoryId` int(20) NOT NULL,
   `categoryName` varchar(20) NOT NULL,
   `categoryParentId` int(20) NOT NULL,
@@ -2591,6 +2897,11 @@ CREATE TABLE `table 9` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- 資料表新增資料前，先清除舊資料 `table 9`
+--
+
+TRUNCATE TABLE `table 9`;
 --
 -- 傾印資料表的資料 `table 9`
 --
@@ -2606,8 +2917,8 @@ INSERT INTO `table 9` (`categoryId`, `categoryName`, `categoryParentId`, `create
 -- 資料表結構 `user_comment`
 --
 
-CREATE TABLE `user_comment` (
-  `commentId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_comment` (
+  `commentId` int(10) NOT NULL AUTO_INCREMENT,
   `productId` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `userId` int(10) NOT NULL,
   `userName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2615,9 +2926,15 @@ CREATE TABLE `user_comment` (
   `commentText` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`commentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `user_comment`
+--
+
+TRUNCATE TABLE `user_comment`;
 --
 -- 傾印資料表的資料 `user_comment`
 --
@@ -2643,8 +2960,8 @@ INSERT INTO `user_comment` (`commentId`, `productId`, `userId`, `userName`, `ran
 -- 資料表結構 `vendoradmins`
 --
 
-CREATE TABLE `vendoradmins` (
-  `vaId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `vendoradmins` (
+  `vaId` int(10) NOT NULL AUTO_INCREMENT,
   `vId` int(10) DEFAULT NULL COMMENT '廠商',
   `vaRoleId` int(10) NOT NULL,
   `vaFName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '名字',
@@ -2658,9 +2975,15 @@ CREATE TABLE `vendoradmins` (
   `vaLoginTime` datetime DEFAULT NULL,
   `vaNotes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`vaId`)
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendoradmins`
+--
+
+TRUNCATE TABLE `vendoradmins`;
 --
 -- 傾印資料表的資料 `vendoradmins`
 --
@@ -2678,11 +3001,17 @@ INSERT INTO `vendoradmins` (`vaId`, `vId`, `vaRoleId`, `vaFName`, `vaLName`, `va
 -- 資料表結構 `vendorpermissions`
 --
 
-CREATE TABLE `vendorpermissions` (
+CREATE TABLE IF NOT EXISTS `vendorpermissions` (
   `vendorPrmId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vendorPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `vendorPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`vendorPrmId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendorpermissions`
+--
+
+TRUNCATE TABLE `vendorpermissions`;
 --
 -- 傾印資料表的資料 `vendorpermissions`
 --
@@ -2700,24 +3029,35 @@ INSERT INTO `vendorpermissions` (`vendorPrmId`, `vendorPrmName`) VALUES
 -- 資料表結構 `vendorresetpass`
 --
 
-CREATE TABLE `vendorresetpass` (
+CREATE TABLE IF NOT EXISTS `vendorresetpass` (
   `vaEmail` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vaToken` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vaHash` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vaExpireDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendorresetpass`
+--
+
+TRUNCATE TABLE `vendorresetpass`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `vendorroles`
 --
 
-CREATE TABLE `vendorroles` (
-  `vaRoleId` int(10) NOT NULL,
-  `vaRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS `vendorroles` (
+  `vaRoleId` int(10) NOT NULL AUTO_INCREMENT,
+  `vaRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`vaRoleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendorroles`
+--
+
+TRUNCATE TABLE `vendorroles`;
 --
 -- 傾印資料表的資料 `vendorroles`
 --
@@ -2733,8 +3073,8 @@ INSERT INTO `vendorroles` (`vaRoleId`, `vaRoleName`) VALUES
 -- 資料表結構 `vendors`
 --
 
-CREATE TABLE `vendors` (
-  `vId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `vendors` (
+  `vId` int(10) NOT NULL AUTO_INCREMENT,
   `vName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vEmail` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vInfo` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2742,9 +3082,16 @@ CREATE TABLE `vendors` (
   `vActive` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vVerify` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT current_timestamp() COMMENT '驗證',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`vId`),
+  UNIQUE KEY `vEmail` (`vEmail`)
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendors`
+--
+
+TRUNCATE TABLE `vendors`;
 --
 -- 傾印資料表的資料 `vendors`
 --
@@ -2755,10 +3102,10 @@ INSERT INTO `vendors` (`vId`, `vName`, `vEmail`, `vInfo`, `vImg`, `vActive`, `vV
 (54, '是在哈囉', 'onpica17@gmail.com', '', NULL, 'active', '2020-02-16 04:37:00', '2020-02-16 04:37:00', '2020-02-16 04:37:00'),
 (55, 'APPLE', 'apple@ccc.com', NULL, 'apple.png', 'active', 'current_timestamp()', '2020-03-19 09:14:42', '2020-03-19 09:14:42'),
 (60, 'DJI', 'dji@ccc.com', NULL, 'dji.png', 'active', 'current_timestamp()', '2020-03-19 09:16:35', '2020-03-19 09:16:35'),
-(61, 'FITBIT', 'fitbit@ccc.com', NULL, 'fitbit.png', 'active', 'current_timestamp()', '2020-03-19 09:16:56', '2020-03-19 09:16:56'),
+(61, 'Fitbit', 'fitbit@ccc.com', NULL, 'fitbit.png', 'active', 'current_timestamp()', '2020-03-19 09:16:56', '2020-03-19 09:16:56'),
 (62, 'GoPro', 'gopro@ccc.com', NULL, 'gopro.png', 'active', 'current_timestamp()', '2020-03-19 09:17:36', '2020-03-19 09:17:36'),
 (63, 'GARMIN', 'garmin@ccc.com', NULL, 'garmin.png', 'active', 'current_timestamp()', '2020-03-19 09:18:26', '2020-03-19 09:18:26'),
-(64, 'JSMAX', 'jsmax@ccc.com', NULL, 'jsmax.jpg', 'active', 'current_timestamp()', '2020-03-19 09:19:03', '2020-03-19 09:19:03'),
+(64, 'JSmax', 'jsmax@ccc.com', NULL, 'jsmax.jpg', 'active', 'current_timestamp()', '2020-03-19 09:19:03', '2020-03-19 09:19:03'),
 (65, 'QCY', 'qcy@ccc.com', NULL, 'qcy.jpg', 'active', 'current_timestamp()', '2020-03-19 09:19:26', '2020-03-19 09:19:26'),
 (66, 'SAMSUNG', 'samsung@ccc.com', NULL, 'samsumg.png', 'active', 'current_timestamp()', '2020-03-19 09:19:54', '2020-03-19 09:19:54'),
 (67, 'SJCAM', 'sjcam@ccc.com', NULL, 'sjcam.jpg', 'active', 'current_timestamp()', '2020-03-19 09:20:27', '2020-03-19 09:20:27'),
@@ -2766,353 +3113,16 @@ INSERT INTO `vendors` (`vId`, `vName`, `vEmail`, `vInfo`, `vImg`, `vActive`, `vV
 (69, 'SUDIO', 'sudio@ccc.com', NULL, 'sudio.jpg', 'active', 'current_timestamp()', '2020-03-19 09:21:20', '2020-03-19 09:21:20'),
 (70, '小米', 'mi@ccc.com', NULL, '小米.jpg', 'active', 'current_timestamp()', '2020-03-19 09:21:48', '2020-03-19 09:21:48'),
 (71, '鐵三角', 'audio-technica@ccc.com', NULL, '鐵三角.jpg', 'active', 'current_timestamp()', '2020-03-19 09:23:16', '2020-03-19 09:23:16'),
-(72, 'Sabbat 魔宴', 'sabbat@ccc.com', NULL, '魔宴.png', 'active', 'current_timestamp()', '2020-03-19 09:23:55', '2020-03-19 09:23:55');
-
---
--- 已傾印資料表的索引
---
-
---
--- 資料表索引 `ad`
---
-ALTER TABLE `ad`
-  ADD PRIMARY KEY (`adId`);
-
---
--- 資料表索引 `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
--- 資料表索引 `categoryies`
---
-ALTER TABLE `categoryies`
-  ADD PRIMARY KEY (`categoryId`);
-
---
--- 資料表索引 `coupon`
---
-ALTER TABLE `coupon`
-  ADD PRIMARY KEY (`cp_id`);
-
---
--- 資料表索引 `coupon_item`
---
-ALTER TABLE `coupon_item`
-  ADD PRIMARY KEY (`cpi_id`);
-
---
--- 資料表索引 `coupon_rule`
---
-ALTER TABLE `coupon_rule`
-  ADD PRIMARY KEY (`cpr_id`);
-
---
--- 資料表索引 `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`csId`);
-
---
--- 資料表索引 `items`
---
-ALTER TABLE `items`
-  ADD PRIMARY KEY (`itemId`);
-
---
--- 資料表索引 `member`
---
-ALTER TABLE `member`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `Account` (`Account`);
-
---
--- 資料表索引 `multiple_images`
---
-ALTER TABLE `multiple_images`
-  ADD PRIMARY KEY (`multipleImageId`);
-
---
--- 資料表索引 `orderlist`
---
-ALTER TABLE `orderlist`
-  ADD PRIMARY KEY (`orderId`);
-
---
--- 資料表索引 `outlist`
---
-ALTER TABLE `outlist`
-  ADD PRIMARY KEY (`outId`);
-
---
--- 資料表索引 `payment`
---
-ALTER TABLE `payment`
-  ADD PRIMARY KEY (`paymentId`);
-
---
--- 資料表索引 `plan`
---
-ALTER TABLE `plan`
-  ADD PRIMARY KEY (`planId`);
-
---
--- 資料表索引 `platformadmins`
---
-ALTER TABLE `platformadmins`
-  ADD PRIMARY KEY (`aId`);
-
---
--- 資料表索引 `platformpermissions`
---
-ALTER TABLE `platformpermissions`
-  ADD PRIMARY KEY (`adminPrmId`);
-
---
--- 資料表索引 `platformroles`
---
-ALTER TABLE `platformroles`
-  ADD PRIMARY KEY (`aRoleId`);
-
---
--- 資料表索引 `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`pId`);
-
---
--- 資料表索引 `promotion_group`
---
-ALTER TABLE `promotion_group`
-  ADD PRIMARY KEY (`groupId`);
-
---
--- 資料表索引 `reply_comment`
---
-ALTER TABLE `reply_comment`
-  ADD PRIMARY KEY (`replyId`);
-
---
--- 資料表索引 `returnlist`
---
-ALTER TABLE `returnlist`
-  ADD PRIMARY KEY (`returnId`);
-
---
--- 資料表索引 `stories`
---
-ALTER TABLE `stories`
-  ADD PRIMARY KEY (`stryId`);
-
---
--- 資料表索引 `storydrafts`
---
-ALTER TABLE `storydrafts`
-  ADD PRIMARY KEY (`drftId`);
-
---
--- 資料表索引 `storyreplies`
---
-ALTER TABLE `storyreplies`
-  ADD PRIMARY KEY (`rplyId`);
-
---
--- 資料表索引 `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`);
-
---
--- 資料表索引 `user_comment`
---
-ALTER TABLE `user_comment`
-  ADD PRIMARY KEY (`commentId`);
-
---
--- 資料表索引 `vendoradmins`
---
-ALTER TABLE `vendoradmins`
-  ADD PRIMARY KEY (`vaId`);
-
---
--- 資料表索引 `vendorpermissions`
---
-ALTER TABLE `vendorpermissions`
-  ADD PRIMARY KEY (`vendorPrmId`);
-
---
--- 資料表索引 `vendorroles`
---
-ALTER TABLE `vendorroles`
-  ADD PRIMARY KEY (`vaRoleId`);
-
---
--- 資料表索引 `vendors`
---
-ALTER TABLE `vendors`
-  ADD PRIMARY KEY (`vId`),
-  ADD UNIQUE KEY `vEmail` (`vEmail`);
-
---
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
---
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `ad`
---
-ALTER TABLE `ad`
-  MODIFY `adId` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `categoryies`
---
-ALTER TABLE `categoryies`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=37;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `coupon`
---
-ALTER TABLE `coupon`
-  MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券id', AUTO_INCREMENT=31;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `coupon_item`
---
-ALTER TABLE `coupon_item`
-  MODIFY `cpi_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '個人優惠券id', AUTO_INCREMENT=46;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `coupon_rule`
---
-ALTER TABLE `coupon_rule`
-  MODIFY `cpr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券規則id', AUTO_INCREMENT=18;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `items`
---
-ALTER TABLE `items`
-  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品編號', AUTO_INCREMENT=203;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `member`
---
-ALTER TABLE `member`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `multiple_images`
---
-ALTER TABLE `multiple_images`
-  MODIFY `multipleImageId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=1380;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `orderlist`
---
-ALTER TABLE `orderlist`
-  MODIFY `orderId` int(100) NOT NULL AUTO_INCREMENT COMMENT '訂單編號', AUTO_INCREMENT=10;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `outlist`
---
-ALTER TABLE `outlist`
-  MODIFY `outId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `payment`
---
-ALTER TABLE `payment`
-  MODIFY `paymentId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `plan`
---
-ALTER TABLE `plan`
-  MODIFY `planId` int(3) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=72;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `platformadmins`
---
-ALTER TABLE `platformadmins`
-  MODIFY `aId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `platformroles`
---
-ALTER TABLE `platformroles`
-  MODIFY `aRoleId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `promotion_group`
---
-ALTER TABLE `promotion_group`
-  MODIFY `groupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `reply_comment`
---
-ALTER TABLE `reply_comment`
-  MODIFY `replyId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `returnlist`
---
-ALTER TABLE `returnlist`
-  MODIFY `returnId` int(11) NOT NULL AUTO_INCREMENT COMMENT '退貨編號', AUTO_INCREMENT=10;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `stories`
---
-ALTER TABLE `stories`
-  MODIFY `stryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `storydrafts`
---
-ALTER TABLE `storydrafts`
-  MODIFY `drftId` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `storyreplies`
---
-ALTER TABLE `storyreplies`
-  MODIFY `rplyId` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `students`
---
-ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=19;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `user_comment`
---
-ALTER TABLE `user_comment`
-  MODIFY `commentId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `vendoradmins`
---
-ALTER TABLE `vendoradmins`
-  MODIFY `vaId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `vendorroles`
---
-ALTER TABLE `vendorroles`
-  MODIFY `vaRoleId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `vendors`
---
-ALTER TABLE `vendors`
-  MODIFY `vId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+(72, 'Sabbat 魔宴', 'sabbat@ccc.com', NULL, '魔宴.png', 'active', 'current_timestamp()', '2020-03-19 09:23:55', '2020-03-19 09:23:55'),
+(73, 'AFAMIC 艾法', 'Jenova 吉尼佛@ccc.com', NULL, 'AFAMIC 艾法.jpg', 'active', 'current_timestamp()', '2020-03-24 11:55:42', '2020-03-24 11:55:42'),
+(79, 'GOLiFE', 'GOLiFE@ccc.com', NULL, 'GOLiFE.png', 'active', 'current_timestamp()', '2020-03-24 11:58:21', '2020-03-24 11:58:21'),
+(81, 'HTR', 'HTR@ccc.com', NULL, 'HTR.jpg', 'active', 'current_timestamp()', '2020-03-24 11:59:11', '2020-03-24 11:59:11'),
+(82, 'JLab', 'JLab@ccc.com', NULL, 'JLab.jpg', 'active', 'current_timestamp()', '2020-03-24 11:59:31', '2020-03-24 11:59:31'),
+(83, 'Plantronics繽特力', 'Plantronics@ccc.com', NULL, 'Plantronics繽特力.jpg', 'active', 'current_timestamp()', '2020-03-24 12:00:00', '2020-03-24 12:00:00'),
+(85, 'Holy Stone', 'HolyStone@ccc.com', NULL, 'Holy Stone.png', 'active', 'current_timestamp()', '2020-03-24 12:01:36', '2020-03-24 12:01:36'),
+(86, 'JOBY', 'JOBY@ccc.com', NULL, 'JOBY.jpg', 'active', 'current_timestamp()', '2020-03-24 12:02:56', '2020-03-24 12:02:56'),
+(87, 'Jenova 吉尼佛', 'Jenova@ccc.com', NULL, 'Jenova 吉尼佛.jpg', 'active', 'current_timestamp()', '2020-03-24 12:03:24', '2020-03-24 12:03:24'),
+(88, 'Incase', 'Incase@ccc.com', NULL, 'Incase.jpg', 'active', 'current_timestamp()', '2020-03-24 12:03:41', '2020-03-24 12:03:41');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

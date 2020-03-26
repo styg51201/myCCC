@@ -36,9 +36,6 @@ function MemberStories(){
                         str = str.substring(1, 50) + '...'
                     }
                     elm.contentStr = str
-                    // console.log(str)
-                    // console.log(stateToHTML(convertFromRaw(JSON.parse(elm.stryContent))).text)
-                    // elm.stryContent = stateToHTML(convertFromRaw(JSON.parse(elm.stryContent))).innerText
                 })
             }
             setData(r.data)
@@ -84,6 +81,9 @@ function MemberStories(){
                                                 編輯
                                         </button>
                                     </Link>
+                                    <button className="bk-btn-black-bordered">
+                                        刪除
+                                    </button>
                                 </div>
                             </li>
                             )

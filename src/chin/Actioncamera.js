@@ -25,7 +25,7 @@ function Actioncamera(props) {
     'ACTION CAMERA'
   )
   const [commodity, setCommdity] = useState(false)
-  document.documentElement.scrollTop = document.body.scrollTop =0;
+  // document.documentElement.scrollTop = document.body.scrollTop =0;
   const itemlist = props.data.map((val, ind) => {
     if (props.actioncamera.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
@@ -44,7 +44,10 @@ function Actioncamera(props) {
   })
   useEffect(() => {
     props.formServerItemsData('actioncamera')
-    props.ResetListItemName()
+  
+    
+    return ()=> props.ResetListItemName()
+
   }, [])
 
   if (!props.data) return <></>
@@ -95,7 +98,9 @@ function Actioncamera(props) {
 }
 // 選擇對應的reducer
 const mapStateToProps = store => {
-  return { data: store.getItems, actioncamera: store.getListitemName }
+  return { data: store.getItems, 
+          actioncamera: store.getListitemName,
+          rest:store.rest}
 }
 
 //action

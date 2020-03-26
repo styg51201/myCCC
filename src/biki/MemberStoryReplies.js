@@ -5,7 +5,7 @@ import axios from 'axios'
 import Swal from 'sweetalert2'
 
 import StoryReply from './components/StoryReply'
-import {getRecursiveJson, mapRecursive} from './utils/useRecursive'
+import {getRecursiveJson} from './utils/useRecursive'
 
 // import './css/stories.scss'
 
@@ -13,13 +13,14 @@ import {getRecursiveJson, mapRecursive} from './utils/useRecursive'
 function MemberStoryReplies(props){
     
     const [data, setData] = useState([])
-
-    // const {getRecursiveJson} = useReplyRecursive
+    const [openRplyTo, setOpenRplyTo] = useState(null)
+    const [id, setId] = useState(props.match.params.id)
 
     useEffect(()=>{
         if(!getRecursiveJson) return;
 
-        let id = props.match.params.id
+        // let id = props.match.params.id
+        console.log(id)
 
         axios.get(`http://localhost:5500/stories/member/${id}/replies`)
         .then(r=>{
@@ -40,9 +41,12 @@ function MemberStoryReplies(props){
         })
     }, [])
 
+    const handleOnclick = (id)=>{
+        setOpenRplyTo(id)
+    }
+
     const handleSubmit = (replyTo, txtContent)=>{
-        let url = `http://localhost:5500/stories/reply?id=${props.match.params.id}` + (replyTo ? `&toId=${replyTo}` : '')
-        console.log(url)
+        let url = `http://localhost:5500/stories/reply/${id}?usrId=${localStorage.getItem('userId')}` + (replyTo ? `&toId=${replyTo}` : '')
 
         axios({
             method: 'POST',
@@ -54,11 +58,18 @@ function MemberStoryReplies(props){
         .then(res=>{
             Swal.fire({
                 position: 'top-end',
-                // icon: 'success',
                 text: '成功回覆',
-                showConfirmButton: false,
-                timer: 1500,
+                showConfirmButton: true,
+                // timer: 1500,
+                buttonsStyling: false,
+                confirmButtonText: '確定',
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    icon: 'bk-swl-icon',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
             })
             console.log(res.data)
         })
@@ -81,6 +92,9 @@ function MemberStoryReplies(props){
                         date: elm.rplyUpdate,
                         fromNow: elm.fromNow
                     }}
+                    id={`${elm.rplyId}-${elm.usrId}`}
+                    onClick={handleOnclick}
+                    openRplyTo={openRplyTo}
                 />
             ]
             if(elm.children){
@@ -103,10 +117,15 @@ function MemberStoryReplies(props){
                         </ul>
                     </div>
                 </Col>
-                <Col lg={9} className='bk-member-main-container'>
-                    <h3>回覆留言</h3>
-                    <div className="bk-recursive-replies-container">
-                        {!data.length ? '暫時沒有留言' : mapRecursive(data) }
+                <Col lg={9}>
+                    <div className='bk-member-main-container bk-reply-page'>
+                        <h3>回覆留言</h3>
+                    </div>
+                    <div className="bk-recursive-replies-container bk-reply-page">
+                        {!data.length ? 
+                        <div className="bk-story-replies" style={{background: 'transparent'}}>暫時沒有留言'</div> 
+                        :
+                         mapRecursive(data) }
                     </div>
                 </Col>
             </Row>

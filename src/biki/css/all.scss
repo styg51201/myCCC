@@ -39,3 +39,50 @@ h6.bk-white {
 .bk-icon {
   font-size: 1.3rem;
 }
+
+//sweet alert
+.bk-swl-popup {
+  border-radius: 0 !important;
+
+  .bk-swl-content {
+    color: $black !important;
+    font-size: $font-m !important;
+  }
+
+  .bk-swl-icon.swal2-warning {
+    border-color: $orange;
+    color: $orange;
+  }
+
+  .bk-swl-icon.swal2-success {
+    border-color: $blue;
+    color: $blue;
+
+    .swal2-success-ring {
+      border-color: $blue;
+    }
+    span[class^="swal2-success-line"] {
+      background-color: $blue;
+    }
+  }
+
+  button {
+    margin: $spacing/2;
+  }
+
+  .bk-swl-confirm-button {
+    @include buttonTheme(blackStyle);
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+
+  .bk-swl-cancel-button {
+    @include buttonTheme(borderedStyle);
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
