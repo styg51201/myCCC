@@ -1,0 +1,28 @@
+@import '../../css/variables.scss';
+.Mao-shopcart-check-item-action {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .Mao-shopcart-check-item-action div {
+    padding: 5px 15px;
+    margin: 5px;
+  }
+  .Mao-shopcart-check-item-icon {
+    margin-right: 10px;
+    width:24px;
+  }
+  .Mao-btn-text {
+    overflow : hidden;
+    text-overflow : ellipsis;
+    white-space : nowrap;
+  }
+  
+.Mao-shopcart-check-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 370px;
+  font-size: 18px;
+}

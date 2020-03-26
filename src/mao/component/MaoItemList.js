@@ -13,7 +13,6 @@ import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
 function Commoditycomponents(props){
 
-
 const [forMyfavor,setForMyfavor]=useState(false)
 
 const [alertType,setAlertType]=useState('')
@@ -56,11 +55,11 @@ const checkAlertType=showTpye=>{
         <>
               <div className="chin-commodity-item">
                     <ul className="chin-star-heart-bag">
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                        <li><img className="chin-star" src="/chin-img/star.svg" alt=""/></li>
+                        <li><img className="chin-star" src="/chin-img/star.svg" alt=""/></li>
+                        <li><img className="chin-star" src="/chin-img/star.svg" alt=""/></li>
+                        <li><img className="chin-star" src="/chin-img/star.svg" alt=""/></li>
+                        <li><img className="chin-star" src="/chin-img/star.svg" alt=""/></li>
                         <li className="chin-heart-bag">
                         
                         <FiHeart className={`chin-heart ${forMyfavor?'Mao-like-red':''}`}  
@@ -72,14 +71,15 @@ const checkAlertType=showTpye=>{
                           }
                                 }/>
                             <FiShoppingBag  className="chin-bag"  onClick={()=>{
-                              props.AddCartNewItem_sendcal(props.data,props.AddItem) 
+                              props.AddCartNewItem_sendcal(props.data,props.AddItem)
+                              props.sendFunc(!props.forChange)
                               checkAlertType("加入購物車")
                             }}
                             />
                         </li>
                     </ul>
                     <Link to={'/commidty/'+props.data.itemId}>
-                      <img className="chin-watchs" src={`./chin-img/images/${props.data.itemName}/${props.data.itemImg}`} alt=""/>
+                      <img className="chin-watchs" src={`/chin-img/images/${props.data.itemName}/${props.data.itemImg}`} alt=""/>
                       <h6>{props.data.name}</h6>
                       <h4>{props.data.itemName}</h4>
                       <h5>NT{props.data.itemPrice}</h5>
@@ -92,6 +92,7 @@ const checkAlertType=showTpye=>{
 }
 
 
+// 告訴redux該怎麼對應它的store中的state到這個元件的props的哪裡
 const mapStateToProps = store => {
     return {
       AddItem: store.AddItem,
@@ -100,7 +101,7 @@ const mapStateToProps = store => {
     }
   }
   
-  
+  //action
   const mapDispatchToProps = dispatch => {
     return bindActionCreators(
       {

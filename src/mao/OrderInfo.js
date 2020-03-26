@@ -5,10 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
   getShopCart,
-  AddCart,
-  AddCartItem,
-  DelCartItem,
-  CalShopCart,
+  AddCart,DelCart,
   Handle_AddMyFavorite,
   ControlDataOne,
   fromServerorderBuyerInfo,
@@ -23,6 +20,9 @@ import $ from 'jquery'
 import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
+console.log('我想看這裡',props)
+
+  //結帳測試用的hook
   const [values, setValues] = useState({
     buyerName: '',
     mobile: '',
@@ -31,6 +31,8 @@ function OrderInfo(props) {
     shipping: '7-11',
     payment: '貨到付款',
   })
+
+  //錯誤傳達的資訊
   const [errors, setErrors] = useState({
     buyerName: '',
     mobile: '',
@@ -39,9 +41,11 @@ function OrderInfo(props) {
     shipping: '',
     payment: '',
   })
-
+//信用卡開關
   const [openCard, setOpenCard] = useState(false)
+//統編開關
   const [opentaxNo, setOpentaxNo] = useState(false)
+
   const { getMonth, getYear } = GetDayRange()
 
   //訂單
@@ -205,9 +209,9 @@ function OrderInfo(props) {
     const countArrBox = []
     props.AddItem.map((v, i) => {
       itemNameArrBox.push(v.itemName)
-      itemImgArrBox.push(v.nameArrBox)
+      itemImgArrBox.push(v.itemImg)
       itemPriceArrBox.push(v.itemPrice)
-      nameArrBox.push(v.nameArr)
+      nameArrBox.push(v.name)
       itemCategoryIdArrBox.push(v.itemCategoryId)
       countArrBox.push(v.count)
       pIdArrBox.push(v.itemId)
@@ -339,22 +343,21 @@ const quickInsertInfo = demobox.map((v, i) => {
     buyerInfo.orderId = order
   }, [ order])
   const [errorBox,setErrorBox]=useState([
-    'buyerName','mobile','buyerAdress','shipping','payment','invoice'
-  ])
-  // useEffect(() => {
-  //   console.log('buyerInfo2', buyerInfo)
-  //   console.log('errorBox', errorBox)
-  // }, [buyerInfo])
+    'buyerName','mobile','buyerAdress','invoice','shipping','payment'])
+  useEffect(() => {
+    console.log('buyerInfo2', buyerInfo)
+    console.log('props', props)
+  }, [buyerInfo])
 
   //送出
   async function POSTorderInfo() {
-    console.log(' watch Me errorBox==', errorBox)
     if(errorBox==0){
       let noneObj = {}
       //清理暫存
       await props.clearOrderBuyerproduct(noneObj)
       //送出購買人資訊
       await props.fromServerorderBuyerInfo(buyerInfo)
+      await props.DelCart([])
       console.log('pIdArr inFOR', pIdArr)
       for (let i = 0; i < pIdArr.length; i++) {
         console.log('pIdArr', pIdArr[i])
@@ -381,36 +384,58 @@ const quickInsertInfo = demobox.map((v, i) => {
         position: 'center',
       }) 
     }else{
-      console.log('我是keys',Object.keys(errors))
-      console.log('我是errorBox',errorBox)
+      // console.log('我是errorBox',errorBox)
       let getKey=Object.keys(errors)
-      errorBox.map((v,i)=>{
-        console.log('look at me ==',v)
+      // console.log('我是keys',getKey)
+      let compareKey=getKey.findIndex(e=>e==errorBox)
+      // console.log('我是比較',compareKey)
+      let saveValueBox={
+        buyerName: '',
+        mobile: '',
+        buyerAdress: '',
+        invoice: '',
+        shipping: '',
+        payment: '',
+      }
+      getKey.map((v,i)=>{
+        
         switch(v){
           case 'buyerName':
-            setErrors({...errors,buyerName:'請填寫姓名'})
+            saveValueBox.buyerName='名字不能空白'
             break
           case 'mobile':
-            setErrors({...errors,mobile:'請填寫電話'})
+            saveValueBox.mobile='電話號碼不能為空白'
             break
           case 'buyerAdress':
-            setErrors({...errors,buyerAdress:'請選擇門市'})
+            saveValueBox.buyerAdress='請選擇門市'
             break
             case 'shipping':
-              setErrors({...errors,shipping:'請選擇取貨超商'})
+              saveValueBox.shipping='請選擇取貨超商'
               break
             case 'payment':
-              setErrors({...errors,payment:'請選擇付款方式'})
+              saveValueBox.payment='請選擇付款方式'
             case 'invoice':
-              setErrors({...errors,invoice:'請選擇發票類型'})
+              saveValueBox.invoice='請選擇發票類型'
               default:
                 break
         }
       })
+      setErrors(saveValueBox)
+      
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '資料填寫不完整',
+        showConfirmButton: false,
+        timer: 1500,
+        position: 'center',
+      }) 
     }
     
   }
-
+useEffect(()=>{
+  console.log('errors==',errors)
+},[errors])
   const CreditCardInfo = (
     <div id="creditCardInfo">
       <div className="form-row my-5  d-flex align-items-center">
@@ -819,15 +844,12 @@ const mapDispatchToProps = dispatch => {
     {
       getShopCart,
       AddCart,
-      AddCartItem,
-      DelCartItem,
-      CalShopCart,
       Handle_AddMyFavorite,
       ControlDataOne,
       fromServerorderBuyerInfo,
       forServerorderProductInfo,
       saveOrderBuyerInfo,
-      clearOrderBuyerproduct,
+      clearOrderBuyerproduct,DelCart
     },
     dispatch
   )

@@ -5,7 +5,7 @@ import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
-
+import ShopCartIcon from '../../mao/component/ShopCartIcon'
 //icons
 // import { IconContext } from 'react-icons'
 import {
@@ -20,7 +20,7 @@ import {
 import $ from 'jquery'
 
 function Header(props) {
-  
+  console.log(props)
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [searchBlurTime, setSearchBlurTime] = useState(0)
@@ -189,18 +189,22 @@ function Header(props) {
         ) : (
           ''
         )}
-        <Link to="/ShopCartList/:id?">
+        {/* <ShopCartIcon /> */}
+        {/* <Link to="/memberedit/ShopCartList">
           <img
             src="./img/header-footer/shopping-bag.svg"
             alt=""
             className="chin-three-position2"
           />
-        </Link>
+        </Link> */}
+        <Link  to="/memberedit/ShopCartLike">
         <img
           src="./img/header-footer/heart.svg"
           alt=""
           className="chin-three-position3"
         />
+        </Link>
+        
       </div>
     </>
   )
@@ -270,12 +274,14 @@ function Header(props) {
             </ul>
           </div>
           <div className="nav-icons-wrapper">
-            <Link to="/ShopCartList">
+          
+        <ShopCartIcon />
+            {/* <Link to="/memberedit/ShopCartList">
               <div className="nav-icons">
                 <FiShoppingBag />
               </div>
-            </Link>
-            <Link to="/ShopCartLike">
+            </Link> */}
+            <Link to="/memberedit/ShopCartLike">
               <div className="nav-icons">
                 <FiHeart />
               </div>

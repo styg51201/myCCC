@@ -29,6 +29,7 @@ export const getShopCart = item => {
         itemImg: v.itemImg,
         itemPrice: v.itemPrice,
         itemCategoryId: v.itemCategoryId,
+        count:v.count
       })
     })
     dispatch(sendCart(newData))
@@ -213,15 +214,17 @@ export const AddCartNewItem_sendcal = (val, data) => {
 
 //加入最愛
 export const Handle_AddMyFavorite = (val, product, data) => {
-  let truePrice = product.itemPrice.split('$').join('')
+  // let truePrice = product.itemPrice.split('$').join('')
   let newProduct = {
     itemId: product.itemId,
     name: product.name,
     itemName: product.itemName,
     itemImg: product.itemImg,
-    itemPrice: truePrice,
+    itemPrice: product.itemPrice,
     itemCategoryId: product.itemCategoryId,
   }
+  console.log('加入我的最愛 = ',product.itemId)
+  console.log('加入我的最愛 = ',newProduct)
   let pIdBox = []
   data.map((v, i) => {
     pIdBox.push(v.itemId)

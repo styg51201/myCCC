@@ -1,139 +1,5 @@
 @import '../../css/variables.scss';
 
-/* for CartShopTotal */
-.Mao-total-box {
-  transition: 0s;
-  opacity: 1;
-  height: 420px;
-  width: 300px;
-  padding: 5px 10px;
-  margin: 0px 10px;
-  transition: 0.1s;
-  border: 1px solid #eee;
-  background: $white;
-  // z-index: -1;
-}
-.Mao-total-box-title {
-  border-bottom: 1px solid #ddd;
-  padding: 10px 0px;
-}
-.Mao-total-box-title-info {
-  font-size: 15px;
-  // z-index: -1;
-}
-.Mao-total-box-title-info div {
-  margin-bottom: 16px;
-}
-.Mao-total-box-title-coupon div {
-  font-size: 15px;
-  margin-bottom: 16px;
-}
-.Mao-total-box-title-coupon input {
-  margin-left: 10px;
-  width: 180px;
-  border: none;
-  border-bottom: 1px solid #eee;
-  outline: none;
-}
-.Mao-total-go-shop {
-  position: relative;
-  color: $black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.Mao-total-box-btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 270px;
-  height: 45px;
-  padding: 15px;
-  border: 1px solid $grey;
-  margin: 15px 0px;
-  color: $black;
-  position: relative;
-  overflow: hidden;
-}
-.Mao-total-box-btn:hover {
-  color: $black;
-  background: #eee;
-  border: 1px solid #eee;
-}
-.Mao-total-box-btn:hover .Mao-total-show {
-  color: $black;
-  opacity: 0.2;
-  width: 120%;
-}
-
-.Mao-total-show {
-  position: absolute;
-  transition: 0.5s;
-  opacity: 0;
-  width: 0%;
-  height: 200px;
-  background: #999;
-  transform: skewX(-20deg);
-}
-
-.Mao-total-box-btn-border-b {
-  margin: 0;
-  color: $black;
-  border: none;
-  border-bottom: 1px solid $grey;
-  transition: 0.3s;
-}
-.Mao-total-box-btn-border-b:hover {
-  color: $black;
-  border-bottom: 1px solid $blue;
-}
-.Mao-total-box-btn:hover {
-  transition: 0.3s;
-  text-decoration: none;
-}
-
-// productslide
-.slick-arrow {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-}
-
-.Mao-prodctSlide-card-box {
-  margin: 30px;
-  text-align: center;
-  border: 1px solid $grey;
-  display: flex;
-  transition: 0.1s;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
-  padding: 20px;
-}
-.Mao-prodctSlide-card-box:hover {
-  border: 1px solid rgba(221, 221, 221, 0.2);
-  box-shadow: 0px 0px 22px rgba(160, 160, 160, 1);
-  background: rgba(240, 245, 245, 0.3);
-}
-.Mao-img {
-  margin: 10px auto;
-  width: 150px;
-  height: 150px;
-}
-
-.Mao-prodctSlide-card-btn-add {
-  width: 80%;
-  padding: 15px;
-  @include buttonTheme(borderedStyle);
-  margin: 6px 0;
-}
-.Mao-prodctSlide-card-btn-like {
-  width: 80%;
-  padding: 12px;
-  @include buttonTheme(borderedStyle);
-  margin: 6px 0;
-}
 
 /*ShopCartLike*/
 .Mao-ul-bg-white {
@@ -161,7 +27,6 @@
   position: relative;
   padding: 0;
   overflow: hidden;
-  margin-top: 50px;
   background: $white;
   padding: 30px;
   text-align: center;
@@ -171,184 +36,27 @@
   padding: 15px;
   border-bottom: 1px solid #666;
 }
-.Mao-Total-Box-none {
-  background: none;
-  height: 400px;
-  width: 300px;
-}
-.Mao-Like-img {
-  padding: 0;
-  // margin: 50px 0;
-  width: 1000px;
-  height: 460px;
-  box-shadow: 6px 6px 10px #aaa;
-}
-.Mao-Like-box {
-  width: 900px;
-}
-/* fixed */
-.Mao-total-box-fixed {
-  opacity: 0;
-  transition: 0.3s;
-  width: 100%;
-  height: 0;
-  box-shadow: 10px 10px 10px #aaa;
-  border-bottom: 1px solid $grey;
-  background: $white;
-  padding: 6px 0px;
-  position: fixed;
-  z-index: -10;
-  top: 0;
-  left: 0;
-}
-.Mao-total-box-title-fixed {
-  border-bottom: 1px solid #ddd;
-  padding: 5px 0px;
-  margin: 0;
-  margin-right: 15px;
-}
-// total-fixed-內容
-.Mao-total-content-fixed {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 100%;
-  margin-top: 10px;
-}
-// 運費
-.Mao-total-ship-fixed {
-  width: 30%;
-}
-// 活動折扣
-.Mao-total-coupon-fixed {
-  display: flex;
-  flex-direction: column;
-  width: 30%;
-}
-//小計
-.Mao-total-sCount-fixed {
-  width: 30%;
-}
-// 選擇折扣券
-.Mao-coupon-choose-fixed {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 20px 0px;
-  padding-right: 170px;
-  color: $black;
-}
-.Mao-coupon-choose-fixed:hover {
-  color: $blue;
-}
-.Mao-total-box-fixed .container {
-  width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.Mao-total-box-fixed .container div {
-  width: 850px;
-}
 
-.Mao-total-box-totalNum-fixed {
-  position: absolute;
-  top: 58%;
-  right: 43%;
-  font-size: 24px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 5px;
-  width: 200px;
-  border-bottom: 1px solid #ddd;
-}
-.Mao-total-box-title-coupon-fixed {
-  margin: 5px 0px;
-}
-.Mao-total-box-total-fixed-goshop:hover {
-  color: $black;
-}
-.Mao-total-box-total-fixed-btn {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.Mao-total-box-btn-fixed {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $black;
-  width: 80%;
-  height: 45px;
-  border: 1px solid $black;
-  color: $white;
-}
-.Mao-total-box-btn-fixed-goshop {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: $white;
-  width: 80%;
-  height: 45px;
-  border: 1px solid $grey;
-  color: $black;
-  margin: 5px 0px;
-}
-.Mao-total-box-btn-fixed:hover {
-  color: #eee;
-}
-.Mao-couponBox {
-  overflow: hidden;
-  opacity: 0;
-  width: 300px;
-  height: 300px;
-  box-shadow: 10px 10px 10px #000;
-  background: $white;
-  position: fixed;
-  top: calc(50% - 150px);
-  left: calc(50% - 150px);
-  z-index: -10;
-  border: 1px solid $grey;
-}
-.Mao-coupon-exit {
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  color: $white;
-  background: $grey;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-.Mao-ShopCartIcon-box {
-  position: relative;
-}
-.Mao-ShopCartIcon-num {
-  width: 25px;
-  height: 25px;
-  text-align: center;
-  line-height: 25px;
-  border-radius: 50%;
-  background: $blue;
-  color: $white;
-  position: absolute;
-  top: -40%;
-  left: -0.9%;
-}
-.Mao-ShopCarticon-icon {
-  width: 20px;
-  height: 20px;
-}
 // for like color
 .Mao-like-red {
   fill: #e55;
   stroke: #e55;
+}
+
+//iCon
+
+.Mao-icon-box{
+  position: relative;
+}
+.Mao-icon-text{
+  position: absolute;
+  background: $blue;
+  color: $white;
+  border-radius: 50%;
+  width: 23px;
+  height: 23px;
+  top:0%;
+  font-size: 18px;
+  line-height: 23px;
+  text-align: center;
 }
