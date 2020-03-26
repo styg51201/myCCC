@@ -18,7 +18,6 @@ export const formServerItemsData = val => {
   }
 }
 //  I AM YOUR FATHER
-
 export const showRANDItemId = val => {
   return { type: 'SHOW_RAND_ITEMID', value: val }
 }
