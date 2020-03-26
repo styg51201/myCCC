@@ -14,11 +14,11 @@ function Commoditycomponents(props){
   const CompareClassName = classNames('chin-commodity-item-compare', {
     active:compatrtrue 
   })
-  useEffect(()=>{
-    props.SelectItemscompare(props.compare)
-  },[])
   // const course = document.querySelector('.chin-commodity-item-compare').classList.add('chin-zzzzzzzzzz')
   // props.compare.length>4?CompareClassName:'chin-commmmmm'
+  useEffect(()=>{
+    props.SelectItemscompare(props.compare)
+  },[props.compare])
     return(
         <>
             <div className={CompareClassName} onClick={()=>{
@@ -50,7 +50,7 @@ const mapStateToProps = store => {
     return bindActionCreators(
       {
         ItemscompareNo,
-        SelectItemscompare
+        SelectItemscompare,
       },
       dispatch
     )
