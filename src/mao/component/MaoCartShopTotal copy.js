@@ -168,7 +168,7 @@ $('.Mao-total-box').on('mouseenter',()=>{
     <>
       {fixedDisplay}
       {NofixedDisplay}
-      <MaoCouponBox />
+      {/* <MaoCouponBox /> */}
     </>
   )
 }

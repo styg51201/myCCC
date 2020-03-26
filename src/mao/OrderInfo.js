@@ -34,10 +34,10 @@ function OrderInfo(props) {
   const [errors, setErrors] = useState({
     buyerName: '',
     mobile: '',
-    buyerAdress: '台北市大安區',
-    invoice: '個人電子發票',
-    shipping: '7-11',
-    payment: '貨到付款',
+    buyerAdress: '',
+    invoice: '',
+    shipping: '',
+    payment: '',
   })
 
   const [openCard, setOpenCard] = useState(false)
@@ -97,12 +97,17 @@ function OrderInfo(props) {
         setBuyerInfo({ ...buyerInfo, buyerName: getInfo })
         if (getInfo.length == 0) {
           setErrors({ ...errors, buyerName: '名字不能空白' })
+          setErrorBox([...errorBox,'buyerName'])
         } else if (/[0-9]|\W/.test(getInfo)) {
           setErrors({ ...errors, buyerName: '名字不能為數字或符號' })
+          setErrorBox([...errorBox,'buyerName'])
         } else if (getInfo.length < 2) {
           setErrors({ ...errors, buyerName: '名字長度有誤' })
+          setErrorBox([...errorBox,'buyerName'])
         } else {
           setErrors({ ...errors, buyerName: '' })
+          let newErr=errorBox.filter(e=>e!=='buyerName')
+          setErrorBox(newErr)
         }
         setValues({ ...values, buyerName: getInfo })
         break
@@ -112,13 +117,17 @@ function OrderInfo(props) {
         // console.log(getInfo)
         if (getInfo.length == 0) {
           setErrors({ ...errors, mobile: '電話號碼不能為空白' })
+          setErrorBox([...errorBox,'mobile'])
         } else if (!/^09[0-9]\d{7}$/.test(getInfo)) {
           setErrors({
             ...errors,
             mobile: '電話號碼格式有誤，請以09xxxxxxxx輸入',
           })
+          setErrorBox([...errorBox,'mobile'])
         } else {
           setErrors({ ...errors, mobile: '' })
+          let newErr=errorBox.filter(e=>e!=='mobile')
+          setErrorBox(newErr)
         }
         setValues({ ...values, mobile: getInfo })
         break
@@ -192,17 +201,16 @@ function OrderInfo(props) {
   useEffect(() => {
     buyerInfo.orderId = order
   }, [ order])
-
+  const [errorBox,setErrorBox]=useState([])
+// let errorBox=Object.keys(errors)
   useEffect(() => {
     console.log('buyerInfo2', buyerInfo)
-    // console.log('pIdArr in order',pIdArr)
+    console.log('errorBox', errorBox)
   }, [buyerInfo])
 
   //送出
   async function POSTorderInfo() {
-    // console.log('BuyertInfo==',buyerInfo)
     console.log('pIdArr==', pIdArr)
-    // console.log('countArr==',countArr)
     let noneObj = {}
     //清理暫存
     await props.clearOrderBuyerproduct(noneObj)
@@ -372,8 +380,8 @@ function OrderInfo(props) {
   // invoice
   const [invoiceType, setInvoiceType] = useState(0)
   const [demoType, setDemoType] = useState(0)
+
   function getDemoOne(val) {
-    // console.log('getdemo',val)
     $('#mobile').val(val.mobile)
     $('#buyerName').val(val.buyerName)
     if (val.shipping == 'Seven-store') {
@@ -422,7 +430,7 @@ function OrderInfo(props) {
           className="custom-control-label"
           htmlFor={`'quickInsertInfo${i}'`}
         >
-          預設訂購人資料組合${i + 1}
+          訂購人資料組合 <b>{i + 1}</b>
         </label>
       </div>
     )
@@ -435,7 +443,7 @@ function OrderInfo(props) {
       <MaoAD />
       <div className="container my-3 d-flex" style={{ width: '1300px' }}>
         <div className="px-4 border bg-white p-3" style={{ width: '950px' }}>
-          {quickInsertInfo}
+        <div className="d-flex">{quickInsertInfo}</div>
           <div className="form-row d-flex flex-column">
             <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
             <div className="col my-3">
