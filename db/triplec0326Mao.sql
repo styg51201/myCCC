@@ -21,6 +21,8 @@ SET time_zone = "+00:00";
 --
 -- 資料庫： `triplec`
 --
+CREATE DATABASE IF NOT EXISTS `triplec` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `triplec`;
 
 -- --------------------------------------------------------
 
@@ -28,8 +30,8 @@ SET time_zone = "+00:00";
 -- 資料表結構 `ad`
 --
 
-CREATE TABLE `ad` (
-  `adId` int(5) NOT NULL,
+CREATE TABLE IF NOT EXISTS `ad` (
+  `adId` int(5) NOT NULL AUTO_INCREMENT,
   `adName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片名稱',
   `adImg` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片',
   `adTitle` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片標題',
@@ -38,9 +40,15 @@ CREATE TABLE `ad` (
   `adLinkPlace` int(11) NOT NULL COMMENT '連結產品id',
   `adPlanId` int(11) NOT NULL COMMENT '廣告ID',
   `ad_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `ad_updates_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `ad_updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`adId`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `ad`
+--
+
+TRUNCATE TABLE `ad`;
 --
 -- 傾印資料表的資料 `ad`
 --
@@ -55,14 +63,20 @@ INSERT INTO `ad` (`adId`, `adName`, `adImg`, `adTitle`, `adContent`, `adLink`, `
 -- 資料表結構 `admin`
 --
 
-CREATE TABLE `admin` (
-  `id` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `admin` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `username` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '使用者帳號',
   `pwd` char(40) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '使用者密碼',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理者帳號';
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='管理者帳號';
 
+--
+-- 資料表新增資料前，先清除舊資料 `admin`
+--
+
+TRUNCATE TABLE `admin`;
 --
 -- 傾印資料表的資料 `admin`
 --
@@ -77,14 +91,20 @@ INSERT INTO `admin` (`id`, `username`, `pwd`, `created_at`, `updated_at`) VALUES
 -- 資料表結構 `categoryies`
 --
 
-CREATE TABLE `categoryies` (
-  `categoryId` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `categoryies` (
+  `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `categoryName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '類別名稱',
   `categoryParentId` varchar(11) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '上層編號',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`categoryId`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `categoryies`
+--
+
+TRUNCATE TABLE `categoryies`;
 --
 -- 傾印資料表的資料 `categoryies`
 --
@@ -101,8 +121,8 @@ INSERT INTO `categoryies` (`categoryId`, `categoryName`, `categoryParentId`, `cr
 -- 資料表結構 `coupon`
 --
 
-CREATE TABLE `coupon` (
-  `cp_id` int(11) NOT NULL COMMENT '優惠券id',
+CREATE TABLE IF NOT EXISTS `coupon` (
+  `cp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券id',
   `cp_vid` int(11) NOT NULL COMMENT '廠商id',
   `cp_vendor` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '優惠券廠商名',
   `cp_count` int(11) NOT NULL COMMENT '優惠券發放數量',
@@ -111,9 +131,15 @@ CREATE TABLE `coupon` (
   `cp_start` date NOT NULL COMMENT '優惠券開始時間',
   `cp_due` date NOT NULL COMMENT '優惠券結束時間',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updates_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`cp_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `coupon`
+--
+
+TRUNCATE TABLE `coupon`;
 --
 -- 傾印資料表的資料 `coupon`
 --
@@ -142,17 +168,23 @@ INSERT INTO `coupon` (`cp_id`, `cp_vid`, `cp_vendor`, `cp_count`, `cp_rule`, `cp
 -- 資料表結構 `coupon_item`
 --
 
-CREATE TABLE `coupon_item` (
-  `cpi_id` int(11) NOT NULL COMMENT '個人優惠券id',
+CREATE TABLE IF NOT EXISTS `coupon_item` (
+  `cpi_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '個人優惠券id',
   `cpi_cp_id` int(11) NOT NULL COMMENT '對應的優惠券id',
   `cpi_mb_id` int(11) NOT NULL COMMENT '對應的會員id',
   `cpi_use` int(11) NOT NULL COMMENT '是否使用',
   `cpi_useDate` date NOT NULL COMMENT '使用日期',
   `cpi_order_id` int(11) NOT NULL COMMENT '訂單id',
   `created_at` datetime NOT NULL,
-  `updates_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updates_at` datetime NOT NULL,
+  PRIMARY KEY (`cpi_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `coupon_item`
+--
+
+TRUNCATE TABLE `coupon_item`;
 --
 -- 傾印資料表的資料 `coupon_item`
 --
@@ -176,8 +208,8 @@ INSERT INTO `coupon_item` (`cpi_id`, `cpi_cp_id`, `cpi_mb_id`, `cpi_use`, `cpi_u
 -- 資料表結構 `coupon_rule`
 --
 
-CREATE TABLE `coupon_rule` (
-  `cpr_id` int(11) NOT NULL COMMENT '優惠券規則id',
+CREATE TABLE IF NOT EXISTS `coupon_rule` (
+  `cpr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券規則id',
   `cpr_cp_id` int(11) NOT NULL COMMENT '對應的優惠券id',
   `cpr_object` int(11) NOT NULL COMMENT '優惠券目標',
   `cpr_rule` int(11) NOT NULL COMMENT '優惠券規則',
@@ -185,9 +217,15 @@ CREATE TABLE `coupon_rule` (
   `cpr_discount` int(11) NOT NULL COMMENT '優惠券折扣',
   `cpr_discountNum` int(11) NOT NULL COMMENT '優惠券折扣數量',
   `created_at` int(11) NOT NULL,
-  `updates_at` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updates_at` int(11) NOT NULL,
+  PRIMARY KEY (`cpr_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `coupon_rule`
+--
+
+TRUNCATE TABLE `coupon_rule`;
 --
 -- 傾印資料表的資料 `coupon_rule`
 --
@@ -217,15 +255,21 @@ INSERT INTO `coupon_rule` (`cpr_id`, `cpr_cp_id`, `cpr_object`, `cpr_rule`, `cpr
 -- 資料表結構 `customer`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE IF NOT EXISTS `customer` (
   `csId` varchar(11) NOT NULL,
   `csName` varchar(20) NOT NULL,
   `csAdress` varchar(999) NOT NULL,
   `csPhone` varchar(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`csId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `customer`
+--
+
+TRUNCATE TABLE `customer`;
 --
 -- 傾印資料表的資料 `customer`
 --
@@ -244,8 +288,8 @@ INSERT INTO `customer` (`csId`, `csName`, `csAdress`, `csPhone`, `created_at`, `
 -- 資料表結構 `items`
 --
 
-CREATE TABLE `items` (
-  `itemId` int(11) NOT NULL COMMENT '商品編號',
+CREATE TABLE IF NOT EXISTS `items` (
+  `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品編號',
   `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廠商名稱',
   `itemName` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名稱',
   `itemImg` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品照片',
@@ -254,9 +298,15 @@ CREATE TABLE `items` (
   `itemQty` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品數量',
   `itemCategoryId` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品類別',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`itemId`)
+) ENGINE=InnoDB AUTO_INCREMENT=203 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `items`
+--
+
+TRUNCATE TABLE `items`;
 --
 -- 傾印資料表的資料 `items`
 --
@@ -471,8 +521,8 @@ INSERT INTO `items` (`itemId`, `name`, `itemName`, `itemImg`, `itemDescription`,
 -- 資料表結構 `member`
 --
 
-CREATE TABLE `member` (
-  `ID` int(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `member` (
+  `ID` int(50) NOT NULL AUTO_INCREMENT,
   `Account` varchar(50) NOT NULL,
   `AccountActivated` int(1) NOT NULL,
   `Email` varchar(100) NOT NULL,
@@ -488,9 +538,16 @@ CREATE TABLE `member` (
   `VIP_Start` date NOT NULL,
   `VIP_Due` date NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY `Account` (`Account`)
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `member`
+--
+
+TRUNCATE TABLE `member`;
 --
 -- 傾印資料表的資料 `member`
 --
@@ -539,15 +596,21 @@ INSERT INTO `member` (`ID`, `Account`, `AccountActivated`, `Email`, `Pwd`, `Name
 -- 資料表結構 `multiple_images`
 --
 
-CREATE TABLE `multiple_images` (
-  `multipleImageId` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `multiple_images` (
+  `multipleImageId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `multipleImageImg` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片名稱',
   `itemId` int(11) NOT NULL COMMENT '商品編號',
   `itemName` varchar(3000) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '商品名稱',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間	',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`multipleImageId`)
+) ENGINE=InnoDB AUTO_INCREMENT=1380 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `multiple_images`
+--
+
+TRUNCATE TABLE `multiple_images`;
 --
 -- 傾印資料表的資料 `multiple_images`
 --
@@ -1941,8 +2004,8 @@ INSERT INTO `multiple_images` (`multipleImageId`, `multipleImageImg`, `itemId`, 
 -- 資料表結構 `orderbuyer`
 --
 
-CREATE TABLE `orderbuyer` (
-  `Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `orderbuyer` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `orderId` varchar(20) NOT NULL COMMENT '訂單編號',
   `buyerName` varchar(20) NOT NULL COMMENT '購買人姓名',
   `buyerMobile` varchar(10) NOT NULL COMMENT '購買人電話',
@@ -1955,9 +2018,15 @@ CREATE TABLE `orderbuyer` (
   `taxNo` int(10) DEFAULT NULL COMMENT '統一編號',
   `shipping` varchar(20) NOT NULL COMMENT '運送方式',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `orderbuyer`
+--
+
+TRUNCATE TABLE `orderbuyer`;
 --
 -- 傾印資料表的資料 `orderbuyer`
 --
@@ -2009,7 +2078,16 @@ INSERT INTO `orderbuyer` (`Id`, `orderId`, `buyerName`, `buyerMobile`, `discount
 (44, '8T4C79CLE', 'Blex', '0913755678', '0', '100', 58532, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:56:51', '2020-03-25 20:56:51'),
 (45, 'BXYD3PVUG', 'Blex', '0913755678', '0', '100', 71059, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:57:29', '2020-03-25 20:57:29'),
 (46, 'MO9I1T2XB', 'Blex', '0913755678', '0', '100', 55450, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 20:58:07', '2020-03-25 20:58:07'),
-(47, 'BDR2EKP9X', 'Blex', '0913755678', '0', '100', 55664, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 21:25:34', '2020-03-25 21:25:34');
+(47, 'BDR2EKP9X', 'Blex', '0913755678', '0', '100', 55664, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-25 21:25:34', '2020-03-25 21:25:34'),
+(48, 'ZCWUI7B34', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:20:35', '2020-03-26 14:20:35'),
+(49, 'RUVC9CC6O', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:20:50', '2020-03-26 14:20:50'),
+(50, 'AOVXKK19J', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:21:55', '2020-03-26 14:21:55'),
+(51, '17K1JPAWV', 'Blex', '0913755678', '0', '100', 81858, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:22:22', '2020-03-26 14:22:22'),
+(52, 'TL7W17CH3', 'Blex', '0913755678', '0', '100', 68620, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 14:22:37', '2020-03-26 14:22:37'),
+(53, 'CGT563GBI', 'Blex', '0913755678', '0', '100', 100, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 15:35:04', '2020-03-26 15:35:04'),
+(54, 'KR7GMJKVR', '', '', '0', '100', 13600, '台北市大安 信興門市', 'personal-i', 'COD', 0, 'Seven-store', '2020-03-26 15:35:19', '2020-03-26 15:35:19'),
+(55, 'A5S3406BO', 'Blex', '0913755678', '0', '100', 63687, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 15:44:59', '2020-03-26 15:44:59'),
+(56, 'B9KTNDLXI', 'Blex', '0913755678', '0', '100', 63687, '台北市大安 信興門市', 'donate', 'COD', 0, 'HiLife', '2020-03-26 15:52:26', '2020-03-26 15:52:26');
 
 -- --------------------------------------------------------
 
@@ -2017,7 +2095,7 @@ INSERT INTO `orderbuyer` (`Id`, `orderId`, `buyerName`, `buyerMobile`, `discount
 -- 資料表結構 `orderdetail`
 --
 
-CREATE TABLE `orderdetail` (
+CREATE TABLE IF NOT EXISTS `orderdetail` (
   `orderId` varchar(20) NOT NULL COMMENT '訂單編號',
   `itemId` varchar(20) NOT NULL COMMENT '產品ID',
   `name` varchar(99) NOT NULL COMMENT '品牌名稱',
@@ -2029,9 +2107,15 @@ CREATE TABLE `orderdetail` (
   `outStatus` varchar(20) NOT NULL COMMENT '產品狀態',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `Id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=128 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `orderdetail`
+--
+
+TRUNCATE TABLE `orderdetail`;
 --
 -- 傾印資料表的資料 `orderdetail`
 --
@@ -2079,7 +2163,22 @@ INSERT INTO `orderdetail` (`orderId`, `itemId`, `name`, `itemName`, `itemImg`, `
 ('MO9I1T2XB', '59', 'undefined', 'GARMIN Vivofit 4 健身運動手環', 'undefined', '20,990', '穿戴式裝置', 1, '訂單處理中', '2020-03-25 20:58:07', '2020-03-25 20:58:07', 109),
 ('BDR2EKP9X', '193', 'undefined', 'Incase Camera Pro Pack 15吋 專業單眼相機空拍機兩用後背包-黑', 'undefined', '12,567', '周邊', 1, '訂單處理中', '2020-03-25 21:25:34', '2020-03-25 21:25:34', 110),
 ('BDR2EKP9X', '156', 'undefined', 'Holy Stone HS210 迷你遙控飛機-三電版', 'undefined', '21,598', '運動攝影機', 1, '訂單處理中', '2020-03-25 21:25:34', '2020-03-25 21:25:34', 111),
-('BDR2EKP9X', '201', 'undefined', 'DJI Osmo Pocket 聲音轉接頭', 'undefined', '21,399', '周邊', 1, '訂單處理中', '2020-03-25 21:25:34', '2020-03-25 21:25:34', 112);
+('BDR2EKP9X', '201', 'undefined', 'DJI Osmo Pocket 聲音轉接頭', 'undefined', '21,399', '周邊', 1, '訂單處理中', '2020-03-25 21:25:34', '2020-03-25 21:25:34', 112),
+('ZCWUI7B34', '[object Object]', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:20:35', '2020-03-26 14:20:35', 113),
+('RUVC9CC6O', '[object Object]', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:20:50', '2020-03-26 14:20:50', 114),
+('17K1JPAWV', '96', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:22:22', '2020-03-26 14:22:22', 115),
+('17K1JPAWV', '122', 'undefined', '鐵三角 ATH-CKS5TW  真無線運動耳機', 'undefined', '24,888', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 14:22:22', '2020-03-26 14:22:22', 116),
+('17K1JPAWV', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-26 14:22:22', '2020-03-26 14:22:22', 117),
+('TL7W17CH3', '96', 'undefined', 'SONY MDR-XB650BT EXTRA BASS重低音 無線藍芽NFC', 'undefined', '14,990', '耳機/喇叭', 2, '訂單處理中', '2020-03-26 14:22:37', '2020-03-26 14:22:37', 118),
+('TL7W17CH3', '163', 'undefined', 'Holy Stone HS220 變形空拍無人機', 'undefined', '26,890', '運動攝影機', 1, '訂單處理中', '2020-03-26 14:22:37', '2020-03-26 14:22:37', 119),
+('TL7W17CH3', '91', 'undefined', '鐵三角 ATH-C200BT 無線藍芽耳塞式耳機', 'undefined', '11,650', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 14:22:37', '2020-03-26 14:22:37', 120),
+('KR7GMJKVR', '73', 'undefined', 'JSmax SW-Q9 旗艦款智慧健康運動管理手錶', 'undefined', '13,500', '穿戴式裝置', 1, '訂單處理中', '2020-03-26 15:35:19', '2020-03-26 15:35:19', 121),
+('A5S3406BO', '202', 'undefined', 'DJI Osmo Pocket 擴充配件組', 'undefined', '22,168', '周邊', 1, '訂單處理中', '2020-03-26 15:44:59', '2020-03-26 15:44:59', 122),
+('A5S3406BO', '127', 'undefined', '鐵三角 ATH-CKS770XBT 繞頸式入耳式耳機 藍芽重低音 7HR續航', 'undefined', '24,999', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 15:44:59', '2020-03-26 15:44:59', 123),
+('A5S3406BO', '49', 'undefined', 'SAMSUNG Galaxy Watch 46mm  智慧手錶', 'undefined', '16,420', '穿戴式裝置', 1, '訂單處理中', '2020-03-26 15:44:59', '2020-03-26 15:44:59', 124),
+('B9KTNDLXI', '202', 'undefined', 'DJI Osmo Pocket 擴充配件組', 'undefined', '22,168', '周邊', 1, '訂單處理中', '2020-03-26 15:52:26', '2020-03-26 15:52:26', 125),
+('B9KTNDLXI', '49', 'undefined', 'SAMSUNG Galaxy Watch 46mm  智慧手錶', 'undefined', '16,420', '穿戴式裝置', 1, '訂單處理中', '2020-03-26 15:52:26', '2020-03-26 15:52:26', 126),
+('B9KTNDLXI', '127', 'undefined', '鐵三角 ATH-CKS770XBT 繞頸式入耳式耳機 藍芽重低音 7HR續航', 'undefined', '24,999', '耳機/喇叭', 1, '訂單處理中', '2020-03-26 15:52:26', '2020-03-26 15:52:26', 127);
 
 -- --------------------------------------------------------
 
@@ -2087,8 +2186,8 @@ INSERT INTO `orderdetail` (`orderId`, `itemId`, `name`, `itemName`, `itemImg`, `
 -- 資料表結構 `orderlist`
 --
 
-CREATE TABLE `orderlist` (
-  `orderId` int(100) NOT NULL COMMENT '訂單編號',
+CREATE TABLE IF NOT EXISTS `orderlist` (
+  `orderId` int(100) NOT NULL AUTO_INCREMENT COMMENT '訂單編號',
   `csId` varchar(20) NOT NULL COMMENT '會員ID',
   `total` varchar(20) NOT NULL COMMENT '訂單總額',
   `marketingType` varchar(99) NOT NULL COMMENT '行銷類別',
@@ -2096,9 +2195,15 @@ CREATE TABLE `orderlist` (
   `shippingWay` varchar(20) NOT NULL COMMENT '運送類別',
   `outStatus` varchar(20) NOT NULL COMMENT '訂單狀態',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_time` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_time` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`orderId`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `orderlist`
+--
+
+TRUNCATE TABLE `orderlist`;
 --
 -- 傾印資料表的資料 `orderlist`
 --
@@ -2120,29 +2225,41 @@ INSERT INTO `orderlist` (`orderId`, `csId`, `total`, `marketingType`, `paymentTy
 -- 資料表結構 `outlist`
 --
 
-CREATE TABLE `outlist` (
-  `outId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `outlist` (
+  `outId` int(11) NOT NULL AUTO_INCREMENT,
   `csId` varchar(20) NOT NULL,
   `orderId` int(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `undated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+  `undated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`outId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `outlist`
+--
+
+TRUNCATE TABLE `outlist`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `payment`
 --
 
-CREATE TABLE `payment` (
-  `paymentId` int(20) NOT NULL,
+CREATE TABLE IF NOT EXISTS `payment` (
+  `paymentId` int(20) NOT NULL AUTO_INCREMENT,
   `paymentName` varchar(20) NOT NULL,
   `paymentCName` varchar(20) NOT NULL,
   `paymentImg` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`paymentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `payment`
+--
+
+TRUNCATE TABLE `payment`;
 --
 -- 傾印資料表的資料 `payment`
 --
@@ -2161,8 +2278,8 @@ INSERT INTO `payment` (`paymentId`, `paymentName`, `paymentCName`, `paymentImg`,
 -- 資料表結構 `plan`
 --
 
-CREATE TABLE `plan` (
-  `planId` int(3) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `plan` (
+  `planId` int(3) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `planUsername` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廠商名',
   `planName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '名稱',
   `planPlace` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '廣告位置',
@@ -2173,9 +2290,15 @@ CREATE TABLE `plan` (
   `planStartTime` date NOT NULL,
   `planDueTime` date NOT NULL,
   `plan_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `plan_updates_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `plan_updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`planId`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `plan`
+--
+
+TRUNCATE TABLE `plan`;
 --
 -- 傾印資料表的資料 `plan`
 --
@@ -2190,8 +2313,8 @@ INSERT INTO `plan` (`planId`, `planUsername`, `planName`, `planPlace`, `planGrou
 -- 資料表結構 `platformadmins`
 --
 
-CREATE TABLE `platformadmins` (
-  `aId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `platformadmins` (
+  `aId` int(11) NOT NULL AUTO_INCREMENT,
   `aRoleId` int(10) NOT NULL,
   `aFName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aLName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2204,9 +2327,15 @@ CREATE TABLE `platformadmins` (
   `aLogoutTime` datetime DEFAULT NULL,
   `aLoginTime` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`aId`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformadmins`
+--
+
+TRUNCATE TABLE `platformadmins`;
 --
 -- 傾印資料表的資料 `platformadmins`
 --
@@ -2222,11 +2351,17 @@ INSERT INTO `platformadmins` (`aId`, `aRoleId`, `aFName`, `aLName`, `aEmail`, `a
 -- 資料表結構 `platformpermissions`
 --
 
-CREATE TABLE `platformpermissions` (
+CREATE TABLE IF NOT EXISTS `platformpermissions` (
   `adminPrmId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `adminPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `adminPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`adminPrmId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformpermissions`
+--
+
+TRUNCATE TABLE `platformpermissions`;
 --
 -- 傾印資料表的資料 `platformpermissions`
 --
@@ -2244,24 +2379,35 @@ INSERT INTO `platformpermissions` (`adminPrmId`, `adminPrmName`) VALUES
 -- 資料表結構 `platformresetpass`
 --
 
-CREATE TABLE `platformresetpass` (
+CREATE TABLE IF NOT EXISTS `platformresetpass` (
   `aEmail` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aToken` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aHash` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `aExpireDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformresetpass`
+--
+
+TRUNCATE TABLE `platformresetpass`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `platformroles`
 --
 
-CREATE TABLE `platformroles` (
-  `aRoleId` int(10) NOT NULL,
-  `aRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS `platformroles` (
+  `aRoleId` int(10) NOT NULL AUTO_INCREMENT,
+  `aRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`aRoleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `platformroles`
+--
+
+TRUNCATE TABLE `platformroles`;
 --
 -- 傾印資料表的資料 `platformroles`
 --
@@ -2277,14 +2423,20 @@ INSERT INTO `platformroles` (`aRoleId`, `aRoleName`) VALUES
 -- 資料表結構 `product`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE IF NOT EXISTS `product` (
   `pId` varchar(20) NOT NULL,
   `pName` varchar(20) NOT NULL,
   `price` int(20) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_time` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_time` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`pId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `product`
+--
+
+TRUNCATE TABLE `product`;
 --
 -- 傾印資料表的資料 `product`
 --
@@ -2305,8 +2457,8 @@ INSERT INTO `product` (`pId`, `pName`, `price`, `created_at`, `updated_time`) VA
 -- 資料表結構 `promotion_group`
 --
 
-CREATE TABLE `promotion_group` (
-  `groupId` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `promotion_group` (
+  `groupId` int(11) NOT NULL AUTO_INCREMENT,
   `groupPlanId` int(11) NOT NULL COMMENT '廣告id',
   `groupBuyItems` int(11) NOT NULL COMMENT '買過我的商品',
   `groupHistoryItems` int(11) NOT NULL COMMENT '瀏覽過我的商品',
@@ -2315,9 +2467,15 @@ CREATE TABLE `promotion_group` (
   `groupCollectCategory` int(11) NOT NULL COMMENT '收藏某類別',
   `groupCartCategory` int(11) NOT NULL COMMENT '購物車有某類別',
   `group_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `group_updates_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `group_updates_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`groupId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `promotion_group`
+--
+
+TRUNCATE TABLE `promotion_group`;
 --
 -- 傾印資料表的資料 `promotion_group`
 --
@@ -2333,11 +2491,16 @@ INSERT INTO `promotion_group` (`groupId`, `groupPlanId`, `groupBuyItems`, `group
 -- 資料表結構 `rel_platform_permissions`
 --
 
-CREATE TABLE `rel_platform_permissions` (
+CREATE TABLE IF NOT EXISTS `rel_platform_permissions` (
   `aId` int(10) NOT NULL COMMENT '管理者',
   `aPermissionId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '權限'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `rel_platform_permissions`
+--
+
+TRUNCATE TABLE `rel_platform_permissions`;
 --
 -- 傾印資料表的資料 `rel_platform_permissions`
 --
@@ -2364,11 +2527,16 @@ INSERT INTO `rel_platform_permissions` (`aId`, `aPermissionId`) VALUES
 -- 資料表結構 `rel_vendor_permissions`
 --
 
-CREATE TABLE `rel_vendor_permissions` (
+CREATE TABLE IF NOT EXISTS `rel_vendor_permissions` (
   `vaId` int(10) NOT NULL,
   `vaPermissionId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `rel_vendor_permissions`
+--
+
+TRUNCATE TABLE `rel_vendor_permissions`;
 --
 -- 傾印資料表的資料 `rel_vendor_permissions`
 --
@@ -2405,14 +2573,20 @@ INSERT INTO `rel_vendor_permissions` (`vaId`, `vaPermissionId`) VALUES
 -- 資料表結構 `reply_comment`
 --
 
-CREATE TABLE `reply_comment` (
-  `replyId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `reply_comment` (
+  `replyId` int(10) NOT NULL AUTO_INCREMENT,
   `commentId` int(10) NOT NULL,
   `replyText` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`replyId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `reply_comment`
+--
+
+TRUNCATE TABLE `reply_comment`;
 --
 -- 傾印資料表的資料 `reply_comment`
 --
@@ -2428,7 +2602,7 @@ INSERT INTO `reply_comment` (`replyId`, `commentId`, `replyText`, `created_at`, 
 -- 資料表結構 `returndetail`
 --
 
-CREATE TABLE `returndetail` (
+CREATE TABLE IF NOT EXISTS `returndetail` (
   `returnId` int(11) NOT NULL COMMENT '退貨編號',
   `pId` varchar(20) NOT NULL COMMENT '產品ID',
   `count` varchar(20) NOT NULL COMMENT '退貨數量',
@@ -2436,6 +2610,11 @@ CREATE TABLE `returndetail` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `returndetail`
+--
+
+TRUNCATE TABLE `returndetail`;
 --
 -- 傾印資料表的資料 `returndetail`
 --
@@ -2454,8 +2633,8 @@ INSERT INTO `returndetail` (`returnId`, `pId`, `count`, `created_at`, `updated_a
 -- 資料表結構 `returnlist`
 --
 
-CREATE TABLE `returnlist` (
-  `returnId` int(11) NOT NULL COMMENT '退貨編號',
+CREATE TABLE IF NOT EXISTS `returnlist` (
+  `returnId` int(11) NOT NULL AUTO_INCREMENT COMMENT '退貨編號',
   `orderId` varchar(20) NOT NULL COMMENT '訂單編號',
   `returnStatus` varchar(20) NOT NULL COMMENT '退貨狀態',
   `returnPay` varchar(20) NOT NULL COMMENT '退款金額',
@@ -2464,9 +2643,15 @@ CREATE TABLE `returnlist` (
   `buyerAdress` varchar(30) NOT NULL COMMENT '購買人地址',
   `returnReason` varchar(150) NOT NULL COMMENT '退貨原因',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`returnId`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `returnlist`
+--
+
+TRUNCATE TABLE `returnlist`;
 --
 -- 傾印資料表的資料 `returnlist`
 --
@@ -2487,8 +2672,8 @@ INSERT INTO `returnlist` (`returnId`, `orderId`, `returnStatus`, `returnPay`, `b
 -- 資料表結構 `shopcart`
 --
 
-CREATE TABLE `shopcart` (
-  `Id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `shopcart` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `csId` varchar(20) NOT NULL COMMENT '會員ID',
   `itemId` varchar(20) NOT NULL COMMENT '產品ID',
   `name` varchar(99) NOT NULL COMMENT '品牌名稱',
@@ -2498,18 +2683,24 @@ CREATE TABLE `shopcart` (
   `itemPrice` varchar(20) NOT NULL COMMENT '價格',
   `count` int(20) DEFAULT NULL COMMENT '產品數量',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  `updated_time` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4;
 
+--
+-- 資料表新增資料前，先清除舊資料 `shopcart`
+--
+
+TRUNCATE TABLE `shopcart`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `stories`
 --
 
-CREATE TABLE `stories` (
+CREATE TABLE IF NOT EXISTS `stories` (
   `usrId` int(50) NOT NULL,
-  `stryId` int(11) NOT NULL,
+  `stryId` int(11) NOT NULL AUTO_INCREMENT,
   `stryTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stryStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `stryContent` text COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2517,9 +2708,15 @@ CREATE TABLE `stories` (
   `stryLikes` int(50) NOT NULL DEFAULT 0,
   `stryViews` int(50) NOT NULL DEFAULT 0,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`stryId`)
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `stories`
+--
+
+TRUNCATE TABLE `stories`;
 --
 -- 傾印資料表的資料 `stories`
 --
@@ -2556,17 +2753,23 @@ INSERT INTO `stories` (`usrId`, `stryId`, `stryTitle`, `stryStatus`, `stryConten
 -- 資料表結構 `storydrafts`
 --
 
-CREATE TABLE `storydrafts` (
+CREATE TABLE IF NOT EXISTS `storydrafts` (
   `usrId` int(50) NOT NULL,
-  `drftId` int(50) NOT NULL,
+  `drftId` int(50) NOT NULL AUTO_INCREMENT,
   `drftStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftTitle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftContent` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `drftTags` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`drftId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `storydrafts`
+--
+
+TRUNCATE TABLE `storydrafts`;
 --
 -- 傾印資料表的資料 `storydrafts`
 --
@@ -2586,17 +2789,23 @@ INSERT INTO `storydrafts` (`usrId`, `drftId`, `drftStatus`, `drftTitle`, `drftCo
 -- 資料表結構 `storyreplies`
 --
 
-CREATE TABLE `storyreplies` (
-  `rplyId` int(50) NOT NULL,
+CREATE TABLE IF NOT EXISTS `storyreplies` (
+  `rplyId` int(50) NOT NULL AUTO_INCREMENT,
   `stryId` int(50) NOT NULL,
   `usrId` int(50) NOT NULL,
   `rplyTo` int(50) DEFAULT NULL,
   `rplyContent` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `rplyStatus` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`rplyId`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `storyreplies`
+--
+
+TRUNCATE TABLE `storyreplies`;
 --
 -- 傾印資料表的資料 `storyreplies`
 --
@@ -2614,8 +2823,8 @@ INSERT INTO `storyreplies` (`rplyId`, `stryId`, `usrId`, `rplyTo`, `rplyContent`
 -- 資料表結構 `students`
 --
 
-CREATE TABLE `students` (
-  `id` int(11) NOT NULL COMMENT '流水號',
+CREATE TABLE IF NOT EXISTS `students` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號',
   `studentId` varchar(9) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '學號',
   `studentName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '學生姓名',
   `studentGender` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '學生性別',
@@ -2624,9 +2833,15 @@ CREATE TABLE `students` (
   `studentDescription` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '個人描述',
   `studentImg` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '照片檔案名稱',
   `created_at` datetime NOT NULL DEFAULT current_timestamp() COMMENT '新增時間',
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='學生資料表';
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp() COMMENT '更新時間',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='學生資料表';
 
+--
+-- 資料表新增資料前，先清除舊資料 `students`
+--
+
+TRUNCATE TABLE `students`;
 --
 -- 傾印資料表的資料 `students`
 --
@@ -2645,7 +2860,7 @@ INSERT INTO `students` (`id`, `studentId`, `studentName`, `studentGender`, `stud
 -- 資料表結構 `table 9`
 --
 
-CREATE TABLE `table 9` (
+CREATE TABLE IF NOT EXISTS `table 9` (
   `categoryId` int(20) NOT NULL,
   `categoryName` varchar(20) NOT NULL,
   `categoryParentId` int(20) NOT NULL,
@@ -2653,6 +2868,11 @@ CREATE TABLE `table 9` (
   `updated_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- 資料表新增資料前，先清除舊資料 `table 9`
+--
+
+TRUNCATE TABLE `table 9`;
 --
 -- 傾印資料表的資料 `table 9`
 --
@@ -2668,8 +2888,8 @@ INSERT INTO `table 9` (`categoryId`, `categoryName`, `categoryParentId`, `create
 -- 資料表結構 `user_comment`
 --
 
-CREATE TABLE `user_comment` (
-  `commentId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `user_comment` (
+  `commentId` int(10) NOT NULL AUTO_INCREMENT,
   `productId` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `userId` int(10) NOT NULL,
   `userName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -2677,9 +2897,15 @@ CREATE TABLE `user_comment` (
   `commentText` varchar(300) COLLATE utf8mb4_unicode_ci NOT NULL,
   `img` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`commentId`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `user_comment`
+--
+
+TRUNCATE TABLE `user_comment`;
 --
 -- 傾印資料表的資料 `user_comment`
 --
@@ -2705,8 +2931,8 @@ INSERT INTO `user_comment` (`commentId`, `productId`, `userId`, `userName`, `ran
 -- 資料表結構 `vendoradmins`
 --
 
-CREATE TABLE `vendoradmins` (
-  `vaId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `vendoradmins` (
+  `vaId` int(10) NOT NULL AUTO_INCREMENT,
   `vId` int(10) DEFAULT NULL COMMENT '廠商',
   `vaRoleId` int(10) NOT NULL,
   `vaFName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '名字',
@@ -2720,9 +2946,15 @@ CREATE TABLE `vendoradmins` (
   `vaLoginTime` datetime DEFAULT NULL,
   `vaNotes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`vaId`)
+) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendoradmins`
+--
+
+TRUNCATE TABLE `vendoradmins`;
 --
 -- 傾印資料表的資料 `vendoradmins`
 --
@@ -2740,11 +2972,17 @@ INSERT INTO `vendoradmins` (`vaId`, `vId`, `vaRoleId`, `vaFName`, `vaLName`, `va
 -- 資料表結構 `vendorpermissions`
 --
 
-CREATE TABLE `vendorpermissions` (
+CREATE TABLE IF NOT EXISTS `vendorpermissions` (
   `vendorPrmId` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `vendorPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL
+  `vendorPrmName` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`vendorPrmId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendorpermissions`
+--
+
+TRUNCATE TABLE `vendorpermissions`;
 --
 -- 傾印資料表的資料 `vendorpermissions`
 --
@@ -2762,24 +3000,35 @@ INSERT INTO `vendorpermissions` (`vendorPrmId`, `vendorPrmName`) VALUES
 -- 資料表結構 `vendorresetpass`
 --
 
-CREATE TABLE `vendorresetpass` (
+CREATE TABLE IF NOT EXISTS `vendorresetpass` (
   `vaEmail` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vaToken` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vaHash` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vaExpireDate` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendorresetpass`
+--
+
+TRUNCATE TABLE `vendorresetpass`;
 -- --------------------------------------------------------
 
 --
 -- 資料表結構 `vendorroles`
 --
 
-CREATE TABLE `vendorroles` (
-  `vaRoleId` int(10) NOT NULL,
-  `vaRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE IF NOT EXISTS `vendorroles` (
+  `vaRoleId` int(10) NOT NULL AUTO_INCREMENT,
+  `vaRoleName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  PRIMARY KEY (`vaRoleId`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendorroles`
+--
+
+TRUNCATE TABLE `vendorroles`;
 --
 -- 傾印資料表的資料 `vendorroles`
 --
@@ -2795,8 +3044,8 @@ INSERT INTO `vendorroles` (`vaRoleId`, `vaRoleName`) VALUES
 -- 資料表結構 `vendors`
 --
 
-CREATE TABLE `vendors` (
-  `vId` int(10) NOT NULL,
+CREATE TABLE IF NOT EXISTS `vendors` (
+  `vId` int(10) NOT NULL AUTO_INCREMENT,
   `vName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vEmail` varchar(254) COLLATE utf8mb4_unicode_ci NOT NULL,
   `vInfo` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2804,9 +3053,16 @@ CREATE TABLE `vendors` (
   `vActive` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `vVerify` varchar(25) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT current_timestamp() COMMENT '驗證',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`vId`),
+  UNIQUE KEY `vEmail` (`vEmail`)
+) ENGINE=InnoDB AUTO_INCREMENT=73 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- 資料表新增資料前，先清除舊資料 `vendors`
+--
+
+TRUNCATE TABLE `vendors`;
 --
 -- 傾印資料表的資料 `vendors`
 --
@@ -2829,388 +3085,6 @@ INSERT INTO `vendors` (`vId`, `vName`, `vEmail`, `vInfo`, `vImg`, `vActive`, `vV
 (70, '小米', 'mi@ccc.com', NULL, '小米.jpg', 'active', 'current_timestamp()', '2020-03-19 09:21:48', '2020-03-19 09:21:48'),
 (71, '鐵三角', 'audio-technica@ccc.com', NULL, '鐵三角.jpg', 'active', 'current_timestamp()', '2020-03-19 09:23:16', '2020-03-19 09:23:16'),
 (72, 'Sabbat 魔宴', 'sabbat@ccc.com', NULL, '魔宴.png', 'active', 'current_timestamp()', '2020-03-19 09:23:55', '2020-03-19 09:23:55');
-
---
--- 已傾印資料表的索引
---
-
---
--- 資料表索引 `ad`
---
-ALTER TABLE `ad`
-  ADD PRIMARY KEY (`adId`);
-
---
--- 資料表索引 `admin`
---
-ALTER TABLE `admin`
-  ADD PRIMARY KEY (`id`);
-
---
--- 資料表索引 `categoryies`
---
-ALTER TABLE `categoryies`
-  ADD PRIMARY KEY (`categoryId`);
-
---
--- 資料表索引 `coupon`
---
-ALTER TABLE `coupon`
-  ADD PRIMARY KEY (`cp_id`);
-
---
--- 資料表索引 `coupon_item`
---
-ALTER TABLE `coupon_item`
-  ADD PRIMARY KEY (`cpi_id`);
-
---
--- 資料表索引 `coupon_rule`
---
-ALTER TABLE `coupon_rule`
-  ADD PRIMARY KEY (`cpr_id`);
-
---
--- 資料表索引 `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`csId`);
-
---
--- 資料表索引 `items`
---
-ALTER TABLE `items`
-  ADD PRIMARY KEY (`itemId`);
-
---
--- 資料表索引 `member`
---
-ALTER TABLE `member`
-  ADD PRIMARY KEY (`ID`),
-  ADD UNIQUE KEY `Account` (`Account`);
-
---
--- 資料表索引 `multiple_images`
---
-ALTER TABLE `multiple_images`
-  ADD PRIMARY KEY (`multipleImageId`);
-
---
--- 資料表索引 `orderbuyer`
---
-ALTER TABLE `orderbuyer`
-  ADD PRIMARY KEY (`Id`);
-
---
--- 資料表索引 `orderdetail`
---
-ALTER TABLE `orderdetail`
-  ADD PRIMARY KEY (`Id`);
-
---
--- 資料表索引 `orderlist`
---
-ALTER TABLE `orderlist`
-  ADD PRIMARY KEY (`orderId`);
-
---
--- 資料表索引 `outlist`
---
-ALTER TABLE `outlist`
-  ADD PRIMARY KEY (`outId`);
-
---
--- 資料表索引 `payment`
---
-ALTER TABLE `payment`
-  ADD PRIMARY KEY (`paymentId`);
-
---
--- 資料表索引 `plan`
---
-ALTER TABLE `plan`
-  ADD PRIMARY KEY (`planId`);
-
---
--- 資料表索引 `platformadmins`
---
-ALTER TABLE `platformadmins`
-  ADD PRIMARY KEY (`aId`);
-
---
--- 資料表索引 `platformpermissions`
---
-ALTER TABLE `platformpermissions`
-  ADD PRIMARY KEY (`adminPrmId`);
-
---
--- 資料表索引 `platformroles`
---
-ALTER TABLE `platformroles`
-  ADD PRIMARY KEY (`aRoleId`);
-
---
--- 資料表索引 `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`pId`);
-
---
--- 資料表索引 `promotion_group`
---
-ALTER TABLE `promotion_group`
-  ADD PRIMARY KEY (`groupId`);
-
---
--- 資料表索引 `reply_comment`
---
-ALTER TABLE `reply_comment`
-  ADD PRIMARY KEY (`replyId`);
-
---
--- 資料表索引 `returnlist`
---
-ALTER TABLE `returnlist`
-  ADD PRIMARY KEY (`returnId`);
-
---
--- 資料表索引 `shopcart`
---
-ALTER TABLE `shopcart`
-  ADD PRIMARY KEY (`Id`);
-
---
--- 資料表索引 `stories`
---
-ALTER TABLE `stories`
-  ADD PRIMARY KEY (`stryId`);
-
---
--- 資料表索引 `storydrafts`
---
-ALTER TABLE `storydrafts`
-  ADD PRIMARY KEY (`drftId`);
-
---
--- 資料表索引 `storyreplies`
---
-ALTER TABLE `storyreplies`
-  ADD PRIMARY KEY (`rplyId`);
-
---
--- 資料表索引 `students`
---
-ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`);
-
---
--- 資料表索引 `user_comment`
---
-ALTER TABLE `user_comment`
-  ADD PRIMARY KEY (`commentId`);
-
---
--- 資料表索引 `vendoradmins`
---
-ALTER TABLE `vendoradmins`
-  ADD PRIMARY KEY (`vaId`);
-
---
--- 資料表索引 `vendorpermissions`
---
-ALTER TABLE `vendorpermissions`
-  ADD PRIMARY KEY (`vendorPrmId`);
-
---
--- 資料表索引 `vendorroles`
---
-ALTER TABLE `vendorroles`
-  ADD PRIMARY KEY (`vaRoleId`);
-
---
--- 資料表索引 `vendors`
---
-ALTER TABLE `vendors`
-  ADD PRIMARY KEY (`vId`),
-  ADD UNIQUE KEY `vEmail` (`vEmail`);
-
---
--- 在傾印的資料表使用自動遞增(AUTO_INCREMENT)
---
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `ad`
---
-ALTER TABLE `ad`
-  MODIFY `adId` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `admin`
---
-ALTER TABLE `admin`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=3;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `categoryies`
---
-ALTER TABLE `categoryies`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=37;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `coupon`
---
-ALTER TABLE `coupon`
-  MODIFY `cp_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券id', AUTO_INCREMENT=31;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `coupon_item`
---
-ALTER TABLE `coupon_item`
-  MODIFY `cpi_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '個人優惠券id', AUTO_INCREMENT=46;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `coupon_rule`
---
-ALTER TABLE `coupon_rule`
-  MODIFY `cpr_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '優惠券規則id', AUTO_INCREMENT=18;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `items`
---
-ALTER TABLE `items`
-  MODIFY `itemId` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品編號', AUTO_INCREMENT=203;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `member`
---
-ALTER TABLE `member`
-  MODIFY `ID` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `multiple_images`
---
-ALTER TABLE `multiple_images`
-  MODIFY `multipleImageId` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=1380;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `orderbuyer`
---
-ALTER TABLE `orderbuyer`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `orderdetail`
---
-ALTER TABLE `orderdetail`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `orderlist`
---
-ALTER TABLE `orderlist`
-  MODIFY `orderId` int(100) NOT NULL AUTO_INCREMENT COMMENT '訂單編號', AUTO_INCREMENT=10;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `outlist`
---
-ALTER TABLE `outlist`
-  MODIFY `outId` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `payment`
---
-ALTER TABLE `payment`
-  MODIFY `paymentId` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `plan`
---
-ALTER TABLE `plan`
-  MODIFY `planId` int(3) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=72;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `platformadmins`
---
-ALTER TABLE `platformadmins`
-  MODIFY `aId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `platformroles`
---
-ALTER TABLE `platformroles`
-  MODIFY `aRoleId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `promotion_group`
---
-ALTER TABLE `promotion_group`
-  MODIFY `groupId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `reply_comment`
---
-ALTER TABLE `reply_comment`
-  MODIFY `replyId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `returnlist`
---
-ALTER TABLE `returnlist`
-  MODIFY `returnId` int(11) NOT NULL AUTO_INCREMENT COMMENT '退貨編號', AUTO_INCREMENT=10;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `shopcart`
---
-ALTER TABLE `shopcart`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `stories`
---
-ALTER TABLE `stories`
-  MODIFY `stryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `storydrafts`
---
-ALTER TABLE `storydrafts`
-  MODIFY `drftId` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `storyreplies`
---
-ALTER TABLE `storyreplies`
-  MODIFY `rplyId` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `students`
---
-ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '流水號', AUTO_INCREMENT=19;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `user_comment`
---
-ALTER TABLE `user_comment`
-  MODIFY `commentId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `vendoradmins`
---
-ALTER TABLE `vendoradmins`
-  MODIFY `vaId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `vendorroles`
---
-ALTER TABLE `vendorroles`
-  MODIFY `vaRoleId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- 使用資料表自動遞增(AUTO_INCREMENT) `vendors`
---
-ALTER TABLE `vendors`
-  MODIFY `vId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
