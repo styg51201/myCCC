@@ -14,6 +14,7 @@ router.get('/search', (req, res)=>{
     let key = req.query.key
     let keyarr= req.query.key.replace(/\s+/g, ' ').trim().split(' ')
     console.log(keyarr)
+    
     let selectArr = [
         '`itemId`', 
         '`name`', 
@@ -24,21 +25,45 @@ router.get('/search', (req, res)=>{
         '`itemCategoryId`'
     ]
 
+    let queryArr = [
+        '`name`', 
+        '`itemName`', 
+        '`itemDescription`', 
+        '`itemCategoryId`'
+    ]
+
     let likeStr = ``;
 
+    // keyarr.forEach((elm, idx)=>{
+    //     queryArr.forEach((e, i)=>{
+    //         if(idx === keyarr.length -1 && i === queryArr.length -1){
+    //             likeStr += `${e} LIKE '%${elm}' OR ${e} LIKE '${elm}%' OR ${e} LIKE '%${elm}%'`
+    //         }else{
+    //             likeStr += `${e} LIKE '%${elm}' OR ${e} LIKE '${elm}%' OR ${e} LIKE '%${elm}%' OR `
+    //         }
+    //     })
+    // })
+
     keyarr.forEach((elm, idx)=>{
-        selectArr.forEach((e, i)=>{
-            if(idx === keyarr.length -1 && i === selectArr.length -1){
+        likeStr += `(`
+        queryArr.forEach((e, i)=>{
+            if(i === queryArr.length -1){
                 likeStr += `${e} LIKE '%${elm}' OR ${e} LIKE '${elm}%' OR ${e} LIKE '%${elm}%'`
             }else{
                 likeStr += `${e} LIKE '%${elm}' OR ${e} LIKE '${elm}%' OR ${e} LIKE '%${elm}%' OR `
             }
         })
+        if(idx === keyarr.length -1 ){
+            likeStr += `)`
+        }else{
+            likeStr += `) AND `
+        }
     })
 
     let sql = `SELECT ${selectArr.join(' ,')} FROM \`items\` WHERE ${likeStr}`;
 
-    //console.log(sql)
+    // console.log(sql)
+    // return;
 
     db.queryAsync(sql)
     .then(r=>{

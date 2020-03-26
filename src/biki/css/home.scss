@@ -50,17 +50,19 @@
     height: 100%;
     position: relative;
 
-    img {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      // z-index: 0;
-    }
+    // .react-parallax-content {
+    //   height: 100%;
 
+    //   .bk-slide-content {
+    //     position: relative;
+    //     // z-index: 1;
+    //     height: 100%;
+    //     display: flex;
+    //     align-items: center;
+    //     justify-content: center;
+    //     color: white;
+    //   }
+    // }
     .bk-slide-content {
       position: relative;
       // z-index: 1;
@@ -223,16 +225,16 @@
 
 .bk-featured-products {
   position: relative;
-  // background-color: black;
+  background-color: black;
 
-  // .bk-featured-bg {
-  //   width: 100%;
-  //   height: 100%;
-  //   position: absolute;
-  //   left: 0;
-  //   top: 0;
-  //   background-color: black;
-  // }
+  .bk-featured-bg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: black;
+  }
 
   .bk-featured-wrapper {
     padding: 15rem 5rem 1rem 5rem;
@@ -436,6 +438,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      // top: 50%;
       // object-position: bottom;
       // filter: blur(8px);
       // transform: scale(1.3);
@@ -451,9 +454,16 @@
     justify-content: space-between;
     padding: $spacing * 6 0;
 
+    .collection-titles {
+      // position: relative;
+      // top: 50%;
+    }
+
     .content-bottom {
       display: flex;
       justify-content: space-between;
+      // position: relative;
+      // top: 50%;
 
       .collection-info {
         max-width: 60%;
@@ -468,7 +478,7 @@
     .collection-img {
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 70%;
       transform: translate(-50%, -50%);
 
       img {

@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react'
+import React from 'react'
 import '../css/home.scss'
 import { FiShoppingBag, FiHeart, FiStar } from "react-icons/fi";
 import {Col, Container} from 'react-bootstrap'
@@ -6,15 +6,7 @@ import {Parallax, Background } from 'react-parallax'
 
 function Collection(props){
 
-    const [imgHeight, setimgHeight] = useState(0)
-    const imgRef = useRef(null)
-
-    useEffect(()=>{
-        const height = imgRef;
-        setimgHeight(height)
-        console.log(imgRef.current.clientHeight)
-    },[])
-
+    // console.log(props)
 
     return(
     <>
@@ -23,27 +15,30 @@ function Collection(props){
         }>
             <div className="bottom">
                 <Parallax strength={400} bgImage={props.bg} style={{height: '100%'}}>
+                    {/* <img 
+                    src={ props.bg}
+                    style={{ objectPosition: props.position }}
+                    /> */}
                 </Parallax>
             </div>
             
             <Parallax 
             style={{height: '100%'}}
-            strength={200}
-            bgImage={' '}
+            strength={100}
+            bgImage={props.bg}
             renderLayer={percentage=>{
+                console.log('percentage:', percentage)
                 return(
                     <Container style={{height: '100%'}}>
 
                         <div className='bk-collection-content'>
                             <div className="collection-titles" 
-                            style={{transform: `translateY(${percentage*100}%)`}}
+                            style={{transform: 'translateY(-1000px)'}}
                             >
                                 <h1>{props.title}</h1>
                                 <h4>{props.titleCn}</h4>
                             </div>
-                            <div className="content-bottom"
-                            style={{transform: `translateY(-${percentage*100}%)`}}
-                            >
+                            <div className="content-bottom">
                                 <div className="collection-info">
                                     {props.info}
                                 </div>
@@ -51,14 +46,8 @@ function Collection(props){
                                     <button>瀏覽更多</button>
                                 </div>
                             </div>
-                            <div className="collection-img"
-                            style={{
-                                top: '70%',
-                                marginTop: `-${imgHeight/2}px`,
-                                transform: `translate(-50%, -${percentage*160}%)`
-                            }}
-                            >
-                                <img src={props.img} ref={imgRef} />
+                            <div className="collection-img">
+                                <img src={props.img} />
                             </div>
                         </div>
                     </Container>

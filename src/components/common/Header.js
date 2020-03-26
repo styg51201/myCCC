@@ -20,8 +20,10 @@ import {
 import $ from 'jquery'
 
 function Header(props) {
+  
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
+  const [searchBlurTime, setSearchBlurTime] = useState(0)
   const [searchTxt, setSearchTxt] = useState('')
   const [member, setMember] = useState(true)
 
@@ -74,9 +76,12 @@ function Header(props) {
   const inputRef = useRef(null)
 
   const handleOpenSearch = () => {
-    if (!openSearch) {
-      setOpenSearch(true)
-      inputRef.current.focus()
+    if(new Date().getTime()-searchBlurTime > 300){
+      if (!openSearch) {
+        // console.log('handleOpenSearch', new Date().getTime()-searchBlurTime)
+        setOpenSearch(true)
+        inputRef.current.focus()
+      }
     }
   }
 
@@ -92,7 +97,10 @@ function Header(props) {
   }
 
   const handleSearchBlur = evt => {
+    console.log('handleSearchBlur', new Date().getTime())
     //console.log(evt.target)
+    
+    setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')
   }

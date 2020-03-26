@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 // import chunk from 'lodash/chunk';
 // import {throttle} from 'lodash';
 import {useSpring, animated} from 'react-spring'
-// import {Parallax, ParallaxLayer} from 'react-spring/renderprops-addons'
+import {Parallax, Background } from 'react-parallax'
 
 import 'animate.css/animate.min.css'
 import './css/all.scss'
@@ -17,26 +17,20 @@ import AdSlide from './components/AdSlide'
 
 function Home(){
 
-    const [loaded, setLoaded] = useState(false)
-    const [adNum, setAdNum] = useState(0);
+    const [loaded, setLoaded] = useState(false) //for loading animation 還沒做
+    const [adNum, setAdNum] = useState(0); //for ad slides
     const [docWidth, setDocWidth] = useState(window.innerWidth)
     const [showMouse, setShowMouse] = useState(true)
 
     const [props, set] = useSpring(()=>({
         offset: 0,
-        offsetSlide: 0,
-        offsetFeature1: 0,
-        offsetFeature2: 0,
-        offsetFeature3: 0,
-        opacity: 1,
-        backgroundOpacity: 1
+        // offsetSlide: 0
+        // opacity: 0
     }))
 
-    console.log(props.backgroundColor)
     const parallaxRef = useRef()
     const mouseRef = useRef()
-    const slideRef = useRef()
-
+    // const slideRef = useRef()
 
     useEffect(()=>{
         setTimeout(()=>{
@@ -55,18 +49,22 @@ function Home(){
     const handleScroll = ()=>{
         const posY = parallaxRef.current.getBoundingClientRect().top
         const offset = posY - window.pageYOffset
-        //console.log(offset)
+        // console.log(offset)
         set({offset})
-        set({backgroundOpacity: offset/100})
-        console.log(props.backgroundOpacity)
+
+        const opacity = window.pageYOffset - posY
+        set({opacity})
+        // console.log(opacity)
 
         const mouseY = mouseRef.current.getBoundingClientRect().top
         const offsetMouse = mouseY - window.pageYOffset
-
-        const slideY = slideRef.current.getBoundingClientRect().top
-        const offsetSlide = window.pageYOffset - slideY
-        set({offsetSlide})
         
+        // const slideY = slideRef.current.getBoundingClientRect().top
+        // const offsetSlide = window.pageYOffset - slideY
+        // set({offsetSlide})
+        // console.log(offsetSlide)
+
+
         if(offsetMouse < 0){
             // console.log('hide mouse!')
             setShowMouse(false)
@@ -148,14 +146,18 @@ const parallax = useRef()
     return(
         <>
         <div className='bk-home-container'>
-            <section className="bk-home-slider" ref={slideRef}>
-                <div className='bk-slides'>
-                        <animated.img src="./biki-img/josh-nuttall-uNQ-TTg_qNY-unsplash_.jpg"
-                         style={{objectPosition: props.offsetSlide.interpolate(v=>`0px ${20 + v * 0.01}%`)}} />
-                    <div className='bk-slide-content'>
+            <section className="bk-home-slider" >
+                <Parallax
+                    bgImage={"./biki-img/josh-nuttall-uNQ-TTg_qNY-unsplash_.jpg"}
+                    bgImageAlt='TRIPLEC'
+                    strength={600}
+                    className='bk-slides'
+                    contentClassName='bk-slide-content'
+                >
+                    {/* <div className='bk-slide-content'> */}
                         Hello~
-                    </div>
-                </div>
+                    {/* </div> */}
+                </Parallax>
                 <div className={`bk-mouse animated ${showMouse ? 'fadeInDown' : 'fadeOutUp'}`}
                     ref={mouseRef}
                 >
@@ -198,13 +200,13 @@ const parallax = useRef()
                     </div>
                 </Container>
             </section>
-            <animated.section
-                className="bk-featured-products" 
-                ref={parallaxRef} 
-                style={{backgroundColor: props.backgroundOpacity.interpolate(v=> `rgba(5,5,5,${v})`)}}>
-                {/* <animated.div className='bk-featured-bg' style={{
-                    transform: props.offset.interpolate(value => `translateY(${value * (-0.05)}px`)
-                }} /> */}
+            <section className="bk-featured-products" 
+                ref={parallaxRef} >
+                {/* <animated.div className='bk-featured-bg' 
+                style={{
+                    opacity: props.opacity.interpolate(value => `${value * (0.001)}`)
+                }} 
+                /> */}
                 <Container>
                     <Row className='bk-featured-wrapper row-cols-xl-3 row-cols-md-2 row-cols-1'>
                         <animated.div style={{transform: props.offset.interpolate(calc)}}>
@@ -308,7 +310,7 @@ const parallax = useRef()
                         </animated.div>
                     </Row>
                 </Container>
-            </animated.section>
+            </section>
             <Collection 
             theme="white" 
             title="WEARIBLE DEVICES" 

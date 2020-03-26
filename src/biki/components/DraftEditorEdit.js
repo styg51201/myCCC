@@ -272,7 +272,7 @@ function DraftEditorEdit(props){
             icon: 'success',
             text: '上傳成功',
             showConfirmButton: false,
-            // timer: 1500,
+            timer: 1500,
             position:'center',
             buttonsStyling: false,
             customClass: {
@@ -316,8 +316,13 @@ function DraftEditorEdit(props){
             text: '儲存成功',
             showConfirmButton: false,
             buttonsStyling: false,
-            // timer: 1500,
+            timer: 1500,
             position:'center',
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
             })  
         setTimeout(()=>{
             props.history.push('/member/stories/drafts')

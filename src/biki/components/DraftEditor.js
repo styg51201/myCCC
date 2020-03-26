@@ -283,6 +283,11 @@ function DraftEditor(props){
             buttonsStyling: false,
             // timer: 1500,
             position:'center',
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
           })
           .then(r=>{
             props.history.push('/stories')
