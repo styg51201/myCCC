@@ -65,12 +65,12 @@ function Header(props) {
   //     }
   //   })
 
-    //會員登出功能
-  //   $('.irene_member_logout').click(function() {
-  //     localStorage.removeItem('userdata')
-  //     localStorage.removeItem('userId')
-  //     window.location.replace('http://localhost:3000/memberlogin')
-  //   })
+    // 會員登出功能
+    // $('.irene_member_logout').click(function() {
+    //   localStorage.removeItem('userdata')
+    //   localStorage.removeItem('userId')
+    //   window.location.replace('http://localhost:3000/memberlogin')
+    // })
   // }, [])
 
   const inputRef = useRef(null)
@@ -157,8 +157,8 @@ function Header(props) {
         </Container>
       </div>
       <div>
-        {!memberstate ? (
-          <Link to="/memberedit">
+        {!memberstate ? ( 
+          <Link to="/memberlogin">
             <img
               src="./img/header-footer/user.svg"
               alt=""
@@ -166,7 +166,7 @@ function Header(props) {
             />
           </Link>
         ) : (
-          <Link to="/memberlogin">
+          <Link to="/memberedit">
             <img
               src="./img/header-footer/user.svg"
               alt=""
