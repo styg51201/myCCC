@@ -20,7 +20,6 @@ function Discount(props){
     useEffect(()=>{
         props.fromServerMemberCouponData()
       },[])
-<<<<<<< HEAD
       console.log(props.couponData)
 
 
@@ -120,9 +119,7 @@ function Discount(props){
       }
 
 
-=======
     
->>>>>>> b9083654eaa1436636c14400938fcf273aa6a5a8
 
     return(
         <>
@@ -132,13 +129,10 @@ function Discount(props){
                 <img src="./chin-img/chevron-down-black.svg" alt=""/>
             </div>
             <div>
-<<<<<<< HEAD
                 <ul onClick={(e)=>filter(e)}>
                 {/* {couponLi} */}
                 </ul>
-=======
                 
->>>>>>> b9083654eaa1436636c14400938fcf273aa6a5a8
             </div>
         </li>
         </>
