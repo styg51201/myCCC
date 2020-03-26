@@ -17,11 +17,11 @@ function Discount(props){
     const [dis,setDis] = useState(true)
 
     const DiscountClassName= classNames('chin-discount',{active:dis})
-
+    console.log('dis',props.data)
 
     let object,rule,discount
 
-        if(props.data.cpr_object){
+        if(props.data.cp_id){
             //設定優惠字樣
             //目標
             switch(props.data.cpr_object){
@@ -76,13 +76,13 @@ function Discount(props){
     return(
         <>
         <li className={DiscountClassName}>
-            <div className="chin-price4" onChange={()=>{setDis(!dis)}}>
+            <div className="chin-price4 sty-dis" onChange={()=>{setDis(!dis)}}>
                 <span>優惠</span>
                 <img src="./chin-img/chevron-down-black.svg" alt=""/>
             </div>
             <div>
                 <ul>
-                    { props.data.cpi_cp_id 
+                    { props.data.cp_id 
                     ? 
                     <li className="chin-brand-checkbox"  key={props.data.cpi_cp_id}>
                         <label for={props.data.cpi_cp_id} className="chin-label" > 
