@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import classNames from 'classnames'
+import { withRouter } from 'react-router-dom';
 
 
 
@@ -7,10 +8,10 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {} from '../actions/couponAction'
+import {goShopping,showDiscountAction} from '../actions/couponAction'
 
 
-function CouponItem(props){
+function MemberCouponItem(props){
 
 
   //設定優惠券的外觀
@@ -19,41 +20,39 @@ function CouponItem(props){
     dueEnd:props.state==='use' ? false : props.state ==='dueEnd',
   })
 
-// 設定按鈕種類
-  let buttonType = (<button onClick={()=>{}}>
-                      <span className="">去逛逛</span>
-                    </button>)
-                    
-  if(props.state==='use'){
-    buttonType = (<button onClick={()=> {}}>
-                      <span>查看訂單</span>
-                  </button>)
-  }
+
 
 
 //設定優惠字樣
-  //目標
-  let object = ""
-  switch(props.item.cpr_object){
-    case 0:
-     object = "全部商品"
+ //連結
+ let path = ''
+ //目標
+ let object = ""
+ switch(props.item.cpr_object){
+   case 0:
+    object = "全部商品"
+    path = '/watch'
+    break
+   case 1:
+     object = "穿戴式裝置分類"
+     path = '/watch'
+    break
+   case 2:
+     object = "耳機/喇叭分類"
+     path = '/headset'
      break
-    case 1:
-      object = "穿戴式裝置分類"
-     break
-    case 2:
-      object = "耳機/喇叭分類"
-      break
-    case 3:
-     object = "運動攝影機分類"
-     break
+     case 3:
+    object = "運動攝影機分類"
+    path = '/actioncamera'
+    break
     case 4:
-      object = "周邊商品分類"
-     break
+     object = "周邊商品分類"
+     path = '/surrounding'
+    break
     case 5:
-      object = "指定商品"
-     break
-  }
+     object = "指定商品"
+    break
+ }
   //條件
   let rule = ""
   switch(props.item.cpr_rule){
@@ -79,7 +78,23 @@ function CouponItem(props){
      break
   }
 
+  // 設定按鈕種類
+  let buttonType = (<button onClick={()=>{
+    props.showDiscountAction(true)
+    props.goShopping(props.item.cp_vendor) 
+    props.history.push(path)
+  
+  }}>
+    <span className="">去逛逛</span>
+  </button>)
 
+  if(props.state==='use'){
+
+  buttonType = (<button onClick={()=> {}}>
+    <span>查看訂單</span>
+  </button>)
+
+  }
 
   // console.log('props',props)
     
@@ -113,9 +128,9 @@ function CouponItem(props){
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    
+    goShopping,showDiscountAction
   },dispatch)
 }
 
 
-export default connect(null,mapDispatchToProps)(CouponItem)
+export default withRouter(connect(null,mapDispatchToProps)(MemberCouponItem))
