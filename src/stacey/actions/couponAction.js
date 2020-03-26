@@ -252,8 +252,8 @@ export const addMbData = val =>{
   return {type:'ADD_MB_VALUE',value:val}
 }
 
-export const showDiscountAction = val =>{
-  return { type: 'SHOW_DISCOUNT', value: val }
+export const showDiscountAction = (val,data) =>{
+  return { type: 'SHOW_DISCOUNT', value: {isShow:val,value:data }}
 }
 
 

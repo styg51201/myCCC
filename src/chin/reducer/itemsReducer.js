@@ -53,7 +53,7 @@ export const reset = (state =true, action) => {
 //------------------chin 是否顯示優惠------------------------
 
 
-export const showDiscount = (state = false, action) => {
+export const showDiscount = (state ={isShow:false,value:{}}, action) => {
   switch (action.type) {
     case 'SHOW_DISCOUNT':
       return action.value

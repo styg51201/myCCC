@@ -80,8 +80,9 @@ function MemberCouponItem(props){
 
   // 設定按鈕種類
   let buttonType = (<button onClick={()=>{
-    props.showDiscountAction(true)
     props.goShopping(props.item.cp_vendor) 
+    props.showDiscountAction(true,props.item)
+    
     props.history.push(path)
   
   }}>

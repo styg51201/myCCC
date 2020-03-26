@@ -76,7 +76,7 @@ const rootReducer = combineReducers({
   getItemNamehis,
   getitemCategoryId,
   getItemscompare,
-  getcompare,
+  // getcompare,
   showDiscount,
   //--------- ShopCart------------
   AddItem,

@@ -9,6 +9,9 @@ import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
 import {ListItemName,ResetListItemName} from '../actions/itemsActions'
+import {showDiscountAction} from '../../stacey/actions/couponAction'
+
+
 import { CommunicationCallSplit } from 'material-ui/svg-icons'
 
 
@@ -19,6 +22,7 @@ function Brand(props){
 
     const filter = function (e){
         props.ListItemName({isChecked:e.target.checked,name:e.target.value},props.itemList)
+        props.showDiscountAction(false,{})
     }
     
     console.log('render',props.itemList)
@@ -40,9 +44,9 @@ function Brand(props){
     },[])
 
    useEffect(()=>{
-    // if( props.itemList.length > 0 ) {
-    //     setBrand(true)
-    // } 
+    if( props.itemList.length > 0 ) {
+        setBrand(true)
+    } 
         
     },[props.itemList])
     
@@ -84,7 +88,7 @@ const mapStateToProps = store => {
   //action
   const mapDispatchToProps = dispatch =>{
     return bindActionCreators({
-        ListItemName,ResetListItemName
+        ListItemName,ResetListItemName,showDiscountAction
     },dispatch)
   }
   
