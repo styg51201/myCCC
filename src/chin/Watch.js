@@ -25,6 +25,9 @@ function Watch(props) {
   const [commodity, setCommdity] = useState(false)
   const [comparegoods,setComparegoods]=useState(false)
   console.log(props)
+  if(props.compare.length>4){
+    console.log('123')
+  }
   const itemlist = props.data.map((val, ind) => {
     if (props.watch.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
@@ -75,11 +78,11 @@ function Watch(props) {
             {commodity ? (
               <div className="chin-article">
                 <div className="chin-itemcompares">
-                {props.compares.map((val,ind)=>{
+                {props.compare.map((val,ind)=>{
                   return(
                       <div className="chin-compares">
                         <img src="./chin-img/x.svg" className="chin-x" onClick={()=>{
-                                                                                props.DelItemscompare(ind, props.compares)
+                                                                                props.DelItemscompare(ind, props.compare)
                                                                                 }}/>
                         <div><img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} className="chin-watch3"/></div>
                         <span>{val.itemName}</span>
@@ -113,7 +116,7 @@ function Watch(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
            watch: store.getListitemName,
-           compares:store.getItemscompare,}
+           compare: store.getItemscompare,}
 }
 
 //action
