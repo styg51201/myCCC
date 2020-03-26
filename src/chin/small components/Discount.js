@@ -81,12 +81,6 @@ function Discount(props){
                 <img src="./chin-img/chevron-down-black.svg" alt=""/>
             </div>
             <div>
-<<<<<<< HEAD
-                <ul onClick={(e)=>filter(e)}>
-                {/* {couponLi} */}
-                </ul>
-                
-=======
                 <ul>
                     { props.data.cp_id 
                     ? 
@@ -98,7 +92,6 @@ function Discount(props){
                     :
                     '' }
                 </ul>
->>>>>>> 9c7b593d62c445c5293fc726a8bfab07655eee9a
             </div>
         </li>
         </>

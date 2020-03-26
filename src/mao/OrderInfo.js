@@ -383,9 +383,9 @@ const quickInsertInfo = demobox.map((v, i) => {
     }else{
       console.log(Object.keys(errors))
       let getKey=Object.keys(errors)
-      errorBox.map((v,i)=>{
-        getKey
-      })
+      // errorBox.map((v,i)=>{
+      //   getKey
+      // })
     }
     
   }
