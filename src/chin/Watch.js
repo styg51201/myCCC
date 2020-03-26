@@ -24,9 +24,7 @@ function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [commodity, setCommdity] = useState(false)
   const [comparegoods,setComparegoods]=useState(false)
-  // document.documentElement.scrollTop = document.body.scrollTop =0;
   console.log(props)
-  
   const itemlist = props.data.map((val, ind) => {
     if (props.watch.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
@@ -47,7 +45,9 @@ function Watch(props) {
   // const commodityItems =
   useEffect(() => {
     props.formServerItemsData('watch')
-    props.ResetListItemName()
+   
+    return ()=> props.ResetListItemName()
+    
   }, [])
 
 
@@ -80,7 +80,9 @@ function Watch(props) {
                 {props.compares.map((val,ind)=>{
                   return(
                       <div className="chin-compares">
-                        <img src="./chin-img/x.svg" className="chin-x" onClick={()=>{props.DelItemscompare(ind, props.compares)}}/>
+                        <img src="./chin-img/x.svg" className="chin-x" onClick={()=>{
+                                                                                props.DelItemscompare(ind, props.compares)
+                                                                                }}/>
                         <div><img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} className="chin-watch3"/></div>
                         <span>{val.itemName}</span>
                       </div>
@@ -89,7 +91,8 @@ function Watch(props) {
                 </div>
                 <div className="chin-button-compares">
                     <button>功能比較</button>
-                    <button onClick={()=>{setCommdity(!commodity)}}>關閉</button>
+                    <button onClick={()=>{setCommdity(!commodity)
+                                        props.ResetListItemNameCom()}}>關閉</button>
                 </div>
               </div>
             ) : (
@@ -112,7 +115,8 @@ function Watch(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
            watch: store.getListitemName,
-           compares:store.getItemscompare,}
+           compares:store.getItemscompare,
+          rest:store.rest}
 }
 
 //action

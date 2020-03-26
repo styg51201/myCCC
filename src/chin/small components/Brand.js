@@ -8,7 +8,11 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {ListItemName} from '../actions/itemsActions'
+import {ListItemName,ResetListItemName} from '../actions/itemsActions'
+import {showDiscountAction} from '../../stacey/actions/couponAction'
+
+
+import { CommunicationCallSplit } from 'material-ui/svg-icons'
 
 
 function Brand(props){
@@ -18,7 +22,35 @@ function Brand(props){
 
     const filter = function (e){
         props.ListItemName({isChecked:e.target.checked,name:e.target.value},props.itemList)
+        props.showDiscountAction(false,{})
     }
+    
+    console.log('render',props.itemList)
+
+    useEffect(()=>{
+        console.log('didmount',props.itemList)
+    
+        // setTimeout(()=>{
+            // if( props.itemList.length > 0 ) {
+            //     setBrand(true)
+            // } 
+            // else{
+            //     setBrand(false)
+
+            // }
+        //    },2000)
+
+        return () => props.ResetListItemName()
+    },[])
+
+   useEffect(()=>{
+    if( props.itemList.length > 0 ) {
+        setBrand(true)
+    } 
+        
+    },[props.itemList])
+    
+
     
     return(
         <>
@@ -30,8 +62,12 @@ function Brand(props){
             <div>
                 <ul onChange={(e)=>filter(e)}>
                 {props.list.map((val,ind)=>{
+
+                   let checked =  ''
+                   if (props.itemList.indexOf(val) > -1 ) checked = 'checked'
+
                   return  <li className="chin-brand-checkbox"  key={ind}>
-                        <input name={val} id={val} value={val} type="checkbox"/>
+                        <input name={val} id={val} value={val} type="checkbox" checked={checked}/>
                         <label for={val} className="chin-label">
                         <div className="chin-box"></div>
                         {val}
@@ -52,7 +88,7 @@ const mapStateToProps = store => {
   //action
   const mapDispatchToProps = dispatch =>{
     return bindActionCreators({
-        ListItemName
+        ListItemName,ResetListItemName,showDiscountAction
     },dispatch)
   }
   

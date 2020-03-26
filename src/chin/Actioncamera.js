@@ -44,7 +44,10 @@ function Actioncamera(props) {
   })
   useEffect(() => {
     props.formServerItemsData('actioncamera')
-    props.ResetListItemName()
+  
+    
+    return ()=> props.ResetListItemName()
+
   }, [])
 
   if (!props.data) return <></>
@@ -95,7 +98,9 @@ function Actioncamera(props) {
 }
 // 選擇對應的reducer
 const mapStateToProps = store => {
-  return { data: store.getItems, actioncamera: store.getListitemName }
+  return { data: store.getItems, 
+          actioncamera: store.getListitemName,
+          rest:store.rest}
 }
 
 //action

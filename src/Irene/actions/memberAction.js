@@ -27,6 +27,8 @@ export const userRegisterAsync = (userData, callback) => {
     callback()
 
     localStorage.setItem('userdata', JSON.stringify(userData))
+    localStorage.setItem('userId', JSON.stringify(data.result.insertId))
+
     window.location = `http://localhost:3000/memberedit/${userData.username}`
   }
 }

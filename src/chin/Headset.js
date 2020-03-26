@@ -46,7 +46,10 @@ function Headset(props) {
 
   useEffect(() => {
     props.formServerItemsData('headset')
-    props.ResetListItemName()
+  
+    
+    return ()=> props.ResetListItemName()
+
   }, [])
 
 
@@ -97,7 +100,8 @@ function Headset(props) {
 // 選擇對應的reducer
 const mapStateToProps = store => {
   return { data: store.getItems, 
-           headset: store.getListitemName,}
+           headset: store.getListitemName,
+          rest: store.reset}
 }
 
 //action

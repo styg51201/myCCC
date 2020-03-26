@@ -44,7 +44,10 @@ function Surrounding(props) {
   })
   useEffect(() => {
     props.formServerItemsData('surrounding')
-    props.ResetListItemName()
+   
+
+    return ()=> props.ResetListItemName()
+
   }, [])
 
 
@@ -95,7 +98,9 @@ function Surrounding(props) {
 
 // 選擇對應的reducer
 const mapStateToProps = store => {
-  return { data: store.getItems, surrounding: store.getListitemName }
+  return { data: store.getItems, 
+          surrounding: store.getListitemName,
+          rest:store.rest}
 }
 
 //action
