@@ -3,9 +3,23 @@ import Features from '../small components/Features'
 import Brand from '../small components/Brand'
 import Price from '../small components/Price'
 import Discount from '../small components/Discount'
+import { withRouter } from 'react-router-dom'
+
+
+//redux
+import { connect ,useDispatch } from 'react-redux'
+
+
 
 function Commoditylist(props) {
-  console.log(props)
+
+
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    return ()=>dispatch({type:'SHOW_DISCOUNT',value:{isShow:false,value:{}}})
+  },[])
+
+  
   let nameList = []
   for (let i = 0; i < props.data.length; i++) {
     if (nameList.indexOf(props.data[i].name) === -1) {
@@ -18,9 +32,23 @@ function Commoditylist(props) {
       <Price price={props.data}/>
       <Brand list={nameList} />
       <Features />
-      <Discount />
+      {props.showDiscount.isShow ? <Discount data={props.showDiscount.value}/> : ''}
+      
     </ul>
   )
 }
 
-export default Commoditylist
+
+
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return { showDiscount: store.showDiscount, 
+           }
+}
+
+
+export default withRouter(
+  connect(mapStateToProps)(Commoditylist)
+)
+
+

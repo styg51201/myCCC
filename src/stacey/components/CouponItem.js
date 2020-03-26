@@ -120,7 +120,7 @@ function CouponItem(props){
                      </button>)
   let shopButton = (<button onClick={()=>{
                       props.noReset(false)
-                      props.goShopping(props.item.cp_vendor) 
+                      props.goShopping({isChecked:true,name:props.item.cp_vendor},[]) 
                       props.history.push(path)
                       setTimeout(()=>{
                         props.noReset(true)

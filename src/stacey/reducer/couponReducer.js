@@ -90,3 +90,4 @@ export const memberData = (state=[{mc_mb_id:5,mc_p_id:13,vid:5,p_category:1},{mc
       return state
   }
 }
+
