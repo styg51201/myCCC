@@ -15,22 +15,24 @@ function Countdown(props){
 
 const now = new Date()
 const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
-const endTime = new Date(`${today} 23:00:00`)
+const endTime = new Date(`${today} 12:00:00`)
 
 const countdownTime = (endTime.getTime() - now.getTime() )/1000 
-console.log('qqq',now)
-console.log('zzz',endTime)
-console.log('eee',countdownTime)
+
 
 const hour = Math.floor(countdownTime/3600)
 const min = Math.floor( (countdownTime % 3600)/ 60 )
 const sec = Math.floor( (countdownTime % 3600) % 60 )
 
-console.log(`${hour}小時 ${min} 分鐘 ${sec}秒`)
+// console.log(`${hour}小時 ${min} 分鐘 ${sec}秒`)
 
-let secOne,secTen,minOne,minTen
+// let min = 10
+// let sec = 10
+// let hour =12
 
-if(sec > 10){
+let secOne,secTen,minOne,minTen,hourOne
+
+if(sec >= 10){
   secOne = 10 - (sec % 10)
   secTen = (6 - Math.floor(sec / 10) ) * 10 + (9 - (sec % 10) )
 }else{
@@ -38,15 +40,27 @@ if(sec > 10){
   secTen = 9 - sec
 }
 
-if(min > 10 ){
+if(min >= 10 ){
   minOne = ( 10 - (min % 10) ) * 60 + (59 - sec)
   minTen = (6 - Math.floor(min / 10) ) * 600 + (599 - ( (min % 10) * 60 + sec) )
  }else{
   minOne = ( 10 - min ) * 60 + (59 - sec)
-  // minTen = 599 -
+  minTen = 599 - ( (min % 10) * 60 + sec )  
  }
 
+ 
+hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
+ 
 
+ const secOneStyle = {animationDelay:0-secOne+'s'}
+ 
+ const secTenStyle = {animationDelay:0-secTen+'s'}
+ 
+ const minOneStyle = {animationDelay:0-minOne+'s'}
+ 
+ const minTenStyle = {animationDelay:0-minTen+'s'}
+ 
+ const hourOneStyle = {animationDelay:0-hourOne+'s'}
 
 // const minOne = (10 - (min % 10) )* 60
 // const minTen = (6 - (min / 10)) * 600
@@ -64,7 +78,7 @@ if(min > 10 ){
                   </p>
                 </div>
                 <div>
-                    <p className="hour-one">
+                    <p className="hour-one" style={hourOneStyle}>
                         <span>0</span>
                         <span>9</span>
                         <span>8</span>
@@ -83,7 +97,7 @@ if(min > 10 ){
                   <span> : </span>
                 </div>              
                 <div>
-                    <p className="min-ten">
+                    <p className="min-ten" style={minTenStyle}>
                         <span>0</span>
                         <span>5</span>
                         <span>4</span>
@@ -94,7 +108,7 @@ if(min > 10 ){
                   </p>
                 </div>
                 <div>
-                    <p className="min-one">
+                    <p className="min-one" style={minOneStyle}>
                         <span>0</span>
                         <span>9</span>
                         <span>8</span>
@@ -113,7 +127,7 @@ if(min > 10 ){
                   <span> : </span>
                 </div>
                 <div>
-                    <p className="sec-ten">
+                    <p className="sec-ten" style={secTenStyle}>
                         <span>0</span>
                         <span>5</span>
                         <span>4</span>
@@ -125,7 +139,7 @@ if(min > 10 ){
                   </p>
                 </div>
                 <div>
-                    <p className="sec-one">
+                    <p className="sec-one" style={secOneStyle}>
                         <span>0</span>
                         <span>9</span>
                         <span>8</span>
