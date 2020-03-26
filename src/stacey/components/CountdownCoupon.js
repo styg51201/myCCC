@@ -11,7 +11,7 @@ import Countdown from './Countdown'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {countdownCouponGet , getCouponToServer ,fromServerCountdownCouponData} from '../actions/couponAction'
+import {countdownCouponGet , getCouponToServer ,fromServerCountdownCouponData,goShopping,showDiscountAction} from '../actions/couponAction'
 
 
 function CountdownCoupon(props){
@@ -110,12 +110,10 @@ const coupon =  props.item.map((val,ind)=>{
                     </button>)
 
     let shopButton = (<button onClick={()=>{
-                        props.noReset(false)
+                        
                         props.goShopping(val.cp_vendor) 
+                        props.showDiscountAction(true,val)
                         props.history.push(path)
-                        setTimeout(()=>{
-                            props.noReset(true)
-                        },2000)
 
                         }}>
                         <span>{couponState}</span>
@@ -176,7 +174,7 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    countdownCouponGet,getCouponToServer,fromServerCountdownCouponData
+    countdownCouponGet,getCouponToServer,fromServerCountdownCouponData,goShopping,showDiscountAction
   },dispatch)
 }
 
