@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   BrowserRouter as Router,
   Route,
@@ -19,15 +18,13 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData, ResetListItemName} from './actions/itemsActions'
+import { formServerItemsData, ResetListItemName,ResetListItemNameCom,DelItemscompare} from './actions/itemsActions'
 
 function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [commodity, setCommdity] = useState(false)
   const [comparegoods,setComparegoods]=useState(false)
-  const dispatch = useDispatch()
   // document.documentElement.scrollTop = document.body.scrollTop =0;
-  // {`/chin-img/images/${props.compares.itemName}/${props.compares.itemImg}`}
   console.log(props)
   
   const itemlist = props.data.map((val, ind) => {
@@ -79,17 +76,20 @@ function Watch(props) {
             </div>
             {commodity ? (
               <div className="chin-article">
-              {props.compares.map((val,ind)=>{
-                return(
-                    <div className="chin-compares">
-                      <div><img src={`/chin-img/images/${val.itemName}/${val.itemImg}`}/></div>
-                      <span>{val.itemName}</span>
-                    </div>
-                    )
-              })}
+                <div className="chin-itemcompares">
+                {props.compares.map((val,ind)=>{
+                  return(
+                      <div className="chin-compares">
+                        <img src="./chin-img/x.svg" className="chin-x" onClick={()=>{props.DelItemscompare(ind, props.compares)}}/>
+                        <div><img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} className="chin-watch3"/></div>
+                        <span>{val.itemName}</span>
+                      </div>
+                      )
+                })}
+                </div>
                 <div className="chin-button-compares">
-                  <button>功能比較</button>
-                  <button>關閉</button>
+                    <button>功能比較</button>
+                    <button onClick={()=>{setCommdity(!commodity)}}>關閉</button>
                 </div>
               </div>
             ) : (
@@ -121,6 +121,8 @@ const mapDispatchToProps = dispatch => {
     {
       formServerItemsData,
       ResetListItemName,
+      ResetListItemNameCom,
+      DelItemscompare,
     },
     dispatch
   )

@@ -21,7 +21,7 @@ function CouponItem(props){
 
 // 設定按鈕種類
   let buttonType = (<button onClick={()=>{}}>
-                      <span>去逛逛</span>
+                      <span className="">去逛逛</span>
                     </button>)
                     
   if(props.state==='use'){
@@ -71,6 +71,7 @@ function CouponItem(props){
   let discount = ""
   switch(props.item.cpr_discount){
     case 0:
+      if(props.item.cpr_discountNum%10===0) props.item.cpr_discountNum /=10
       discount = `打${props.item.cpr_discountNum}折`
      break
     case 1:

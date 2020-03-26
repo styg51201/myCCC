@@ -119,14 +119,14 @@ function CouponItem(props){
                         <span>{couponState}</span>
                      </button>)
   let shopButton = (<button onClick={()=>{
-    props.noReset(false)
-    props.goShopping(props.item.cp_vendor) 
-    props.history.push(path)
-    setTimeout(()=>{
-      props.noReset(true)
-    },2000)
+                      props.noReset(false)
+                      props.goShopping(props.item.cp_vendor) 
+                      props.history.push(path)
+                      setTimeout(()=>{
+                        props.noReset(true)
+                      },2000)
 
-  }}>
+                    }}>
                       <span>{couponState}</span>
                     </button>)
 
