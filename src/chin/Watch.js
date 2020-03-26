@@ -44,9 +44,7 @@ function Watch(props) {
   // const commodityItems =
   useEffect(() => {
     props.formServerItemsData('watch')
-   
     return ()=> props.ResetListItemName()
-    
   }, [])
 
 
@@ -89,7 +87,7 @@ function Watch(props) {
                 })}
                 </div>
                 <div className="chin-button-compares">
-                    <button>功能比較</button>
+                    <Link to="/comparepages" className="chin-com-a"><button>功能比較</button></Link>
                     <button onClick={()=>{setCommdity(!commodity)
                                         props.ResetListItemNameCom()}}>關閉</button>
                 </div>

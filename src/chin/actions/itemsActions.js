@@ -155,15 +155,7 @@ export const SelectItemscompare = (data) => {
     dispatch(Selectcompare(data))
   }
 }
-export const Delcompare = value => ({ type: 'DEL_ITEMSCOMPARE', value: value })
-export const DelItemscompare = (ind, data) => {
-  console.log(ind)
-  return dispatch => {
-    let newitemscompare = data.filter(e => e !== data[ind])
-    console.log(newitemscompare)
-    dispatch(Delcompare(newitemscompare))
-  }
-}
+
 export const ItemscompareNocompare = value => ({ type: 'NP_COMPARE', value: value })
 export const ItemscompareNo = (val, product, data) => {
   console.log(val, product, data)

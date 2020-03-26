@@ -327,7 +327,7 @@ input[type='checkbox'] {
 }
 .chin-compares span {
   font-weight: bold;
-  font-size: 18px;
+  font-size: 16px;
   margin: 0 auto;
   padding: 25px;
 }
@@ -349,19 +349,17 @@ input[type='checkbox'] {
   flex-direction: column;
   width: 250px;
   height: 120px;
-  padding: 20px 30px;
+  padding: 10px 20px;
 }
-.chin-button-compares button {
+.chin-com-a button {
   margin: 5px;
-  padding: 1px 10px;
   width: 188px;
-  height: 40px;
 }
 .chin-button-compares button:nth-child(2) {
   margin: 5px;
   padding: 1px 10px;
   width: 188px;
-  height: 40px;
+  height: 80px;
   background: none;
   color: #050505;
 }
