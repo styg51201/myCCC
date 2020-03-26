@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   BrowserRouter as Router,
   Route,
@@ -25,9 +24,7 @@ function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [commodity, setCommdity] = useState(false)
   const [comparegoods,setComparegoods]=useState(false)
-  const dispatch = useDispatch()
   // document.documentElement.scrollTop = document.body.scrollTop =0;
-  // {`/chin-img/images/${props.compares.itemName}/${props.compares.itemImg}`}
   console.log(props)
   
   const itemlist = props.data.map((val, ind) => {

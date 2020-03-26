@@ -172,7 +172,7 @@ export const DelItemscompare = (ind, data) => {
 }
 export const AddMyFavorite = value => ({ type: 'NP_COMPARE', value: value })
 export const ItemscompareNo = (val, product, data) => {
-  console.log(val)
+  console.log(data)
   let truePrice = product.itemPrice.split('$').join('')
   let newProduct = {
     itemId: product.itemId,

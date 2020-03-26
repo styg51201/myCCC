@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
 import {
   BrowserRouter as Router,
   Route,
@@ -7,7 +6,6 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom'
-import { Col } from 'react-bootstrap'
 //scss
 import './chin-css/items.scss'
 import '../css/main.scss'
@@ -16,88 +14,50 @@ import Commoditycomponents2 from './components/Commoditycomponents2'
 import Commoditycomponents from './components/Commoditycomponents'
 import Commoditylist from './components/Commoditylist'
 import CompareProductSort from './components/CompareProductSort'
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
 function Headset(props) {
-  const dispatch = useDispatch()
-  const reset = useSelector(state => state.reset)
-
-  const data = useSelector(state => state.getItems)
-  const Headset = useSelector(state => state.getListitemName)
   const [englishnameHeadset, setEnglishnameHeadset] = useState(
     'HEADPHONE/SPEAKER'
   )
   const [commodity, setCommdity] = useState(false)
-  document.documentElement.scrollTop = document.body.scrollTop =0;
+  // document.documentElement.scrollTop = document.body.scrollTop =0;
 
-  const itemlist = data.map((val, ind) => {
-    if (Headset.indexOf(val.name) > -1) {
+  const itemlist = props.data.map((val, ind) => {
+    if (props.headset.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allitemlist = data.map((val, ind) => {
+  const allitemlist = props.data.map((val, ind) => {
     return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
   })
-  const commodityItems = data.map((val, ind) => {
-    if (Headset.indexOf(val.name) > -1) {
+  const commodityItems = props.data.map((val, ind) => {
+    if (props.headset.indexOf(val.name) > -1) {
       return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  const allcommodityItems = data.map((val, ind) => {
+  const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
   })
 
-  const showItems = val => {
-    return { type: 'SHOW_ITEMS', value: val }
-  }
-
-  async function formServerItemsData2(val) {
-    const request = new Request(`http://localhost:5500/items/${val}`, {
-      method: 'GET',
-      credentials: 'include',
-    })
-    const res = await fetch(request)
-    const data = await res.json()
-
-    console.log('ddddddd', data)
-    dispatch(showItems(data))
-  }
-
-  const ListItemName = (obj, val) => {
-    if (obj.isChecked) {
-      dispatch({ type: 'ITEMNAME_VALUE', value: [obj.name, ...val] })
-    } else {
-      let ind = val.indexOf(obj.name)
-      //有空可以解bug => 只用splice失靈??? 一定要splice+map
-      val.splice(ind, 1)
-      let newList = val.map((val, ind) => {
-        if (val !== obj.name) {
-          return val
-        }
-      })
-      dispatch({ type: 'ITEMNAME_VALUE', value: newList })
-    }
-  }
-
-  const ResetListItemName = (obj, val) => {
-    const newList = []
-    dispatch({ type: 'ITEMNAME_RESET', value: newList })
-  }
-
   useEffect(() => {
-    formServerItemsData2('headset')
-    if(reset) ResetListItemName()
+    props.formServerItemsData('headset')
+    props.ResetListItemName()
   }, [])
 
-  if (!data) return <></>
 
   return (
     <>
       <main className="chin-main">
         <section className="chin-section">
-          <Commoditylist data={data} />
+          <Commoditylist data={props.data} />
           <div className="chin-commodity-title">
             <CompareProductSort
-              data={data}
+              data={props.data}
               englishname={englishnameHeadset}
               test={commodity}
               sendText={text => {
@@ -106,10 +66,10 @@ function Headset(props) {
             />
             <div className="chin-commodity">
               {commodity
-                ? Headset.length
+                ? props.headset.length
                   ? commodityItems
                   : allcommodityItems
-                : Headset.length
+                : props.headset.length
                 ? itemlist
                 : allitemlist}
             </div>
@@ -134,5 +94,23 @@ function Headset(props) {
     </>
   )
 }
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return { data: store.getItems, 
+           headset: store.getListitemName,}
+}
 
-export default withRouter(Headset)
+//action
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      formServerItemsData,
+      ResetListItemName,
+    },
+    dispatch
+  )
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Headset)
+)
