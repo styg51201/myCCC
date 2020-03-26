@@ -1,6 +1,6 @@
-@import "../../css/variables.scss";
+@import '../../css/variables.scss';
 
-@import "./myVars.scss";
+@import './myVars.scss';
 
 .bk-page-load {
   width: 100%;
@@ -478,7 +478,7 @@
     .collection-img {
       position: absolute;
       left: 50%;
-      top: 70%;
+      top: 50%;
       transform: translate(-50%, -50%);
 
       img {

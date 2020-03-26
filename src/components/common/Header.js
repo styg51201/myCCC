@@ -295,7 +295,7 @@ function Header(props) {
               </Link>
             )}
             {memberstate ? (
-              <Link to="/memberlogin" class="irene_member_logout">
+              <Link to="/memberlogin" className="irene_member_logout">
                 登出
               </Link>
             ) : (
