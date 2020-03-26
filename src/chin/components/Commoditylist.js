@@ -30,9 +30,10 @@ function Commoditylist(props) {
   return (
     <ul className="chin-commoditylist">
       <Price price={props.data}/>
+      {props.showDiscount.isShow ? <Discount data={props.showDiscount.value}/> : ''}
       <Brand list={nameList} />
       <Features />
-      {props.showDiscount.isShow ? <Discount data={props.showDiscount.value}/> : ''}
+      
       
     </ul>
   )
