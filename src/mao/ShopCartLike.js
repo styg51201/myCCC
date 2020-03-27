@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './css/mao.scss'
+import './css/ShopCartLike.scss'
 import ProductSlide from './ProductSlide'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -15,27 +16,18 @@ import {
   AddCartNewItem_sendcal
 } from './actions/ShopCartAction'
 import {commidtyRANDItemId} from '../chin/actions/itemsActions'
-import MemberSidebar from '../Irene/components/MemberSidebar'
 import { productList } from './ProductList'
-import {FaShoppingBasket} from 'react-icons/fa'
-
+import MemberSidebar from '../Irene/components/MemberSidebar'
+import {FaShoppingBasket,FaRegTrashAlt} from 'react-icons/fa'
+import { FiShoppingBag} from 'react-icons/fi'
 function ShopCartLike(props) {
   console.log('I want to see the data from ShopCartLike==', props)
   const [favorloaded, setFavorloaded] = useState(false)
   const [newItem,setNewItem] =useState(false)
-  // 從ID去獲取產品的價格
-  function checkProductPrice(val) {
-    productList.map((v, i) => {
-      if (val == v.itemId) {
-        val = v.itemPrice
-      }
-    })
-    return val
-  }
+
   // 必打
   useEffect(() => {
     props.getShopCart()
-    props.commidtyRANDItemId()
   }, [])
 
   let RealCart = []
@@ -47,34 +39,37 @@ function ShopCartLike(props) {
 
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
-    // console.log('MyFavorite',v)
+    console.log('MyFavorite',v)
     return (
       <li key={v.itemId} className="d-flex Mao-shopcart-check-item">
         <img
-          src={`./chin-img/images/${v.itemName}/${v.itemImg}`}
+          src={`/chin-img/images/${v.itemName}/${v.itemImg}`}
           alt=""
           style={{ width: '100px', height: '100px' }}
         />
 
-        <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
-          <p>{v.itemName}</p>
+        <div className="Mao-shopcart-check-item-info">
+          <p className="Mao-btn-text">{v.itemName}</p>
           <div className="d-flex justify-content-between">
             <p style={{ width: '25%' }}>${v.itemPrice}</p>
           </div>
         </div>
-        <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
+        <div className="Mao-shopcart-check-item-action">
           <button
-            className="btn btn-danger d-flex justify-content-start py-2 my-2"
+            className="Mao-btn-amount-whiteDel Mao-btn-amount-white-my"
             onClick={() => {
-              props.Handle_AddMyFavorite('false', v, props.MyFavorite)
+              props.Handle_AddMyFavorite(false, v, props.MyFavorite)
             }}
           >
-            <img src="..\img\header-footer\heart.svg" alt="" />
+            <FaRegTrashAlt style={{margin:"0px 20px",width:"24px",height:"24px"}}/>
             <span>刪除</span>
+            <div className="Mao-btn-show"></div>
+            <div className="Mao-btn-showL"></div>
           </button>
           {/* </div> */}
+          
           <button
-            className="btn btn-danger d-flex justify-content-start py-2 my-2"
+            className="Mao-btn-amount-whiteDel Mao-btn-amount-white-my"
             onClick={() => {
               let productInfo = {
                 itemId: v.itemId,
@@ -84,12 +79,14 @@ function ShopCartLike(props) {
                 itemPrice: v.itemPrice,
                 itemCategoryId: v.itemCategoryId,
               }
-              props.Handle_AddMyFavorite('false', productInfo, props.MyFavorite)
+              props.Handle_AddMyFavorite(false, productInfo, props.MyFavorite)
               props.AddCartNewItem_sendcal(productInfo, props.AddItem)
             }}
           >
-            <img src="..\img\header-footer\shopping-bag.svg" alt="" />
+            <FiShoppingBag style={{margin:"0px 20px",width:"24px",height:"24px"}}/>
             <span>加入購物車</span>
+            <div className="Mao-btn-show"></div>
+            <div className="Mao-btn-showL"></div>
           </button>
         </div>
       </li>
@@ -110,12 +107,12 @@ function ShopCartLike(props) {
       <div className="d-flex">
         <MemberSidebar />
         <div className="Mao-Like-box">
-        {dataList.length == 0 ? CartNoItem : dataList}
           <ul
             className={
               dataList.length > 0 ? 'Mao-ul-bg-white' : 'Mao-ul-bg-none'
             }
           >
+        {dataList.length == 0 ? CartNoItem : dataList}
            
           </ul>
         </div>
@@ -154,7 +151,7 @@ const mapDispatchToProps = dispatch => {
       DelCartItem,
       CalShopCart,
       Handle_AddMyFavorite,
-      AddCartNewItem_sendcal,commidtyRANDItemId
+      AddCartNewItem_sendcal,
     },
     dispatch
   )

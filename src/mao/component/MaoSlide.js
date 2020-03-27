@@ -17,10 +17,6 @@ function MaoSlide(props) {
     'https://fakeimg.pl/700/',
   ]
 
-
-
-
-
   const properties = {
     duration: 3000,
     transitionDuration: 500,
@@ -41,15 +37,6 @@ function MaoSlide(props) {
       <div className="each-slide">
         <div className="d-flex flex-wrap">
           <ProductSlide />
-          {/* <div
-            className="col"
-            style={{
-              backgroundImage: `url(${slideImages[Math.round(Math.random()*slideImages.length)]})`,
-              backgroundRepeat: 'no-repeat',
-              width: '200px;',
-              height: '300px',
-            }}
-          ></div> */}
         </div>
       </div>
     )

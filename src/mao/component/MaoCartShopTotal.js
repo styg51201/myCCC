@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import '../css/mao.scss'
+import '../css/MaoCartShopTotal.scss'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -68,21 +69,21 @@ function MaoCartShopTotal(props) {
     <>
       <Link className="Mao-total-box-btn" to="/">
         <div className="Mao-total-show"></div>
-        繼續購物
+        <span style={{zIndex:999}}>繼續購物</span>
       </Link>
       <Link
-        className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn"
+        className="Mao-total-box-btn-black"
         to="/OrderInfo"
       >
         {CheckrouteName == '/OrderInfo' ? '確認結帳' : '前往結帳'}
-        <div className="Mao-total-show"></div>
+        <div className="Mao-total-show-black"></div>
       </Link>
     </>
   )
   const goshopNow=(
     <>
       <Link className="Mao-total-box-btn" to="/">
-        <div className="Mao-total-show"></div>
+        <div className=".Mao-total-show-black"></div>
         繼續購物
       </Link>
     </>

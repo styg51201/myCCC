@@ -95,11 +95,9 @@ export const getitemCategoryId = (state = [], action) => {
 }
 ///------------------------chin Itemscompare-------------
 export const getItemscompare = (state=[],action)=>{
-  console.log(action)
-  console.log(state)
+  // console.log(action)
+  // console.log(state)
   switch(action.type){
-    case'DEL_ITEMSCOMPARE':
-      return action.value
     case 'NP_COMPARE':
       return action.value
     case 'SELECT_ITEMSCOMPARE':

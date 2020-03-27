@@ -22,7 +22,7 @@ import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
 import PicSlide from './component/PicSlide'
 function ShopCartList(props) {
-console.log('我要看資料有沒有',props)
+  
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(false)
   const [newItem,setNewItem] =useState(false)
@@ -60,7 +60,7 @@ console.log('我要看資料有沒有',props)
     return (
       <li key={v} className="Mao-shopcart-check-item">
         <img
-          src={`./chin-img/images/${v.itemName}/${v.itemImg}`}
+          src={`/chin-img/images/${v.itemName}/${v.itemImg}`}
           alt=""
           style={{ width: '100px', height: '100px' }}
         />
@@ -118,7 +118,7 @@ console.log('我要看資料有沒有',props)
             onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
-              props.Handle_AddMyFavorite('true', v, props.MyFavorite)
+              props.Handle_AddMyFavorite(true, v, props.MyFavorite)
             }}
           >
             <FiHeart
@@ -139,16 +139,17 @@ console.log('我要看資料有沒有',props)
   })
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
-    <div className="p-3 text-center Mao-CartNoItem-shoplist">
+    <div className="Mao-CartNoItem-shoplist">
       <h3>趕快去尋找最愛的商品吧！</h3>
-      <FaShoppingBasket style={{width:"300px",height:"300px",opacity:'0.5',margin:"15px"}}/>
+      <FaShoppingBasket className="Mao-Like-img-shoplist bounce"/>
     </div>
   )
   const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
   const ADrand =<PicSlide />
   return (
     <>
-      <MaoAD />
+      
+      {props.AddItem.length > 0 ? <MaoAD /> : ''}
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
         <ul className="Mao-shopcart-check-item-ul">
           {props.AddItem.length > 0 ? dataList : CartNoItem}

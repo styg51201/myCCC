@@ -95,10 +95,10 @@ function App() {
               <Comparepages />
             </Route>
             {/*---------------------------------------------*/}
-            <Route path="/ShopCartList">
+            <Route path="/:memberedit?/ShopCartList">
               <ShopCartList />
             </Route>
-            <Route path="/ShopCartLike">
+            <Route path="/memberedit/ShopCartLike">
               <ShopCartLike />
             </Route>
             <Route path="/OrderInfo">
