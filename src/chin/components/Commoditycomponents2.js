@@ -16,16 +16,14 @@ function Commoditycomponents(props){
   const CompareClassName = classNames('chin-commodity-item-compare', {
     active:compatrtrue 
   })
-
-  
   // const course = document.querySelector('.chin-commodity-item-compare').classList.add('chin-zzzzzzzzzz')
   // props.compare.length>4?CompareClassName:'chin-commmmmm'
-  function itemsss(){
+  function delitemsss(){
     props.sendx(compatritems)
   }
   useEffect(()=>{
     if(props.delitems===props.data.itemId)setCompatrtrue(false)
-    itemsss()
+    delitemsss()
   },[props.delitems])
     return(
         <>

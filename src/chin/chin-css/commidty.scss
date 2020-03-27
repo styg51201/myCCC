@@ -123,7 +123,7 @@
   margin-top: 200px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  align-items: flex-end;
 }
 .chin-myfavourite {
   display: flex;
@@ -142,8 +142,8 @@
   display: flex;
 }
 .chin-shopping button:nth-child(1) {
-  width: 150px;
-  height: 40px;
+  width: 220px;
+  height: 45px;
   background: #050505;
   border: none;
   color: #ffffff;
@@ -151,25 +151,35 @@
   font-weight: bold;
   margin-right: 15px;
 }
-.chin-shopping button:nth-child(2) {
-  width: 150px;
-  height: 40px;
+.chin-shopping a {
+  width: 220px;
+  height: 45px;
   background: none;
   border: 1px solid #050505;
   font-size: 16px;
   font-weight: bold;
   color: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .chin-favourite {
+  background: none;
+  border: none;
+  color: #050505;
   margin-top: 30px;
-  text-align: right;
+  width: 220px;
+  padding: 10px 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 }
-.chin-favourite img {
-  width: 20px;
-  height: 20px;
+.chin-favourite svg {
+  width: 22px;
+  height: 22px;
 }
 .chin-favourite span {
-  font-size: 16px;
+  font-size: 18px;
 }
 .chin-productdescription-technicalspecifications {
   height: 900px;
