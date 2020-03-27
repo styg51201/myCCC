@@ -250,6 +250,26 @@ router.post('/adTest',(req,res)=>{
     })
 })
 
+//後臺資料
+router.get('/backCouponData',(req,res)=>{
+
+    const sql = 'SELECT *  FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE AND `cp_countdown` = 0  ORDER BY `cp_vendor` ASC '
+
+    db.queryAsync(sql)
+    .then(r=>{
+        res.json(r)
+    })
+})
+
+router.get('/backAdData',(req,res)=>{
+
+    const sql = 'SELECT * FROM `plan` INNER JOIN `ad` ON `plan`.`planId` = `ad`.`adPlanId` INNER JOIN `promotion_group` ON `plan`.`planId` = `promotion_group`.`groupPlanId` '
+    db.queryAsync(sql)
+    .then(r=>{
+        res.json(r)
+    })
+})
+
 
 
 // INSERT INTO `coupon`( `cp_vid`, `cp_vendor`, `cp_count` ,`cp_img`, `cp_start`, `cp_due`) VALUES 
