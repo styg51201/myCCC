@@ -5,7 +5,6 @@ import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
-import ShopCartIcon from '../../mao/component/ShopCartIcon'
 //icons
 // import { IconContext } from 'react-icons'
 import {
@@ -28,51 +27,51 @@ function Header(props) {
   const [searchTxt, setSearchTxt] = useState('')
   const [member, setMember] = useState(true)
 
-  // useEffect(() => {
-  //   const product = document.querySelector('.chin-bigtitle img').offsetTop
-  //   const height = product - 20
-  //   window.addEventListener('scroll', () => {
-  //     const isTop = window.scrollY < height
-  //     if (isTop !== true) {
-  //       setScrolled(true)
-  //       document
-  //         .querySelector('.chin-three-position')
-  //         .classList.add('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position2')
-  //         .classList.add('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position3')
-  //         .classList.add('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position4')
-  //         .classList.add('chin-three-positioncome')
-  //       document.querySelector('.chin-black').classList.add('chin-blackcome')
-  //     } else {
-  //       setScrolled(false)
-  //       document
-  //         .querySelector('.chin-three-position')
-  //         .classList.remove('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position2')
-  //         .classList.remove('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position3')
-  //         .classList.remove('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position4')
-  //         .classList.remove('chin-three-positioncome')
-  //       document.querySelector('.chin-black').classList.remove('chin-blackcome')
-  //     }
-  //   })
+  useEffect(() => {
+    const product = document.querySelector('.chin-bigtitle img').offsetTop
+    const height = product - 20
+    window.addEventListener('scroll', () => {
+      const isTop = window.scrollY < height
+      if (isTop !== true) {
+        setScrolled(true)
+        document
+          .querySelector('.chin-three-position')
+          .classList.add('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position2')
+          .classList.add('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position3')
+          .classList.add('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position4')
+          .classList.add('chin-three-positioncome')
+        document.querySelector('.chin-black').classList.add('chin-blackcome')
+      } else {
+        setScrolled(false)
+        document
+          .querySelector('.chin-three-position')
+          .classList.remove('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position2')
+          .classList.remove('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position3')
+          .classList.remove('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position4')
+          .classList.remove('chin-three-positioncome')
+        document.querySelector('.chin-black').classList.remove('chin-blackcome')
+      }
+    })
 
-    // 會員登出功能
-    // $('.irene_member_logout').click(function() {
-    //   localStorage.removeItem('userdata')
-    //   localStorage.removeItem('userId')
-    //   window.location.replace('http://localhost:3000/memberlogin')
-    // })
-  // }, [])
+    //會員登出功能
+    $('.irene_member_logout').click(function() {
+      localStorage.removeItem('userdata')
+      localStorage.removeItem('userId')
+      window.location.replace('http://localhost:3000/memberlogin')
+    })
+  }, [])
 
   const inputRef = useRef(null)
 
@@ -81,7 +80,7 @@ function Header(props) {
   }, [openSearch])
 
   const handleOpenSearch = () => {
-    if(new Date().getTime()-searchBlurTime > 300){
+    if (new Date().getTime() - searchBlurTime > 300) {
       if (!openSearch) {
         setOpenSearch(true)
         inputRef.current.focus()
@@ -163,7 +162,7 @@ function Header(props) {
       </div>
       <div>
         {!memberstate ? ( 
-          <Link to="/memberlogin">
+          <Link to="/memberedit">
             <img
               src="./img/header-footer/user.svg"
               alt=""
@@ -171,7 +170,7 @@ function Header(props) {
             />
           </Link>
         ) : (
-          <Link to="/memberedit">
+          <Link to="/memberlogin">
             <img
               src="./img/header-footer/user.svg"
               alt=""
@@ -180,7 +179,9 @@ function Header(props) {
           </Link>
         )}
         {!memberstate ? (
-          <Link to="/memberlogin">
+          '' 
+        ) : (
+            <Link to="/memberlogin">
             <div className="chin-three-position4 irene_member_logout">
               <FiLogOut
                 style={{
@@ -191,25 +192,21 @@ function Header(props) {
               />
             </div>
           </Link>
-        ) : (
-          ''
         )}
-        {/* <ShopCartIcon /> */}
-        {/* <Link to="/memberedit/ShopCartList">
+        <Link to="/memberedit/ShopCartList">
           <img
             src="./img/header-footer/shopping-bag.svg"
             alt=""
             className="chin-three-position2"
           />
-        </Link> */}
-        <Link  to="/memberedit/ShopCartLike">
-        <img
-          src="./img/header-footer/heart.svg"
-          alt=""
-          className="chin-three-position3"
-        />
         </Link>
-        
+        <Link to="/memberedit/ShopCartLike">
+          <img
+            src="./img/header-footer/heart.svg"
+            alt=""
+            className="chin-three-position3"
+          />
+        </Link>
       </div>
     </>
   )
@@ -280,20 +277,18 @@ function Header(props) {
             </ul>
           </div>
           <div className="nav-icons-wrapper">
-          
-        <ShopCartIcon />
-            {/* <Link to="/memberedit/ShopCartList">
+            <Link to="/memberedit/ShopCartList">
               <div className="nav-icons">
                 <FiShoppingBag />
               </div>
-            </Link> */}
+            </Link>
             <Link to="/memberedit/ShopCartLike">
               <div className="nav-icons">
                 <FiHeart />
               </div>
             </Link>
             {/* 會員依照登入狀態icon功能不同，登入連會員中心，未登入連登入畫面 */}
-            {memberstate ? (
+            {!memberstate ? (
               <Link to="/memberedit">
                 <div className="nav-icons">
                   <FiUser />

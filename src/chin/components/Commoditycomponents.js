@@ -15,8 +15,35 @@ function Commoditycomponents(props){
 
 
 const [forMyfavor,setForMyfavor]=useState(false)
-
+const [newHisitem,setNewHisitem]=useState([])
 const [alertType,setAlertType]=useState('')
+
+
+async function ItemToLocalStorage(value) {
+
+  const currentHisitem = JSON.parse(localStorage.getItem('hisitem')) || []
+  if(currentHisitem.length===0){
+    const newHisitem = [...currentHisitem, value]
+    localStorage.setItem('hisitem', JSON.stringify(newHisitem))
+  }
+
+  let box=[]
+  currentHisitem.map((val,ind)=>{
+    box.push(val.itemId)
+  })
+    let index = box.findIndex(e=>e==value.itemId)
+    console.log('sssssssssssssssssssss',index)
+    if(index === -1){
+      const newHisitem = [...currentHisitem, value]
+      localStorage.setItem('hisitem', JSON.stringify(newHisitem))
+    }else{console.log('asdsadasdsd')}
+ 
+  // const newHisitem = [...currentHisitem, value]
+
+  console.log('newHisitem', newHisitem)
+  // 設定資料
+  setNewHisitem(newHisitem)
+}
 
 const checkAlertType=showTpye=>{
   switch(showTpye){
@@ -74,16 +101,16 @@ const checkAlertType=showTpye=>{
                             <FiShoppingBag  className="chin-bag"  onClick={()=>{
                               props.AddCartNewItem_sendcal(props.data,props.AddItem) 
                               checkAlertType("加入購物車")
+                              
                             }}
                             />
                         </li>
                     </ul>
-                    <Link to={'/commidty/'+props.data.itemId}>
+                    <Link to={'/commidty/'+props.data.itemId} onClick={()=>{ItemToLocalStorage(props.data)}}>
                       <img className="chin-watchs" src={`./chin-img/images/${props.data.itemName}/${props.data.itemImg}`} alt=""/>
                       <h6>{props.data.name}</h6>
                       <h4>{props.data.itemName}</h4>
                       <h5>NT{props.data.itemPrice}</h5>
-                      
                     </Link>
             </div>
           
