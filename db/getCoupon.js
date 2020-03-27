@@ -238,14 +238,14 @@ router.post('/addCoupon', upload.single('cp_img'), (req, res) => {
     }
 })
 
-//廣告測試
-router.post('/adTest',(req,res)=>{
 
-    let memberData = {id:5,collect:1}
+//廣告
+router.get('/adData',(req,res)=>{
 
     const sqlForAd = 'SELECT * FROM `plan` INNER JOIN `ad` ON `plan`.`planId` = `ad`.`adPlanId` INNER JOIN `promotion_group` ON `plan`.`planId` = `promotion_group`.`groupPlanId` WHERE `planStatus` = "上架" '
     db.queryAsync(sqlForAd)
     .then(r=>{
+        console.log(r)
         res.json(r)
     })
 })
