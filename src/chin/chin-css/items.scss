@@ -349,14 +349,16 @@ input[type='checkbox'] {
   flex-direction: column;
   width: 250px;
   height: 120px;
-  padding: 10px 20px;
+  padding: 10px 25px;
+}
+.chin-com-a {
+  width: 188px;
 }
 .chin-com-a button {
-  margin: 5px;
   width: 188px;
 }
 .chin-button-compares button:nth-child(2) {
-  margin: 5px;
+  margin-top: 16px;
   padding: 1px 10px;
   width: 188px;
   height: 80px;

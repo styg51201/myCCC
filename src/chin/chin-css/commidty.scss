@@ -352,6 +352,27 @@
   margin: 90px auto 0;
   display: flex;
   justify-content: center;
+  position: relative;
+}
+.chin-historicalrecord.active {
+  .chin-hisrel1 {
+    color: #a0a0a0;
+  }
+  .chin-hisrel2 {
+    color: #050505;
+  }
+  .chin-borderbottom {
+    left: 70%;
+  }
+}
+.chin-borderbottom {
+  width: 88px;
+  height: 3px;
+  border-bottom: 3px solid #0ac3ae;
+  position: absolute;
+  left: 21%;
+  bottom: -20%;
+  transition: 0.5s;
 }
 .chin-hisrel1 {
   margin-left: 60px;
@@ -361,9 +382,6 @@
   background: none;
   border: none;
   padding: 0;
-  border-bottom: 3px solid #0ac3ae;
-  transition: 0.5s;
-  position: relative;
 }
 .chin-hisrel2 {
   margin-left: 60px;
@@ -373,8 +391,6 @@
   background: none;
   border: none;
   padding: 0;
-  position: relative;
-  left: 0;
 }
 .chin-relatedproducts {
   position: relative;
