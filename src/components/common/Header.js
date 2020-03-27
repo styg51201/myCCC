@@ -74,7 +74,7 @@ function Header(props) {
 
   const inputRef = useRef(null)
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(openSearch)
   }, [openSearch])
 
@@ -83,7 +83,7 @@ function Header(props) {
       if (!openSearch) {
         setOpenSearch(true)
         inputRef.current.focus()
-      }else{
+      } else {
         inputRef.current.blur()
       }
     }
@@ -160,7 +160,7 @@ function Header(props) {
         </Container>
       </div>
       <div>
-        {!memberstate ? ( 
+        {!memberstate ? (
           <Link to="/memberedit">
             <img
               src="./img/header-footer/user.svg"
@@ -178,9 +178,9 @@ function Header(props) {
           </Link>
         )}
         {!memberstate ? (
-          '' 
+          ''
         ) : (
-            <Link to="/memberlogin">
+          <Link to="/memberlogin">
             <div className="chin-three-position4 irene_member_logout">
               <FiLogOut
                 style={{
@@ -302,7 +302,7 @@ function Header(props) {
             )}
             {memberstate ? (
               <Link to="/memberlogin" className="irene_member_logout">
-                登出
+                <FiLogOut />
               </Link>
             ) : (
               ''
