@@ -21,18 +21,14 @@ import { FaRegTrashAlt ,FaShoppingBasket} from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
 import PicSlide from './component/PicSlide'
+import MaoMoveIcon from './MaoMoveIcon'
 function ShopCartList(props) {
   
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(false)
   const [newItem,setNewItem] =useState(false)
-  // 必打
-  async function getData() {
-    let Ctrl = await props.CtrlData
-    await props.getShopCart(Ctrl)
-  }
+
   useEffect(() => {
-    getData()
     setLoaded(true)
     setForCart(false)
   }, [])
@@ -139,13 +135,16 @@ function ShopCartList(props) {
   })
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
-    <div className="Mao-CartNoItem-shoplist">
-      <h3>趕快去尋找最愛的商品吧！</h3>
-      <FaShoppingBasket className="Mao-Like-img-shoplist bounce"/>
-    </div>
+    <div>
+      <MaoMoveIcon />
+      </div>
   )
   const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
   const ADrand =<PicSlide />
+  const [getCard,setGetCard]=useState(false)
+  useEffect(()=>{
+console.log(123)
+  },[getCard])
   return (
     <>
       
@@ -156,7 +155,6 @@ function ShopCartList(props) {
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal /> : ADrand}
       </div>
-      {/* {displayRealCart} */}
       <ProductSlide 
       getdata={newItem} //hook
       sendData={items=>{ //func

@@ -163,6 +163,7 @@
         color: white;
         text-align: center;
         animation-duration: $bk-ad-duration;
+        overflow: hidden;
 
         &.fadeInRight {
           animation-delay: 0.3s;
@@ -442,6 +443,12 @@
       // object-position: bottom;
       // filter: blur(8px);
       // transform: scale(1.3);
+    }
+  }
+
+  .bk-collection-parallax{
+    > .react-parallax-bgimage{
+      display:none;
     }
   }
 

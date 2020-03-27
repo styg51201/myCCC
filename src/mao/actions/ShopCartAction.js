@@ -10,7 +10,7 @@ export const sendCart = value => {
   return { type: 'SHOW_CART', value: value }
 }
 
-//獲取資料庫購物車
+//獲取資料庫購物車 暫時沒有連資料庫
 export const getShopCart = item => {
   return async dispatch => {
     const request = new Request(`http://localhost:5500/shopCart/shopCart`, {
@@ -133,7 +133,7 @@ export const clearOrderBuyerproduct = value => ({
 //呼叫訂單資料
 export const getBuyerInfo = value => ({ type: 'SHOW_ORDER', value: value })
 
-//控制資料庫的呼叫
+//控制資料庫的呼叫 暫時使用
 export const ControlDataOne = value => ({ type: 'CTRL_DATA', value: value })
 
 // 計算產品總額

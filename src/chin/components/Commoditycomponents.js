@@ -74,6 +74,7 @@ const checkAlertType=showTpye=>{
                             <FiShoppingBag  className="chin-bag"  onClick={()=>{
                               props.AddCartNewItem_sendcal(props.data,props.AddItem) 
                               checkAlertType("加入購物車")
+                              
                             }}
                             />
                         </li>
