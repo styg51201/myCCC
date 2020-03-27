@@ -10,20 +10,19 @@ import { ItemscompareNo,SelectItemscompare} from '../actions/itemsActions'
 import { Popper } from '@material-ui/core'
 
 function Commoditycomponents(props){
-  console.log(props)
+
   const [compatrtrue,setCompatrtrue]=useState(false)
   const [compatritems,setCompatritems]=useState()
   const CompareClassName = classNames('chin-commodity-item-compare', {
     active:compatrtrue 
   })
-  console.log(props.delitems)
   // const course = document.querySelector('.chin-commodity-item-compare').classList.add('chin-zzzzzzzzzz')
   // props.compare.length>4?CompareClassName:'chin-commmmmm'
   function itemsss(){
-    props.itres(props.delitems)
+    props.sendx(compatritems)
   }
   useEffect(()=>{
-    props.ItemscompareNo(!compatrtrue,props.data,props.compare)
+    if(props.delitems===props.data.itemId)setCompatrtrue(false)
     itemsss()
   },[props.delitems])
     return(
