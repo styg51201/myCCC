@@ -7,6 +7,8 @@ import {Link} from 'react-router-dom'
 
 function FeaturedProducts(props){
 
+    // console.log(props)
+
     const [bag, setBag] = useState(false)
     const [fav, setFav] = useState(false)
 
@@ -22,6 +24,7 @@ function FeaturedProducts(props){
         console.log("add to bag!!")
     }
 
+    // if(!props.data) return <div>nope</div>
 
     return(
     <>
@@ -49,12 +52,10 @@ function FeaturedProducts(props){
                         </div>
                         <div className="bk-featured-info">
                             <div className="bk-featured-name">
-                                <span className="bk-ftr-brand">brand</span>
-                                <span className="bk-ftr-product-name">product nameasdfqw eroiapsdokj;xzlc npfoq iuwepr  oij;lsdk jaf;kldjasfih</span>
+                                <span className="bk-ftr-brand">{props.data.brand}</span>
+                                <span className="bk-ftr-product-name">{props.data.name}</span>
                             </div> 
-                            <div className="bk-featured-price">
-                            $-00000
-                            </div>
+                            <div className="bk-featured-price">{props.data.price}</div>
                         </div>
                     </div>
                 </div>

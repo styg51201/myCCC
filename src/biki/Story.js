@@ -4,12 +4,12 @@ import axios from 'axios'
 import {stateToHTML} from 'draft-js-export-html';
 import { convertFromRaw } from 'draft-js'
 import { Row, Col } from 'react-bootstrap'
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 import StoryReply from './components/StoryReply'
 // import useReplyTextarea from './utils/useReplyTextarea'
 import useTextareaRows from './utils/useTextareaRows'
-
+import {getRecursiveJson} from './utils/useRecursive'
 
 import './css/stories.scss'
 
@@ -40,7 +40,7 @@ function Story(props){
     }
 
     useEffect(()=>{
-        console.log(props)
+        
         let url = `http://localhost:5500/stories/story/${props.match.params.id}` //gets story
         let url2 = `http://localhost:5500/stories/api/view-story/${props.match.params.id}` //adds view
         let url3 = `http://localhost:5500/stories/story/replies/${props.match.params.id}` //gets replies
@@ -54,8 +54,23 @@ function Story(props){
         ])
         .then(axios.spread((...res)=>{
             console.log(res[2].data)
+
+            let options = {
+                blockStyleFn: (block) => {
+                    console.log('block type:', block.type)
+                    switch(block.type){
+                        case 'ALIGNLEFT':
+                            return {style:{textAlign: 'left'}}
+                        case 'ALIGNCENTER':
+                            return {style:{textAlign: 'center'}}
+                        case 'ALIGNRIGHT':
+                            return {style:{textAlign: 'right'}}
+                    }
+                }
+              }
+
             res[0].data.data.forEach(element => {
-                element.stryContent = stateToHTML(convertFromRaw(JSON.parse(element.stryContent)))
+                element.stryContent = stateToHTML(convertFromRaw(JSON.parse(element.stryContent)), options)
             });
 
             let arr = [] //沒有
@@ -68,28 +83,8 @@ function Story(props){
                     arr2.push(elm)
                 }
             })
-            
-            const recursive = (children, parents)=>{
-                let leftoutchildren = [...children]
-                children.forEach(child=>{
-                    parents.some(parent=>{
-                        if(parent.rplyId === child.rplyTo){
-                            (parent.children || (parent.children = [])).push(child)
-                            if(leftoutchildren.indexOf(child) !== -1){
-                                leftoutchildren.splice(leftoutchildren.indexOf(child), 1)
-                            }
-                            return true;
-                        }
-                    })
-                })
-                // console.log('leftouts:',leftoutchildren)
-                if(leftoutchildren.length > 0){
-                    recursive(leftoutchildren, children)
-                }
-                return parents;
-            }
 
-            let results = recursive(arr2, arr)
+            let results = getRecursiveJson(arr2, arr)
             // console.log(results)
 
             setData(res[0].data.data)
@@ -102,7 +97,13 @@ function Story(props){
     }, [])
 
     const handleSubmit = (replyTo, txtContent)=>{
-        let url = `http://localhost:5500/stories/reply/${props.match.params.id}` + (replyTo ? `?toId=${replyTo}` : '') + (replyTo ? `&usrId=${localStorage.getItem('userId')}` : `?usrId=${localStorage.getItem('userId')}`)
+
+        //沒有內容不給發送
+        if(!txtContent.trim().length){
+            return;
+        }
+
+        let url = `http://localhost:5500/stories/reply/${props.match.params.id}` + (replyTo ? `?toId=${replyTo}` : '') + (replyTo ? `&usrId=${user}` : `?usrId=${user}`)
         // console.log(url)
 
         axios({
@@ -115,11 +116,16 @@ function Story(props){
         .then(res=>{
             Swal.fire({
                 position: 'top-end',
-                // icon: 'success',
                 text: '成功回覆',
-                showConfirmButton: false,
-                timer: 1500,
+                showConfirmButton: true,
+                // timer: 1500,
+                buttonsStyling: false,
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             console.log(res.data)
         })
@@ -141,6 +147,7 @@ function Story(props){
                         id: elm.rplyId,
                         content: elm.rplyContent,
                         to: elm.rplyToId,
+                        toName: elm.rplyToName,
                         fromNow: elm.fromNow,
                         date: elm.rplyUpdate
                     }}
@@ -160,9 +167,19 @@ function Story(props){
         return (
             <>
                 <div className="bk-story-head">
-                    <div className='title'>{data[0].stryTitle}</div>
-                    <div className='name'>{data[0].Name || data[0].Account}</div>
-                    <div className='date'>{data[0].stryFromNow}</div>
+                    <div className='bk-story-container'>
+                        <div className='title'>{data[0].stryTitle}</div>
+                        <div className='user'>
+                            <div className='img'>
+                                <img src={data[0].Img ? data[0].Img : '/biki-img/SVG/user.svg'} />
+                            </div>
+                            <div>
+                                <div className='name'>{data[0].Name || data[0].Account}</div>
+                                <div className='date'>{data[0].updated_at}</div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
                 <div className="bk-story-wrapper">
                     <div className='bk-story-container'>
@@ -175,15 +192,22 @@ function Story(props){
                     <div className='bk-reply-container'>
                         <div className="bk-story-reply">
                             <label>留言</label>
-                            <textarea rows={rows} onChange={(evt)=>{
+                            <textarea 
+                            rows={rows} 
+                            onChange={(evt)=>{
                                 handleRows(evt);
                                 handleChange(null, evt)
-                            }} onKeyDown={handleKey} />
+                            }} 
+                            onKeyDown={handleKey} 
+                            disabled={user ? false : true}
+                            defaultValue={user ? '' : '請先登入才能回復'}
+                            />
                             <button 
-                            className="bk-btn-black" 
+                            className={user ? 'bk-btn-black' : 'bk-btn-grey'} 
                             onClick={()=>{
                                 handleSubmit(replyTo, txtContent)
                             }}
+                            disabled={user ? false : true}
                             >回覆</button>
                         </div>
                         <div className='bk-recursive-replies-container'>

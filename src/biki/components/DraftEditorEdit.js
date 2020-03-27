@@ -2,7 +2,7 @@ import React, {useState, useEffect, useRef} from 'react'
 import {withRouter} from 'react-router-dom'
 import {Editor, EditorState, RichUtils, convertToRaw, convertFromRaw} from 'draft-js';
 import axios from 'axios'
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
 import TagBlock from './EditorComponents/TagBlock'
@@ -153,9 +153,16 @@ function DraftEditorEdit(props){
                 position: 'top-end',
                 icon: 'warning',
                 text: '請填寫內容',
-                showConfirmButton: false,
-                timer: 1500,
+                showConfirmButton: true,
+                confirmButtonText: '確定',
+                buttonsStyling: false,
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    icon: 'bk-swl-icon',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             return false;
         }else if(title === '' || !title.trim().length){
@@ -164,9 +171,16 @@ function DraftEditorEdit(props){
                 position: 'top-end',
                 icon: 'warning',
                 text: '請填寫標題',
-                showConfirmButton: false,
-                timer: 1500,
+                showConfirmButton: true,
+                confirmButtonText: '確定',
                 position:'center',
+                buttonsStyling: false,
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    icon: 'bk-swl-icon',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             return false;
         }
@@ -203,13 +217,20 @@ function DraftEditorEdit(props){
             position: 'top-end',
             icon: 'success',
             text: '更新成功！',
-            showConfirmButton: false,
-            timer: 1500,
+            confirmButtonText: '確定',
+            showConfirmButton: true,
+            // timer: 1500,
             position:'center',
-          })  
-        setTimeout(()=>{
+            buttonsStyling: false,
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
+          }) 
+          .then(r=>{
             props.history.push('/member/stories')
-        }, 1500)
+          })
         return;
     }
 
@@ -253,10 +274,16 @@ function DraftEditorEdit(props){
             showConfirmButton: false,
             timer: 1500,
             position:'center',
+            buttonsStyling: false,
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
             })  
-        setTimeout(()=>{
-            props.history.push('/member/stories')
-        }, 1500)
+            .then(r=>{
+                props.history.push('/member/stories')
+            })
 
         console.log(r)
 
@@ -288,8 +315,14 @@ function DraftEditorEdit(props){
             icon: 'success',
             text: '儲存成功',
             showConfirmButton: false,
+            buttonsStyling: false,
             timer: 1500,
             position:'center',
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
             })  
         setTimeout(()=>{
             props.history.push('/member/stories/drafts')

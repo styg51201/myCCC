@@ -30,7 +30,9 @@ function StoryCard(props){
                 >
                 <Card.Header>
                 <div className="bk-card-user">
-                        <div className="bk-card-userimg"></div>
+                        <div className="bk-card-userimg">
+                            <img src={props.data.Img ? props.data.Img : './biki-img/svg/user.svg'} />
+                        </div>
                         <div>
                         <div>{props.data.Name || props.data.Account}</div>
                             <div>{props.data.fromNow}</div>

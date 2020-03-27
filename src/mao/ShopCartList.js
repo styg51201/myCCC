@@ -14,7 +14,6 @@ import {
   Handle_AddMyFavorite,
   ControlDataOne
 } from './actions/ShopCartAction'
-import {commidtyRANDItemId} from '../chin/actions/itemsActions'
 import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
 import RelatedHistory from '../chin/components/RelatedHistory'
@@ -22,21 +21,16 @@ import { FaRegTrashAlt ,FaShoppingBasket} from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
 import PicSlide from './component/PicSlide'
+import MaoMoveIcon from './MaoMoveIcon'
 function ShopCartList(props) {
-
+  
   const [loaded, setLoaded] = useState(false)
   const [forCart, setForCart] = useState(false)
   const [newItem,setNewItem] =useState(false)
-  // 必打
-  async function getData() {
-    let Ctrl = await props.CtrlData
-    await props.getShopCart(Ctrl)
-  }
+
   useEffect(() => {
-    getData()
     setLoaded(true)
     setForCart(false)
-    props.commidtyRANDItemId()
   }, [])
 
 
@@ -62,7 +56,7 @@ function ShopCartList(props) {
     return (
       <li key={v} className="Mao-shopcart-check-item">
         <img
-          src={`./chin-img/images/${v.itemName}/${v.itemImg}`}
+          src={`/chin-img/images/${v.itemName}/${v.itemImg}`}
           alt=""
           style={{ width: '100px', height: '100px' }}
         />
@@ -120,7 +114,7 @@ function ShopCartList(props) {
             onClick={() => {
               props.CalShopCart(props.AddItem)
               props.DelCartItem(i, props.AddItem)
-              props.Handle_AddMyFavorite('true', v, props.MyFavorite)
+              props.Handle_AddMyFavorite(true, v, props.MyFavorite)
             }}
           >
             <FiHeart
@@ -141,23 +135,26 @@ function ShopCartList(props) {
   })
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
-    <div className="p-3 text-center Mao-CartNoItem-shoplist">
-      <h3>趕快去尋找最愛的商品吧！</h3>
-      <FaShoppingBasket style={{width:"300px",height:"300px",opacity:'0.5',margin:"15px"}}/>
-    </div>
+    <div>
+      <MaoMoveIcon />
+      </div>
   )
   const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
   const ADrand =<PicSlide />
+  const [getCard,setGetCard]=useState(false)
+  useEffect(()=>{
+console.log(123)
+  },[getCard])
   return (
     <>
-      <MaoAD />
+      
+      {props.AddItem.length > 0 ? <MaoAD /> : ''}
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
         <ul className="Mao-shopcart-check-item-ul">
           {props.AddItem.length > 0 ? dataList : CartNoItem}
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal /> : ADrand}
       </div>
-      {/* {displayRealCart} */}
       <ProductSlide 
       getdata={newItem} //hook
       sendData={items=>{ //func
@@ -191,7 +188,7 @@ const mapDispatchToProps = dispatch => {
       DelCartItem,
       CalShopCart,
       Handle_AddMyFavorite,
-      ControlDataOne,commidtyRANDItemId
+      ControlDataOne
     },
     dispatch
   )

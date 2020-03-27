@@ -41,7 +41,6 @@ function PisSlide() {
   const RNDRoute = ['/watch', '/headset', '/actioncamera', '/surrounding']
   function RouteRND() {
     let RNDNum = RNDRoute[Math.round(Math.random() * (RNDRoute.length - 1))]
-    console.log(RNDRoute)
     return RNDNum
   }
   return (

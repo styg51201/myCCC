@@ -16,7 +16,7 @@ function Commoditylist(props) {
 
   const dispatch = useDispatch()
   useEffect(()=>{
-    return ()=>dispatch({type:'SHOW_DISCOUNT',value:false})
+    return ()=>dispatch({type:'SHOW_DISCOUNT',value:{isShow:false,value:{}}})
   },[])
 
   
@@ -30,9 +30,10 @@ function Commoditylist(props) {
   return (
     <ul className="chin-commoditylist">
       <Price price={props.data}/>
+      {props.showDiscount.isShow ? <Discount data={props.showDiscount.value}/> : ''}
       <Brand list={nameList} />
       <Features />
-      {props.showDiscount ? <Discount /> : ''}
+      
       
     </ul>
   )

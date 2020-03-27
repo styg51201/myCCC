@@ -5,7 +5,7 @@ import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
 import TagBlock from './EditorComponents/TagBlock'
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 //utils for media rendering
 import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
@@ -34,21 +34,19 @@ function DraftEditor(props){
     const [story, setStory] = useState([]) //for debouncing & checking content
     const [tags, setTags] = useState([])
     const [message, setMessage] = useState('')
-    const [usrId, setUsrId] = useState(null)
+    const [usrId, setUsrId] = useState(localStorage.getItem('userId'))
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
     const imgFormRef = useRef(null)
-
-    useEffect(()=>{
-        setUsrId(localStorage.getItem('userId'))
-    }, [])
-
+    const tagsRef = useRef(null)
 
     //set editor content when Editor has content
     useEffect(()=>{
         let content = editorState.getCurrentContent()
         let newContent = convertToRaw(content);
+        console.log("new editor state!", newContent)
+
 
         if(newContent.blocks.length > 1 || newContent.blocks[0].text !== ''){
             setEditorContent(newContent)
@@ -90,12 +88,13 @@ function DraftEditor(props){
 
     const handleTitle = (e)=>{
         // console.log(e.target.value)
-        setTitle(e.target.value)
+        setTitle(e.target)
     }
 
     const handleTags = (e)=>{
         // console.log(e.target.value.split(' '))
-        setTags(e.target.value.split(' '))
+        console.log(tagsRef.current.innerText.split('#'))
+        setTags(tagsRef.current.innerText.split('#'))
     }
     
     // basically just sets state...
@@ -148,10 +147,10 @@ function DraftEditor(props){
         await setFoldername(data.foldername)
         
         for(let i = 0 ; i < data.url.length ; i++){
-            await console.log(data.url[i])
             await renderMedia(data.url[i], editorState, setEditorState, setUrlValue)
         }
     }
+
 
     //first submit to draft
     async function submitDraft(){
@@ -209,15 +208,20 @@ function DraftEditor(props){
             if(c.blocks[i].type === 'atomic') flag = true
         }
         if(!str.trim().length && !flag){
-            // console.log(title)
-            // console.log("no content")
             Swal.fire({
                 position: 'top-end',
                 icon: 'warning',
                 text: '請填寫內容',
-                showConfirmButton: false,
-                timer: 1500,
+                confirmButtonText: '確定',
+                buttonsStyling: false,
+                showConfirmButton: true,
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    icon: 'bk-swl-icon',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             return false;
         }else if(title === '' || !title.trim().length){
@@ -226,9 +230,16 @@ function DraftEditor(props){
                 position: 'top-end',
                 icon: 'warning',
                 text: '請填寫標題',
-                showConfirmButton: false,
-                timer: 1500,
+                confirmButtonText: '確定',
+                showConfirmButton: true,
+                buttonsStyling: false,
                 position:'center',
+                customClass: {
+                    popup: 'bk-swl-popup',
+                    icon: 'bk-swl-icon',
+                    content: 'bk-swl-content',
+                    confirmButton: 'bk-swl-confirm-button',
+                  }
               })  
             return false;
         }
@@ -266,13 +277,20 @@ function DraftEditor(props){
             position: 'top-end',
             icon: 'success',
             text: '上傳成功',
-            showConfirmButton: false,
-            timer: 1500,
+            confirmButtonText: '確定',
+            showConfirmButton: true,
+            buttonsStyling: false,
+            // timer: 1500,
             position:'center',
-          })  
-        setTimeout(()=>{
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
+          })
+          .then(r=>{
             props.history.push('/stories')
-        }, 1500)
+          })
         return;
     }
 
@@ -294,13 +312,21 @@ function DraftEditor(props){
             position: 'top-end',
             icon: 'success',
             text: '儲存成功',
-            showConfirmButton: false,
-            timer: 1500,
+            confirmButtonText: '確定',
+            showConfirmButton: true,
+            buttonsStyling: false,
+            // timer: 1500,
             position:'center',
+            customClass: {
+                popup: 'bk-swl-popup',
+                icon: 'bk-swl-icon',
+                content: 'bk-swl-content',
+              }
           })  
-        setTimeout(()=>{
+          .then(result=>{
             props.history.push('/member/stories/drafts')
-        }, 1500)
+            console.log(result)
+          })
     }
 
     //focus back to editor after img insert
@@ -324,7 +350,13 @@ function DraftEditor(props){
                     }
                 })}</div>
                 <label>標籤</label>
-                <input type="text" onChange={handleTags} />
+                <div contentEditable='true' onInput={handleTags} ref={tagsRef}>
+                    {/* {!tags ? '' : tags.map((v, i)=>{
+                        if(v !== ''){
+                            return <TagBlock tag={v} key={`${v}-${i}`} />
+                        }
+                    })} */}
+                </div>
             </div>
             <div className="bk-draft-editor-container">
                 <div>

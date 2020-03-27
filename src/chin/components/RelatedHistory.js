@@ -4,28 +4,35 @@ import {BrowserRouter as Router,Route,Link,Switch,withRouter} from 'react-router
 import { useSelector, useDispatch } from 'react-redux'
 
 function RelatedHistory(props){
+const [newHisitem,setNewHisitem]=useState([])
+const [hisrelitem,setHisrelitem]=useState(false)
 const Itemhis = useSelector(state => state.getItemNamehis)
 const itemsCategoryId = useSelector(state => state.getitemCategoryId)
 const dispatch = useDispatch()
 const dataname = props.data[0]?props.data[0].name:''
 const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
+async function getItemToLocalStorage() {
+
+  const currentHisitem = localStorage.getItem('hisitem') || []
+
+  console.log(JSON.parse(currentHisitem))
+
+  // 設定資料
+  setNewHisitem(JSON.parse(currentHisitem))
+}
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;
     return (
-      <div className="chin-hicir"  onClick={onClick}>
         <img src="/chin-img/chevron-left.svg"
-          className="chin-hiarr"/>
-      </div>
+          className="chin-hiarr" onClick={onClick}/>
     );
   }
   function SampleNextArrow(props) {
 
     const { className, style, onClick } = props;
     return (
-      <div className="chin-hicir2" onClick={onClick}>
         <img src="/chin-img/chevron-right.svg"
-          className="chin-hiarr2"/>
-        </div>
+          className="chin-hiarr2" onClick={onClick}/>
     );
   }
 
@@ -95,16 +102,58 @@ const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
   useEffect(() => {
     formServeritemCategoryId(dataitemCategoryId)
     formServerItemshis(dataname)
+    getItemToLocalStorage()
   }, [props.data])
 
   
     return(
         <>
         <div className="chin-historicalrecord">
-          <Link to="">相關商品</Link>
-          <Link to="">歷史紀錄</Link>
+          <button className="chin-hisrel1" onClick={()=>{setHisrelitem(false)}}>相關商品</button>
+          <button className="chin-hisrel2" onClick={()=>{setHisrelitem(true)}}>歷史紀錄</button>
         </div>
       <div className="chin-relatedproducts">
+      {hisrelitem?
+        <Slider {...settings}>
+        {/* <img src="/chin-img/chevron-left.svg"
+          className="chin-hiarr"/> */}
+            {newHisitem.map((val,ind)=>{
+              return(<div className="chin-commodity2">
+                            <div className="chin-commodity-item2">
+                              <ul className="chin-star-heart-bag2">
+                                <li>
+                                  <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                                </li>
+                                <li>
+                                  <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                                </li>
+                                <li>
+                                  <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                                </li>
+                                <li>
+                                  <img className="chin-star2" src="/chin-img/star.svg"  alt="" />
+                                </li>
+                                <li>
+                                  <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
+                                </li>
+                                <li className="chin-heart-bag2">
+                                  <img className="chin-heart2" src="/chin-img/heart.svg" alt="" />
+                                  <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
+                                </li>
+                              </ul>
+                              <Link to={'/commidty/'+ val.itemId}>
+                                <img className="chin-watch2"  src={`/chin-img/images/${val.itemName}/${val.itemImg}`}  alt="" />
+                                <h6>{val.name}</h6>
+                                <p>{val.itemName}</p>
+                                <h5>NT{val.itemPrice}</h5>
+                              </Link>
+                            </div>
+                          </div>)
+            })}
+            {/* <img src="/chin-img/chevron-right.svg"
+          className="chin-hiarr2"/> */}
+      </Slider>
+        :
         <Slider {...settings}>
           {Itemhis.length < 3 ?
             itemsCategoryId.map((val,ind)=>{
@@ -135,7 +184,7 @@ const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
                           <img className="chin-watch2"  src={`/chin-img/images/${val.itemName}/${val.itemImg}`}  alt="" />
                           <h6>{val.name}</h6>
                           <p>{val.itemName}</p>
-                          <h5>{val.itemPrice}</h5>
+                          <h5>NT{val.itemPrice}</h5>
                         </Link>
                       </div>
                     </div>)
@@ -169,13 +218,14 @@ const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
                           <img className="chin-watch2"  src={`/chin-img/images/${val.itemName}/${val.itemImg}`}  alt="" />
                           <h6>{val.name}</h6>
                           <p>{val.itemName}</p>
-                          <h5>{val.itemPrice}</h5>
+                          <h5>NT{val.itemPrice}</h5>
                         </Link>
                       </div>
                     </div>)
           })
         }
         </Slider>
+      }
       </div>
       </>
     )

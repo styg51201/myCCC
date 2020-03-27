@@ -18,13 +18,13 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData, ResetListItemName,ResetListItemNameCom,DelItemscompare} from './actions/itemsActions'
+import { formServerItemsData, ResetListItemName,ResetListItemNameCom,ItemscompareNo} from './actions/itemsActions'
 
 function Watch(props) {
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
+  const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
   const [comparegoods,setComparegoods]=useState(false)
-  console.log(props)
   const itemlist = props.data.map((val, ind) => {
     if (props.watch.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
@@ -35,19 +35,16 @@ function Watch(props) {
   })
   const commodityItems = props.data.map((val, ind) => {
     if (props.watch.indexOf(val.name) > -1) {
-      return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
+      return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
     }
   })
   const allcommodityItems = props.data.map((val, ind) => {
-    return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
+    return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
- 
-  // const commodityItems =
+  console.log(delitems)
   useEffect(() => {
     props.formServerItemsData('watch')
-   
     return ()=> props.ResetListItemName()
-    
   }, [])
 
 
@@ -77,11 +74,12 @@ function Watch(props) {
             {commodity ? (
               <div className="chin-article">
                 <div className="chin-itemcompares">
-                {props.compares.map((val,ind)=>{
+                {props.compare.map((val,ind)=>{
                   return(
                       <div className="chin-compares">
                         <img src="./chin-img/x.svg" className="chin-x" onClick={()=>{
-                                                                                props.DelItemscompare(ind, props.compares)
+                                                                                props.ItemscompareNo(false,val,props.compare)
+                                                                                setDelitems(val.itemId)
                                                                                 }}/>
                         <div><img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} className="chin-watch3"/></div>
                         <span>{val.itemName}</span>
@@ -89,8 +87,9 @@ function Watch(props) {
                       )
                 })}
                 </div>
-                <div className="chin-button-compares">
-                    <button>功能比較</button>
+                <div className="chin-button-compares">{props.compare.length>1?
+                  <Link to="/comparepages" className="chin-com-a"><button>功能比較</button></Link>:
+                    <Link to="/comparepages" className="chin-com-a"><button disabled='true'>功能比較</button></Link>}
                     <button onClick={()=>{setCommdity(!commodity)
                                         props.ResetListItemNameCom()}}>關閉</button>
                 </div>
@@ -115,7 +114,7 @@ function Watch(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
            watch: store.getListitemName,
-           compares:store.getItemscompare,
+           compare:store.getItemscompare,
           rest:store.rest}
 }
 
@@ -126,7 +125,7 @@ const mapDispatchToProps = dispatch => {
       formServerItemsData,
       ResetListItemName,
       ResetListItemNameCom,
-      DelItemscompare,
+      ItemscompareNo,
     },
     dispatch
   )

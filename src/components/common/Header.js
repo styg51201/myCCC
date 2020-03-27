@@ -5,7 +5,6 @@ import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
-
 //icons
 // import { IconContext } from 'react-icons'
 import {
@@ -20,63 +19,74 @@ import {
 import $ from 'jquery'
 
 function Header(props) {
+  // console.log(props)
+
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
+  const [searchBlurTime, setSearchBlurTime] = useState(0)
   const [searchTxt, setSearchTxt] = useState('')
   const [member, setMember] = useState(true)
 
-  // useEffect(() => {
-  //   const product = document.querySelector('.chin-bigtitle img').offsetTop
-  //   const height = product - 20
-  //   window.addEventListener('scroll', () => {
-  //     const isTop = window.scrollY < height
-  //     if (isTop !== true) {
-  //       setScrolled(true)
-  //       document
-  //         .querySelector('.chin-three-position')
-  //         .classList.add('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position2')
-  //         .classList.add('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position3')
-  //         .classList.add('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position4')
-  //         .classList.add('chin-three-positioncome')
-  //       document.querySelector('.chin-black').classList.add('chin-blackcome')
-  //     } else {
-  //       setScrolled(false)
-  //       document
-  //         .querySelector('.chin-three-position')
-  //         .classList.remove('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position2')
-  //         .classList.remove('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position3')
-  //         .classList.remove('chin-three-positioncome')
-  //       document
-  //         .querySelector('.chin-three-position4')
-  //         .classList.remove('chin-three-positioncome')
-  //       document.querySelector('.chin-black').classList.remove('chin-blackcome')
-  //     }
-  //   })
+  useEffect(() => {
+    const product = document.querySelector('.chin-bigtitle img').offsetTop
+    const height = product - 20
+    window.addEventListener('scroll', () => {
+      const isTop = window.scrollY < height
+      if (isTop !== true) {
+        setScrolled(true)
+        document
+          .querySelector('.chin-three-position')
+          .classList.add('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position2')
+          .classList.add('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position3')
+          .classList.add('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position4')
+          .classList.add('chin-three-positioncome')
+        document.querySelector('.chin-black').classList.add('chin-blackcome')
+      } else {
+        setScrolled(false)
+        document
+          .querySelector('.chin-three-position')
+          .classList.remove('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position2')
+          .classList.remove('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position3')
+          .classList.remove('chin-three-positioncome')
+        document
+          .querySelector('.chin-three-position4')
+          .classList.remove('chin-three-positioncome')
+        document.querySelector('.chin-black').classList.remove('chin-blackcome')
+      }
+    })
 
     //會員登出功能
-  //   $('.irene_member_logout').click(function() {
-  //     localStorage.removeItem('userdata')
-  //     localStorage.removeItem('userId')
-  //     window.location.replace('http://localhost:3000/memberlogin')
-  //   })
-  // }, [])
+    $('.irene_member_logout').click(function() {
+      localStorage.removeItem('userdata')
+      localStorage.removeItem('userId')
+      window.location.replace('http://localhost:3000/memberlogin')
+    })
+  }, [])
 
   const inputRef = useRef(null)
 
+  useEffect(()=>{
+    console.log(openSearch)
+  }, [openSearch])
+
   const handleOpenSearch = () => {
-    if (!openSearch) {
-      setOpenSearch(true)
-      inputRef.current.focus()
+    if (new Date().getTime() - searchBlurTime > 300) {
+      if (!openSearch) {
+        setOpenSearch(true)
+        inputRef.current.focus()
+      }else{
+        inputRef.current.blur()
+      }
     }
   }
 
@@ -86,13 +96,15 @@ function Header(props) {
         //console.log('沒有值')
         return
       }
+      setSearchBlurTime(new Date().getTime())
       setOpenSearch(false)
+      inputRef.current.blur()
       props.history.push(`/search?key=${evt.target.value}`)
     }
   }
 
   const handleSearchBlur = evt => {
-    //console.log(evt.target)
+    setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')
   }
@@ -149,7 +161,7 @@ function Header(props) {
         </Container>
       </div>
       <div>
-        {!memberstate ? (
+        {!memberstate ? ( 
           <Link to="/memberedit">
             <img
               src="./img/header-footer/user.svg"
@@ -167,7 +179,9 @@ function Header(props) {
           </Link>
         )}
         {!memberstate ? (
-          <Link to="/memberlogin">
+          '' 
+        ) : (
+            <Link to="/memberlogin">
             <div className="chin-three-position4 irene_member_logout">
               <FiLogOut
                 style={{
@@ -178,21 +192,21 @@ function Header(props) {
               />
             </div>
           </Link>
-        ) : (
-          ''
         )}
-        <Link to="/ShopCartList/:id?">
+        <Link to="/memberedit/ShopCartList">
           <img
             src="./img/header-footer/shopping-bag.svg"
             alt=""
             className="chin-three-position2"
           />
         </Link>
-        <img
-          src="./img/header-footer/heart.svg"
-          alt=""
-          className="chin-three-position3"
-        />
+        <Link to="/memberedit/ShopCartLike">
+          <img
+            src="./img/header-footer/heart.svg"
+            alt=""
+            className="chin-three-position3"
+          />
+        </Link>
       </div>
     </>
   )
@@ -211,9 +225,10 @@ function Header(props) {
               <div
                 role="button"
                 className="bk-search"
+                onClick={handleOpenSearch}
                 //ref={searchRef}
               >
-                <FiSearch onClick={handleOpenSearch} />
+                <FiSearch />
                 <input
                   type="text"
                   className={openSearch ? 'active' : ''}
@@ -262,18 +277,18 @@ function Header(props) {
             </ul>
           </div>
           <div className="nav-icons-wrapper">
-            <Link to="/ShopCartList">
+            <Link to="/memberedit/ShopCartList">
               <div className="nav-icons">
                 <FiShoppingBag />
               </div>
             </Link>
-            <Link to="/ShopCartLike">
+            <Link to="/memberedit/ShopCartLike">
               <div className="nav-icons">
                 <FiHeart />
               </div>
             </Link>
             {/* 會員依照登入狀態icon功能不同，登入連會員中心，未登入連登入畫面 */}
-            {memberstate ? (
+            {!memberstate ? (
               <Link to="/memberedit">
                 <div className="nav-icons">
                   <FiUser />
@@ -287,7 +302,7 @@ function Header(props) {
               </Link>
             )}
             {memberstate ? (
-              <Link to="/memberlogin" class="irene_member_logout">
+              <Link to="/memberlogin" className="irene_member_logout">
                 登出
               </Link>
             ) : (

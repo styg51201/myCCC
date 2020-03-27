@@ -1,21 +1,39 @@
 import React,{useState, useEffect} from 'react'
 import { Link} from 'react-router-dom'
+//classnames
+import classNames from 'classnames'
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemscompare,ItemscompareNo} from '../actions/itemsActions'
+import { ItemscompareNo,SelectItemscompare} from '../actions/itemsActions'
 import { Popper } from '@material-ui/core'
 
 function Commoditycomponents(props){
+
   const [compatrtrue,setCompatrtrue]=useState(false)
+  const [compatritems,setCompatritems]=useState()
+  const CompareClassName = classNames('chin-commodity-item-compare', {
+    active:compatrtrue 
+  })
+  // const course = document.querySelector('.chin-commodity-item-compare').classList.add('chin-zzzzzzzzzz')
+  // props.compare.length>4?CompareClassName:'chin-commmmmm'
+  function delitemsss(){
+    props.sendx(compatritems)
+  }
+  useEffect(()=>{
+    if(props.delitems===props.data.itemId)setCompatrtrue(false)
+    delitemsss()
+  },[props.delitems])
     return(
         <>
-            <div className="chin-commodity-item" onClick={()=>{
-                                                          props.formServerItemscompare(props.data,props.compare)
-                                                          props.ItemscompareNo(!compatrtrue,props.data,props.compare)
-                                                          setCompatrtrue(!compatrtrue)
-                                                          }}>
+            <div className={CompareClassName} onClick={()=>{
+                                                            props.ItemscompareNo(!compatrtrue,props.data,props.compare)
+                                                            //我得比較store小於4個才可以做狀態更改
+                                                            if(props.compare.length < 4) setCompatrtrue(!compatrtrue)
+                                                            //如果等於true才會進來
+                                                            if(compatrtrue) setCompatrtrue(!compatrtrue)
+                                                           }}>
                 <div className="chin-commodity-item-watch">
                     <img src="./chin-img/plus.svg"/>
                 </div>
@@ -37,8 +55,8 @@ const mapStateToProps = store => {
   const mapDispatchToProps = dispatch => {
     return bindActionCreators(
       {
-        formServerItemscompare,
         ItemscompareNo,
+        SelectItemscompare,
       },
       dispatch
     )

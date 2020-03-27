@@ -18,7 +18,6 @@ export const formServerItemsData = val => {
   }
 }
 //  I AM YOUR FATHER
-
 export const showRANDItemId = val => {
   return { type: 'SHOW_RAND_ITEMID', value: val }
 }
@@ -148,28 +147,18 @@ export const ListItemPrice = (obj,val)=>{
   }
 }
 //-----itemscompare------------------------
-export const Itemscompare = val => {
-  return { type: 'SHOW_ITEMSCOMPARE', value: val }
-}
-export const formServerItemscompare = (val,data) => {
-  console.log(val,data)
-  return dispatch =>{
-    let newdata = [val,...data]
-  dispatch(Itemscompare(newdata))
-  }
-}
-export const Delcompare = value => ({ type: 'DEL_ITEMSCOMPARE', value: value })
-export const DelItemscompare = (ind, data) => {
-  console.log(ind)
+export const Selectcompare = value => ({ type: 'SELECT_ITEMSCOMPARE', value: value })
+export const SelectItemscompare = (data) => {
+  // console.log(data)
   return dispatch => {
-    let newitemscompare = data.filter(e => e !== data[ind])
-    console.log(newitemscompare)
-    dispatch(Delcompare(newitemscompare))
+    // console.log(data)
+    dispatch(Selectcompare(data))
   }
 }
-export const AddMyFavorite = value => ({ type: 'NP_COMPARE', value: value })
+
+export const ItemscompareNocompare = value => ({ type: 'NP_COMPARE', value: value })
 export const ItemscompareNo = (val, product, data) => {
-  console.log(val, product, data)
+  // console.log(val, product, data)
   let pIdBox = []
   data.map((v, i) => {
     pIdBox.push(v.itemId)
@@ -189,7 +178,7 @@ export const ItemscompareNo = (val, product, data) => {
     } else {
       return newData
     }
-    dispatch(AddMyFavorite(newData))
+    dispatch(ItemscompareNocompare(newData))
   }
 }
   export const ResetListItemNameCom = (obj, val) => {

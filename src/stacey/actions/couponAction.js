@@ -227,17 +227,13 @@ export const showAd = val =>{
 export const fromServerAdData = val => {
   // console.log('4444')
   return async dispatch => {
-    const request = new Request('http://localhost:5500/getCoupon/adTest', {
-      method: 'POST',
+    const request = new Request('http://localhost:5500/getCoupon/adData', {
+      method: 'GET',
       credentials: 'include',
         headers: new Headers({
           Accept: 'application/json',
           'Content-Type': 'application/json',
-        }),
-        body:JSON.stringify({
-          mb_id:null
         })
-        
     })
     const res = await fetch(request)
     const data = await res.json()
@@ -252,8 +248,8 @@ export const addMbData = val =>{
   return {type:'ADD_MB_VALUE',value:val}
 }
 
-export const showDiscountAction = val =>{
-  return { type: 'SHOW_DISCOUNT', value: val }
+export const showDiscountAction = (val,data) =>{
+  return { type: 'SHOW_DISCOUNT', value: {isShow:val,value:data }}
 }
 
 

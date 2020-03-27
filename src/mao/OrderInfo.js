@@ -5,10 +5,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
   getShopCart,
-  AddCart,
-  AddCartItem,
-  DelCartItem,
-  CalShopCart,
+  AddCart,DelCart,
   Handle_AddMyFavorite,
   ControlDataOne,
   fromServerorderBuyerInfo,
@@ -23,6 +20,9 @@ import $ from 'jquery'
 import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
+console.log('我想看這裡',props)
+
+  //結帳測試用的hook
   const [values, setValues] = useState({
     buyerName: '',
     mobile: '',
@@ -31,6 +31,8 @@ function OrderInfo(props) {
     shipping: '7-11',
     payment: '貨到付款',
   })
+
+  //錯誤傳達的資訊
   const [errors, setErrors] = useState({
     buyerName: '',
     mobile: '',
@@ -39,9 +41,11 @@ function OrderInfo(props) {
     shipping: '',
     payment: '',
   })
-
+//信用卡開關
   const [openCard, setOpenCard] = useState(false)
+//統編開關
   const [opentaxNo, setOpentaxNo] = useState(false)
+
   const { getMonth, getYear } = GetDayRange()
 
   //訂單
@@ -71,12 +75,18 @@ function OrderInfo(props) {
     discount: '0',
   })
 
-  //插入資料
+  //插入資料 開關
   const [getBuyerbasic, setGetBuyerbasic] = useState(true)
   function getbuyer(e) {
     if (getBuyerbasic) {
-      $('#mobile').val('0912345678')
       $('#buyerName').val('Alex')
+      $('#mobile').val('0912345678')
+      let newErr=errorBox.filter(e=>e!=='buyerName'&&e!=='mobile')
+      //驗證是否正確
+      setErrorBox(newErr) 
+      //錯誤提示文字
+      setErrors({...errors,mobile: '',buyerName: ''})
+      // 購買人資訊
       setBuyerInfo({ ...buyerInfo, buyerName: 'Alex', mobile: '0912345678' })
       setGetBuyerbasic(false)
     } else {
@@ -87,7 +97,7 @@ function OrderInfo(props) {
     }
   }
 
-  //獲取buyer資訊
+  //獲取buyer資訊檢查
   function getformInfo(e, str) {
     let getInfo = e.currentTarget.value
     let getInfo2 = e.currentTarget.id
@@ -97,13 +107,10 @@ function OrderInfo(props) {
         setBuyerInfo({ ...buyerInfo, buyerName: getInfo })
         if (getInfo.length == 0) {
           setErrors({ ...errors, buyerName: '名字不能空白' })
-          setErrorBox([...errorBox,'buyerName'])
         } else if (/[0-9]|\W/.test(getInfo)) {
           setErrors({ ...errors, buyerName: '名字不能為數字或符號' })
-          setErrorBox([...errorBox,'buyerName'])
         } else if (getInfo.length < 2) {
           setErrors({ ...errors, buyerName: '名字長度有誤' })
-          setErrorBox([...errorBox,'buyerName'])
         } else {
           setErrors({ ...errors, buyerName: '' })
           let newErr=errorBox.filter(e=>e!=='buyerName')
@@ -117,13 +124,11 @@ function OrderInfo(props) {
         // console.log(getInfo)
         if (getInfo.length == 0) {
           setErrors({ ...errors, mobile: '電話號碼不能為空白' })
-          setErrorBox([...errorBox,'mobile'])
         } else if (!/^09[0-9]\d{7}$/.test(getInfo)) {
           setErrors({
             ...errors,
             mobile: '電話號碼格式有誤，請以09xxxxxxxx輸入',
           })
-          setErrorBox([...errorBox,'mobile'])
         } else {
           setErrors({ ...errors, mobile: '' })
           let newErr=errorBox.filter(e=>e!=='mobile')
@@ -135,19 +140,48 @@ function OrderInfo(props) {
         buyerInfo.shipping = getInfo2
         if (getInfo2 == 'Seven-store') {
           getInfo2 = '7-11'
+          let newErr=errorBox.filter(e=>e!=='shipping')
+          setErrorBox(newErr)
         } else if (getInfo2 == 'HiLife') {
           getInfo2 = '萊爾富'
+          let newErr=errorBox.filter(e=>e!=='shipping')
+          setErrorBox(newErr)
         }
         setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
         setValues({ ...values, shipping: getInfo2 })
         break
       case 'payment':
         buyerInfo.payment = getInfo2
-        // console.log(getInfo2)
+        if(getInfo2=='COD'){
+          getInfo2='貨到付款'
+          let newErr=errorBox.filter(e=>e!=='payment')
+          setErrorBox(newErr)
+        }else if(getInfo2=='CreditCard'){
+          getInfo2='CreditCard'
+          let newErr=errorBox.filter(e=>e!=='payment')
+          setErrorBox(newErr)
+        }else{
+          getInfo2='ATM轉帳'
+          let newErr=errorBox.filter(e=>e!=='payment')
+          setErrorBox(newErr)
+        }
         setBuyerInfo({ ...buyerInfo, payment: getInfo2 })
         setValues({ ...values, payment: getInfo2 })
         break
       case 'invoice':
+        if(getInfo2=='personal-invoice'){
+          getInfo2='個人電子發票'
+          let newErr=errorBox.filter(e=>e!=='invoice')
+          setErrorBox(newErr)
+        }else if(getInfo2=='donate'){
+          getInfo2='捐贈發票'
+          let newErr=errorBox.filter(e=>e!=='invoice')
+          setErrorBox(newErr)
+        }else{
+          getInfo2='公司戶電子發票'
+          let newErr=errorBox.filter(e=>e!=='invoice')
+          setErrorBox(newErr)
+        }
         buyerInfo.invoice = getInfo2
         setBuyerInfo({ ...buyerInfo, invoice: getInfo2 })
         setValues({ ...values, invoice: getInfo2 })
@@ -156,7 +190,7 @@ function OrderInfo(props) {
         break
     }
   }
-
+//儲存產品hook
   const [pIdArr, setPIdArr] = useState([])
   const [countArr, setCountArr] = useState([])
   const [itemNameArr, setItemNameArr] = useState([])
@@ -175,9 +209,9 @@ function OrderInfo(props) {
     const countArrBox = []
     props.AddItem.map((v, i) => {
       itemNameArrBox.push(v.itemName)
-      itemImgArrBox.push(v.nameArrBox)
+      itemImgArrBox.push(v.itemImg)
       itemPriceArrBox.push(v.itemPrice)
-      nameArrBox.push(v.nameArr)
+      nameArrBox.push(v.name)
       itemCategoryIdArrBox.push(v.itemCategoryId)
       countArrBox.push(v.count)
       pIdArrBox.push(v.itemId)
@@ -190,59 +224,218 @@ function OrderInfo(props) {
     setItemCategoryIdArr(itemCategoryIdArrBox)
     setCountArr(countArrBox)
   }
+//demo1帶入資料庫
 
+const demo1 = {
+  orderId: buyerInfo.orderId,
+  buyerName: 'Alex',
+  mobile: '0912345678',
+  payment: 'CreditCard',
+  shipping: 'Seven-store',
+  buyerAdress: '台北市大安 信興門市',
+  invoice: 'company',
+  taxNo: '',
+  total: sendTotal,
+  shipCost: '100',
+  discount: '0',
+}
+const demo2 = {
+  orderId: buyerInfo.orderId,
+  buyerName: 'Blex',
+  mobile: '0913755678',
+  payment: 'COD',
+  shipping: 'HiLife',
+  buyerAdress: '台北市大安 信興門市',
+  invoice: 'donate',
+  taxNo: '',
+  total: sendTotal,
+  shipCost: '100',
+  discount: '0',
+}
+const demo3 = {
+  orderId: buyerInfo.orderId,
+  buyerName: 'Clex',
+  mobile: '0912345558',
+  payment: 'COD',
+  shipping: 'Seven-store',
+  buyerAdress: '台北市大安 信興門市',
+  invoice: 'company',
+  taxNo: '',
+  total: sendTotal,
+  shipCost: '100',
+  discount: '0',
+}
+const demobox = [demo1, demo2, demo3]
+// shipsType
+const [shipType, setShipType] = useState(0)
+// paymentType
+const [paymentType, setPaymentType] = useState(0)
+// invoice
+const [invoiceType, setInvoiceType] = useState(0)
+const [demoType, setDemoType] = useState(0)
+
+//預設資料
+function getDemoOne(val) {
+  let newErr=[]
+  setErrorBox(newErr) 
+  setErrors(newErr)
+  $('#mobile').val(val.mobile)
+  $('#buyerName').val(val.buyerName)
+  if (val.shipping == 'Seven-store') {
+    setShipType(1)
+  } else {
+    setShipType(2)
+  }
+  if (val.payment == 'COD') {
+    setOpenCard(false)
+    setPaymentType(1)
+  } else if (val.payment == 'CreditCard') {
+    setPaymentType(2)
+    setOpenCard(true)
+  } else {
+    setOpenCard(false)
+    setPaymentType(3)
+  }
+  if (val.invoice == 'personal-invoice') {
+    setInvoiceType(1)
+    setOpentaxNo(false)
+  } else if (val.invoice == 'donate') {
+    setInvoiceType(2)
+    setOpentaxNo(false)
+  } else {
+    setInvoiceType(3)
+    setOpentaxNo(true)
+  }
+  setBuyerInfo(val)
+}
+//快速帶入購買人資訊
+const quickInsertInfo = demobox.map((v, i) => {
+  return (
+    <div className="custom-control custom-checkbox mr-3">
+      <input
+        type="checkbox"
+        className="custom-control-input"
+        id={`'quickInsertInfo${i}'`}
+        onClick={() => {
+          let trueDemo = i + 1
+          getDemoOne(v)
+          setDemoType(i + 1)
+        }}
+        //透過上方更改的demoType檢查 index值是否相符?如果相符怎數字才會相等
+        checked={demoType == i + 1 ? true : false}
+      />
+      <label
+        className="custom-control-label"
+        htmlFor={`'quickInsertInfo${i}'`}
+      >
+        訂購人資料組合 <b>{i + 1}</b>
+      </label>
+    </div>
+  )
+})
   useEffect(() => {
     getRND()
     getorderProductInfo()
     GetDayRange()
-    console.log(props.AddItem.length)
   }, [])
 
   useEffect(() => {
     buyerInfo.orderId = order
   }, [ order])
-  const [errorBox,setErrorBox]=useState([])
-// let errorBox=Object.keys(errors)
+  const [errorBox,setErrorBox]=useState([
+    'buyerName','mobile','buyerAdress','invoice','shipping','payment'])
   useEffect(() => {
     console.log('buyerInfo2', buyerInfo)
-    console.log('errorBox', errorBox)
+    console.log('props', props)
   }, [buyerInfo])
 
   //送出
   async function POSTorderInfo() {
-    console.log('pIdArr==', pIdArr)
-    let noneObj = {}
-    //清理暫存
-    await props.clearOrderBuyerproduct(noneObj)
-    //送出購買人資訊
-    await props.fromServerorderBuyerInfo(buyerInfo)
-    console.log('pIdArr inFOR', pIdArr)
-    for (let i = 0; i < pIdArr.length; i++) {
-      console.log('pIdArr', pIdArr[i])
-      let proBox = {
-        orderId: buyerInfo.orderId,
-        name: `${nameArr[i]}`,
-        itemId: `${pIdArr[i]}`,
-        itemName: `${itemNameArr[i]}`,
-        itemPrice: `${itemPriceArr[i]}`,
-        itemCategoryId: `${itemCategoryIdArr[i]}`,
-        itemImg: `${itemImgArr[i]}`,
-        count: `${countArr[i]}`,
-        outStatus: '訂單處理中',
+    if(errorBox==0){
+      let noneObj = {}
+      //清理暫存
+      await props.clearOrderBuyerproduct(noneObj)
+      //送出購買人資訊
+      await props.fromServerorderBuyerInfo(buyerInfo)
+      await props.DelCart([])
+      console.log('pIdArr inFOR', pIdArr)
+      for (let i = 0; i < pIdArr.length; i++) {
+        console.log('pIdArr', pIdArr[i])
+        let proBox = {
+          orderId: buyerInfo.orderId,
+          name: `${nameArr[i]}`,
+          itemId: `${pIdArr[i]}`,
+          itemName: `${itemNameArr[i]}`,
+          itemPrice: `${itemPriceArr[i]}`,
+          itemCategoryId: `${itemCategoryIdArr[i]}`,
+          itemImg: `${itemImgArr[i]}`,
+          count: `${countArr[i]}`,
+          outStatus: '訂單處理中',
+        }
+        //送出產品
+        props.forServerorderProductInfo(proBox)
       }
-      //送出產品
-      props.forServerorderProductInfo(proBox)
+      await Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: '結帳完成',
+        showConfirmButton: false,
+        timer: 1500,
+        position: 'center',
+      }) 
+    }else{
+      // console.log('我是errorBox',errorBox)
+      let getKey=Object.keys(errors)
+      // console.log('我是keys',getKey)
+      let compareKey=getKey.findIndex(e=>e==errorBox)
+      // console.log('我是比較',compareKey)
+      let saveValueBox={
+        buyerName: '',
+        mobile: '',
+        buyerAdress: '',
+        invoice: '',
+        shipping: '',
+        payment: '',
+      }
+      getKey.map((v,i)=>{
+        
+        switch(v){
+          case 'buyerName':
+            saveValueBox.buyerName='名字不能空白'
+            break
+          case 'mobile':
+            saveValueBox.mobile='電話號碼不能為空白'
+            break
+          case 'buyerAdress':
+            saveValueBox.buyerAdress='請選擇門市'
+            break
+            case 'shipping':
+              saveValueBox.shipping='請選擇取貨超商'
+              break
+            case 'payment':
+              saveValueBox.payment='請選擇付款方式'
+            case 'invoice':
+              saveValueBox.invoice='請選擇發票類型'
+              default:
+                break
+        }
+      })
+      setErrors(saveValueBox)
+      
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: '資料填寫不完整',
+        showConfirmButton: false,
+        timer: 1500,
+        position: 'center',
+      }) 
     }
-    await Swal.fire({
-      position: 'top-end',
-      icon: 'success',
-      title: '結帳完成',
-      showConfirmButton: false,
-      timer: 1500,
-      position: 'center',
-    }) 
+    
   }
-
+useEffect(()=>{
+  console.log('errors==',errors)
+},[errors])
   const CreditCardInfo = (
     <div id="creditCardInfo">
       <div className="form-row my-5  d-flex align-items-center">
@@ -331,110 +524,7 @@ function OrderInfo(props) {
     </div>
   )
 
-  //demo1帶入資料庫
-
-  const demo1 = {
-    orderId: buyerInfo.orderId,
-    buyerName: 'Alex',
-    mobile: '0912345678',
-    payment: 'CreditCard',
-    shipping: 'Seven-store',
-    buyerAdress: '台北市大安 信興門市',
-    invoice: 'company',
-    taxNo: '',
-    total: sendTotal,
-    shipCost: '100',
-    discount: '0',
-  }
-  const demo2 = {
-    orderId: buyerInfo.orderId,
-    buyerName: 'Blex',
-    mobile: '0913755678',
-    payment: 'COD',
-    shipping: 'HiLife',
-    buyerAdress: '台北市大安 信興門市',
-    invoice: 'donate',
-    taxNo: '',
-    total: sendTotal,
-    shipCost: '100',
-    discount: '0',
-  }
-  const demo3 = {
-    orderId: buyerInfo.orderId,
-    buyerName: 'Clex',
-    mobile: '0912345558',
-    payment: 'COD',
-    shipping: 'Seven-store',
-    buyerAdress: '台北市大安 信興門市',
-    invoice: 'company',
-    taxNo: '',
-    total: sendTotal,
-    shipCost: '100',
-    discount: '0',
-  }
-  const demobox = [demo1, demo2, demo3]
-  // shipsType
-  const [shipType, setShipType] = useState(0)
-  // paymentType
-  const [paymentType, setPaymentType] = useState(0)
-  // invoice
-  const [invoiceType, setInvoiceType] = useState(0)
-  const [demoType, setDemoType] = useState(0)
-
-  function getDemoOne(val) {
-    $('#mobile').val(val.mobile)
-    $('#buyerName').val(val.buyerName)
-    if (val.shipping == 'Seven-store') {
-      setShipType(1)
-    } else {
-      setShipType(2)
-    }
-    if (val.payment == 'COD') {
-      setOpenCard(false)
-      setPaymentType(1)
-    } else if (val.payment == 'CreditCard') {
-      setPaymentType(2)
-      setOpenCard(true)
-    } else {
-      setOpenCard(false)
-      setPaymentType(3)
-    }
-    if (val.invoice == 'personal-invoice') {
-      setInvoiceType(1)
-      setOpentaxNo(false)
-    } else if (val.invoice == 'donate') {
-      setInvoiceType(2)
-      setOpentaxNo(false)
-    } else {
-      setInvoiceType(3)
-      setOpentaxNo(true)
-    }
-    setBuyerInfo(val)
-  }
-
-  const quickInsertInfo = demobox.map((v, i) => {
-    return (
-      <div className="custom-control custom-checkbox mr-3">
-        <input
-          type="checkbox"
-          className="custom-control-input"
-          id={`'quickInsertInfo${i}'`}
-          onClick={() => {
-            let trueDemo = i + 1
-            getDemoOne(v)
-            setDemoType(i + 1)
-          }}
-          checked={demoType == i + 1 ? true : false}
-        />
-        <label
-          className="custom-control-label"
-          htmlFor={`'quickInsertInfo${i}'`}
-        >
-          訂購人資料組合 <b>{i + 1}</b>
-        </label>
-      </div>
-    )
-  })
+  
 
   //表格
   return (
@@ -554,6 +644,16 @@ function OrderInfo(props) {
               </div>
             </div>
           </div>
+              {errors.shipping == '請選擇取貨超商' ? (
+                <p className="Mao-prompt-word">{errors.shipping}</p>
+              ) : (
+                ''
+              )}
+              {errors.buyerAdress == '請選擇門市' ? (
+                <p className="Mao-prompt-word">{errors.buyerAdress}</p>
+              ) : (
+                ''
+              )}
           <div>
             <div className="form-row d-flex flex-column my-5">
               <h2 className="border-bottom p-3" style={{ display: 'block' }}>
@@ -619,7 +719,11 @@ function OrderInfo(props) {
                 </label>
               </div>
             </div>
-          </div>
+          </div>{errors.payment == '請選擇付款方式' ? (
+                <p className="Mao-prompt-word">{errors.payment}</p>
+              ) : (
+                ''
+              )}
           {openCard ? CreditCardInfo : ''}
           <div className="form-row my-5 d-flex flex-column">
             <div className="form-row d-flex flex-column mt-5">
@@ -685,7 +789,11 @@ function OrderInfo(props) {
                   公司戶電子發票
                 </label>
               </div>
-            </div>
+            </div> {errors.invoice == '請選擇發票類型' ? (
+                <p className="Mao-prompt-word">{errors.invoice}</p>
+              ) : (
+                ''
+              )}
             {opentaxNo ? taxInfo : ''}
           </div>
           <br />
@@ -702,7 +810,7 @@ function OrderInfo(props) {
               上一步
             </Link>
             <Link
-              to="/Orderbill"
+              to={errorBox==0?"/Orderbill":"/OrderInfo"}
               className="btn btn-danger px-3 py-2 rounded-0 mx-2"
               id="sendOrder"
               style={{ width: '30%', background: '#000', border: 'none' }}
@@ -736,15 +844,12 @@ const mapDispatchToProps = dispatch => {
     {
       getShopCart,
       AddCart,
-      AddCartItem,
-      DelCartItem,
-      CalShopCart,
       Handle_AddMyFavorite,
       ControlDataOne,
       fromServerorderBuyerInfo,
       forServerorderProductInfo,
       saveOrderBuyerInfo,
-      clearOrderBuyerproduct,
+      clearOrderBuyerproduct,DelCart
     },
     dispatch
   )

@@ -1,21 +1,27 @@
-@import "../../css/variables.scss";
+@import '../../css/variables.scss';
 
-.bk-member-main-container{
+.bk-member-main-container {
   background-color: $white;
-  padding: $spacing*3;
-  margin-bottom: $spacing*2;
+  padding: $spacing * 3;
+  margin-bottom: $spacing * 2;
+  min-height: 300px;
+
+  &.bk-reply-page {
+    min-height: auto;
+    margin: 0 (-$spacing);
+  }
 }
 
-.bk-editor-message{
+.bk-editor-message {
   color: $blue;
 }
 
-.bk-form-control{
-  label{
+.bk-form-control {
+  label {
     display: block;
   }
 
-  input{
+  input {
     width: 100%;
     background-color: transparent;
     border: none;
@@ -23,22 +29,21 @@
     margin-bottom: $spacing;
     // color: $grey;
 
-    &:nth-last-child(1){
-      margin-bottom: $spacing*2;
+    &:nth-last-child(1) {
+      margin-bottom: $spacing * 2;
     }
 
-    &:focus{
+    &:focus {
       outline: none;
       // color: $black;
     }
   }
-
 }
 
-.bk-editor-tags{
+.bk-editor-tags {
   display: flex;
 
-  .bk-editor-tag{
+  .bk-editor-tag {
     background-color: $blue;
     padding: $spacing/2 $spacing;
     margin: 0 $spacing/2;
@@ -61,11 +66,13 @@
 .bk-draft-toolbar {
   display: flex;
 
-  button {
+  div[role='button'] {
     margin: $spacing/2;
+    padding: $spacing/2;
     background-color: transparent;
     border: none;
     font-size: $icon-regular;
+    cursor: pointer;
 
     svg {
       stroke: $grey;
@@ -81,15 +88,16 @@
   border-top: solid 1px black;
   padding: $spacing 0;
   min-height: 300px;
-  max-height: 500px;
-  overflow: scroll;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
 
   &:hover {
     cursor: text;
   }
 
-  img{
-      max-width: 100%;
+  img {
+    max-width: 100%;
   }
 }
 

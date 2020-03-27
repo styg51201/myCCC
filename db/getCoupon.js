@@ -238,13 +238,33 @@ router.post('/addCoupon', upload.single('cp_img'), (req, res) => {
     }
 })
 
-//廣告測試
-router.post('/adTest',(req,res)=>{
 
-    let memberData = {id:5,collect:1}
+//廣告
+router.get('/adData',(req,res)=>{
 
     const sqlForAd = 'SELECT * FROM `plan` INNER JOIN `ad` ON `plan`.`planId` = `ad`.`adPlanId` INNER JOIN `promotion_group` ON `plan`.`planId` = `promotion_group`.`groupPlanId` WHERE `planStatus` = "上架" '
     db.queryAsync(sqlForAd)
+    .then(r=>{
+        console.log(r)
+        res.json(r)
+    })
+})
+
+//後臺資料
+router.get('/backCouponData',(req,res)=>{
+
+    const sql = 'SELECT *  FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE AND `cp_countdown` = 0  ORDER BY `cp_vendor` ASC '
+
+    db.queryAsync(sql)
+    .then(r=>{
+        res.json(r)
+    })
+})
+
+router.get('/backAdData',(req,res)=>{
+
+    const sql = 'SELECT * FROM `plan` INNER JOIN `ad` ON `plan`.`planId` = `ad`.`adPlanId` INNER JOIN `promotion_group` ON `plan`.`planId` = `promotion_group`.`groupPlanId` '
+    db.queryAsync(sql)
     .then(r=>{
         res.json(r)
     })

@@ -53,7 +53,7 @@ export const reset = (state =true, action) => {
 //------------------chin 是否顯示優惠------------------------
 
 
-export const showDiscount = (state = false, action) => {
+export const showDiscount = (state ={isShow:false,value:{}}, action) => {
   switch (action.type) {
     case 'SHOW_DISCOUNT':
       return action.value
@@ -95,14 +95,12 @@ export const getitemCategoryId = (state = [], action) => {
 }
 ///------------------------chin Itemscompare-------------
 export const getItemscompare = (state=[],action)=>{
-  console.log(action)
-  console.log(state)
+  // console.log(action)
+  // console.log(state)
   switch(action.type){
-    case'SHOW_ITEMSCOMPARE':
-      return action.value
-    case'DEL_ITEMSCOMPARE':
-      return action.value
     case 'NP_COMPARE':
+      return action.value
+    case 'SELECT_ITEMSCOMPARE':
       return action.value
     case 'ITEMNAME_RESETCOM':
       return []

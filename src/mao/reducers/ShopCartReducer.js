@@ -1,5 +1,4 @@
-import { combineReducers } from 'redux'
-import { productList } from '../ProductList'
+
 
 //購物車
 
@@ -56,7 +55,6 @@ export const getRANDitemid=(state=[],action)=>{
 
 // control購物車品項
 export const AddItem = (state = [], action) => {
-  // console.log('加入購物車在這裡', action)
   switch (action.type) {
     case 'ADD_CART':
       return action.value
@@ -69,7 +67,6 @@ export const AddItem = (state = [], action) => {
 
 //我的最愛
 export const MyFavorite = (state = [], action) => {
-  // console.log('I am favor ==', action)
   switch (action.type) {
     case 'LIKE_PRODUCT':
       return action.value

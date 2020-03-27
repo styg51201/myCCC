@@ -10,7 +10,7 @@ export const sendCart = value => {
   return { type: 'SHOW_CART', value: value }
 }
 
-//獲取資料庫購物車
+//獲取資料庫購物車 暫時沒有連資料庫
 export const getShopCart = item => {
   return async dispatch => {
     const request = new Request(`http://localhost:5500/shopCart/shopCart`, {
@@ -29,6 +29,7 @@ export const getShopCart = item => {
         itemImg: v.itemImg,
         itemPrice: v.itemPrice,
         itemCategoryId: v.itemCategoryId,
+        count:v.count
       })
     })
     dispatch(sendCart(newData))
@@ -132,7 +133,7 @@ export const clearOrderBuyerproduct = value => ({
 //呼叫訂單資料
 export const getBuyerInfo = value => ({ type: 'SHOW_ORDER', value: value })
 
-//控制資料庫的呼叫
+//控制資料庫的呼叫 暫時使用
 export const ControlDataOne = value => ({ type: 'CTRL_DATA', value: value })
 
 // 計算產品總額
@@ -192,6 +193,7 @@ export const AddCartItem = (val, itemId, data) => {
 
 //購物車按鍵
 export const AddCartNewItem_sendcal = (val, data) => {
+  console.log('確認是否有執行')
   return dispatch => {
     let itemIdBox = []
     data.map((v, i) => {
@@ -210,24 +212,26 @@ export const AddCartNewItem_sendcal = (val, data) => {
   }
 }
 
-//加入最愛 目前會出錯 點選加入最愛會出現undefined
+//加入最愛
 export const Handle_AddMyFavorite = (val, product, data) => {
-  let truePrice = product.itemPrice.split('$').join('')
+  // let truePrice = product.itemPrice.split('$').join('')
   let newProduct = {
     itemId: product.itemId,
     name: product.name,
     itemName: product.itemName,
     itemImg: product.itemImg,
-    itemPrice: truePrice,
+    itemPrice: product.itemPrice,
     itemCategoryId: product.itemCategoryId,
   }
+  console.log('加入我的最愛 = ',product.itemId)
+  console.log('加入我的最愛 = ',newProduct)
   let pIdBox = []
   data.map((v, i) => {
     pIdBox.push(v.itemId)
   })
   let newData = [...data]
   return dispatch => {
-    if (val == 'true') {
+    if (val == true) {
       let box = pIdBox.findIndex(e => e == newProduct.itemId)
       //  console.log('dddddd',box)
       if (box == -1) {
@@ -236,7 +240,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
         console.log('false')
         return newData
       }
-    } else if ((val = 'false')) {
+    } else if ((val == false)) {
       let delIndex = pIdBox.findIndex(e => e == newProduct.itemId)
       let delpId = data.filter(e => e !== data[delIndex])
 

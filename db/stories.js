@@ -18,7 +18,9 @@ router.get('/member/story/:id', (req, res)=>{
     let id = req.params.id;
     let sql = `SELECT \`usrId\`, \`stryId\`, \`stryTitle\`, \`stryTags\`, \`stryContent\`, \`stryLikes\`, \`updated_at\`
         FROM \`stories\` 
-        WHERE \`stryId\`=? AND \`usrId\` = ?`
+        WHERE \`stryId\`=? AND \`usrId\` = ?`;
+
+    if(usrId === 'null') return;
     
     db.queryAsync(sql, [id, usrId]) //should come from session
     .then(r=>{
@@ -51,6 +53,7 @@ router.get('/member/stories', (req, res)=>{
     let usrId = req.query.usrId
     // console.log(req.query)
 
+    if(usrId === 'null') return;
     // return;
 
     let sql = `SELECT \`s\`.\`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryLikes\`, \`stryViews\`, \`s\`.\`updated_at\`,
@@ -78,6 +81,8 @@ router.get('/member/drafts', (req, res)=>{
     let usrId = req.query.usrId
     // console.log(req.query)
 
+    if(usrId === 'null') return;
+
     // return;
 
     let sql = 'SELECT `drftId`, `drftTitle`, `drftContent`, `drftTags`, `updated_at` FROM `storyDrafts` WHERE `usrId` = ? AND `drftStatus` = "active" ORDER BY `updated_at` DESC';
@@ -102,7 +107,7 @@ router.get('/member/:id/replies', (req, res)=>{
     let id = req.params.id
 
     let sql = `SELECT \`rplyId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`, \`storyReplies\`.\`updated_at\`,
-    \`Id\`, \`Name\`, \`Img\`
+    \`Id\`, \`Name\`, \`Img\`, \`Account\`
     FROM \`storyReplies\` 
     INNER JOIN \`member\` ON \`usrId\` = \`Id\`
     WHERE \`stryId\` = ?
@@ -130,6 +135,8 @@ router.patch('/member/story/:id', (req, res)=>{
     let usrId = req.query.usrId
     let id = req.params.id;
     // console.log(id)
+
+    if(usrId === 'null') return;
     
     let sql = `UPDATE \`stories\` 
         SET \`stryTitle\`=?,\`stryContent\`=? ,\`stryTags\`=? , \`updated_at\`= NOW() 
@@ -147,34 +154,7 @@ router.patch('/member/story/:id', (req, res)=>{
         // console.log(r)
     })
 })
-//update draft
-/*
-router.patch('/member/draft/:id', (req, res)=>{
 
-    let usrId = req.query.usrId
-    let id = req.params.id;
-    console.log(id)
-
-    let sql = `UPDATE \`storydrafts\` 
-    SET \`drftTitle\`=?,\`drftContent\`=?,\`drftTags\`=?, \`updated_at\`= NOW() 
-    WHERE \`usrId\` =? AND \`drftId\` =?`;
-
-    db.queryAsync(sql, [
-        req.body.title,
-        JSON.stringify(req.body.content),
-        JSON.stringify(req.body.tags),
-        id,
-        usrId
-    ])
-    .then(r=>{
-        res.json(r)
-        // console.log(r)
-    })
-    .catch(err=>{
-        throw err
-    })
-})
-*/
 
 //---
 //save to draft
@@ -183,6 +163,8 @@ router.patch('/member/draft/save-draft/:id', (req, res)=>{
     let action = req.params.action
     let usrId = req.query.usrId
     let id = req.params.id
+
+    if(usrId === 'null') return;
 
     const output = {
         success: false,
@@ -222,9 +204,11 @@ router.patch('/member/draft/save-draft/:id', (req, res)=>{
 })
 //submit-draft
 router.patch('/member/draft/submit-draft/:id', (req, res)=>{
-    console.log("yay")
+
     let usrId = req.query.usrId
     let id = req.params.id
+
+    if(usrId === 'null') return;
 
     const output = {
         success: false,
@@ -257,6 +241,39 @@ router.patch('/member/draft/submit-draft/:id', (req, res)=>{
 
 })
 
+//hide story
+router.patch('/member/story/hide-story/:id', (req, res)=>{
+    let id = req.params.id
+    let usrId = req.query.usrId
+
+    if(usrId === 'null') return;
+
+    let sql = 'UPDATE `stories` SET `stryStatus`="hidden" WHERE `stryId`=? AND `usrId`=?';
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+//show story
+router.patch('/member/story/show-story/:id', (req, res)=>{
+    let id = req.params.id
+    let usrId = req.query.usrId
+
+    let sql = 'UPDATE `stories` SET `stryStatus`="active" WHERE `stryId`=? AND `usrId`=?';
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+
 //---
 //first submit editor content to draft
 router.post('/member/initiate-draft', (req, res)=>{
@@ -268,6 +285,9 @@ router.post('/member/initiate-draft', (req, res)=>{
     }
 
     let usrId = req.query.usrId
+
+    if(usrId === 'null') return;
+
     let sql = 'INSERT INTO `storyDrafts`(`usrId`, `drftTitle`, `drftStatus`, `drftContent`, `drftTags`) VALUES (?,?,?,?,?)';
 
     db.queryAsync(sql, [
@@ -292,6 +312,7 @@ router.post('/member/initiate-draft', (req, res)=>{
     })
     
 })
+
 //final submit editor content to stories
 router.post('/member/upload', (req, res)=>{
 
@@ -301,7 +322,10 @@ router.post('/member/upload', (req, res)=>{
         message: ''
     }
 
-    let usrId = req.query.usrId
+    let usrId = req.query.usrId;
+
+    if(usrId === 'null') return;
+
     let sql = 'INSERT INTO `stories`(`usrId`, `stryTitle`, `stryStatus`, `stryContent`, `stryTags`) VALUES (?, ?, ?, ?, ?)';
 
     db.queryAsync(sql, [
@@ -331,7 +355,9 @@ router.post('/member/upload', (req, res)=>{
 router.post('/reply/:id', (req, res)=>{
     console.log('submitting reply...')
     let rplyToId = req.query.toId || null;
-    let usrId = req.query.usrId
+    let usrId = req.query.usrId;
+
+    if(usrId === 'null') return;
 
     let stryId = req.params.id;
     let content = req.body.content;
@@ -360,6 +386,46 @@ router.post('/reply/:id', (req, res)=>{
     })
     .catch(err=>{
         console.log('failed to reply')
+        res.json(err)
+    })
+})
+
+
+//---
+//delete draft
+router.delete('/member/draft/:id', (req, res)=>{
+    let sql = 'DELETE FROM `storydrafts` WHERE `usrId` = ? AND `drftId` = ?';
+
+    let id = req.params.id;
+    let usrId = req.query.usrId;
+
+    if(usrId === 'null') return;
+
+    console.log(id, usrId)
+
+    db.queryAsync(sql, [usrId, id])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        console.log(err)
+        res.json(err)
+    })
+})
+//delete story
+router.delete('/member/story/:id', (req, res)=>{
+    let sql = 'DELETE FROM `stories` WHERE `usrId` =? AND `stryId` =?';
+
+    let id = req.params.id
+    let usrId = req.query.usrId
+    console.log(id, usrId)
+
+    db.queryAsync(sql, [usrId, id])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        console.log(err)
         res.json(err)
     })
 })
@@ -407,6 +473,9 @@ router.post('/api/editor-imgs',upload.array('image', 12), (req, res)=>{
     res.json(output)
 })
 
+
+//-------PUBLIC PAGES--------
+
 //update views of stories
 router.patch('/api/view-story/:id', (req, res)=>{
     console.log('adding view...')
@@ -421,8 +490,6 @@ router.patch('/api/view-story/:id', (req, res)=>{
     })
 })
 
-
-//-------PUBLIC PAGES--------
 
 //get replies to story
 router.get('/story/replies/:id', (req, res)=>{
@@ -468,7 +535,8 @@ router.get('/story/:id', (req, res)=>{
     .then(r=>{
         // console.log(r);
         r.forEach((elm)=>{
-            elm.stryFromNow = moment(elm.updated_at).fromNow()
+            // elm.stryFromNow = moment(elm.updated_at).fromNow()
+            elm.updated_at = moment(elm.updated_at).format('LL')
         })
         output.success = true;
         output.data = r;

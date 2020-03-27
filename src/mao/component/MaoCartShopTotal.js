@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import '../css/mao.scss'
+import '../css/MaoCartShopTotal.scss'
 import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
@@ -15,11 +16,12 @@ import MaoCouponBox from './MaoCouponBox'
 import { productList } from '../ProductList'
 import $ from 'jquery'
 import { FaTicketAlt } from 'react-icons/fa'
+import { TiDeleteOutline } from 'react-icons/ti'
 
 function MaoCartShopTotal(props) {
   const [shipping, setShipping] = useState(100)
   const [discount, setDiscount] = useState(0)
-
+  const [openCoupon, setOpenCoupon] = useState(true)
   let buyerTotal = 0
   function CalTotal() {
     buyerTotal = props.sTotal + shipping + discount
@@ -28,7 +30,13 @@ function MaoCartShopTotal(props) {
 
   let CheckrouteName = props.match.path
   function showCoupon() {
-    $('.Mao-couponBox').css({ opacity: 1, zIndex: 1 })
+    if (openCoupon) {
+      $('.Mao-couponBox').css({ opacity: 1, zIndex: 1 })
+      setOpenCoupon(false)
+    } else {
+      $('.Mao-couponBox').css({ opacity: 0 })
+      setOpenCoupon(true)
+    }
   }
 
   useEffect(() => {
@@ -57,37 +65,33 @@ function MaoCartShopTotal(props) {
       .on('mouseleave', () => {
         $('.Mao-total-box').css({ boxShadow: 'none' })
       })
-  }, [])
+  }, [CalTotal, props])
 
   useEffect(() => {
     CalTotal()
   }, [CalTotal, props.AddItem, props.sTotal])
 
- 
-  const changeCheckout=(
+  const changeCheckout = (
     <>
       <Link className="Mao-total-box-btn" to="/">
         <div className="Mao-total-show"></div>
-        繼續購物
+        <span style={{ zIndex: 999 }}>繼續購物</span>
       </Link>
-      <Link
-        className="d-flex justify-content-center align-items-center text-white bg-dark Mao-total-box-btn"
-        to="/OrderInfo"
-      >
+      <Link className="Mao-total-box-btn-black" to="/OrderInfo">
         {CheckrouteName == '/OrderInfo' ? '確認結帳' : '前往結帳'}
-        <div className="Mao-total-show"></div>
+        <div className="Mao-total-show-black"></div>
       </Link>
     </>
   )
-  const goshopNow=(
+  const goshopNow = (
     <>
       <Link className="Mao-total-box-btn" to="/">
-        <div className="Mao-total-show"></div>
+        <div className=".Mao-total-show-black"></div>
         繼續購物
       </Link>
     </>
   )
-  const stylechange={height:"390px"}
+  const stylechange = { height: '390px' }
   const NofixedDisplay = (
     <>
       <div className="Mao-total-box">
@@ -118,6 +122,16 @@ function MaoCartShopTotal(props) {
                 <FaTicketAlt />
                 <b className="mx-2">折價券帶入</b>
               </Link>
+              <div className="Mao-couponBox">
+                <TiDeleteOutline
+                  className="Mao-coupon-exit"
+                  onClick={() => {
+                    showCoupon()
+                  }}
+                />
+                <div style={{ margin: '15px' }}></div>
+                <div className="Mao-coupon-text">全館超殺優惠折扣</div>
+              </div>
             </div>
           </label>
         </div>
