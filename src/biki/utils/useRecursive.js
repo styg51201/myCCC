@@ -9,6 +9,7 @@ export const getRecursiveJson = (children, parents)=>{
     children.forEach(child=>{
         parents.some(parent=>{
             if(parent.rplyId === child.rplyTo){
+                child.rplyToName = parent.Name || parent.Account;
                 (parent.children || (parent.children = [])).push(child)
                 if(leftoutchildren.indexOf(child) !== -1){
                     leftoutchildren.splice(leftoutchildren.indexOf(child), 1)

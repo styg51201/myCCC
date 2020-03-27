@@ -1,4 +1,4 @@
-@import "../../css/variables.scss";
+@import '../../css/variables.scss';
 
 // h5 {
 //   color: $black;
@@ -36,6 +36,17 @@ h6.bk-white {
   @include buttonTheme(borderedStyle);
 }
 
+.bk-btn-grey {
+  @include buttonTheme(greyStyle);
+  border-color: $grey;
+}
+
+.bk-btn-grey-bordered {
+  @include buttonTheme(borderedStyle);
+  color: $grey;
+  border-color: $grey;
+}
+
 .bk-icon {
   font-size: 1.3rem;
 }
@@ -61,7 +72,7 @@ h6.bk-white {
     .swal2-success-ring {
       border-color: $blue;
     }
-    span[class^="swal2-success-line"] {
+    span[class^='swal2-success-line'] {
       background-color: $blue;
     }
   }
