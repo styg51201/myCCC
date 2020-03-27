@@ -58,12 +58,6 @@ function Home(){
 
         const mouseY = mouseRef.current.getBoundingClientRect().top
         const offsetMouse = mouseY - window.pageYOffset
-        
-        // const slideY = slideRef.current.getBoundingClientRect().top
-        // const offsetSlide = window.pageYOffset - slideY
-        // set({offsetSlide})
-        // console.log(offsetSlide)
-
 
         if(offsetMouse < 0){
             // console.log('hide mouse!')
@@ -107,7 +101,7 @@ function Home(){
 
     useInterval(()=>{
         setAdNum((adNum + 1)%arr.length)
-    }, 5000)
+    }, 3000)
 
     function useInterval(callback, delay) {
         const savedCallback = useRef();
@@ -141,6 +135,9 @@ function Home(){
         })
     }
 
+    useEffect(()=>{
+        console.log("current ad:", adNum)
+    }, [adNum])
 const parallax = useRef()
 
     return(
@@ -316,7 +313,7 @@ const parallax = useRef()
             title="WEARIBLE DEVICES" 
             titleCn="穿戴式裝置" 
             info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
-            img="./biki-img/MTP52_VW_PF+watch-40-alum-silver-nc-5s_VW_PF_WF_CO_GEO_TW_.png" 
+            img="./biki-img/wearible-devices.png" 
             bg="./biki-img/person-on-body-of-water-2104152_.jpg" 
             position="center"
             />
@@ -326,7 +323,7 @@ const parallax = useRef()
             title="EARPHONES / SPEAKERS" 
             titleCn="耳機/喇吧" 
             info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
-            img="./biki-img/000001_1572937548_.png" 
+            img="./biki-img/earphones-speakers.png" 
             bg="./biki-img/man-standing-on-the-end-of-the-rock-1908647_.jpg" 
             position="bottom"
             />  
@@ -336,7 +333,7 @@ const parallax = useRef()
             title="ACTION CAMERAS" 
             titleCn="運動攝影機" 
             info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
-            img="./biki-img/h8b-1366-2X.png" 
+            img="./biki-img/action-cameras.png" 
             bg="./biki-img/person-doing-parkour-exhibition-316769_.jpg" 
             position="bottom"
             />

@@ -72,7 +72,7 @@
 
   /* ----- ADS ----- */
   .bk-ads {
-    height: $bk-full-page;
+    height: $bk-full-page-RWD;
     min-height: $bk-container-min-height;
 
     .bk-ads-container {
@@ -395,9 +395,15 @@
   //------- COLLECTIONS ------
 
   .bk-collection {
-    height: $bk-full-page;
+    height: $bk-full-page-RWD;
     min-height: $bk-container-min-height;
     position: relative;
+
+    .bottom{
+      .react-parallax-bgimage{
+        height: 100vh !important;
+      }
+    }
 
     .bk-collection-content {
       padding: $spacing * 4 $spacing;

@@ -65,7 +65,7 @@ function Toolbar(props){
             {/* render inline styles buttons */}
                 {inlineStyles.map((item, idx)=>{
                     return (
-                    <button 
+                    <div role="button" 
                     className={ isActive(item.style) ? 'active' : "" }
                     key={`${item.label}-${idx}`} 
                     onClick = {(e)=>{
@@ -73,22 +73,22 @@ function Toolbar(props){
                     }}
                     >
                         {item.icon || item.label}
-                    </button>
+                    </div>
                     )
                 })}
 
-                <button onClick={props.confirmMedia}>
+                <div role="button" onClick={props.confirmMedia}>
                     <FiImage />
                     <form name="imgForm" ref={props.imgFormRef}>
                     <input name="image" type="file" ref={props.imgRef} onChange={props.fileOnChange} hidden multiple accept="image/*" />
                     </form>
-                </button>
+                </div>
 
             {/* render block styles buttons */}
 
                 {blockStyles.map((item, idx)=>{
                     return (
-                    <button 
+                    <div role="button" 
                     className={ item.style === blockType ? 'active' : "" }
                     onToggle={props.onToggle}
                     key={`${item.label}-${idx}`} 
@@ -98,7 +98,7 @@ function Toolbar(props){
                     }}
                     >
                         {item.icon || item.label}
-                    </button>
+                    </div>
                     )
                 })}
             </div>
