@@ -46,6 +46,11 @@ function MemberStoryReplies(props){
     }
 
     const handleSubmit = (replyTo, txtContent)=>{
+
+        if(!txtContent.trim().length){
+            return
+        }
+
         let url = `http://localhost:5500/stories/reply/${id}?usrId=${localStorage.getItem('userId')}` + (replyTo ? `&toId=${replyTo}` : '')
 
         axios({

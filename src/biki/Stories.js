@@ -74,7 +74,22 @@ function Stories(props){
     }, [sortName])
 
     const items =  stories.map((itm, idx)=>{
-        let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)))
+
+        let options = {
+            blockStyleFn: (block) => {
+                // console.log('block type:', block.type)
+                switch(block.type){
+                    case 'ALIGNLEFT':
+                        return {style:{textAlign: 'left'}}
+                    case 'ALIGNCENTER':
+                        return {style:{textAlign: 'center'}}
+                    case 'ALIGNRIGHT':
+                        return {style:{textAlign: 'right'}}
+                }
+            }
+          }
+
+        let story = stateToHTML(convertFromRaw(JSON.parse(itm.stryContent)), options)
 
         if(stories.length === idx+1){
             return (

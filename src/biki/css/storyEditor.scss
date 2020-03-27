@@ -66,11 +66,12 @@
 .bk-draft-toolbar {
   display: flex;
 
-  button {
+  div[role=button] {
     margin: $spacing/2;
     background-color: transparent;
     border: none;
     font-size: $icon-regular;
+    cursor: pointer;
 
     svg {
       stroke: $grey;

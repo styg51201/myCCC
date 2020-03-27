@@ -27,6 +27,7 @@ function Collection(props){
             </div>
             
             <Parallax 
+            className='bk-collection-parallax'
             style={{height: '100%'}}
             strength={200}
             bgImage={' '}

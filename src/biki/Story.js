@@ -40,7 +40,7 @@ function Story(props){
     }
 
     useEffect(()=>{
-        console.log(props)
+        
         let url = `http://localhost:5500/stories/story/${props.match.params.id}` //gets story
         let url2 = `http://localhost:5500/stories/api/view-story/${props.match.params.id}` //adds view
         let url3 = `http://localhost:5500/stories/story/replies/${props.match.params.id}` //gets replies
@@ -54,8 +54,23 @@ function Story(props){
         ])
         .then(axios.spread((...res)=>{
             console.log(res[2].data)
+
+            let options = {
+                blockStyleFn: (block) => {
+                    console.log('block type:', block.type)
+                    switch(block.type){
+                        case 'ALIGNLEFT':
+                            return {style:{textAlign: 'left'}}
+                        case 'ALIGNCENTER':
+                            return {style:{textAlign: 'center'}}
+                        case 'ALIGNRIGHT':
+                            return {style:{textAlign: 'right'}}
+                    }
+                }
+              }
+
             res[0].data.data.forEach(element => {
-                element.stryContent = stateToHTML(convertFromRaw(JSON.parse(element.stryContent)))
+                element.stryContent = stateToHTML(convertFromRaw(JSON.parse(element.stryContent)), options)
             });
 
             let arr = [] //沒有
@@ -82,7 +97,13 @@ function Story(props){
     }, [])
 
     const handleSubmit = (replyTo, txtContent)=>{
-        let url = `http://localhost:5500/stories/reply/${props.match.params.id}` + (replyTo ? `?toId=${replyTo}` : '') + (replyTo ? `&usrId=${localStorage.getItem('userId')}` : `?usrId=${localStorage.getItem('userId')}`)
+
+        //沒有內容不給發送
+        if(!txtContent.trim().length){
+            return;
+        }
+
+        let url = `http://localhost:5500/stories/reply/${props.match.params.id}` + (replyTo ? `?toId=${replyTo}` : '') + (replyTo ? `&usrId=${user}` : `?usrId=${user}`)
         // console.log(url)
 
         axios({
@@ -98,6 +119,7 @@ function Story(props){
                 text: '成功回覆',
                 showConfirmButton: true,
                 // timer: 1500,
+                buttonsStyling: false,
                 position:'center',
                 customClass: {
                     popup: 'bk-swl-popup',
