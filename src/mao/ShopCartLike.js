@@ -6,7 +6,6 @@ import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
-  getShopCart,
   AddCart,
   AddCartItem,
   DelCartItem,
@@ -15,27 +14,14 @@ import {
   ControlDataOne,
   AddCartNewItem_sendcal
 } from './actions/ShopCartAction'
-import {commidtyRANDItemId} from '../chin/actions/itemsActions'
-import { productList } from './ProductList'
+import './css/MaoAD.scss'
 import MemberSidebar from '../Irene/components/MemberSidebar'
 import {FaShoppingBasket,FaRegTrashAlt} from 'react-icons/fa'
 import { FiShoppingBag} from 'react-icons/fi'
+
 function ShopCartLike(props) {
-  console.log('I want to see the data from ShopCartLike==', props)
   const [favorloaded, setFavorloaded] = useState(false)
   const [newItem,setNewItem] =useState(false)
-
-  // 必打
-  useEffect(() => {
-    props.getShopCart()
-  }, [])
-
-  let RealCart = []
-  let checkBox = []
-  props.AddItem.map((v, i) => {
-    RealCart.push(v)
-    checkBox.push(v.itemId)
-  })
 
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
@@ -131,12 +117,10 @@ function ShopCartLike(props) {
 const mapStateToProps = store => {
   return {
     //購物車內容
-    data: store.getShop,
     AddItem: store.AddItem,
     Cart: store.displayShopCart,
     calculator: store.calculator,
     MyFavorite: store.MyFavorite,
-    getRANDitemid:store.getRANDitemid,
   }
 }
 
@@ -145,13 +129,12 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       ControlDataOne,
-      getShopCart,
       AddCart,
       AddCartItem,
       DelCartItem,
       CalShopCart,
       Handle_AddMyFavorite,
-      AddCartNewItem_sendcal,
+      AddCartNewItem_sendcal
     },
     dispatch
   )

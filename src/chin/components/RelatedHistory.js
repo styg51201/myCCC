@@ -1,5 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import Slider from "react-slick"
+//classnames
+import classNames from 'classnames'
 import {BrowserRouter as Router,Route,Link,Switch,withRouter} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -11,6 +13,9 @@ const itemsCategoryId = useSelector(state => state.getitemCategoryId)
 const dispatch = useDispatch()
 const dataname = props.data[0]?props.data[0].name:''
 const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
+const itemClassName = classNames('chin-historicalrecord', {
+  active:hisrelitem 
+})
 async function getItemToLocalStorage() {
 
   const currentHisitem = localStorage.getItem('hisitem') || []
@@ -108,9 +113,10 @@ async function getItemToLocalStorage() {
   
     return(
         <>
-        <div className="chin-historicalrecord">
+        <div className={itemClassName}>
           <button className="chin-hisrel1" onClick={()=>{setHisrelitem(false)}}>相關商品</button>
           <button className="chin-hisrel2" onClick={()=>{setHisrelitem(true)}}>歷史紀錄</button>
+          <div className="chin-borderbottom"></div>
         </div>
       <div className="chin-relatedproducts">
       {hisrelitem?
@@ -155,7 +161,7 @@ async function getItemToLocalStorage() {
       </Slider>
         :
         <Slider {...settings}>
-          {Itemhis.length < 3 ?
+          {Itemhis.length < 5 ?
             itemsCategoryId.map((val,ind)=>{
             return(<div className="chin-commodity2">
                       <div className="chin-commodity-item2">

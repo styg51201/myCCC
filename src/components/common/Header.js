@@ -20,7 +20,6 @@ import $ from 'jquery'
 
 function Header(props) {
   // console.log(props)
-
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [searchBlurTime, setSearchBlurTime] = useState(0)
@@ -193,14 +192,14 @@ function Header(props) {
             </div>
           </Link>
         )}
-        <Link to="/memberedit/ShopCartList">
+        <Link to="/member/ShopCartList">
           <img
             src="./img/header-footer/shopping-bag.svg"
             alt=""
             className="chin-three-position2"
           />
         </Link>
-        <Link to="/memberedit/ShopCartLike">
+        <Link to="/member/ShopCartLike">
           <img
             src="./img/header-footer/heart.svg"
             alt=""
@@ -277,12 +276,12 @@ function Header(props) {
             </ul>
           </div>
           <div className="nav-icons-wrapper">
-            <Link to="/memberedit/ShopCartList">
+            <Link to="/member/ShopCartList">
               <div className="nav-icons">
                 <FiShoppingBag />
               </div>
             </Link>
-            <Link to="/memberedit/ShopCartLike">
+            <Link to="/member/ShopCartLike">
               <div className="nav-icons">
                 <FiHeart />
               </div>

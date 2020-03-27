@@ -3,10 +3,7 @@ import { Link } from 'react-router-dom'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {
-  getShopCart,
-  AddCart,DelCart,
-  Handle_AddMyFavorite,
+import {DelCart,
   ControlDataOne,
   fromServerorderBuyerInfo,
   forServerorderProductInfo,
@@ -20,17 +17,7 @@ import $ from 'jquery'
 import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
-console.log('我想看這裡',props)
 
-  //結帳測試用的hook
-  const [values, setValues] = useState({
-    buyerName: '',
-    mobile: '',
-    buyerAdress: '台北市大安區',
-    invoice: '個人電子發票',
-    shipping: '7-11',
-    payment: '貨到付款',
-  })
 
   //錯誤傳達的資訊
   const [errors, setErrors] = useState({
@@ -46,6 +33,8 @@ console.log('我想看這裡',props)
 //統編開關
   const [opentaxNo, setOpentaxNo] = useState(false)
 
+  const [errorBox,setErrorBox]=useState([
+    'buyerName','mobile','invoice','shipping','payment'])
   const { getMonth, getYear } = GetDayRange()
 
   //訂單
@@ -104,25 +93,22 @@ console.log('我想看這裡',props)
     switch (str) {
       case 'buyerName':
         buyerInfo.buyerName = getInfo
-        setBuyerInfo({ ...buyerInfo, buyerName: getInfo })
-        if (getInfo.length == 0) {
+        if (getInfo.length === 0) {
           setErrors({ ...errors, buyerName: '名字不能空白' })
         } else if (/[0-9]|\W/.test(getInfo)) {
           setErrors({ ...errors, buyerName: '名字不能為數字或符號' })
-        } else if (getInfo.length < 2) {
-          setErrors({ ...errors, buyerName: '名字長度有誤' })
         } else {
           setErrors({ ...errors, buyerName: '' })
           let newErr=errorBox.filter(e=>e!=='buyerName')
           setErrorBox(newErr)
+          setBuyerInfo({ ...buyerInfo, buyerName: getInfo })
         }
-        setValues({ ...values, buyerName: getInfo })
         break
       case 'mobile':
         buyerInfo.mobile = getInfo
         setBuyerInfo({ ...buyerInfo, mobile: getInfo })
         // console.log(getInfo)
-        if (getInfo.length == 0) {
+        if (getInfo.length === 0) {
           setErrors({ ...errors, mobile: '電話號碼不能為空白' })
         } else if (!/^09[0-9]\d{7}$/.test(getInfo)) {
           setErrors({
@@ -134,57 +120,68 @@ console.log('我想看這裡',props)
           let newErr=errorBox.filter(e=>e!=='mobile')
           setErrorBox(newErr)
         }
-        setValues({ ...values, mobile: getInfo })
+        
         break
       case 'shipping':
         buyerInfo.shipping = getInfo2
-        if (getInfo2 == 'Seven-store') {
+        if (getInfo2 === 'Seven-store') {
           getInfo2 = '7-11'
           let newErr=errorBox.filter(e=>e!=='shipping')
           setErrorBox(newErr)
-        } else if (getInfo2 == 'HiLife') {
+          setErrors({...errors,shipping: ''})
+        } else if (getInfo2 === 'HiLife') {
           getInfo2 = '萊爾富'
           let newErr=errorBox.filter(e=>e!=='shipping')
           setErrorBox(newErr)
+          setErrors({...errors,shipping: ''})
+        }else{
+          setErrors({ ...errors, shipping: '' })
+          setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
         }
-        setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
-        setValues({ ...values, shipping: getInfo2 })
         break
       case 'payment':
         buyerInfo.payment = getInfo2
-        if(getInfo2=='COD'){
+        if(getInfo2==='COD'){
           getInfo2='貨到付款'
           let newErr=errorBox.filter(e=>e!=='payment')
           setErrorBox(newErr)
-        }else if(getInfo2=='CreditCard'){
+          setErrors({...errors,payment: ''})
+        }else if(getInfo2==='CreditCard'){
           getInfo2='CreditCard'
           let newErr=errorBox.filter(e=>e!=='payment')
           setErrorBox(newErr)
-        }else{
+          setErrors({...errors,payment: ''})
+        }else if(getInfo2==='ATM轉帳'){
           getInfo2='ATM轉帳'
           let newErr=errorBox.filter(e=>e!=='payment')
           setErrorBox(newErr)
-        }
+          setErrors({...errors,payment: ''})
+        }else{
+          setErrors({ ...errors, payment: '' })
         setBuyerInfo({ ...buyerInfo, payment: getInfo2 })
-        setValues({ ...values, payment: getInfo2 })
+        }
         break
       case 'invoice':
-        if(getInfo2=='personal-invoice'){
+        if(getInfo2==='personal-invoice'){
           getInfo2='個人電子發票'
           let newErr=errorBox.filter(e=>e!=='invoice')
           setErrorBox(newErr)
-        }else if(getInfo2=='donate'){
+          setErrors({...errors,invoice: ''})
+        }else if(getInfo2==='donate'){
           getInfo2='捐贈發票'
           let newErr=errorBox.filter(e=>e!=='invoice')
           setErrorBox(newErr)
-        }else{
+          setErrors({...errors,invoice: ''})
+        }else if(getInfo==='公司戶電子發票'){
           getInfo2='公司戶電子發票'
           let newErr=errorBox.filter(e=>e!=='invoice')
           setErrorBox(newErr)
-        }
-        buyerInfo.invoice = getInfo2
+          setErrors({...errors,invoice: ''})
+        }else{
+          setErrors({ ...errors, invoice: '' })
+          buyerInfo.invoice = getInfo2
         setBuyerInfo({ ...buyerInfo, invoice: getInfo2 })
-        setValues({ ...values, invoice: getInfo2 })
+        }
         break
       default:
         break
@@ -224,115 +221,7 @@ console.log('我想看這裡',props)
     setItemCategoryIdArr(itemCategoryIdArrBox)
     setCountArr(countArrBox)
   }
-//demo1帶入資料庫
-
-const demo1 = {
-  orderId: buyerInfo.orderId,
-  buyerName: 'Alex',
-  mobile: '0912345678',
-  payment: 'CreditCard',
-  shipping: 'Seven-store',
-  buyerAdress: '台北市大安 信興門市',
-  invoice: 'company',
-  taxNo: '',
-  total: sendTotal,
-  shipCost: '100',
-  discount: '0',
-}
-const demo2 = {
-  orderId: buyerInfo.orderId,
-  buyerName: 'Blex',
-  mobile: '0913755678',
-  payment: 'COD',
-  shipping: 'HiLife',
-  buyerAdress: '台北市大安 信興門市',
-  invoice: 'donate',
-  taxNo: '',
-  total: sendTotal,
-  shipCost: '100',
-  discount: '0',
-}
-const demo3 = {
-  orderId: buyerInfo.orderId,
-  buyerName: 'Clex',
-  mobile: '0912345558',
-  payment: 'COD',
-  shipping: 'Seven-store',
-  buyerAdress: '台北市大安 信興門市',
-  invoice: 'company',
-  taxNo: '',
-  total: sendTotal,
-  shipCost: '100',
-  discount: '0',
-}
-const demobox = [demo1, demo2, demo3]
-// shipsType
-const [shipType, setShipType] = useState(0)
-// paymentType
-const [paymentType, setPaymentType] = useState(0)
-// invoice
-const [invoiceType, setInvoiceType] = useState(0)
-const [demoType, setDemoType] = useState(0)
-
-//預設資料
-function getDemoOne(val) {
-  let newErr=[]
-  setErrorBox(newErr) 
-  setErrors(newErr)
-  $('#mobile').val(val.mobile)
-  $('#buyerName').val(val.buyerName)
-  if (val.shipping == 'Seven-store') {
-    setShipType(1)
-  } else {
-    setShipType(2)
-  }
-  if (val.payment == 'COD') {
-    setOpenCard(false)
-    setPaymentType(1)
-  } else if (val.payment == 'CreditCard') {
-    setPaymentType(2)
-    setOpenCard(true)
-  } else {
-    setOpenCard(false)
-    setPaymentType(3)
-  }
-  if (val.invoice == 'personal-invoice') {
-    setInvoiceType(1)
-    setOpentaxNo(false)
-  } else if (val.invoice == 'donate') {
-    setInvoiceType(2)
-    setOpentaxNo(false)
-  } else {
-    setInvoiceType(3)
-    setOpentaxNo(true)
-  }
-  setBuyerInfo(val)
-}
-//快速帶入購買人資訊
-const quickInsertInfo = demobox.map((v, i) => {
-  return (
-    <div className="custom-control custom-checkbox mr-3">
-      <input
-        type="checkbox"
-        className="custom-control-input"
-        id={`'quickInsertInfo${i}'`}
-        onClick={() => {
-          let trueDemo = i + 1
-          getDemoOne(v)
-          setDemoType(i + 1)
-        }}
-        //透過上方更改的demoType檢查 index值是否相符?如果相符怎數字才會相等
-        checked={demoType == i + 1 ? true : false}
-      />
-      <label
-        className="custom-control-label"
-        htmlFor={`'quickInsertInfo${i}'`}
-      >
-        訂購人資料組合 <b>{i + 1}</b>
-      </label>
-    </div>
-  )
-})
+  
   useEffect(() => {
     getRND()
     getorderProductInfo()
@@ -342,8 +231,6 @@ const quickInsertInfo = demobox.map((v, i) => {
   useEffect(() => {
     buyerInfo.orderId = order
   }, [ order])
-  const [errorBox,setErrorBox]=useState([
-    'buyerName','mobile','buyerAdress','invoice','shipping','payment'])
   useEffect(() => {
     console.log('buyerInfo2', buyerInfo)
     console.log('props', props)
@@ -351,16 +238,23 @@ const quickInsertInfo = demobox.map((v, i) => {
 
   //送出
   async function POSTorderInfo() {
-    if(errorBox==0){
+    let saveValueBox={
+      buyerName: '',
+      mobile: '',
+      buyerAdress: '',
+      invoice: '',
+      shipping: '',
+      payment: '',
+    }
+    if(errorBox===0){
       let noneObj = {}
+      setErrors(saveValueBox)
       //清理暫存
       await props.clearOrderBuyerproduct(noneObj)
       //送出購買人資訊
       await props.fromServerorderBuyerInfo(buyerInfo)
       await props.DelCart([])
-      console.log('pIdArr inFOR', pIdArr)
       for (let i = 0; i < pIdArr.length; i++) {
-        console.log('pIdArr', pIdArr[i])
         let proBox = {
           orderId: buyerInfo.orderId,
           name: `${nameArr[i]}`,
@@ -384,21 +278,7 @@ const quickInsertInfo = demobox.map((v, i) => {
         position: 'center',
       }) 
     }else{
-      // console.log('我是errorBox',errorBox)
-      let getKey=Object.keys(errors)
-      // console.log('我是keys',getKey)
-      let compareKey=getKey.findIndex(e=>e==errorBox)
-      // console.log('我是比較',compareKey)
-      let saveValueBox={
-        buyerName: '',
-        mobile: '',
-        buyerAdress: '',
-        invoice: '',
-        shipping: '',
-        payment: '',
-      }
-      getKey.map((v,i)=>{
-        
+      errorBox.map((v,i)=>{
         switch(v){
           case 'buyerName':
             saveValueBox.buyerName='名字不能空白'
@@ -414,6 +294,7 @@ const quickInsertInfo = demobox.map((v, i) => {
               break
             case 'payment':
               saveValueBox.payment='請選擇付款方式'
+              break
             case 'invoice':
               saveValueBox.invoice='請選擇發票類型'
               default:
@@ -421,7 +302,6 @@ const quickInsertInfo = demobox.map((v, i) => {
         }
       })
       setErrors(saveValueBox)
-      
       Swal.fire({
         position: 'top-end',
         icon: 'error',
@@ -436,6 +316,96 @@ const quickInsertInfo = demobox.map((v, i) => {
 useEffect(()=>{
   console.log('errors==',errors)
 },[errors])
+
+const shipType=[
+  {type:'7-11',name:'7-11超商'},
+  {type:'Hi-life',name:'萊爾富'},
+  {type:'Adress',name:'收貨地址'}
+]
+const shipTypeDOM=[]
+//寄送方式
+const shipTypeBox=shipType.map((v,i)=>{
+  shipTypeDOM.push(
+    <div className="custom-control custom-radio mr-5">
+    <input
+      type="radio"
+      className="custom-control-input"
+      name="checkshipping"
+      id={v.type}
+      onClick={e => {
+        getformInfo(e, 'shipping')
+        // setShipType(1)
+      }}
+      // checked={shipType == 1 ? true : false}
+    />
+    <label className="custom-control-label" htmlFor={v.type}>
+      {v.name}
+    </label>
+    {v.type=='Adress'?(<input type="text"/>):''}
+    
+  </div>
+  )
+})
+//付款方式
+const payType=[
+  {type:'COD',name:'貨到付款'},
+  {type:'CreditCard',name:'信用卡一次付清'},
+  {type:'ATM',name:'ATM轉帳'}
+]
+const payTypeDOM=[]
+const payTypeBox=payType.map((v,i)=>{
+  payTypeDOM.push(
+      <div className="custom-control custom-radio mr-5">
+    <input
+      type="radio"
+      className="custom-control-input"
+      name="payment"
+      id={v.type}
+      onChange={(e, str) => {
+        getformInfo(e, 'payment')
+      }}
+      onClick={() => {
+        setOpenCard(false)
+      }}
+    />
+    <label className="custom-control-label" htmlFor={v.type}>
+      {v.name}
+    </label>
+  </div>
+  )
+})
+
+//發票種類
+
+const invoiceType=[
+  {type:'personal-invoice',name:'個人電子發票'},
+  {type:'donate',name:'捐贈發票'},
+  {type:'company',name:'公司戶電子發票'}
+]
+const invoiceDOM=[]
+const invoiceBox=invoiceType.map((v,i)=>{
+  invoiceDOM.push(
+    <div className="custom-control custom-radio mr-5">
+<input
+  type="radio"
+  className="custom-control-input"
+  name="invoice"
+  id={v.type}
+  onClick={(e, str) => {
+    getformInfo(e, 'invoice')
+    setOpentaxNo(false)
+  }}
+/>
+<label
+  className="custom-control-label"
+  htmlFor={v.type}
+>
+  {v.name}
+</label>
+</div>
+  )
+})
+
   const CreditCardInfo = (
     <div id="creditCardInfo">
       <div className="form-row my-5  d-flex align-items-center">
@@ -523,9 +493,6 @@ useEffect(()=>{
       </div>
     </div>
   )
-
-  
-
   //表格
   return (
     <>
@@ -533,7 +500,7 @@ useEffect(()=>{
       <MaoAD />
       <div className="container my-3 d-flex" style={{ width: '1300px' }}>
         <div className="px-4 border bg-white p-3" style={{ width: '950px' }}>
-        <div className="d-flex">{quickInsertInfo}</div>
+        {/* <div className="d-flex">{quickInsertInfo}</div> */}
           <div className="form-row d-flex flex-column">
             <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
             <div className="col my-3">
@@ -547,17 +514,7 @@ useEffect(()=>{
                 onBlur={(e, str) => getformInfo(e, 'buyerName')}
                 onChange={(e, str) => getformInfo(e, 'buyerName')}
               />
-              {errors.buyerName == '名字不能為數字或符號' ? (
-                <p className="Mao-prompt-word">{errors.buyerName}</p>
-              ) : (
-                ''
-              )}
-              {errors.buyerName == '名字不能空白' ? (
-                <p className="Mao-prompt-word">{errors.buyerName}</p>
-              ) : (
-                ''
-              )}
-              {errors.buyerName == '名字長度有誤' ? (
+              {errors.buyerName !=='' ? (
                 <p className="Mao-prompt-word">{errors.buyerName}</p>
               ) : (
                 ''
@@ -574,12 +531,7 @@ useEffect(()=>{
                 onChange={(e, str) => getformInfo(e, 'mobile')}
                 onBlur={(e, str) => getformInfo(e, 'mobile')}
               />
-              {errors.mobile == '電話號碼不能為空白' ? (
-                <p className="Mao-prompt-word">{errors.mobile}</p>
-              ) : (
-                ''
-              )}
-              {errors.mobile == '電話號碼格式有誤，請以09xxxxxxxx輸入' ? (
+              {errors.mobile !== '' ? (
                 <p className="Mao-prompt-word">{errors.mobile}</p>
               ) : (
                 ''
@@ -604,52 +556,10 @@ useEffect(()=>{
               <h2 className="border-bottom p-3">運送方式</h2>
             </div>
             <div className="d-flex">
-              <div className="custom-control custom-radio mr-5">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="checkshipping"
-                  id="Seven-store"
-                  onClick={e => {
-                    getformInfo(e, 'shipping')
-                    setShipType(1)
-                  }}
-                  checked={shipType == 1 ? true : false}
-                />
-                <label className="custom-control-label" htmlFor="Seven-store">
-                  7-11超商
-                </label>
-                <Link to="/OrderInfo" className="ml-3">
-                  選擇門市
-                </Link>
-              </div>
-              <div className="custom-control custom-radio ">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="checkshipping"
-                  id="HiLife"
-                  onClick={e => {
-                    getformInfo(e, 'shipping')
-                    setShipType(2)
-                  }}
-                  checked={shipType == 2 ? true : false}
-                />
-                <label className="custom-control-label" htmlFor="HiLife">
-                  萊爾富
-                </label>
-                <Link to="/OrderInfo" className="ml-3">
-                  選擇門市
-                </Link>
-              </div>
+              {shipTypeDOM}
             </div>
           </div>
-              {errors.shipping == '請選擇取貨超商' ? (
-                <p className="Mao-prompt-word">{errors.shipping}</p>
-              ) : (
-                ''
-              )}
-              {errors.buyerAdress == '請選擇門市' ? (
+              {errors.buyerAdress !== '' ? (
                 <p className="Mao-prompt-word">{errors.buyerAdress}</p>
               ) : (
                 ''
@@ -661,65 +571,9 @@ useEffect(()=>{
               </h2>
             </div>
             <div className="d-flex">
-              <div className="custom-control custom-radio mr-5">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="payment"
-                  id="COD"
-                  onChange={(e, str) => {
-                    getformInfo(e, 'payment')
-                  }}
-                  onClick={() => {
-                    setOpenCard(false)
-                    setPaymentType(1)
-                  }}
-                  checked={paymentType == 1 ? true : false}
-                />
-                <label className="custom-control-label" htmlFor="COD">
-                  貨到付款
-                </label>
-              </div>
-              <div className="custom-control custom-radio mr-5">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="payment"
-                  id="CreditCard"
-                  onChange={(e, str) => {
-                    getformInfo(e, 'payment')
-                  }}
-                  onClick={() => {
-                    setOpenCard(true)
-                    setPaymentType(2)
-                  }}
-                  checked={paymentType == 2 ? true : false}
-                />
-                <label className="custom-control-label" htmlFor="CreditCard">
-                  信用卡一次付清
-                </label>
-              </div>
-              <div className="custom-control custom-radio">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="payment"
-                  id="ATM"
-                  onChange={(e, str) => {
-                    getformInfo(e, 'payment')
-                  }}
-                  onClick={() => {
-                    setOpenCard(false)
-                    setPaymentType(3)
-                  }}
-                  checked={paymentType == 3 ? true : false}
-                />
-                <label className="custom-control-label" htmlFor="ATM">
-                  ATM轉帳
-                </label>
-              </div>
+              {payTypeDOM}
             </div>
-          </div>{errors.payment == '請選擇付款方式' ? (
+          </div>{errors.payment !== '' ? (
                 <p className="Mao-prompt-word">{errors.payment}</p>
               ) : (
                 ''
@@ -731,65 +585,9 @@ useEffect(()=>{
                 發票
               </h2>
             </div>
-            {/* <div className="col-2">
-              <h4>發票</h4>
-            </div> */}
             <div className="d-flex ">
-              <div className="custom-control custom-radio mr-5">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="invoice"
-                  id="personal-invoice"
-                  onClick={(e, str) => {
-                    getformInfo(e, 'invoice')
-                    setOpentaxNo(false)
-                    setInvoiceType(1)
-                  }}
-                  checked={invoiceType == 1 ? true : false}
-                />
-                <label
-                  className="custom-control-label"
-                  htmlFor="personal-invoice"
-                >
-                  個人電子發票
-                </label>
-              </div>
-              <div className="custom-control custom-radio mr-5">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="invoice"
-                  id="donate"
-                  onClick={(e, str) => {
-                    getformInfo(e, 'invoice')
-                    setOpentaxNo(false)
-                    setInvoiceType(2)
-                  }}
-                  checked={invoiceType == 2 ? true : false}
-                />
-                <label className="custom-control-label" htmlFor="donate">
-                  捐贈發票
-                </label>
-              </div>
-              <div className="custom-control custom-radio">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  name="invoice"
-                  id="company"
-                  onClick={(e, str) => {
-                    getformInfo(e, 'invoice')
-                    setOpentaxNo(true)
-                    setInvoiceType(3)
-                  }}
-                  checked={invoiceType == 3 ? true : false}
-                />
-                <label className="custom-control-label" htmlFor="company">
-                  公司戶電子發票
-                </label>
-              </div>
-            </div> {errors.invoice == '請選擇發票類型' ? (
+              {invoiceDOM}
+            </div> {errors.invoice !== '' ? (
                 <p className="Mao-prompt-word">{errors.invoice}</p>
               ) : (
                 ''
@@ -800,20 +598,14 @@ useEffect(()=>{
           <div className="d-flex justify-content-center my-4">
             <Link
               to="./ShopCartList"
-              className="btn btn-light px-3 py-2 rounded-0 mx-2"
-              style={{
-                width: '30%',
-                background: '#fff',
-                border: '1px solid #000',
-              }}
+              className="Mao-order-Info-btn Mao-order-btn-color-white"
             >
               上一步
             </Link>
             <Link
               to={errorBox==0?"/Orderbill":"/OrderInfo"}
-              className="btn btn-danger px-3 py-2 rounded-0 mx-2"
+              className="Mao-order-Info-btn Mao-order-btn-color-black"
               id="sendOrder"
-              style={{ width: '30%', background: '#000', border: 'none' }}
               onClick={() => {
                 POSTorderInfo()
               }}
@@ -842,9 +634,6 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      getShopCart,
-      AddCart,
-      Handle_AddMyFavorite,
       ControlDataOne,
       fromServerorderBuyerInfo,
       forServerorderProductInfo,
