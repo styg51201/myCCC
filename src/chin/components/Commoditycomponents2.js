@@ -16,6 +16,8 @@ function Commoditycomponents(props){
   const CompareClassName = classNames('chin-commodity-item-compare', {
     active:compatrtrue 
   })
+
+  
   // const course = document.querySelector('.chin-commodity-item-compare').classList.add('chin-zzzzzzzzzz')
   // props.compare.length>4?CompareClassName:'chin-commmmmm'
   function itemsss(){
