@@ -69,13 +69,11 @@ const checkAlertType=showTpye=>{
         </p>
         <div className="chin-myfavourite-shopping">
           <div className="chin-myfavourite">
-          
             <div className="chin-shopping">
               <button  onClick={()=>{
                               props.AddCartNewItem_sendcal(props.data[0],props.AddItem) 
                               checkAlertType("加入購物車")
                             }}>加入購物車</button>
-              
               <Link to='/memberedit/ShopCartList' onClick={()=>{
                               props.AddCartNewItem_sendcal(props.data[0],props.AddItem) 
                               checkAlertType("加入購物車")
