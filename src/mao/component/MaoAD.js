@@ -8,7 +8,7 @@ function MaoAD(props) {
     setRouteName(props.match.path)
   }, [])
   useEffect(() => {
-    console.log(routeName)
+    // console.log(routeName)
   }, [routeName])
   return (
     <>

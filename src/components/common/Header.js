@@ -5,7 +5,6 @@ import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
-import ShopCartIcon from '../../mao/component/ShopCartIcon'
 //icons
 // import { IconContext } from 'react-icons'
 import {
@@ -65,18 +64,18 @@ function Header(props) {
   //     }
   //   })
 
-    // 會員登出功能
-    // $('.irene_member_logout').click(function() {
-    //   localStorage.removeItem('userdata')
-    //   localStorage.removeItem('userId')
-    //   window.location.replace('http://localhost:3000/memberlogin')
-    // })
+  // 會員登出功能
+  // $('.irene_member_logout').click(function() {
+  //   localStorage.removeItem('userdata')
+  //   localStorage.removeItem('userId')
+  //   window.location.replace('http://localhost:3000/memberlogin')
+  // })
   // }, [])
 
   const inputRef = useRef(null)
 
   const handleOpenSearch = () => {
-    if(new Date().getTime()-searchBlurTime > 300){
+    if (new Date().getTime() - searchBlurTime > 300) {
       if (!openSearch) {
         // console.log('handleOpenSearch', new Date().getTime()-searchBlurTime)
         setOpenSearch(true)
@@ -99,7 +98,7 @@ function Header(props) {
   const handleSearchBlur = evt => {
     console.log('handleSearchBlur', new Date().getTime())
     //console.log(evt.target)
-    
+
     setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')
@@ -157,7 +156,7 @@ function Header(props) {
         </Container>
       </div>
       <div>
-        {!memberstate ? ( 
+        {!memberstate ? (
           <Link to="/memberlogin">
             <img
               src="./img/header-footer/user.svg"
@@ -189,22 +188,20 @@ function Header(props) {
         ) : (
           ''
         )}
-        {/* <ShopCartIcon /> */}
-        {/* <Link to="/memberedit/ShopCartList">
+        <Link to="/memberedit/ShopCartList">
           <img
             src="./img/header-footer/shopping-bag.svg"
             alt=""
             className="chin-three-position2"
           />
-        </Link> */}
-        <Link  to="/memberedit/ShopCartLike">
-        <img
-          src="./img/header-footer/heart.svg"
-          alt=""
-          className="chin-three-position3"
-        />
         </Link>
-        
+        <Link to="/memberedit/ShopCartLike">
+          <img
+            src="./img/header-footer/heart.svg"
+            alt=""
+            className="chin-three-position3"
+          />
+        </Link>
       </div>
     </>
   )
@@ -274,13 +271,11 @@ function Header(props) {
             </ul>
           </div>
           <div className="nav-icons-wrapper">
-          
-        <ShopCartIcon />
-            {/* <Link to="/memberedit/ShopCartList">
+            <Link to="/memberedit/ShopCartList">
               <div className="nav-icons">
                 <FiShoppingBag />
               </div>
-            </Link> */}
+            </Link>
             <Link to="/memberedit/ShopCartLike">
               <div className="nav-icons">
                 <FiHeart />
