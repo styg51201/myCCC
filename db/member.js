@@ -3,13 +3,6 @@ const db = require(__dirname + '/db_connect')
 const router = express.Router()
 const multer = require('multer')
 
-router.get('/', (req, res) => {
-  let sql = 'SELECT * FROM `member`'
-  db.queryAsync(sql).then(r => {
-    return res.json(r)
-  })
-})
-
 //抓會員的account轉json在前端比對登入帳密
 router.get('/test', (req, res) => {
   // res.json(req.params)
@@ -103,6 +96,24 @@ router.post('/update', (req, res) => {
       console.log('更新錯誤:', error)
       return res.json(output)
     })
+})
+
+//抓會員訂單
+router.get('/searchorder/:account', (req, res) => {
+  // res.json(req.params)
+  let sql =
+    'SELECT * FROM `orderdetail` INNER JOIN `orderlist` ON orderdetail.orderId=orderlist.orderId WHERE mId=?'
+  db.queryAsync(sql, req.params.account).then(r => {
+    return res.json(r)
+  })
+})
+
+//撈所有會員資料(測試用)
+router.get('/', (req, res) => {
+  let sql = 'SELECT * FROM `member`'
+  db.queryAsync(sql).then(r => {
+    return res.json(r)
+  })
 })
 
 module.exports = router

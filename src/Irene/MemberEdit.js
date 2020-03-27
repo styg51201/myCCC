@@ -27,7 +27,7 @@ function MemberEdit(props) {
   memberaccount = JSON.parse(localStorage.getItem('userdata'))
   console.log(memberaccount.username)
   console.log(memberaccount.password)
-  //遇到資料undefined時解法，因為第1次先跑時抓到undefined，會擋住後面再跑。
+
   //設鉤子
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -37,6 +37,7 @@ function MemberEdit(props) {
   const [phonenumber, setPhonenumber] = useState('')
   const [address, setAddress] = useState('')
 
+  //遇到資料undefined時解法，因為第1次先跑時抓到undefined，會擋住後面再跑。
   let emaildefault = props.data[0] ? props.data[0].Email : ''
   let passworddefault = props.data[0] ? props.data[0].Pwd : ''
   let namedefault = props.data[0] ? props.data[0].Name : ''
@@ -76,7 +77,7 @@ function MemberEdit(props) {
   }, [addressdefault])
 
   useEffect(() => {
-    setAddress(phonenumberdefault)
+    setPhonenumber(phonenumberdefault)
   }, [phonenumberdefault])
 
   const account = memberaccount.username
