@@ -34,21 +34,19 @@ function DraftEditor(props){
     const [story, setStory] = useState([]) //for debouncing & checking content
     const [tags, setTags] = useState([])
     const [message, setMessage] = useState('')
-    const [usrId, setUsrId] = useState(null)
+    const [usrId, setUsrId] = useState(localStorage.getItem('userId'))
 
     const editorRef = useRef(null); //for focusing
     const imgRef = useRef(null)
     const imgFormRef = useRef(null)
-
-    useEffect(()=>{
-        setUsrId(localStorage.getItem('userId'))
-    }, [])
-
+    const tagsRef = useRef(null)
 
     //set editor content when Editor has content
     useEffect(()=>{
         let content = editorState.getCurrentContent()
         let newContent = convertToRaw(content);
+        console.log("new editor state!", newContent)
+
 
         if(newContent.blocks.length > 1 || newContent.blocks[0].text !== ''){
             setEditorContent(newContent)
@@ -90,12 +88,13 @@ function DraftEditor(props){
 
     const handleTitle = (e)=>{
         // console.log(e.target.value)
-        setTitle(e.target.value)
+        setTitle(e.target)
     }
 
     const handleTags = (e)=>{
         // console.log(e.target.value.split(' '))
-        setTags(e.target.value.split(' '))
+        console.log(tagsRef.current.innerText.split('#'))
+        setTags(tagsRef.current.innerText.split('#'))
     }
     
     // basically just sets state...
@@ -148,10 +147,10 @@ function DraftEditor(props){
         await setFoldername(data.foldername)
         
         for(let i = 0 ; i < data.url.length ; i++){
-            await console.log(data.url[i])
             await renderMedia(data.url[i], editorState, setEditorState, setUrlValue)
         }
     }
+
 
     //first submit to draft
     async function submitDraft(){
@@ -351,7 +350,13 @@ function DraftEditor(props){
                     }
                 })}</div>
                 <label>標籤</label>
-                <input type="text" onChange={handleTags} />
+                <div contentEditable='true' onInput={handleTags} ref={tagsRef}>
+                    {/* {!tags ? '' : tags.map((v, i)=>{
+                        if(v !== ''){
+                            return <TagBlock tag={v} key={`${v}-${i}`} />
+                        }
+                    })} */}
+                </div>
             </div>
             <div className="bk-draft-editor-container">
                 <div>
