@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { withRouter } from 'react-router'
-import '../css/MaoAD.scss'
 
 function MaoAD(props) {
   const [routeName, setRouteName] = useState('')
@@ -8,7 +7,7 @@ function MaoAD(props) {
     setRouteName(props.match.path)
   }, [])
   useEffect(() => {
-    // console.log(routeName)
+    console.log(routeName)
   }, [routeName])
   return (
     <>
@@ -17,7 +16,7 @@ function MaoAD(props) {
           <div className="Mao-line"></div>
           <div
             className={`Mao-circle ${
-              routeName == '/ShopCartList'
+              routeName == '/member/ShopCartList'
                 ? 'Mao-line-color-blue'
                 : 'Mao-line-color-grey'
             }`}

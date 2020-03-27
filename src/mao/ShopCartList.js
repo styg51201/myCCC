@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './css/mao.scss'
 import './css/ShopCartList.scss'
 import MaoCartShopTotal from './component/MaoCartShopTotal'
-import { withRouter, Link } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -14,43 +14,22 @@ import {
   Handle_AddMyFavorite,
   ControlDataOne
 } from './actions/ShopCartAction'
-import { productList } from './ProductList'
 import ProductSlide from './ProductSlide'
-import RelatedHistory from '../chin/components/RelatedHistory'
-import { FaRegTrashAlt ,FaShoppingBasket} from 'react-icons/fa'
+import { FaRegTrashAlt } from 'react-icons/fa'
 import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
+import './css/MaoAD.scss'
 import PicSlide from './component/PicSlide'
-import MaoMoveIcon from './MaoMoveIcon'
+// import MaoMoveIcon from './MaoMoveIcon'
+
 function ShopCartList(props) {
-  
   const [loaded, setLoaded] = useState(false)
-  const [forCart, setForCart] = useState(false)
   const [newItem,setNewItem] =useState(false)
 
   useEffect(() => {
     setLoaded(true)
-    setForCart(false)
   }, [])
 
-
-  let RealCart = [] //統整checkBox的品項，然後最後送至資料庫
-
-  //從資料庫叫出的購物車內容加入checkBox & RealCart
-  const ShopCartFromServer = props.AddItem.map((v, i) => {
-    let val = v.itemId
-    let count = v.count
-    RealCart.push({ itemId: val, count: count })
-  })
-
-  //驗證購物車作用的狀況
-  // const displayRealCart = RealCart.map((v, i) => {
-  //   return (
-  //     <li>
-  //       產品：{v.itemId} / 數量：{v.count}
-  //     </li>
-  //   )
-  // })
   // 購物車內容
   const dataList = props.AddItem.map((v, i) => {
     return (
@@ -117,14 +96,7 @@ function ShopCartList(props) {
               props.Handle_AddMyFavorite(true, v, props.MyFavorite)
             }}
           >
-            <FiHeart
-              style={{
-                width: '25px',
-                height: '25px',
-                marginRight: '15px',
-                marginLeft: '18px',
-              }}
-            />
+            <FiHeart className="Mao-btn-in-favor"/>
             <span>下次購買</span>
             <div className="Mao-btn-show"></div>
             <div className="Mao-btn-showL"></div>
@@ -134,24 +106,21 @@ function ShopCartList(props) {
     )
   })
   // 如果沒有購物車內沒有品項顯示的畫面
-  const CartNoItem = (
-    <div>
-      <MaoMoveIcon />
-      </div>
-  )
+  // const CartNoItem = (
+  //   <div>
+  //     <MaoMoveIcon />
+  //     </div>
+  // )
   const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
   const ADrand =<PicSlide />
   const [getCard,setGetCard]=useState(false)
-  useEffect(()=>{
-console.log(123)
-  },[getCard])
+
   return (
     <>
-      
       {props.AddItem.length > 0 ? <MaoAD /> : ''}
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
         <ul className="Mao-shopcart-check-item-ul">
-          {props.AddItem.length > 0 ? dataList : CartNoItem}
+          {props.AddItem.length > 0 ? dataList : ''}
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal /> : ADrand}
       </div>

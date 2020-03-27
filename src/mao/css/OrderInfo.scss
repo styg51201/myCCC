@@ -45,3 +45,21 @@
   border: none;
   border-bottom: 1px solid $grey;
 }
+
+.Mao-order-Info-btn{
+  width:30%;
+  padding:16px;
+  margin:14px 20px;
+  text-align: center;
+} 
+
+.Mao-order-btn-color-white{
+  background: $white;
+  border:1px solid $black;
+  color: $black;
+}
+.Mao-order-btn-color-black{
+  background: $black;
+  border:1px solid $black;
+  color: $white;
+}

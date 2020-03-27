@@ -17,38 +17,6 @@
     background: transparent;
   }
 }
-@keyframes "ADpic" {
-  0% {
-    background-image: url('/Mao-img/01.jpg');
-    height: 500px;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  25% {
-    background-image: url('/Mao-img/02.jpg');
-    height: 500px;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  50% {
-    background-image: url('/Mao-img/03.jpg');
-    height: 500px;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  75% {
-    background-image: url('/Mao-img/04.jpg');
-    height: 500px;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-  100% {
-    background-image: url('/Mao-img/05.jpg');
-    height: 500px;
-    background-size: cover;
-    background-repeat: no-repeat;
-  }
-}
 .Mao-shopcart-list {
   position: relative;
 }
@@ -210,6 +178,14 @@
     }
   }
 }
+
+.Mao-btn-in-favor{
+  width:25px;
+  height: 25px;
+  margin: 0px 15px 0px 18px;
+}
+
+
 .Mao-rand-AD-title {
   display: flex;
   justify-content: center;
@@ -233,6 +209,4 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
-  // animation: ADpic 10s;
-  // animation-iteration-count: infinite;
 }
