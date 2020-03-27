@@ -5,26 +5,33 @@
   padding: 0;
   margin: 0;
 }
-
 .memberloginindex {
-  height: 400px;
+  height: 380px;
+  margin-bottom: 80px;
 }
+
+// .irene-memberlogin-container {
+//   height: 300px;
+// }
 
 .memberlogin {
   .card {
     padding: 20px 30px 0px;
     border: none;
+    margin: 10px 10px;
+    // height: 250px;
   }
   input {
     border-top: 0px 0px 0px 1px;
   }
   label {
-    font-size: $font-x;
+    font-size: $font-m;
     text-align: center;
   }
 }
 
 .MemberLoginh3 {
+  font-size: $font-xl;
   border-bottom: 3px solid $blue;
   text-align: center;
 }

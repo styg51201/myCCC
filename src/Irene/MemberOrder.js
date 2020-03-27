@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  withRouter,
+} from 'react-router-dom'
 import { Form, Button, Table } from 'react-bootstrap'
 
 import MemberSidebar from './components/MemberSidebar'
@@ -9,13 +14,22 @@ import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { FaInfoCircle } from 'react-icons/fa'
 import $ from 'jquery'
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import { getServerMemberOrder } from './actions/memberAction'
 
-function MemberOrder() {
+function MemberOrder(props) {
+  console.log('props', props)
+  // console.log('orderdata', orderdata)
+
   const [startDate, setStartDate] = useState(new Date('2020/01/01'))
   const [endDate, setEndDate] = useState(new Date(new Date()))
-
+  let orderdata = props.data ? props.data : ' '
   useEffect(() => {
-    $('.memberorderdetail').click(() => alert('click'))
+    // $('.memberorderdetail').click(() => alert('click'))
+    props.getServerMemberOrder()
   }, [])
 
   return (
@@ -102,10 +116,9 @@ function MemberOrder() {
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
+                  <td>{orderdata[0].created_at}</td>
                   <td>
-                    {' '}
-                    訂單編號
+                    {orderdata[0].orderId}
                     <button
                       class="btn memberorderdetail"
                       type="button"
@@ -118,8 +131,10 @@ function MemberOrder() {
                       {/* 點選之後會彈出會員訂單詳細內容，for迴圈產生列 */}
                     </button>
                   </td>
-                  <td>Table cell</td>
-                  <td>Table cell</td>
+                  <td>{orderdata[0].outStatus}</td>
+                  <td>
+                    <button></button>
+                  </td>
                   <td>Table cell</td>
                 </tr>
               </tbody>
@@ -131,4 +146,21 @@ function MemberOrder() {
   )
 }
 
-export default MemberOrder
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return { data: store.getMemberOrder }
+}
+
+//action
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      getServerMemberOrder,
+    },
+    dispatch
+  )
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(MemberOrder)
+)
