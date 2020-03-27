@@ -109,3 +109,12 @@ export const saveOrderBuyerProReducer = (state = [], action) => {
       return state
   }
 }
+
+export const saveCoupon=(state=[],action)=>{
+  switch (action.type){
+    case 'SAVE_COUPON':
+      return action.value
+    default:  
+      return state
+  }
+}

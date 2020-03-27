@@ -20,12 +20,12 @@ import { FiHeart } from 'react-icons/fi'
 import MaoAD from './component/MaoAD'
 import './css/MaoAD.scss'
 import PicSlide from './component/PicSlide'
-// import MaoMoveIcon from './MaoMoveIcon'
+import MaoMoveIcon from './MaoMoveIcon'
 
 function ShopCartList(props) {
   const [loaded, setLoaded] = useState(false)
   const [newItem,setNewItem] =useState(false)
-
+  const currentHisitem = localStorage.getItem('hisitem') || []
   useEffect(() => {
     setLoaded(true)
   }, [])
@@ -39,9 +39,9 @@ function ShopCartList(props) {
           alt=""
           style={{ width: '100px', height: '100px' }}
         />
-        <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
+        <div className="Mao-shopcart-check-item-info">
           <p>{v.itemName}</p>
-          <div className="d-flex justify-content-between">
+          <div>
             <p style={{ width: '25%' }}>{v.itemPrice}</p>
             <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
               <button
@@ -106,21 +106,22 @@ function ShopCartList(props) {
     )
   })
   // 如果沒有購物車內沒有品項顯示的畫面
-  // const CartNoItem = (
-  //   <div>
-  //     <MaoMoveIcon />
-  //     </div>
-  // )
+  const CartNoItem = (
+    <div>
+      <MaoMoveIcon />
+      </div>
+  )
   const CartNoItemTotal = <div className="Mao-Total-Box-none"></div>
   const ADrand =<PicSlide />
   const [getCard,setGetCard]=useState(false)
 
   return (
     <>
-      {props.AddItem.length > 0 ? <MaoAD /> : ''}
+    
       <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
         <ul className="Mao-shopcart-check-item-ul">
-          {props.AddItem.length > 0 ? dataList : ''}
+          {props.AddItem.length > 0 ? dataList :
+      <MaoMoveIcon />}
         </ul>
         {props.AddItem.length > 0 ? <MaoCartShopTotal /> : ADrand}
       </div>

@@ -54,6 +54,18 @@
     z-index: 10;
   }
 }
+
+.Mao-shopcart-check-item-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 370px;
+  font-size: 18px;
+}
+.Mao-shopcart-check-item-info>div {
+  display: flex;
+  justify-content: space-between;
+}
 .Mao-Like-img-shoplist {
   width: 250px;
   height: 250px;
@@ -85,11 +97,11 @@
   height: 30px;
   overflow: hidden;
   border: 1px solid #ddd;
-  width: 130px;
+  width: 180px;
   input {
     outline: none;
     border: none;
-    width: 30px;
+    width: 80px;
     text-align: center;
     padding: 0px 10px;
   }

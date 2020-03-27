@@ -23,7 +23,7 @@ function ProductSlide(props) {
     dots: false,
     infinite: true,
     autoplay:true,
-    autoplaySpeed:2000,
+    autoplaySpeed:1000,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,

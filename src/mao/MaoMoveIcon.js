@@ -21,7 +21,7 @@ function MaoMoveIcon() {
     <Link to="/watch">
     <h3>趕快去尋找最愛的商品吧！</h3>
     </Link>
-      <FaShoppingBasket className="Mao-Like-img-shoplist bounce" />
+      <FaShoppingBasket className="Mao-Like-img-shoplist" />
     </div>
   )
   const [state, toggle] = useState(true)

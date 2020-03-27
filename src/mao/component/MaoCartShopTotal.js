@@ -12,8 +12,6 @@ import {
   calCart,
   CalShopCartTotal,
 } from '../actions/ShopCartAction'
-import MaoCouponBox from './MaoCouponBox'
-import { productList } from '../ProductList'
 import $ from 'jquery'
 import { FaTicketAlt } from 'react-icons/fa'
 import { TiDeleteOutline } from 'react-icons/ti'
@@ -64,8 +62,9 @@ function MaoCartShopTotal(props) {
       })
       .on('mouseleave', () => {
         $('.Mao-total-box').css({ boxShadow: 'none' })
-      })
-  }, [CalTotal, props])
+     })  
+     return 
+  }, [])
 
   useEffect(() => {
     CalTotal()
@@ -83,6 +82,7 @@ function MaoCartShopTotal(props) {
       </Link>
     </>
   )
+
   const goshopNow = (
     <>
       <Link className="Mao-total-box-btn" to="/">
@@ -92,6 +92,36 @@ function MaoCartShopTotal(props) {
     </>
   )
   const stylechange = { height: '390px' }
+
+  function calCoupon(value,type){
+    let newStotal=0
+    switch (type){
+      case 0:
+        newStotal=+props.sTotal-value
+        break
+      case 1:
+        newStotal=Math.round(props.sTotal*value)
+        break
+      case 2:
+        newStotal=props.sTotal-value
+        break
+      default:
+        break
+    }
+    props.calCart(newStotal)
+}
+
+  const couponType=[
+    {value:300,type:0,method:'現折',slogan:'全館商品現折300',amount:1},
+    {value:0.8,type:1,method:'折數',slogan:'指定產品 8折',amount:1},
+    {value:200,type:2,method:'現折',slogan:'限定品牌現折200',amount:1},
+  ]
+  const couponDOM=[]
+  const couponBox=couponType.map((v,i)=>{
+    couponDOM.push(
+      <div onClick={()=>{calCoupon(v.value,v.type)}} className="Mao-coupon-text">{v.slogan}</div>
+    )
+  })
   const NofixedDisplay = (
     <>
       <div className="Mao-total-box">
@@ -130,7 +160,9 @@ function MaoCartShopTotal(props) {
                   }}
                 />
                 <div style={{ margin: '15px' }}></div>
-                <div className="Mao-coupon-text">全館超殺優惠折扣</div>
+                <div className="Mao-coupon-text-box">
+                {couponDOM}
+                </div>
               </div>
             </div>
           </label>
@@ -161,7 +193,6 @@ function MaoCartShopTotal(props) {
               {/* 活動折扣 */}
               <div className="Mao-total-coupon-fixed">
                 <span className="mx-4">
-                  {' '}
                   <b>活動折扣</b>
                   {discount}
                 </span>
@@ -207,7 +238,6 @@ function MaoCartShopTotal(props) {
     <>
       {fixedDisplay}
       {NofixedDisplay}
-      <MaoCouponBox />
     </>
   )
 }
