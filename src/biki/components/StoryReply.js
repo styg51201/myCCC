@@ -7,6 +7,7 @@ function StoryReply(props){
     const [txtContent, setTxtContent] = useState('')
     const [showReplyTo, setShowReplyTo] = useState(false)
     const [replyTo, setReplyTo] = useState(null)
+    const [user, setUser] = useState(localStorage.getItem('userId'))
 
     const {
         rows, 
@@ -17,7 +18,9 @@ function StoryReply(props){
     useEffect(()=>{
         if(props.openRplyTo !== props.id){
             setShowReplyTo(false)
-            setTxtContent('')
+            if(user){
+                setTxtContent('')
+            }
         }
     }, [props.openRplyTo])
 
@@ -27,7 +30,11 @@ function StoryReply(props){
     }
 
     const handleToggleShow = (id)=>{
-        if(showReplyTo) setTxtContent('')
+        if(showReplyTo && user){
+            setTxtContent('')
+        }else{
+            setReplyTo(id)
+        }
         setShowReplyTo(!showReplyTo)
     }
 
@@ -35,8 +42,13 @@ function StoryReply(props){
 
     return (
         <div className="bk-story-replies" id={props.id} ref={rplyRef}>
+            <div className='bk-txt-small rply-to'>
+                {props.data.toName ? `回覆給 ${props.data.toName}` : ''}
+            </div>
             <div className='bk-rply-head'>
-                <div>image</div>
+                <div className='bk-rply-user-img'>
+                    <img src={props.data.img ? props.data.img : '/biki-img/SVG/user.svg'} />
+                </div>
                 <div>
                     {props.data.name || props.data.account} <br />
                     {props.data.fromNow}
@@ -58,18 +70,27 @@ function StoryReply(props){
             <div className={`bk-reply-textarea${!showReplyTo ? ' hidden' : ''}`}>
                 <textarea 
                     rows={rows}
-                    value={txtContent} 
+                    value={user ? txtContent : '請先登入才能回復'} 
                     onChange={(evt)=>{
                         handleRows(evt);
                         handleChange(props.data.id, evt);
                     }} 
                     onKeyDown={handleKey}
+                    disabled={user ? false : true}
                 ></textarea>
                 <div className='bk-reply-btn-group'>
-                    <button onClick={handleToggleShow}>取消</button>
-                    <button onClick={()=>{
+                    <button 
+                    onClick={handleToggleShow} 
+                    className={user ? 'bk-btn-black-bordered' : 'bk-btn-grey-bordered'}
+                    disabled={user ? false : true}
+                    >取消</button>
+                    <button 
+                    onClick={()=>{
                         props.handlers.submit(replyTo, txtContent)
-                    }}>回覆</button>
+                    }}
+                    className={user ? '' : 'bk-btn-grey'}
+                    disabled={user ? false : true}
+                    >回覆</button>
                 </div>
             </div>
         </div>

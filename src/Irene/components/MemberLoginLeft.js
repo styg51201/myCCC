@@ -50,7 +50,7 @@ function MemberLoginLeft(props) {
         ''
       )}
       <div className="row my-2 memberlogin">
-        <div className="card col" style={{ borderRight: '1px solid #ddd' }}>
+        <div className="card col">
           <h3 className="MemberLoginh3">Sign In 登入</h3>
           <form>
             <div className="row my-2">

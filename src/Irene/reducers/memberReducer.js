@@ -31,3 +31,13 @@ export const updateMember = (state = [], action) => {
       return state
   }
 }
+
+//得到會員訂單資料
+export const getMemberOrder = (state = [], action) => {
+  switch (action.type) {
+    case 'SHOW_MEMBERORDER':
+      return { ...action.data }
+    default:
+      return state
+  }
+}

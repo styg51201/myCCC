@@ -147,6 +147,7 @@ function Story(props){
                         id: elm.rplyId,
                         content: elm.rplyContent,
                         to: elm.rplyToId,
+                        toName: elm.rplyToName,
                         fromNow: elm.fromNow,
                         date: elm.rplyUpdate
                     }}
@@ -166,9 +167,19 @@ function Story(props){
         return (
             <>
                 <div className="bk-story-head">
-                    <div className='title'>{data[0].stryTitle}</div>
-                    <div className='name'>{data[0].Name || data[0].Account}</div>
-                    <div className='date'>{data[0].stryFromNow}</div>
+                    <div className='bk-story-container'>
+                        <div className='title'>{data[0].stryTitle}</div>
+                        <div className='user'>
+                            <div className='img'>
+                                <img src={data[0].Img ? data[0].Img : '/biki-img/SVG/user.svg'} />
+                            </div>
+                            <div>
+                                <div className='name'>{data[0].Name || data[0].Account}</div>
+                                <div className='date'>{data[0].updated_at}</div>
+                            </div>
+                        </div>
+                        
+                    </div>
                 </div>
                 <div className="bk-story-wrapper">
                     <div className='bk-story-container'>
@@ -181,15 +192,22 @@ function Story(props){
                     <div className='bk-reply-container'>
                         <div className="bk-story-reply">
                             <label>留言</label>
-                            <textarea rows={rows} onChange={(evt)=>{
+                            <textarea 
+                            rows={rows} 
+                            onChange={(evt)=>{
                                 handleRows(evt);
                                 handleChange(null, evt)
-                            }} onKeyDown={handleKey} />
+                            }} 
+                            onKeyDown={handleKey} 
+                            disabled={user ? false : true}
+                            defaultValue={user ? '' : '請先登入才能回復'}
+                            />
                             <button 
-                            className="bk-btn-black" 
+                            className={user ? 'bk-btn-black' : 'bk-btn-grey'} 
                             onClick={()=>{
                                 handleSubmit(replyTo, txtContent)
                             }}
+                            disabled={user ? false : true}
                             >回覆</button>
                         </div>
                         <div className='bk-recursive-replies-container'>
