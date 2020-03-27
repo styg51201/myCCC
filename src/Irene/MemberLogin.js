@@ -7,7 +7,7 @@ function MemberLogin(props) {
   return (
     <>
       <div className="d-flex row memberloginindex">
-        <div className="col card">
+        <div className="col card irene-memberlogin-container">
           <MemberLoginLeft />
         </div>
         <div className="col card">

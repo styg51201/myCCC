@@ -74,12 +74,17 @@ function Header(props) {
 
   const inputRef = useRef(null)
 
+  useEffect(()=>{
+    console.log(openSearch)
+  }, [openSearch])
+
   const handleOpenSearch = () => {
     if (new Date().getTime() - searchBlurTime > 300) {
       if (!openSearch) {
-        // console.log('handleOpenSearch', new Date().getTime()-searchBlurTime)
         setOpenSearch(true)
         inputRef.current.focus()
+      }else{
+        inputRef.current.blur()
       }
     }
   }
@@ -90,15 +95,14 @@ function Header(props) {
         //console.log('沒有值')
         return
       }
+      setSearchBlurTime(new Date().getTime())
       setOpenSearch(false)
+      inputRef.current.blur()
       props.history.push(`/search?key=${evt.target.value}`)
     }
   }
 
   const handleSearchBlur = evt => {
-    console.log('handleSearchBlur', new Date().getTime())
-    //console.log(evt.target)
-
     setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')
@@ -220,9 +224,10 @@ function Header(props) {
               <div
                 role="button"
                 className="bk-search"
+                onClick={handleOpenSearch}
                 //ref={searchRef}
               >
-                <FiSearch onClick={handleOpenSearch} />
+                <FiSearch />
                 <input
                   type="text"
                   className={openSearch ? 'active' : ''}

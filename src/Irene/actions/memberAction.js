@@ -141,9 +141,44 @@ export const updateServerMember = val => {
     console.log('updata', data)
     dispatch(updateMember(data))
     if (data.result.affectedRows) {
-      Swal.fire('更新成功!')
+      Swal.fire({
+        icon: 'success',
+        title: '更新成功!',
+        timer: 2000,
+      })
     } else {
       // alert('無成功更新')
     }
+  }
+}
+
+//回傳訂單資料跟server要會員的訂單資料
+export const getMemberOrder = userData => ({
+  type: 'SHOW_MEMBERORDER',
+  data: userData,
+})
+
+export const getServerMemberOrder = () => {
+  const accountId = localStorage.getItem('userId')
+  // console.log('account', account)
+  return async dispatch => {
+    const request = new Request(
+      'http://localhost:5500/member/searchorder/' + accountId,
+      {
+        method: 'GET',
+        credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+      }
+    )
+    console.log('account', accountId)
+    // console.log('userData', userData)
+    const res = await fetch(request)
+    const data = await res.json()
+    console.log('the', data)
+
+    dispatch(getMemberOrder(data))
   }
 }

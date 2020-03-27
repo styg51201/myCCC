@@ -22,9 +22,8 @@ import {
   getItemNamehis,
   getitemCategoryId,
   getItemscompare,
-  getcompare,
-  showDiscount
-
+  //getcompare,
+  showDiscount,
 } from '../chin/reducer/itemsReducer'
 
 //mao
@@ -37,9 +36,15 @@ import {
   ControlDataState,
   getOrderBuyer,
   saveOrderBuyerInfoReducer,
-  saveOrderBuyerProReducer,getRANDitemid
+  saveOrderBuyerProReducer,
+  getRANDitemid,
 } from '../mao/reducers/ShopCartReducer'
-import { getMemberID, member } from '../Irene/reducers/memberReducer'
+import {
+  getMemberID,
+  member,
+  updateMember,
+  getMemberOrder,
+} from '../Irene/reducers/memberReducer'
 
 //老師範例
 // 第一步：建立reducer
@@ -89,9 +94,11 @@ const rootReducer = combineReducers({
   getOrderBuyer,
   saveOrderBuyerInfoReducer,
   saveOrderBuyerProReducer,
-  //
+  //member
   member,
   getMemberID,
+  updateMember,
+  getMemberOrder,
 })
 
 export { rootReducer }

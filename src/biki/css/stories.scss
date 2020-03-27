@@ -1,5 +1,6 @@
-@import "../../css/variables.scss";
-@import "../css/all.scss";
+@import '../../css/variables.scss';
+@import '../css/all.scss';
+@import './myVars.scss';
 
 .bk-tmp-img {
   width: 50px;
@@ -39,7 +40,7 @@
 
     &.bk-collapse {
       &:after {
-        content: "";
+        content: '';
         font-size: $font-m;
         font-weight: $font-bold;
         text-align: center;
@@ -81,6 +82,13 @@
     background-color: $grey;
     border-radius: 50%;
     margin-right: $spacing;
+    overflow: hidden;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
   }
 }
 
@@ -114,6 +122,7 @@
 
     span:nth-child(1) {
       font-size: $font-x;
+      letter-spacing: $bk-letter-spacing;
       margin-right: $spacing;
     }
     span:nth-child(2) {
@@ -133,7 +142,7 @@
   text-align: right;
   cursor: pointer;
 
-  div[role="button"] {
+  div[role='button'] {
     padding: 0 $spacing;
   }
 
@@ -163,38 +172,58 @@
 }
 
 .bk-story-head {
-  text-align: center;
+  // text-align: center;
   padding: $spacing * 3;
 
   .title {
     font-size: $font-xl;
     font-weight: $font-bold;
   }
-  .name {
+  .user {
     margin-top: $spacing;
-    font-size: $font-m;
-    font-weight: $font-bold;
+    display: flex;
+    align-items: center;
+
+    .img {
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: $spacing;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    .name {
+      // margin-top: $spacing;
+      font-size: $font-m;
+      font-weight: $font-bold;
+    }
   }
   .date {
     font-size: $font-xs;
   }
 }
 
+.bk-story-container {
+  //因為head跟content共用，所以拉出來
+  margin: 0 auto;
+  width: 75%;
+  max-width: 680px;
+}
+
 .bk-story-wrapper {
   background-color: $white;
 
-  .bk-story-container {
-    margin: 0 auto;
-    width: 75%;
-    max-width: 680px;
+  .bk-story-content {
+    overflow: hidden;
+    padding: $spacing * 6 0;
 
-    .bk-story-content {
-      overflow: hidden;
-      padding: $spacing * 6 0;
-
-      img {
-        width: 100%;
-      }
+    img {
+      width: 100%;
     }
   }
 }
@@ -250,8 +279,9 @@
     height: auto;
     background-color: transparent;
     border: none;
-    border-bottom: solid 1px $black;
-    padding: $spacing 0;
+    border-bottom: solid 1px rgba($black, 0.3);
+    padding-top: $spacing;
+    // padding: $spacing/2 0;
 
     &:focus {
       outline: none;
@@ -294,12 +324,30 @@
   }
 
   .bk-story-replies {
-    padding: $spacing * 3;
+    padding: $spacing * 2;
     margin-top: $spacing * 2;
     background-color: rgba($white, 0.5);
 
+    .rply-to {
+      margin-bottom: $spacing;
+    }
+
     .bk-rply-head {
       display: flex;
+
+      .bk-rply-user-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin: 0 $spacing $spacing 0;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
     }
 
     .bk-rply-body {
@@ -311,7 +359,7 @@
       justify-content: flex-end;
       color: $grey;
 
-      div[role="button"] {
+      div[role='button'] {
         cursor: pointer;
       }
     }
@@ -320,10 +368,6 @@
 
 // ----- MEMBER STORY LIST PAGE ------
 
-.bk-stry-icons {
-  margin-right: $spacing/2;
-}
-
 .bk-story-list {
   li {
     display: flex;
@@ -331,9 +375,14 @@
     align-items: center;
     list-style: none;
     // margin-top: $spacing;
-    padding: $spacing 0;
+    padding: $spacing * 1.5 0;
     border-bottom: solid 1px $background;
     // cursor: pointer;
+
+    &.inactive {
+      // background-color: $grey;
+      opacity: 0.3;
+    }
 
     &:nth-child(1) {
       margin-top: $spacing * 2;
@@ -344,19 +393,40 @@
     //   background-color: $background;
     // }
 
-    .bk-story-li-content > div {
-      margin: $spacing/2 0;
+    .bk-story-li-content {
+      width: 100%;
+      word-wrap: break-word;
 
-      &:nth-last-child(1) {
-        margin-bottom: 0;
+      .bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .stats {
+          .bk-stry-icons {
+            margin-right: $spacing/2;
+          }
+        }
+        .funcs {
+          display: flex;
+
+          > div[role='button'] {
+            margin-left: $spacing/2;
+            cursor: pointer;
+
+            a {
+              color: $black;
+            }
+          }
+        }
       }
-    }
 
-    .bk-story-li-fn {
-      text-align: right;
+      & > div {
+        margin: $spacing/2 0;
 
-      button {
-        margin-left: $spacing;
+        &:nth-last-child(1) {
+          margin-bottom: 0;
+        }
       }
     }
   }

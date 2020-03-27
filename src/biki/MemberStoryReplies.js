@@ -90,6 +90,7 @@ function MemberStoryReplies(props){
                     }}
                     data={{
                         name: elm.Name,
+                        account: elm.Account,
                         img: elm.Image,
                         id: elm.rplyId,
                         content: elm.rplyContent,
@@ -128,7 +129,7 @@ function MemberStoryReplies(props){
                     </div>
                     <div className="bk-recursive-replies-container bk-reply-page">
                         {!data.length ? 
-                        <div className="bk-story-replies" style={{background: 'transparent'}}>暫時沒有留言'</div> 
+                        <div className="bk-story-replies" style={{background: 'transparent'}}>暫時沒有留言</div> 
                         :
                          mapRecursive(data) }
                     </div>

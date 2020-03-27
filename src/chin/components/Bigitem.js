@@ -16,26 +16,22 @@ function Bigitem(props) {
 
     const { className, style, onClick } = props
     return (
-      <div className="chin-cir">
         <img
           src="/chin-img/chevron-left.svg"
           className="chin-arr"
           onClick={onClick}
         />
-      </div>
     )
   }
   function SampleNextArrow(props) {
 
     const { className, style, onClick } = props
     return (
-      <div className="chin-cir2">
         <img
           src="/chin-img/chevron-right.svg"
           className="chin-arr2"
           onClick={onClick}
         />
-      </div>
     )
   }
   const settingCarousel = {
