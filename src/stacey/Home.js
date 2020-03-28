@@ -56,9 +56,13 @@ function Home(props2){
         }
     }, [])
 
+    
+
     //廣告分類
     let adForAll= []
     let adForGroup= []
+    let adFilterGroup= []
+
     for(let i = 0 ; i < props2.adData.length;i++){
         if(props2.adData[i].planGroup){
             adForGroup.push(props2.adData[i])
@@ -66,8 +70,25 @@ function Home(props2){
             adForAll.push(props2.adData[i])
         }
     }
-    console.log('all',adForAll)
-    console.log('group',adForGroup)
+    //取得會員id
+    const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+    //取得瀏覽紀錄
+    const hisItem = localStorage.getItem('hisitem') ? JSON.parse(localStorage.getItem('hisitem') ) : []
+
+    console.log('hisItem',hisItem)
+
+    for(let i = 0 ; i < adForGroup.length;i++){
+        if(adForGroup[i].groupHistoryItems){
+        //    let adConfirm = hisItem.some((val,ind)=> val.name === adForGroup[i].planUsername) 
+        //     if(adConfirm) adGroup.push(adForGroup[i]) 
+            if( hisItem.some((val,ind)=> val.name === adForGroup[i].planUsername) ) adFilterGroup.push(adForGroup[i]) 
+        } 
+    }
+   
+    console.log('adFilterGroup',adFilterGroup)
+
+
+    props2.adData.length ? ( mb_id ? console.log('adFilterGroup',adFilterGroup) : console.log('all',adForAll)) : console.log('還沒資料')
 
 
 
