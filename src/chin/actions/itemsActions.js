@@ -124,7 +124,6 @@ export const ListItemName = (obj, val) => {
     return { type: 'ITEMNAME_VALUE', value: [obj.name, ...val] }
   } else {
     let ind = val.indexOf(obj.name)
-    //有空可以解bug => 只用splice失靈??? 一定要splice+map
     val.splice(ind, 1)
     let newList = val.map((val, ind) => {
       if (val !== obj.name) {
@@ -147,14 +146,6 @@ export const ListItemPrice = (obj,val)=>{
   }
 }
 //-----itemscompare------------------------
-export const Selectcompare = value => ({ type: 'SELECT_ITEMSCOMPARE', value: value })
-export const SelectItemscompare = (data) => {
-  // console.log(data)
-  return dispatch => {
-    // console.log(data)
-    dispatch(Selectcompare(data))
-  }
-}
 
 export const ItemscompareNocompare = value => ({ type: 'NP_COMPARE', value: value })
 export const ItemscompareNo = (val, product, data) => {
@@ -185,3 +176,22 @@ export const ItemscompareNo = (val, product, data) => {
     const newdata = []
     return { type: 'ITEMNAME_RESETCOM', value: newdata }
   }
+
+//---------------comparepages--------------------------
+export const showComparepages = val => {
+  return { type: 'SHOW_COMPAREPAGES', value: val }
+}
+//跟node要comparepages資料
+export const formServercomparepagesData = val => {
+  return async dispatch => {
+    const request = new Request(`http://localhost:5500/items/comparepages/${val}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+
+    console.log('comparepages', data)
+    dispatch(showComparepages(data))
+  }
+}

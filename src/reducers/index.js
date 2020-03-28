@@ -24,6 +24,7 @@ import {
   getItemscompare,
   //getcompare,
   showDiscount,
+  getComparepages,
 } from '../chin/reducer/itemsReducer'
 
 //mao
@@ -83,6 +84,7 @@ const rootReducer = combineReducers({
   getItemscompare,
   // getcompare,
   showDiscount,
+  getComparepages,//chin
   //--------- ShopCart------------
   AddItem,
   getRANDitemid,

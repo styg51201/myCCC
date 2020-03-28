@@ -57,7 +57,6 @@ router.get('/multiple_images/:itemId?',(req,res)=>{
  })
 router.get('/itemhis/:name?',(req,res)=>{
     let sql='SELECT * FROM `items` WHERE `name` = ?'
-    console.log(req.params)
     db.queryAsync(sql,[req.params.name])
     .then(r=>{
         return res.json(r)
@@ -65,8 +64,15 @@ router.get('/itemhis/:name?',(req,res)=>{
 })
 router.get('/itemCategoryId/:itemCategoryId?',(req,res)=>{
     let sql='SELECT * FROM `items` WHERE `itemCategoryId` = ?'
-    console.log(req.params)
     db.queryAsync(sql,[req.params.itemCategoryId])
+    .then(r=>{
+        return res.json(r)
+    })
+})
+router.get('/comparepages/:itemId?',(req,res)=>{
+    let sql='SELECT * FROM `allhardware` WHERE `itemId` = ?'
+    console.log(req.params)
+    db.queryAsync(sql,[req.params.itemId])
     .then(r=>{
         return res.json(r)
     })
