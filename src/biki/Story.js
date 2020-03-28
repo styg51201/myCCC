@@ -11,6 +11,12 @@ import StoryReply from './components/StoryReply'
 import useTextareaRows from './utils/useTextareaRows'
 import {getRecursiveJson} from './utils/useRecursive'
 
+import {
+    FiThumbsUp,
+    FiMessageSquare,
+    FiEye
+  } from 'react-icons/fi'
+
 import './css/stories.scss'
 
 function Story(props){
@@ -21,6 +27,8 @@ function Story(props){
     const [user, setUser] = useState(localStorage.getItem('userId'))
     const [txtContent, setTxtContent] = useState('')
     const [replyTo, setReplyTo] = useState(null)
+    const [like, setLike] = useState(false)
+    const [likeNum, setLikeNum] = useState(0)
 
     const [openRplyTo, setOpenRplyTo] = useState(null)
 
@@ -44,20 +52,26 @@ function Story(props){
         let url = `http://localhost:5500/stories/story/${props.match.params.id}` //gets story
         let url2 = `http://localhost:5500/stories/api/view-story/${props.match.params.id}` //adds view
         let url3 = `http://localhost:5500/stories/story/replies/${props.match.params.id}` //gets replies
+        let url4 = `http://localhost:5500/stories//member/like/${props.match.params.id}?usrId=${user}` //gets like or not
         // console.log(props.location.search)
         console.log(url3)
 
         axios.all([
             axios.get(url),
             axios.patch(url2),
-            axios.get(url3)
+            axios.get(url3),
+            axios.get(url4)
         ])
         .then(axios.spread((...res)=>{
+            // console.log('like or not:', res[3].data.length)
+            if(res[3].data.length){
+                setLike(true)
+            }
             console.log(res[2].data)
 
             let options = {
                 blockStyleFn: (block) => {
-                    console.log('block type:', block.type)
+                    // console.log('block type:', block.type)
                     switch(block.type){
                         case 'ALIGNLEFT':
                             return {style:{textAlign: 'left'}}
@@ -88,6 +102,7 @@ function Story(props){
             // console.log(results)
 
             setData(res[0].data.data)
+            setLikeNum(res[0].data.data[0].likes)
             setRplyData(results)
             setLoaded(true)
         }))
@@ -129,6 +144,27 @@ function Story(props){
               })  
             console.log(res.data)
         })
+    }
+
+    const handleToggleLike = (id, evt)=>{
+        evt.preventDefault()
+        if(user){
+            console.log('set like to ', !like)
+            setLike(!like)
+
+            if(!like){
+                console.log('like!')
+                setLikeNum(likeNum + 1)
+                axios.post(`http://localhost:5500/stories/member/add-like/${props.match.params.id}?usrId=${user}`)
+            }else if(like){
+                console.log('unlike!')
+                setLikeNum(likeNum - 1)
+                axios({
+                    method: 'DELETE',
+                    url: `http://localhost:5500/stories/member/remove-like/${props.match.params.id}?usrId=${user}`
+                })
+            }
+        }
     }
 
     const mapRecursive = (data)=>{
@@ -185,6 +221,13 @@ function Story(props){
                     <div className='bk-story-container'>
                         <div className='bk-story-content'>            
                             <div dangerouslySetInnerHTML={{__html: data[0].stryContent}}></div>
+                            <hr />
+                            <div className={`add-like pt-4${like ? ' active' : ''}`}>
+                                <span onClick={(evt)=>{handleToggleLike(data[0].stryId, evt)}}>
+                                    <FiThumbsUp /> <b>{like ? '你已經按讚' : '按讚'}</b> 
+                                </span>
+                                <span className='bk-txt-small ml-4'>目前已有 {likeNum} 人按讚</span>
+                            </div>
                         </div>
                     </div>
                 </div>
