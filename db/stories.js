@@ -128,6 +128,39 @@ router.get('/member/:id/replies', (req, res)=>{
     })
 })
 
+//hide story
+router.patch('/member/story/hide-story/:id', (req, res)=>{
+    let id = req.params.id
+    let usrId = req.query.usrId
+
+    if(usrId === 'null') return;
+
+    let sql = 'UPDATE `stories` SET `stryStatus`="hidden" WHERE `stryId`=? AND `usrId`=?';
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+//show story
+router.patch('/member/story/show-story/:id', (req, res)=>{
+    let id = req.params.id
+    let usrId = req.query.usrId
+
+    let sql = 'UPDATE `stories` SET `stryStatus`="active" WHERE `stryId`=? AND `usrId`=?';
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+
 //---
 //update story
 router.patch('/member/story/:id', (req, res)=>{
@@ -241,43 +274,12 @@ router.patch('/member/draft/submit-draft/:id', (req, res)=>{
 
 })
 
-//hide story
-router.patch('/member/story/hide-story/:id', (req, res)=>{
-    let id = req.params.id
-    let usrId = req.query.usrId
-
-    if(usrId === 'null') return;
-
-    let sql = 'UPDATE `stories` SET `stryStatus`="hidden" WHERE `stryId`=? AND `usrId`=?';
-
-    db.queryAsync(sql, [id, usrId])
-    .then(r=>{
-        res.json(r)
-    })
-    .catch(err=>{
-        throw err
-    })
-})
-//show story
-router.patch('/member/story/show-story/:id', (req, res)=>{
-    let id = req.params.id
-    let usrId = req.query.usrId
-
-    let sql = 'UPDATE `stories` SET `stryStatus`="active" WHERE `stryId`=? AND `usrId`=?';
-
-    db.queryAsync(sql, [id, usrId])
-    .then(r=>{
-        res.json(r)
-    })
-    .catch(err=>{
-        throw err
-    })
-})
 
 //---
 //first submit editor content to draft
 router.post('/member/initiate-draft', (req, res)=>{
-
+    console.log('initiating draft...')
+    
     const output = {
         success: false,
         data: '',

@@ -88,32 +88,30 @@ function MemberDrafts(){
                     </div>
                 </Col>
                 <Col lg={9} className='bk-member-main-container'>
-                    <h3>草稿列表</h3>
+                <div className='bk-story-top'>
+                        <h3>我的草稿</h3>
+                        <Link to='/member/upload-stories'>
+                            <button>去寫故事</button>
+                        </Link>
+                    </div>
                     <ul className='bk-story-list'>
                         {!data.length ? '沒有草稿' : data.map(elm=>{
                             return (
                             <li key={elm.drftId}>
-                                <div className='bk-story-li-content col-10'>
-                                    <Row>
-                                        <div className="col-lg-4">
-                                            <h5>{elm.drftTitle}</h5>
-                                            <div className='bk-txt-small'>{elm.time}</div>
-                                            <div className='bk-txt-small'>{elm.drftStatus}</div>
+                                <div className='bk-story-li-content'>
+                                    <h5>{elm.drftTitle}</h5>
+                                    <div className='bk-txt-small'>{elm.time}</div>
+                                    <div className='py-2'>{elm.contentStr}</div>
+                                    <div className='bottom' style={{justifyContent: 'flex-end'}}>
+                                        <div className='funcs'>
+                                            <div role='button' onClick={()=>{ handleDelete(elm.drftId) }}>刪除</div>
+                                            <div role='button'>
+                                                <Link to={`/member/stories/draft/${elm.drftId}`}>
+                                                    編輯
+                                                </Link>
+                                            </div>
                                         </div>
-                                        <div className='col-lg-8'>
-                                            <div>{elm.contentStr}</div>
-                                        </div>
-                                    </Row>
-                                </div>
-                                <div className='bk-story-li-fn col-2'>
-                                        <button className="bk-btn-black" onClick={()=>{
-                                            handleDelete(elm.drftId)
-                                        }}>刪除</button>
-                                    <Link to={`/member/stories/draft/${elm.drftId}`}>
-                                        <button className="bk-btn-black-bordered">
-                                                編輯
-                                        </button>
-                                    </Link>
+                                    </div>
                                 </div>
                             </li>
                             )

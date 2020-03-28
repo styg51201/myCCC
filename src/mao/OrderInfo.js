@@ -34,7 +34,7 @@ function OrderInfo(props) {
   const [opentaxNo, setOpentaxNo] = useState(false)
 
   const [errorBox,setErrorBox]=useState([
-    'buyerName','mobile','invoice','shipping','payment'])
+    'buyerName','mobile','shipping','payment','invoice'])
   const { getMonth, getYear } = GetDayRange()
 
   //訂單
@@ -92,7 +92,6 @@ function OrderInfo(props) {
     let getInfo2 = e.currentTarget.id
     switch (str) {
       case 'buyerName':
-        buyerInfo.buyerName = getInfo
         if (getInfo.length === 0) {
           setErrors({ ...errors, buyerName: '名字不能空白' })
         } else if (/[0-9]|\W/.test(getInfo)) {
@@ -102,12 +101,11 @@ function OrderInfo(props) {
           let newErr=errorBox.filter(e=>e!=='buyerName')
           setErrorBox(newErr)
           setBuyerInfo({ ...buyerInfo, buyerName: getInfo })
+          buyerInfo.buyerName = getInfo
         }
         break
       case 'mobile':
-        buyerInfo.mobile = getInfo
         setBuyerInfo({ ...buyerInfo, mobile: getInfo })
-        // console.log(getInfo)
         if (getInfo.length === 0) {
           setErrors({ ...errors, mobile: '電話號碼不能為空白' })
         } else if (!/^09[0-9]\d{7}$/.test(getInfo)) {
@@ -119,17 +117,21 @@ function OrderInfo(props) {
           setErrors({ ...errors, mobile: '' })
           let newErr=errorBox.filter(e=>e!=='mobile')
           setErrorBox(newErr)
+          buyerInfo.mobile = getInfo
         }
-        
         break
       case 'shipping':
-        buyerInfo.shipping = getInfo2
-        if (getInfo2 === 'Seven-store') {
+        if (getInfo2 == 'Seven-store') {
           getInfo2 = '7-11'
           let newErr=errorBox.filter(e=>e!=='shipping')
           setErrorBox(newErr)
           setErrors({...errors,shipping: ''})
-        } else if (getInfo2 === 'HiLife') {
+        } else if (getInfo2 == 'HiLife') {
+          getInfo2 = '萊爾富'
+          let newErr=errorBox.filter(e=>e!=='shipping')
+          setErrorBox(newErr)
+          setErrors({...errors,shipping: ''})
+        }else if(getInfo2=='Adress'){
           getInfo2 = '萊爾富'
           let newErr=errorBox.filter(e=>e!=='shipping')
           setErrorBox(newErr)
@@ -137,21 +139,21 @@ function OrderInfo(props) {
         }else{
           setErrors({ ...errors, shipping: '' })
           setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
+          buyerInfo.shipping = getInfo2
         }
         break
       case 'payment':
-        buyerInfo.payment = getInfo2
-        if(getInfo2==='COD'){
+        if(getInfo2=='COD'){
           getInfo2='貨到付款'
           let newErr=errorBox.filter(e=>e!=='payment')
           setErrorBox(newErr)
           setErrors({...errors,payment: ''})
-        }else if(getInfo2==='CreditCard'){
+        }else if(getInfo2=='CreditCard'){
           getInfo2='CreditCard'
           let newErr=errorBox.filter(e=>e!=='payment')
           setErrorBox(newErr)
           setErrors({...errors,payment: ''})
-        }else if(getInfo2==='ATM轉帳'){
+        }else if(getInfo2=='ATM轉帳'){
           getInfo2='ATM轉帳'
           let newErr=errorBox.filter(e=>e!=='payment')
           setErrorBox(newErr)
@@ -159,20 +161,21 @@ function OrderInfo(props) {
         }else{
           setErrors({ ...errors, payment: '' })
         setBuyerInfo({ ...buyerInfo, payment: getInfo2 })
+        buyerInfo.payment = getInfo2
         }
         break
       case 'invoice':
-        if(getInfo2==='personal-invoice'){
+        if(getInfo2=='personal-invoice'){
           getInfo2='個人電子發票'
           let newErr=errorBox.filter(e=>e!=='invoice')
           setErrorBox(newErr)
           setErrors({...errors,invoice: ''})
-        }else if(getInfo2==='donate'){
+        }else if(getInfo2=='donate'){
           getInfo2='捐贈發票'
           let newErr=errorBox.filter(e=>e!=='invoice')
           setErrorBox(newErr)
           setErrors({...errors,invoice: ''})
-        }else if(getInfo==='公司戶電子發票'){
+        }else if(getInfo=='公司戶電子發票'){
           getInfo2='公司戶電子發票'
           let newErr=errorBox.filter(e=>e!=='invoice')
           setErrorBox(newErr)
@@ -187,6 +190,10 @@ function OrderInfo(props) {
         break
     }
   }
+
+  useEffect(()=>{
+console.log('errorBox',errorBox)
+  },[errorBox])
 //儲存產品hook
   const [pIdArr, setPIdArr] = useState([])
   const [countArr, setCountArr] = useState([])
@@ -231,22 +238,17 @@ function OrderInfo(props) {
   useEffect(() => {
     buyerInfo.orderId = order
   }, [ order])
-  useEffect(() => {
-    console.log('buyerInfo2', buyerInfo)
-    console.log('props', props)
-  }, [buyerInfo])
 
   //送出
   async function POSTorderInfo() {
     let saveValueBox={
       buyerName: '',
       mobile: '',
-      buyerAdress: '',
       invoice: '',
       shipping: '',
       payment: '',
     }
-    if(errorBox===0){
+    if(errorBox==0){
       let noneObj = {}
       setErrors(saveValueBox)
       //清理暫存
@@ -286,10 +288,7 @@ function OrderInfo(props) {
           case 'mobile':
             saveValueBox.mobile='電話號碼不能為空白'
             break
-          case 'buyerAdress':
-            saveValueBox.buyerAdress='請選擇門市'
-            break
-            case 'shipping':
+            case 'ship':
               saveValueBox.shipping='請選擇取貨超商'
               break
             case 'payment':
@@ -313,13 +312,10 @@ function OrderInfo(props) {
     }
     
   }
-useEffect(()=>{
-  console.log('errors==',errors)
-},[errors])
 
 const shipType=[
-  {type:'7-11',name:'7-11超商'},
-  {type:'Hi-life',name:'萊爾富'},
+  {type:'Seven-store',name:'7-11超商'},
+  {type:'HiLife',name:'萊爾富'},
   {type:'Adress',name:'收貨地址'}
 ]
 const shipTypeDOM=[]
@@ -330,13 +326,11 @@ const shipTypeBox=shipType.map((v,i)=>{
     <input
       type="radio"
       className="custom-control-input"
-      name="checkshipping"
+      name="shipping"
       id={v.type}
-      onClick={e => {
-        getformInfo(e, 'shipping')
-        // setShipType(1)
+      onChange={e => {
+        getformInfo(e,'shipping')
       }}
-      // checked={shipType == 1 ? true : false}
     />
     <label className="custom-control-label" htmlFor={v.type}>
       {v.name}

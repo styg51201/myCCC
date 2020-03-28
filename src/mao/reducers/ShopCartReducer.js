@@ -118,3 +118,12 @@ export const saveCoupon=(state=[],action)=>{
       return state
   }
 }
+
+export const saveDiscount=(state=0,action)=>{
+  switch (action.type){
+    case 'COUPON_DISCOUNT':
+      return action.value
+    default:  
+      return state
+  }
+}

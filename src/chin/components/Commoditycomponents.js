@@ -32,15 +32,10 @@ async function ItemToLocalStorage(value) {
     box.push(val.itemId)
   })
     let index = box.findIndex(e=>e==value.itemId)
-    console.log('sssssssssssssssssssss',index)
     if(index === -1){
       const newHisitem = [...currentHisitem, value]
       localStorage.setItem('hisitem', JSON.stringify(newHisitem))
     }else{console.log('asdsadasdsd')}
- 
-  // const newHisitem = [...currentHisitem, value]
-
-  console.log('newHisitem', newHisitem)
   // 設定資料
   setNewHisitem(newHisitem)
 }

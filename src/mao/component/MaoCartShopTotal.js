@@ -10,16 +10,21 @@ import {
   AddCartItem,
   DelCartItem,
   calCart,
-  CalShopCartTotal,
+  CalShopCartTotal,hadleCoupon,CheckCoupon
 } from '../actions/ShopCartAction'
 import $ from 'jquery'
 import { FaTicketAlt } from 'react-icons/fa'
 import { TiDeleteOutline } from 'react-icons/ti'
 
 function MaoCartShopTotal(props) {
+
   const [shipping, setShipping] = useState(100)
   const [discount, setDiscount] = useState(0)
   const [openCoupon, setOpenCoupon] = useState(true)
+  //變化總額主要有hook更改,store的小計金額為最後變動
+  const [saveStotal,setSaveStotal]=useState(0)
+  //變化總額有hook變動
+  const [saveTotal,setSaveTotal]=useState(0)
   let buyerTotal = 0
   function CalTotal() {
     buyerTotal = props.sTotal + shipping + discount
@@ -62,19 +67,27 @@ function MaoCartShopTotal(props) {
       })
       .on('mouseleave', () => {
         $('.Mao-total-box').css({ boxShadow: 'none' })
-     })  
-     return 
+     }) 
+     //得到store的小計金額
+     setSaveStotal(props.sTotal)
+     //得到store的總額
+     setSaveTotal(props.FinalTotal)
   }, [])
 
   useEffect(() => {
     CalTotal()
+    console.log('SaveStotal',saveStotal)
+    console.log('SaveTotal',saveTotal)
+    //確保小計金額變動情形,獲取最新的變動
+    setSaveStotal(props.sTotal)
+    setSaveTotal(props.FinalTotal)
   }, [CalTotal, props.AddItem, props.sTotal])
 
   const changeCheckout = (
     <>
       <Link className="Mao-total-box-btn" to="/">
         <div className="Mao-total-show"></div>
-        <span style={{ zIndex: 999 }}>繼續購物</span>
+        <span style={{ zIndex: 10 }}>繼續購物</span>
       </Link>
       <Link className="Mao-total-box-btn-black" to="/OrderInfo">
         {CheckrouteName == '/OrderInfo' ? '確認結帳' : '前往結帳'}
@@ -91,38 +104,43 @@ function MaoCartShopTotal(props) {
       </Link>
     </>
   )
-  const stylechange = { height: '390px' }
 
-  function calCoupon(value,type){
-    let newStotal=0
-    switch (type){
-      case 0:
-        newStotal=+props.sTotal-value
-        break
-      case 1:
-        newStotal=Math.round(props.sTotal*value)
-        break
-      case 2:
-        newStotal=props.sTotal-value
-        break
-      default:
-        break
-    }
-    props.calCart(newStotal)
-}
 
   const couponType=[
     {value:300,type:0,method:'現折',slogan:'全館商品現折300',amount:1},
     {value:0.8,type:1,method:'折數',slogan:'指定產品 8折',amount:1},
     {value:200,type:2,method:'現折',slogan:'限定品牌現折200',amount:1},
   ]
+  const [recoupon,setRecoupon]=useState(false)
+  const [couponArr,setCouponArr]=useState([])
+  const [chooseState,setChooseState]=useState(0)
   const couponDOM=[]
+  let useFilterCoupon=[]
   const couponBox=couponType.map((v,i)=>{
+    useFilterCoupon.push(v.type)
     couponDOM.push(
-      <div onClick={()=>{calCoupon(v.value,v.type)}} className="Mao-coupon-text">{v.slogan}</div>
+      <div onClick={()=>{props.hadleCoupon(v.value,v.type,props.sTotal)
+      filterCoupon(i)
+      setChooseState(i+1)
+      // setRecoupon(!recoupon)
+      }} className={`Mao-coupon-text ${chooseState==i+1? 'Mao-coupon-active':''}`}>{v.slogan}</div>
     )
   })
-  const NofixedDisplay = (
+
+  function filterCoupon(ind){
+    let newCouponType=props.saveCoupon.filter(e=>e!==props.saveCoupon[ind])
+    setCouponArr(newCouponType)
+    // props.CheckCoupon(newCouponType)
+  }
+useEffect(()=>{
+  props.CheckCoupon(couponType)
+},[])
+useEffect(()=>{
+console.log(props.saveCoupon)
+},[props.saveCoupon])
+
+
+const NofixedDisplay = (
     <>
       <div className="Mao-total-box">
         <p className="Mao-total-box-title">
@@ -162,6 +180,7 @@ function MaoCartShopTotal(props) {
                 <div style={{ margin: '15px' }}></div>
                 <div className="Mao-coupon-text-box">
                 {couponDOM}
+                <button className="Mao-total-box-btn-black" onClick={()=>{props.CheckCoupon(couponArr)}}>確認</button>
                 </div>
               </div>
             </div>
@@ -175,6 +194,7 @@ function MaoCartShopTotal(props) {
       </div>
     </>
   )
+  // ............................fixed...................
   const fixedDisplay = (
     <>
       <div className="Mao-total-box-fixed">
@@ -250,6 +270,8 @@ const mapStateToProps = store => {
     Cart: store.displayShopCart,
     sTotal: store.calculator,
     FinalTotal: store.calculator_total,
+    saveDiscount:store.saveDiscount,
+    saveCoupon:store.saveCoupon
   }
 }
 
@@ -262,7 +284,7 @@ const mapDispatchToProps = dispatch => {
       AddCartItem,
       DelCartItem,
       calCart,
-      CalShopCartTotal,
+      CalShopCartTotal,hadleCoupon,CheckCoupon
     },
     dispatch
   )

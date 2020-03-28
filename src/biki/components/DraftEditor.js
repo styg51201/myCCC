@@ -45,9 +45,6 @@ function DraftEditor(props){
     useEffect(()=>{
         let content = editorState.getCurrentContent()
         let newContent = convertToRaw(content);
-        console.log("new editor state!", newContent)
-
-
         if(newContent.blocks.length > 1 || newContent.blocks[0].text !== ''){
             setEditorContent(newContent)
         }
@@ -88,7 +85,7 @@ function DraftEditor(props){
 
     const handleTitle = (e)=>{
         // console.log(e.target.value)
-        setTitle(e.target)
+        setTitle(e.target.value)
     }
 
     const handleTags = (e)=>{
@@ -154,6 +151,8 @@ function DraftEditor(props){
 
     //first submit to draft
     async function submitDraft(){
+        console.log('initiating draft...')
+
         const contentState = await editorState.getCurrentContent()
 
         const response = await fetch(`http://localhost:5500/stories/member/initiate-draft?usrId=${usrId}`, {
