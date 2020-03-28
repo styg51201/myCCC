@@ -183,7 +183,7 @@ function MemberStories(){
 
                                     <div className='bottom'>
                                         <div className='stats'>
-                                            <span className='bk-stry-icons' key={'ak'}><FiThumbsUp /> {elm.stryLikes}</span>
+                                            <span className='bk-stry-icons' key={'ak'}><FiThumbsUp /> {elm.likes}</span>
                                             <span className='bk-stry-icons' key={'bg'}><FiEye /> {elm.stryViews}</span>
                                             <span className='bk-stry-icons' key={'c'}><FiMessageSquare /> {elm.rplyTotal}</span>
                                         </div>
