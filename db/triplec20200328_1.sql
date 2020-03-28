@@ -30,20 +30,18 @@ USE `triplec`;
 -- 資料表結構 `ad`
 --
 
-CREATE TABLE IF NOT EXISTS `ad` (
-  `adId` int(5) NOT NULL AUTO_INCREMENT,
-  `adName` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片名稱',
+CREATE TABLE `ad` (
+  `adId` int(5) NOT NULL,
+  `adName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片名稱',
   `adImg` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片',
   `adTitle` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片標題',
-  `adContent` varchar(40) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片內文',
+  `adContent` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片內文',
   `adLink` int(11) NOT NULL COMMENT '連結',
   `adLinkPlace` int(11) NOT NULL COMMENT '連結產品id',
   `adPlanId` int(11) NOT NULL COMMENT '廣告ID',
   `ad_created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `ad_updates_at` datetime NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`adId`)
-) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
+  `ad_updates_at` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 --
 -- 資料表新增資料前，先清除舊資料 `ad`
 --
@@ -54,8 +52,13 @@ TRUNCATE TABLE `ad`;
 --
 
 INSERT INTO `ad` (`adId`, `adName`, `adImg`, `adTitle`, `adContent`, `adLink`, `adLinkPlace`, `adPlanId`, `ad_created_at`, `ad_updates_at`) VALUES
-(76, '哈囉', '20200318044530.jpg', '你好嗎', '一二三四五六七八九十一二三四五六七八九十一二三四五六七八九十', 1, 5, 70, '2020-02-07 13:29:56', '2020-02-07 13:29:56'),
-(77, '世界', '20200318044450.jpg', '我很好', '首頁的幻燈片', 0, 0, 71, '2020-02-07 18:17:53', '2020-02-07 18:17:53');
+(76, 'FĒNIX 5 PLUS', 'id22.jpg', '進階複合式戶外 GPS 腕錶', '突破界線，邁向無限可能，就交給 fēnix 全方位戶外腕錶。材質優異、堅固耐用，適合各種探險活動。\r\n戴上專為喜愛戶外運動的您所打造的 fēnix，展現自我獨特風格。', 1, 22, 70, '2020-02-07 13:29:56', '2020-02-07 13:29:56'),
+(77, 'WF-SP900 運動無線耳機', 'id102.jpg', '環境聲模式讓您隨時掌握周遭動靜', '無論是在跑道上奔馳、在游泳池或是海中游泳，WF-SP900 耳機都能給您更棒的體驗。\r\n真正無線的設計搭配 4GB 內建儲存空間，走到哪裡就聽到哪裡。', 0, 102, 71, '2020-02-07 18:17:53', '2020-02-07 18:17:53'),
+(78, 'GoPro-HERO8 Black', 'id153.jpg', '創造攝影新高度', '超強穩定功能，有史以來手持最穩定的HERO相機。\r\nHypersmooth2.0、縮時攝影2.0、超級相片及Live Burst功能，讓你創造攝影新高度。', 0, 153, 72, '2020-02-07 18:17:53', '2020-02-07 18:17:53'),
+(79, 'Apple Watch Series 5', 'id15.jpg', '這樣的錶，出人意表', '有了全新的隨顯Retina 顯示器，Apple Watch Series 5 隨時為你待命。它能監測你的健康，助你維持身體狀態，讓你時時與人保持聯繫。', 0, 15, 73, '2020-02-07 18:17:53', '2020-02-07 18:17:53'),
+(80, 'SONY 重低音降噪藍牙耳罩式耳機 WH-XB900N', 'id116.jpg', 'EXTRA BASS 給您驚人的深沈強力', '這款耳機強化了所有低音頻率，可提供卓越低音。耳機殼內具備專屬低音管，加上驅動單體與耳膜之間經強化的氣密設計，都讓耳機能用一波波精準強勁的節奏帶動每首曲目，創造豐富的全方位聆聽體驗。', 0, 116, 74, '2020-02-07 18:17:53', '2020-02-07 18:17:53'),
+(81, 'GARMIN vivomove 3 指針智慧腕錶', 'id25.jpg', '講究細節，彰顯絕美', '包含走路、跑步、騎行、瑜珈、有氧運動等 8 種運動模式。使用手機的 GPS 記錄你的運動軌跡，室外跑步或散步可獲得更高的精準度，指針錶也享有運動的權限。', 0, 25, 75, '2020-02-07 18:17:53', '2020-02-07 18:17:53');
+
 
 -- --------------------------------------------------------
 
@@ -2334,9 +2337,12 @@ TRUNCATE TABLE `plan`;
 --
 
 INSERT INTO `plan` (`planId`, `planUsername`, `planName`, `planPlace`, `planGroup`, `planCost`, `planClick`, `planStatus`, `planStartTime`, `planDueTime`, `plan_created_at`, `plan_updates_at`) VALUES
-(70, 'test', 'apple', '首頁的幻燈片', 1, 1000, 0, '上架', '2020-03-18', '2020-03-31', '2020-02-07 13:29:45', '2020-02-07 13:29:45'),
-(71, 'test', 'bpple', '首頁的幻燈片', 1, 2000, 0, '下架', '2020-03-19', '2020-03-24', '2020-02-07 18:17:39', '2020-02-07 18:17:39');
-
+(70, 'test', 'FĒNIX 5 PLUS', '首頁的幻燈片', 1, 1000, 0, '上架', '2020-03-18', '2020-03-31', '2020-02-07 13:29:45', '2020-02-07 13:29:45'),
+(71, 'test', 'WF-SP900 運動無線耳機', '首頁的幻燈片', 1, 2000, 0, '上架', '2020-03-19', '2020-03-24', '2020-02-07 18:17:39', '2020-02-07 18:17:39'),
+(72, 'test', 'GoPro-HERO8 Black', '首頁的幻燈片', 0, 2000, 0, '上架', '2020-03-19', '2020-03-24', '2020-02-07 18:17:39', '2020-02-07 18:17:39'),
+(73, 'test', 'Apple Watch Series 5', '首頁的幻燈片', 1, 2000, 0, '上架', '2020-03-19', '2020-03-24', '2020-02-07 18:17:39', '2020-02-07 18:17:39'),
+(74, 'test', 'SONY 重低音降噪藍牙耳罩式耳機 WH-XB900N', '首頁的幻燈片', 0, 2000, 0, '上架', '2020-03-19', '2020-03-24', '2020-02-07 18:17:39', '2020-02-07 18:17:39'),
+(75, 'test', 'GARMIN vivomove 3 指針智慧腕錶', '首頁的幻燈片', 1, 2000, 0, '上架', '2020-03-19', '2020-03-24', '2020-02-07 18:17:39', '2020-02-07 18:17:39');
 -- --------------------------------------------------------
 
 --
@@ -2512,9 +2518,11 @@ TRUNCATE TABLE `promotion_group`;
 
 INSERT INTO `promotion_group` (`groupId`, `groupPlanId`, `groupBuyItems`, `groupHistoryItems`, `groupCollectItems`, `groupHistoryCategory`, `groupCollectCategory`, `groupCartCategory`, `group_created_at`, `group_updates_at`) VALUES
 (1, 70, 1, 1, 0, 1, 1, 1, '0000-00-00 00:00:00', '2020-02-07 18:16:56'),
-(2, 71, 0, 1, 1, 0, 0, 0, '2020-02-07 18:18:14', '2020-02-07 18:18:14'),
-(4, 72, 0, 0, 1, 0, 0, 0, '2020-02-07 18:22:27', '2020-02-07 18:24:37');
-
+(2, 71, 0, 1, 1, 2, 0, 2, '2020-02-07 18:18:14', '2020-03-28 15:35:44'),
+(4, 72, 1, 0, 1, 3, 3, 0, '2020-02-07 18:22:27', '2020-03-28 15:35:13'),
+(5, 73, 1, 1, 1, 0, 1, 1, '0000-00-00 00:00:00', '2020-03-28 15:34:49'),
+(6, 74, 1, 0, 1, 2, 2, 0, '2020-02-07 18:18:14', '2020-03-28 15:35:36'),
+(7, 75, 0, 0, 1, 0, 1, 1, '2020-02-07 18:22:27', '2020-03-28 15:34:11');
 -- --------------------------------------------------------
 
 --
