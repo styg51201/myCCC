@@ -33,7 +33,7 @@ function ShopCartList(props) {
   // 購物車內容
   const dataList = props.AddItem.map((v, i) => {
     return (
-      <li key={v} className="Mao-shopcart-check-item">
+      <li key={v.itemName} className="Mao-shopcart-check-item">
         <img
           src={`/chin-img/images/${v.itemName}/${v.itemImg}`}
           alt=""
