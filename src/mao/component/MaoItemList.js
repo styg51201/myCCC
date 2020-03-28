@@ -12,11 +12,10 @@ import {
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
 function Commoditycomponents(props){
-
+console.log(props)
 const [forMyfavor,setForMyfavor]=useState(false)
 
 const [alertType,setAlertType]=useState('')
-
 const checkAlertType=showTpye=>{
   switch(showTpye){
       case '加入購物車':
@@ -50,7 +49,28 @@ const checkAlertType=showTpye=>{
           break                
   }
 }
+//ItemlocalStorage
+const [newHisitem,setNewHisitem]=useState([])
+async function ItemToLocalStorage(value) {
 
+  const currentHisitem = JSON.parse(localStorage.getItem('hisitem')) || []
+  if(currentHisitem.length===0){
+    const newHisitem = [...currentHisitem, value]
+    localStorage.setItem('hisitem', JSON.stringify(newHisitem))
+  }
+
+  let box=[]
+  currentHisitem.map((val,ind)=>{
+    box.push(val.itemId)
+  })
+    let index = box.findIndex(e=>e==value.itemId)
+    if(index === -1){
+      const newHisitem = [...currentHisitem, value]
+      localStorage.setItem('hisitem', JSON.stringify(newHisitem))
+    }else{console.log('asdsadasdsd')}
+  // 設定資料
+  setNewHisitem(newHisitem)
+}
     return(
         <>
               <div key={props.data.itemName} className="chin-commodity-item">
@@ -78,7 +98,7 @@ const checkAlertType=showTpye=>{
                             />
                         </li>
                     </ul>
-                    <Link to={'/commidty/'+props.data.itemId}>
+                    <Link to={'/commidty/'+props.data.itemId} onClick={()=>{ItemToLocalStorage(props.data)}}>
                       <img className="chin-watchs" src={`/chin-img/images/${props.data.itemName}/${props.data.itemImg}`} alt=""/>
                       <h6>{props.data.name}</h6>
                       <h4>{props.data.itemName}</h4>
