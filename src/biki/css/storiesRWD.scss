@@ -1,0 +1,10 @@
+@import "../../css/variables.scss";
+@import "./myVars.scss";
+
+@media (max-width: $bp-sm) {
+    .bk-stories-container{
+        .bk-masonry-brick{
+            width:100%;
+        }
+    }
+}

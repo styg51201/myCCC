@@ -14,6 +14,7 @@ import useStorySearch from './utils/useStorySearch'
 
 // import './css/all.scss'
 import './css/stories.scss'
+import './css/storiesRWD.scss'
 
 import StoryCard from './components/StoryCard'
 import Masonry from 'react-masonry-component';
@@ -148,7 +149,6 @@ function Stories(props){
             </div>
 
             <main className="mt-5">
-            <Link to="/member/upload-stories">Your story</Link> <br />
             <Link to="/member/stories">Member Stories (currently set to member 1)</Link> <br />
             <Link to="/member/stories/drafts">Member Drafts (currently set to member 1)</Link>
 

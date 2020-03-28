@@ -147,19 +147,6 @@ function MemberStories(){
                 })
                 .then(r=>{
                     console.log(r)
-                    // Swal.fire({
-                    //     text: '刪除成功！',
-                    //     icon: 'success',
-                    //     buttonsStyling: false,
-                    //     confirmButtonText: '確定',
-                    //     customClass: {
-                    //         popup: 'bk-swl-popup',
-                    //         icon: 'bk-swl-icon',
-                    //         content: 'bk-swl-content',
-                    //         confirmButton: 'bk-swl-confirm-button',
-                    //         cancelButton: 'bk-swl-cancel-button',
-                    //       }
-                    // })
                 })
               }
           })
@@ -179,7 +166,12 @@ function MemberStories(){
                     </div>
                 </Col>
                 <Col lg={9} className='bk-member-main-container'>
-                    <h3>故事列表</h3>
+                    <div className='bk-story-top'>
+                        <h3>我的故事</h3>
+                        <Link to='/member/upload-stories'>
+                            <button>去寫故事</button>
+                        </Link>
+                    </div>
                     <ul className='bk-story-list'>
                         {!data.length ? '沒有張貼故事' : data.map(elm=>{
                             return (

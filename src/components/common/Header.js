@@ -27,42 +27,42 @@ function Header(props) {
   const [member, setMember] = useState(true)
 
   useEffect(() => {
-    const product = document.querySelector('.chin-bigtitle img').offsetTop
-    const height = product - 20
-    window.addEventListener('scroll', () => {
-      const isTop = window.scrollY < height
-      if (isTop !== true) {
-        setScrolled(true)
-        document
-          .querySelector('.chin-three-position')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position2')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position3')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position4')
-          .classList.add('chin-three-positioncome')
-        document.querySelector('.chin-black').classList.add('chin-blackcome')
-      } else {
-        setScrolled(false)
-        document
-          .querySelector('.chin-three-position')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position2')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position3')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position4')
-          .classList.remove('chin-three-positioncome')
-        document.querySelector('.chin-black').classList.remove('chin-blackcome')
-      }
-    })
+    // const product = document.querySelector('.chin-bigtitle img').offsetTop
+    // const height = product - 20
+    // window.addEventListener('scroll', () => {
+    //   const isTop = window.scrollY < height
+    //   if (isTop !== true) {
+    //     setScrolled(true)
+    //     document
+    //       .querySelector('.chin-three-position')
+    //       .classList.add('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position2')
+    //       .classList.add('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position3')
+    //       .classList.add('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position4')
+    //       .classList.add('chin-three-positioncome')
+    //     document.querySelector('.chin-black').classList.add('chin-blackcome')
+    //   } else {
+    //     setScrolled(false)
+    //     document
+    //       .querySelector('.chin-three-position')
+    //       .classList.remove('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position2')
+    //       .classList.remove('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position3')
+    //       .classList.remove('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position4')
+    //       .classList.remove('chin-three-positioncome')
+    //     document.querySelector('.chin-black').classList.remove('chin-blackcome')
+    //   }
+    // })
 
     //會員登出功能
     $('.irene_member_logout').click(function() {
@@ -76,20 +76,23 @@ function Header(props) {
 
   useEffect(() => {
     console.log(openSearch)
+    if(!openSearch){
+        inputRef.current.blur()
+    }
   }, [openSearch])
 
   const handleOpenSearch = () => {
     if (new Date().getTime() - searchBlurTime > 300) {
       if (!openSearch) {
         setOpenSearch(true)
+        console.log('serach open')
         inputRef.current.focus()
-      } else {
-        inputRef.current.blur()
       }
     }
   }
 
   const handleSearch = evt => {
+    console.log(evt.key)
     if (evt.key === 'Enter') {
       if (!evt.target.value.trim().length) {
         //console.log('沒有值')
@@ -103,6 +106,7 @@ function Header(props) {
   }
 
   const handleSearchBlur = evt => {
+    console.log("blur")
     setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')
