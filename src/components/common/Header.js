@@ -178,7 +178,7 @@ function Header(props) {
           </Link>
         )}
         {!memberstate ? (
-          ''
+          <div className="chin-three-position4 irene_member_logout"> </div>
         ) : (
           <Link to="/memberlogin">
             <div className="chin-three-position4 irene_member_logout">
@@ -302,7 +302,9 @@ function Header(props) {
             )}
             {memberstate ? (
               <Link to="/memberlogin" className="irene_member_logout">
-                <FiLogOut />
+                <div className="nav-icons">
+                  <FiLogOut />
+                </div>
               </Link>
             ) : (
               ''
