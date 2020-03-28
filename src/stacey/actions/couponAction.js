@@ -218,8 +218,9 @@ export const fromServerMemberCouponData = val => {
 //     }
 // }
 
-//測試廣告
 
+
+//廣告
 export const showAd = val =>{
   return {type:'SHOW_AD',value:val}
 }
