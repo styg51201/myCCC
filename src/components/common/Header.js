@@ -27,42 +27,42 @@ function Header(props) {
   const [member, setMember] = useState(true)
 
   useEffect(() => {
-    const product = document.querySelector('.chin-bigtitle img').offsetTop
-    const height = product - 20
-    window.addEventListener('scroll', () => {
-      const isTop = window.scrollY < height
-      if (isTop !== true) {
-        setScrolled(true)
-        document
-          .querySelector('.chin-three-position')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position2')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position3')
-          .classList.add('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position4')
-          .classList.add('chin-three-positioncome')
-        document.querySelector('.chin-black').classList.add('chin-blackcome')
-      } else {
-        setScrolled(false)
-        document
-          .querySelector('.chin-three-position')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position2')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position3')
-          .classList.remove('chin-three-positioncome')
-        document
-          .querySelector('.chin-three-position4')
-          .classList.remove('chin-three-positioncome')
-        document.querySelector('.chin-black').classList.remove('chin-blackcome')
-      }
-    })
+    // const product = document.querySelector('.chin-bigtitle img').offsetTop
+    // const height = product - 20
+    // window.addEventListener('scroll', () => {
+    //   const isTop = window.scrollY < height
+    //   if (isTop !== true) {
+    //     setScrolled(true)
+    //     document
+    //       .querySelector('.chin-three-position')
+    //       .classList.add('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position2')
+    //       .classList.add('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position3')
+    //       .classList.add('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position4')
+    //       .classList.add('chin-three-positioncome')
+    //     document.querySelector('.chin-black').classList.add('chin-blackcome')
+    //   } else {
+    //     setScrolled(false)
+    //     document
+    //       .querySelector('.chin-three-position')
+    //       .classList.remove('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position2')
+    //       .classList.remove('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position3')
+    //       .classList.remove('chin-three-positioncome')
+    //     document
+    //       .querySelector('.chin-three-position4')
+    //       .classList.remove('chin-three-positioncome')
+    //     document.querySelector('.chin-black').classList.remove('chin-blackcome')
+    //   }
+    // })
 
     //會員登出功能
     $('.irene_member_logout').click(function() {
@@ -160,7 +160,7 @@ function Header(props) {
         </Container>
       </div>
       <div>
-        {!memberstate ? (
+        {memberstate ? (
           <Link to="/memberedit">
             <img
               src="./img/header-footer/user.svg"
@@ -177,7 +177,7 @@ function Header(props) {
             />
           </Link>
         )}
-        {!memberstate ? (
+        {/* {!memberstate ? (
           ''
         ) : (
           <Link to="/memberlogin">
@@ -191,7 +191,7 @@ function Header(props) {
               />
             </div>
           </Link>
-        )}
+        )} */}
         <Link to="/member/ShopCartList">
           <img
             src="./img/header-footer/shopping-bag.svg"
@@ -287,7 +287,7 @@ function Header(props) {
               </div>
             </Link>
             {/* 會員依照登入狀態icon功能不同，登入連會員中心，未登入連登入畫面 */}
-            {!memberstate ? (
+            {memberstate ? (
               <Link to="/memberedit">
                 <div className="nav-icons">
                   <FiUser />
@@ -300,13 +300,13 @@ function Header(props) {
                 </div>
               </Link>
             )}
-            {memberstate ? (
+            {/* {memberstate ? (
               <Link to="/memberlogin" className="irene_member_logout">
                 <FiLogOut />
               </Link>
             ) : (
               ''
-            )}
+            )} */}
           </div>
         </div>
       </Container>
