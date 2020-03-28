@@ -32,12 +32,13 @@ function MaoCartShopTotal(props) {
   }
 
   let CheckrouteName = props.match.path
+  //選擇折價券
   function showCoupon() {
     if (openCoupon) {
       $('.Mao-couponBox').css({ opacity: 1, zIndex: 1 })
       setOpenCoupon(false)
     } else {
-      $('.Mao-couponBox').css({ opacity: 0 })
+      $('.Mao-couponBox').css({ opacity: 0,zIndex:-5 })
       setOpenCoupon(true)
     }
   }
@@ -107,19 +108,58 @@ function MaoCartShopTotal(props) {
 
 
   const couponType=[
-    {value:300,type:0,method:'現折',slogan:'全館商品現折300',amount:1},
-    {value:0.8,type:1,method:'折數',slogan:'指定產品 8折',amount:1},
-    {value:200,type:2,method:'現折',slogan:'限定品牌現折200',amount:1},
+    {
+      id:0,
+      value:300,
+      Csort:'全部',
+      assignItemId:null,
+      rule:'一律',
+      slogan:'全館商品現折300',
+      payLevel:0,
+      amount:1},
+    {
+      id:1,
+      value:0.8,
+      Csort:'耳機/喇叭',
+      assignItemId:null,
+      rule:'滿額打折',
+      slogan:'滿2000 耳機/喇叭分類 8折',
+      payLevel:2000,
+      amount:1},
+    {
+      id:2,
+      value:200,
+      Csort:'運動攝影機',
+      assignItemId:[153,151],
+      rule:'滿額折現',
+      slogan:'指定商品滿五千現折200',
+      payLevel:5000,
+      amount:1},
+    {
+      id:3,
+      value:0.5,
+      Csort:'運動攝影機',
+      assignItemId:null,
+      rule:'滿件打折',
+      slogan:'滿兩件五折',
+      payLevel:0,
+      amount:2}
   ]
+
+  //還沒用到
   const [recoupon,setRecoupon]=useState(false)
+  //儲存優惠券種類，主要是拿來做變動執行
   const [couponArr,setCouponArr]=useState([])
+  //選擇優惠券時使用的判斷
   const [chooseState,setChooseState]=useState(0)
+
   const couponDOM=[]
   let useFilterCoupon=[]
   const couponBox=couponType.map((v,i)=>{
     useFilterCoupon.push(v.type)
     couponDOM.push(
       <div onClick={()=>{props.hadleCoupon(v.value,v.type,props.sTotal)
+      setDiscount(0)
       filterCoupon(i)
       setChooseState(i+1)
       // setRecoupon(!recoupon)
@@ -129,9 +169,148 @@ function MaoCartShopTotal(props) {
 
   function filterCoupon(ind){
     let newCouponType=props.saveCoupon.filter(e=>e!==props.saveCoupon[ind])
+    //儲存剩下的折價券，最後結帳時才一併更新
+    //目前篩選後的折價券位置存放在total.js裡面 必須傳到orderInfo才可以一同送出
     setCouponArr(newCouponType)
+    //優惠券折抵的值
+    let judgeCouponValue=props.saveCoupon[ind].value
+    //優惠券限定的產品分類
+    let judgeCouponCSort=props.saveCoupon[ind].Csort
+    //優惠券使用條件
+    let judgeCouponRule=props.saveCoupon[ind].rule
+    //優惠券是否有指定產品使用條件
+    let judgeCouponAssignItemId=props.saveCoupon[ind].assignItemId
+    //優惠券使用上的限定數量
+    let judgeCouponAmount=props.saveCoupon[ind].amount
+    //優惠券使用上的限定金額
+    let judgeCouponPayLevel=props.saveCoupon[ind].payLevel
+
+    // 購物車品項檢查
+    let shopCartItems=props.AddItem
+    let disCountItems=[]
+    //折扣金額
+    let discountPay=0
+    //存放產品金額
+    let productTotal=0
+    shopCartItems.map((v,i)=>{
+      //判斷是否為指定產品
+      // 判斷為真 則表示null為無分類
+      let truePrice = v.itemPrice.split('$').join('')
+      let finalPrice = truePrice.split(',').join('')
+      if(judgeCouponAssignItemId==null){
+        //判斷是有分類別限定
+        if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
+          disCountItems.push(v)
+          //產品總數量
+          let productAmount=0
+            disCountItems.map((cV,cI)=>{
+            productAmount+=cV.count
+          })
+          productTotal+=v.count*finalPrice
+           switch(judgeCouponRule){
+            case '一律':
+              discountPay = productTotal-(productTotal-judgeCouponValue)
+              if(productTotal>=judgeCouponPayLevel){
+                setDiscount(discountPay)
+              }
+             break
+            case '滿額折現':
+              discountPay = productTotal-(productTotal-judgeCouponValue)
+              if(productTotal>=judgeCouponPayLevel){
+                setDiscount(discountPay)
+              }
+              break
+            case '滿額打折':
+              discountPay = productTotal-(Math.round(productTotal*judgeCouponValue))
+              if(productTotal>=judgeCouponPayLevel){
+                setDiscount(discountPay)
+              }
+              break
+            case '滿件折現':
+              discountPay = productTotal-(productTotal-judgeCouponValue)
+              if(productTotal>=judgeCouponPayLevel){
+                if(productAmount>=judgeCouponAmount){
+                  setDiscount(discountPay)
+                }
+              }
+              break
+            case '滿件打折':
+              discountPay = productTotal-(Math.round(productTotal*judgeCouponValue))
+              if(productTotal>=judgeCouponPayLevel){
+                if(productAmount>=judgeCouponAmount){
+                  setDiscount(discountPay)
+                }
+              }
+            default:
+                break
+           }
+        
+        }
+      }else{
+        let canUseItemId=judgeCouponAssignItemId.map((Cv,Ci)=>{
+          if(Cv==v.itemId){
+            if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
+              disCountItems.push(v)
+              //產品總數量
+              let productAmount=0
+                disCountItems.map((cV,cI)=>{
+                productAmount+=cV.count
+              })
+
+              productTotal+=v.count*finalPrice
+
+               switch(judgeCouponRule){
+                case '一律':
+                  discountPay = productTotal-(productTotal-judgeCouponValue)
+                  if(productTotal>=judgeCouponPayLevel){
+                    setDiscount(discountPay)
+                  }
+                 break
+                case '滿額折現':
+                  discountPay = productTotal-(productTotal-judgeCouponValue)
+                  if(productTotal>=judgeCouponPayLevel){
+                    setDiscount(discountPay)
+                  }
+                  break
+                case '滿額打折':
+                  discountPay = productTotal-(Math.round(productTotal*judgeCouponValue))
+                  if(productTotal>=judgeCouponPayLevel){
+                    setDiscount(discountPay)
+                  }
+                  break
+                case '滿件折現':
+                  discountPay = productTotal-(productTotal-judgeCouponValue)
+                  if(productTotal>=judgeCouponPayLevel){
+                    if(productAmount>=judgeCouponAmount){
+                      setDiscount(discountPay)
+                    }
+                  }
+                  break
+                case '滿件打折':
+                  discountPay = productTotal-(Math.round(productTotal*judgeCouponValue))
+                  if(productTotal>=judgeCouponPayLevel){
+                    if(productAmount>=judgeCouponAmount){
+                      setDiscount(discountPay)
+                    }
+                  }
+                default:
+                    break
+               }
+            
+            }
+            
+          }
+        })
+       
+      }
+  
+    })
+    
+    //計算總額會扣的折扣金額，存放在hooks裡面
+    let hadle_discountNum=props.FinalTotal
+    // console.log('獲取 ==',props.saveCoupon[ind].type)
     // props.CheckCoupon(newCouponType)
-  }
+}
 useEffect(()=>{
   props.CheckCoupon(couponType)
 },[])

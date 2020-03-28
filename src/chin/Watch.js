@@ -41,7 +41,6 @@ function Watch(props) {
   const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
-  console.log(delitems)
   useEffect(() => {
     props.formServerItemsData('watch')
     return ()=> props.ResetListItemName()

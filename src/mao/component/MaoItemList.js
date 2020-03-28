@@ -12,7 +12,7 @@ import {
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
 function Commoditycomponents(props){
-console.log(props)
+// console.log(props)
 const [forMyfavor,setForMyfavor]=useState(false)
 
 const [alertType,setAlertType]=useState('')
