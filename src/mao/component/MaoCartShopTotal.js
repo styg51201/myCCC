@@ -27,7 +27,7 @@ function MaoCartShopTotal(props) {
   const [saveTotal,setSaveTotal]=useState(0)
   let buyerTotal = 0
   function CalTotal() {
-    buyerTotal = props.sTotal + shipping + discount
+    buyerTotal = props.sTotal + shipping - discount
     props.CalShopCartTotal(buyerTotal)
   }
 
@@ -54,10 +54,7 @@ function MaoCartShopTotal(props) {
           height: '145px',
           zIndex: 999,
         })
-        $('.Mao-total-box').css({ opacity: 0, height: 0 })
       } else {
-        $('.Mao-total-box').css({ opacity: 1, height: '420px' })
-
         $('.Mao-total-box-fixed').css({ opacity: 0, height: 0, zIndex: -1 })
       }
     })
@@ -83,28 +80,34 @@ function MaoCartShopTotal(props) {
     setSaveStotal(props.sTotal)
     setSaveTotal(props.FinalTotal)
   }, [CalTotal, props.AddItem, props.sTotal])
-
+console.log(props)
   const changeCheckout = (
     <>
       <Link className="Mao-total-box-btn" to="/">
         <div className="Mao-total-show"></div>
         <span style={{ zIndex: 10 }}>繼續購物</span>
       </Link>
-      <Link className="Mao-total-box-btn-black" to="/OrderInfo">
-        {CheckrouteName == '/OrderInfo' ? '確認結帳' : '前往結帳'}
+        {CheckrouteName == '/OrderInfo' ? (<Link className="Mao-total-box-btn-black" to={props.errorBox==0?"/Orderbill":"/OrderInfo"}
+     onClick={()=>props.sendOrder()}
+      >確認結帳
         <div className="Mao-total-show-black"></div>
-      </Link>
+      </Link>) : ( <Link className="Mao-total-box-btn-black" to="/OrderInfo"
+      >前往結帳
+        <div className="Mao-total-show-black"></div>
+      </Link>)}
+      
+     
     </>
   )
 
-  const goshopNow = (
-    <>
-      <Link className="Mao-total-box-btn" to="/">
-        <div className=".Mao-total-show-black"></div>
-        繼續購物
-      </Link>
-    </>
-  )
+  // const goshopNow = (
+  //   <>
+  //     <Link className="Mao-total-box-btn" to="/">
+  //       <div className=".Mao-total-show-black"></div>
+  //       繼續購物
+  //     </Link>
+  //   </>
+  // )
 
 
   const couponType=[
@@ -146,13 +149,11 @@ function MaoCartShopTotal(props) {
       amount:2}
   ]
 
-  //還沒用到
-  const [recoupon,setRecoupon]=useState(false)
   //儲存優惠券種類，主要是拿來做變動執行
   const [couponArr,setCouponArr]=useState([])
   //選擇優惠券時使用的判斷
   const [chooseState,setChooseState]=useState(0)
-
+  const [couponProduct,setCouponProduct]=useState([])
   const couponDOM=[]
   let useFilterCoupon=[]
   const couponBox=couponType.map((v,i)=>{
@@ -162,12 +163,13 @@ function MaoCartShopTotal(props) {
       setDiscount(0)
       filterCoupon(i)
       setChooseState(i+1)
-      // setRecoupon(!recoupon)
       }} className={`Mao-coupon-text ${chooseState==i+1? 'Mao-coupon-active':''}`}>{v.slogan}</div>
     )
   })
 
   function filterCoupon(ind){
+    
+console.log(props.saveCoupon)
     let newCouponType=props.saveCoupon.filter(e=>e!==props.saveCoupon[ind])
     //儲存剩下的折價券，最後結帳時才一併更新
     //目前篩選後的折價券位置存放在total.js裡面 必須傳到orderInfo才可以一同送出
@@ -212,18 +214,24 @@ function MaoCartShopTotal(props) {
               discountPay = productTotal-(productTotal-judgeCouponValue)
               if(productTotal>=judgeCouponPayLevel){
                 setDiscount(discountPay)
+                setCouponProduct(disCountItems)
+                console.log('disCountItems',disCountItems)
               }
              break
             case '滿額折現':
               discountPay = productTotal-(productTotal-judgeCouponValue)
               if(productTotal>=judgeCouponPayLevel){
                 setDiscount(discountPay)
+                setCouponProduct(disCountItems)
+                console.log('disCountItems',disCountItems)
               }
               break
             case '滿額打折':
               discountPay = productTotal-(Math.round(productTotal*judgeCouponValue))
               if(productTotal>=judgeCouponPayLevel){
                 setDiscount(discountPay)
+                setCouponProduct(disCountItems)
+                console.log('disCountItems',disCountItems)
               }
               break
             case '滿件折現':
@@ -231,6 +239,8 @@ function MaoCartShopTotal(props) {
               if(productTotal>=judgeCouponPayLevel){
                 if(productAmount>=judgeCouponAmount){
                   setDiscount(discountPay)
+                  setCouponProduct(disCountItems)
+                  console.log('disCountItems',disCountItems)
                 }
               }
               break
@@ -239,18 +249,27 @@ function MaoCartShopTotal(props) {
               if(productTotal>=judgeCouponPayLevel){
                 if(productAmount>=judgeCouponAmount){
                   setDiscount(discountPay)
+                  setCouponProduct(disCountItems)
+                  console.log('disCountItems',couponProduct)
                 }
               }
             default:
+              setCouponProduct(disCountItems)
                 break
            }
         
+           setCouponProduct(disCountItems)
+           console.log('disCountItems',disCountItems)
+           console.log('couponProduct',couponProduct)
+        }else{
+          setCouponProduct(disCountItems)
         }
       }else{
         let canUseItemId=judgeCouponAssignItemId.map((Cv,Ci)=>{
           if(Cv==v.itemId){
             if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
               disCountItems.push(v)
+              console.log('disCountItems',disCountItems)
               //產品總數量
               let productAmount=0
                 disCountItems.map((cV,cI)=>{
@@ -264,18 +283,21 @@ function MaoCartShopTotal(props) {
                   discountPay = productTotal-(productTotal-judgeCouponValue)
                   if(productTotal>=judgeCouponPayLevel){
                     setDiscount(discountPay)
+                    setCouponProduct(disCountItems)
                   }
                  break
                 case '滿額折現':
                   discountPay = productTotal-(productTotal-judgeCouponValue)
                   if(productTotal>=judgeCouponPayLevel){
                     setDiscount(discountPay)
+                    setCouponProduct(disCountItems)
                   }
                   break
                 case '滿額打折':
                   discountPay = productTotal-(Math.round(productTotal*judgeCouponValue))
                   if(productTotal>=judgeCouponPayLevel){
                     setDiscount(discountPay)
+                    setCouponProduct(disCountItems)
                   }
                   break
                 case '滿件折現':
@@ -283,6 +305,7 @@ function MaoCartShopTotal(props) {
                   if(productTotal>=judgeCouponPayLevel){
                     if(productAmount>=judgeCouponAmount){
                       setDiscount(discountPay)
+                      setCouponProduct(disCountItems)
                     }
                   }
                   break
@@ -291,14 +314,18 @@ function MaoCartShopTotal(props) {
                   if(productTotal>=judgeCouponPayLevel){
                     if(productAmount>=judgeCouponAmount){
                       setDiscount(discountPay)
+                      setCouponProduct(disCountItems)
                     }
                   }
                 default:
+                  setCouponProduct(disCountItems)
                     break
                }
             
             }
             
+          }else{
+            setCouponProduct(disCountItems)
           }
         })
        
@@ -308,17 +335,39 @@ function MaoCartShopTotal(props) {
     
     //計算總額會扣的折扣金額，存放在hooks裡面
     let hadle_discountNum=props.FinalTotal
-    // console.log('獲取 ==',props.saveCoupon[ind].type)
-    // props.CheckCoupon(newCouponType)
 }
 useEffect(()=>{
   props.CheckCoupon(couponType)
+  console.log(props.saveCoupon)
 },[])
 useEffect(()=>{
 console.log(props.saveCoupon)
-},[props.saveCoupon])
-
-
+console.log('couponArr',couponArr)
+},[props.saveCoupon,couponArr])
+let cartItemText=[]
+const shopCartItemText=props.AddItem.map((v,i)=>{
+  cartItemText.push(
+    <Link to={`/commidty/${v.itemId}`}>
+    <div className="Mao-shopCart-item-text">
+    <img className="chin-watchs" src={`/chin-img/images/${v.itemName}/${v.itemImg}`} alt=""/>
+    <div>
+    <p>{v.itemName}</p>
+      <p>價格：{v.itemPrice}<span className="ml-3">數量：{v.count}</span></p>
+    </div>
+      
+    </div>
+    </Link>
+  )
+})
+let couponTargetDOM=[]
+const couponTarget=couponProduct.map((v,i)=>{
+  couponTargetDOM.push(
+      <li className="Mao-coupon-list-img">
+      <img className="Mao-coupon-img" src={`/chin-img/images/${v.itemName}/${v.itemImg}`} alt=""/>
+      <p>{v.itemName}</p>
+      </li>
+  )
+})
 const NofixedDisplay = (
     <>
       <div className="Mao-total-box">
@@ -338,7 +387,7 @@ const NofixedDisplay = (
             <b>活動折扣</b>
             <span className="float-right">{discount}</span>
           </div>
-          <label htmlFor="coupon" className="Mao-total-box-title-coupon">
+          {CheckrouteName=='/OrderInfo'?( <label htmlFor="coupon" className="Mao-total-box-title-coupon">
             <div>
               <Link
                 className="Mao-total-box-btn Mao-total-box-btn-border-b"
@@ -347,7 +396,7 @@ const NofixedDisplay = (
                 }}
               >
                 <FaTicketAlt />
-                <b className="mx-2">折價券帶入</b>
+                <b className="mx-2">選擇折價券</b>
               </Link>
               <div className="Mao-couponBox">
                 <TiDeleteOutline
@@ -358,18 +407,36 @@ const NofixedDisplay = (
                 />
                 <div style={{ margin: '15px' }}></div>
                 <div className="Mao-coupon-text-box">
-                {couponDOM}
-                <button className="Mao-total-box-btn-black" onClick={()=>{props.CheckCoupon(couponArr)}}>確認</button>
+                <div>
+                  <div className="Mao-coupon-DOM">
+                  {couponDOM}
+                  </div>
+                  <ul className="Mao-coupon-ullist-img">
+                    {couponTargetDOM}
+                  </ul>  
+                </div>
+                <div>
+                <button className="Mao-total-box-btn-black" onClick={()=>{props.CheckCoupon(couponArr)}}>確認<div className="Mao-total-show-black"></div>
+                </button>
+                </div>
+                
+                
+                  
                 </div>
               </div>
             </div>
-          </label>
+          </label>):''}
+         
         </div>
         <p style={{ fontSize: '18px' }}>
           <b>總金額</b>
           <span className="float-right">{props.FinalTotal}</span>
         </p>
-        {CheckrouteName == '/OrderInfo' ? goshopNow : changeCheckout}
+        {changeCheckout}
+        <div className="Mao-shopCart-item-text-box">
+        {cartItemText}
+        </div>
+        
       </div>
     </>
   )
@@ -406,16 +473,6 @@ const NofixedDisplay = (
                 <span className="mx-2">{props.FinalTotal}</span>
               </p>
             </div>
-
-            <Link
-              className="Mao-coupon-choose-fixed"
-              onClick={() => {
-                showCoupon()
-              }}
-            >
-              <FaTicketAlt />
-              <b className="mx-2">選擇折價券</b>
-            </Link>
           </div>
           {/* ----------------- */}
           <div className="Mao-total-box-total-fixed-btn">

@@ -3,7 +3,7 @@
 .Mao-total-box {
   transition: 0s;
   opacity: 1;
-  height: 420px;
+  height: 1120px;
   width: 300px;
   padding: 5px 10px;
   margin: 0px 10px;
@@ -83,7 +83,6 @@
   align-items: center;
   width: 270px;
   height: 45px;
-  padding: 15px;
   border: 1px solid $grey;
   margin: 15px 0px;
   position: relative;
@@ -157,6 +156,28 @@
 .Mao-Like-box {
   margin-top: 50px;
   width: 900px;
+}
+.Mao-shopCart-item-text-box{
+  margin-top: 50px;
+  height: 650px;
+  overflow-y: scroll;
+}
+.Mao-shopCart-item-text{
+  width:100%;
+  margin:8px 0px;
+  border-bottom: 1px solid #ddd;
+  text-overflow : ellipsis;
+  overflow : hidden;
+  white-space : nowrap;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.Mao-shopCart-item-text >img{
+width:150px;
+height: 150px;
+margin:5px auto
 }
 /* fixed */
 .Mao-total-box-fixed {
@@ -278,12 +299,12 @@
 .Mao-couponBox {
   overflow: hidden;
   opacity: 0;
-  width: 300px;
+  width: 620px;
   box-shadow: 5px 5px 10px #ddd;
   background: $white;
   position: fixed;
   top: calc(50% - 150px);
-  left: calc(50% - 150px);
+  left: calc(50% - 350px);
   z-index: -10;
   border: 1px solid $grey;
   display: flex;
@@ -295,8 +316,15 @@
   display: flex;
   margin: 10px;
   flex-wrap: wrap;
-  width: 250px;
+  width: 500px;
   height: 100%;
+}
+.Mao-coupon-text-box >div{
+  display: flex;
+}
+.Mao-coupon-DOM {
+  margin:0px 4px;
+  width:250px;
 }
 .Mao-coupon-text {
   display: flex;
@@ -319,6 +347,20 @@
 }
 .Mao-coupon-active{
   background:$blue;
+}
+.Mao-coupon-ullist-img{
+width:290px;
+list-style: none;
+border-left:1px solid #ddd;
+padding:0px 8px;
+margin:0px 10px;
+}
+.Mao-coupon-list-img{
+  display: flex;
+}
+.Mao-coupon-img{
+  width:100px;
+  height: 100px;
 }
 .Mao-coupon-exit {
   cursor: pointer;

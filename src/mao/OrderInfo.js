@@ -234,10 +234,13 @@ console.log('errorBox',errorBox)
     getorderProductInfo()
     GetDayRange()
   }, [])
-
+  
   useEffect(() => {
     buyerInfo.orderId = order
   }, [ order])
+  useEffect(() => {
+    console.log(errors)
+  }, [errors])
 
   //送出
   async function POSTorderInfo() {
@@ -288,7 +291,7 @@ console.log('errorBox',errorBox)
           case 'mobile':
             saveValueBox.mobile='電話號碼不能為空白'
             break
-            case 'ship':
+            case 'shipping':
               saveValueBox.shipping='請選擇取貨超商'
               break
             case 'payment':
@@ -359,7 +362,8 @@ const payTypeBox=payType.map((v,i)=>{
         getformInfo(e, 'payment')
       }}
       onClick={() => {
-        setOpenCard(false)
+        {v.type=='CreditCard'?setOpenCard(true):setOpenCard(false)}
+        
       }}
     />
     <label className="custom-control-label" htmlFor={v.type}>
@@ -387,7 +391,7 @@ const invoiceBox=invoiceType.map((v,i)=>{
   id={v.type}
   onClick={(e, str) => {
     getformInfo(e, 'invoice')
-    setOpentaxNo(false)
+    {v.type=='company'?setOpentaxNo(true):setOpentaxNo(false)}
   }}
 />
 <label
@@ -452,7 +456,7 @@ const invoiceBox=invoiceType.map((v,i)=>{
           <span>年</span>
         </div>
       </div>
-      <div className="form-row my-5 d-flex align-items-center">
+      <div className="form-row mt-3 d-flex align-items-center">
         <div className="col-2">
           <h4>檢核碼</h4>
         </div>
@@ -470,7 +474,7 @@ const invoiceBox=invoiceType.map((v,i)=>{
   )
 
   const taxInfo = (
-    <div className="form-row my-5 d-flex align-items-center">
+    <div className="form-row mt-3 d-flex align-items-center">
       <div className="col-2">
         <h4>統一編號</h4>
       </div>
@@ -492,8 +496,8 @@ const invoiceBox=invoiceType.map((v,i)=>{
     <>
       {/* <form method="POST"> */}
       <MaoAD />
-      <div className="container my-3 d-flex" style={{ width: '1300px' }}>
-        <div className="px-4 border bg-white p-3" style={{ width: '950px' }}>
+      <div className="Mao-form-outer-box">
+        <div className="Mao-orderInfo-form-contain-box">
         {/* <div className="d-flex">{quickInsertInfo}</div> */}
           <div className="form-row d-flex flex-column">
             <h2 className="border-bottom p-3 mt-4">訂購人資料</h2>
@@ -558,6 +562,11 @@ const invoiceBox=invoiceType.map((v,i)=>{
               ) : (
                 ''
               )}
+              {errors.shipping !== '' ? (
+                <p className="Mao-prompt-word">{errors.shipping}</p>
+              ) : (
+                ''
+              )}
           <div>
             <div className="form-row d-flex flex-column my-5">
               <h2 className="border-bottom p-3" style={{ display: 'block' }}>
@@ -573,7 +582,7 @@ const invoiceBox=invoiceType.map((v,i)=>{
                 ''
               )}
           {openCard ? CreditCardInfo : ''}
-          <div className="form-row my-5 d-flex flex-column">
+          <div className="form-row d-flex flex-column">
             <div className="form-row d-flex flex-column mt-5">
               <h2 className="border-bottom p-3" style={{ display: 'block' }}>
                 發票
@@ -608,7 +617,7 @@ const invoiceBox=invoiceType.map((v,i)=>{
             </Link>
           </div>
         </div>
-        <MaoCartShopTotal />
+        <MaoCartShopTotal sendOrder={()=>{ POSTorderInfo()}} getErrorBox={errorBox}/>
       </div>
       {/* </form> */}
     </>
