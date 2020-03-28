@@ -1,4 +1,15 @@
+.chin-main-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.chin-functionfield {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+}
 .chin-peritem-item {
+  width: 1090px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -46,7 +57,7 @@
   align-items: center;
 }
 .chin-item button:nth-child(1) {
-  width: 215px;
+  width: 245px;
   height: 50px;
   background: none;
   border: 1px solid #050505;
@@ -56,7 +67,7 @@
   color: #050505;
 }
 .chin-item button:nth-child(2) {
-  width: 215px;
+  width: 245px;
   height: 50px;
   background: #050505;
   border: none;
@@ -65,29 +76,10 @@
   font-size: 16px;
   font-weight: bold;
 }
-.chin-hardwarespecifications {
-  border-top: 1px solid #707070;
-  margin-top: 50px;
-  padding-top: 55px;
-}
-.chin-producttypes {
-  margin-top: 50px;
-  display: flex;
-}
-.chin-producttypes-item-title {
-  width: 150px;
-  margin-right: 50px;
-}
-.chin-grid {
-  display: flex;
+.chin-item-field {
   width: 100%;
-  justify-content: space-around;
-}
-.chin-grid-producttypes-item {
-  width: 200px;
-  margin-left: 30px;
-}
-.chin-producttypes-narrative {
-  margin-top: 30px;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
