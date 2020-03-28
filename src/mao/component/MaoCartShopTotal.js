@@ -403,6 +403,7 @@ const NofixedDisplay = (
                   className="Mao-coupon-exit"
                   onClick={() => {
                     showCoupon()
+                    setDiscount(0)
                   }}
                 />
                 <div style={{ margin: '15px' }}></div>
@@ -416,7 +417,11 @@ const NofixedDisplay = (
                   </ul>  
                 </div>
                 <div>
-                <button className="Mao-total-box-btn-black" onClick={()=>{props.CheckCoupon(couponArr)}}>確認<div className="Mao-total-show-black"></div>
+                <button className="Mao-total-box-btn-black" onClick={()=>{
+                  showCoupon()
+                  props.postDiscount(discount)
+                }
+                    }>確認<div className="Mao-total-show-black"></div>
                 </button>
                 </div>
                 
@@ -433,9 +438,10 @@ const NofixedDisplay = (
           <span className="float-right">{props.FinalTotal}</span>
         </p>
         {changeCheckout}
-        <div className="Mao-shopCart-item-text-box">
-        {cartItemText}
-        </div>
+        {CheckrouteName == '/member/ShopCartList' ?'': ( <div className="Mao-shopCart-item-text-box">
+       {cartItemText}
+        </div>)}
+       
         
       </div>
     </>

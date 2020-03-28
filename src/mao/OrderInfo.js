@@ -32,9 +32,12 @@ function OrderInfo(props) {
   const [openCard, setOpenCard] = useState(false)
 //統編開關
   const [opentaxNo, setOpentaxNo] = useState(false)
-
+//判斷資料是否有填妥
   const [errorBox,setErrorBox]=useState([
     'buyerName','mobile','shipping','payment','invoice'])
+//接收折扣
+const [getdiscount,setGetdiscount]=useState(0)
+
   const { getMonth, getYear } = GetDayRange()
 
   //訂單
@@ -61,7 +64,7 @@ function OrderInfo(props) {
     taxNo: '',
     total: sendTotal,
     shipCost: '100',
-    discount: '0',
+    discount:getdiscount,
   })
 
   //插入資料 開關
@@ -190,10 +193,27 @@ function OrderInfo(props) {
         break
     }
   }
-
+  
+  useEffect(() => {
+    getRND()
+    getorderProductInfo()
+    GetDayRange()
+  }, [])
+  
+  useEffect(() => {
+    buyerInfo.orderId = order
+  }, [ order])
+  useEffect(() => {
+    console.log(errors)
+  }, [errors])
   useEffect(()=>{
 console.log('errorBox',errorBox)
-  },[errorBox])
+console.log('getdiscount',getdiscount)
+setBuyerInfo({ ...buyerInfo, discount:getdiscount })
+  },[errorBox,getdiscount])
+  useEffect(()=>{
+console.log('buyerInfo',buyerInfo)
+  },[buyerInfo])
 //儲存產品hook
   const [pIdArr, setPIdArr] = useState([])
   const [countArr, setCountArr] = useState([])
@@ -228,19 +248,6 @@ console.log('errorBox',errorBox)
     setItemCategoryIdArr(itemCategoryIdArrBox)
     setCountArr(countArrBox)
   }
-  
-  useEffect(() => {
-    getRND()
-    getorderProductInfo()
-    GetDayRange()
-  }, [])
-  
-  useEffect(() => {
-    buyerInfo.orderId = order
-  }, [ order])
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
 
   //送出
   async function POSTorderInfo() {
@@ -281,7 +288,8 @@ console.log('errorBox',errorBox)
         showConfirmButton: false,
         timer: 1500,
         position: 'center',
-      }) 
+      })
+      await getRND()
     }else{
       errorBox.map((v,i)=>{
         switch(v){
@@ -617,7 +625,7 @@ const invoiceBox=invoiceType.map((v,i)=>{
             </Link>
           </div>
         </div>
-        <MaoCartShopTotal sendOrder={()=>{ POSTorderInfo()}} getErrorBox={errorBox}/>
+        <MaoCartShopTotal sendOrder={()=>{ POSTorderInfo()}} getErrorBox={errorBox} postDiscount={val=>{setGetdiscount(val)}}/>
       </div>
       {/* </form> */}
     </>
