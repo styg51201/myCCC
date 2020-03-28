@@ -53,7 +53,7 @@ const checkAlertType=showTpye=>{
 
     return(
         <>
-              <div className="chin-commodity-item">
+              <div key={props.data.itemName} className="chin-commodity-item">
                     <ul className="chin-star-heart-bag">
                         <li><img className="chin-star" src="/chin-img/star.svg" alt=""/></li>
                         <li><img className="chin-star" src="/chin-img/star.svg" alt=""/></li>

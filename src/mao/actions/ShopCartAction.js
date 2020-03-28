@@ -158,9 +158,37 @@ export const calCart = value => ({ type: 'CAL_TOTAL', value: value })
 // 計算總額含運費活動折扣
 export const CalShopCartTotal = value => ({ type: 'FINAL_TOTAL', value: value })
 
+//計算活動券相關
+
+export const hadleCoupon=(value,type,sTotal)=>{
+  return dispatch =>{
+    let newStotal=0
+      switch (type){
+        case 0:
+          newStotal=value
+          break
+        case 1:
+          newStotal=+sTotal-Math.round(sTotal*value)
+          break
+        case 2:
+          newStotal=value
+          break
+        default:
+          break
+      }
+      dispatch(send_hadleCoupon(newStotal))
+  }
+}
+
+export const send_hadleCoupon = value=>({
+  type:'COUPON_DISCOUNT',value:value
+})
+
+
 export const CheckCoupon = value =>({
   type:'SAVE_COUPON',value:value
 })
+
 
 //刪除購物車內容
 export const DelCartItem = (i, data) => {
