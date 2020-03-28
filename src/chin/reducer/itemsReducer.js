@@ -106,12 +106,3 @@ export const getItemscompare = (state=[],action)=>{
       return state
   }
 }
-///-------------------------chin showComparepages-------------------
-export const getComparepages = (state=[],action)=>{
-  switch(action.type){
-    case 'SHOW_COMPAREPAGES':
-      return action.value
-    default:
-      return state
-  }
-}

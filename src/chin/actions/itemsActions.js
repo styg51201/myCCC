@@ -176,22 +176,3 @@ export const ItemscompareNo = (val, product, data) => {
     const newdata = []
     return { type: 'ITEMNAME_RESETCOM', value: newdata }
   }
-
-//---------------comparepages--------------------------
-export const showComparepages = val => {
-  return { type: 'SHOW_COMPAREPAGES', value: val }
-}
-//跟node要comparepages資料
-export const formServercomparepagesData = val => {
-  return async dispatch => {
-    const request = new Request(`http://localhost:5500/items/comparepages/${val}`, {
-      method: 'GET',
-      credentials: 'include',
-    })
-    const res = await fetch(request)
-    const data = await res.json()
-
-    console.log('comparepages', data)
-    dispatch(showComparepages(data))
-  }
-}
