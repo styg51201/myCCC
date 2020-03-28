@@ -16,6 +16,26 @@ const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
 const itemClassName = classNames('chin-historicalrecord', {
   active:hisrelitem 
 })
+async function ItemToLocalStorage(value) {
+
+  const currentHisitem = JSON.parse(localStorage.getItem('hisitem')) || []
+  if(currentHisitem.length===0){
+    const newHisitem = [...currentHisitem, value]
+    localStorage.setItem('hisitem', JSON.stringify(newHisitem))
+  }
+
+  let box=[]
+  currentHisitem.map((val,ind)=>{
+    box.push(val.itemId)
+  })
+    let index = box.findIndex(e=>e==value.itemId)
+    if(index === -1){
+      const newHisitem = [...currentHisitem, value]
+      localStorage.setItem('hisitem', JSON.stringify(newHisitem))
+    }else{console.log('asdsadasdsd')}
+  // 設定資料
+  setNewHisitem(newHisitem)
+}
 async function getItemToLocalStorage() {
 
   const currentHisitem = localStorage.getItem('hisitem') || []
@@ -120,9 +140,11 @@ async function getItemToLocalStorage() {
         </div>
       <div className="chin-relatedproducts">
       {hisrelitem?
+      <>
+        {newHisitem.length<5?
+        <img src="/chin-img/chevron-left.svg"
+          className="chin-hiarr"/>:''}
         <Slider {...settings}>
-        {/* <img src="/chin-img/chevron-left.svg"
-          className="chin-hiarr"/> */}
             {newHisitem.map((val,ind)=>{
               return(<div className="chin-commodity2">
                             <div className="chin-commodity-item2">
@@ -156,9 +178,11 @@ async function getItemToLocalStorage() {
                             </div>
                           </div>)
             })}
-            {/* <img src="/chin-img/chevron-right.svg"
-          className="chin-hiarr2"/> */}
       </Slider>
+      {newHisitem.length<5?
+      <img src="/chin-img/chevron-right.svg"
+          className="chin-hiarr2"/>:''}
+            </>
         :
         <Slider {...settings}>
           {Itemhis.length < 5 ?
@@ -186,7 +210,7 @@ async function getItemToLocalStorage() {
                             <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
                           </li>
                         </ul>
-                        <Link to={'/commidty/'+ val.itemId}>
+                        <Link to={'/commidty/'+ val.itemId} onClick={()=>{ItemToLocalStorage(val)}}>
                           <img className="chin-watch2"  src={`/chin-img/images/${val.itemName}/${val.itemImg}`}  alt="" />
                           <h6>{val.name}</h6>
                           <p>{val.itemName}</p>
@@ -220,7 +244,7 @@ async function getItemToLocalStorage() {
                             <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
                           </li>
                         </ul>
-                        <Link to={'/commidty/'+ val.itemId}>
+                        <Link to={'/commidty/'+ val.itemId} onClick={()=>{ItemToLocalStorage(val)}}>
                           <img className="chin-watch2"  src={`/chin-img/images/${val.itemName}/${val.itemImg}`}  alt="" />
                           <h6>{val.name}</h6>
                           <p>{val.itemName}</p>
