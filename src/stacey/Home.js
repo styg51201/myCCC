@@ -56,6 +56,21 @@ function Home(props2){
         }
     }, [])
 
+    //廣告分類
+    let adForAll= []
+    let adForGroup= []
+    for(let i = 0 ; i < props2.adData.length;i++){
+        if(props2.adData[i].planGroup){
+            adForGroup.push(props2.adData[i])
+        }else{
+            adForAll.push(props2.adData[i])
+        }
+    }
+    console.log('all',adForAll)
+    console.log('group',adForGroup)
+
+
+
     const handleScroll = ()=>{
         const posY = parallaxRef.current.getBoundingClientRect().top
         const offset = posY - window.pageYOffset
