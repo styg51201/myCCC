@@ -27,6 +27,8 @@ function Stories(props){
     const [showSort, setShowSort] = useState(false)
     const [sortName, setSortName] = useState(null)
     const [sortNameCn, setSortNameCn] = useState(null)
+    const [usrId, setUsrId] = useState(localStorage.getItem('userId'))
+    const [stryLikes, setStryLikes] = useState(null)
 
     const {
         loading,
@@ -38,6 +40,25 @@ function Stories(props){
     } = useStorySearch(pageNumber, sortName)
 
     const observer = useRef(null)
+
+    //查看使用者按讚的故事
+    useEffect(()=>{
+        if(!usrId) return;
+
+        axios.get(`http://localhost:5500/stories/member/like?usrId=${usrId}`)
+        .then(r=>{
+            let arrLikes = [];
+            r.data.forEach(elm=>{
+                arrLikes.push(elm.stryId)
+            })
+            // console.log(arrLikes)
+            setStryLikes(arrLikes)
+        })
+    }, [])
+
+    useEffect(()=>{
+        console.log('stryLikes:', stryLikes)
+    }, [stryLikes])
 
     const lastStoryElementRef = useCallback(node => {
         if(loading) return
@@ -73,12 +94,13 @@ function Stories(props){
     useEffect(()=>{
         if(sortName) setPageNumber(1)
     }, [sortName])
+    
 
     const items =  stories.map((itm, idx)=>{
+        if(!stryLikes) return '';
 
         let options = {
             blockStyleFn: (block) => {
-                // console.log('block type:', block.type)
                 switch(block.type){
                     case 'ALIGNLEFT':
                         return {style:{textAlign: 'left'}}
@@ -101,6 +123,7 @@ function Stories(props){
                     <StoryCard 
                         content={story} 
                         data={itm}
+                        liked={!(stryLikes.indexOf(itm.stryId) === -1)}
                     />
                 </div>
             )
@@ -112,6 +135,7 @@ function Stories(props){
                     <StoryCard 
                         content={story} 
                         data={itm}
+                        liked={!(stryLikes.indexOf(itm.stryId) === -1)}
                     />
                 </div>
             )

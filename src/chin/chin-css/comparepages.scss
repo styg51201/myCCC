@@ -1,15 +1,13 @@
 .chin-main-item {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
 }
 .chin-functionfield {
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-end;
+  width: 100%;
 }
 .chin-peritem-item {
-  width: 1090px;
+  padding-bottom: 40px;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -82,4 +80,19 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+}
+.chin-hardwarespecifications {
+  border-top: 1px solid #050505;
+  margin-bottom: 30px;
+}
+.chin-hardwarespecifications h2 {
+  margin: 20px 0;
+}
+.chin-hardwarespecifications-col {
+  display: flex;
+  flex-direction: row;
+}
+.chin-hardwarespecifications-col div {
+  width: 100%;
+  margin-left: 0px;
 }
