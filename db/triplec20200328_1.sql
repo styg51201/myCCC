@@ -30,7 +30,7 @@ USE `triplec`;
 -- 資料表結構 `ad`
 --
 
-CREATE TABLE `ad` (
+CREATE TABLE IF NOT EXISTS `ad` (
   `adId` int(5) NOT NULL,
   `adName` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片名稱',
   `adImg` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '圖片',
