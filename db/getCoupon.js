@@ -271,6 +271,15 @@ router.get('/backAdData',(req,res)=>{
 })
 
 
+router.post('/backAdSetState',(req,res)=>{
+
+    const sql = 'UPDATE `plan` SET `planStatus` = ? WHERE `planId` = ?'
+    db.queryAsync(sql,[req.body.planStatus,req.body.planId])
+    .then(r=>{
+        res.json(r)
+    })
+})
+
 
 // INSERT INTO `coupon`( `cp_vid`, `cp_vendor`, `cp_count` ,`cp_img`, `cp_start`, `cp_due`) VALUES 
 // (73,'AFAMIC 艾法',100,'AFAMIC 艾法.jpg',2020-03-11,2020-04-2),
@@ -293,44 +302,6 @@ router.get('/backAdData',(req,res)=>{
 // (4,1,3,1,3000),
 // (4,0,0,0,95),
 // (4,2,10000,1,3500),
-
-
-
-
-router.get('/list/:page?', (req, res) => {
-    const perPage = 8;
-    let totalRows, totalPages;
-    let page = req.params.page ? parseInt(req.params.page) : 1;
-
-    const t_sql = "SELECT COUNT(1) num FROM `students`";
-    db.queryAsync(t_sql)
-        .then(result => {
-            totalRows = result[0].num; // 總筆數
-            totalPages = Math.ceil(totalRows / perPage);
-
-            // 限定 page 範圍
-            if (page < 1) page = 1;
-            if (page > totalPages) page = totalPages;
-
-            const sql = `SELECT * FROM students LIMIT  ${(page - 1) * perPage}, ${perPage}`;
-
-            return db.queryAsync(sql)
-        })
-        .then(result => {
-            //轉日期文字格式
-
-            result.forEach((row, idx) => {
-                row.studentBirthday = moment(row.studentBirthday).format(fm)
-            })
-
-            res.render('address-book/list', {
-                totalRows,
-                totalPages,
-                page,
-                rows: result
-            })
-        })
-})
 
 
 module.exports = router
