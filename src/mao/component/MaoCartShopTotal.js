@@ -15,9 +15,9 @@ import {
 import $ from 'jquery'
 import { FaTicketAlt } from 'react-icons/fa'
 import { TiDeleteOutline } from 'react-icons/ti'
-
+import {MaoCouponType} from '../MaoCouponType'
 function MaoCartShopTotal(props) {
-console.log('MaoCartShopTotal==',props)
+
   const [shipping, setShipping] = useState(100)
   const [discount, setDiscount] = useState(0)
   const [openCoupon, setOpenCoupon] = useState(true)
@@ -43,7 +43,6 @@ console.log('MaoCartShopTotal==',props)
       setOpenCoupon(true)
     }
   }
-
   useEffect(() => {
     CalTotal()
     props.getShopCart()
@@ -71,6 +70,10 @@ console.log('MaoCartShopTotal==',props)
      setSaveStotal(props.sTotal)
      //得到store的總額
      setSaveTotal(props.FinalTotal)
+     
+     MaoCouponType.map((v,i)=>{
+    console.log(v)
+    })
   }, [])
 
   useEffect(() => {
@@ -158,7 +161,7 @@ console.log('MaoCartShopTotal==',props)
   const [couponProduct,setCouponProduct]=useState([])
   const couponDOM=[]
   let useFilterCoupon=[]
-  const couponBox=couponType.map((v,i)=>{
+  const couponBox=MaoCouponType.map((v,i)=>{
     useFilterCoupon.push(v.type)
     couponDOM.push(
       <div onClick={()=>{props.hadleCoupon(v.value,v.type,props.sTotal)

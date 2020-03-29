@@ -64,9 +64,15 @@
   background: $white;
   border:1px solid $black;
   color: $black;
+  &:hover{
+    color: $black;
+  }
 }
 .Mao-order-btn-color-black{
   background: $black;
   border:1px solid $black;
+  &:hover{
+    color:$white
+  }
   color: $white;
 }

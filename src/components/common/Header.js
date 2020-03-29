@@ -5,6 +5,9 @@ import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import {AddCart} from '../../mao/actions/ShopCartAction'
 //icons
 // import { IconContext } from 'react-icons'
 import {
@@ -19,7 +22,7 @@ import {
 import $ from 'jquery'
 
 function Header(props) {
-  // console.log(props)
+  console.log(props)
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [searchBlurTime, setSearchBlurTime] = useState(0)
@@ -70,6 +73,8 @@ function Header(props) {
       localStorage.removeItem('userId')
       window.location.replace('http://localhost:3000/memberlogin')
     })
+    
+
   }, [])
 
   const inputRef = useRef(null)
@@ -80,6 +85,7 @@ function Header(props) {
         inputRef.current.blur()
     }
   }, [openSearch])
+
 
   const handleOpenSearch = () => {
     if (new Date().getTime() - searchBlurTime > 300) {
@@ -295,9 +301,12 @@ function Header(props) {
           </div>
           <div className="nav-icons-wrapper">
             <Link to="/member/ShopCartList">
+            <div className="Mao-items-Num">
               <div className="nav-icons">
+                <div className="Mao-items-abs">{props.AddItem.length}</div>
                 <FiShoppingBag />
               </div>
+            </div>
             </Link>
             <Link to="/member/ShopCartLike">
               <div className="nav-icons">
@@ -341,5 +350,22 @@ function Header(props) {
     </>
   )
 }
-
-export default withRouter(Header)
+const mapStateToProps = store => {
+  return {
+    //購物車內容
+    // data: store.getShop,
+    AddItem: store.AddItem,
+  }
+}
+//action
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      AddCart
+    },
+    dispatch
+  )
+}
+// export default withRouter(Header)
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Header))
