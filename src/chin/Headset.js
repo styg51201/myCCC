@@ -18,15 +18,13 @@ import CompareProductSort from './components/CompareProductSort'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
+import { formServerItemsData, ResetListItemName,ResetListItemNameCom,ItemscompareNo } from './actions/itemsActions'
 
 function Headset(props) {
-  const [englishnameHeadset, setEnglishnameHeadset] = useState(
-    'HEADPHONE/SPEAKER'
-  )
+  const [englishnameHeadset, setEnglishnameHeadset] = useState('HEADPHONE/SPEAKER')
+  const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
   // document.documentElement.scrollTop = document.body.scrollTop =0;
-
   const itemlist = props.data.map((val, ind) => {
     if (props.headset.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
@@ -37,19 +35,15 @@ function Headset(props) {
   })
   const commodityItems = props.data.map((val, ind) => {
     if (props.headset.indexOf(val.name) > -1) {
-      return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
+      return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
     }
   })
   const allcommodityItems = props.data.map((val, ind) => {
-    return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
+    return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
-
   useEffect(() => {
     props.formServerItemsData('headset')
-  
-    
     return ()=> props.ResetListItemName()
-
   }, [])
 
 
@@ -78,11 +72,29 @@ function Headset(props) {
             </div>
             {commodity ? (
               <div className="chin-article">
-                <button>功能比較</button>
-                <button>關閉</button>
+                <div className="chin-itemcompares">
+                {props.compare.map((val,ind)=>{
+                  return(
+                      <div className="chin-compares">
+                        <img src="./chin-img/x.svg" className="chin-x" onClick={()=>{
+                                                                                props.ItemscompareNo(false,val,props.compare)
+                                                                                setDelitems(val.itemId)
+                                                                                }}/>
+                        <div><img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} className="chin-watch3"/></div>
+                        <span>{val.itemName}</span>
+                      </div>
+                      )
+                })}
+                </div>
+                <div className="chin-button-compares">{props.compare.length>1?
+                  <Link to="/Comparepagesheadset" className="chin-com-a"><button>功能比較</button></Link>:
+                    <Link to="/Comparepagesheadset" className="chin-com-a"><button disabled='true' style={{cursor:"no-drop"}}>功能比較</button></Link>}
+                    <button onClick={()=>{setCommdity(!commodity)
+                                        props.ResetListItemNameCom()}}>關閉</button>
+                </div>
               </div>
             ) : (
-              ''
+             ''
             )}
             <div className="circle">
               <div className="circle1">
@@ -101,6 +113,7 @@ function Headset(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
            headset: store.getListitemName,
+           compare:store.getItemscompare,
           rest: store.reset}
 }
 
@@ -110,6 +123,8 @@ const mapDispatchToProps = dispatch => {
     {
       formServerItemsData,
       ResetListItemName,
+      ResetListItemNameCom,
+      ItemscompareNo,
     },
     dispatch
   )

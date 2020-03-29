@@ -20,7 +20,8 @@ import AdSlide from './components/AdSlide'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {fromServerAdData} from '../stacey/actions/couponAction'
+import {fromServerAdData,fromServerMbLikeData} from '../stacey/actions/couponAction'
+
 
 
 function Home(props2){
@@ -44,6 +45,7 @@ function Home(props2){
         })
 
         props2.fromServerAdData() //拿廣告資料
+        if(mb_id) props2.fromServerMbLikeData(mb_id)//拿會員收藏資料
 
         window.addEventListener('scroll', handleScroll)
         window.addEventListener('resize', handleWindowResize)
@@ -53,6 +55,69 @@ function Home(props2){
             window.removeEventListener('resize', handleWindowResize)
         }
     }, [])
+
+    //---------------------廣告設定 ↓-----------------
+    let adArr= []
+    let adForGroup= []
+
+    for(let i = 0 ; i < props2.adData.length;i++){
+        if(props2.adData[i].planGroup){
+            adForGroup.push(props2.adData[i])
+        }else{
+            adArr.push(props2.adData[i])
+        }
+    }
+
+    //取得會員id
+    const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+    //取得瀏覽紀錄
+    const hisItem = localStorage.getItem('hisitem') ? JSON.parse(localStorage.getItem('hisitem') ) : []
+    //取得購物車內容
+    const cartItem = localStorage.getItem('cartItem') ? JSON.parse(localStorage.getItem('cartItem') ) : []
+
+    function pushArr (obj){
+        if( adArr.findIndex(val=>val.planId === obj.planId ) === -1 ){
+            adArr.push(obj) 
+        }
+    }
+
+    if(mb_id){
+        for(let i = 0 ; i < adForGroup.length;i++){
+            // console.log('4444',adForGroup[i].groupHistoryCategory)
+            if(adForGroup[i].groupHistoryItems){
+                if( hisItem.some((val,ind)=> val.name === adForGroup[i].planUsername)){
+                    pushArr(adForGroup[i])
+                } 
+            }
+            if( adForGroup[i].groupHistoryCategory){
+                if( hisItem.some((val,ind)=> val.itemCategoryId === adForGroup[i].groupHistoryCategory) ){
+                    pushArr(adForGroup[i])
+                }
+            }
+            if( adForGroup[i].groupCartCategory ){
+                if( cartItem.some((val,ind)=> val.itemCategoryId === adForGroup[i].groupCartCategory) ) {
+                    pushArr(adForGroup[i])
+                }
+            }
+            if( adForGroup[i].groupCollectItems ){
+                if( props2.mbLikeData.some((val,ind)=> val.p_vendor === adForGroup[i].planUsername) ) {
+                    pushArr(adForGroup[i])
+                }
+            }
+
+            if( adForGroup[i].groupCollectCategory ){
+                if( props2.mbLikeData.some((val,ind)=> val.p_category === adForGroup[i].groupCollectCategory) ) {
+                    pushArr(adForGroup[i])
+                }
+            }
+        }
+    }
+    adArr.sort(function(a,b){
+        return a.plan_updates_at > b.plan_updates_at ? -1 : 1
+      })
+
+  
+    // ---------------------廣告設定 ↑----------------------------------------
 
     const handleScroll = ()=>{
         const posY = parallaxRef.current.getBoundingClientRect().top
@@ -114,7 +179,7 @@ function Home(props2){
     ]
 
     useInterval(()=>{
-        setAdNum((adNum + 1)% props2.adData.length)
+        setAdNum((adNum + 1)% adArr.length)
     }, 3000)
 
     function useInterval(callback, delay) {
@@ -138,13 +203,13 @@ function Home(props2){
       }
 
     const btnNextSlide = ()=>{
-        setAdNum((adNum + 1)% props2.adData.length)
+        setAdNum((adNum + 1)% adArr.length)
     }
 
     const btnPrevSlide = ()=>{
         setAdNum(prevAdNum=>{
             let newNum = prevAdNum - 1
-            if(newNum < 0) newNum = props2.adData.length -1
+            if(newNum < 0) newNum = adArr.length -1
             return newNum
         })
     }
@@ -177,7 +242,7 @@ const parallax = useRef()
             </section>
             <section className="bk-ads">
                 <Container className='bk-ads-container'>
-                    {props2.adData.length && props2.adData.map((elm, idx)=>{
+                    {props2.adData.length && adArr.map((elm, idx)=>{
                         return (
                             <AdSlide 
                             key={idx+'a'} 
@@ -197,7 +262,7 @@ const parallax = useRef()
                     </div>
                     <div className="bk-ad-list-buttons">
                         <ul>
-                            {props2.adData.length && props2.adData.map((elm, idx)=>{
+                            {props2.adData.length && adArr.map((elm, idx)=>{
                                 return (
                                     <li key={idx+'l'}
                                      onClick={()=>{
@@ -355,12 +420,13 @@ const parallax = useRef()
 //廣告用
 //選擇對應的reducer
 const mapStateToProps = store => {
-    return { adData: store.adData}
+    return  { adData: store.adData,
+        mbLikeData: store.memberLikeData}
   }
   //action
   const mapDispatchToProps = dispatch =>{
     return bindActionCreators({
-        fromServerAdData
+        fromServerAdData,fromServerMbLikeData
     },dispatch)
   }
 
