@@ -8,11 +8,14 @@ import {
   } from 'react-router-dom'
 import './chin-css/comparepages.scss'
 import '../css/main.css'
+//components
+import ComparepagesHardwareSpecifications from './components/ComparepagesHardwareSpecifications'
+import ComparepagesSmartWatch from './components/ComparepagesSmartWatch'
+import ComparepagesOtherFunctions from './components/ComparepagesOtherFunctions'
 //redux
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { SelectItemscompare } from './actions/itemsActions'
 
 
 function Comparepages(props){
@@ -20,415 +23,41 @@ function Comparepages(props){
   document.documentElement.scrollTop = document.body.scrollTop =0;
 return(
     <>
-    <main>
-        <div className="chin-peritem-item">
-            <Link to="/watch"><span>選擇其他產品進行比較 ></span></Link>
-            {props.compare.map((val,ind)=>{
-            return( <div>
-                        <div className="chin-peritem">
-                            <img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} alt="" />
-                            <h6>{val.name}</h6>
-                            <p>{val.itemName}</p>
-                            <h5>NT{val.itemPrice}</h5>
-                        </div>
-                        <div className="chin-item">
-                        <Link to={'/commidty/'+ val.itemId}><button>了解更多</button></Link>
-                            <button>立即購買</button>
-                        </div>
-                    </div>)
-        })}
-        </div>
-        <div className="chin-hardwarespecifications">
-            <h2>硬體規格</h2>
-                <div className="chin-producttypes">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
+    <main className="chin-main-item">
+            <div className="chin-peritem-item">
+                <div className="chin-functionfield">
+                    <Link to="/watch"><p>選擇其他產品進行比較 ></p></Link>
                 </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
+                {props.compare.map((val,ind)=>{
+                return( 
+                        <>
+                        <div className="chin-item-field">
+                            <div className="chin-peritem">
+                                <img src={`/chin-img/images/${val.itemName}/${val.itemImg}`} alt="" />
+                                <h6>{val.name}</h6>
+                                <p>{val.itemName}</p>
+                                <h5>NT{val.itemPrice}</h5>
+                            </div>
+                            <div className="chin-item">
+                            <Link to={'/commidty/'+ val.itemId}><button>了解更多</button></Link>
+                                <button>立即購買</button>
+                            </div>
                         </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-        </div>
-        <div className="chin-hardwarespecifications">
-            <h2>智慧手錶</h2>
-                <div className="chin-producttypes">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
+                    </> 
+                    )
+                })}
             </div>
             <div className="chin-hardwarespecifications">
-            <h2>健身功能</h2>
-                <div className="chin-producttypes">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
+                <h2>硬體規格</h2>
+                <ComparepagesHardwareSpecifications />
             </div>
             <div className="chin-hardwarespecifications">
-            <h2>跑步功能</h2>
-                <div className="chin-producttypes">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
-                <div className="chin-producttypes-narrative">
-                    <div className="chin-producttypes-item-title">
-                        <p>類型</p>
-                    </div>
-                    <div className="chin-grid">
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                        <div className="chin-grid-producttypes-item">
-                            <p>類型</p>
-                        </div>
-                    </div>
-                </div>
+                <h2>智慧手錶</h2>
+            <ComparepagesSmartWatch/>
+            </div>
+            <div className="chin-hardwarespecifications">
+                <h2>其他功能</h2>
+            <ComparepagesOtherFunctions/>
             </div>
     </main>
     </>
@@ -443,7 +72,6 @@ const mapStateToProps = store => {
   const mapDispatchToProps = dispatch => {
     return bindActionCreators(
       {
-        SelectItemscompare
       },
       dispatch
     )

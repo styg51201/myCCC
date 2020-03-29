@@ -4,17 +4,18 @@ import { Row, Col } from 'react-bootstrap'
 // import { convertFromRaw } from 'draft-js'
 // import {stateToHTML} from 'draft-js-export-html';
 import {Link} from 'react-router-dom'
-import Swal from 'sweetalert2/dist/sweetalert2'
+// import Swal from 'sweetalert2/dist/sweetalert2'
+import MemberStoryList from './components/MemberStoryList'
 
 
-import {
-    // FiTrash2,
-    // FiChevronDown,
-    FiThumbsUp,
-    FiMessageSquare,
-    FiEye,
-    FiEyeOff
-  } from 'react-icons/fi'
+// import {
+//     // FiTrash2,
+//     // FiChevronDown,
+//     FiThumbsUp,
+//     FiMessageSquare,
+//     FiEye,
+//     FiEyeOff
+//   } from 'react-icons/fi'
 
 function MemberStories(){
 
@@ -45,126 +46,6 @@ function MemberStories(){
 
     }, [])
 
-    const handleDelete = (id)=>{
-        Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: '確定',
-            cancelButtonText: '取消',
-            text: '確定要刪除？',
-            position:'center',
-            buttonsStyling: false,
-            customClass: {
-                popup: 'bk-swl-popup',
-                icon: 'bk-swl-icon',
-                content: 'bk-swl-content',
-                confirmButton: 'bk-swl-confirm-button',
-                cancelButton: 'bk-swl-cancel-button',
-              }
-          }) 
-          .then(result=>{
-              if(result.value){
-                axios({
-                    method: 'DELETE',
-                    url: `http://localhost:5500/stories/member/story/${id}?usrId=${usrId}`
-                })
-                .then(r=>{
-                    console.log(r)
-                    Swal.fire({
-                        text: '刪除成功！',
-                        icon: 'success',
-                        buttonsStyling: false,
-                        confirmButtonText: '確定',
-                        customClass: {
-                            popup: 'bk-swl-popup',
-                            icon: 'bk-swl-icon',
-                            content: 'bk-swl-content',
-                            confirmButton: 'bk-swl-confirm-button',
-                            cancelButton: 'bk-swl-cancel-button',
-                          }
-                    })
-                })
-              }
-          })
-    }
-
-    const handleShow = (id)=>{
-        Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: '確定',
-            cancelButtonText: '取消',
-            text: '確定將故事設為顯示？',
-            position:'center',
-            buttonsStyling: false,
-            customClass: {
-                popup: 'bk-swl-popup',
-                icon: 'bk-swl-icon',
-                content: 'bk-swl-content',
-                confirmButton: 'bk-swl-confirm-button',
-                cancelButton: 'bk-swl-cancel-button',
-              }
-          }) 
-          .then(result=>{
-              if(result.value){
-                axios({
-                    method: 'PATCH',
-                    url: `http://localhost:5500/stories/member/story/show-story/${id}?usrId=${usrId}`
-                })
-                .then(r=>{
-                    console.log(r)
-                })
-              }
-          })
-    }
-
-    const handleHide = (id)=>{
-        Swal.fire({
-            position: 'top-end',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: '確定',
-            cancelButtonText: '取消',
-            title: '確定要隱藏？',
-            text: '隱藏後將不再顯示於故事牆上，但您可以隨時恢復',
-            position:'center',
-            buttonsStyling: false,
-            customClass: {
-                popup: 'bk-swl-popup',
-                icon: 'bk-swl-icon',
-                content: 'bk-swl-content',
-                confirmButton: 'bk-swl-confirm-button',
-                cancelButton: 'bk-swl-cancel-button',
-              }
-          }) 
-          .then(result=>{
-              if(result.value){
-                axios({
-                    method: 'PATCH',
-                    url: `http://localhost:5500/stories/member/story/hide-story/${id}?usrId=${usrId}`
-                })
-                .then(r=>{
-                    console.log(r)
-                    // Swal.fire({
-                    //     text: '刪除成功！',
-                    //     icon: 'success',
-                    //     buttonsStyling: false,
-                    //     confirmButtonText: '確定',
-                    //     customClass: {
-                    //         popup: 'bk-swl-popup',
-                    //         icon: 'bk-swl-icon',
-                    //         content: 'bk-swl-content',
-                    //         confirmButton: 'bk-swl-confirm-button',
-                    //         cancelButton: 'bk-swl-cancel-button',
-                    //       }
-                    // })
-                })
-              }
-          })
-    }
-
     return(
         <>
             <Row>
@@ -179,47 +60,17 @@ function MemberStories(){
                     </div>
                 </Col>
                 <Col lg={9} className='bk-member-main-container'>
-                    <h3>故事列表</h3>
+                    <div className='bk-story-top'>
+                        <h3>我的故事</h3>
+                        <Link to='/member/upload-stories'>
+                            <button className='bk-hover'>去寫故事</button>
+                        </Link>
+                    </div>
                     <ul className='bk-story-list'>
                         {!data.length ? '沒有張貼故事' : data.map(elm=>{
-                            return (
-                            <li key={elm.stryId} className={elm.stryStatus === 'active' ? '' : 'inactive'}>
-                                <div className='bk-story-li-content'>
-                                    <h5>{elm.stryTitle}</h5>
-                                    <div className='bk-txt-small'>{elm.time}</div>
-                                    <div className='py-2'>{elm.contentStr}</div>
-
-                                    <div className='bottom'>
-                                        <div className='stats'>
-                                            <span className='bk-stry-icons' key={'ak'}><FiThumbsUp /> {elm.stryLikes}</span>
-                                            <span className='bk-stry-icons' key={'bg'}><FiEye /> {elm.stryViews}</span>
-                                            <span className='bk-stry-icons' key={'c'}><FiMessageSquare /> {elm.rplyTotal}</span>
-                                        </div>
-
-                                        <div className='funcs'>
-                                            <div role='button'>
-                                                <Link to={`/member/stories/${elm.stryId}/replies`}>
-                                                    查看評論
-                                                </Link>
-                                            </div>
-                                            <div role='button'>
-                                                <Link to={`/member/stories/story/${elm.stryId}`}>
-                                                    編輯
-                                                </Link>
-                                            </div>
-
-                                            {elm.stryStatus === 'active' ? 
-                                                <div role='button' onClick={()=>{ handleHide(elm.stryId) }}>隱藏</div>
-                                                :
-                                                <div role='button' onClick={()=>{ handleShow(elm.stryId) }}>顯示</div>
-                                            }
-
-                                            <div role='button' onClick={()=>{ handleDelete(elm.stryId) }}> 刪除</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            )
+                            return <MemberStoryList 
+                            data={elm} 
+                             />
                         })}
                     </ul>
                 </Col>

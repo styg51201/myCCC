@@ -245,7 +245,39 @@ router.get('/adData',(req,res)=>{
     const sqlForAd = 'SELECT * FROM `plan` INNER JOIN `ad` ON `plan`.`planId` = `ad`.`adPlanId` INNER JOIN `promotion_group` ON `plan`.`planId` = `promotion_group`.`groupPlanId` WHERE `planStatus` = "上架" '
     db.queryAsync(sqlForAd)
     .then(r=>{
-        console.log(r)
+        res.json(r)
+    })
+})
+
+
+//會員收藏
+router.post('/mbLike',(req,res)=>{
+    const sql = 'SELECT * FROM `member_collect` WHERE `mb_id` = ? '
+    db.queryAsync(sql,[req.body.mb_id])
+    .then(r=>{
+        res.json(r)
+    })
+})
+
+//新增會員收藏
+router.post('/addMbLike',(req,res)=>{
+    console.log(req.body.obj.name)
+    const sql = 'INSERT INTO `member_collect` ( `mb_id`, `p_id`, `p_category`, `p_vendor`) VALUES (?,?,?,?) '
+    const arr = [req.body.mb_id,
+                req.body.obj.itemId,
+                req.body.obj.itemCategoryId,
+                req.body.obj.name,]
+    db.queryAsync(sql,arr)
+    .then(r=>{
+        res.json(r)
+    })
+})
+
+//刪除會員收藏
+router.post('/delMbLike',(req,res)=>{
+    const sql = 'DELETE FROM `member_collect` WHERE `mb_id` = ? AND `p_id` = ?'
+    db.queryAsync(sql,[req.body.mb_id,req.body.obj.itemId])
+    .then(r=>{
         res.json(r)
     })
 })
@@ -271,6 +303,15 @@ router.get('/backAdData',(req,res)=>{
 })
 
 
+router.post('/backAdSetState',(req,res)=>{
+
+    const sql = 'UPDATE `plan` SET `planStatus` = ? WHERE `planId` = ?'
+    db.queryAsync(sql,[req.body.planStatus,req.body.planId])
+    .then(r=>{
+        res.json(r)
+    })
+})
+
 
 // INSERT INTO `coupon`( `cp_vid`, `cp_vendor`, `cp_count` ,`cp_img`, `cp_start`, `cp_due`) VALUES 
 // (73,'AFAMIC 艾法',100,'AFAMIC 艾法.jpg',2020-03-11,2020-04-2),
@@ -293,44 +334,6 @@ router.get('/backAdData',(req,res)=>{
 // (4,1,3,1,3000),
 // (4,0,0,0,95),
 // (4,2,10000,1,3500),
-
-
-
-
-router.get('/list/:page?', (req, res) => {
-    const perPage = 8;
-    let totalRows, totalPages;
-    let page = req.params.page ? parseInt(req.params.page) : 1;
-
-    const t_sql = "SELECT COUNT(1) num FROM `students`";
-    db.queryAsync(t_sql)
-        .then(result => {
-            totalRows = result[0].num; // 總筆數
-            totalPages = Math.ceil(totalRows / perPage);
-
-            // 限定 page 範圍
-            if (page < 1) page = 1;
-            if (page > totalPages) page = totalPages;
-
-            const sql = `SELECT * FROM students LIMIT  ${(page - 1) * perPage}, ${perPage}`;
-
-            return db.queryAsync(sql)
-        })
-        .then(result => {
-            //轉日期文字格式
-
-            result.forEach((row, idx) => {
-                row.studentBirthday = moment(row.studentBirthday).format(fm)
-            })
-
-            res.render('address-book/list', {
-                totalRows,
-                totalPages,
-                page,
-                rows: result
-            })
-        })
-})
 
 
 module.exports = router

@@ -76,20 +76,23 @@ function Header(props) {
 
   useEffect(() => {
     console.log(openSearch)
+    if(!openSearch){
+        inputRef.current.blur()
+    }
   }, [openSearch])
 
   const handleOpenSearch = () => {
     if (new Date().getTime() - searchBlurTime > 300) {
       if (!openSearch) {
         setOpenSearch(true)
+        console.log('serach open')
         inputRef.current.focus()
-      } else {
-        inputRef.current.blur()
       }
     }
   }
 
   const handleSearch = evt => {
+    console.log(evt.key)
     if (evt.key === 'Enter') {
       if (!evt.target.value.trim().length) {
         //console.log('沒有值')
@@ -103,6 +106,7 @@ function Header(props) {
   }
 
   const handleSearchBlur = evt => {
+    console.log("blur")
     setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')

@@ -2,10 +2,17 @@
 
 .Mao-form-outer-box {
   width: 1300px;
-  border: 1px solid $blue;
   display: flex;
   margin: 100px auto;
   margin-bottom: 150px;
+}
+.Mao-orderInfo-form-contain-box{
+  padding:16px 24px;
+  width: 950px;
+  // height: calc( 100% + 40px);
+  border: 1px solid #ddd;
+  background: $white;
+
 }
 #creditCardInfo {
   opacity: 1;

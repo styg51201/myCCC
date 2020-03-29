@@ -6,9 +6,10 @@ import {
   filterCoupon,
   memberCouponData,
   adData,
-  memberData,
+  memberLikeData,
   couponTotal,
   countdownCouponData,
+  
 } from '../stacey/reducer/couponReducer'
 
 //chin
@@ -68,7 +69,7 @@ const rootReducer = combineReducers({
   memberCouponData,
   getCouponData,
   adData,
-  memberData,
+  memberLikeData,
   couponTotal,
   filterCoupon,
   countdownCouponData, //sty
@@ -82,7 +83,7 @@ const rootReducer = combineReducers({
   getitemCategoryId,
   getItemscompare,
   // getcompare,
-  showDiscount,
+  showDiscount,//chin
   //--------- ShopCart------------
   AddItem,
   getRANDitemid,

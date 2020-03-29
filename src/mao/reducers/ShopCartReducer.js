@@ -57,8 +57,10 @@ export const getRANDitemid=(state=[],action)=>{
 export const AddItem = (state = [], action) => {
   switch (action.type) {
     case 'ADD_CART':
+      localStorage.setItem('cartItem',JSON.stringify(action.value))
       return action.value
     case 'DEL_CART':
+      localStorage.setItem('cartItem',JSON.stringify(action.value))
       return action.value
     default:
       return state

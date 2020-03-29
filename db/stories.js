@@ -12,11 +12,11 @@ moment.locale('zh-tw'); //設置中文
 //-------MEMBER--------
 
 //---
-//get story
+//get story / draft
 router.get('/member/story/:id', (req, res)=>{
     let usrId = req.query.usrId
     let id = req.params.id;
-    let sql = `SELECT \`usrId\`, \`stryId\`, \`stryTitle\`, \`stryTags\`, \`stryContent\`, \`stryLikes\`, \`updated_at\`
+    let sql = `SELECT \`usrId\`, \`stryId\`, \`stryTitle\`, \`stryTags\`, \`stryContent\`, \`updated_at\`
         FROM \`stories\` 
         WHERE \`stryId\`=? AND \`usrId\` = ?`;
 
@@ -47,7 +47,7 @@ router.get('/member/draft/:id', (req, res)=>{
 })
 
 //---
-//get stories
+//get stories / drafts
 router.get('/member/stories', (req, res)=>{
 
     let usrId = req.query.usrId
@@ -56,10 +56,15 @@ router.get('/member/stories', (req, res)=>{
     if(usrId === 'null') return;
     // return;
 
-    let sql = `SELECT \`s\`.\`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryLikes\`, \`stryViews\`, \`s\`.\`updated_at\`,
-        COUNT(\`rplyId\`) AS \`rplyTotal\`
+    let sql = `
+    SELECT \`s\`.\`stryId\`, \`stryTitle\`, \`stryStatus\`, \`stryContent\`, \`stryTags\`, \`stryViews\`, \`s\`.\`updated_at\`,
+        COUNT(\`rplyId\`) AS \`rplyTotal\`,
+        COALESCE(sLikes, 0) AS likes
         FROM \`stories\` AS \`s\`
         LEFT JOIN \`storyReplies\` AS \`r\` ON \`r\`.\`stryId\` = \`s\`.\`stryId\`
+        LEFT JOIN 
+            (SELECT \`storyLikes\`.\`stryId\`, COUNT(\`storyLikes\`.\`stryId\`) AS sLikes FROM \`storyLikes\` GROUP BY \`storyLikes\`.\`stryId\`) AS story_likes
+        ON \`s\`.\`stryId\` = story_likes.\`stryId\`
         WHERE \`s\`.\`usrId\` = ?
         GROUP BY \`s\`.\`stryId\`
         ORDER BY \`s\`.\`updated_at\` DESC`;
@@ -75,7 +80,6 @@ router.get('/member/stories', (req, res)=>{
         res.json(err)
     })
 })
-//get drafts
 router.get('/member/drafts', (req, res)=>{
 
     let usrId = req.query.usrId
@@ -96,6 +100,30 @@ router.get('/member/drafts', (req, res)=>{
     })
     .catch(err=>{
         res.json(err)
+    })
+})
+
+//get story user like
+router.get('/member/like/:id?', (req, res)=>{
+
+    let usrId = req.query.usrId;
+    if(usrId === 'null') return;
+    let params= [usrId];
+
+    let sql = 'SELECT `stryId` FROM `storyLikes` WHERE `usrId` = ?'
+    
+    if(req.params.id){
+        sql += ' AND `stryId` = ?'
+        params.push(req.params.id)
+    }
+
+    db.queryAsync(sql, params)
+    .then(r=>{
+        // console.log(r)
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err;
     })
 })
 
@@ -121,6 +149,38 @@ router.get('/member/:id/replies', (req, res)=>{
         r.forEach((elm)=>{
             elm.fromNow = moment(elm.updated_at).fromNow()
         })
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+
+//hide / show story
+router.patch('/member/story/hide-story/:id', (req, res)=>{
+    let id = req.params.id
+    let usrId = req.query.usrId
+
+    if(usrId === 'null') return;
+
+    let sql = 'UPDATE `stories` SET `stryStatus`="hidden" WHERE `stryId`=? AND `usrId`=?';
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+router.patch('/member/story/show-story/:id', (req, res)=>{
+    let id = req.params.id
+    let usrId = req.query.usrId
+
+    let sql = 'UPDATE `stories` SET `stryStatus`="active" WHERE `stryId`=? AND `usrId`=?';
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
         res.json(r)
     })
     .catch(err=>{
@@ -241,43 +301,12 @@ router.patch('/member/draft/submit-draft/:id', (req, res)=>{
 
 })
 
-//hide story
-router.patch('/member/story/hide-story/:id', (req, res)=>{
-    let id = req.params.id
-    let usrId = req.query.usrId
-
-    if(usrId === 'null') return;
-
-    let sql = 'UPDATE `stories` SET `stryStatus`="hidden" WHERE `stryId`=? AND `usrId`=?';
-
-    db.queryAsync(sql, [id, usrId])
-    .then(r=>{
-        res.json(r)
-    })
-    .catch(err=>{
-        throw err
-    })
-})
-//show story
-router.patch('/member/story/show-story/:id', (req, res)=>{
-    let id = req.params.id
-    let usrId = req.query.usrId
-
-    let sql = 'UPDATE `stories` SET `stryStatus`="active" WHERE `stryId`=? AND `usrId`=?';
-
-    db.queryAsync(sql, [id, usrId])
-    .then(r=>{
-        res.json(r)
-    })
-    .catch(err=>{
-        throw err
-    })
-})
 
 //---
 //first submit editor content to draft
 router.post('/member/initiate-draft', (req, res)=>{
-
+    console.log('initiating draft...')
+    
     const output = {
         success: false,
         data: '',
@@ -390,6 +419,40 @@ router.post('/reply/:id', (req, res)=>{
     })
 })
 
+//user add like to story
+router.post('/member/add-like/:id', (req, res)=>{
+    let id = req.params.id;
+    let usrId = req.query.usrId;
+    if(usrId === 'null') return;
+
+    let sql = 'INSERT INTO `storyLikes`(`stryId`, `usrId`) VALUES (?, ?)'
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
+
+
+//remove like from story
+router.delete('/member/remove-like/:id', (req, res)=>{
+    let id = req.params.id;
+    let usrId = req.query.usrId;
+    if(usrId === 'null') return;
+
+    let sql = 'DELETE FROM `storyLikes` WHERE `stryId`= ? AND `usrId`= ?'
+
+    db.queryAsync(sql, [id, usrId])
+    .then(r=>{
+        res.json(r)
+    })
+    .catch(err=>{
+        throw err
+    })
+})
 
 //---
 //delete draft
@@ -525,11 +588,14 @@ router.get('/story/:id', (req, res)=>{
     }
     
     let sql = `
-    SELECT \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryTitle\`, \`stryContent\`, \`stryLikes\`, \`stories\`.\`updated_at\`,
-    \`Img\`, \`Name\`, \`Account\`
+    SELECT \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryTitle\`, \`stryContent\`, \`stories\`.\`updated_at\`,
+    \`Img\`, \`Name\`, \`Account\`,
+    COUNT (\`storyLikes\`.\`stryId\`) AS likes
     FROM \`stories\` 
     INNER JOIN \`member\` ON \`Id\` = \`stories\`.\`usrId\`
-    WHERE \`stories\`.\`stryId\`=? AND \`stryStatus\` = "active"`;
+    LEFT JOIN \`storyLikes\` ON \`storyLikes\`.\`stryId\` = \`stories\`.\`stryId\`
+    WHERE \`stories\`.\`stryId\`=? AND \`stryStatus\` = "active"
+    GROUP BY \`stories\`.\`stryId\``;
 
     db.queryAsync(sql, [req.params.id])
     .then(r=>{
@@ -558,10 +624,16 @@ router.get('/:page?', (req, res)=>{
     let perPage = 15;
     let currentPage = req.params.page ? parseInt(req.params.page) : 1;
 
-    let sql = `SELECT \`Name\`, \`Img\`, \`Account\`, \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryViews\`, \`stryTitle\`, \`stryContent\`, \`stryLikes\`, \`stories\`.\`created_at\`, \`stories\`.\`updated_at\`, COUNT(\`rplyId\`) AS "rplyTotal" 
+    let sql = `SELECT \`Name\`, \`Img\`, \`Account\`, \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryViews\`, \`stryTitle\`, \`stryContent\`, \`stories\`.\`created_at\`, \`stories\`.\`updated_at\`, 
+    COUNT(\`rplyId\`) AS rplyTotal,
+    COALESCE(sLikes, 0) AS likes
     FROM \`stories\` 
     INNER JOIN \`member\` ON \`usrId\` = \`ID\` 
-    LEFT JOIN \`storyReplies\` ON \`storyReplies\`.\`stryId\` = \`stories\`.\`stryId\` WHERE \`stryStatus\` = "active" GROUP BY \`stories\`.\`stryId\``;
+    LEFT JOIN \`storyReplies\` ON \`storyReplies\`.\`stryId\` = \`stories\`.\`stryId\` 
+    LEFT JOIN 
+        (SELECT \`storyLikes\`.\`stryId\`, COUNT(\`storyLikes\`.\`stryId\`) AS sLikes FROM \`storyLikes\` GROUP BY \`storyLikes\`.\`stryId\`) AS story_likes
+    ON \`stories\`.\`stryId\` = story_likes.\`stryId\`
+    WHERE \`stryStatus\` = "active" GROUP BY \`stories\`.\`stryId\``;
 
     if(!req.query.orderby){
         sql = sql + ` ORDER BY \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`
@@ -569,9 +641,9 @@ router.get('/:page?', (req, res)=>{
         if(req.query.orderby === 'time'){
             sql = sql + ` ORDER BY \`stories\`.\`updated_at\` DESC, \`stories\`.\`stryViews\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
         }else if (req.query.orderby === 'views'){
-            sql = sql + ` ORDER BY \`stories\`.\`stryViews\` DESC, \`stories\`.\`stryLikes\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
+            sql = sql + ` ORDER BY \`stories\`.\`stryViews\` DESC, likes DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
         }else if (req.query.orderby === 'likes'){
-            sql = sql + ` ORDER BY \`stories\`.\`stryLikes\` DESC, \`stories\`.\`stryViews\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
+            sql = sql + ` ORDER BY likes DESC, \`stories\`.\`stryViews\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
         }else if (req.query.orderby === 'replies'){
             sql = sql + ` ORDER BY \`rplyTotal\` DESC, \`stories\`.\`stryViews\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
         }

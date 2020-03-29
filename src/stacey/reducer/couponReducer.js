@@ -80,12 +80,15 @@ export const adData = (state=[],action)=>{
   }
 }
 
-export const memberData = (state=[{mc_mb_id:5,mc_p_id:13,vid:5,p_category:1},{mc_mb_id:5,mc_p_id:13,vid:5,p_category:3}],action)=>{
+export const memberLikeData = (state=[],action)=>{
   switch (action.type){
-    case 'SHOW_MB_VALUE':
+    case 'SHOW_LIKE_VALUE':
       return action.value
-    case 'ADD_MB_VALUE':
+    case 'ADD_LIKE_VALUE':
       return [...state,action.value]
+    case 'DEL_LIKE_VALUE':
+      let newState = state.filter((val,ind)=>val.p_id !== action.value.itemId)
+      return newState
     default :
       return state
   }

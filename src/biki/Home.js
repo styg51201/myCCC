@@ -27,18 +27,16 @@ function Home(props2){
 
     const [loaded, setLoaded] = useState(false) //for loading animation 還沒做
     const [adNum, setAdNum] = useState(0); //for ad slides
-    const [docWidth, setDocWidth] = useState(window.innerWidth)
+    // const [docWidth, setDocWidth] = useState(window.innerWidth)
     const [showMouse, setShowMouse] = useState(true)
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 640)
 
     const [props, set] = useSpring(()=>({
         offset: 0,
-        // offsetSlide: 0
-        // opacity: 0
     }))
 
     const parallaxRef = useRef()
     const mouseRef = useRef()
-    // const slideRef = useRef()
 
     useEffect(()=>{
         setTimeout(()=>{
@@ -82,8 +80,11 @@ function Home(props2){
 
     //------之後把handleScroll拿掉用的
     const handleWindowResize = ()=>{
-        console.log(window.innerWidth)
-        setDocWidth(window.innerWidth)
+        if(window.innerWidth <= 640){
+            setIsMobile(true)
+        }else{
+            setIsMobile(false)
+        }
     }
 
     console.log('999',props2)
@@ -212,14 +213,9 @@ const parallax = useRef()
             </section>
             <section className="bk-featured-products" 
                 ref={parallaxRef} >
-                {/* <animated.div className='bk-featured-bg' 
-                style={{
-                    opacity: props.opacity.interpolate(value => `${value * (0.001)}`)
-                }} 
-                /> */}
                 <Container>
                     <Row className='bk-featured-wrapper row-cols-xl-3 row-cols-md-2 row-cols-1'>
-                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/SONY 重低音降噪藍牙耳罩式耳機 WH-XB900N/0.jpg`}
                                 url='/commidty/116'
@@ -230,7 +226,7 @@ const parallax = useRef()
                                 }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc2)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc2)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/繽特力 Plantronics Voyager 6200UC 雙向降噪藍牙耳機 白色/0.jpg`}
                                 url='/commidty/171'
@@ -241,7 +237,7 @@ const parallax = useRef()
                                 }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
+                        <animated.div style={isMobile? {} : {transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/GoPro-HERO8 Black全方位運動攝影機 單車騎士升級組/0.jpg`}
                                 url='/commidty/161'
@@ -252,7 +248,7 @@ const parallax = useRef()
                                 }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/Mavic Mini 充電管家/0.jpg`}
                                 url='/commidty/191'
@@ -263,7 +259,7 @@ const parallax = useRef()
                                 }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc2)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc2)}}>
                         <Col>
                             <div className="bk-featured-product-item bk-box">
                                 <div className="bk-box-content">
@@ -274,7 +270,7 @@ const parallax = useRef()
                             </div>
                         </Col>
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/小米手環34 腕帶 替換帶 尼龍編織回環式錶帶 透氣舒適 運動智能錶帶/0.jpg`}
                                 url='/commidty/191'
@@ -285,7 +281,7 @@ const parallax = useRef()
                                 }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/HTR 螺旋槳4726F 金銀槳 For Mavic Mini/0.jpg`}
                                 url='/commidty/191'
@@ -296,7 +292,7 @@ const parallax = useRef()
                                 }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc2)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc2)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/SONY 運動藍牙入耳式耳機 WI-SP500/0.jpg`}
                                 url='/commidty/191'
@@ -307,7 +303,7 @@ const parallax = useRef()
                                 }}
                             />
                         </animated.div>
-                        <animated.div style={{transform: props.offset.interpolate(calc)}}>
+                        <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
                                 img={`./chin-img/images/Holy Stone HS210 迷你遙控飛機-三電版/0.jpg`}
                                 url='/commidty/191'
