@@ -124,7 +124,6 @@ export const ListItemName = (obj, val) => {
     return { type: 'ITEMNAME_VALUE', value: [obj.name, ...val] }
   } else {
     let ind = val.indexOf(obj.name)
-    //有空可以解bug => 只用splice失靈??? 一定要splice+map
     val.splice(ind, 1)
     let newList = val.map((val, ind) => {
       if (val !== obj.name) {
@@ -147,14 +146,6 @@ export const ListItemPrice = (obj,val)=>{
   }
 }
 //-----itemscompare------------------------
-export const Selectcompare = value => ({ type: 'SELECT_ITEMSCOMPARE', value: value })
-export const SelectItemscompare = (data) => {
-  // console.log(data)
-  return dispatch => {
-    // console.log(data)
-    dispatch(Selectcompare(data))
-  }
-}
 
 export const ItemscompareNocompare = value => ({ type: 'NP_COMPARE', value: value })
 export const ItemscompareNo = (val, product, data) => {

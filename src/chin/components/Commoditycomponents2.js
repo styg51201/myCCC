@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import { ItemscompareNo,SelectItemscompare} from '../actions/itemsActions'
+import { ItemscompareNo} from '../actions/itemsActions'
 import { Popper } from '@material-ui/core'
 
 function Commoditycomponents(props){
@@ -56,7 +56,6 @@ const mapStateToProps = store => {
     return bindActionCreators(
       {
         ItemscompareNo,
-        SelectItemscompare,
       },
       dispatch
     )

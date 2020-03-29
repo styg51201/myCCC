@@ -100,8 +100,6 @@ export const getItemscompare = (state=[],action)=>{
   switch(action.type){
     case 'NP_COMPARE':
       return action.value
-    case 'SELECT_ITEMSCOMPARE':
-      return action.value
     case 'ITEMNAME_RESETCOM':
       return []
     default:

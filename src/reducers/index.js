@@ -83,7 +83,7 @@ const rootReducer = combineReducers({
   getitemCategoryId,
   getItemscompare,
   // getcompare,
-  showDiscount,
+  showDiscount,//chin
   //--------- ShopCart------------
   AddItem,
   getRANDitemid,
