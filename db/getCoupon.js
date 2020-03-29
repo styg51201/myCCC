@@ -245,7 +245,39 @@ router.get('/adData',(req,res)=>{
     const sqlForAd = 'SELECT * FROM `plan` INNER JOIN `ad` ON `plan`.`planId` = `ad`.`adPlanId` INNER JOIN `promotion_group` ON `plan`.`planId` = `promotion_group`.`groupPlanId` WHERE `planStatus` = "上架" '
     db.queryAsync(sqlForAd)
     .then(r=>{
-        console.log(r)
+        res.json(r)
+    })
+})
+
+
+//會員收藏
+router.post('/mbLike',(req,res)=>{
+    const sql = 'SELECT * FROM `member_collect` WHERE `mb_id` = ? '
+    db.queryAsync(sql,[req.body.mb_id])
+    .then(r=>{
+        res.json(r)
+    })
+})
+
+//新增會員收藏
+router.post('/addMbLike',(req,res)=>{
+    console.log(req.body.obj.name)
+    const sql = 'INSERT INTO `member_collect` ( `mb_id`, `p_id`, `p_category`, `p_vendor`) VALUES (?,?,?,?) '
+    const arr = [req.body.mb_id,
+                req.body.obj.itemId,
+                req.body.obj.itemCategoryId,
+                req.body.obj.name,]
+    db.queryAsync(sql,arr)
+    .then(r=>{
+        res.json(r)
+    })
+})
+
+//刪除會員收藏
+router.post('/delMbLike',(req,res)=>{
+    const sql = 'DELETE FROM `member_collect` WHERE `mb_id` = ? AND `p_id` = ?'
+    db.queryAsync(sql,[req.body.mb_id,req.body.obj.itemId])
+    .then(r=>{
         res.json(r)
     })
 })
