@@ -36,7 +36,7 @@ export const updateMember = (state = [], action) => {
 export const getMemberOrder = (state = [], action) => {
   switch (action.type) {
     case 'SHOW_MEMBERORDER':
-      return { ...action.data }
+      return action.data
     default:
       return state
   }
