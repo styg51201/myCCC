@@ -6,8 +6,8 @@ import {
     Switch,
     withRouter,
   } from 'react-router-dom'
-import './chin-css/comparepages.scss'
-import '../css/main.css'
+import '../chin-css/comparepages.scss'
+import '../../css/main.css'
 //components
 import ComparepagesHardwareSpecifications from './components/ComparepagesHardwareSpecifications'
 import ComparepagesSmartWatch from './components/ComparepagesSmartWatch'
@@ -18,8 +18,8 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
 
-function Comparepages(props){
-    console.log(props.compare)
+function ComparepagesWatch(props){
+    console.log(props)
   document.documentElement.scrollTop = document.body.scrollTop =0;
 return(
     <>
@@ -78,5 +78,5 @@ const mapStateToProps = store => {
   }
   
   export default withRouter(
-    connect(mapStateToProps, mapDispatchToProps)(Comparepages)
+    connect(mapStateToProps, mapDispatchToProps)(ComparepagesWatch)
   )

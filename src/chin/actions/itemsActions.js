@@ -30,7 +30,7 @@ export const commidtyRANDItemId = val => {
     })
     const res = await fetch(request)
     const data = await res.json()
-    await console.log('lllllll', data)
+    // await console.log('lllllll', data)
     dispatch(showRANDItemId(data))
   }
 }

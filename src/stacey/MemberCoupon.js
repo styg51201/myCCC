@@ -36,7 +36,7 @@ function MemberCoupon(props) {
   let dueEndList = []
   let getList = []
   const today = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()}`
-  const add3days = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()+4}`
+  const add3days = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()+2}`
 
   const todayDateTime = (Date.parse(today)).valueOf()
   const add3daysTime = (Date.parse(add3days)).valueOf()

@@ -28,8 +28,15 @@ export const userRegisterAsync = (userData, callback) => {
 
     localStorage.setItem('userdata', JSON.stringify(userData))
     localStorage.setItem('userId', JSON.stringify(data.result.insertId))
-
-    window.location = `http://localhost:3000/memberedit/${userData.username}`
+    const loginsucess = localStorage.getItem(
+      'userId',
+      JSON.stringify(data.result.insertId)
+    )
+    if (loginsucess) {
+      window.location = `http://localhost:3000/memberedit/${userData.username}`
+    } else {
+      window.location = `http://localhost:3000/memberlogin`
+    }
   }
 }
 
@@ -103,7 +110,7 @@ export const getserverMember = () => {
         }),
       }
     )
-    console.log('datafromlocalstorage', datafromlocalstorage.username)
+    // console.log('datafromlocalstorage', datafromlocalstorage.username)
     // console.log('userData', userData)
     const res = await fetch(request)
     const data = await res.json()
@@ -160,7 +167,6 @@ export const getMemberOrder = userData => ({
 
 export const getServerMemberOrder = () => {
   const accountId = localStorage.getItem('userId')
-  // console.log('account', account)
   return async dispatch => {
     const request = new Request(
       'http://localhost:5500/member/searchorder/' + accountId,
