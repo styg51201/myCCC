@@ -179,7 +179,7 @@ button {
     right: 65px;
     top: 10px;
   }
-  
+
   .wrapForImg {
     width: 9.375rem;
     display: flex;
@@ -206,16 +206,37 @@ button {
       left: -110%;
       font-weight: $font-bold;
       font-size: $font-x;
-      background-color: rgba($color: $grey, $alpha: 0.95);
+      background-color: rgba($color: #e4e0e0, $alpha: 0.55);
       display: flex;
       justify-content: center;
       transition: 0.8s;
+      overflow: hidden;
+      div {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background-color: $white;
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 50px;
+      }
       p {
         letter-spacing: 0.625rem;
         padding-left: 0.625rem;
-
         align-self: center;
         margin: 0;
+        color: $orange;
+        // transform: rotateX(-30deg);
+        transform: rotate(-20deg);
+      }
+      img {
+        position: absolute;
+        width: 120%;
+        height: 120%;
+        top: -20px;
+        left: -15px;
       }
     }
   }

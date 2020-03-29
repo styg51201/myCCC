@@ -126,7 +126,11 @@ return(
         
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${val.cp_img}`} alt="" />
-                  <div className="alreadyGet"><p>已領取</p></div>
+                  <div className="alreadyGet">
+                    <img src="/sty-img/get_o.png"/>
+                    <div><p>領取</p></div>
+            
+                  </div>
                   <div className="sty-dashed"></div>
                 </div>
                 <div className="text">

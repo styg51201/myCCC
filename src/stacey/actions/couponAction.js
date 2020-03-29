@@ -243,21 +243,73 @@ export const fromServerAdData = val => {
 }
 
 export const showMbData = val =>{
-  return {type:'SHOW_MB_VALUE',value:val}
+  return {type:'SHOW_LIKE_VALUE',value:val}
 }
 export const addMbData = val =>{
-  return {type:'ADD_MB_VALUE',value:val}
+  return {type:'ADD_LIKE_VALUE',value:val}
+}
+
+export const delMbData = val =>{
+  return {type:'DEL_LIKE_VALUE',value:val}
+}
+
+export const fromServerMbLikeData = val =>{
+  
+  return async dispatch => {
+    const request = new Request('http://localhost:5500/getCoupon/mbLike', {
+      method: 'POST',
+      credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body:JSON.stringify({mb_id:val})
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    dispatch(showMbData(data))
+  }
+}
+
+export const addMbLikeData = (mb_id,obj) =>{
+  return async dispatch => {
+    const request = new Request('http://localhost:5500/getCoupon/addMbLike', {
+      method: 'POST',
+      credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body:JSON.stringify({mb_id,obj})
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    dispatch(fromServerMbLikeData(mb_id))
+  }
+}
+
+export const delMbLikeData = (mb_id,obj) =>{
+  return async dispatch => {
+    const request = new Request('http://localhost:5500/getCoupon/delMbLike', {
+      method: 'POST',
+      credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body:JSON.stringify({mb_id,obj})
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    dispatch(fromServerMbLikeData(mb_id))
+
+  }
 }
 
 export const showDiscountAction = (val,data) =>{
   return { type: 'SHOW_DISCOUNT', value: {isShow:val,value:data }}
 }
 
-
 export const goShopping = val =>{
   return { type: 'ITEMNAME_VALUE', value: [val] }
-}
-
-export const noReset = val =>{
-  return { type: 'NO_RESET', value: val }
 }

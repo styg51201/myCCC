@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {getCouponToServer,getCoupon,goShopping,noReset,showDiscountAction} from '../actions/couponAction'
+import {getCouponToServer,getCoupon,goShopping,showDiscountAction} from '../actions/couponAction'
 
 //icon
 import { IconContext } from 'react-icons'
@@ -169,7 +169,7 @@ const mapStateToProps = store => {
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    getCouponToServer,getCoupon,goShopping,noReset,showDiscountAction,
+    getCouponToServer,getCoupon,goShopping,showDiscountAction,
   },dispatch)
 }
 
