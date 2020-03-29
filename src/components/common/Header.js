@@ -217,9 +217,9 @@ function Header(props) {
   const headershow = (
     <>
       <div className="chin-bigtitle">
-        <a href="/">
+        <Link to="/">
           <img src={logo} className="header-logo" alt="logo" />
-        </a>
+        </Link>
       </div>
       <Container>
         <div className="chin-product">

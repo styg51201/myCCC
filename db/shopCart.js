@@ -18,6 +18,10 @@ router.get('/orderbuyerInfo', (req, res) => {
     return res.json(r)
   })
 })
+
+
+
+
 //訂單成立 購買人資料
 router.post('/orderBuyerInfo', (req, res) => {
   const output = {

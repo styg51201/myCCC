@@ -23,6 +23,8 @@ import PicSlide from './component/PicSlide'
 import MaoMoveIcon from './MaoMoveIcon'
 
 function ShopCartList(props) {
+
+
   const [loaded, setLoaded] = useState(false)
   const [newItem,setNewItem] =useState(false)
   const currentHisitem = localStorage.getItem('hisitem') || []

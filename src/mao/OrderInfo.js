@@ -8,8 +8,10 @@ import {DelCart,
   fromServerorderBuyerInfo,
   forServerorderProductInfo,
   saveOrderBuyerInfo,
-  clearOrderBuyerproduct,
+  clearOrderBuyerproduct,CheckCoupon
 } from './actions/ShopCartAction'
+
+import {getserverMember} from '../Irene/actions/memberAction'
 import Swal from 'sweetalert2'
 import GetDayRange from './GetDayRange'
 import './css/OrderInfo.scss'
@@ -17,8 +19,11 @@ import $ from 'jquery'
 import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
-
-
+  
+let LocalUser=localStorage.getItem('userId')||0
+const [user, setUser] = useState(localStorage.getItem('userId'))
+const [userName,setUserName]=useState('')
+const [userPhoneNumber,setUserPhoneNumber]=useState('')
   //錯誤傳達的資訊
   const [errors, setErrors] = useState({
     buyerName: '',
@@ -37,8 +42,9 @@ function OrderInfo(props) {
     'buyerName','mobile','shipping','payment','invoice'])
 //接收折扣
 const [getdiscount,setGetdiscount]=useState(0)
+const [getCouponArr,setGetCouponArr]=useState([])
 
-  const { getMonth, getYear } = GetDayRange()
+const { getMonth, getYear } = GetDayRange()
 
   //訂單
   let order = ''
@@ -66,20 +72,20 @@ const [getdiscount,setGetdiscount]=useState(0)
     shipCost: '100',
     discount:getdiscount,
   })
-
   //插入資料 開關
   const [getBuyerbasic, setGetBuyerbasic] = useState(true)
   function getbuyer(e) {
     if (getBuyerbasic) {
-      $('#buyerName').val('Alex')
-      $('#mobile').val('0912345678')
+      
+      $('#buyerName').val(props.Userdata[0].Name)
+      $('#mobile').val(props.Userdata[0].PhoneNumber)
       let newErr=errorBox.filter(e=>e!=='buyerName'&&e!=='mobile')
       //驗證是否正確
       setErrorBox(newErr) 
       //錯誤提示文字
       setErrors({...errors,mobile: '',buyerName: ''})
       // 購買人資訊
-      setBuyerInfo({ ...buyerInfo, buyerName: 'Alex', mobile: '0912345678' })
+      setBuyerInfo({ ...buyerInfo, buyerName: props.Userdata[0].Name, mobile: props.Userdata[0].PhoneNumber })
       setGetBuyerbasic(false)
     } else {
       $('#mobile').val('')
@@ -198,22 +204,22 @@ const [getdiscount,setGetdiscount]=useState(0)
     getRND()
     getorderProductInfo()
     GetDayRange()
+   
   }, [])
-  
+
   useEffect(() => {
     buyerInfo.orderId = order
   }, [ order])
   useEffect(() => {
-    console.log(errors)
-  }, [errors])
+    console.log('看這裡吧~getCouponArr==',getCouponArr)
+  }, [getCouponArr])
   useEffect(()=>{
-console.log('errorBox',errorBox)
-console.log('getdiscount',getdiscount)
+// console.log('errorBox',errorBox)
 setBuyerInfo({ ...buyerInfo, discount:getdiscount })
   },[errorBox,getdiscount])
-  useEffect(()=>{
-console.log('buyerInfo',buyerInfo)
-  },[buyerInfo])
+  // useEffect(()=>{
+  // console.log('buyerInfo',buyerInfo)
+  // },[buyerInfo])
 //儲存產品hook
   const [pIdArr, setPIdArr] = useState([])
   const [countArr, setCountArr] = useState([])
@@ -289,6 +295,7 @@ console.log('buyerInfo',buyerInfo)
         timer: 1500,
         position: 'center',
       })
+      await props.CheckCoupon(getCouponArr)
       await getRND()
     }else{
       errorBox.map((v,i)=>{
@@ -544,7 +551,7 @@ const invoiceBox=invoiceType.map((v,i)=>{
               )}
             </div>
           </div>
-          <div className="custom-control custom-checkbox">
+          {LocalUser!=0?( <div className="custom-control custom-checkbox">
             <input
               type="checkbox"
               className="custom-control-input"
@@ -556,7 +563,8 @@ const invoiceBox=invoiceType.map((v,i)=>{
             <label className="custom-control-label" htmlFor="customCheck1">
               同會員資料
             </label>
-          </div>
+          </div>):''}
+         
           <div>
             <div className="form-row d-flex flex-column my-5">
               <h2 className="border-bottom p-3">運送方式</h2>
@@ -614,18 +622,20 @@ const invoiceBox=invoiceType.map((v,i)=>{
               上一步
             </Link>
             <Link
-              to={errorBox==0?"/Orderbill":"/OrderInfo"}
+              to={errorBox==0&&LocalUser!=0?"/Orderbill":"/OrderInfo"}
               className="Mao-order-Info-btn Mao-order-btn-color-black"
               id="sendOrder"
               onClick={() => {
-                POSTorderInfo()
+                {LocalUser==0?alert('請先登入'): POSTorderInfo()}
               }}
             >
               結帳
             </Link>
           </div>
         </div>
-        <MaoCartShopTotal sendOrder={()=>{ POSTorderInfo()}} getErrorBox={errorBox} postDiscount={val=>{setGetdiscount(val)}}/>
+        <MaoCartShopTotal sendOrder={()=>{ POSTorderInfo()}} getErrorBox={errorBox} 
+        postDiscount={val=>{setGetdiscount(val)}} CatchCoupon={val=>{setGetCouponArr(val)}}
+        />
       </div>
       {/* </form> */}
     </>
@@ -638,6 +648,7 @@ const mapStateToProps = store => {
     AddItem: store.AddItem,
     FinalTotal: store.calculator_total,
     saveOrderBuyerInfoReducer: store.saveOrderBuyerInfoReducer,
+    Userdata: store.getMemberID
   }
 }
 
@@ -649,7 +660,7 @@ const mapDispatchToProps = dispatch => {
       fromServerorderBuyerInfo,
       forServerorderProductInfo,
       saveOrderBuyerInfo,
-      clearOrderBuyerproduct,DelCart
+      clearOrderBuyerproduct,DelCart,CheckCoupon,getserverMember
     },
     dispatch
   )

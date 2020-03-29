@@ -17,7 +17,7 @@ import { FaTicketAlt } from 'react-icons/fa'
 import { TiDeleteOutline } from 'react-icons/ti'
 
 function MaoCartShopTotal(props) {
-
+console.log('MaoCartShopTotal==',props)
   const [shipping, setShipping] = useState(100)
   const [discount, setDiscount] = useState(0)
   const [openCoupon, setOpenCoupon] = useState(true)
@@ -30,7 +30,8 @@ function MaoCartShopTotal(props) {
     buyerTotal = props.sTotal + shipping - discount
     props.CalShopCartTotal(buyerTotal)
   }
-
+  let LocalUser=localStorage.getItem('userId')||0
+  console.log('LocalUserssssssssss',LocalUser)
   let CheckrouteName = props.match.path
   //選擇折價券
   function showCoupon() {
@@ -74,21 +75,22 @@ function MaoCartShopTotal(props) {
 
   useEffect(() => {
     CalTotal()
-    console.log('SaveStotal',saveStotal)
-    console.log('SaveTotal',saveTotal)
+    // console.log('discount',discount)
     //確保小計金額變動情形,獲取最新的變動
     setSaveStotal(props.sTotal)
     setSaveTotal(props.FinalTotal)
   }, [CalTotal, props.AddItem, props.sTotal])
-console.log(props)
+
   const changeCheckout = (
     <>
       <Link className="Mao-total-box-btn" to="/">
         <div className="Mao-total-show"></div>
         <span style={{ zIndex: 10 }}>繼續購物</span>
       </Link>
-        {CheckrouteName == '/OrderInfo' ? (<Link className="Mao-total-box-btn-black" to={props.errorBox==0?"/Orderbill":"/OrderInfo"}
-     onClick={()=>props.sendOrder()}
+        {CheckrouteName == '/OrderInfo' ? (<Link className="Mao-total-box-btn-black" to={props.errorBox==0 && LocalUser!=0?"/Orderbill":"/OrderInfo"}
+      onClick={()=>{
+        {LocalUser==0?alert('請先登入'):props.sendOrder()}
+      }}
       >確認結帳
         <div className="Mao-total-show-black"></div>
       </Link>) : ( <Link className="Mao-total-box-btn-black" to="/OrderInfo"
@@ -169,7 +171,6 @@ console.log(props)
 
   function filterCoupon(ind){
     
-console.log(props.saveCoupon)
     let newCouponType=props.saveCoupon.filter(e=>e!==props.saveCoupon[ind])
     //儲存剩下的折價券，最後結帳時才一併更新
     //目前篩選後的折價券位置存放在total.js裡面 必須傳到orderInfo才可以一同送出
@@ -215,7 +216,6 @@ console.log(props.saveCoupon)
               if(productTotal>=judgeCouponPayLevel){
                 setDiscount(discountPay)
                 setCouponProduct(disCountItems)
-                console.log('disCountItems',disCountItems)
               }
              break
             case '滿額折現':
@@ -223,7 +223,6 @@ console.log(props.saveCoupon)
               if(productTotal>=judgeCouponPayLevel){
                 setDiscount(discountPay)
                 setCouponProduct(disCountItems)
-                console.log('disCountItems',disCountItems)
               }
               break
             case '滿額打折':
@@ -231,7 +230,6 @@ console.log(props.saveCoupon)
               if(productTotal>=judgeCouponPayLevel){
                 setDiscount(discountPay)
                 setCouponProduct(disCountItems)
-                console.log('disCountItems',disCountItems)
               }
               break
             case '滿件折現':
@@ -240,7 +238,6 @@ console.log(props.saveCoupon)
                 if(productAmount>=judgeCouponAmount){
                   setDiscount(discountPay)
                   setCouponProduct(disCountItems)
-                  console.log('disCountItems',disCountItems)
                 }
               }
               break
@@ -250,7 +247,6 @@ console.log(props.saveCoupon)
                 if(productAmount>=judgeCouponAmount){
                   setDiscount(discountPay)
                   setCouponProduct(disCountItems)
-                  console.log('disCountItems',couponProduct)
                 }
               }
             default:
@@ -259,8 +255,6 @@ console.log(props.saveCoupon)
            }
         
            setCouponProduct(disCountItems)
-           console.log('disCountItems',disCountItems)
-           console.log('couponProduct',couponProduct)
         }else{
           setCouponProduct(disCountItems)
         }
@@ -269,7 +263,6 @@ console.log(props.saveCoupon)
           if(Cv==v.itemId){
             if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
               disCountItems.push(v)
-              console.log('disCountItems',disCountItems)
               //產品總數量
               let productAmount=0
                 disCountItems.map((cV,cI)=>{
@@ -338,12 +331,12 @@ console.log(props.saveCoupon)
 }
 useEffect(()=>{
   props.CheckCoupon(couponType)
-  console.log(props.saveCoupon)
+  console.log('props.saveCoupon',props.saveCoupon)
 },[])
-useEffect(()=>{
-console.log(props.saveCoupon)
-console.log('couponArr',couponArr)
-},[props.saveCoupon,couponArr])
+// useEffect(()=>{
+// console.log(props.saveCoupon)
+// console.log('couponArr',couponArr)
+// },[props.saveCoupon,couponArr])
 let cartItemText=[]
 const shopCartItemText=props.AddItem.map((v,i)=>{
   cartItemText.push(
@@ -420,6 +413,7 @@ const NofixedDisplay = (
                 <button className="Mao-total-box-btn-black" onClick={()=>{
                   showCoupon()
                   props.postDiscount(discount)
+                  {discount==0?props.CatchCoupon(couponType):props.CatchCoupon(couponArr)}
                 }
                     }>確認<div className="Mao-total-show-black"></div>
                 </button>
