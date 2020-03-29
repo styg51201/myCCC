@@ -110,7 +110,7 @@ export const getserverMember = () => {
         }),
       }
     )
-    console.log('datafromlocalstorage', datafromlocalstorage.username)
+    // console.log('datafromlocalstorage', datafromlocalstorage.username)
     // console.log('userData', userData)
     const res = await fetch(request)
     const data = await res.json()
@@ -167,7 +167,6 @@ export const getMemberOrder = userData => ({
 
 export const getServerMemberOrder = () => {
   const accountId = localStorage.getItem('userId')
-  // console.log('account', account)
   return async dispatch => {
     const request = new Request(
       'http://localhost:5500/member/searchorder/' + accountId,
