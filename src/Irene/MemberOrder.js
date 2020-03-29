@@ -116,9 +116,9 @@ function MemberOrder(props) {
               </thead>
               <tbody>
                 <tr>
-                  <td>{orderdata[0].created_at}</td>
+                  {/* <td>{orderdata[0].created_at}</td> */}
                   <td>
-                    {orderdata[0].orderId}
+                    {/* {orderdata[0].orderId} */}
                     <button
                       class="btn memberorderdetail"
                       type="button"
@@ -131,7 +131,7 @@ function MemberOrder(props) {
                       {/* 點選之後會彈出會員訂單詳細內容，for迴圈產生列 */}
                     </button>
                   </td>
-                  <td>{orderdata[0].outStatus}</td>
+                  {/* <td>{orderdata[0].outStatus}</td> */}
                   <td>
                     <button></button>
                   </td>

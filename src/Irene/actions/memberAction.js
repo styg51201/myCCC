@@ -28,8 +28,15 @@ export const userRegisterAsync = (userData, callback) => {
 
     localStorage.setItem('userdata', JSON.stringify(userData))
     localStorage.setItem('userId', JSON.stringify(data.result.insertId))
-
-    window.location = `http://localhost:3000/memberedit/${userData.username}`
+    const loginsucess = localStorage.getItem(
+      'userId',
+      JSON.stringify(data.result.insertId)
+    )
+    if (loginsucess) {
+      window.location = `http://localhost:3000/memberedit/${userData.username}`
+    } else {
+      window.location = `http://localhost:3000/memberlogin`
+    }
   }
 }
 
