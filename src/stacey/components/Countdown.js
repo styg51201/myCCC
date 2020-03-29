@@ -2,6 +2,8 @@ import React ,{useEffect,useState} from 'react'
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 import classNames from 'classnames'
+import moment from 'moment'
+
 
 import '../css/countdown.scss'
 
@@ -13,16 +15,17 @@ import {} from '../actions/couponAction'
 
 function Countdown(props){
 
-const now = new Date()
-const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
-const endTime = new Date(`${today} 12:00:00`)
+// const now = new Date()
+// const nowHour = moment().hour()
+// const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
+// const endTime = moment(`${today} ${nowHour+1}:00:00`)
 
-const countdownTime = (endTime.getTime() - now.getTime() )/1000 
+// const countdownTime = (endTime.valueOf() - now.valueOf() )/1000 
 
 
-const hour = Math.floor(countdownTime/3600)
-const min = Math.floor( (countdownTime % 3600)/ 60 )
-const sec = Math.floor( (countdownTime % 3600) % 60 )
+const hour = Math.floor(props.countdownTime/3600)
+const min = Math.floor( (props.countdownTime % 3600)/ 60 )
+const sec = Math.floor( (props.countdownTime % 3600) % 60 )
 
 // console.log(`${hour}小時 ${min} 分鐘 ${sec}秒`)
 
