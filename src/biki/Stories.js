@@ -97,7 +97,7 @@ function Stories(props){
     
 
     const items =  stories.map((itm, idx)=>{
-        if(!stryLikes) return '';
+        if(!stryLikes && usrId) return '';
 
         let options = {
             blockStyleFn: (block) => {
@@ -123,7 +123,7 @@ function Stories(props){
                     <StoryCard 
                         content={story} 
                         data={itm}
-                        liked={!(stryLikes.indexOf(itm.stryId) === -1)}
+                        liked={stryLikes ? (stryLikes.indexOf(itm.stryId) !== -1) : null}
                     />
                 </div>
             )
@@ -135,7 +135,7 @@ function Stories(props){
                     <StoryCard 
                         content={story} 
                         data={itm}
-                        liked={!(stryLikes.indexOf(itm.stryId) === -1)}
+                        liked={stryLikes ? !(stryLikes.indexOf(itm.stryId) === -1) : null}
                     />
                 </div>
             )
