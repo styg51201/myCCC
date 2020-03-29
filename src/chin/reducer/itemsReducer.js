@@ -65,11 +65,22 @@ export const showDiscount = (state ={isShow:false,value:{}}, action) => {
 
 //------------------chin Price------------------------
 export const getListitemPrice = (state = [], action) => {
+  console.log(action)
+  console.log(state)
   switch (action.type) {
     case 'ITEMPRICE_VALUE':
-      console.log('77777',action.value )
       return action.value
-    case 'ITEMPRICE_VALUE':
+    default:
+      return state
+  }
+}
+export const getListitemPrice2 = (state = [], action) => {
+  console.log(action)
+  console.log(state)
+  switch (action.type) {
+    case 'ITEMPRICE_VALUETWO':
+      return action.value
+    case 'ITEMPRICE_RESETCOM':
       return []
     default:
       return state
@@ -77,6 +88,7 @@ export const getListitemPrice = (state = [], action) => {
 }
 //------------------chin ItemNamehis--------
 export const getItemNamehis = (state = [], action) => {
+  console.log(action,state)
   switch (action.type) {
     case 'SHOW_ITEMSHIS':
       return action.value

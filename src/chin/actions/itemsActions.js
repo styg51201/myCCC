@@ -67,7 +67,6 @@ export const multiple_imagesItemId = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
-    console.log()
     console.log('mmmmmmm', data)
     dispatch(showMultipleItemId(data))
   }
@@ -140,10 +139,20 @@ export const ResetListItemName = (obj, val) => {
 }
 //Price金錢塞選
 
-export const ListItemPrice = (obj,val)=>{
-  if(obj.val){
-    return { type: 'ITEMPRICE_VALUE', value: [obj.name, ...val] }
+export const ListItemPrice = (val)=>{
+  if(val){
+    return { type: 'ITEMPRICE_VALUE', value: val }
   }
+}
+export const ListItemPrice2 = (val)=>{
+  console.log(val)
+  if(val){
+    return { type: 'ITEMPRICE_VALUETWO', value: val }
+  }
+}
+export const ResetListItemPrice = (obj, val) => {
+  const newprice = []
+  return { type: 'ITEMPRICE_RESETCOM', value: newprice }
 }
 //-----itemscompare------------------------
 

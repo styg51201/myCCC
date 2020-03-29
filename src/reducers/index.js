@@ -23,6 +23,7 @@ import {
   getItemNamehis,
   getitemCategoryId,
   getItemscompare,
+  getListitemPrice2,
   //getcompare,
   showDiscount,
 } from '../chin/reducer/itemsReducer'
@@ -82,6 +83,7 @@ const rootReducer = combineReducers({
   getItemNamehis,
   getitemCategoryId,
   getItemscompare,
+  getListitemPrice2,
   // getcompare,
   showDiscount,//chin
   //--------- ShopCart------------
