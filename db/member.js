@@ -102,7 +102,7 @@ router.post('/update', (req, res) => {
 router.get('/searchorder/:account', (req, res) => {
   // res.json(req.params)
   let sql =
-    'SELECT * FROM `orderdetail` INNER JOIN `orderlist` ON orderdetail.orderId=orderlist.orderId WHERE mId=?'
+    'SELECT * FROM `orderdetail` INNER JOIN `orderbuyer` ON orderdetail.orderId=orderbuyer.orderId WHERE mId=?'
   db.queryAsync(sql, req.params.account).then(r => {
     return res.json(r)
   })
