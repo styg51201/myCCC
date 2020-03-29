@@ -64,6 +64,7 @@ router.get('/itemhis/:name?',(req,res)=>{
 })
 router.get('/itemCategoryId/:itemCategoryId?',(req,res)=>{
     let sql='SELECT * FROM `items` WHERE `itemCategoryId` = ?'
+    console.log(req.params)
     db.queryAsync(sql,[req.params.itemCategoryId])
     .then(r=>{
         return res.json(r)

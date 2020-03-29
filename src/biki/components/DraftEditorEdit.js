@@ -5,7 +5,8 @@ import axios from 'axios'
 import Swal from 'sweetalert2/dist/sweetalert2'
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
-import TagBlock from './EditorComponents/TagBlock'
+// import TagBlock from './EditorComponents/TagBlock'
+import TagInput from './TagInput'
 
 //utils for media rendering
 import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
@@ -67,10 +68,9 @@ function DraftEditorEdit(props){
         setTitle(e.target.value)
     }
 
-    const handleTags = (e)=>{
-        // console.log(e.target.value.split(' '))
-        setTags(e.target.value.split(' '))
-    }
+    const selectedTags = tags => {
+        setTags(tags)
+    };
     
     // basically just sets state...
     const onChange = editorState =>{
@@ -79,7 +79,7 @@ function DraftEditorEdit(props){
 
     useEffect(()=>{
         let s = editorState.getCurrentContent()
-        console.log(convertToRaw(s))
+        // console.log(convertToRaw(s))
     },[editorState])
 
     //inline styles
@@ -343,15 +343,10 @@ function DraftEditorEdit(props){
                     handleTitle(evt)
                 }} defaultValue={title} />
             </div>
-            <div className="bk-form-control">
-                <div className="bk-editor-tags">{!tags ? '' : tags.map((v, i)=>{
-                    if(v !== ''){
-                        return <TagBlock tag={v} key={`${v}-${i}`} />
-                    }
-                })}</div>
+            {/* <div className="bk-form-control"> */}
                 <label>標籤</label>
-                <input disabled={readOnly} type="text" onChange={handleTags} defaultValue={tags ? tags.join(',') : 'nope'} />
-            </div>
+                <TagInput selectedTags={selectedTags} tags={tags} />
+            {/* </div> */}
             <div className="bk-draft-editor-container">
                 <div>
                     <Toolbar

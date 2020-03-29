@@ -553,20 +553,34 @@ router.patch('/api/view-story/:id', (req, res)=>{
     })
 })
 
-
 //get replies to story
 router.get('/story/replies/:id', (req, res)=>{
     // console.log(req.query)
 
     console.log("getting replies to story...")
+    let stryId = req.params.id
+    let rplyId = req.query.rplyId
+    let params;
+    let sql;
 
-    let sql = `SELECT \`rplyId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`, \`storyReplies\`.\`updated_at\` ,
-    \`Img\`, \`Name\`, \`Account\`
-    FROM \`storyReplies\` 
-    INNER JOIN \`member\` ON \`Id\` = \`usrId\`
-    WHERE \`stryId\` = ?`;
+    if(rplyId){
+        sql = `SELECT \`rplyId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`, \`storyReplies\`.\`updated_at\` ,
+        \`Img\`, \`Name\`, \`Account\`
+        FROM \`storyReplies\` 
+        INNER JOIN \`member\` ON \`Id\` = \`usrId\`
+        WHERE \`stryId\` = ? AND \`rplyId\` = ?`;
+        
+        params = [stryId, rplyId]
+    }else{
+        sql = `SELECT \`rplyId\`, \`usrId\`, \`rplyTo\`, \`rplyContent\`, \`rplyStatus\`, \`storyReplies\`.\`updated_at\` ,
+        \`Img\`, \`Name\`, \`Account\`
+        FROM \`storyReplies\` 
+        INNER JOIN \`member\` ON \`Id\` = \`usrId\`
+        WHERE \`stryId\` = ?`;
+        params = [stryId]
+    }
 
-    db.queryAsync(sql, [req.params.id])
+    db.queryAsync(sql, params)
     .then(r=>{
         r.forEach((elm)=>{
             elm.fromNow = moment(elm.updated_at).fromNow()
@@ -588,7 +602,7 @@ router.get('/story/:id', (req, res)=>{
     }
     
     let sql = `
-    SELECT \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryTitle\`, \`stryContent\`, \`stories\`.\`updated_at\`,
+    SELECT \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryTags\`, \`stryTitle\`, \`stryContent\`, \`stories\`.\`updated_at\`,
     \`Img\`, \`Name\`, \`Account\`,
     COUNT (\`storyLikes\`.\`stryId\`) AS likes
     FROM \`stories\` 
@@ -624,7 +638,7 @@ router.get('/:page?', (req, res)=>{
     let perPage = 15;
     let currentPage = req.params.page ? parseInt(req.params.page) : 1;
 
-    let sql = `SELECT \`Name\`, \`Img\`, \`Account\`, \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryViews\`, \`stryTitle\`, \`stryContent\`, \`stories\`.\`created_at\`, \`stories\`.\`updated_at\`, 
+    let sql = `SELECT \`Name\`, \`Img\`, \`Account\`, \`stories\`.\`usrId\`, \`stories\`.\`stryId\`, \`stryViews\`, \`stryTitle\`, \`stryContent\`, \`stryTags\`, \`stories\`.\`created_at\`, \`stories\`.\`updated_at\`, 
     COUNT(\`rplyId\`) AS rplyTotal,
     COALESCE(sLikes, 0) AS likes
     FROM \`stories\` 

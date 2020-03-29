@@ -10,11 +10,11 @@ import classNames from 'classnames'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-import {ListItemPrice} from '../actions/itemsActions'
+import {ListItemPrice,ListItemPrice2} from '../actions/itemsActions'
 
 function Price(props){
   console.log(props)
-    const [volume, setVolume] = useState([10000,40000]);
+    const [volume, setVolume] = useState([0,40000]);
     const [value,setValue]=useState([20,37])
     const [price,setPrice] = useState(false)
     
@@ -133,19 +133,22 @@ function Price(props){
         );
       }
       const Itemprice = function (e){
-        props.ListItemPrice({itemPrice:e.target.value},props.ItemPrice)
-    }
+        props.ListItemPrice({itemPrice:e.target.value})
+      }
+      const Itemprice2 = function (e){
+        props.ListItemPrice2({itemPrice2:e.target.value})
+      }
     return(
         <>
-            <li className={PriceClassName}>
+            <li className={PriceClassName} onClick={()=>{props.sendprice(!props.price)}}>
                 <div className="chin-price" onClick={()=>{setPrice(!price)}}>
                     <span>價格</span>
                     <img src="./chin-img/chevron-down-black.svg" alt=""/>
                 </div>
                 <div className="chin-slide">
                     <div className="chin-price-input">
-                        <input type="text" onChange={(e)=>Itemprice(e)}/>
-                        <input type="text" value={volume[1]}/>
+                        <input type="text"  onBlur={(e)=>Itemprice(e)}/>
+                        <input type="text" onBlur={(e)=>Itemprice2(e)}/>
                     </div>
                     {/* {CustomizedSlider()} */}
                 </div>
@@ -156,13 +159,15 @@ function Price(props){
 
 // 選擇對應的reducer
 const mapStateToProps = store => {
-  return {ItemPrice: store.getListitemPrice}
+  return {ItemPrice: store.getListitemPrice,
+          ItemPrice2:store.getListitemPrice2}
 }
 
 //action
 const mapDispatchToProps = dispatch =>{
   return bindActionCreators({
-    ListItemPrice
+    ListItemPrice,
+    ListItemPrice2
   },dispatch)
 }
 

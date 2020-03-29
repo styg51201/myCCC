@@ -21,9 +21,12 @@ import { bindActionCreators } from 'redux'
 import { formServerItemsData, ResetListItemName,ResetListItemNameCom,ItemscompareNo} from './actions/itemsActions'
 
 function Watch(props) {
+  console.log(props)
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
+  const [commodityPrice, setCommdityPrice] = useState(false)
+ 
   const itemlist = props.data.map((val, ind) => {
     if (props.watch.indexOf(val.name) > -1) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
@@ -40,6 +43,13 @@ function Watch(props) {
   const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
+  const ItemPrice = props.data.map((val,ind)=>{
+    console.log(props.ItemPrice.itemPrice < val.itemPrice && props.ItemPrice2.itemPrice2 > val.itemPrice)
+    if(props.ItemPrice.itemPrice < val.itemPrice || props.ItemPrice2.itemPrice2 > val.itemPrice){
+        console.log(val)
+      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+    }
+  })
   useEffect(() => {
     props.formServerItemsData('watch')
     return ()=> props.ResetListItemName()
@@ -50,7 +60,9 @@ function Watch(props) {
     <>
       <main className="chin-main">
         <section className="chin-section">
-          <Commoditylist data={props.data} />
+          <Commoditylist data={props.data} price={commodityPrice}  sendprice={v => {
+                setCommdityPrice(v)
+              }}/>
           <div className="chin-commodity-title">
             <CompareProductSort
               data={props.data}
@@ -61,13 +73,16 @@ function Watch(props) {
               }}
             />
             <div className="chin-commodity">
-              {commodity
-                ? props.watch.length
+              {commodityPrice?ItemPrice:commodity
+                  ? 
+                  props.watch.length
                   ? commodityItems
                   : allcommodityItems
-                : props.watch.length
-                ? itemlist
-                : allitemlist}
+                  : 
+                  props.watch.length
+                  ? itemlist
+                  : allitemlist}
+              {/* {allitemlist} */}
             </div>
             {commodity ? (
               <div className="chin-article">
@@ -113,6 +128,8 @@ const mapStateToProps = store => {
   return { data: store.getItems, 
            watch: store.getListitemName,
            compare:store.getItemscompare,
+           ItemPrice: store.getListitemPrice,
+          ItemPrice2:store.getListitemPrice2,
           rest:store.rest}
 }
 

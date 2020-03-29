@@ -2,6 +2,7 @@ import React ,{useEffect ,useState}from 'react'
 import { BrowserRouter as Router, Route, Link, Switch ,withRouter} from 'react-router-dom'
 import './css/MemberCoupon.scss'
 import classNames from 'classnames'
+import moment from 'moment'
 
 
 import MemberSidebar from '../Irene/components/MemberSidebar'
@@ -35,16 +36,22 @@ function MemberCoupon(props) {
   let useList = []
   let dueEndList = []
   let getList = []
-  const today = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()}`
-  const add3days = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()+2}`
+  // const today = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()}`
+  // const add3days = `${new Date().getFullYear()}-${(new Date().getMonth())+1}-${new Date().getDate()+2}`
 
-  const todayDateTime = (Date.parse(today)).valueOf()
-  const add3daysTime = (Date.parse(add3days)).valueOf()
+  const todayDateTime = moment().valueOf()
+  const add3daysTime = moment().add(3,'days').valueOf()
+
+
+  // const todayDateTime = (Date.parse(today)).valueOf()
+  // const add3daysTime = (Date.parse(add3days)).valueOf()
 
 
   for(let i=0;i<props.data.length;i++){
 
-    let dueDateTime =  (Date.parse(props.data[i].cp_due)).valueOf()
+    // let dueDateTime =  (Date.parse(props.data[i].cp_due)).valueOf()
+    let dueDateTime =  moment(props.data[i].cp_due).valueOf()
+
 
     if(props.data[i].cpi_use){
       useList.push(props.data[i])

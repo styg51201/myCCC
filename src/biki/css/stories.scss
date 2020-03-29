@@ -2,11 +2,24 @@
 @import '../css/all.scss';
 @import './myVars.scss';
 
-.bk-hover{
-  transition: .3s;
 
-  &:hover{
-    opacity: 0.5;
+.bk-tags{
+  // margin-bottom: $spacing;
+  font-size: $font-xs;
+  display: flex;
+  flex-wrap: wrap;
+
+  span{
+    padding: $spacing/2 $spacing;
+    background-color: $background;
+    margin-right: $spacing/2;
+    margin-bottom: $spacing;
+  }
+
+  &.bk-dark{
+    span{
+      background: $grey;
+    }
   }
 }
 
