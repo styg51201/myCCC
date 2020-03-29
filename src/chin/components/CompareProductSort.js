@@ -1,5 +1,11 @@
 import React, { useState, useEffect } from 'react'
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  withRouter,
+} from 'react-router-dom'
 //classnames
 import classNames from 'classnames'
 
@@ -17,6 +23,7 @@ import {
 } from '../actions/itemsActions'
 
 function CompareProductSort(props) {
+  console.log(props)
   const [featuredproducts, setFeaturedproducts] = useState(false)
   const [sortname, setSortname] = useState('排序方式')
   const SortClassName = classNames('chin-sort-featuredproducts', {
@@ -35,11 +42,13 @@ function CompareProductSort(props) {
             <button className="chin-rwd-sort">排序方式</button>
         </div>
         <div className="chin-comparegoods-sort">
+        {props.match.url=="/surrounding"?'':
             <button className="chin-comparegoods" onClick={()=>{props.sendText(!props.test)
                                                                 props.ResetListItemNameCom()}}>
                 <span>比較商品</span>
                 <img src="./chin-img/align-justify.svg" alt=""/>
             </button>
+          }
             <div className={SortClassName}>
                 <label className="chin-sort" onClick={()=>{setFeaturedproducts(!featuredproducts)}}>
                         <span>{sortname}</span>
@@ -94,4 +103,4 @@ const mapDispatchToProps = dispatch => {
   )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompareProductSort)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CompareProductSort))
