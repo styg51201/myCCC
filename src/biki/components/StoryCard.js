@@ -48,7 +48,7 @@ function StoryCard(props){
     }
 
     // useEffect(()=>{
-    //     setLike(props.liked)
+    //     console.log(props.data.stryId, 'this story is liked?', like)
     // }, [])
 
     return(
@@ -77,8 +77,9 @@ function StoryCard(props){
                         <span className='bk-stry-icons'><FiMessageSquare /> {props.data.rplyTotal}</span>
                         <span className='bk-stry-icons'><FiEye /> {props.data.stryViews}</span>
                     </div>
-                    <div className={`bk-press-like${like ? ' active' : ''}${usrId ? '' : ' inactive'}`} onClick={(evt)=>{handleToggleLike(props.data.stryId, evt)}}>
-                        <span><FiThumbsUp /> {like ? '你已按讚' : '按讚'}</span>
+                    <div 
+                    className={`bk-press-like${like ? ' active' : ''}${usrId ? '' : ' inactive'}`} onClick={(evt)=>{handleToggleLike(props.data.stryId, evt)}}>
+                        <span><FiThumbsUp /> {like ? '取消讚' : (usrId ? '按讚' : '請登入')}</span>
                     </div>
                 </Card.Footer>
             </Card>

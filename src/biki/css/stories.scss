@@ -2,6 +2,14 @@
 @import '../css/all.scss';
 @import './myVars.scss';
 
+.bk-hover{
+  transition: .3s;
+
+  &:hover{
+    opacity: 0.5;
+  }
+}
+
 .bk-stry-icons {
   margin-right: $spacing/2;
 }
@@ -37,10 +45,11 @@
     width: 100%;
     border-radius: 0;
     padding: $spacing;
-    min-height: 300px;
+    min-height: 180px;
     max-height: 640px;
     position: relative;
     transition: 0.3s;
+    overflow: hidden;
 
     &.bk-collapse {
       &:after {
@@ -83,6 +92,7 @@
       justify-content: space-between;
       align-items: center;
       border-top: none;
+      margin-top: $spacing/2;
 
       .bk-press-like{
         padding-left: $spacing;
@@ -98,7 +108,7 @@
         }
         &.inactive{
           opacity: 0.5;
-          pointer-events: none;
+          cursor: default;
         }
       }
     }
@@ -244,7 +254,7 @@
   //因為head跟content共用，所以拉出來
   margin: 0 auto;
   width: 75%;
-  max-width: 680px;
+  max-width: $bk-stories-max-width;
 }
 
 .bk-story-wrapper {
@@ -263,8 +273,18 @@
         font-size: $font-x;
       }
 
+      .like{
+        cursor: pointer;
+
+        &.disabled{
+          cursor: default;
+          color: $grey;
+          pointer-events: none;
+        }
+      }
+
       &.active{
-        >span:nth-child(1){
+        .like{
           color: $blue;
         }
       }
@@ -274,9 +294,10 @@
 
 .bk-reply-wrapper {
   .bk-reply-container {
-    max-width: 75%;
+    max-width: $bk-stories-max-width;
+    width: 75%;
     margin: 0 auto;
-    padding: $spacing * 2;
+    padding: $spacing * 2 0;
 
     .bk-story-reply {
       // margin-top: $spacing*2;
@@ -431,7 +452,8 @@
 
     &.inactive {
       // background-color: $grey;
-      opacity: 0.3;
+      // opacity: 0.3;
+      color: $grey;
     }
 
     &:nth-child(1) {
@@ -459,13 +481,14 @@
         // }
         .funcs {
           display: flex;
+          color: $grey;
 
           > div[role='button'] {
             margin-left: $spacing/2;
             cursor: pointer;
 
             a {
-              color: $black;
+              color: $grey;
             }
           }
         }

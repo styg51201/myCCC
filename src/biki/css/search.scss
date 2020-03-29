@@ -1,7 +1,8 @@
 @import "../../css/variables.scss";
 
 .bk-search-results {
-  margin-top: $spacing;
+  margin: $spacing -20px $spacing*2 -20px;
+  // margin-top: $spacing;
   display: flex;
   flex-wrap: wrap;
 }

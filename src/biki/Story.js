@@ -52,9 +52,9 @@ function Story(props){
         let url = `http://localhost:5500/stories/story/${props.match.params.id}` //gets story
         let url2 = `http://localhost:5500/stories/api/view-story/${props.match.params.id}` //adds view
         let url3 = `http://localhost:5500/stories/story/replies/${props.match.params.id}` //gets replies
-        let url4 = `http://localhost:5500/stories//member/like/${props.match.params.id}?usrId=${user}` //gets like or not
+        let url4 = `http://localhost:5500/stories//member/like/${props.match.params.id}${user ? `?usrId=${user}` : ''}` //gets like or not
         // console.log(props.location.search)
-        console.log(url3)
+        // console.log(url3)
 
         axios.all([
             axios.get(url),
@@ -65,6 +65,7 @@ function Story(props){
         .then(axios.spread((...res)=>{
             // console.log('like or not:', res[3].data.length)
             if(res[3].data.length){
+                console.log('set like')
                 setLike(true)
             }
             console.log(res[2].data)
@@ -223,7 +224,7 @@ function Story(props){
                             <div dangerouslySetInnerHTML={{__html: data[0].stryContent}}></div>
                             <hr />
                             <div className={`add-like pt-4${like ? ' active' : ''}`}>
-                                <span onClick={(evt)=>{handleToggleLike(data[0].stryId, evt)}}>
+                                <span onClick={(evt)=>{handleToggleLike(data[0].stryId, evt)}} className={`like bk-hover${user ? '' : ' disabled'}`}>
                                     <FiThumbsUp /> <b>{like ? '你已經按讚' : '按讚'}</b> 
                                 </span>
                                 <span className='bk-txt-small ml-4'>目前已有 {likeNum} 人按讚</span>
@@ -246,7 +247,7 @@ function Story(props){
                             defaultValue={user ? '' : '請先登入才能回復'}
                             />
                             <button 
-                            className={user ? 'bk-btn-black' : 'bk-btn-grey'} 
+                            className={`${user ? 'bk-btn-black' : 'bk-btn-grey'} bk-hover`}
                             onClick={()=>{
                                 handleSubmit(replyTo, txtContent)
                             }}

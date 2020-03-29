@@ -14,19 +14,19 @@ function AdSlide(props){
         setBlockTxtHeight(height)
     },[blockTextRef.current])
 
-    const Blocktransitions = useTransition(props.show, null, {
-        trail: 400,
-        from: {right: 0, width: '100%', height: '100%', background: 'black', position: 'absolute', top: 0, transform: 'translateX(-100%)'},
-        enter: {transform: 'translateX(0%)'},
-        leave: {transform: 'translateX(100%)'}
-    })
+    // const Blocktransitions = useTransition(props.show, null, {
+    //     trail: 400,
+    //     from: {right: 0, width: '100%', height: '100%', background: 'black', position: 'absolute', top: 0, transform: 'translateX(-100%)'},
+    //     enter: {transform: 'translateX(0%)'},
+    //     leave: {transform: 'translateX(100%)'}
+    // })
 
     // useChain(open ? [])
 
     // console.log(props)
     return(
-        <div className={`bk-ad`}>
-            <div className={`bk-ad-block`}>
+        <div className={`bk-ad${props.show ? '' : ' hidden'}`}>
+            <div className={`bk-ad-block animated ${props.show ? 'fadeInRight' : 'fadeOutLeft'}`}>
                 <div className="bk-block-num">
                     #{props.num}
                 </div>
@@ -39,21 +39,21 @@ function AdSlide(props){
                     </span>
                 </div>
             </div>
-            <div className={`bk-ad-slide`}>
+            <div className={`bk-ad-slide animated ${props.show ? 'fadeInRight' : 'fadeOutLeft'}`}>
                 <div className="bk-ad-img">
                     <img src={`/img/ad-img/${props.data.adImg}`} alt="" />
                 </div>
             </div>
             <div 
-            className={`bk-ad-text`} 
+            className={`bk-ad-text animated ${props.show ? 'fadeInRight' : 'fadeOutLeft'}`} 
             ref={blockTextRef}
             style={{marginTop: `-${blockTxtHeight/2}px`}}
             >
-                {Blocktransitions.map(({item, key, props})=>{
+                {/* {Blocktransitions.map(({item, key, props})=>{
                     // console.log(item)
                     return !item && (<animated.div className='bk-text-blocker' style={props}>
                     </animated.div>)
-                })}
+                })} */}
                     <h3>{props.data.adName}</h3>
                     <h6 className="bk-white">
                         {props.data.adTitle}

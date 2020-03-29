@@ -26,10 +26,10 @@ h6.bk-white {
   @include buttonTheme(blackStyle);
   transition: 0.3s;
 
-  &:hover {
-    background: $blue;
-    border-color: $blue;
-  }
+  // &:hover {
+  //   background: $blue;
+  //   border-color: $blue;
+  // }
 }
 
 .bk-btn-black-bordered {

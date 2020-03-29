@@ -63,6 +63,7 @@ function StoryReply(props){
                     props.onClick(props.id)
                     }} 
                     role="button"
+                    className='bk-hover'
                 >
                     {showReplyTo ? '取消' : '回覆'}
                 </div>
@@ -81,14 +82,14 @@ function StoryReply(props){
                 <div className='bk-reply-btn-group'>
                     <button 
                     onClick={handleToggleShow} 
-                    className={user ? 'bk-btn-black-bordered' : 'bk-btn-grey-bordered'}
+                    className={`${user ? 'bk-btn-black-bordered' : 'bk-btn-grey-bordered'} bk-hover`}
                     disabled={user ? false : true}
                     >取消</button>
                     <button 
                     onClick={()=>{
                         props.handlers.submit(replyTo, txtContent)
                     }}
-                    className={user ? '' : 'bk-btn-grey'}
+                    className={`${user ? '' : 'bk-btn-grey'} bk-hover`}
                     disabled={user ? false : true}
                     >回覆</button>
                 </div>
