@@ -111,3 +111,48 @@
   margin-top: $spacing;
   @include buttonTheme(blackStyle);
 }
+
+//tags input
+.bk-tags-input{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: solid 1px $black;
+  margin-bottom: $spacing;
+  padding: 0 $spacing;
+  min-height: 63.5px;
+
+
+  ul{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    margin-top: $spacing;
+    
+    li{
+      list-style: none;
+      background-color: $blue;
+      color: $white;
+      padding: $spacing/4 $spacing/2;
+      margin: 0 $spacing $spacing 0;
+      display: flex;
+      align-items: center;
+
+      .bk-close{
+        color: $white;
+        font-size: $font-s;
+        margin-left: $spacing/2;
+      }
+    }
+  }
+  input{
+    flex: 1;
+    border: none;
+    padding: $spacing/2 0;
+    background: transparent;
+
+    &:focus{
+      outline: transparent;
+    }
+  }
+}

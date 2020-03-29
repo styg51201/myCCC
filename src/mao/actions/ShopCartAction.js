@@ -285,6 +285,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
   }
 }
 
+//暫時還沒用
 export const calDiscount = (val, data) => {
   return dispatch => {
     switch (val) {
@@ -303,6 +304,8 @@ export const calDiscount = (val, data) => {
     dispatch(CalShopCartTotal(data))
   }
 }
+
+
 
 // export const Handel_DelMyFavorite=()
 export const AddMyFavorite = value => ({ type: 'LIKE_PRODUCT', value: value })

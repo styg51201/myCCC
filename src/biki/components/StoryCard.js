@@ -13,6 +13,8 @@ import '../css/all.scss'
 import '../css/stories.scss'
 
 function StoryCard(props){
+    // console.log(props.data.stryTags)
+    
 
     const cardRef = useRef(null);
     const [height, setHeight] = useState(0)
@@ -69,6 +71,9 @@ function StoryCard(props){
                 </Card.Header>
                 <Card.Body className="bk-card-body">
                     <h3>{props.data.stryTitle}</h3>
+                    <div className='bk-tags'>{JSON.parse(props.data.stryTags).map((elm, idx)=>{
+                        return <span key={`${elm}-${idx}`}>{elm}</span>
+                    })}</div>
                     <div dangerouslySetInnerHTML={{__html: props.content}}></div>
                 </Card.Body>
                 <Card.Footer className='bk-card-footer'>

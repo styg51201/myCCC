@@ -50,9 +50,9 @@ import AdTest from './stacey/AdTest'
 
 function App() {
   //測試 react-bootstrap 的 ExampleToast 功能是否正常
+  
   const ExampleToast = ({ children }) => {
     const [show, toggleShow] = useState(false)
-
     return (
       <>
         {!show && <Button onClick={() => toggleShow(true)}>Show Toast</Button>}
@@ -107,7 +107,7 @@ function App() {
               <ShopCartList />
             </Route>
             <Route path="/member/ShopCartLike">
-              <ShopCartLike />
+              <ShopCartLike/>
             </Route>
             <Route path="/OrderInfo">
               <OrderInfo />

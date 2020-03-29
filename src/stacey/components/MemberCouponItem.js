@@ -79,30 +79,24 @@ function MemberCouponItem(props){
   }
 
   // 設定按鈕種類
-  let buttonType = (<button onClick={()=>{
-    props.goShopping(props.item.cp_vendor) 
-    props.showDiscountAction(true,props.item)
-    
-    props.history.push(path)
-  
-  }}>
-    <span className="">去逛逛</span>
-  </button>)
+  let buttonType = (<button><span className="">去逛逛</span></button>)
 
   if(props.state==='use'){
-
-  buttonType = (<button onClick={()=> {}}>
-    <span>已使用</span>
-  </button>)
-
+    buttonType = (<button><span>已使用</span></button>)
   }
 
-  // console.log('props',props)
-    
+  function shopAction (){
+    props.showDiscountAction(true,props.item)
+    props.goShopping(props.item.cp_vendor) 
+    props.history.push(path)
+  }
+ 
     return (
         <>
         <div className={couponClassName}>
-              <div className="item">
+              <div className="item" onClick={()=>{
+                !(props.state==='use') && shopAction()
+              }}>
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${props.item.cp_img}`} alt="" />
 
