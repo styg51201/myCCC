@@ -4,6 +4,7 @@ import useTextareaRows from '../utils/useTextareaRows'
 
 function StoryReply(props){
 
+
     const [txtContent, setTxtContent] = useState('')
     const [showReplyTo, setShowReplyTo] = useState(false)
     const [replyTo, setReplyTo] = useState(null)
@@ -43,19 +44,19 @@ function StoryReply(props){
     return (
         <div className="bk-story-replies" id={props.id} ref={rplyRef}>
             <div className='bk-txt-small rply-to'>
-                {props.data.toName ? `回覆給 ${props.data.toName}` : ''}
+                {props.data.rplyToName ? `回覆給 ${props.data.rplyToName}` : ''}
             </div>
             <div className='bk-rply-head'>
                 <div className='bk-rply-user-img'>
-                    <img src={props.data.img ? props.data.img : '/biki-img/SVG/user.svg'} />
+                    <img src={props.data.Image ? props.data.Image : '/biki-img/SVG/user.svg'} />
                 </div>
                 <div>
-                    {props.data.name || props.data.account} <br />
+                    {props.data.Name || props.data.Account} <br />
                     {props.data.fromNow}
                 </div>
             </div>
             <div className="bk-rply-body">
-                <div>{props.data.content}</div>
+                <div>{props.data.rplyContent}</div>
             </div>
             <div className="bk-rply-foot">
                 <div onClick={()=>{
@@ -74,7 +75,7 @@ function StoryReply(props){
                     value={user ? txtContent : '請先登入才能回復'} 
                     onChange={(evt)=>{
                         handleRows(evt);
-                        handleChange(props.data.id, evt);
+                        handleChange(props.data.rplyId, evt);
                     }} 
                     onKeyDown={handleKey}
                     disabled={user ? false : true}

@@ -4,6 +4,15 @@
 //   color: $black;
 // }
 
+
+.bk-hover{
+  transition: .3s;
+
+  &:hover{
+    opacity: 0.5;
+  }
+}
+
 h6.bk-white {
   color: $white;
 }

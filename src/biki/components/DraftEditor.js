@@ -2,10 +2,11 @@ import React, {useState, useEffect, useRef} from 'react'
 import {withRouter} from 'react-router-dom'
 import {stateToHTML} from 'draft-js-export-html';
 import {Editor, EditorState, RichUtils, convertToRaw} from 'draft-js';
+import Swal from 'sweetalert2/dist/sweetalert2'
 
 import Toolbar, {styleMap, getBlockType} from './EditorComponents/Toolbar'
-import TagBlock from './EditorComponents/TagBlock'
-import Swal from 'sweetalert2/dist/sweetalert2'
+// import TagBlock from './EditorComponents/TagBlock'
+import TagInput from './TagInput'
 
 //utils for media rendering
 import { renderMedia, mediaBlockRenderer } from './entities/mediaBlockRenderer'
@@ -88,11 +89,9 @@ function DraftEditor(props){
         setTitle(e.target.value)
     }
 
-    const handleTags = (e)=>{
-        // console.log(e.target.value.split(' '))
-        console.log(tagsRef.current.innerText.split('#'))
-        setTags(tagsRef.current.innerText.split('#'))
-    }
+    const selectedTags = tags => {
+        setTags(tags)
+    };
     
     // basically just sets state...
     const onChange = editorState =>{
@@ -342,21 +341,10 @@ function DraftEditor(props){
                 <label>標題</label>
                 <input type="text" onChange={handleTitle} />
             </div>
-            <div className="bk-form-control">
-                <div className="bk-editor-tags">{!tags ? '' : tags.map((v, i)=>{
-                    if(v !== ''){
-                        return <TagBlock tag={v} key={`${v}-${i}`} />
-                    }
-                })}</div>
+            {/* <div className="bk-form-control"> */}
                 <label>標籤</label>
-                <div contentEditable='true' onInput={handleTags} ref={tagsRef}>
-                    {/* {!tags ? '' : tags.map((v, i)=>{
-                        if(v !== ''){
-                            return <TagBlock tag={v} key={`${v}-${i}`} />
-                        }
-                    })} */}
-                </div>
-            </div>
+                <TagInput selectedTags={selectedTags} tags={tags} />
+            {/* </div> */}
             <div className="bk-draft-editor-container">
                 <div>
                     <Toolbar
