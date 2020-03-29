@@ -145,7 +145,9 @@ function CouponItem(props){
         <>
         <div className={couponClassName}>
               <div className="item" onClick={()=>{
-                 props.item.geted ? shopAction() :getAction()
+                if( !(couponState === '發放結束')){
+                  props.item.geted? shopAction():getAction()
+                }
               }}>
         {canGetNum ? <span className="sty-alertText">還剩 {canGetNum} 張 ! </span> : ''}
 
