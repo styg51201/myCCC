@@ -15,9 +15,20 @@ import {
   IoMdArrowDropright
 } from 'react-icons/io'
 
+//動畫
+import { bounceIn } from 'react-animations';
+import Radium, {StyleRoot} from 'radium';
+
 
 function CouponItem(props){
  
+
+  const styles = {
+    bounceIn: {
+      animation: 'x 1s',
+      animationName: Radium.keyframes(bounceIn, 'bounceIn')
+    }
+  }
 
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
   
@@ -107,35 +118,52 @@ function CouponItem(props){
 
 
   // 設定按鈕種類
-  let getButton = (<button disabled={couponState === '發放結束'}
-                        onClick={()=>{
-                          if(mb_id){
-                            props.getCouponToServer(props.item.cp_id,mb_id) //cp_id 跟 mb_id
-                            props.getCoupon(props.arrIndex)
-                            }else{
-                              alert('請先登入')
-                            }
-                        }}>
+  let getButton = (<button disabled={couponState === '發放結束'}>
                         <span>{couponState}</span>
                      </button>)
-  let shopButton = (<button onClick={()=>{
-                      props.showDiscountAction(true,props.item)
-                      props.goShopping(props.item.cp_vendor) 
-                      props.history.push(path)
-                    }}>
+  let shopButton = (<button>
                       <span>{couponState}</span>
                     </button>)
+
+
+  function shopAction (){
+    props.showDiscountAction(true,props.item)
+    props.goShopping(props.item.cp_vendor) 
+    props.history.push(path)
+  }
+
+  function getAction () {
+    if(mb_id){
+      props.getCouponToServer(props.item.cp_id,mb_id) //cp_id 跟 mb_id
+      props.getCoupon(props.arrIndex)
+      }else{
+        alert('請先登入')
+      }
+  }
 
     return (
         <>
         <div className={couponClassName}>
-              <div className="item">
+              <div className="item" onClick={()=>{
+                 props.item.geted ? shopAction() :getAction()
+              }}>
         {canGetNum ? <span className="sty-alertText">還剩 {canGetNum} 張 ! </span> : ''}
 
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${props.item.cp_img}`} alt="" />
-                  <div className="alreadyGet"><p>已領取</p></div>
-                  <div className="sty-dashed"></div>
+                  
+                  { props.item.geted ? 
+                  <>
+                  <div className="alreadyGet">
+                  </div>
+                  <StyleRoot className="sty-getImg" style={styles.bounceIn}>
+                      <img src="/sty-img/get_o.png"/>
+                      <p>領取</p>
+                  </StyleRoot></> : 
+                  ''}
+                  
+                  <div className="sty-dashed">
+                  </div>
                 </div>
                 <div className="text">
                   <ul>
@@ -152,7 +180,7 @@ function CouponItem(props){
                   </div>
                 </div>
                 <div className="button">
-                  {props.item.geted? shopButton:getButton}
+                  {props.item.geted ? shopButton:getButton}
                 </div>
               </div>
             </div>
