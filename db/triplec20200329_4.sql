@@ -107,7 +107,8 @@ CREATE TABLE IF NOT EXISTS `coupon` (
   `cp_due` date NOT NULL COMMENT '優惠券結束時間',
   `cp_getedCount` int(11) NOT NULL COMMENT '已領取數量',
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updates_at` datetime NOT NULL DEFAULT current_timestamp()
+  `updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`cp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -160,8 +161,9 @@ CREATE TABLE IF NOT EXISTS `coupon_item` (
   `cpi_use` int(11) NOT NULL COMMENT '是否使用',
   `cpi_useDate` date NOT NULL COMMENT '使用日期',
   `cpi_order_id` int(11) NOT NULL COMMENT '訂單id',
-  `created_at` datetime NOT NULL,
-  `updates_at` datetime NOT NULL
+  `created_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `updates_at` datetime NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`cp_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
