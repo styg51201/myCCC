@@ -92,7 +92,7 @@ function MemberCouponItem(props){
   if(props.state==='use'){
 
   buttonType = (<button onClick={()=> {}}>
-    <span>查看訂單</span>
+    <span>已使用</span>
   </button>)
 
   }
@@ -105,7 +105,14 @@ function MemberCouponItem(props){
               <div className="item">
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${props.item.cp_img}`} alt="" />
-                  <div className="alreadyGet">已使用</div>
+
+                  <div className="alreadyGet">
+                  </div>
+                  <div className="sty-getImg">
+                      <img src="/sty-img/get_o.png"/>
+                      <p>已使用</p>
+                  </div>
+
                 <div className="sty-dashed"></div>
                 </div>
                 <div className="text">

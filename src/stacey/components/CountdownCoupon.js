@@ -14,7 +14,21 @@ import { bindActionCreators } from 'redux'
 import {countdownCouponGet , getCouponToServer ,fromServerCountdownCouponData,goShopping,showDiscountAction} from '../actions/couponAction'
 
 
+//動畫
+import { bounceIn  } from 'react-animations';
+import Radium, {StyleRoot} from 'radium';
+
+
 function CountdownCoupon(props){
+
+const [getAnimation,setGetAnimation] = useState([false,false])
+
+const styles = {
+    bounceIn: {
+        animation: 'x 1s',
+        animationName: Radium.keyframes(bounceIn, 'bounceIn')
+    }
+    }    
 
 
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
@@ -25,8 +39,11 @@ useEffect(()=>{
 },[])
 
 
+
+
 const coupon =  props.item.map((val,ind)=>{
 
+    
 
     // 設定按鈕裡的字樣
     let couponState = '領取'
@@ -97,40 +114,57 @@ const coupon =  props.item.map((val,ind)=>{
 
 
     // 設定按鈕種類
-    let getButton = (<button 
-                        onClick={()=>{
-                            if(mb_id){
-                            props.getCouponToServer(val.cp_id,mb_id) //cp_id 跟 mb_id
-                            props.countdownCouponGet(ind)
-                            }else{
-                                alert('請先登入')
-                            }
-                        }}>
+    let getButton = (<button >
                         <span>{couponState}</span>
                     </button>)
 
-    let shopButton = (<button onClick={()=>{
-                        
-                        props.goShopping(val.cp_vendor) 
-                        props.showDiscountAction(true,val)
-                        props.history.push(path)
-
-                        }}>
+    let shopButton = (<button>
                         <span>{couponState}</span>
                     </button>)
+
+
+    function shopAction (){
+        props.goShopping(val.cp_vendor) 
+        props.showDiscountAction(true,val)
+        props.history.push(path)
+      }
+    
+    function getAction () {
+        if(mb_id){
+            props.getCouponToServer(val.cp_id,mb_id) //cp_id 跟 mb_id
+            props.countdownCouponGet(ind)
+            if(ind){
+                setGetAnimation([false,true])
+            }else
+                setGetAnimation([true,false])
+            }else{
+                alert('請先登入')
+            }
+      }
 
 
 return(
     <div className={couponClassName}>
-              <div className="item">
+              <div className="item" onClick={()=>{
+                  val.geted ? shopAction() : getAction()
+              }}>
         
                 <div className="wrapForImg">
                   <img src={`/img/vendors/${val.cp_img}`} alt="" />
+
+                  { val.geted ? 
+                  <>
                   <div className="alreadyGet">
-                    <img src="/sty-img/get_o.png"/>
-                    <div><p>領取</p></div>
-            
                   </div>
+                    { getAnimation[ind] ? <StyleRoot className="sty-getImg" style={styles.bounceIn}>
+                      <img src="/sty-img/get_o.png"/>
+                      <p>領取</p>
+                  </StyleRoot> : <StyleRoot className="sty-getImg">
+                      <img src="/sty-img/get_o.png"/>
+                      <p>領取</p>
+                  </StyleRoot> }
+                  </> : ''}
+
                   <div className="sty-dashed"></div>
                 </div>
                 <div className="text">
