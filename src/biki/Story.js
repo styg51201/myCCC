@@ -120,7 +120,6 @@ function Story(props){
         }
 
         let url = `http://localhost:5500/stories/reply/${props.match.params.id}` + (replyTo ? `?toId=${replyTo}` : '') + (replyTo ? `&usrId=${user}` : `?usrId=${user}`)
-        // console.log(url)
 
         axios({
             method: 'POST',
@@ -130,6 +129,38 @@ function Story(props){
             }
         })
         .then(res=>{
+            axios.get(`http://localhost:5500/stories/story/replies/${props.match.params.id}?rplyId=${res.data.insertId}`)
+            .then(r=>{
+                // setTempRplyTo(r.data[0])
+                setTxtContent('')
+                setOpenRplyTo(null)
+                setRplyData(prevData=>{
+                    if(r.data[0].rplyTo === null){
+                        return [r.data[0], ...prevData]
+                    }else{
+                        let getObjPos = (obj, arr)=>{
+                            console.log('obj:', obj)
+                            let newArr = [...arr]
+                            newArr.some(elm=>{
+                                if(elm.rplyId === obj.rplyTo){
+                                    (elm.children || (elm.children = [])).push(obj)
+                                    console.log('found!')
+                                    return true;
+                                }else{
+                                    if(elm.children){
+                                        console.log('continue finding...')
+                                        getObjPos(obj, elm.children)
+                                    }
+                                }
+                            })
+                            // console.log('newArr:', newArr)
+                            return newArr
+                        }
+                        return getObjPos(r.data[0], prevData)
+                    }
+                })
+            })
+
             Swal.fire({
                 position: 'top-end',
                 text: '成功回覆',
@@ -177,17 +208,7 @@ function Story(props){
                     handlers={{
                         submit: handleSubmit
                     }}
-                    data={{
-                        name: elm.Name,
-                        account: elm.Account,
-                        img: elm.Image,
-                        id: elm.rplyId,
-                        content: elm.rplyContent,
-                        to: elm.rplyToId,
-                        toName: elm.rplyToName,
-                        fromNow: elm.fromNow,
-                        date: elm.rplyUpdate
-                    }}
+                    data={elm}
                     id={`${elm.rplyId}-${elm.usrId}`}
                     onClick={handleOnclick}
                     openRplyTo={openRplyTo}
@@ -215,7 +236,15 @@ function Story(props){
                                 <div className='date'>{data[0].updated_at}</div>
                             </div>
                         </div>
-                        
+                        {JSON.parse(data[0].stryTags).length 
+                        ? 
+                        (<div className='bk-tags bk-dark mt-5'>
+                            {JSON.parse(data[0].stryTags).map((elm, idx)=>{
+                            return <span key={`${elm}-idx`}>{elm}</span>
+                            })}
+                        </div>)
+                        :
+                        ''}
                     </div>
                 </div>
                 <div className="bk-story-wrapper">
@@ -242,9 +271,10 @@ function Story(props){
                                 handleRows(evt);
                                 handleChange(null, evt)
                             }} 
+                            value={user ? txtContent : '請先登入才能回復'}
                             onKeyDown={handleKey} 
                             disabled={user ? false : true}
-                            defaultValue={user ? '' : '請先登入才能回復'}
+                            // defaultValue={user ? '' : '請先登入才能回復'}
                             />
                             <button 
                             className={`${user ? 'bk-btn-black' : 'bk-btn-grey'} bk-hover`}
