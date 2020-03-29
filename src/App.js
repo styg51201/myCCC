@@ -28,7 +28,9 @@ import Search from './biki/Search'
 import Headset from './chin/Headset'
 import Watch from './chin/Watch'
 import Commidty from './chin/Commidty'
-import Comparepages from './chin/Comparepages'
+import ComparepagesWatch from './chin/ComparepagesWatch/ComparepagesWatch'
+import ComparepagesHeadset from './chin/ComparepagesHeadset/ComparepagesHeadset'
+import ComparepagesActioncamera from './chin/ComparepagesActioncamera/ComparepagesActioncamera'
 import Actioncamera from './chin/Actioncamera'
 import Surrounding from './chin/Surrounding'
 //import mao
@@ -91,8 +93,14 @@ function App() {
             <Route path="/commidty/:itemId?">
               <Commidty />
             </Route>
-            <Route path="/comparepages">
-              <Comparepages />
+            <Route path="/Comparepageswatch">
+              <ComparepagesWatch />
+            </Route>
+            <Route path="/Comparepagesheadset">
+              <ComparepagesHeadset />
+            </Route>
+            <Route path="/Comparepagesactioncamera">
+              <ComparepagesActioncamera />
             </Route>
             {/*---------------------------------------------*/}
             <Route path="/member/ShopCartList">

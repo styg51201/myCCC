@@ -165,25 +165,28 @@ function Header(props) {
       </div>
       <div>
         {memberstate ? (
+          <>
           <Link to="/memberedit">
             <img
-              src="./img/header-footer/user.svg"
+              src="/img/header-footer/user.svg"
               alt=""
               className="chin-three-position"
             />
           </Link>
-        ) : (
-          <Link to="/memberlogin">
-            <img
-              src="./img/header-footer/user.svg"
-              alt=""
-              className="chin-three-position"
-            />
-          </Link>
-        )}
-        {!memberstate ? (
-          <div className="chin-three-position4 irene_member_logout"> </div>
-        ) : (
+          <Link to="/member/ShopCartList">
+          <img
+            src="/img/header-footer/shopping-bag.svg"
+            alt=""
+            className="chin-three-position2"
+          />
+        </Link>
+        <Link to="/member/ShopCartLike">
+          <img
+            src="/img/header-footer/heart.svg"
+            alt=""
+            className="chin-three-position3"
+          />
+        </Link>
           <Link to="/memberlogin">
             <div className="chin-three-position4 irene_member_logout">
               <FiLogOut
@@ -195,21 +198,32 @@ function Header(props) {
               />
             </div>
           </Link>
-        )}
-        <Link to="/member/ShopCartList">
+          </>
+        ) : (
+          <>
+          <Link to="/memberlogin">
+            <img
+              src="./img/header-footer/user.svg"
+              alt=""
+              className="chin-three-position"
+            />
+          </Link>
+          <Link to="/member/ShopCartList">
           <img
-            src="./img/header-footer/shopping-bag.svg"
+            src="/img/header-footer/shopping-bag.svg"
             alt=""
             className="chin-three-position2"
           />
         </Link>
         <Link to="/member/ShopCartLike">
           <img
-            src="./img/header-footer/heart.svg"
+            src="/img/header-footer/heart.svg"
             alt=""
             className="chin-three-position3"
           />
         </Link>
+          <div className="chin-three-position4 irene_member_logout"> </div></>
+        )} 
       </div>
     </>
   )

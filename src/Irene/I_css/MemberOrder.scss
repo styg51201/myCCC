@@ -3,12 +3,20 @@
 
 .querysubmit {
   text-align: right;
+  @include buttonTheme(blackStyle);
 }
 
 .irene_memberorder_list table {
-  margin: 50px;
+  margin: 50px auto;
+  text-align: center;
+  vertical-align: middle;
 }
 
-.irene_memberorder_listbutton {
-  @include buttonTheme(blackStyle);
+.irene_memberorder_list {
+  .irene-memberreturnbtn,
+  .irene-membercommentbtn {
+    @include buttonTheme(blackStyle);
+    font-size: $font-xs;
+    border-radius: 10%;
+  }
 }

@@ -40,11 +40,14 @@
     color: $grey;
     border: 1px solid transparent;
     transition: 0.2s;
+    font-weight: $font-bold;
     &:hover {
       color: $black;
-      font-weight: $font-bold;
       // font-weight: $font-bold;
       // border: 1px solid $black;
+    }
+    .sty-alertNum {
+      font-weight: normal;
     }
   }
   button + button {
@@ -83,18 +86,48 @@
       position: absolute;
       right: 0;
     }
-    img {
+    > img {
       width: 90%;
       height: 85%;
       object-fit: contain;
     }
     .alreadyGet {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      background-color: rgba($color: #e4e0e0, $alpha: 0.75);
+      opacity: 0;
+    }
+    .sty-getImg {
+      width: 100%;
+      height: 100%;
       position: absolute;
       font-weight: $font-bold;
-      letter-spacing: 0.625rem;
-      padding-left: 0.625rem;
-      font-size: $font-x;
-      display: none;
+      font-size: 25px;
+      display: flex;
+      justify-content: center;
+      // overflow: hidden;
+      // transition: 0.5s;
+      opacity: 0;
+      p {
+        letter-spacing: 0.625rem;
+        padding-left: 0.625rem;
+        align-self: center;
+        margin: 0;
+        color: $orange;
+        transform: rotate(-20deg);
+      }
+      > img {
+        object-fit: contain;
+        position: absolute;
+        width: 110%;
+        height: 110%;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
     }
   }
   .text {
@@ -139,9 +172,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      &:hover {
-        box-shadow: 2px 2px 5px #9e9e9e;
-      }
       span {
         writing-mode: vertical-lr;
         height: 8.125rem;
@@ -153,22 +183,39 @@
     }
   }
 }
+
+.sty-memberCoupon {
+  .item {
+    cursor: pointer;
+    &:hover button {
+      span {
+        animation-name: bounce;
+        animation-duration: 0.8s;
+      }
+    }
+  }
+}
+
 //已使用
 .sty-memberCoupon.used {
-  .wrapForImg {
-    position: relative;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background-color: rgba($color: $grey, $alpha: 0.95);
+  .item {
+    cursor: context-menu;
+    &:hover button {
+      span {
+        animation-name: none;
+      }
     }
-    .alreadyGet {
-      display: block;
-    }
+  }
+  .alreadyGet {
+    opacity: 1;
+  }
+  .sty-getImg {
+    opacity: 1;
+  }
+  button {
+    pointer-events: none;
+    background-color: transparent;
+    color: $grey;
   }
 }
 //即將過期

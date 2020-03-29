@@ -21,12 +21,50 @@ import { bindActionCreators } from 'redux'
 import { getServerMemberOrder } from './actions/memberAction'
 
 function MemberOrder(props) {
-  console.log('props', props)
+  // console.log('props', props.data[0].orderId)
   // console.log('orderdata', orderdata)
 
   const [startDate, setStartDate] = useState(new Date('2020/01/01'))
   const [endDate, setEndDate] = useState(new Date(new Date()))
-  let orderdata = props.data ? props.data : ' '
+  // let orderdata = JSON.stringify(props.data)
+  // console.log('orderdata', orderdata)
+
+  // if (props.data[0]) {
+  //   for (let i = 0; i <= props.data.length; i++) {
+  //     let created_at = props.data[i].created_at
+  //     let orderId = props.data[i].orderId
+  //     let outStatus = props.data[i].outStatus
+  //     <tr>
+  //     <td>{created_at}</td>
+  //     <td>
+  //       {orderId}
+  //       <button
+  //         class="btn memberorderdetail"
+  //         type="button"
+  //         data-toggle="collapse"
+  //         data-target="#collapseExample"
+  //         aria-expanded="false"
+  //         aria-controls="collapseExample"
+  //       >
+  //         <FaInfoCircle />
+  //       </button>
+  //     </td>
+  //     <td>{outStatus}</td>
+  //     <td>
+  //       <button className="irene-memberreturnbtn">退貨</button>
+  //     </td>
+  //     <td>
+  //       <button className="irene-membercommentbtn">評價</button>
+  //     </td>
+  //   </tr>
+
+  //   }
+  // } else {
+  //   let created_at = ' '
+  //   let orderId = ' '
+  //   let outStatus = ''
+  // }
+
   useEffect(() => {
     // $('.memberorderdetail').click(() => alert('click'))
     props.getServerMemberOrder()
@@ -107,7 +145,7 @@ function MemberOrder(props) {
               {/* 抓取訂單資料 */}
               <thead>
                 <tr>
-                  <th>購買日期</th>
+                  <th>購買時間</th>
                   <th>訂單編號</th>
                   <th>訂單狀態</th>
                   <th>退貨</th>
@@ -115,28 +153,31 @@ function MemberOrder(props) {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  {/* <td>{orderdata[0].created_at}</td> */}
-                  <td>
-                    {/* {orderdata[0].orderId} */}
-                    <button
-                      class="btn memberorderdetail"
-                      type="button"
-                      data-toggle="collapse"
-                      data-target="#collapseExample"
-                      aria-expanded="false"
-                      aria-controls="collapseExample"
-                    >
-                      <FaInfoCircle />
-                      {/* 點選之後會彈出會員訂單詳細內容，for迴圈產生列 */}
-                    </button>
-                  </td>
-                  {/* <td>{orderdata[0].outStatus}</td> */}
-                  <td>
-                    <button></button>
-                  </td>
-                  <td>Table cell</td>
-                </tr>
+                {props.data.map((v, i) => (
+                  <tr>
+                    <td>{v.created_at}</td>
+                    <td>
+                      {v.orderId}
+                      <button
+                        class="btn memberorderdetail"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#collapseExample"
+                        aria-expanded="false"
+                        aria-controls="collapseExample"
+                      >
+                        <FaInfoCircle />
+                      </button>
+                    </td>
+                    <td>{v.outStatus}</td>
+                    <td>
+                      <button className="irene-memberreturnbtn">退貨</button>
+                    </td>
+                    <td>
+                      <button className="irene-membercommentbtn">評價</button>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </Table>
           </div>
