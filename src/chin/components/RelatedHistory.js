@@ -22,10 +22,6 @@ const dispatch = useDispatch()
 const dataname = props.data[0]?props.data[0].name:''
 let dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
 
-// if(dataitemCategoryId.indexOf("/")){
-//   dataitemCategoryId = dataitemCategoryId.Replace("/","\/")
-  console.log("dataitemCategoryId",dataitemCategoryId)
-// }
 const itemClassName = classNames('chin-historicalrecord', {
   active:hisrelitem 
 })
