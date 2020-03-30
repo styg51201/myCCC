@@ -1,5 +1,4 @@
 import React ,{useState} from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
 //redux
 import { connect } from 'react-redux'
@@ -8,8 +7,6 @@ import { bindActionCreators } from 'redux'
 import {addFilterCoupon} from '../actions/couponAction'
 
 
-//icon
-import { IconContext } from 'react-icons'
 import {
   FiChevronDown
 } from 'react-icons/fi'

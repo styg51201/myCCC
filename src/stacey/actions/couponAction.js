@@ -49,7 +49,6 @@ export const fromServerCouponData = (val,id) => {
 
 
   export const fromServerCountdownCouponData = (id) => {
-    console.log('9999')
     return async dispatch => {
       const request = new Request('http://localhost:5500/getCoupon/countdownCoupon', {
         method: 'POST',
@@ -64,7 +63,7 @@ export const fromServerCouponData = (val,id) => {
       })
       const res = await fetch(request)
       const data = await res.json()
-      console.log('6666',data)
+    
   
       dispatch(countdownCoupon(data))
     }
@@ -99,7 +98,7 @@ export const startTimeSort = val =>{
     val.sort(function(a,b){
       return a.cp_created_at > b.cp_created_at ? -1 : 1
     })
-    console.log('77777',val)
+    
     dispatch(showCoupon([...val]))
   }
 }
@@ -180,7 +179,7 @@ export const fromServerMemberCouponData = val => {
 
 // //會員優惠券-分類
 // export const memberCouponFilter = (val,state) =>{
-//   console.log('5555',val)
+//  
 //   let useList = []
 //   let dueEndList = []
 //   let getList = []
@@ -227,7 +226,7 @@ export const showAd = val =>{
 }
 
 export const fromServerAdData = val => {
-  // console.log('4444')
+ 
   return async dispatch => {
     const request = new Request('http://localhost:5500/getCoupon/adData', {
       method: 'GET',

@@ -44,6 +44,8 @@ function Header(props) {
     $('.irene_member_logout').click(function() {
       localStorage.removeItem('userdata')
       localStorage.removeItem('userId')
+      localStorage.removeItem('cartItem')
+      localStorage.removeItem('hisitem')
       window.location.replace('http://localhost:3000/memberlogin')
     })
 
