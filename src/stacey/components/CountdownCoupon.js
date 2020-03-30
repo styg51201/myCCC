@@ -36,9 +36,9 @@ const now = new Date()
 const nowHour = moment().hour()
 const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
 const endTime = moment(`${today} ${nowHour+1}:00:00`)
-// const countdownTime = (endTime.valueOf() - now.valueOf() )/1000
-const start = moment(`${today} ${nowHour}:59:40`)
-const countdownTime = (endTime.valueOf() - start.valueOf() )/1000
+const countdownTime = (endTime.valueOf() - now.valueOf() )/1000
+// const start = moment(`${today} ${nowHour}:59:40`)
+// const countdownTime = (endTime.valueOf() - start.valueOf() )/1000
 
 const timeout = countdownTime *1000
 

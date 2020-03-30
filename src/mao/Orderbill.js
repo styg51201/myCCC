@@ -104,7 +104,7 @@ function Orderbill(props) {
             活動折扣：<span>{buyerInfo.discount}</span>
           </div>
           <div>
-            消費總金額：<span>{buyerInfo.total}</span>
+            消費總金額：<span>{+buyerInfo.total-buyerInfo.discount}</span>
           </div>
         </th>
       </tr>

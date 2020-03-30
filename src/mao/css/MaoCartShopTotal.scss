@@ -133,6 +133,12 @@
   padding: 10px;
   margin: 90px 0px;
 }
+.Mao-slide {
+  opacity: 1;
+}
+.Mao-slideRWD{
+  opacity: 0;
+}
 .Mao-productSlide-title {
   margin: 10px auto;
   padding: 15px;
@@ -157,27 +163,27 @@
   margin-top: 50px;
   width: 900px;
 }
-.Mao-shopCart-item-text-box{
+.Mao-shopCart-item-text-box {
   margin-top: 25px;
   height: 650px;
   overflow-y: scroll;
 }
-.Mao-shopCart-item-text{
-  width:100%;
-  margin:8px 0px;
+.Mao-shopCart-item-text {
+  width: 100%;
+  margin: 8px 0px;
   border-bottom: 1px solid #ddd;
-  text-overflow : ellipsis;
-  overflow : hidden;
-  white-space : nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-.Mao-shopCart-item-text >img{
-width:150px;
-height: 150px;
-margin:5px auto
+.Mao-shopCart-item-text > img {
+  width: 150px;
+  height: 150px;
+  margin: 5px auto;
 }
 /* fixed */
 .Mao-total-box-fixed {
@@ -286,16 +292,59 @@ margin:5px auto
   align-items: center;
   justify-content: center;
   background: $white;
-  width: 80%;
+  width: 200px;
   height: 45px;
   border: 1px solid $grey;
   color: $black;
-  margin: 5px 0px;
+  top: 50px;
+  position: absolute;
+}
+.Mao-total-box-btn-fixed-goshop:hover {
+color:$black
 }
 .Mao-total-box-btn-fixed:hover {
   color: #eee;
 }
-
+.Mao-line-sortG{
+  border-bottom: 1px solid #ddd;
+  height: 40px;
+  font-weight: bold;
+}
+.Mao-sort-ul {
+  transition: .2s;
+  opacity: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 50px auto;
+  justify-content: center;
+  text-align: center;
+  list-style-type: none;
+  font-size: 24px;
+  height: 50%;
+  & li {
+    width: 100%;
+  }
+  & .Mao-line-sort {
+    width: 1px;
+    height: 3px;
+    margin: 0 auto;
+    background: $blue;
+    transition: 0.3s;
+    opacity: 0;
+  }
+  & a {
+    color: $black;
+  }
+  & a:hover {
+    color: $blue;
+  }
+  & li:hover .Mao-line-sort {
+    width: 50%;
+    font-weight: bold;
+    opacity: 1;
+  }
+}
 .Mao-couponBox {
   overflow: hidden;
   opacity: 0;
@@ -303,7 +352,7 @@ margin:5px auto
   box-shadow: 5px 5px 10px #ddd;
   background: $white;
   position: fixed;
-  top: calc(50% - 350px);
+  top: calc(50% - 150px);
   left: calc(50% - 350px);
   z-index: -10;
   border: 1px solid $grey;
@@ -319,12 +368,12 @@ margin:5px auto
   width: 500px;
   height: 100%;
 }
-.Mao-coupon-text-box >div{
+.Mao-coupon-text-box > div {
   display: flex;
 }
 .Mao-coupon-DOM {
-  margin:0px 4px;
-  width:250px;
+  margin: 0px 4px;
+  width: 250px;
 }
 .Mao-coupon-text {
   display: flex;
@@ -339,29 +388,29 @@ margin:5px auto
   border: 1px solid #ddd;
   box-shadow: 5px 5px 6px #eee;
   &:hover {
-    background:$blue;
+    background: $blue;
     color: $black;
     font-weight: bold;
     border: 2px solid $orange;
   }
 }
-.Mao-coupon-active{
-  background:$blue;
+.Mao-coupon-active {
+  background: $blue;
 }
-.Mao-coupon-ullist-img{
-width:290px;
-list-style: none;
-border-left:1px solid #ddd;
-padding:0px 8px;
-margin:0px 10px;
-height: 450px;
-overflow-y: scroll;
+.Mao-coupon-ullist-img {
+  width: 290px;
+  list-style: none;
+  border-left: 1px solid #ddd;
+  padding: 0px 8px;
+  margin: 0px 10px;
+  height: 450px;
+  overflow-y: scroll;
 }
-.Mao-coupon-list-img{
+.Mao-coupon-list-img {
   display: flex;
 }
-.Mao-coupon-img{
-  width:100px;
+.Mao-coupon-img {
+  width: 100px;
   height: 100px;
 }
 .Mao-coupon-exit {
@@ -396,17 +445,71 @@ overflow-y: scroll;
   width: 20px;
   height: 20px;
 }
+.Mao-container-box{
+  width:850px
+}
+
 // -------RWD----------------
 
-@media (max-width:576px){
-  .Mao-total-box-fixed{
+@media (max-width: 576px) {
+  .Mao-total-box{
+    height: 0;
     display: none;
     opacity: 0;
   }
-  .Mao-total-RWD{
+  .Mao-total-box-fixed {
+    display: none;
+    opacity: 0;
+  }
+  .Mao-total-RWD {
     width: 100%;
     position: sticky;
-    bottom:0;
+    bottom: 0;
     background: #f90;
+  }
+  .Mao-rand-AD{
+    opacity: 0;
+    display: none;
+  }
+  .Mao-slide {
+    height: 0;
+    opacity: 0;
+  }
+  .Mao-slideRWD{
+    opacity: 1;
+  }
+  .Mao-productSlide-title {
+    width:350px;
+    margin:0px auto;
+    padding:0;
+  }
+  .Mao-slide{
+    display: flex;
+    flex-direction: column;
+  }
+  .chin-commodity-item{
+    width: 100%;
+    height: 500px;
+    margin:25px 0px;
+  }
+  .chin-arr{
+    display: none;
+  }
+  .chin-arr2{
+    display: none;
+  }
+  .chin-watchs{
+    margin:0 auto;
+    width:350px;
+    height: 350px;
+  }
+  .chin-commodity-item h6{
+    font-size: 18px;
+  }
+  .Mao-container-box{
+    width:576px
+  }
+  .Mao-productSlide-box{
+    width:576px;
   }
 }

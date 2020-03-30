@@ -2,7 +2,8 @@ import React,{useState,useEffect, useReducer} from 'react'
 //classnames
 import classNames from 'classnames'
 import {
-  IoIosStarOutline
+  IoIosStarOutline,
+  IoIosStar,
 } from 'react-icons/io'
 import {BrowserRouter as Router,Route,Link,Switch,withRouter} from 'react-router-dom'
 //redux
@@ -14,14 +15,29 @@ import {formServerUsersData} from '../actions/itemsActions'
 function UserComment(props){
   console.log(props)
   const [postacomment,setPostacomment]=useState(false)
-
+  const [start,setStart] = useState([])
 const PostacommentClassName= classNames('chin-usercomment-fractionalstars',{active:postacomment})
 const itemId = props.match.params.itemId ? props.match.params.itemId : ''
-console.log(itemId)
+
+let bigbox=[]
+let starbox=[]
+let starItem=(
+  <IoIosStar style={{width:'20px',height:'20px',color:'#FFDD00'}}/>
+)
+const Rank = props.UserData.map((v,i)=>{
+  for(let i=0;i<v.rank;i++) {
+    starbox.push(starItem)
+    console.log(v.rank)
+  }
+  bigbox.push(starbox)
+  starbox=[]
+  console.log(bigbox)
+ })
+ 
 
 useEffect(()=>{
   props.formServerUsersData(itemId)
-},[])
+  },[])
 
 
     return(
@@ -31,54 +47,49 @@ useEffect(()=>{
         <div className="chin-usercomment">
           <div className="chin-fractionalstars">
             <div className="chin-fractional">
-              <p>4.0</p>
-              <img src="/chin-img/star.svg" alt="" />
-              <img src="/chin-img/star.svg" alt="" />
-              <img src="/chin-img/star.svg" alt="" />
-              <img src="/chin-img/star.svg" alt="" />
-              <img src="/chin-img/star.svg" alt="" />
-              <p>6則評論</p>
+              <p>5.0</p>
+              <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+              <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+              <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+              <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+              <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+              <p>{props.UserData.length}則評論</p>
             </div>
             <div className="chin-commentstars">
               <div>
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                5
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
               </div>
               <div>
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                4
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
               </div>
               <div>
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                3
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
               </div>
               <div>
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                2
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
               </div>
               <div>
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                <img src="/chin-img/star.svg" alt="" />
-                1
+                <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
+                <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
               </div>
             </div>
           </div>
@@ -93,7 +104,7 @@ useEffect(()=>{
             <div className="chin-disclopsaa">
               <div>
                 <p>評分</p>
-                <div>
+                <div className="chin-startsuser">
                   <IoIosStarOutline style={{width:'20px',height:'20px'}}/>
                   <IoIosStarOutline style={{width:'20px',height:'20px'}}/>
                   <IoIosStarOutline style={{width:'20px',height:'20px'}}/>
@@ -130,11 +141,7 @@ useEffect(()=>{
             <img src={`/chin-img/${val.img}`} alt="" />
           </div>
           <div>
-            <img src="/chin-img/star.svg" alt="" />
-            <img src="/chin-img/star.svg" alt="" />
-            <img src="/chin-img/star.svg" alt="" />
-            <img src="/chin-img/star.svg" alt="" />
-            <img src="/chin-img/star.svg" alt="" />
+          {bigbox[ind]}
             <h6>{val.userName}</h6>
             <span>1個月前</span>
           </div>

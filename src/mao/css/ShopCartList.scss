@@ -238,24 +238,28 @@
 }
 // ----------------------RWD-----------------------
 
-@media (max-width: 576px) {
+@media (max-width:576px){
   // .container{
   //   padding:0;
   // }
-  .Mao-shopcart-list-outsidest {
+  .Mao-shopcart-list-outsidest{
+    max-width:576px;
     flex-direction: column;
   }
-  .Mao-shopcart-check-item-ul {
-    width: 576px;
+  .Mao-CartNoItem-shoplist{
+    padding: 0;
+  }
+  .Mao-shopcart-check-item-ul{
+    width:570px;
   }
   .Mao-shopcart-check-item {
     display: flex;
-    width: 100%;
+    width:550px;
     padding: 3px;
   }
-
-  .Mao-shopcart-check-item > img {
-    margin: auto 25px;
+  
+  .Mao-shopcart-check-item >img{
+    margin:auto 15px;
   }
   .Mao-shopcart-check-item-info {
     display: flex;

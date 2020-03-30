@@ -32,42 +32,46 @@ function ProductSlide(props) {
   }, [])
 
  
+  function SamplePrevArrow(props) {
+
+    const { className, style, onClick } = props
+    return (
+        <img
+          src="/chin-img/chevron-left.svg"
+          className="chin-arr"
+          onClick={onClick}
+        />
+    )
+  }
+  function SampleNextArrow(props) {
+
+    const { className, style, onClick } = props
+    return (
+        <img
+          src="/chin-img/chevron-right.svg"
+          className="chin-arr2"
+          onClick={onClick}
+        />
+    )
+  }
   let settings = {
-    dots: false,
-    infinite: true,
-    autoplay:true,
-    autoplaySpeed:1000,
-    speed: 500,
+    swipeToSlide: true,
+    focusOnSelect: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    autoplay:'auto',
     slidesToShow: 4,
-    slidesToScroll: 4,
-    initialSlide: 0,
-    arrows:true,
-    responsive: [
-      {
-        breakpoint: 1300,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 3,
-          infinite: true,
-          dots: true
-        }
-      },
-      {
-        breakpoint: 600,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 2,
-          initialSlide: 2
-        }
-      },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1
-        }
-      }
-    ]
+    slidesToScroll:4,
+  };
+  let settingsRWD = {
+    swipeToSlide: true,
+    focusOnSelect: true,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    autoplay:'auto',
+    slidesToShow: 1,
+    slidesToScroll:1,
+    adaptiveHeight:true
   };
 
   let RealCart = []
@@ -97,9 +101,16 @@ const [sender,setSender]=useState(false)
     <>
       <div className="Mao-productSlide-box">
       <h2 className="Mao-productSlide-title">推薦產品</h2>
-      <Slider {...settings}>
-        {productItem}
-      </Slider>
+        <div className="Mao-slide">
+          <Slider {...settings}>
+            {productItem}
+          </Slider>
+        </div>
+        <div className="Mao-slideRWD">
+          <Slider {...settingsRWD}>
+            {productItem}
+          </Slider>
+        </div>
       </div>
     </>
   )

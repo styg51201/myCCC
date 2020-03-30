@@ -131,6 +131,7 @@ const { getMonth, getYear } = GetDayRange()
         if (getInfo2 == 'Seven-store') {
           getInfo2 = '7-11'
           let newErr=errorBox.filter(e=>e!=='shipping')
+          console.log(getInfo2)
           setErrorBox(newErr)
           setErrors({...errors,shipping: ''})
         } else if (getInfo2 == 'HiLife') {
@@ -146,8 +147,8 @@ const { getMonth, getYear } = GetDayRange()
         }else{
           setErrors({ ...errors, shipping: '' })
           setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
-          buyerInfo.shipping = getInfo2
         }
+        buyerInfo.shipping = getInfo2
         break
       case 'payment':
         if(getInfo2=='COD'){
@@ -168,8 +169,8 @@ const { getMonth, getYear } = GetDayRange()
         }else{
           setErrors({ ...errors, payment: '' })
         setBuyerInfo({ ...buyerInfo, payment: getInfo2 })
-        buyerInfo.payment = getInfo2
         }
+        buyerInfo.payment = getInfo2
         break
       case 'invoice':
         if(getInfo2=='personal-invoice'){
@@ -189,9 +190,9 @@ const { getMonth, getYear } = GetDayRange()
           setErrors({...errors,invoice: ''})
         }else{
           setErrors({ ...errors, invoice: '' })
-          buyerInfo.invoice = getInfo2
         setBuyerInfo({ ...buyerInfo, invoice: getInfo2 })
         }
+        buyerInfo.invoice = getInfo2
         break
       default:
         break

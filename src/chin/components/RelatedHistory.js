@@ -113,7 +113,7 @@ async function getItemToLocalStorage() {
     return { type: 'SHOW_ITEMSHIS', value: val }
   }
   async function formServerItemshis(val) {
-    console.log(val)
+ 
     const request = new Request(`http://localhost:5500/items/itemhis/${val}`, {
       method: 'GET',
       credentials: 'include',
@@ -127,7 +127,7 @@ async function getItemToLocalStorage() {
     return { type: 'SHOW_ITEMSCATEGORY', value: val }
   }
   async function formServeritemCategoryId(val) {
-    console.log(val)
+
     const request = new Request(`http://localhost:5500/items/itemCategoryId/${val}`, {
       method: 'GET',
       credentials: 'include',
