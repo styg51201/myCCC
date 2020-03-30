@@ -20,19 +20,48 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { formServerItemsData, ResetListItemName } from './actions/itemsActions'
 
+import {fromServerMbLikeData} from '../stacey/actions/couponAction'
+
+
 function Surrounding(props) {
   const [englishnameSurrounding, setEnglishnameSurrounding] = useState(
     'SURROUNDING'
   )
+
+  
+  //會員id
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
+
+  console.log('mbLikeData',props.mbLikeData)
+
+
+  useEffect(() => {
+    props.formServerItemsData('surrounding')
+    if(mb_id) {
+      props.fromServerMbLikeData(mb_id)
+    }
+    return ()=> props.ResetListItemName()
+  }, [])
+
+
   const [commodity, setCommdity] = useState(false)
   // document.documentElement.scrollTop = document.body.scrollTop =0;
   const itemlist = props.data.map((val, ind) => {
+    let mbLike = false
+    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
+      mbLike = true
+    }
     if (props.surrounding.indexOf(val.name) > -1) {
-      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} mbLike={mbLike}/>
     }
   })
   const allitemlist = props.data.map((val, ind) => {
-    return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+    let mbLike = false
+    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
+      mbLike = true
+    }
+    return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} mbLike={mbLike}/>
   })
   const commodityItems = props.data.map((val, ind) => {
     if (props.surrounding.indexOf(val.name) > -1) {
@@ -42,10 +71,7 @@ function Surrounding(props) {
   const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
   })
-  useEffect(() => {
-    props.formServerItemsData('surrounding')
-    return ()=> props.ResetListItemName()
-  }, [])
+ 
 
   return (
     <>
@@ -88,6 +114,7 @@ function Surrounding(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
           surrounding: store.getListitemName,
+          mbLikeData:store.memberLikeData,
           rest:store.rest}
 }
 
@@ -97,6 +124,7 @@ const mapDispatchToProps = dispatch => {
     {
       formServerItemsData,
       ResetListItemName,
+      fromServerMbLikeData,
     },
     dispatch
   )
