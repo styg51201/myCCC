@@ -4,12 +4,15 @@
 .querysubmit {
   text-align: right;
   @include buttonTheme(blackStyle);
+  font-size: $font-xs;
+  margin-right: 30px;
 }
 
 .irene_memberorder_list table {
-  margin: 50px auto;
+  margin: 50px 30px 0 -10px;
   text-align: center;
   vertical-align: middle;
+  margin-right: 20px;
 }
 
 .irene_memberorder_list {

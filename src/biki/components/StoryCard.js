@@ -89,7 +89,7 @@ function StoryCard(props){
                     </div>
                     <div 
                     className={`bk-press-like${like ? ' active' : ''}${usrId ? '' : ' inactive'}`} onClick={(evt)=>{handleToggleLike(props.data.stryId, evt)}}>
-                        <span><FiThumbsUp /> {like ? '取消讚' : (usrId ? '按讚' : '請登入')}</span>
+                        <span><FiThumbsUp /> {usrId ? '按讚' : '請登入'}</span>
                     </div>
                 </Card.Footer>
             </Card>
