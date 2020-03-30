@@ -16,7 +16,6 @@ import { CommunicationCallSplit } from 'material-ui/svg-icons'
 
 
 function Brand(props){
-    console.log(props)
     const [brand,setBrand] = useState(false)
     const BrandClassName= classNames('chin-brand',{active:brand})
 
@@ -25,10 +24,8 @@ function Brand(props){
         props.showDiscountAction(false,{})
     }
     
-    console.log('render',props.itemList)
 
     useEffect(()=>{
-        console.log('didmount',props.itemList)
     
         // setTimeout(()=>{
             // if( props.itemList.length > 0 ) {

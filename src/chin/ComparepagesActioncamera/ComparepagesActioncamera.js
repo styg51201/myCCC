@@ -17,7 +17,7 @@ import { bindActionCreators } from 'redux'
 
 
 function ComparepagesHeadset(props){
-    console.log(props)
+  
   document.documentElement.scrollTop = document.body.scrollTop =0;
 return(
     <>

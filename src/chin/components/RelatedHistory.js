@@ -56,7 +56,7 @@ async function getItemToLocalStorage() {
 
   const currentHisitem = localStorage.getItem('hisitem') || []
 
-  console.log(JSON.parse(currentHisitem))
+
 
   // 設定資料
   setNewHisitem(JSON.parse(currentHisitem))
@@ -123,7 +123,6 @@ async function getItemToLocalStorage() {
     })
     const res = await fetch(request)
     const data = await res.json()
-    console.log('123123231', data)
     dispatch(showItemshis(data))
   }
   const showitemCategoryId = val => {
@@ -137,7 +136,6 @@ async function getItemToLocalStorage() {
     })
     const res = await fetch(request)
     const data = await res.json()
-    console.log('11', data)
     dispatch(showitemCategoryId(data))
   }
   useEffect(() => {

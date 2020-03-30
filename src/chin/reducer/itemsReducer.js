@@ -30,10 +30,10 @@ export const getMultipleItemId = (state = [], action) => {
 export const getListitemName = (state = [], action) => {
   switch (action.type) {
     case 'ITEMNAME_VALUE':
-      console.log('新增',action.value )
+    
       return action.value
     case 'ITEMNAME_RESET':
-      console.log('清空')
+
       return action.value
     default:
       return state

@@ -13,7 +13,6 @@ export const formServerItemsData = val => {
     const res = await fetch(request)
     const data = await res.json()
 
-    console.log('ffff', data)
     dispatch(showItems(data))
   }
 }
@@ -142,7 +141,6 @@ export const ListItemPrice = (val)=>{
   }
 }
 export const ListItemPrice2 = (val)=>{
-  console.log(val)
   if(val){
     return { type: 'ITEMPRICE_VALUETWO', value: val }
   }
@@ -197,9 +195,6 @@ export const formServerUsersData = val => {
     const res = await fetch(request)
     const data = await res.json()
 
-
-
-    console.log('ffff', data)
     dispatch(showUsers(data))
   }
 }

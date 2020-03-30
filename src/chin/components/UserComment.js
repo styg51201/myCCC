@@ -13,7 +13,7 @@ import {bindActionCreators} from 'redux'
 import {formServerUsersData} from '../actions/itemsActions'
 
 function UserComment(props){
-  console.log(props)
+
   const [postacomment,setPostacomment]=useState(false)
   const [start,setStart] = useState([])
 const PostacommentClassName= classNames('chin-usercomment-fractionalstars',{active:postacomment})
@@ -30,14 +30,12 @@ let starItem2=(
 const Rank = props.UserData.map((v,i)=>{
   for(let i=0;i<v.rank;i++) {
     starbox.push(starItem)
-    console.log(v.rank)
   }
   for(let k=v.rank;k<5;k++){
     starbox.push(starItem2)
   }
   bigbox.push(starbox)
   starbox=[]
-  console.log(bigbox)
  })
  
 

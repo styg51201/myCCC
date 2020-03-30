@@ -20,8 +20,7 @@ import {addMbLikeData,delMbLikeData} from '../../stacey/actions/couponAction'
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
 function ProductDescription(props){
-  
-console.log('看我~=',props.data)
+
 const [forMyfavor,setForMyfavor]=useState(false)
 
 const [alertType,setAlertType]=useState('')
@@ -29,7 +28,6 @@ const [alertType,setAlertType]=useState('')
 //會員
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
-console.log('mblike',props.mbLike)
 
 const checkAlertType=showTpye=>{
   switch(showTpye){

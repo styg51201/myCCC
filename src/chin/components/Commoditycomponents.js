@@ -28,7 +28,6 @@ const [forMyfavor,setForMyfavor]=useState(false)
 const [newHisitem,setNewHisitem]=useState([])
 const [alertType,setAlertType]=useState('')
 
-console.log('props.mbLike',props.mbLike)
 
 //會員
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
@@ -56,7 +55,7 @@ async function ItemToLocalStorage(value) {
     if(index === -1){
       const newHisitem = [...currentHisitem, value]
       localStorage.setItem('hisitem', JSON.stringify(newHisitem))
-    }else{console.log('asdsadasdsd')}
+    }else{}
   // 設定資料
   setNewHisitem(newHisitem)
 }

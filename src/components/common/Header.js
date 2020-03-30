@@ -86,7 +86,6 @@ function Header(props) {
   const inputRef = useRef(null)
 
   useEffect(() => {
-    console.log(openSearch)
     if (!openSearch) {
       inputRef.current.blur()
     }
