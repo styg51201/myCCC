@@ -285,7 +285,7 @@ router.get('/adData',(req,res)=>{
 //會員收藏
 router.post('/mbLike',(req,res)=>{
     console.log('8888888888',req.body.mb_id)
-    const sql = 'SELECT `collect_id`,`itemId`,`name`,`itemName`,`itemImg`,`itemPrice`,`mb_id` FROM `member_collect` INNER JOIN `items` ON `items`.`itemId` = `member_collect`.`p_id` WHERE `mb_id` = ? '
+    const sql = 'SELECT `collect_id`,`itemId`,`name`,`itemName`,`itemImg`,`itemPrice`,`itemCategoryId`,`mb_id` FROM `member_collect` INNER JOIN `items` ON `items`.`itemId` = `member_collect`.`p_id` WHERE `mb_id` = ? '
     db.queryAsync(sql,[req.body.mb_id])
     .then(r=>{
         res.json(r)

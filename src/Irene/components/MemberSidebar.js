@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../I_css/MemberEdit.scss'
 import { Form, ListGroup, Button } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
@@ -22,6 +22,11 @@ function MemberSidebar(props) {
   //     document.getElementById('mySidenav').style.width = '250px'
   //   })
   // })
+
+  const [storyListOpen, setStoryListOpen] = useState(false)
+  const toggleStories = ()=>{
+    setStoryListOpen(!storyListOpen)
+  }
   return (
     <>
       {/* 要加<div className="row d-flex justify-content-center">才可以flex */}
@@ -51,7 +56,12 @@ function MemberSidebar(props) {
             <Nav.Link href="/memberedit/memberCoupon">優惠券</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
-            <Nav.Link href="/member/stories">我的故事</Nav.Link>
+            <div onClick={toggleStories} role='button'>我的故事</div>
+            <div className={`bk-member-nav-stories-list${storyListOpen ? ' active' : ''}`}>
+              <Nav.Link href="/member/upload-stories">寫故事</Nav.Link>
+              <Nav.Link href="/member/stories">已發布故事</Nav.Link>
+              <Nav.Link href="/member/stories/drafts">草稿</Nav.Link>
+            </div>
           </ListGroup.Item>
         </ListGroup>
       </div>

@@ -100,13 +100,13 @@ function Home(props2){
                 }
             }
             if( adForGroup[i].groupCollectItems ){
-                if( props2.mbLikeData.some((val,ind)=> val.p_vendor === adForGroup[i].planUsername) ) {
+                if( props2.mbLikeData.some((val,ind)=> val.name === adForGroup[i].planUsername) ) {
                     pushArr(adForGroup[i])
                 }
             }
 
             if( adForGroup[i].groupCollectCategory ){
-                if( props2.mbLikeData.some((val,ind)=> val.p_category === adForGroup[i].groupCollectCategory) ) {
+                if( props2.mbLikeData.some((val,ind)=> val.itemCategoryId === adForGroup[i].groupCollectCategory) ) {
                     pushArr(adForGroup[i])
                 }
             }
@@ -153,30 +153,6 @@ function Home(props2){
     }
 
     console.log('999',props2)
-
-    //假資料
-    const arr=[
-        // {
-        //     title: '新品上市',
-        //     subTitle: '限時特惠，領取優惠卷',
-        //     content: '',
-        //     img: '',
-        //     url: '',
-        //     btnTxt: '去領取',
-        //     blockTitle: '限時優惠',
-        //     blockSubTitle: 'Limited Offer'
-        // },
-        {
-            title: '小米春季新品',
-            subTitle: '小米手環半透明腕錶',
-            content: '不知道可以寫什麼了，總之大概是這樣那樣，這邊描述了這款新上市的品項多麽的厲害多麽的屌',
-            img: '',
-            url: '',
-            btnTxt: '查看商品',
-            blockTitle: '新品上市',
-            blockSubTitle: 'Spring Collection'
-        }
-    ]
 
     useInterval(()=>{
         setAdNum((adNum + 1)% adArr.length)
@@ -295,6 +271,10 @@ const parallax = useRef()
             <section className="bk-featured-products" 
                 ref={parallaxRef} >
                 <Container>
+                    <div className='bk-mb-featured-title'>
+                        <h3>FEATURED PRODUCTS</h3>
+                        <h5>精選商品</h5>
+                    </div>
                     <Row className='bk-featured-wrapper row-cols-xl-3 row-cols-md-2 row-cols-1'>
                         <animated.div style={isMobile ? {} : {transform: props.offset.interpolate(calc)}}>
                             <FeaturedProducts 
