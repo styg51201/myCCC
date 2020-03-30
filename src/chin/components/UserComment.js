@@ -62,7 +62,6 @@ useEffect(()=>{
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
-                5
               </div>
               <div>
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
@@ -70,7 +69,6 @@ useEffect(()=>{
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
-                4
               </div>
               <div>
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
@@ -78,7 +76,6 @@ useEffect(()=>{
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
-                3
               </div>
               <div>
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
@@ -86,7 +83,6 @@ useEffect(()=>{
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
-                2
               </div>
               <div>
                 <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
@@ -94,7 +90,6 @@ useEffect(()=>{
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
                 <IoIosStarOutline style={{width:'25px',height:'25px'}}/>
-                1
               </div>
             </div>
           </div>
