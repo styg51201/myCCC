@@ -47,8 +47,6 @@ export const commidtyItemId = val => {
     })
     const res = await fetch(request)
     const data = await res.json()
-    console.log()
-    console.log('lllllll', data)
     dispatch(showItemId(data))
   }
 }
@@ -67,7 +65,6 @@ export const multiple_imagesItemId = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
-    console.log('mmmmmmm', data)
     dispatch(showMultipleItemId(data))
   }
 }
@@ -199,6 +196,8 @@ export const formServerUsersData = val => {
     })
     const res = await fetch(request)
     const data = await res.json()
+
+
 
     console.log('ffff', data)
     dispatch(showUsers(data))

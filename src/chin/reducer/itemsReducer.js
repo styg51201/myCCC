@@ -113,7 +113,6 @@ export const getItemscompare = (state=[],action)=>{
 }
 //-----------------------chin UsersData--------------------
 export const getUsersData = (state=[],action)=>{
-  console.log(action)
   switch(action.type){
     case 'SHOW_USER':
       return action.value
