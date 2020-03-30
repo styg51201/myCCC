@@ -278,6 +278,18 @@
   font-weight: bold;
   color: #050505;
 }
+.chin-discusspost {
+  margin: 40px 0;
+  height: 0px;
+  background: #fff;
+  transition: 0.5s;
+}
+.chin-usercomment-fractionalstars.active {
+  .chin-discusspost {
+    height: 660px;
+    background: #fff;
+  }
+}
 .chin-sortspan {
   margin: 0 auto;
   width: 885px;
