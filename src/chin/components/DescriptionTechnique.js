@@ -6,7 +6,7 @@ function DescriptionTechnique(props){
     <div className="chin-productdescription-technicalspecifications">
         <div className="chin-productdescription">
           <h3>商品敘述</h3>
-            <p> {props.data[0] ? props.data[0].itemDescription : ''}</p>
+            <p> {props.data[0] ? props.data[0].itemDescription2 : ''}</p>
               <h3>技術規格</h3>
         </div>
         <div className="chin-technicalspecifications">

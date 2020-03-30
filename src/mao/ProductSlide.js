@@ -13,11 +13,24 @@ import {
   AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
 import {commidtyRANDItemId} from '../chin/actions/itemsActions'
+
+import {fromServerMbLikeData} from '../stacey/actions/couponAction'
+
 import Slider from 'react-slick'
 import { FiShoppingBag ,FiHeart} from 'react-icons/fi';
 import Swal from 'sweetalert2'
 import MaoItemList from './component/MaoItemList'
 function ProductSlide(props) {
+
+  //會員id
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
+  useEffect(() => {
+    if(mb_id) {
+      props.fromServerMbLikeData(mb_id)
+    }
+  }, [])
+
  
   function SamplePrevArrow(props) {
 
@@ -75,9 +88,13 @@ function ProductSlide(props) {
 
 const [sender,setSender]=useState(false)
   const productItem = props.getRANDitemid.map((v, i) => {
+    let mbLike = false
+    if(props.MyFavorite.findIndex((val)=>val.itemId === v.itemId) > 0 ){
+      mbLike = true
+    }
     return (
      <MaoItemList data={v} sendFunc={items=>props.sendData(items)}
-     forChange={props.getdata} />
+     forChange={props.getdata} mbLike={mbLike}/>
     )
   })
   return (
@@ -106,7 +123,7 @@ const mapStateToProps = store => {
     data: store.getShop,
     AddItem: store.AddItem,
     calculator: store.calculator,
-    MyFavorite: store.MyFavorite,
+    MyFavorite: store.memberLikeData,
     getRANDitemid:store.getRANDitemid,
   }
 }
@@ -119,7 +136,8 @@ const mapDispatchToProps = dispatch => {
       AddCart,
       CalShopCart,
       Handle_AddMyFavorite,
-      AddCartNewItem_sendcal,commidtyRANDItemId
+      AddCartNewItem_sendcal,commidtyRANDItemId,
+      fromServerMbLikeData
     },
     dispatch
   )

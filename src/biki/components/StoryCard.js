@@ -72,7 +72,12 @@ function StoryCard(props){
                 <Card.Body className="bk-card-body">
                     <h3>{props.data.stryTitle}</h3>
                     <div className='bk-tags'>{JSON.parse(props.data.stryTags).map((elm, idx)=>{
-                        return <span key={`${elm}-${idx}`}>{elm}</span>
+                        return (<div 
+                                className='bk-tag'
+                                key={`${elm}-${idx}`}
+                                >
+                                    {elm}
+                                </div>)
                     })}</div>
                     <div dangerouslySetInnerHTML={{__html: props.content}}></div>
                 </Card.Body>
@@ -84,7 +89,7 @@ function StoryCard(props){
                     </div>
                     <div 
                     className={`bk-press-like${like ? ' active' : ''}${usrId ? '' : ' inactive'}`} onClick={(evt)=>{handleToggleLike(props.data.stryId, evt)}}>
-                        <span><FiThumbsUp /> {like ? '取消讚' : (usrId ? '按讚' : '請登入')}</span>
+                        <span><FiThumbsUp /> {usrId ? '按讚' : '請登入'}</span>
                     </div>
                 </Card.Footer>
             </Card>

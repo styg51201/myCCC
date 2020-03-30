@@ -14,6 +14,13 @@ import {
   ControlDataOne,
   AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
+
+import {
+  fromServerMbLikeData,
+  addMbLikeData,
+  delMbLikeData,
+} from '../stacey/actions/couponAction'
+
 import './css/MaoAD.scss'
 import MemberSidebar from '../Irene/components/MemberSidebar'
 import { FaShoppingBasket, FaRegTrashAlt } from 'react-icons/fa'
@@ -22,10 +29,18 @@ import { FiShoppingBag } from 'react-icons/fi'
 function ShopCartLike(props) {
   const [favorloaded, setFavorloaded] = useState(false)
   const [newItem, setNewItem] = useState(false)
-  console.log('MMMMMMMMMMMMMMMMMM', props.AddItem)
+
+  //會員id
+  const mb_id = localStorage.getItem('userId')
+    ? localStorage.getItem('userId')
+    : 0
+
   useEffect(() => {
-    console.log('props.AddItem', props.AddItem)
-  }, [props])
+    if (mb_id) {
+      props.fromServerMbLikeData(mb_id)
+    }
+  }, [mb_id, props])
+
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
     console.log('MyFavorite', v)
@@ -40,14 +55,14 @@ function ShopCartLike(props) {
         <div className="Mao-shopcart-check-item-info">
           <p className="Mao-btn-text">{v.itemName}</p>
           <div className="d-flex justify-content-between">
-            <p style={{ width: '25%' }}>${v.itemPrice}</p>
+            <p style={{ width: '25%' }}>{v.itemPrice}</p>
           </div>
         </div>
         <div className="Mao-shopcart-check-item-action">
           <button
             className="Mao-btn-amount-whiteDel Mao-btn-amount-white-my"
             onClick={() => {
-              props.Handle_AddMyFavorite(false, v, props.MyFavorite)
+              props.delMbLikeData(mb_id, v)
             }}
           >
             <FaRegTrashAlt
@@ -70,7 +85,8 @@ function ShopCartLike(props) {
                 itemPrice: v.itemPrice,
                 itemCategoryId: v.itemCategoryId,
               }
-              props.Handle_AddMyFavorite(false, productInfo, props.MyFavorite)
+              // props.Handle_AddMyFavorite(false, productInfo, props.MyFavorite)
+              props.delMbLikeData(mb_id, v)
               props.AddCartNewItem_sendcal(productInfo, props.AddItem)
             }}
           >
@@ -134,7 +150,8 @@ const mapStateToProps = store => {
     AddItem: store.AddItem,
     Cart: store.displayShopCart,
     calculator: store.calculator,
-    MyFavorite: store.MyFavorite,
+    // MyFavorite: store.MyFavorite,
+    MyFavorite: store.memberLikeData,
   }
 }
 
@@ -149,6 +166,9 @@ const mapDispatchToProps = dispatch => {
       CalShopCart,
       Handle_AddMyFavorite,
       AddCartNewItem_sendcal,
+      fromServerMbLikeData,
+      addMbLikeData,
+      delMbLikeData,
     },
     dispatch
   )

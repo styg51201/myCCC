@@ -2,9 +2,56 @@
 @import "./myVars.scss";
 
 @media (max-width: $bp-sm) {
+
+    //STORIES
     .bk-stories-container{
         .bk-masonry-brick{
             width:100%;
+        }
+    }
+
+
+    //STORY
+    .bk-story-head{
+        padding: 0 0 $spacing 0;
+    }
+    
+    .bk-story-container{
+        width: 100%;
+        padding: 0 $spacing*2;
+
+        .bk-story-content{
+            padding: $spacing*2 0;
+        }
+    }
+
+    .bk-reply-wrapper{
+        .bk-reply-container{
+            padding: $spacing*2;
+            width: 100%;
+
+            .bk-story-reply{
+                padding: $spacing*2 0;
+            }
+        }
+        .bk-recursive-replies-container{
+            padding-bottom: $spacing*2;
+
+            .bk-r{
+                .bk-story-replies{
+                    padding: $spacing*1.5;
+
+                    .bk-rply-head{
+                        font-size: $font-xs;
+
+                        .bk-rply-user-img{
+                            width: 40px;
+                            height: 40px;
+                        }
+                    }
+                   
+                }
+            }
         }
     }
 }

@@ -15,7 +15,6 @@ import FeaturedProducts from './components/FeaturedProducts'
 import Collection from './components/Collection'
 import AdSlide from './components/AdSlide'
 
-
 //廣告用 redux
 import { connect } from 'react-redux'
 //action
@@ -31,6 +30,7 @@ function Home(props2){
     // const [docWidth, setDocWidth] = useState(window.innerWidth)
     const [showMouse, setShowMouse] = useState(true)
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 640)
+    const [slideInterval, setSlideInterval] = useState(3000)
 
     const [props, set] = useSpring(()=>({
         offset: 0,
@@ -180,9 +180,9 @@ function Home(props2){
 
     useInterval(()=>{
         setAdNum((adNum + 1)% adArr.length)
-    }, 3000)
+    })
 
-    function useInterval(callback, delay) {
+    function useInterval(callback) {
         const savedCallback = useRef();
       
         // Remember the latest function.
@@ -195,15 +195,19 @@ function Home(props2){
           function tick() {
             savedCallback.current();
           }
-          if (delay !== null) {
-            let id = setInterval(tick, delay);
+          if (slideInterval !== null) {
+            let id = setInterval(tick, slideInterval);
             return () => clearInterval(id);
           }
-        }, [delay]);
+        }, [slideInterval]);
       }
 
     const btnNextSlide = ()=>{
         setAdNum((adNum + 1)% adArr.length)
+        setSlideInterval(null)
+        setTimeout(()=>{
+            setSlideInterval(3000)
+        }, 1000)
     }
 
     const btnPrevSlide = ()=>{
@@ -212,6 +216,18 @@ function Home(props2){
             if(newNum < 0) newNum = adArr.length -1
             return newNum
         })
+        setSlideInterval(null)
+        setTimeout(()=>{
+            setSlideInterval(3000)
+        }, 1000)
+    }
+
+    const clickAdNum = (idx)=>{
+        setAdNum(idx)
+        setSlideInterval(null)
+        setTimeout(()=>{
+            setSlideInterval(3000)
+        }, 1000)
     }
 
     useEffect(()=>{
@@ -230,9 +246,9 @@ const parallax = useRef()
                     className='bk-slides'
                     contentClassName='bk-slide-content'
                 >
-                    {/* <div className='bk-slide-content'> */}
-                        Hello~
-                    {/* </div> */}
+                    <img className='mb-4' src='/biki-img/cccLogo.svg' />
+                    <h3>Get the best gear for your trip</h3>
+                    <h5>為你的旅途準備最好的裝備</h5>
                 </Parallax>
                 <div className={`bk-mouse animated ${showMouse ? 'fadeInDown' : 'fadeOutUp'}`}
                     ref={mouseRef}
@@ -266,7 +282,7 @@ const parallax = useRef()
                                 return (
                                     <li key={idx+'l'}
                                      onClick={()=>{
-                                        setAdNum(idx)
+                                        clickAdNum(idx)
                                     }}
                                     className={adNum === idx ? 'active' : ''}
                                     ></li>
@@ -386,30 +402,49 @@ const parallax = useRef()
             theme="white" 
             title="WEARIBLE DEVICES" 
             titleCn="穿戴式裝置" 
-            info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
+            info={
+                <>
+                陪伴你度過每一分每一秒<br />
+                各種品項包含藍芽、聽音樂、收簡訊、檢測身體數據等功能，滿足您的需求
+                </>
+            } 
             img="./biki-img/wearible-devices.png" 
             bg="./biki-img/person-on-body-of-water-2104152_.jpg" 
             position="center"
+            url='/watch'
             />
 
             <Collection 
             theme="blue" 
             title="EARPHONES / SPEAKERS" 
             titleCn="耳機/喇吧" 
-            info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
+            info={
+                <>
+                即使獨自一人也不會感到寂寞。<br />
+                戴上耳機聆聽自己喜歡的音樂，可以沉浸在自己的世界中。
+                各種耳機樣式供你挑選。
+                </>
+            }
             img="./biki-img/earphones-speakers.png" 
             bg="./biki-img/man-standing-on-the-end-of-the-rock-1908647_.jpg" 
             position="bottom"
+            url='/headset'
             />  
 
             <Collection 
             theme="orange" 
             title="ACTION CAMERAS" 
             titleCn="運動攝影機" 
-            info={<>穿戴式裝置的說明文<br />asdfasdfqwerasdovijwoiej;flkan;vjkhaiuwher;olek</>} 
+            info={
+                <>
+                紀錄你活動的每一刻<br />
+                從攝影機到無人機，多種品項供你選擇，讓你能在任何情況紀錄你的身姿
+                </>
+            }
             img="./biki-img/action-cameras.png" 
             bg="./biki-img/person-doing-parkour-exhibition-316769_.jpg" 
             position="bottom"
+            url='/actioncamera'
             />
             </div>
         </>

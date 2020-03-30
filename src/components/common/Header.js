@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
+import '../../css/header-footer/headerFooterRWD.scss'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
@@ -10,6 +11,8 @@ import { bindActionCreators } from 'redux'
 import { AddCart } from '../../mao/actions/ShopCartAction'
 //icons
 // import { IconContext } from 'react-icons'
+import useDocumentScrollThrottled from '../../biki/utils/useDocumentScrollThrottled'
+
 import {
   FiSearch,
   FiUser,
@@ -28,10 +31,16 @@ function Header(props) {
   const [searchTxt, setSearchTxt] = useState('')
   const [member, setMember] = useState(true)
 
+  const [hideMobileNav, setHideMobileNav] = useState(false)
+  const [showMobileNav, setShowMobileNav] = useState(false)
+
+  const [showMobileSideNav, setShowMobileSideNav] = useState(false)
+
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
     const height = product - 20
     window.addEventListener('scroll', () => {
+      //chin nav
       const isTop = window.scrollY < height
       if (isTop !== true) {
         setScrolled(true)
@@ -83,6 +92,17 @@ function Header(props) {
     }
   }, [openSearch])
 
+  useDocumentScrollThrottled(callbackData=>{
+    const {previousScrollTop, currentScrollTop} = callbackData
+    const isScrolledDown = previousScrollTop < currentScrollTop
+    const isMinimunScrolled = currentScrollTop > 500
+
+    setTimeout(()=>{
+      setHideMobileNav(isScrolledDown && isMinimunScrolled)
+    }, 100)
+  })
+
+
   const handleOpenSearch = () => {
     if (new Date().getTime() - searchBlurTime > 300) {
       if (!openSearch) {
@@ -117,6 +137,12 @@ function Header(props) {
   const handleSearchText = evt => {
     setSearchTxt(evt.target.value)
   }
+
+  const toggleSideNav = ()=>{
+    setShowMobileSideNav(!showMobileSideNav)
+  }
+
+
   let memberstate = localStorage.getItem('userdata')
   // console.log('memberstate', memberstate)
   const navbar = (
@@ -165,7 +191,7 @@ function Header(props) {
           </div>
         </Container>
       </div>
-      <div>
+      <div className='bk-nav-side'>
         {memberstate ? (
           <>
             <Link to="/memberedit">
@@ -338,11 +364,80 @@ function Header(props) {
       </Container>
     </>
   )
+
+  const mobileNav = (
+    <>
+      <div className={`bk-mobile-nav${hideMobileNav ? ' hide' : ''}`}>
+        <div className='bk-nav-menu-icon' onClick={toggleSideNav}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className='bk-nav-logo'>
+          <Link to='/'>
+          <img src={logo} />
+          </Link>
+        </div>
+      </div>
+      <div className='bk-mobile-nav-append'></div>
+    </>
+  )
+
+  const mobileSideNav = (
+    <>
+    <div className={`bk-mobile-side-nav${showMobileSideNav ? ' open' : ''}`}>
+      <div className='side-logo' onClick={toggleSideNav}>
+        <Link to='/'>
+           <img src='/biki-img/cccLogo.svg' />
+        </Link>
+      </div>
+      <ul>
+        <li onClick={toggleSideNav}>
+          <Link to='/watch'>穿戴式裝置</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/headset'>耳機 / 喇叭</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/actioncamera'>運動攝影機</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/surrounding'>周邊</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/getCoupon'>優惠卷</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/stories'>故事牆</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          {localStorage.getItem('userId') 
+          ? 
+          (<Link to='/memberedit'>會員</Link>) : 
+          (<Link to='/memberlogin'>登入</Link>)
+          }
+        </li>
+        {localStorage.getItem('userId') ? 
+        (<li onClick={toggleSideNav} className="irene_member_logout">
+          <Link to='/memberlogin'>登出</Link>
+        </li>)
+        : ''}
+      </ul>
+    </div>
+    <div 
+    className={`bk-mobile-side-nav-backdrop${showMobileSideNav ? ' open' : ''}`}
+    onClick={toggleSideNav}
+    ></div>
+    </>
+  )
+
   return (
     <>
       <header>
         {headershow}
         {navbar}
+        {mobileNav}
+        {mobileSideNav}
       </header>
     </>
   )

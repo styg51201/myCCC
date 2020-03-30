@@ -1,6 +1,8 @@
 import React, {useRef, useEffect, useState, useChain} from 'react'
 // import { Container, Row, Col } from 'react-bootstrap'
 import {useTransition, animated} from 'react-spring'
+import { Link} from 'react-router-dom'
+
 
 function AdSlide(props){
     //外層是section bk-ads
@@ -61,9 +63,9 @@ function AdSlide(props){
                     <p>
                         {props.data.adContent}
                     </p>
-                    <button className="bk-btn-white">
+                    <Link to={'/commidty/'+ props.data.adLinkPlace} className="bk-btn-white">
                         查看商品
-                    </button>
+                    </Link>
             </div>
         </div>
     )
