@@ -74,4 +74,11 @@ router.get('/itemCategoryId/:itemCategoryId?/:headphone?',(req,res)=>{
         return res.json(r)
     })
 })
+router.get('/users/:itemId?',(req,res)=>{
+    let sql='SELECT * FROM `user_comment` WHERE `productId` = ?'
+    db.queryAsync(sql,[req.params.itemId])
+    .then(r=>{
+        return res.json(r)
+    })
+})
 module.exports = router;

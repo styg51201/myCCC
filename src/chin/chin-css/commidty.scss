@@ -279,13 +279,55 @@
   color: #050505;
 }
 .chin-discusspost {
+  display: none;
   margin: 40px 0;
   height: 0px;
   background: #fff;
+  transition: 0.3s;
+  padding-top: 40px;
+}
+.chin-disclopsaa {
+  margin: 0 auto;
+  width: 900px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.chin-disclopsaa p {
+  margin: 20px 0 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+.chin-disclopsaa input {
+  width: 900px;
+}
+.chin-disclopsaa textarea {
+  width: 900px;
+  height: 250px;
   transition: 0.5s;
+  resize: none;
+}
+.chin-loopkpi {
+  display: flex;
+  justify-content: flex-end;
+  width: 900px;
+  margin: 35px auto 0;
+}
+.chin-loopkpi button:nth-child(1) {
+  width: 120px;
+  background: #a0a0a0;
+  border: none;
+}
+.chin-loopkpi button:nth-child(2) {
+  width: 220px;
+  background: #0ac3ae;
+  border: none;
+  margin-left: 20px;
 }
 .chin-usercomment-fractionalstars.active {
   .chin-discusspost {
+    display: block;
     height: 660px;
     background: #fff;
   }
