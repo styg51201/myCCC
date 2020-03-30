@@ -43,9 +43,12 @@ function StoryReply(props){
 
     return (
         <div className="bk-story-replies" id={props.id} ref={rplyRef}>
-            <div className='bk-txt-small rply-to'>
-                {props.data.rplyToName ? `回覆給 ${props.data.rplyToName}` : ''}
+            {props.data.rplyToName ? (
+                <div className='bk-txt-small rply-to'>
+                {`回覆給 ${props.data.rplyToName}`}
             </div>
+            ) : ''}
+            
             <div className='bk-rply-head'>
                 <div className='bk-rply-user-img'>
                     <img src={props.data.Image ? props.data.Image : '/biki-img/SVG/user.svg'} />

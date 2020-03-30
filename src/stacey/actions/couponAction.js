@@ -97,8 +97,9 @@ export const countSort = val =>{
 export const startTimeSort = val =>{
   return dispatch =>{
     val.sort(function(a,b){
-      return a.cp_start > b.cp_start ? -1 : 1
+      return a.cp_created_at > b.cp_created_at ? -1 : 1
     })
+    console.log('77777',val)
     dispatch(showCoupon([...val]))
   }
 }

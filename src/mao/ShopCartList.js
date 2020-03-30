@@ -29,9 +29,13 @@ function ShopCartList(props) {
   const [loaded, setLoaded] = useState(false)
   const [newItem,setNewItem] =useState(false)
   const currentHisitem = localStorage.getItem('hisitem') || []
+  
   useEffect(() => {
     setLoaded(true)
   }, [])
+
+
+
 
   // 購物車內容
   const dataList = props.AddItem.map((v, i) => {
