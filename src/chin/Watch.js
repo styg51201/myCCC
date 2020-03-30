@@ -48,7 +48,7 @@ function Watch(props) {
   const itemlist = props.data.map((val, ind) => {
     //判斷是否我的最愛
     let mbLike = false
-    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > 0 ){
+    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
       mbLike = true
     }
     if (props.watch.indexOf(val.name) > -1) {
@@ -60,7 +60,6 @@ function Watch(props) {
     //判斷是否我的最愛
     let mbLike = false
     if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
-      console.log('77777')
       mbLike = true
     }
     return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind}  mbLike={mbLike}/>

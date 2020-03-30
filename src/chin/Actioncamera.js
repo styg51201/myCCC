@@ -19,20 +19,50 @@ import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
 import { formServerItemsData, ResetListItemName,ResetListItemNameCom,ItemscompareNo } from './actions/itemsActions'
+import {fromServerMbLikeData} from '../stacey/actions/couponAction'
+
 
 function Actioncamera(props) {
   const [englishnameActioncamera, setEnglishnameActioncamera] = useState('ACTION CAMERA')
   const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
   // document.documentElement.scrollTop = document.body.scrollTop =0;
+
+  //會員id
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
+  console.log('mbLikeData',props.mbLikeData)
+
+
+  useEffect(() => {
+    props.formServerItemsData('actioncamera')
+    if(mb_id) {
+      props.fromServerMbLikeData(mb_id)
+    }
+    return ()=> props.ResetListItemName()
+  }, [])
+
+
   const itemlist = props.data.map((val, ind) => {
+    //判斷是否我的最愛
+    let mbLike = false
+    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
+      mbLike = true
+    }
     if (props.actioncamera.indexOf(val.name) > -1) {
-      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind}  mbLike={mbLike}/>
     }
   })
+
   const allitemlist = props.data.map((val, ind) => {
-    return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+    //判斷是否我的最愛
+    let mbLike = false
+    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
+      mbLike = true
+    }
+    return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} mbLike={mbLike}/>
   })
+
   const commodityItems = props.data.map((val, ind) => {
     if (props.actioncamera.indexOf(val.name) > -1) {
       return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
@@ -41,11 +71,7 @@ function Actioncamera(props) {
   const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
-  useEffect(() => {
-    props.formServerItemsData('actioncamera')
-    return ()=> props.ResetListItemName()
-  }, [])
-
+  
 
   return (
     <>
@@ -114,6 +140,7 @@ const mapStateToProps = store => {
   return { data: store.getItems, 
           actioncamera: store.getListitemName,
           compare:store.getItemscompare,
+          mbLikeData:store.memberLikeData,
           rest:store.rest}
 }
 
@@ -125,6 +152,7 @@ const mapDispatchToProps = dispatch => {
       ResetListItemName,
       ResetListItemNameCom,
       ItemscompareNo,
+      fromServerMbLikeData,
     },
     dispatch
   )

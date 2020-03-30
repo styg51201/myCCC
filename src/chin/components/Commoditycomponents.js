@@ -29,6 +29,13 @@ console.log('props.mbLike',props.mbLike)
 //會員
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
+
+// useEffect(() => {
+//   if(mb_id) {
+//     props.fromServerMbLikeData(mb_id)
+//   }
+// }, [])
+
 async function ItemToLocalStorage(value) {
 
   const currentHisitem = JSON.parse(localStorage.getItem('hisitem')) || []

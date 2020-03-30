@@ -9,15 +9,20 @@
   display: flex;
   flex-wrap: wrap;
 
-  span{
+  .bk-tag{
+    color: $black;
     padding: $spacing/2 $spacing;
     background-color: $background;
     margin-right: $spacing/2;
     margin-bottom: $spacing;
+
+    // span{
+      
+    // }
   }
 
   &.bk-dark{
-    span{
+    .bk-tag{
       background: $grey;
     }
   }

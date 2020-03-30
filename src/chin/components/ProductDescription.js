@@ -9,6 +9,10 @@ import {
     DelCartItem,
     CalShopCart,
     Handle_AddMyFavorite,AddCartNewItem_sendcal} from '../../mao/actions/ShopCartAction'
+    
+import {addMbLikeData,delMbLikeData} from '../../stacey/actions/couponAction'
+
+
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
 function ProductDescription(props){
@@ -17,6 +21,11 @@ console.log('看我~=',props.data)
 const [forMyfavor,setForMyfavor]=useState(false)
 
 const [alertType,setAlertType]=useState('')
+
+//會員
+const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
+console.log('mblike',props.mbLike)
 
 const checkAlertType=showTpye=>{
   switch(showTpye){
@@ -82,17 +91,23 @@ const checkAlertType=showTpye=>{
           </div>
           <button className="chin-favourite"  
           onClick={()=>{
-          props.Handle_AddMyFavorite(!forMyfavor,props.data[0], props.MyFavorite)
-          setForMyfavor(!forMyfavor)
-          let info=!forMyfavor?"加入我的最愛":"已取消我的最愛"
-          checkAlertType(info)}}>
-            <FiHeart className={forMyfavor?'Mao-like-red':''}/>
-            <span>{!forMyfavor?"加入我的最愛":"我的最愛"}</span>
+            if(mb_id){
+              props.mbLike ? props.delMbLikeData(mb_id,props.data[0]) : props.addMbLikeData(mb_id,props.data[0])
+            // props.Handle_AddMyFavorite(!props.mbLike,props.data, props.MyFavorite)
+            // setForMyfavor(!forMyfavor)
+            let info=!props.mbLike?"加入我的最愛":"已取消我的最愛"
+            checkAlertType(info)
+            }else{
+              alert('請先登入')
+            }}}>
+            <FiHeart className={props.mbLike?'Mao-like-red':''}/>
+            <span>{!props.mbLike?"加入我的最愛":"我的最愛"}</span>
           </button>
         </div>
       </div>
     )
 }
+
 const mapStateToProps = store => {
   return {
     AddItem: store.AddItem,
@@ -112,6 +127,8 @@ const mapDispatchToProps = dispatch => {
       CalShopCart,
       Handle_AddMyFavorite,
       AddCartNewItem_sendcal,
+      delMbLikeData,
+      addMbLikeData,
     },
     dispatch
   )

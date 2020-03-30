@@ -240,7 +240,9 @@ function Story(props){
                         ? 
                         (<div className='bk-tags bk-dark mt-5'>
                             {JSON.parse(data[0].stryTags).map((elm, idx)=>{
-                            return <span key={`${elm}-idx`}>{elm}</span>
+                            return (<div key={`${elm}-idx`} className='bk-tag'>
+                                    {elm}
+                                </div>)
                             })}
                         </div>)
                         :
