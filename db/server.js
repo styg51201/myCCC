@@ -21,10 +21,10 @@ app.use(
 //CORS
 //記得前端設定credentials = 'include'
 const whiteList = [
-    'http://localhost:3000',
-    'http://localhost:3001',
-    'http://127.0.0.1:5500', //vs code 
-    undefined
+  'http://localhost:3000',
+  'http://localhost:3001',
+  'http://127.0.0.1:5500', //vs code
+  undefined,
 ]
 const corsOptions = {
   credentials: true,
@@ -64,6 +64,11 @@ app.use('/stories', require(__dirname + '/stories'))
 app.use('/member', require(__dirname + '/member'))
 //home page
 app.use('/home', require(__dirname + '/home'))
+
+//backend
+app.use('/backend', require(__dirname + '/backend'))
+
+app.use('/public', express.static('./public'))
 
 //test
 app.get('/', (req, res) => {
