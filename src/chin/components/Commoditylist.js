@@ -14,7 +14,7 @@ import {ListItemPrice,ListItemPrice2,ResetListItemPrice} from '../actions/itemsA
 
 
 function Commoditylist(props) {
-console.log(props)
+
 const [price,setPrice] = useState(false)
 const [volume, setVolume] = useState([0,40000]);
 const PriceClassName= classNames('chin-totalprice',{active:price})

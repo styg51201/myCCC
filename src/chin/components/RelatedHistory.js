@@ -6,7 +6,10 @@ import {BrowserRouter as Router,Route,Link,Switch,withRouter} from 'react-router
 import { useSelector, useDispatch } from 'react-redux'
 
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
-
+import {
+  IoIosStarOutline,
+  IoIosStar,
+} from 'react-icons/io'
 //redux
 import { connect } from 'react-redux'
 //action
@@ -53,7 +56,7 @@ async function getItemToLocalStorage() {
 
   const currentHisitem = localStorage.getItem('hisitem') || []
 
-  console.log(JSON.parse(currentHisitem))
+
 
   // 設定資料
   setNewHisitem(JSON.parse(currentHisitem))
@@ -120,7 +123,6 @@ async function getItemToLocalStorage() {
     })
     const res = await fetch(request)
     const data = await res.json()
-    console.log('123123231', data)
     dispatch(showItemshis(data))
   }
   const showitemCategoryId = val => {
@@ -134,7 +136,6 @@ async function getItemToLocalStorage() {
     })
     const res = await fetch(request)
     const data = await res.json()
-    console.log('11', data)
     dispatch(showitemCategoryId(data))
   }
   useEffect(() => {
@@ -168,19 +169,19 @@ async function getItemToLocalStorage() {
                             <div className="chin-commodity-item2">
                               <ul className="chin-star-heart-bag2">
                                 <li>
-                                  <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                                  <IoIosStar className="chin-star2"/>
                                 </li>
                                 <li>
-                                  <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                                  <IoIosStar className="chin-star2"/>
                                 </li>
                                 <li>
-                                  <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                                  <IoIosStar className="chin-star2" />
                                 </li>
                                 <li>
-                                  <img className="chin-star2" src="/chin-img/star.svg"  alt="" />
+                                  <IoIosStar className="chin-star2" />
                                 </li>
                                 <li>
-                                  <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
+                                  <IoIosStar className="chin-star2" />
                                 </li>
                                 <li className="chin-heart-bag2">
                                   <FiHeart className={`chin-heart2 ${mbLike ? 'Mao-like-red':''}`} src="/chin-img/heart.svg" alt="" />
@@ -214,19 +215,19 @@ async function getItemToLocalStorage() {
                       <div className="chin-commodity-item2">
                         <ul className="chin-star-heart-bag2">
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                            <IoIosStar className="chin-star2"/>
                           </li>
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                            <IoIosStar className="chin-star2" />
                           </li>
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                            <IoIosStar className="chin-star2"/>
                           </li>
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg"  alt="" />
+                            <IoIosStar className="chin-star2" />
                           </li>
                           <li>
-                            <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
+                            <IoIosStar className="chin-star2"/>
                           </li>
                           <li className="chin-heart-bag2">
                             <img className={`chin-heart2 ${mbLike ? 'Mao-like-red':''}`} src="/chin-img/heart.svg" alt="" />
@@ -248,19 +249,19 @@ async function getItemToLocalStorage() {
                       <div className="chin-commodity-item2">
                         <ul className="chin-star-heart-bag2">
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                            <IoIosStar className="chin-star2"/>
                           </li>
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                            <IoIosStar className="chin-star2" />
                           </li>
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg" alt="" />
+                            <IoIosStar className="chin-star2"/>
                           </li>
                           <li>
-                            <img className="chin-star2" src="/chin-img/star.svg"  alt="" />
+                            <IoIosStar className="chin-star2" />
                           </li>
                           <li>
-                            <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
+                            <IoIosStar className="chin-star2"/>
                           </li>
                           <li className="chin-heart-bag2">
                             <img className="chin-heart2" src="/chin-img/heart.svg" alt="" />

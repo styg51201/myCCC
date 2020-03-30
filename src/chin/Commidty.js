@@ -20,7 +20,7 @@ import {fromServerMbLikeData} from '../stacey/actions/couponAction'
 
 function Commidty(props) {
   // console.log('back', props.data)
-  console.log('back2', props)
+
   const itemId = props.match.params.itemId ? props.match.params.itemId : ''
   document.documentElement.scrollTop = document.body.scrollTop =0;
 

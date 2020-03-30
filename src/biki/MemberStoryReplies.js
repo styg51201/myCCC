@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom'
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
+import MemberSidebar from '../Irene/components/MemberSidebar'
 import StoryReply from './components/StoryReply'
 import {getRecursiveJson} from './utils/useRecursive'
 
@@ -113,16 +114,7 @@ function MemberStoryReplies(props){
 
     return(
         <Row>
-                <Col lg={3}>
-                    <div>
-                        <ul>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                        </ul>
-                    </div>
-                </Col>
+                <MemberSidebar />
                 <Col lg={9}>
                     <div className='bk-member-main-container bk-reply-page'>
                         <h3>回覆留言</h3>
