@@ -13,6 +13,10 @@ import {
 import {addMbLikeData,delMbLikeData} from '../../stacey/actions/couponAction'
 
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
+import {
+  IoIosStarOutline,
+  IoIosStar,
+} from 'react-icons/io'
 import Swal from 'sweetalert2'
 
 
@@ -95,11 +99,11 @@ const checkAlertType=showTpye=>{
         <>
               <div className="chin-commodity-item">
                     <ul className="chin-star-heart-bag">
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
                         <li className="chin-heart-bag">
                         
                           <FiHeart className={`chin-heart ${props.mbLike ? 'Mao-like-red':''}`}  

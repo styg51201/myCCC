@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link} from 'react-router-dom'
+import {
+  IoIosStarOutline,
+  IoIosStar,
+} from 'react-icons/io'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -65,12 +69,12 @@ const checkAlertType=showTpye=>{
         <h6>{props.data[0] ? props.data[0].name : ''}</h6>
         <h5>{props.data[0] ? props.data[0].itemName : ''}</h5>
         <div className="chin-starimg">
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-        <span>4.0 (5)</span>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+        <span>5.0 (5)</span>
         </div>
         <h4>NT{props.data[0] ? props.data[0].itemPrice : ''}</h4>
         <p>

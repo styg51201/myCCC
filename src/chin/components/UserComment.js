@@ -24,10 +24,16 @@ let starbox=[]
 let starItem=(
   <IoIosStar style={{width:'20px',height:'20px',color:'#FFDD00'}}/>
 )
+let starItem2=(
+  <IoIosStarOutline style={{width:'20px',height:'20px'}}/>
+)
 const Rank = props.UserData.map((v,i)=>{
   for(let i=0;i<v.rank;i++) {
     starbox.push(starItem)
     console.log(v.rank)
+  }
+  for(let k=v.rank;k<5;k++){
+    starbox.push(starItem2)
   }
   bigbox.push(starbox)
   starbox=[]
@@ -127,10 +133,10 @@ useEffect(()=>{
             </div>
         </div>
         <div className="chin-sortspan">
-            <button>
+            {/* <button>
               <span>排序</span>
               <img src="/chin-img/chevron-down-black.svg" alt="" />
-            </button>
+            </button> */}
         </div>
       </div>
       {props.UserData.map((val,ind)=>{
@@ -152,6 +158,7 @@ useEffect(()=>{
           </div>
         </div>
         <div>
+          <h1>{val.commentText2}</h1>
           <p>
           {val.commentText}
           </p>
