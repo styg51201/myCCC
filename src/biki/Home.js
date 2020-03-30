@@ -100,13 +100,13 @@ function Home(props2){
                 }
             }
             if( adForGroup[i].groupCollectItems ){
-                if( props2.mbLikeData.some((val,ind)=> val.p_vendor === adForGroup[i].planUsername) ) {
+                if( props2.mbLikeData.some((val,ind)=> val.name === adForGroup[i].planUsername) ) {
                     pushArr(adForGroup[i])
                 }
             }
 
             if( adForGroup[i].groupCollectCategory ){
-                if( props2.mbLikeData.some((val,ind)=> val.p_category === adForGroup[i].groupCollectCategory) ) {
+                if( props2.mbLikeData.some((val,ind)=> val.itemCategoryId === adForGroup[i].groupCollectCategory) ) {
                     pushArr(adForGroup[i])
                 }
             }
