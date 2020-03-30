@@ -253,6 +253,7 @@ export const delMbData = val =>{
   return {type:'DEL_LIKE_VALUE',value:val}
 }
 
+//會員收藏
 export const fromServerMbLikeData = val =>{
   
   return async dispatch => {

@@ -20,21 +20,54 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { formServerItemsData, ResetListItemName,ResetListItemNameCom,ItemscompareNo} from './actions/itemsActions'
 
+import {fromServerMbLikeData} from '../stacey/actions/couponAction'
+
+
 function Watch(props) {
   console.log(props)
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
   const [commodityPrice, setCommdityPrice] = useState(false)
- 
+
+  //會員id
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
+
+  console.log('mbLikeData',props.mbLikeData)
+
+
+  useEffect(() => {
+    props.formServerItemsData('watch')
+    if(mb_id) {
+      props.fromServerMbLikeData(mb_id)
+    }
+    return ()=> props.ResetListItemName()
+  }, [])
+
   const itemlist = props.data.map((val, ind) => {
+    //判斷是否我的最愛
+    let mbLike = false
+    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > 0 ){
+      mbLike = true
+    }
     if (props.watch.indexOf(val.name) > -1) {
-      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} mbLike={mbLike} />
     }
   })
+
   const allitemlist = props.data.map((val, ind) => {
-    return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+    //判斷是否我的最愛
+    let mbLike = false
+    if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
+      console.log('77777')
+      mbLike = true
+    }
+    return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind}  mbLike={mbLike}/>
+
   })
+
+
   const commodityItems = props.data.map((val, ind) => {
     if (props.watch.indexOf(val.name) > -1) {
       return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
@@ -50,10 +83,7 @@ function Watch(props) {
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
     }
   })
-  useEffect(() => {
-    props.formServerItemsData('watch')
-    return ()=> props.ResetListItemName()
-  }, [])
+  
 
 
   return (
@@ -130,6 +160,7 @@ const mapStateToProps = store => {
            compare:store.getItemscompare,
            ItemPrice: store.getListitemPrice,
           ItemPrice2:store.getListitemPrice2,
+          mbLikeData:store.memberLikeData,
           rest:store.rest}
 }
 
@@ -141,6 +172,7 @@ const mapDispatchToProps = dispatch => {
       ResetListItemName,
       ResetListItemNameCom,
       ItemscompareNo,
+      fromServerMbLikeData,
     },
     dispatch
   )

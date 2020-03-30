@@ -31,6 +31,7 @@ function Home(props2){
     // const [docWidth, setDocWidth] = useState(window.innerWidth)
     const [showMouse, setShowMouse] = useState(true)
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 640)
+    const [slideInterval, setSlideInterval] = useState(3000)
 
     const [props, set] = useSpring(()=>({
         offset: 0,
@@ -180,9 +181,9 @@ function Home(props2){
 
     useInterval(()=>{
         setAdNum((adNum + 1)% adArr.length)
-    }, 3000)
+    })
 
-    function useInterval(callback, delay) {
+    function useInterval(callback) {
         const savedCallback = useRef();
       
         // Remember the latest function.
@@ -195,15 +196,19 @@ function Home(props2){
           function tick() {
             savedCallback.current();
           }
-          if (delay !== null) {
-            let id = setInterval(tick, delay);
+          if (slideInterval !== null) {
+            let id = setInterval(tick, slideInterval);
             return () => clearInterval(id);
           }
-        }, [delay]);
+        }, [slideInterval]);
       }
 
     const btnNextSlide = ()=>{
         setAdNum((adNum + 1)% adArr.length)
+        setSlideInterval(null)
+        setTimeout(()=>{
+            setSlideInterval(3000)
+        }, 1000)
     }
 
     const btnPrevSlide = ()=>{
@@ -212,6 +217,18 @@ function Home(props2){
             if(newNum < 0) newNum = adArr.length -1
             return newNum
         })
+        setSlideInterval(null)
+        setTimeout(()=>{
+            setSlideInterval(3000)
+        }, 1000)
+    }
+
+    const clickAdNum = (idx)=>{
+        setAdNum(idx)
+        setSlideInterval(null)
+        setTimeout(()=>{
+            setSlideInterval(3000)
+        }, 1000)
     }
 
     useEffect(()=>{
@@ -266,7 +283,7 @@ const parallax = useRef()
                                 return (
                                     <li key={idx+'l'}
                                      onClick={()=>{
-                                        setAdNum(idx)
+                                        clickAdNum(idx)
                                     }}
                                     className={adNum === idx ? 'active' : ''}
                                     ></li>
