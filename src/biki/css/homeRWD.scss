@@ -1,5 +1,5 @@
-@import "../../css/variables.scss";
-@import "./myVars.scss";
+@import '../../css/variables.scss';
+@import './myVars.scss';
 
 @media (max-width: $bp-sm) {
   .bk-mouse {
@@ -87,9 +87,27 @@
 
   /* ----FEATURED PRODUCTS----- */
 
+  .bk-mb-featured-title {
+    color: $white;
+    display: block;
+    padding: $spacing * 4 0 $spacing * 2 0;
+    h3,
+    h5 {
+      width: 300px;
+      margin: 0 auto;
+      text-align: center;
+      // line-height: 40px;
+    }
+
+    h3 {
+      line-height: 40px;
+      margin-bottom: $spacing;
+    }
+  }
+
   .bk-featured-products {
     .bk-featured-wrapper {
-      padding: 2rem 1rem;
+      padding: 1rem 1rem 2rem 1rem;
 
       > div:nth-child(3n + 2) {
         display: none;
@@ -103,7 +121,7 @@
           .bk-featured-hover {
             order: 1;
             text-align: left;
-            padding: $spacing $spacing $spacing 0;
+            padding: $spacing $spacing * 2 $spacing 0;
 
             .bk-featured-icon-list {
               justify-content: flex-start;
@@ -124,7 +142,6 @@
       height: 265px;
       order: 1;
       margin: $spacing * 2 0;
-      padding: 0 $spacing;
 
       .bk-featured-img {
         img {
@@ -140,7 +157,7 @@
         flex-direction: column;
         position: relative;
         text-align: right;
-        padding: $spacing 0 $spacing $spacing;
+        padding: $spacing 0 $spacing $spacing * 2;
         order: 2;
 
         .bk-featured-stars {
@@ -185,6 +202,7 @@
 
             .bk-ftr-brand {
               font-size: $font-xs;
+              margin-bottom: $spacing;
             }
             .bk-ftr-product-name {
               font-size: $font-s;
