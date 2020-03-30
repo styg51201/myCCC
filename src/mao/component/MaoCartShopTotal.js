@@ -18,6 +18,7 @@ import { TiDeleteOutline } from 'react-icons/ti'
 import {MaoCouponType} from '../MaoCouponType'
 function MaoCartShopTotal(props) {
 
+  console.log('MaoCartShopTotal===',props)
   const [shipping, setShipping] = useState(100)
   const [discount, setDiscount] = useState(0)
   const [openCoupon, setOpenCoupon] = useState(true)
@@ -31,7 +32,6 @@ function MaoCartShopTotal(props) {
     props.CalShopCartTotal(buyerTotal)
   }
   let LocalUser=localStorage.getItem('userId')||0
-  console.log('LocalUserssssssssss',LocalUser)
   let CheckrouteName = props.match.path
   //選擇折價券
   function showCoupon() {
@@ -49,13 +49,20 @@ function MaoCartShopTotal(props) {
     $(document).on('scroll', () => {
       let test = $(document).scrollTop()
       if (test > 120) {
+        
         $('.Mao-total-box-fixed').css({
           opacity: 1,
           height: '145px',
           zIndex: 999,
         })
+        $('.Mao-sort-ul').css({
+          opacity: 1
+        })
       } else {
         $('.Mao-total-box-fixed').css({ opacity: 0, height: 0, zIndex: -1 })
+        $('.Mao-sort-ul').css({
+          opacity: 0
+        })
       }
     })
 
@@ -83,14 +90,56 @@ function MaoCartShopTotal(props) {
     setSaveStotal(props.sTotal)
     setSaveTotal(props.FinalTotal)
   }, [CalTotal, props.AddItem, props.sTotal])
-
+const totalSort=(
+    <ul className="Mao-sort-ul">
+    <li className="Mao-line-sortG">
+      產品分類選項
+    </li>
+      <li>
+        <Link to="/watch">
+          穿戴式裝置
+        </Link>
+        <div class="Mao-line-sort"></div>
+      </li>
+      <li>
+        <Link to="/headset">
+          耳機/喇叭
+        </Link>
+        <div class="Mao-line-sort"></div>
+      </li>
+      <li>
+        <Link to="/actioncamera">
+          運動攝影機
+        </Link>
+        <div class="Mao-line-sort"></div>
+      </li>
+      <li>
+        <Link to="/surrounding">
+          周邊
+        </Link>
+        <div class="Mao-line-sort"></div>
+      </li>
+      <li>
+        <Link to="/getCoupon">
+          優惠券專區
+        </Link>
+        <div class="Mao-line-sort"></div>
+      </li>
+      <li>
+        <Link to="/stories">
+          故事牆
+        </Link>
+        <div class="Mao-line-sort"></div>
+      </li>
+    </ul> 
+)
   const changeCheckout = (
     <>
       <Link className="Mao-total-box-btn" to="/">
         <div className="Mao-total-show"></div>
         <span style={{ zIndex: 10 }}>繼續購物</span>
       </Link>
-        {CheckrouteName == '/OrderInfo' ? (<Link className="Mao-total-box-btn-black" to={props.errorBox==0 && LocalUser!=0?"/Orderbill":"/OrderInfo"}
+        {CheckrouteName == '/OrderInfo' ? (<Link className="Mao-total-box-btn-black" to={props.getErrorBox==0 && LocalUser!=0?"/Orderbill":"/OrderInfo"}
       onClick={()=>{
         {LocalUser==0?alert('請先登入'):props.sendOrder()}
       }}
@@ -317,7 +366,6 @@ function MaoCartShopTotal(props) {
                   setCouponProduct(disCountItems)
                     break
                }
-            
             }
             
           }else{
@@ -336,10 +384,7 @@ useEffect(()=>{
   props.CheckCoupon(couponType)
   console.log('props.saveCoupon',props.saveCoupon)
 },[])
-// useEffect(()=>{
-// console.log(props.saveCoupon)
-// console.log('couponArr',couponArr)
-// },[props.saveCoupon,couponArr])
+
 let cartItemText=[]
 const shopCartItemText=props.AddItem.map((v,i)=>{
   cartItemText.push(
@@ -435,7 +480,7 @@ const NofixedDisplay = (
           <span className="float-right">{props.FinalTotal}</span>
         </p>
         {changeCheckout}
-        {CheckrouteName == '/member/ShopCartList' ?'': ( <div className="Mao-shopCart-item-text-box">
+        {CheckrouteName == '/member/ShopCartList' ?totalSort: ( <div className="Mao-shopCart-item-text-box">
        {cartItemText}
         </div>)}
        
@@ -448,7 +493,7 @@ const NofixedDisplay = (
     <>
       <div className="Mao-total-box-fixed">
         <div className="container">
-          <div style={{ width: '850px' }}>
+          <div className="Mao-container-box">
             <p className="Mao-total-box-title-fixed">
               <b>TOTAL</b>
             </p>

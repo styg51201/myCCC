@@ -12,20 +12,23 @@ import {
   CalShopCart,
   Handle_AddMyFavorite,
   ControlDataOne,
-  AddCartNewItem_sendcal
+  AddCartNewItem_sendcal,
 } from './actions/ShopCartAction'
 import './css/MaoAD.scss'
 import MemberSidebar from '../Irene/components/MemberSidebar'
-import {FaShoppingBasket,FaRegTrashAlt} from 'react-icons/fa'
-import { FiShoppingBag} from 'react-icons/fi'
+import { FaShoppingBasket, FaRegTrashAlt } from 'react-icons/fa'
+import { FiShoppingBag } from 'react-icons/fi'
 
 function ShopCartLike(props) {
   const [favorloaded, setFavorloaded] = useState(false)
-  const [newItem,setNewItem] =useState(false)
-
+  const [newItem, setNewItem] = useState(false)
+  console.log('MMMMMMMMMMMMMMMMMM', props.AddItem)
+  useEffect(() => {
+    console.log('props.AddItem', props.AddItem)
+  }, [props])
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
-    console.log('MyFavorite',v)
+    console.log('MyFavorite', v)
     return (
       <li key={v.itemId} className="d-flex Mao-shopcart-check-item">
         <img
@@ -47,13 +50,15 @@ function ShopCartLike(props) {
               props.Handle_AddMyFavorite(false, v, props.MyFavorite)
             }}
           >
-            <FaRegTrashAlt style={{margin:"0px 20px",width:"24px",height:"24px"}}/>
+            <FaRegTrashAlt
+              style={{ margin: '0px 20px', width: '24px', height: '24px' }}
+            />
             <span>刪除</span>
             <div className="Mao-btn-show"></div>
             <div className="Mao-btn-showL"></div>
           </button>
           {/* </div> */}
-          
+
           <button
             className="Mao-btn-amount-whiteDel Mao-btn-amount-white-my"
             onClick={() => {
@@ -69,7 +74,9 @@ function ShopCartLike(props) {
               props.AddCartNewItem_sendcal(productInfo, props.AddItem)
             }}
           >
-            <FiShoppingBag style={{margin:"0px 20px",width:"24px",height:"24px"}}/>
+            <FiShoppingBag
+              style={{ margin: '0px 20px', width: '24px', height: '24px' }}
+            />
             <span>加入購物車</span>
             <div className="Mao-btn-show"></div>
             <div className="Mao-btn-showL"></div>
@@ -81,9 +88,16 @@ function ShopCartLike(props) {
   // 如果沒有購物車內沒有品項顯示的畫面
   const CartNoItem = (
     <div className="Mao-CartNoItem">
-      <Link to="/" style={{color:"#000"}}>
-      <h3>趕快去尋找最愛的商品吧！</h3>
-      <FaShoppingBasket style={{width:"300px",height:"300px",opacity:'0.5',margin:"40px"}}/>
+      <Link to="/" style={{ color: '#000' }}>
+        <h3>趕快去尋找最愛的商品吧！</h3>
+        <FaShoppingBasket
+          style={{
+            width: '300px',
+            height: '300px',
+            opacity: '0.5',
+            margin: '40px',
+          }}
+        />
       </Link>
     </div>
   )
@@ -98,16 +112,16 @@ function ShopCartLike(props) {
               dataList.length > 0 ? 'Mao-ul-bg-white' : 'Mao-ul-bg-none'
             }
           >
-        {dataList.length == 0 ? CartNoItem : dataList}
-           
+            {dataList.length == 0 ? CartNoItem : dataList}
           </ul>
         </div>
       </div>
-      <ProductSlide 
-      getdata={newItem} //hook
-      sendData={items=>{ //func
-        setNewItem(items)
-      }}
+      <ProductSlide
+        getdata={newItem} //hook
+        sendData={items => {
+          //func
+          setNewItem(items)
+        }}
       />
     </>
   )
@@ -134,7 +148,7 @@ const mapDispatchToProps = dispatch => {
       DelCartItem,
       CalShopCart,
       Handle_AddMyFavorite,
-      AddCartNewItem_sendcal
+      AddCartNewItem_sendcal,
     },
     dispatch
   )

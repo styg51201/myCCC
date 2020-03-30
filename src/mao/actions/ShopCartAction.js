@@ -29,7 +29,7 @@ export const getShopCart = item => {
         itemImg: v.itemImg,
         itemPrice: v.itemPrice,
         itemCategoryId: v.itemCategoryId,
-        count:v.count
+        count: v.count,
       })
     })
     dispatch(sendCart(newData))
@@ -99,12 +99,13 @@ export const getOrderFromServer = value => {
     const data = await res.json()
     let newData = []
     let hadleData = data.map((v, i) => {
+      let newTotal= v.total-v.discount
       newData.push({
         orderId: v.orderId,
         buyerName: v.buyerName,
         shipping: v.shipping,
         buyerAdress: v.buyerAdress,
-        total: v.total,
+        total:newTotal,
         ship: v.shipCost,
         discount: v.discount,
       })
@@ -154,41 +155,40 @@ export const CalShopCart = value => {
 //產品小計 計算功能
 export const calCart = value => ({ type: 'CAL_TOTAL', value: value })
 
-
 // 計算總額含運費活動折扣
 export const CalShopCartTotal = value => ({ type: 'FINAL_TOTAL', value: value })
 
 //計算活動券相關
 
-export const hadleCoupon=(value,type,sTotal)=>{
-  return dispatch =>{
-    let newStotal=0
-      switch (type){
-        case 0:
-          newStotal=value
-          break
-        case 1:
-          newStotal=+sTotal-Math.round(sTotal*value)
-          break
-        case 2:
-          newStotal=value
-          break
-        default:
-          break
-      }
-      dispatch(send_hadleCoupon(newStotal))
+export const hadleCoupon = (value, type, sTotal) => {
+  return dispatch => {
+    let newStotal = 0
+    switch (type) {
+      case 0:
+        newStotal = value
+        break
+      case 1:
+        newStotal = +sTotal - Math.round(sTotal * value)
+        break
+      case 2:
+        newStotal = value
+        break
+      default:
+        break
+    }
+    dispatch(send_hadleCoupon(newStotal))
   }
 }
 
-export const send_hadleCoupon = value=>({
-  type:'COUPON_DISCOUNT',value:value
+export const send_hadleCoupon = value => ({
+  type: 'COUPON_DISCOUNT',
+  value: value,
 })
 
-
-export const CheckCoupon = value =>({
-  type:'SAVE_COUPON',value:value
+export const CheckCoupon = value => ({
+  type: 'SAVE_COUPON',
+  value: value,
 })
-
 
 //刪除購物車內容
 export const DelCartItem = (i, data) => {
@@ -239,7 +239,7 @@ export const AddCartNewItem_sendcal = (val, data) => {
     } else {
       data[index].count = +data[index].count + 1
     }
-
+    console.log('data', data)
     dispatch(AddCart(data))
     dispatch(CalShopCart(data))
   }
@@ -256,8 +256,8 @@ export const Handle_AddMyFavorite = (val, product, data) => {
     itemPrice: product.itemPrice,
     itemCategoryId: product.itemCategoryId,
   }
-  console.log('加入我的最愛 = ',product.itemId)
-  console.log('加入我的最愛 = ',newProduct)
+  console.log('加入我的最愛 = ', product.itemId)
+  console.log('加入我的最愛 = ', newProduct)
   let pIdBox = []
   data.map((v, i) => {
     pIdBox.push(v.itemId)
@@ -273,7 +273,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
         console.log('false')
         return newData
       }
-    } else if ((val == false)) {
+    } else if (val == false) {
       let delIndex = pIdBox.findIndex(e => e == newProduct.itemId)
       let delpId = data.filter(e => e !== data[delIndex])
 
@@ -284,9 +284,6 @@ export const Handle_AddMyFavorite = (val, product, data) => {
     dispatch(AddMyFavorite(newData))
   }
 }
-
-
-
 
 // export const Handel_DelMyFavorite=()
 export const AddMyFavorite = value => ({ type: 'LIKE_PRODUCT', value: value })

@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {AddCart} from '../../mao/actions/ShopCartAction'
+import { AddCart } from '../../mao/actions/ShopCartAction'
 //icons
 // import { IconContext } from 'react-icons'
 import {
@@ -22,7 +22,6 @@ import {
 import $ from 'jquery'
 
 function Header(props) {
-  console.log(props)
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [searchBlurTime, setSearchBlurTime] = useState(0)
@@ -73,19 +72,16 @@ function Header(props) {
       localStorage.removeItem('userId')
       window.location.replace('http://localhost:3000/memberlogin')
     })
-    
-
   }, [])
 
   const inputRef = useRef(null)
 
   useEffect(() => {
     console.log(openSearch)
-    if(!openSearch){
-        inputRef.current.blur()
+    if (!openSearch) {
+      inputRef.current.blur()
     }
   }, [openSearch])
-
 
   const handleOpenSearch = () => {
     if (new Date().getTime() - searchBlurTime > 300) {
@@ -112,7 +108,7 @@ function Header(props) {
   }
 
   const handleSearchBlur = evt => {
-    console.log("blur")
+    console.log('blur')
     setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')
@@ -172,64 +168,65 @@ function Header(props) {
       <div>
         {memberstate ? (
           <>
-          <Link to="/memberedit">
-            <img
-              src="/img/header-footer/user.svg"
-              alt=""
-              className="chin-three-position"
-            />
-          </Link>
-          <Link to="/member/ShopCartList">
-          <img
-            src="/img/header-footer/shopping-bag.svg"
-            alt=""
-            className="chin-three-position2"
-          />
-        </Link>
-        <Link to="/member/ShopCartLike">
-          <img
-            src="/img/header-footer/heart.svg"
-            alt=""
-            className="chin-three-position3"
-          />
-        </Link>
-          <Link to="/memberlogin">
-            <div className="chin-three-position4 irene_member_logout">
-              <FiLogOut
-                style={{
-                  width: '24px',
-                  height: '24px',
-                  color: 'black',
-                }}
+            <Link to="/memberedit">
+              <img
+                src="/img/header-footer/user.svg"
+                alt=""
+                className="chin-three-position"
               />
-            </div>
-          </Link>
+            </Link>
+            <Link to="/member/ShopCartList">
+              <img
+                src="/img/header-footer/shopping-bag.svg"
+                alt=""
+                className="chin-three-position2"
+              />
+            </Link>
+            <Link to="/member/ShopCartLike">
+              <img
+                src="/img/header-footer/heart.svg"
+                alt=""
+                className="chin-three-position3"
+              />
+            </Link>
+            <Link to="/memberlogin">
+              <div className="chin-three-position4 irene_member_logout">
+                <FiLogOut
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    color: 'black',
+                  }}
+                />
+              </div>
+            </Link>
           </>
         ) : (
           <>
-          <Link to="/memberlogin">
-            <img
-              src="./img/header-footer/user.svg"
-              alt=""
-              className="chin-three-position"
-            />
-          </Link>
-          <Link to="/member/ShopCartList">
-          <img
-            src="/img/header-footer/shopping-bag.svg"
-            alt=""
-            className="chin-three-position2"
-          />
-        </Link>
-        <Link to="/member/ShopCartLike">
-          <img
-            src="/img/header-footer/heart.svg"
-            alt=""
-            className="chin-three-position3"
-          />
-        </Link>
-          <div className="chin-three-position4 irene_member_logout"> </div></>
-        )} 
+            <Link to="/memberlogin">
+              <img
+                src="./img/header-footer/user.svg"
+                alt=""
+                className="chin-three-position"
+              />
+            </Link>
+            <Link to="/member/ShopCartList">
+              <img
+                src="/img/header-footer/shopping-bag.svg"
+                alt=""
+                className="chin-three-position2"
+              />
+            </Link>
+            <Link to="/member/ShopCartLike">
+              <img
+                src="/img/header-footer/heart.svg"
+                alt=""
+                className="chin-three-position3"
+              />
+            </Link>
+            <div className="chin-three-position4 irene_member_logout"> </div>
+          </>
+        )}
       </div>
     </>
   )
@@ -301,12 +298,12 @@ function Header(props) {
           </div>
           <div className="nav-icons-wrapper">
             <Link to="/member/ShopCartList">
-            <div className="Mao-items-Num">
-              <div className="nav-icons">
-                <div className="Mao-items-abs">{props.AddItem.length}</div>
-                <FiShoppingBag />
+              <div className="Mao-items-Num">
+                <div className="nav-icons">
+                  <div className="Mao-items-abs">{props.AddItem.length}</div>
+                  <FiShoppingBag />
+                </div>
               </div>
-            </div>
             </Link>
             <Link to="/member/ShopCartLike">
               <div className="nav-icons">
@@ -361,11 +358,10 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      AddCart
+      AddCart,
     },
     dispatch
   )
 }
 // export default withRouter(Header)
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Header))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))
