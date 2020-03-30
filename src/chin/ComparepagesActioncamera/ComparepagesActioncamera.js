@@ -38,7 +38,9 @@ return(
                             </div>
                             <div className="chin-item">
                             <Link to={'/commidty/'+ val.itemId}><button>了解更多</button></Link>
-                                <button>立即購買</button>
+                            <Link to='/OrderInfo' onClick={()=>{
+                              props.AddCartNewItem_sendcal(props.data[0],props.AddItem)
+                            }}>立即購買</Link>
                             </div>
                         </div>
                     </> 

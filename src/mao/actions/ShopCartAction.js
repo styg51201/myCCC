@@ -226,7 +226,7 @@ export const AddCartItem = (val, itemId, data) => {
 
 //購物車按鍵
 export const AddCartNewItem_sendcal = (val, data) => {
-  console.log('確認是否有執行')
+  // console.log('確認是否有執行')
   return dispatch => {
     let itemIdBox = []
     data.map((v, i) => {
@@ -285,25 +285,6 @@ export const Handle_AddMyFavorite = (val, product, data) => {
   }
 }
 
-//暫時還沒用
-export const calDiscount = (val, data) => {
-  return dispatch => {
-    switch (val) {
-      case '8折':
-        data = data * val * 0.1
-        break
-      case '-100':
-        data = data - 100
-        break
-      case '-500':
-        data = data - 500
-        break
-      default:
-        console.log(data)
-    }
-    dispatch(CalShopCartTotal(data))
-  }
-}
 
 
 

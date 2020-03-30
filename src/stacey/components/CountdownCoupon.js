@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react'
 import classNames from 'classnames'
 import { withRouter } from 'react-router-dom';
+import moment from 'moment'
 
 import '../css/countdownCoupon.scss'
 
@@ -12,6 +13,7 @@ import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
 import {countdownCouponGet , getCouponToServer ,fromServerCountdownCouponData,goShopping,showDiscountAction} from '../actions/couponAction'
+
 
 
 //動畫
@@ -28,13 +30,29 @@ const styles = {
         animation: 'x 1s',
         animationName: Radium.keyframes(bounceIn, 'bounceIn')
     }
-    }    
+}    
+
+const now = new Date()
+const nowHour = moment().hour()
+const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
+const endTime = moment(`${today} ${nowHour+1}:00:00`)
+const countdownTime = (endTime.valueOf() - now.valueOf() )/1000
 
 
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
 useEffect(()=>{
+
     props.fromServerCountdownCouponData(mb_id) 
+
+    let timer = setTimeout(() => {
+        console.log('settimeout')
+        props.fromServerCountdownCouponData(mb_id) 
+    }, countdownTime*1000);
+    console.log('countdownTime',countdownTime)
+
+    return ()=> {clearTimeout(timer)
+    console.log('end')};
 
 },[])
 
@@ -194,7 +212,7 @@ return(
             <div className="row sty-countDownCoupon">
                 <div className="col-12 sty-countdownTitle">
                     <h3 className="">每日限時優惠券</h3>
-                    <Countdown />
+                    <Countdown countdownTime={countdownTime}/>
                 </div>
                 {coupon}
             </div>

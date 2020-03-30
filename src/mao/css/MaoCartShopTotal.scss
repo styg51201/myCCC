@@ -303,7 +303,7 @@ margin:5px auto
   box-shadow: 5px 5px 10px #ddd;
   background: $white;
   position: fixed;
-  top: calc(50% - 150px);
+  top: calc(50% - 350px);
   left: calc(50% - 350px);
   z-index: -10;
   border: 1px solid $grey;
@@ -354,6 +354,8 @@ list-style: none;
 border-left:1px solid #ddd;
 padding:0px 8px;
 margin:0px 10px;
+height: 450px;
+overflow-y: scroll;
 }
 .Mao-coupon-list-img{
   display: flex;
@@ -393,4 +395,18 @@ margin:0px 10px;
 .Mao-ShopCarticon-icon {
   width: 20px;
   height: 20px;
+}
+// -------RWD----------------
+
+@media (max-width:576px){
+  .Mao-total-box-fixed{
+    display: none;
+    opacity: 0;
+  }
+  .Mao-total-RWD{
+    width: 100%;
+    position: sticky;
+    bottom:0;
+    background: #f90;
+  }
 }

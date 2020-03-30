@@ -19,7 +19,7 @@ import $ from 'jquery'
 import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
-  
+console.log(props)
 let LocalUser=localStorage.getItem('userId')||0
 const [user, setUser] = useState(localStorage.getItem('userId'))
 const [userName,setUserName]=useState('')
@@ -75,8 +75,8 @@ const { getMonth, getYear } = GetDayRange()
   //插入資料 開關
   const [getBuyerbasic, setGetBuyerbasic] = useState(true)
   function getbuyer(e) {
-    if (getBuyerbasic) {
-      
+
+    if (getBuyerbasic) {  
       $('#buyerName').val(props.Userdata[0].Name)
       $('#mobile').val(props.Userdata[0].PhoneNumber)
       let newErr=errorBox.filter(e=>e!=='buyerName'&&e!=='mobile')
@@ -103,8 +103,6 @@ const { getMonth, getYear } = GetDayRange()
       case 'buyerName':
         if (getInfo.length === 0) {
           setErrors({ ...errors, buyerName: '名字不能空白' })
-        } else if (/[0-9]|\W/.test(getInfo)) {
-          setErrors({ ...errors, buyerName: '名字不能為數字或符號' })
         } else {
           setErrors({ ...errors, buyerName: '' })
           let newErr=errorBox.filter(e=>e!=='buyerName')
@@ -204,7 +202,7 @@ const { getMonth, getYear } = GetDayRange()
     getRND()
     getorderProductInfo()
     GetDayRange()
-   
+   props.getserverMember(user)
   }, [])
 
   useEffect(() => {

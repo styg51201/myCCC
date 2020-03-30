@@ -21,6 +21,7 @@ import MaoAD from './component/MaoAD'
 import './css/MaoAD.scss'
 import PicSlide from './component/PicSlide'
 import MaoMoveIcon from './MaoMoveIcon'
+import Test from './test'
 
 function ShopCartList(props) {
 
@@ -45,7 +46,7 @@ function ShopCartList(props) {
           <p>{v.itemName}</p>
           <div>
             <p style={{ width: '25%' }}>{v.itemPrice}</p>
-            <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
+            <div className="Mao-shopcart-check-item-count">
               <button
                 className="Mao-btn-amount"
                 onClick={() => {
@@ -70,7 +71,7 @@ function ShopCartList(props) {
             </div>
           </div>
         </div>
-        <div className="d-flex flex-column justify-content-center text-left Mao-shopcart-check-item-action">
+        <div className="Mao-shopcart-check-item-action">
           <button
             className="Mao-btn-amount-whiteDel Mao-btn-amount-white-my"
             onClick={() => {
@@ -79,12 +80,7 @@ function ShopCartList(props) {
             }}
           >
             <FaRegTrashAlt
-              style={{
-                width: '25px',
-                height: '25px',
-                marginRight: '15px',
-                marginLeft: '18px',
-              }}
+              className="Mao-del-img"
             />
             <span>刪除</span>
             <div className="Mao-btn-show"></div>
@@ -119,8 +115,7 @@ function ShopCartList(props) {
 
   return (
     <>
-    
-      <div className="d-flex my-3" style={{ maxWidth: '1300px' }}>
+      <div className="Mao-shopcart-list-outsidest">
         <ul className="Mao-shopcart-check-item-ul">
           {props.AddItem.length > 0 ? dataList :
       <MaoMoveIcon />}

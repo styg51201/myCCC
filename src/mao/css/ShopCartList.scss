@@ -95,6 +95,9 @@
   }
 }
 .Mao-shopcart-check-item-count {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 30px;
   overflow: hidden;
   border: 1px solid #ddd;
@@ -222,4 +225,79 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+.Mao-del-img{
+    width: 25px;
+    height: 25px;
+    margin-right: 15px;
+    margin-left: 18px;
+}
+.Mao-shopcart-list-outsidest{
+  display: flex;
+  max-width: 1300px;
+  margin:16px 0px;
+}
+// ----------------------RWD-----------------------
+
+@media (max-width:576px){
+  .container{
+    padding:0;
+  }
+  .Mao-shopcart-list-outsidest{
+    flex-direction: column;
+  }
+  .Mao-shopcart-check-item-ul{
+    width:576px;
+  }
+  .Mao-shopcart-check-item{
+    display: flex;
+    width:100%;
+    padding: 3px;
+  }
+  
+  .Mao-shopcart-check-item >img{
+    margin:auto 25px;
+  }
+  .Mao-shopcart-check-item-info{
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+  }
+  .Mao-shopcart-check-item-info >div{
+    display: flex;
+    // flex-direction: column;
+  }
+  .Mao-shopcart-check-item-info >div>p{
+    margin-right: 25px;
+  }
+  .Mao-btn-amount-whiteLike {
+    // flex-direction: column;
+    padding:0;
+    height: 100%;
+    border:1px solid #ddd;
+  }
+  .Mao-btn-in-favor{
+    margin: 0px;
+  }
+  .Mao-btn-amount-whiteDel {
+    display: none;
+    padding: 0;
+    padding-left:10px;
+    height: 50px;
+  }
+  .Mao-del-img{
+  margin-left: 5px;
+  padding:0
+  }
+  .Mao-btn-show{
+    opacity: 0;
+    display: none;
+  }
+  .Mao-btn-showL{
+    opacity: 0;
+    display: none;
+  }
+  .Mao-shopcart-check-item-action{
+    width:25%;
+  }
 }

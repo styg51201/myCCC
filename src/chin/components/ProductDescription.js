@@ -74,7 +74,7 @@ const checkAlertType=showTpye=>{
                               props.AddCartNewItem_sendcal(props.data[0],props.AddItem) 
                               checkAlertType("加入購物車")
                             }}>加入購物車</button>
-              <Link to='/memberedit/ShopCartList' onClick={()=>{
+              <Link to='/OrderInfo' onClick={()=>{
                               props.AddCartNewItem_sendcal(props.data[0],props.AddItem) 
                               checkAlertType("加入購物車")
                             }}>立即購買</Link>
@@ -86,8 +86,8 @@ const checkAlertType=showTpye=>{
           setForMyfavor(!forMyfavor)
           let info=!forMyfavor?"加入我的最愛":"已取消我的最愛"
           checkAlertType(info)}}>
-            <FiHeart />
-            <span>{!forMyfavor?"加入我的最愛":"取消最愛"}</span>
+            <FiHeart className={forMyfavor?'Mao-like-red':''}/>
+            <span>{!forMyfavor?"加入我的最愛":"我的最愛"}</span>
           </button>
         </div>
       </div>

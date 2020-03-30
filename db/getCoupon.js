@@ -14,7 +14,7 @@ const upload = multer({ dest: 'tmp_uploads/' })
 //會員id
 router.post('/',(req,res)=>{
 
-    console.log('9999',req.body.page,req.body.mb_id)
+    
 
     const sqlTotalMember = 'SELECT COUNT(*) AS `cp_total` FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE `cp_id` NOT IN (SELECT `cpi_cp_id` FROM `coupon_item` WHERE `cpi_mb_id` = ?) AND `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE AND `cp_countdown` = 0'
 
@@ -45,7 +45,6 @@ router.post('/',(req,res)=>{
                     e.cp_start = moment(e.cp_start).format(fm)
                     e.cp_due = moment(e.cp_due).format(fm)
             })
-            console.log('777',r)
             res.json({total,couponData:r})
               
             });
@@ -73,6 +72,15 @@ router.post('/countdownCoupon',(req,res)=>{
     const sqlCountdownCoupon = 'SELECT *  FROM `coupon` INNER JOIN `coupon_rule` ON `coupon`.`cp_rule` = `coupon_rule`.`cpr_id` WHERE  `cp_start` <= CURRENT_DATE  AND `cp_due` >= CURRENT_DATE  AND `cp_countdown` = 1  ORDER BY `cp_vendor` ASC '
 
     let countdownCoupon = null
+    let num = null
+
+    if( ( moment().hour() ) % 2 === 0 ){
+        num = 0
+    }else{
+        num = 1
+    }
+    console.log('num',num)
+
     db.queryAsync(sqlCountdownCoupon)
     .then(r=>{
         countdownCoupon = r
@@ -93,11 +101,19 @@ router.post('/countdownCoupon',(req,res)=>{
                     }
                 })
                 }
-                res.json(countdownCoupon)
+                if(num){
+                    res.json([countdownCoupon[0],countdownCoupon[1]])
+                }else{
+                    res.json([countdownCoupon[2],countdownCoupon[3]])
+                }
             })
 
         }else{
-            res.json(countdownCoupon)
+            if(num){
+                res.json([countdownCoupon[0],countdownCoupon[1]])
+            }else{
+                res.json([countdownCoupon[2],countdownCoupon[3]])
+            }
         }
     })
 })
@@ -133,8 +149,7 @@ router.post('/memberCoupon',(req,res)=>{
 //新增優惠券
 router.post('/addCoupon', upload.single('cp_img'), (req, res) => {
 
-    console.log(req.file)
-    console.log(req.body)
+   
     
     //設定規則
 
