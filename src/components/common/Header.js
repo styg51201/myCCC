@@ -39,7 +39,15 @@ function Header(props) {
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
     const height = product - 20
-    window.addEventListener('scroll', () => {
+
+    //會員登出功能
+    $('.irene_member_logout').click(function() {
+      localStorage.removeItem('userdata')
+      localStorage.removeItem('userId')
+      window.location.replace('http://localhost:3000/memberlogin')
+    })
+
+    const handleNavBar = () => {
       //chin nav
       const isTop = window.scrollY < height
       if (isTop !== true) {
@@ -73,14 +81,14 @@ function Header(props) {
           .classList.remove('chin-three-positioncome')
         document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
-    })
+    }
 
-    //會員登出功能
-    $('.irene_member_logout').click(function() {
-      localStorage.removeItem('userdata')
-      localStorage.removeItem('userId')
-      window.location.replace('http://localhost:3000/memberlogin')
-    })
+    window.addEventListener('scroll', handleNavBar)
+
+    return ()=>{
+      window.removeEventListener('scroll', handleNavBar)
+    }
+    
   }, [])
 
   const inputRef = useRef(null)
