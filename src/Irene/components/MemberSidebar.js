@@ -50,6 +50,9 @@ function MemberSidebar(props) {
           <ListGroup.Item>
             <Nav.Link href="/memberedit/memberCoupon">優惠券</Nav.Link>
           </ListGroup.Item>
+          <ListGroup.Item>
+            <Nav.Link href="/member/stories">我的故事</Nav.Link>
+          </ListGroup.Item>
         </ListGroup>
       </div>
       <div>

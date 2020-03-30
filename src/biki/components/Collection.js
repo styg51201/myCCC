@@ -3,6 +3,8 @@ import '../css/home.scss'
 import { FiShoppingBag, FiHeart, FiStar } from "react-icons/fi";
 import {Col, Container} from 'react-bootstrap'
 import {Parallax, Background } from 'react-parallax'
+import {Link} from 'react-router-dom'
+
 
 function Collection(props){
 
@@ -53,9 +55,11 @@ function Collection(props){
                                 <div className="collection-info">
                                     {props.info}
                                 </div>
-                                <div className="collection-button">
-                                    <button>瀏覽更多</button>
-                                </div>
+                                <Link to={props.url}>
+                                    <div className="collection-button">
+                                        <button>瀏覽更多</button>
+                                    </div>
+                                </Link>
                             </div>
                             <div className="collection-img"
                             style={{

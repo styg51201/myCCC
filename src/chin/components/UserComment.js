@@ -1,9 +1,15 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
+//classnames
+import classNames from 'classnames'
+
 
 function UserComment(){
+  const [postacomment,setPostacomment]=useState(false)
+
+const PostacommentClassName= classNames('chin-usercomment-fractionalstars',{active:postacomment})
     return(
         <>
-        <div className="chin-usercomment-fractionalstars">
+        <div className={PostacommentClassName}>
         <h3>用戶評論</h3>
         <div className="chin-usercomment">
           <div className="chin-fractionalstars">
@@ -61,9 +67,19 @@ function UserComment(){
           </div>
           <div className="chin-sort-discuss">
             <div className="chin-discuss">
-              <button>發表評論</button>
+              <button onClick={()=>{setPostacomment(!postacomment)}}>發表評論</button>
             </div>
           </div>
+        </div>
+        <div className="chin-discusspost">
+              <h3>發表評論</h3>
+              <div>
+              </div>
+              <div>
+                <input type="text"/>
+              </div>
+              <div>
+              </div>
         </div>
         <div className="chin-sortspan">
             <button>
