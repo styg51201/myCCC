@@ -42,7 +42,7 @@ return(
                             <Link to={'/commidty/'+ val.itemId}><button>了解更多</button></Link>
                             <Link to='/OrderInfo' onClick={()=>{
                               props.AddCartNewItem_sendcal(props.data[0],props.AddItem)
-                            }}>立即購買</Link>
+                            }}><button>立即購買</button></Link>
                             </div>
                         </div>
                     </> 

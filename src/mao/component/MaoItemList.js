@@ -9,11 +9,23 @@ import {
     DelCartItem,
     CalShopCart,
     Handle_AddMyFavorite,AddCartNewItem_sendcal} from '../../mao/actions/ShopCartAction'
+
+import {addMbLikeData,delMbLikeData} from '../../stacey/actions/couponAction'
+
+
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
 function Commoditycomponents(props){
 // console.log(props)
 const [forMyfavor,setForMyfavor]=useState(false)
+
+// if(props.mbLike){
+//   setForMyfavor(true)
+// }
+
+
+//會員
+const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
 const [alertType,setAlertType]=useState('')
 const checkAlertType=showTpye=>{
@@ -84,10 +96,14 @@ async function ItemToLocalStorage(value) {
                         
                         <FiHeart className={`chin-heart ${forMyfavor?'Mao-like-red':''}`}  
                         onClick={()=>{
-                          props.Handle_AddMyFavorite(!forMyfavor,props.data, props.MyFavorite)
-                          setForMyfavor(!forMyfavor)
-                          let info=!forMyfavor?"加入我的最愛":"已取消我的最愛"
-                          checkAlertType(info)
+                          if(mb_id){
+                              props.mbLike ? props.delMbLikeData(mb_id,props.data) : props.addMbLikeData(mb_id,props.data) 
+                              setForMyfavor(true)
+                            let info=!props.mbLike?"加入我的最愛":"已取消我的最愛"
+                            checkAlertType(info)
+                            }else{
+                              alert('請先登入')
+                            }
                           }
                                 }/>
                             <FiShoppingBag  className="chin-bag"  onClick={()=>{
@@ -132,6 +148,7 @@ const mapStateToProps = store => {
         CalShopCart,
         Handle_AddMyFavorite,
         AddCartNewItem_sendcal,
+        addMbLikeData,delMbLikeData
       },
       dispatch
     )
