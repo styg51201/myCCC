@@ -6,9 +6,9 @@ function MaoAD(props) {
   useEffect(() => {
     setRouteName(props.match.path)
   }, [])
-  useEffect(() => {
-    console.log(routeName)
-  }, [routeName])
+  // useEffect(() => {
+  //   console.log(routeName)
+  // }, [routeName])
   return (
     <>
       <div class="Mao-buyerLine-box">

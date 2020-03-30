@@ -16,10 +16,12 @@ import ComparepagesOtherFunctions from './components/ComparepagesOtherFunctions'
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
-
+import {
+  AddCartNewItem_sendcal
+} from  '../../mao/actions/ShopCartAction'
 
 function ComparepagesWatch(props){
-
+// console.log('這有什麼東西?',props.compare)
   document.documentElement.scrollTop = document.body.scrollTop =0;
 return(
     <>
@@ -29,6 +31,7 @@ return(
                     <Link to="/watch"><p>選擇其他產品進行比較 ></p></Link>
                 </div>
                 {props.compare.map((val,ind)=>{
+                  {/* console.log(val) */}
                 return( 
                         <>
                         <div className="chin-item-field">
@@ -41,7 +44,7 @@ return(
                             <div className="chin-item">
                             <Link to={'/commidty/'+ val.itemId}><button>了解更多</button></Link>
                             <Link to='/OrderInfo' onClick={()=>{
-                              props.AddCartNewItem_sendcal(props.data[0],props.AddItem)
+                              props.AddCartNewItem_sendcal(val,props.AddItem)
                             }}><button>立即購買</button></Link>
                             </div>
                         </div>
@@ -67,13 +70,16 @@ return(
 }
 // 選擇對應的reducer
 const mapStateToProps = store => {
-    return {compare:store.getItemscompare,}
+    return {compare:store.getItemscompare,
+            AddItem:store.AddItem
+    }
   }
   
   //action
   const mapDispatchToProps = dispatch => {
     return bindActionCreators(
       {
+        AddCartNewItem_sendcal
       },
       dispatch
     )

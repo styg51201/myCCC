@@ -75,7 +75,7 @@ function Watch(props) {
   })
   const ItemPrice = props.data.map((val,ind)=>{
     if(props.ItemPrice.itemPrice < val.itemPrice || props.ItemPrice2.itemPrice2 > val.itemPrice){
-        console.log(val)
+        // console.log(val)
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
     }
   })

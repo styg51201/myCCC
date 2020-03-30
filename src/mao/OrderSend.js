@@ -18,7 +18,7 @@ import {
 function OrderSend(props){
 
     function test(){
-        console.log('I am OrderSend')
+        // console.log('I am OrderSend')
     }
         return (<>
             test

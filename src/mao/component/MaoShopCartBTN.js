@@ -10,7 +10,7 @@ import {
     Handle_AddMyFavorite,} from '../../mao/actions/ShopCartAction'
 
 function MaoShopCartBTN(productInfo,props) {
-console.log('What is BTN',props)
+// console.log('What is BTN',props)
   let RealCart = []
   let checkBox = []
   props.AddItem.map((v, i) => {
@@ -18,7 +18,7 @@ console.log('What is BTN',props)
     checkBox.push(v.itemId)
   })
   function checkCart(val) {
-    console.log(productInfo)
+    // console.log(productInfo)
     let index = checkBox.findIndex(e => e == val.itemId)
     if (index == -1) {
       val.count=1

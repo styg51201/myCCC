@@ -11,7 +11,7 @@ const [isSubmit,setIsSubmit]=useState(false)
 
         const hadnleChange = e=>{
         const {name, value}=e.target
-        console.log({values})
+        // console.log({values})
         setValues({
           ...values,
           [name]:value

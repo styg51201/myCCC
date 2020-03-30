@@ -43,7 +43,7 @@ function AdTest (props){
             return <img src={`/sty-img/${val.adImg}`}/>
         }
     })
-    console.log(props)
+    // console.log(props)
 
     return (
         <>
