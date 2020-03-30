@@ -55,29 +55,28 @@ function MemberSidebar(props) {
           </ListGroup.Item>
         </ListGroup>
       </div>
-      <div>
+      <div className="irene-openRWDbtn">
         <button
-          className="irene-openside-btn"
+          className="irene-openside-btn"    
           onClick={event => openNav(event)}
         >
-          打開sidebar
+          side
         </button>
       </div>
       <div className="irene-RWD-membersidebar irene-side-nav">
         <Nav className="flex-column">
-          <Nav.Link>
+          <Nav.Link>         
             <button
               className="irene-closeside-btn"
+              style={{textAlign:'left'}}
               onClick={event => closeNav(event)}
             >
-              關閉sidebar
+              X
             </button>
-          </Nav.Link>
-          <Nav.Link>
-            <div>
+          </Nav.Link>         
+            <div className="irene-image-div">
               <img className="image" src="https://fakeimg.pl/150x150/" alt="" />
-            </div>
-          </Nav.Link>
+            </div>          
           <Nav.Link>基本資料管理</Nav.Link>
           <Nav.Link>交易紀錄</Nav.Link>
           <Nav.Link>我的收藏</Nav.Link>

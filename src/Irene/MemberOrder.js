@@ -177,7 +177,7 @@ function MemberOrder(props) {
                 </tr>
               </thead>
               <tbody>
-                {props.data.map((v, i) => (
+              {props.data.map((v, i) => (
                   <tr>
                     <td>{v.created_at}</td>
                     <td className="irene-ordernumber">
@@ -203,7 +203,7 @@ function MemberOrder(props) {
                       <button className="irene-membercommentbtn">評價</button>
                     </td>
                   </tr>
-                ))}
+                ))}               
               </tbody>
             </Table>
           </div>
