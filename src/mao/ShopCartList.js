@@ -21,7 +21,7 @@ import MaoAD from './component/MaoAD'
 import './css/MaoAD.scss'
 import PicSlide from './component/PicSlide'
 import MaoMoveIcon from './MaoMoveIcon'
-import Test from './Test'
+import Test from './test'
 
 function ShopCartList(props) {
 

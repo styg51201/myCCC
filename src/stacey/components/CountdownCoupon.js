@@ -45,10 +45,10 @@ useEffect(()=>{
 
     props.fromServerCountdownCouponData(mb_id) 
 
-    const timer = setTimeout(() => {
+    let timer = setTimeout(() => {
         console.log('settimeout')
         props.fromServerCountdownCouponData(mb_id) 
-    }, countdownTime);
+    }, countdownTime*1000);
     console.log('countdownTime',countdownTime)
 
     return ()=> {clearTimeout(timer)

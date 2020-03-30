@@ -346,6 +346,9 @@ button {
 //效果
 .sty-coupon {
   .item {
+    animation-name: fadeIn;
+    animation-duration: 0.4s;
+
     cursor: pointer;
     &:hover {
       box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
@@ -485,5 +488,17 @@ button {
 
   100% {
     @include prefixed(transform, scale(1));
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
