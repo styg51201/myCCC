@@ -83,7 +83,7 @@ function Home(props2){
 
     if(mb_id){
         for(let i = 0 ; i < adForGroup.length;i++){
-            // console.log('4444',adForGroup[i].groupHistoryCategory)
+           
             if(adForGroup[i].groupHistoryItems){
                 if( hisItem.some((val,ind)=> val.name === adForGroup[i].planUsername)){
                     pushArr(adForGroup[i])
@@ -152,7 +152,7 @@ function Home(props2){
         }
     }
 
-    console.log('999',props2)
+   
 
     useInterval(()=>{
         setAdNum((adNum + 1)% adArr.length)
@@ -207,7 +207,7 @@ function Home(props2){
     }
 
     useEffect(()=>{
-        console.log("current ad:", adNum)
+        // console.log("current ad:", adNum)
     }, [adNum])
 const parallax = useRef()
 
