@@ -4,6 +4,9 @@ import { Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 import Swal from 'sweetalert2/dist/sweetalert2'
 
+import MemberSidebar from '../Irene/components/MemberSidebar'
+
+
 function MemberDrafts(){
 
     const [user, setUser] = useState(localStorage.getItem('userId'))
@@ -76,17 +79,8 @@ function MemberDrafts(){
 
     return(
         <>
-                    <Row>
-                <Col lg={3}>
-                    <div>
-                        <ul>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                        </ul>
-                    </div>
-                </Col>
+            <Row>
+                <MemberSidebar />
                 <Col lg={9} className='bk-member-main-container'>
                 <div className='bk-story-top'>
                         <h3>我的草稿</h3>

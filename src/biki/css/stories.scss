@@ -2,14 +2,13 @@
 @import '../css/all.scss';
 @import './myVars.scss';
 
-
-.bk-tags{
+.bk-tags {
   // margin-bottom: $spacing;
   font-size: $font-xs;
   display: flex;
   flex-wrap: wrap;
 
-  .bk-tag{
+  .bk-tag {
     color: $black;
     padding: $spacing/2 $spacing;
     background-color: $background;
@@ -17,12 +16,12 @@
     margin-bottom: $spacing;
 
     // span{
-      
+
     // }
   }
 
-  &.bk-dark{
-    .bk-tag{
+  &.bk-dark {
+    .bk-tag {
       background: $grey;
     }
   }
@@ -94,7 +93,7 @@
     .card-body {
       overflow: hidden;
 
-      h3{
+      h3 {
         font-size: $font-x;
         margin-bottom: $spacing;
       }
@@ -112,19 +111,19 @@
       border-top: none;
       margin-top: $spacing/2;
 
-      .bk-press-like{
+      .bk-press-like {
         padding-left: $spacing;
         border-left: solid 1px $grey;
-        transition: .3s;
+        transition: 0.3s;
 
-        &:hover{
+        &:hover {
           opacity: 0.5;
         }
 
-        &.active{
+        &.active {
           color: $blue;
         }
-        &.inactive{
+        &.inactive {
           opacity: 0.5;
           cursor: default;
         }
@@ -286,23 +285,23 @@
       width: 100%;
     }
 
-    .add-like{
-      svg{
+    .add-like {
+      svg {
         font-size: $font-x;
       }
 
-      .like{
+      .like {
         cursor: pointer;
 
-        &.disabled{
+        &.disabled {
           cursor: default;
           color: $grey;
           pointer-events: none;
         }
       }
 
-      &.active{
-        .like{
+      &.active {
+        .like {
           color: $blue;
         }
       }
@@ -451,11 +450,20 @@
 
 // ----- MEMBER STORY LIST PAGE ------
 
-.bk-story-top{
+.bk-member-nav-stories-list {
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.3s;
+
+  &.active {
+    max-height: 110px;
+  }
+}
+
+.bk-story-top {
   display: flex;
   justify-content: space-between;
 }
-
 
 .bk-story-list {
   li {

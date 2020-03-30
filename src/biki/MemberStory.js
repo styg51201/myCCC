@@ -5,6 +5,8 @@ import { withRouter } from 'react-router-dom'
 import {EditorState, convertFromRaw} from 'draft-js';
 import axios from 'axios'
 
+import MemberSidebar from '../Irene/components/MemberSidebar'
+
 
 function MemberStory(props){
     
@@ -30,26 +32,17 @@ function MemberStory(props){
 
     return(
         <Row>
-                <Col lg={3}>
-                    <div>
-                        <ul>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                            <li>fake list</li>
-                        </ul>
-                    </div>
-                </Col>
-                <Col lg={9} className='bk-member-main-container'>
-                    <h3>編輯故事</h3>
-                    <DraftEditorEdit
-                        type = 'story'
-                        content = {c}
-                        tags = {tgs}
-                        title = {t}
-                    />
-                </Col>
-            </Row>
+            <MemberSidebar />
+            <Col lg={9} className='bk-member-main-container'>
+                <h3>編輯故事</h3>
+                <DraftEditorEdit
+                    type = 'story'
+                    content = {c}
+                    tags = {tgs}
+                    title = {t}
+                />
+            </Col>
+        </Row>
     )
 }
 
