@@ -173,8 +173,6 @@ function Stories(props){
             </div>
 
             <main className="mt-5">
-            <Link to="/member/stories/drafts">Member Drafts (currently set to member 1)</Link>
-
                 <div className="bk-stories-container">
                     <Masonry
                         className={'my-gallery-class'} // default ''
