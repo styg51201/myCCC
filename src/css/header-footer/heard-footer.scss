@@ -1,5 +1,15 @@
 @import "../variables.scss";
 
+.bk-mobile-nav {
+  display: none;
+}
+.bk-mobile-side-nav {
+  display: none;
+}
+.bk-mobile-side-nav-backdrop {
+  display: none;
+}
+
 header {
   /* height: 310px; */
   /* background: #efefef; */

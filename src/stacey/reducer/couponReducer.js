@@ -4,7 +4,6 @@ export const getCouponData = (state=[],action)=>{
       case 'SHOW_VALUE':
         return action.value
       case 'PAGE_VALUE':
-        console.log('9999',action.value)
         return [...state,...action.value]
       case 'GET_VALUE':
         state[action.index].geted = true

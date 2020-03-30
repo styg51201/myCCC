@@ -19,7 +19,7 @@ import $ from 'jquery'
 import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
-console.log(props)
+// console.log(props)
 let LocalUser=localStorage.getItem('userId')||0
 const [user, setUser] = useState(localStorage.getItem('userId'))
 const [userName,setUserName]=useState('')
@@ -75,22 +75,32 @@ const { getMonth, getYear } = GetDayRange()
   //插入資料 開關
   const [getBuyerbasic, setGetBuyerbasic] = useState(true)
   function getbuyer(e) {
-
-    if (getBuyerbasic) {  
-      $('#buyerName').val(props.Userdata[0].Name)
-      $('#mobile').val(props.Userdata[0].PhoneNumber)
-      let newErr=errorBox.filter(e=>e!=='buyerName'&&e!=='mobile')
-      //驗證是否正確
-      setErrorBox(newErr) 
-      //錯誤提示文字
-      setErrors({...errors,mobile: '',buyerName: ''})
-      // 購買人資訊
-      setBuyerInfo({ ...buyerInfo, buyerName: props.Userdata[0].Name, mobile: props.Userdata[0].PhoneNumber })
-      setGetBuyerbasic(false)
+    if (getBuyerbasic) { 
+      if(props.Userdata[0]==null){
+        Swal.fire({
+          icon: 'info',
+          text: '會員資料不完整',
+        })
+        return false
+      }else{
+        $('#buyerName').val(props.Userdata[0].Name)
+        $('#mobile').val(props.Userdata[0].PhoneNumber)
+        let newErr=errorBox.filter(e=>e!=='buyerName'&&e!=='mobile')
+        //驗證是否正確
+        setErrorBox(newErr) 
+        //錯誤提示文字
+        setErrors({...errors,mobile: '',buyerName: ''})
+        // 購買人資訊
+        setBuyerInfo({ ...buyerInfo, buyerName: props.Userdata[0].Name, mobile: props.Userdata[0].PhoneNumber })
+        setGetBuyerbasic(false)
+      }
+      
     } else {
       $('#mobile').val('')
       $('#buyerName').val('')
       setBuyerInfo({ ...buyerInfo, buyerName: '', mobile: '' })
+      setErrorBox([...errorBox,'buyerName','mobile'])
+      // setErrorBox(newErr) 
       setGetBuyerbasic(true)
     }
   }
@@ -131,6 +141,7 @@ const { getMonth, getYear } = GetDayRange()
         if (getInfo2 == 'Seven-store') {
           getInfo2 = '7-11'
           let newErr=errorBox.filter(e=>e!=='shipping')
+          // console.log(getInfo2)
           setErrorBox(newErr)
           setErrors({...errors,shipping: ''})
         } else if (getInfo2 == 'HiLife') {
@@ -146,8 +157,8 @@ const { getMonth, getYear } = GetDayRange()
         }else{
           setErrors({ ...errors, shipping: '' })
           setBuyerInfo({ ...buyerInfo, shipping: getInfo2 })
-          buyerInfo.shipping = getInfo2
         }
+        buyerInfo.shipping = getInfo2
         break
       case 'payment':
         if(getInfo2=='COD'){
@@ -168,8 +179,8 @@ const { getMonth, getYear } = GetDayRange()
         }else{
           setErrors({ ...errors, payment: '' })
         setBuyerInfo({ ...buyerInfo, payment: getInfo2 })
-        buyerInfo.payment = getInfo2
         }
+        buyerInfo.payment = getInfo2
         break
       case 'invoice':
         if(getInfo2=='personal-invoice'){
@@ -189,9 +200,9 @@ const { getMonth, getYear } = GetDayRange()
           setErrors({...errors,invoice: ''})
         }else{
           setErrors({ ...errors, invoice: '' })
-          buyerInfo.invoice = getInfo2
         setBuyerInfo({ ...buyerInfo, invoice: getInfo2 })
         }
+        buyerInfo.invoice = getInfo2
         break
       default:
         break
@@ -209,7 +220,7 @@ const { getMonth, getYear } = GetDayRange()
     buyerInfo.orderId = order
   }, [ order])
   useEffect(() => {
-    console.log('看這裡吧~getCouponArr==',getCouponArr)
+    // console.log('看這裡吧~getCouponArr==',getCouponArr)
   }, [getCouponArr])
   useEffect(()=>{
 // console.log('errorBox',errorBox)

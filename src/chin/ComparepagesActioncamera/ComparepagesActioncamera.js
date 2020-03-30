@@ -14,10 +14,13 @@ import ComparepagesPhotographySpecifications from './components/ComparepagesPhot
 import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
+import {
+  AddCartNewItem_sendcal
+} from  '../../mao/actions/ShopCartAction'
 
 
 function ComparepagesHeadset(props){
-    console.log(props)
+  
   document.documentElement.scrollTop = document.body.scrollTop =0;
 return(
     <>
@@ -39,7 +42,7 @@ return(
                             <div className="chin-item">
                             <Link to={'/commidty/'+ val.itemId}><button>了解更多</button></Link>
                             <Link to='/OrderInfo' onClick={()=>{
-                              props.AddCartNewItem_sendcal(props.data[0],props.AddItem)
+                              props.AddCartNewItem_sendcal(val,props.AddItem)
                             }}>立即購買</Link>
                             </div>
                         </div>
@@ -57,13 +60,14 @@ return(
 }
 // 選擇對應的reducer
 const mapStateToProps = store => {
-    return {compare:store.getItemscompare,}
+    return {compare:store.getItemscompare,
+      AddItem:store.AddItem}
   }
   
   //action
   const mapDispatchToProps = dispatch => {
     return bindActionCreators(
-      {
+      {AddCartNewItem_sendcal
       },
       dispatch
     )

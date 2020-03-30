@@ -13,7 +13,6 @@ export const formServerItemsData = val => {
     const res = await fetch(request)
     const data = await res.json()
 
-    console.log('ffff', data)
     dispatch(showItems(data))
   }
 }
@@ -47,8 +46,6 @@ export const commidtyItemId = val => {
     })
     const res = await fetch(request)
     const data = await res.json()
-    console.log()
-    console.log('lllllll', data)
     dispatch(showItemId(data))
   }
 }
@@ -67,7 +64,6 @@ export const multiple_imagesItemId = val => {
     )
     const res = await fetch(request)
     const data = await res.json()
-    console.log('mmmmmmm', data)
     dispatch(showMultipleItemId(data))
   }
 }
@@ -145,7 +141,6 @@ export const ListItemPrice = (val)=>{
   }
 }
 export const ListItemPrice2 = (val)=>{
-  console.log(val)
   if(val){
     return { type: 'ITEMPRICE_VALUETWO', value: val }
   }
@@ -185,3 +180,23 @@ export const ItemscompareNo = (val, product, data) => {
     const newdata = []
     return { type: 'ITEMNAME_RESETCOM', value: newdata }
   }
+//-----------------------------usercomments--------------------------------------------
+//回傳usercomments
+export const showUsers = val => {
+  return { type: 'SHOW_USER', value: val }
+}
+//跟node要usercomments資料
+export const formServerUsersData = val => {
+  return async dispatch => {
+    const request = new Request(`http://localhost:5500/items/users/${val}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+
+    dispatch(showUsers(data))
+  }
+}
+
+

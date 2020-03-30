@@ -1,6 +1,6 @@
-@import "../../css/variables.scss";
+@import '../../css/variables.scss';
 
-@import "./myVars.scss";
+@import './myVars.scss';
 
 .bk-page-load {
   width: 100%;
@@ -92,6 +92,7 @@
 
       &.hidden {
         // visibility: hidden;
+        pointer-events: none;
       }
 
       .bk-ad-block {
@@ -173,8 +174,12 @@
         h3 {
           margin-bottom: $spacing;
         }
-        button {
+        a {
+          // cursor: pointer;
           margin-top: $spacing;
+          &:hover {
+            color: $white;
+          }
         }
       }
     }
@@ -224,6 +229,10 @@
 }
 
 /* ----FEATURED PRODUCTS----- */
+
+.bk-mb-featured-title {
+  display: none;
+}
 
 .bk-featured-products {
   position: relative;

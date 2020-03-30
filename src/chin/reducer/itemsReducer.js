@@ -30,10 +30,10 @@ export const getMultipleItemId = (state = [], action) => {
 export const getListitemName = (state = [], action) => {
   switch (action.type) {
     case 'ITEMNAME_VALUE':
-      console.log('新增',action.value )
+    
       return action.value
     case 'ITEMNAME_RESET':
-      console.log('清空')
+
       return action.value
     default:
       return state
@@ -65,8 +65,6 @@ export const showDiscount = (state ={isShow:false,value:{}}, action) => {
 
 //------------------chin Price------------------------
 export const getListitemPrice = (state = [], action) => {
-  console.log(action)
-  console.log(state)
   switch (action.type) {
     case 'ITEMPRICE_VALUE':
       return action.value
@@ -75,8 +73,6 @@ export const getListitemPrice = (state = [], action) => {
   }
 }
 export const getListitemPrice2 = (state = [], action) => {
-  console.log(action)
-  console.log(state)
   switch (action.type) {
     case 'ITEMPRICE_VALUETWO':
       return action.value
@@ -88,7 +84,6 @@ export const getListitemPrice2 = (state = [], action) => {
 }
 //------------------chin ItemNamehis--------
 export const getItemNamehis = (state = [], action) => {
-  console.log(action,state)
   switch (action.type) {
     case 'SHOW_ITEMSHIS':
       return action.value
@@ -107,13 +102,20 @@ export const getitemCategoryId = (state = [], action) => {
 }
 ///------------------------chin Itemscompare-------------
 export const getItemscompare = (state=[],action)=>{
-  // console.log(action)
-  // console.log(state)
   switch(action.type){
     case 'NP_COMPARE':
       return action.value
     case 'ITEMNAME_RESETCOM':
       return []
+    default:
+      return state
+  }
+}
+//-----------------------chin UsersData--------------------
+export const getUsersData = (state=[],action)=>{
+  switch(action.type){
+    case 'SHOW_USER':
+      return action.value
     default:
       return state
   }

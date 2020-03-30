@@ -17,11 +17,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {fromServerCouponData} from './actions/couponAction'
 
-//icon
-import { IconContext } from 'react-icons'
-import {
-  FiChevronDown
-} from 'react-icons/fi'
+
 
 
 function GetCoupon(props) {

@@ -98,12 +98,13 @@
   color: #0ac3ae;
   font-size: 30px;
 }
-.chin-starimg img {
-  width: 20px;
-  height: 20px;
+.chin-starimg {
+  padding: 5px;
   margin: 25px 4px 30px 4px;
 }
-
+.chin-starimg span {
+  font-size: 20px;
+}
 .chin-myfavourite-shopping {
   margin-top: 200px;
   display: flex;
@@ -279,13 +280,55 @@
   color: #050505;
 }
 .chin-discusspost {
+  display: none;
   margin: 40px 0;
   height: 0px;
   background: #fff;
+  transition: 0.3s;
+  padding-top: 40px;
+}
+.chin-disclopsaa {
+  margin: 0 auto;
+  width: 900px;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.chin-disclopsaa p {
+  margin: 20px 0 0 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+.chin-disclopsaa input {
+  width: 900px;
+}
+.chin-disclopsaa textarea {
+  width: 900px;
+  height: 250px;
   transition: 0.5s;
+  resize: none;
+}
+.chin-loopkpi {
+  display: flex;
+  justify-content: flex-end;
+  width: 900px;
+  margin: 35px auto 0;
+}
+.chin-loopkpi button:nth-child(1) {
+  width: 120px;
+  background: #a0a0a0;
+  border: none;
+}
+.chin-loopkpi button:nth-child(2) {
+  width: 220px;
+  background: #0ac3ae;
+  border: none;
+  margin-left: 20px;
 }
 .chin-usercomment-fractionalstars.active {
   .chin-discusspost {
+    display: block;
     height: 660px;
     background: #fff;
   }
@@ -312,10 +355,14 @@
   width: 885px;
   display: flex;
   flex-direction: column;
-  margin: 0 auto;
+  margin: 20px auto 0;
 }
 .chin-avatar-name-p p {
   padding: 30px 10px 20px 20px;
+}
+.chin-avatar-name-p h1 {
+  padding: 30px 10px 20px 20px;
+  font-size: 22px;
 }
 .chin-avatar-name-p a {
   text-align: right;
@@ -457,6 +504,7 @@
   opacity: 0;
   width: 15px;
   height: 15px;
+  color: #ffdd00;
 }
 .chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(1) > .chin-star2 {
   opacity: 1;
@@ -468,6 +516,7 @@
   width: 15px;
   height: 15px;
   left: 0;
+  color: #ffdd00;
 }
 .chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(2) > .chin-star2 {
   opacity: 1;
@@ -480,6 +529,7 @@
   width: 15px;
   height: 15px;
   left: 0;
+  color: #ffdd00;
 }
 .chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(3) > .chin-star2 {
   opacity: 1;
@@ -492,6 +542,7 @@
   width: 15px;
   height: 15px;
   left: 0;
+  color: #ffdd00;
 }
 .chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(4) > .chin-star2 {
   opacity: 1;
@@ -504,6 +555,7 @@
   width: 15px;
   height: 15px;
   left: 0;
+  color: #ffdd00;
 }
 .chin-commodity-item2:hover .chin-star-heart-bag2 :nth-child(5) > .chin-star2 {
   opacity: 1;
@@ -543,6 +595,7 @@
   display: flex;
   flex-direction: column;
 }
+
 /*--------------RWD-----------------------------*/
 .chin-rwd-avatar-circle-circle {
   display: none;
@@ -630,6 +683,7 @@
   .chin-usercomment {
     justify-content: space-between;
     margin: 0;
+    border-bottom: 1px solid #050505;
   }
   .chin-fractional {
     display: flex;

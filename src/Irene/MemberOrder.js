@@ -5,7 +5,7 @@ import {
   Switch,
   withRouter,
 } from 'react-router-dom'
-import { Form, Button, Table } from 'react-bootstrap'
+import { Form, Button, Table, Modal, Row, Col, Toast } from 'react-bootstrap'
 
 import MemberSidebar from './components/MemberSidebar'
 import './I_css/MemberOrder.scss'
@@ -26,49 +26,68 @@ function MemberOrder(props) {
 
   const [startDate, setStartDate] = useState(new Date('2020/01/01'))
   const [endDate, setEndDate] = useState(new Date(new Date()))
+
+  // for訂單細節內容彈出
+  const [showA, setShowA] = useState(false)
+  const [searchbar, setSearchbar] = useState('')
+
+  const toggleShowA = () => setShowA(!showA)
+
   // let orderdata = JSON.stringify(props.data)
   // console.log('orderdata', orderdata)
-
-  // if (props.data[0]) {
-  //   for (let i = 0; i <= props.data.length; i++) {
-  //     let created_at = props.data[i].created_at
-  //     let orderId = props.data[i].orderId
-  //     let outStatus = props.data[i].outStatus
-  //     <tr>
-  //     <td>{created_at}</td>
-  //     <td>
-  //       {orderId}
-  //       <button
-  //         class="btn memberorderdetail"
-  //         type="button"
-  //         data-toggle="collapse"
-  //         data-target="#collapseExample"
-  //         aria-expanded="false"
-  //         aria-controls="collapseExample"
-  //       >
-  //         <FaInfoCircle />
-  //       </button>
-  //     </td>
-  //     <td>{outStatus}</td>
-  //     <td>
-  //       <button className="irene-memberreturnbtn">退貨</button>
-  //     </td>
-  //     <td>
-  //       <button className="irene-membercommentbtn">評價</button>
-  //     </td>
-  //   </tr>
-
-  //   }
-  // } else {
-  //   let created_at = ' '
-  //   let orderId = ' '
-  //   let outStatus = ''
-  // }
 
   useEffect(() => {
     // $('.memberorderdetail').click(() => alert('click'))
     props.getServerMemberOrder()
   }, [])
+
+  function ShowMyOrderDetail() {
+    return (
+      <Row>
+        <Col xs={6}>
+          <Toast show={showA} onClose={toggleShowA}>
+            <Toast.Header>
+              <img
+                src="holder.js/20x20?text=%20"
+                className="rounded mr-2"
+                alt=""
+              />
+              <strong className="mr-auto">Bootstrap</strong>
+              <small>11 mins ago</small>
+            </Toast.Header>
+            <Toast.Body>
+              Woohoo, you're reading this text in a Toast!
+            </Toast.Body>
+          </Toast>
+        </Col>
+        <Col xs={6}>
+          <Button onClick={toggleShowA}>
+            Toggle Toast <strong>with</strong> Animation
+          </Button>
+        </Col>
+      </Row>
+    )
+  }
+
+  useEffect(() => {
+    // var searchword = $('.searchbar').val()
+    console.log('searchword', searchbar)
+    if (searchbar !== '') {
+      $('.irene-ordernumber')
+        .parent('tr')
+        .css('display', 'none')
+      $('.irene-ordernumber')
+        .find(":contains('" + searchbar + "')")
+        .parent()
+        .parent('tr')
+        .css('display', 'table-row')
+    } else {
+      $('.irene-ordernumber')
+        .parent('tr')
+        .css('display', 'table-row')
+      console.log('nothing')
+    }
+  }, [searchbar])
 
   return (
     <>
@@ -92,15 +111,16 @@ function MemberOrder(props) {
                       type={type}
                       name={type}
                     />
+
                     <Form.Check
                       inline
-                      label="未出貨訂單"
+                      label="1年內訂單"
                       type={type}
                       name={type}
                     />
                     <Form.Check
                       inline
-                      label="1年內訂單"
+                      label="未出貨訂單"
                       type={type}
                       name={type}
                     />
@@ -130,9 +150,13 @@ function MemberOrder(props) {
                 />
               </div>
             </div>
-            <div>
+            <div style={{ marginTop: '10px' }}>
               <span>訂單編號：</span>
-              <input type="text"></input>
+              <input
+                type="text"
+                className="searchbar"
+                onChange={e => setSearchbar(e.target.value)}
+              ></input>
             </div>
             <div className="text-right">
               <Button className="querysubmit text-right" variant="dark">
@@ -145,7 +169,7 @@ function MemberOrder(props) {
               {/* 抓取訂單資料 */}
               <thead>
                 <tr>
-                  <th>購買時間</th>
+                  <th>訂單成立時間</th>
                   <th>訂單編號</th>
                   <th>訂單狀態</th>
                   <th>退貨</th>
@@ -153,20 +177,22 @@ function MemberOrder(props) {
                 </tr>
               </thead>
               <tbody>
-                {props.data.map((v, i) => (
+              {props.data.map((v, i) => (
                   <tr>
                     <td>{v.created_at}</td>
-                    <td>
-                      {v.orderId}
+                    <td className="irene-ordernumber">
+                      <span>{v.orderId}</span>
                       <button
                         class="btn memberorderdetail"
                         type="button"
-                        data-toggle="collapse"
-                        data-target="#collapseExample"
-                        aria-expanded="false"
-                        aria-controls="collapseExample"
+                        id={i}
+                        onClick={() => setShowA(true)}
                       >
                         <FaInfoCircle />
+                        {/* <ShowMyOrderDetail
+                          show={modalShow}
+                          onHide={() => setModalShow(false)}
+                        /> */}
                       </button>
                     </td>
                     <td>{v.outStatus}</td>
@@ -177,7 +203,7 @@ function MemberOrder(props) {
                       <button className="irene-membercommentbtn">評價</button>
                     </td>
                   </tr>
-                ))}
+                ))}               
               </tbody>
             </Table>
           </div>

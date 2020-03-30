@@ -1,0 +1,114 @@
+@import '../../css/variables.scss';
+
+@media (max-width: $bp-sm) {
+  .chin-bigtitle,
+  .chin-product,
+  .chin-black,
+  .bk-nav-side {
+    display: none;
+  }
+
+  //   .bk-home-container {
+  //     .container {
+  //       margin-top: 0;
+  //     }
+  //   }
+
+  .bk-mobile-nav {
+    display: flex;
+    height: 90px;
+    justify-content: center;
+    align-items: center;
+    background-color: $black;
+    width: 100%;
+    position: fixed;
+    transition: 0.3s;
+    top: 0;
+
+    &.hide {
+      transform: translateY(-100px);
+    }
+
+    .bk-nav-menu-icon {
+      height: 18px;
+      width: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: absolute;
+      left: $spacing;
+      top: 50%;
+      margin-top: -9px;
+      cursor: pointer;
+
+      span {
+        display: block;
+        width: 100%;
+        height: 3px;
+        background-color: $white;
+      }
+    }
+
+    .bk-nav-logo {
+      text-align: center;
+      img {
+        width: 160px;
+      }
+    }
+  }
+
+  .bk-mobile-nav-append {
+    width: 100%;
+    height: 90px;
+  }
+
+  .bk-mobile-side-nav {
+    display: block;
+    position: fixed;
+    background-color: $black;
+    top: 0;
+    height: 100%;
+    width: 80%;
+    left: -100%;
+    transition: 0.3s;
+    z-index: 1;
+
+    .side-logo {
+      padding-left: $spacing;
+      margin: $spacing * 2 0;
+      img {
+        width: 40px;
+      }
+    }
+
+    ul {
+      li {
+        a {
+          display: block;
+          padding: $spacing $spacing;
+          color: $white;
+        }
+      }
+    }
+
+    &.open {
+      left: 0%;
+    }
+  }
+  .bk-mobile-side-nav-backdrop {
+    display: block;
+    position: fixed;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    transition: 0.3s;
+
+    &.open {
+      pointer-events: auto;
+      background-color: rgba($black, 0.5);
+    }
+  }
+}

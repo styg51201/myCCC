@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/allitems', (req, res)=>{
-    let sql='SELECT * FROM `items` ORDER BY RAND() LIMIT 25'
+    let sql='SELECT * FROM `items` ORDER BY RAND() LIMIT 24'
     db.queryAsync(sql)
     .then(r=>{
         return res.json(r)
@@ -70,6 +70,13 @@ router.get('/itemCategoryId/:itemCategoryId?/:headphone?',(req,res)=>{
     }
     console.log('req.params',req.params)
     db.queryAsync(sql,[newParms])
+    .then(r=>{
+        return res.json(r)
+    })
+})
+router.get('/users/:itemId?',(req,res)=>{
+    let sql='SELECT * FROM `user_comment` WHERE `productId` = ?'
+    db.queryAsync(sql,[req.params.itemId])
     .then(r=>{
         return res.json(r)
     })

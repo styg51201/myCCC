@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- 主機： 127.0.0.1
 -- 產生時間： 
--- 伺服器版本： 10.4.8-MariaDB
--- PHP 版本： 7.3.10
+-- 伺服器版本： 10.4.10-MariaDB
+-- PHP 版本： 7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;

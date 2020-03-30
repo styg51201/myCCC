@@ -21,6 +21,10 @@
   }
 }
 
+.irene-openside-btn {
+  display: none;
+}
+
 .Irene_submit {
   // width: 300px;
   @include buttonTheme(blackStyle);
@@ -38,68 +42,72 @@
     // color: red;
   }
 }
-
-// for RWD hamburger sidemenu
 .irene-RWD-membersidebar {
   display: none;
 }
-.irene-side-nav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 100px;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 60px;
-  transition: 0.5s;
-  a {
-    padding: 8px 8px 8px 32px;
-    text-decoration: none;
-    font-size: $font-xs;
-    color: #818181;
-    display: block;
-    transition: 0.3s;
-    :hover {
-      color: #f1f1f1;
-    }
-  }
-  img {
-    border-radius: 50%;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.irene-openside-btn {
-  position: absolute;
-  top: 0;
-  left: 0;
-  font-size: $font-xs;
-  margin-left: 50px;
-  z-index: 10;
-  text-align: right;
-}
-
-.irene-closeside-btn {
-  position: absolute;
-  top: 0;
-  left: 25px;
-  font-size: $font-xs;
-  margin-left: 50px;
-}
-
-// sidebar RWD
-@media (max-width: 576px) {
+// for RWD hamburger sidemenu
+@media (max-width: $bp-sm) {
   .membersidebar {
     display: none;
   }
   .irene-RWD-membersidebar {
+    margin-top: -10px;
     display: block;
     input {
       text-align: center;
     }
+  }
+  .irene-side-nav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 100px;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    a {
+      text-decoration: none;
+      font-size: $font-m;
+      color: #818181;
+      display: block;
+      transition: 0.3s;
+      // padding-bottom: 30px;
+      :hover {
+        color: #f1f1f1;
+      }
+    }
+
+    img {
+      display: block;
+      border-radius: 50%;
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .irene-openside-btn {
+    // display: flex;
+    // justify-content: right;
+    position: absolute;
+    display: block;
+    top: 90px;
+    right: 0px;
+    font-size: $font-xs;
+    // margin-left: 50px;
+    z-index: 0;
+    text-align: right;
+  }
+  .irene-closeside {
+    display: flex;
+  }
+  .irene-closeside-btn {
+    position: absolute;
+    top: 0;
+    left: -10px;
+    font-size: $font-m;
   }
 }

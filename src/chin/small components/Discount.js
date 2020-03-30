@@ -17,7 +17,7 @@ function Discount(props){
     const [dis,setDis] = useState(true)
 
     const DiscountClassName= classNames('chin-discount',{active:dis})
-    console.log('dis',props.data)
+
 
     let object,rule,discount
 

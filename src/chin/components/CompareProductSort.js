@@ -23,7 +23,6 @@ import {
 } from '../actions/itemsActions'
 
 function CompareProductSort(props) {
-  console.log(props)
   const [featuredproducts, setFeaturedproducts] = useState(false)
   const [sortname, setSortname] = useState('排序方式')
   const SortClassName = classNames('chin-sort-featuredproducts', {

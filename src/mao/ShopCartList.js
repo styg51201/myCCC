@@ -21,7 +21,6 @@ import MaoAD from './component/MaoAD'
 import './css/MaoAD.scss'
 import PicSlide from './component/PicSlide'
 import MaoMoveIcon from './MaoMoveIcon'
-import Test from './test'
 
 function ShopCartList(props) {
 
@@ -29,9 +28,13 @@ function ShopCartList(props) {
   const [loaded, setLoaded] = useState(false)
   const [newItem,setNewItem] =useState(false)
   const currentHisitem = localStorage.getItem('hisitem') || []
+  
   useEffect(() => {
     setLoaded(true)
   }, [])
+
+
+
 
   // 購物車內容
   const dataList = props.AddItem.map((v, i) => {

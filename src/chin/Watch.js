@@ -24,7 +24,6 @@ import {fromServerMbLikeData} from '../stacey/actions/couponAction'
 
 
 function Watch(props) {
-  console.log(props)
   const [englishnameWatch, setEnglishnameWatch] = useState('WEARABLE DEVICES')
   const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
@@ -34,7 +33,6 @@ function Watch(props) {
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
 
-  console.log('mbLikeData',props.mbLikeData)
 
 
   useEffect(() => {
@@ -76,9 +74,8 @@ function Watch(props) {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
   const ItemPrice = props.data.map((val,ind)=>{
-    console.log(props.ItemPrice.itemPrice < val.itemPrice && props.ItemPrice2.itemPrice2 > val.itemPrice)
     if(props.ItemPrice.itemPrice < val.itemPrice || props.ItemPrice2.itemPrice2 > val.itemPrice){
-        console.log(val)
+        // console.log(val)
       return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
     }
   })

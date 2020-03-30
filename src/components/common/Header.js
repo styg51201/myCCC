@@ -3,13 +3,16 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Container } from 'react-bootstrap'
 import logo from '../../logo.svg'
 import '../../css/header-footer/heard-footer.scss'
+import '../../css/header-footer/headerFooterRWD.scss'
 import { Link } from 'react-router-dom'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {AddCart} from '../../mao/actions/ShopCartAction'
+import { AddCart } from '../../mao/actions/ShopCartAction'
 //icons
 // import { IconContext } from 'react-icons'
+import useDocumentScrollThrottled from '../../biki/utils/useDocumentScrollThrottled'
+
 import {
   FiSearch,
   FiUser,
@@ -22,17 +25,32 @@ import {
 import $ from 'jquery'
 
 function Header(props) {
-  console.log(props)
   const [scrolled, setScrolled] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const [searchBlurTime, setSearchBlurTime] = useState(0)
   const [searchTxt, setSearchTxt] = useState('')
   const [member, setMember] = useState(true)
 
+  const [hideMobileNav, setHideMobileNav] = useState(false)
+  const [showMobileNav, setShowMobileNav] = useState(false)
+
+  const [showMobileSideNav, setShowMobileSideNav] = useState(false)
+
   useEffect(() => {
     const product = document.querySelector('.chin-bigtitle img').offsetTop
     const height = product - 20
-    window.addEventListener('scroll', () => {
+
+    //會員登出功能
+    $('.irene_member_logout').click(function() {
+      localStorage.removeItem('userdata')
+      localStorage.removeItem('userId')
+      localStorage.removeItem('cartItem')
+      localStorage.removeItem('hisitem')
+      window.location.replace('http://localhost:3000/memberlogin')
+    })
+
+    const handleNavBar = () => {
+      //chin nav
       const isTop = window.scrollY < height
       if (isTop !== true) {
         setScrolled(true)
@@ -65,40 +83,47 @@ function Header(props) {
           .classList.remove('chin-three-positioncome')
         document.querySelector('.chin-black').classList.remove('chin-blackcome')
       }
-    })
+    }
 
-    //會員登出功能
-    $('.irene_member_logout').click(function() {
-      localStorage.removeItem('userdata')
-      localStorage.removeItem('userId')
-      window.location.replace('http://localhost:3000/memberlogin')
-    })
+    window.addEventListener('scroll', handleNavBar)
+
+    return ()=>{
+      window.removeEventListener('scroll', handleNavBar)
+    }
     
-
   }, [])
 
   const inputRef = useRef(null)
 
   useEffect(() => {
-    console.log(openSearch)
-    if(!openSearch){
-        inputRef.current.blur()
+    if (!openSearch) {
+      inputRef.current.blur()
     }
   }, [openSearch])
+
+  useDocumentScrollThrottled(callbackData=>{
+    const {previousScrollTop, currentScrollTop} = callbackData
+    const isScrolledDown = previousScrollTop < currentScrollTop
+    const isMinimunScrolled = currentScrollTop > 500
+
+    setTimeout(()=>{
+      setHideMobileNav(isScrolledDown && isMinimunScrolled)
+    }, 100)
+  })
 
 
   const handleOpenSearch = () => {
     if (new Date().getTime() - searchBlurTime > 300) {
       if (!openSearch) {
         setOpenSearch(true)
-        console.log('serach open')
+        // console.log('serach open')
         inputRef.current.focus()
       }
     }
   }
 
   const handleSearch = evt => {
-    console.log(evt.key)
+    // console.log(evt.key)
     if (evt.key === 'Enter') {
       if (!evt.target.value.trim().length) {
         //console.log('沒有值')
@@ -112,7 +137,7 @@ function Header(props) {
   }
 
   const handleSearchBlur = evt => {
-    console.log("blur")
+    // console.log('blur')
     setSearchBlurTime(new Date().getTime())
     setOpenSearch(false)
     setSearchTxt('')
@@ -121,6 +146,12 @@ function Header(props) {
   const handleSearchText = evt => {
     setSearchTxt(evt.target.value)
   }
+
+  const toggleSideNav = ()=>{
+    setShowMobileSideNav(!showMobileSideNav)
+  }
+
+
   let memberstate = localStorage.getItem('userdata')
   // console.log('memberstate', memberstate)
   const navbar = (
@@ -169,67 +200,68 @@ function Header(props) {
           </div>
         </Container>
       </div>
-      <div>
+      <div className='bk-nav-side'>
         {memberstate ? (
           <>
-          <Link to="/memberedit">
-            <img
-              src="/img/header-footer/user.svg"
-              alt=""
-              className="chin-three-position"
-            />
-          </Link>
-          <Link to="/member/ShopCartList">
-          <img
-            src="/img/header-footer/shopping-bag.svg"
-            alt=""
-            className="chin-three-position2"
-          />
-        </Link>
-        <Link to="/member/ShopCartLike">
-          <img
-            src="/img/header-footer/heart.svg"
-            alt=""
-            className="chin-three-position3"
-          />
-        </Link>
-          <Link to="/memberlogin">
-            <div className="chin-three-position4 irene_member_logout">
-              <FiLogOut
-                style={{
-                  width: '24px',
-                  height: '24px',
-                  color: 'black',
-                }}
+            <Link to="/memberedit">
+              <img
+                src="/img/header-footer/user.svg"
+                alt=""
+                className="chin-three-position"
               />
-            </div>
-          </Link>
+            </Link>
+            <Link to="/member/ShopCartList">
+              <img
+                src="/img/header-footer/shopping-bag.svg"
+                alt=""
+                className="chin-three-position2"
+              />
+            </Link>
+            <Link to="/member/ShopCartLike">
+              <img
+                src="/img/header-footer/heart.svg"
+                alt=""
+                className="chin-three-position3"
+              />
+            </Link>
+            <Link to="/memberlogin">
+              <div className="chin-three-position4 irene_member_logout">
+                <FiLogOut
+                  style={{
+                    width: '24px',
+                    height: '24px',
+                    color: 'black',
+                  }}
+                />
+              </div>
+            </Link>
           </>
         ) : (
           <>
-          <Link to="/memberlogin">
-            <img
-              src="./img/header-footer/user.svg"
-              alt=""
-              className="chin-three-position"
-            />
-          </Link>
-          <Link to="/member/ShopCartList">
-          <img
-            src="/img/header-footer/shopping-bag.svg"
-            alt=""
-            className="chin-three-position2"
-          />
-        </Link>
-        <Link to="/member/ShopCartLike">
-          <img
-            src="/img/header-footer/heart.svg"
-            alt=""
-            className="chin-three-position3"
-          />
-        </Link>
-          <div className="chin-three-position4 irene_member_logout"> </div></>
-        )} 
+            <Link to="/memberlogin">
+              <img
+                src="./img/header-footer/user.svg"
+                alt=""
+                className="chin-three-position"
+              />
+            </Link>
+            <Link to="/member/ShopCartList">
+              <img
+                src="/img/header-footer/shopping-bag.svg"
+                alt=""
+                className="chin-three-position2"
+              />
+            </Link>
+            <Link to="/member/ShopCartLike">
+              <img
+                src="/img/header-footer/heart.svg"
+                alt=""
+                className="chin-three-position3"
+              />
+            </Link>
+            <div className="chin-three-position4 irene_member_logout"> </div>
+          </>
+        )}
       </div>
     </>
   )
@@ -301,12 +333,12 @@ function Header(props) {
           </div>
           <div className="nav-icons-wrapper">
             <Link to="/member/ShopCartList">
-            <div className="Mao-items-Num">
-              <div className="nav-icons">
-                <div className="Mao-items-abs">{props.AddItem.length}</div>
-                <FiShoppingBag />
+              <div className="Mao-items-Num">
+                <div className="nav-icons">
+                  <div className="Mao-items-abs">{props.AddItem.length}</div>
+                  <FiShoppingBag />
+                </div>
               </div>
-            </div>
             </Link>
             <Link to="/member/ShopCartLike">
               <div className="nav-icons">
@@ -341,11 +373,80 @@ function Header(props) {
       </Container>
     </>
   )
+
+  const mobileNav = (
+    <>
+      <div className={`bk-mobile-nav${hideMobileNav ? ' hide' : ''}`}>
+        <div className='bk-nav-menu-icon' onClick={toggleSideNav}>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div className='bk-nav-logo'>
+          <Link to='/'>
+          <img src={logo} />
+          </Link>
+        </div>
+      </div>
+      <div className='bk-mobile-nav-append'></div>
+    </>
+  )
+
+  const mobileSideNav = (
+    <>
+    <div className={`bk-mobile-side-nav${showMobileSideNav ? ' open' : ''}`}>
+      <div className='side-logo' onClick={toggleSideNav}>
+        <Link to='/'>
+           <img src='/biki-img/cccLogo.svg' />
+        </Link>
+      </div>
+      <ul>
+        <li onClick={toggleSideNav}>
+          <Link to='/watch'>穿戴式裝置</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/headset'>耳機 / 喇叭</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/actioncamera'>運動攝影機</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/surrounding'>周邊</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/getCoupon'>優惠卷</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          <Link to='/stories'>故事牆</Link>
+        </li>
+        <li onClick={toggleSideNav}>
+          {localStorage.getItem('userId') 
+          ? 
+          (<Link to='/memberedit'>會員</Link>) : 
+          (<Link to='/memberlogin'>登入</Link>)
+          }
+        </li>
+        {localStorage.getItem('userId') ? 
+        (<li onClick={toggleSideNav} className="irene_member_logout">
+          <Link to='/memberlogin'>登出</Link>
+        </li>)
+        : ''}
+      </ul>
+    </div>
+    <div 
+    className={`bk-mobile-side-nav-backdrop${showMobileSideNav ? ' open' : ''}`}
+    onClick={toggleSideNav}
+    ></div>
+    </>
+  )
+
   return (
     <>
       <header>
         {headershow}
         {navbar}
+        {mobileNav}
+        {mobileSideNav}
       </header>
     </>
   )
@@ -361,11 +462,10 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      AddCart
+      AddCart,
     },
     dispatch
   )
 }
 // export default withRouter(Header)
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Header))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))

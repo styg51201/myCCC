@@ -33,7 +33,6 @@ function Headset(props) {
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
 
-  console.log('mbLikeData',props.mbLikeData)
 
 
   useEffect(() => {

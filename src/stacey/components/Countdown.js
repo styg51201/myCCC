@@ -1,17 +1,9 @@
 import React ,{useEffect,useState} from 'react'
-import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom'
 
-import classNames from 'classnames'
 import moment from 'moment'
-
 
 import '../css/countdown.scss'
 
-//redux
-import { connect } from 'react-redux'
-//action
-import { bindActionCreators } from 'redux'
-import {} from '../actions/couponAction'
 
 function Countdown(props){
 
@@ -27,7 +19,7 @@ const hour = Math.floor(props.countdownTime/3600)
 const min = Math.floor( (props.countdownTime % 3600)/ 60 )
 const sec = Math.floor( (props.countdownTime % 3600) % 60 )
 
-// console.log(`${hour}小時 ${min} 分鐘 ${sec}秒`)
+
 
 // let min = 10
 // let sec = 10
@@ -81,7 +73,8 @@ hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
                   </p>
                 </div>
                 <div>
-                    <p className="hour-one" style={hourOneStyle}>
+                    {/* <p className="hour-one" style={hourOneStyle}> */}
+                    <p className="hour-one">
                         <span>0</span>
                         <span>9</span>
                         <span>8</span>
@@ -163,17 +156,7 @@ hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
 
 }
 
-// 選擇對應的reducer
-const mapStateToProps = store => {
-    return {  filterList: store.filterCoupon,}
-  }
-  
-  //action
-  const mapDispatchToProps = dispatch =>{
-    return bindActionCreators({
-      
-    },dispatch)
-  }
+
   
   
-  export default connect(mapStateToProps,mapDispatchToProps)(Countdown)
+export default Countdown

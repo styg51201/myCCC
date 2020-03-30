@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../I_css/MemberEdit.scss'
 import { Form, ListGroup, Button } from 'react-bootstrap'
 import Nav from 'react-bootstrap/Nav'
@@ -22,6 +22,11 @@ function MemberSidebar(props) {
   //     document.getElementById('mySidenav').style.width = '250px'
   //   })
   // })
+
+  const [storyListOpen, setStoryListOpen] = useState(false)
+  const toggleStories = ()=>{
+    setStoryListOpen(!storyListOpen)
+  }
   return (
     <>
       {/* 要加<div className="row d-flex justify-content-center">才可以flex */}
@@ -51,33 +56,37 @@ function MemberSidebar(props) {
             <Nav.Link href="/memberedit/memberCoupon">優惠券</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
-            <Nav.Link href="/member/stories">我的故事</Nav.Link>
+            <div onClick={toggleStories} role='button'>我的故事</div>
+            <div className={`bk-member-nav-stories-list${storyListOpen ? ' active' : ''}`}>
+              <Nav.Link href="/member/upload-stories">寫故事</Nav.Link>
+              <Nav.Link href="/member/stories">已發布故事</Nav.Link>
+              <Nav.Link href="/member/stories/drafts">草稿</Nav.Link>
+            </div>
           </ListGroup.Item>
         </ListGroup>
       </div>
-      <div>
+      <div className="irene-openRWDbtn">
         <button
-          className="irene-openside-btn"
+          className="irene-openside-btn"    
           onClick={event => openNav(event)}
         >
-          打開sidebar
+          side
         </button>
       </div>
       <div className="irene-RWD-membersidebar irene-side-nav">
         <Nav className="flex-column">
-          <Nav.Link>
+          <Nav.Link>         
             <button
               className="irene-closeside-btn"
+              style={{textAlign:'left'}}
               onClick={event => closeNav(event)}
             >
-              關閉sidebar
+              X
             </button>
-          </Nav.Link>
-          <Nav.Link>
-            <div>
+          </Nav.Link>         
+            <div className="irene-image-div">
               <img className="image" src="https://fakeimg.pl/150x150/" alt="" />
-            </div>
-          </Nav.Link>
+            </div>          
           <Nav.Link>基本資料管理</Nav.Link>
           <Nav.Link>交易紀錄</Nav.Link>
           <Nav.Link>我的收藏</Nav.Link>
