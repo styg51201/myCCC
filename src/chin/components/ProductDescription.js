@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link} from 'react-router-dom'
+import {
+  IoIosStarOutline,
+  IoIosStar,
+} from 'react-icons/io'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {
@@ -16,8 +20,7 @@ import {addMbLikeData,delMbLikeData} from '../../stacey/actions/couponAction'
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
 function ProductDescription(props){
-  
-console.log('看我~=',props.data)
+
 const [forMyfavor,setForMyfavor]=useState(false)
 
 const [alertType,setAlertType]=useState('')
@@ -25,7 +28,6 @@ const [alertType,setAlertType]=useState('')
 //會員
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
-console.log('mblike',props.mbLike)
 
 const checkAlertType=showTpye=>{
   switch(showTpye){
@@ -65,12 +67,12 @@ const checkAlertType=showTpye=>{
         <h6>{props.data[0] ? props.data[0].name : ''}</h6>
         <h5>{props.data[0] ? props.data[0].itemName : ''}</h5>
         <div className="chin-starimg">
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-          <img src="/chin-img/star.svg" alt="" />
-        <span>4.0 (5)</span>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+          <IoIosStar style={{width:'25px',height:'25px',color:'#FFDD00'}}/>
+        <span>5.0 (5)</span>
         </div>
         <h4>NT{props.data[0] ? props.data[0].itemPrice : ''}</h4>
         <p>

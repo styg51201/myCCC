@@ -167,11 +167,11 @@ const totalSort=(
   const couponType=[
     {
       id:0,
-      value:300,
+      value:3000,
       Csort:'全部',
       assignItemId:null,
       rule:'一律',
-      slogan:'全館商品現折300',
+      slogan:'全館商品現折3000',
       payLevel:0,
       amount:1},
     {
@@ -180,25 +180,25 @@ const totalSort=(
       Csort:'耳機/喇叭',
       assignItemId:null,
       rule:'滿額打折',
-      slogan:'滿2000 耳機/喇叭分類 8折',
-      payLevel:2000,
+      slogan:'滿10000 耳機/喇叭分類 8折',
+      payLevel:10000,
       amount:1},
     {
       id:2,
-      value:200,
+      value:2000,
       Csort:'運動攝影機',
       assignItemId:[153,151],
       rule:'滿額折現',
-      slogan:'指定商品滿五千現折200',
-      payLevel:5000,
+      slogan:'指定商品滿兩萬現折2000',
+      payLevel:20000,
       amount:1},
     {
       id:3,
-      value:0.5,
+      value:0.8,
       Csort:'運動攝影機',
       assignItemId:null,
       rule:'滿件打折',
-      slogan:'滿兩件五折',
+      slogan:'滿兩件8折',
       payLevel:0,
       amount:2}
   ]
@@ -248,6 +248,7 @@ const totalSort=(
     //存放產品金額
     let productTotal=0
     shopCartItems.map((v,i)=>{
+      
       //判斷是否為指定產品
       // 判斷為真 則表示null為無分類
       let truePrice = v.itemPrice.split('$').join('')
@@ -256,12 +257,15 @@ const totalSort=(
         //判斷是有分類別限定
         if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
           disCountItems.push(v)
-          //產品總數量
+          //產品總數量 判斷數量是否符合購物券使用條件
           let productAmount=0
             disCountItems.map((cV,cI)=>{
             productAmount+=cV.count
           })
+          //產品金額 判斷是否符合金額門檻
           productTotal+=v.count*finalPrice
+
+          //選擇資料庫門檻
            switch(judgeCouponRule){
             case '一律':
               discountPay = productTotal-(productTotal-judgeCouponValue)
@@ -312,15 +316,18 @@ const totalSort=(
         }
       }else{
         let canUseItemId=judgeCouponAssignItemId.map((Cv,Ci)=>{
+          //判斷品牌是否相同
           if(Cv==v.itemId){
             if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
               disCountItems.push(v)
               //產品總數量
               let productAmount=0
+
+              //獲取符合資格產品的總數量
                 disCountItems.map((cV,cI)=>{
                 productAmount+=cV.count
               })
-
+              //判斷是否符合金額門檻
               productTotal+=v.count*finalPrice
 
                switch(judgeCouponRule){

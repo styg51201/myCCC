@@ -13,6 +13,10 @@ import {
 import {addMbLikeData,delMbLikeData} from '../../stacey/actions/couponAction'
 
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
+import {
+  IoIosStarOutline,
+  IoIosStar,
+} from 'react-icons/io'
 import Swal from 'sweetalert2'
 
 
@@ -24,7 +28,6 @@ const [forMyfavor,setForMyfavor]=useState(false)
 const [newHisitem,setNewHisitem]=useState([])
 const [alertType,setAlertType]=useState('')
 
-console.log('props.mbLike',props.mbLike)
 
 //會員
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
@@ -52,7 +55,7 @@ async function ItemToLocalStorage(value) {
     if(index === -1){
       const newHisitem = [...currentHisitem, value]
       localStorage.setItem('hisitem', JSON.stringify(newHisitem))
-    }else{console.log('asdsadasdsd')}
+    }else{}
   // 設定資料
   setNewHisitem(newHisitem)
 }
@@ -95,11 +98,11 @@ const checkAlertType=showTpye=>{
         <>
               <div className="chin-commodity-item">
                     <ul className="chin-star-heart-bag">
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
-                        <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
+                        <li><IoIosStar className="chin-star"/></li>
                         <li className="chin-heart-bag">
                         
                           <FiHeart className={`chin-heart ${props.mbLike ? 'Mao-like-red':''}`}  

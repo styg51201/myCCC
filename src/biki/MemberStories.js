@@ -6,16 +6,8 @@ import { Row, Col } from 'react-bootstrap'
 import {Link} from 'react-router-dom'
 // import Swal from 'sweetalert2/dist/sweetalert2'
 import MemberStoryList from './components/MemberStoryList'
+import MemberSidebar from '../Irene/components/MemberSidebar'
 
-
-// import {
-//     // FiTrash2,
-//     // FiChevronDown,
-//     FiThumbsUp,
-//     FiMessageSquare,
-//     FiEye,
-//     FiEyeOff
-//   } from 'react-icons/fi'
 
 function MemberStories(){
 
@@ -49,16 +41,7 @@ function MemberStories(){
     return(
         <>
             <Row>
-                <Col lg={3}>
-                    <div>
-                        <ul>
-                            <li key={'a'}>fake list</li>
-                            <li key={'b'}>fake list</li>
-                            <li key={'c'}>fake list</li>
-                            <li key={'d'}>fake list</li>
-                        </ul>
-                    </div>
-                </Col>
+                <MemberSidebar />
                 <Col lg={9} className='bk-member-main-container'>
                     <div className='bk-story-top'>
                         <h3>我的故事</h3>
