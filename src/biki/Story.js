@@ -143,6 +143,7 @@ function Story(props){
                             let newArr = [...arr]
                             newArr.some(elm=>{
                                 if(elm.rplyId === obj.rplyTo){
+                                    obj.rplyToName = elm.Name || elm.Account;
                                     (elm.children || (elm.children = [])).push(obj)
                                     console.log('found!')
                                     return true;
@@ -256,7 +257,7 @@ function Story(props){
                             <hr />
                             <div className={`add-like pt-4${like ? ' active' : ''}`}>
                                 <span onClick={(evt)=>{handleToggleLike(data[0].stryId, evt)}} className={`like bk-hover${user ? '' : ' disabled'}`}>
-                                    <FiThumbsUp /> <b>{like ? '你已經按讚' : '按讚'}</b> 
+                                    <FiThumbsUp /> <b>按讚</b> 
                                 </span>
                                 <span className='bk-txt-small ml-4'>目前已有 {likeNum} 人按讚</span>
                             </div>
