@@ -91,6 +91,8 @@ const { getMonth, getYear } = GetDayRange()
       $('#mobile').val('')
       $('#buyerName').val('')
       setBuyerInfo({ ...buyerInfo, buyerName: '', mobile: '' })
+      setErrorBox([...errorBox,'buyerName','mobile'])
+      // setErrorBox(newErr) 
       setGetBuyerbasic(true)
     }
   }

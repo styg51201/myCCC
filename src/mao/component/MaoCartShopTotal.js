@@ -248,6 +248,7 @@ const totalSort=(
     //存放產品金額
     let productTotal=0
     shopCartItems.map((v,i)=>{
+      
       //判斷是否為指定產品
       // 判斷為真 則表示null為無分類
       let truePrice = v.itemPrice.split('$').join('')
@@ -256,12 +257,15 @@ const totalSort=(
         //判斷是有分類別限定
         if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
           disCountItems.push(v)
-          //產品總數量
+          //產品總數量 判斷數量是否符合購物券使用條件
           let productAmount=0
             disCountItems.map((cV,cI)=>{
             productAmount+=cV.count
           })
+          //產品金額 判斷是否符合金額門檻
           productTotal+=v.count*finalPrice
+
+          //選擇資料庫門檻
            switch(judgeCouponRule){
             case '一律':
               discountPay = productTotal-(productTotal-judgeCouponValue)
@@ -312,15 +316,18 @@ const totalSort=(
         }
       }else{
         let canUseItemId=judgeCouponAssignItemId.map((Cv,Ci)=>{
+          //判斷品牌是否相同
           if(Cv==v.itemId){
             if(judgeCouponCSort==v.itemCategoryId||judgeCouponCSort=='全部'){
               disCountItems.push(v)
               //產品總數量
               let productAmount=0
+
+              //獲取符合資格產品的總數量
                 disCountItems.map((cV,cI)=>{
                 productAmount+=cV.count
               })
-
+              //判斷是否符合金額門檻
               productTotal+=v.count*finalPrice
 
                switch(judgeCouponRule){
