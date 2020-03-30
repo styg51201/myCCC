@@ -50,27 +50,23 @@
     height: 100%;
     position: relative;
 
-    // .react-parallax-content {
-    //   height: 100%;
-
-    //   .bk-slide-content {
-    //     position: relative;
-    //     // z-index: 1;
-    //     height: 100%;
-    //     display: flex;
-    //     align-items: center;
-    //     justify-content: center;
-    //     color: white;
-    //   }
-    // }
     .bk-slide-content {
       position: relative;
       // z-index: 1;
       height: 100%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       color: white;
+
+      h3 {
+        font-size: $font-x;
+      }
+      h5 {
+        font-size: $font-m;
+        font-weight: 400;
+      }
     }
   }
 }
@@ -96,6 +92,7 @@
 
       &.hidden {
         // visibility: hidden;
+        pointer-events: none;
       }
 
       .bk-ad-block {
@@ -177,8 +174,12 @@
         h3 {
           margin-bottom: $spacing;
         }
-        button {
+        a {
+          // cursor: pointer;
           margin-top: $spacing;
+          &:hover {
+            color: $white;
+          }
         }
       }
     }
@@ -326,7 +327,7 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%)
+      transform: translate(-50%, -50%);
     }
   }
 

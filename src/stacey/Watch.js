@@ -44,7 +44,7 @@ function Watch(props) {
   const allitemlist = props.data.map((val, ind) => {
     //判斷是否我的最愛
     let mbLike = false
-    if(props.mbLikeData.findIndex((v)=>v.p_id === val.itemId) > 0 ){
+    if(props.mbLikeData.findIndex((v)=>v.p_id === val.itemId) > -1 ){
       mbLike = true
     }
     return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind}  mbLike={mbLike}/>
@@ -58,7 +58,7 @@ function Watch(props) {
   const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
-  console.log(delitems)
+ 
 
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 

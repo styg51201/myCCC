@@ -9,8 +9,14 @@ import {
     DelCartItem,
     CalShopCart,
     Handle_AddMyFavorite,AddCartNewItem_sendcal} from '../../mao/actions/ShopCartAction'
+
+import {addMbLikeData,delMbLikeData} from '../../stacey/actions/couponAction'
+
 import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
 import Swal from 'sweetalert2'
+
+
+
 function Commoditycomponents(props){
 
 
@@ -18,6 +24,17 @@ const [forMyfavor,setForMyfavor]=useState(false)
 const [newHisitem,setNewHisitem]=useState([])
 const [alertType,setAlertType]=useState('')
 
+console.log('props.mbLike',props.mbLike)
+
+//會員
+const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
+
+// useEffect(() => {
+//   if(mb_id) {
+//     props.fromServerMbLikeData(mb_id)
+//   }
+// }, [])
 
 async function ItemToLocalStorage(value) {
 
@@ -85,14 +102,19 @@ const checkAlertType=showTpye=>{
                         <li><img className="chin-star" src="./chin-img/star.svg" alt=""/></li>
                         <li className="chin-heart-bag">
                         
-                        <FiHeart className={`chin-heart ${forMyfavor?'Mao-like-red':''}`}  
-                        onClick={()=>{
-                          props.Handle_AddMyFavorite(!forMyfavor,props.data, props.MyFavorite)
-                          setForMyfavor(!forMyfavor)
-                          let info=!forMyfavor?"加入我的最愛":"已取消我的最愛"
-                          checkAlertType(info)
-                          }
-                                }/>
+                          <FiHeart className={`chin-heart ${props.mbLike ? 'Mao-like-red':''}`}  
+                          onClick={()=>{
+                            if(mb_id){
+                              props.mbLike ? props.delMbLikeData(mb_id,props.data) : props.addMbLikeData(mb_id,props.data)
+                            // props.Handle_AddMyFavorite(!props.mbLike,props.data, props.MyFavorite)
+                            // setForMyfavor(!forMyfavor)
+                            let info=!props.mbLike?"加入我的最愛":"已取消我的最愛"
+                            checkAlertType(info)
+                            }else{
+                              alert('請先登入')
+                            }}
+                                  }/>
+
                             <FiShoppingBag  className="chin-bag"  onClick={()=>{
                               props.AddCartNewItem_sendcal(props.data,props.AddItem) 
                               checkAlertType("加入購物車")
@@ -133,6 +155,8 @@ const mapStateToProps = store => {
         CalShopCart,
         Handle_AddMyFavorite,
         AddCartNewItem_sendcal,
+        delMbLikeData,
+        addMbLikeData,
       },
       dispatch
     )

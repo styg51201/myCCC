@@ -50,8 +50,8 @@ const PriceClassName= classNames('chin-totalprice',{active:price})
                 </div>
                 <div className="chin-slide">
                     <div className="chin-price-input">
-                        <input type="text" placeholder="$0"  onChange={(e)=>Itemprice(e)}/>
-                        <input type="text" placeholder="$40,000" onChange={(e)=>Itemprice2(e)}/>
+                        <input type="text" placeholder="$0"  onBlur={(e)=>Itemprice(e)}/>
+                        <input type="text" placeholder="$40,000" onBlur={(e)=>Itemprice2(e)}/>
                     </div>
                     {/* {CustomizedSlider()} */}
                 </div>

@@ -72,7 +72,12 @@ function StoryCard(props){
                 <Card.Body className="bk-card-body">
                     <h3>{props.data.stryTitle}</h3>
                     <div className='bk-tags'>{JSON.parse(props.data.stryTags).map((elm, idx)=>{
-                        return <span key={`${elm}-${idx}`}>{elm}</span>
+                        return (<div 
+                                className='bk-tag'
+                                key={`${elm}-${idx}`}
+                                >
+                                    {elm}
+                                </div>)
                     })}</div>
                     <div dangerouslySetInnerHTML={{__html: props.content}}></div>
                 </Card.Body>

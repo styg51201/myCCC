@@ -15,24 +15,44 @@ import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
 import { commidtyItemId,multiple_imagesItemId } from './actions/itemsActions'
+import {fromServerMbLikeData} from '../stacey/actions/couponAction'
+
 
 function Commidty(props) {
   // console.log('back', props.data)
   console.log('back2', props)
   const itemId = props.match.params.itemId ? props.match.params.itemId : ''
   document.documentElement.scrollTop = document.body.scrollTop =0;
+
+  //會員id
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
+  let mbLike = false
+
   useEffect(() => {
     props.commidtyItemId(itemId)
+
     props.multiple_imagesItemId(itemId)
-    // console.log('hello', props.data)
+    if(mb_id) {
+      props.fromServerMbLikeData(mb_id)
+    }
+
   }, [itemId])
+ 
+  if(props.mbLikeData && props.data[0]){
+    if(props.mbLikeData.findIndex((v)=>v.itemId === props.data[0].itemId) > -1 ){
+      mbLike = true
+    }
+  }
+
+
   return (
     <>
       <main>
         <div>
           <div className="chin-productdetails">
             <Bigitem data={props}/>
-            <ProductDescription data={props.data}/>
+            <ProductDescription data={props.data} mbLike={mbLike}/>
           </div>
         </div>
         <DescriptionTechnique data={props.data}/>
@@ -48,6 +68,7 @@ const mapStateToProps = store => {
   return { data: store.getItemId ,
            multiple: store.getMultipleItemId,
            AddItem: store.AddItem,
+           mbLikeData:store.memberLikeData,
         }
 }
 
@@ -55,7 +76,7 @@ const mapStateToProps = store => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      commidtyItemId,multiple_imagesItemId
+      commidtyItemId,multiple_imagesItemId,fromServerMbLikeData,
     },
     dispatch
   )

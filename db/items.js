@@ -62,17 +62,20 @@ router.get('/itemhis/:name?',(req,res)=>{
         return res.json(r)
     })
 })
-router.get('/itemCategoryId/:itemCategoryId?',(req,res)=>{
+router.get('/itemCategoryId/:itemCategoryId?/:headphone?',(req,res)=>{
     let sql='SELECT * FROM `items` WHERE `itemCategoryId` = ?'
-    console.log(req.params)
-    db.queryAsync(sql,[req.params.itemCategoryId])
+    let newParms = req.params.itemCategoryId
+    if(req.params.headphone !== undefined){
+        newParms = newParms +  '/' + req.params.headphone
+    }
+    console.log('req.params',req.params)
+    db.queryAsync(sql,[newParms])
     .then(r=>{
         return res.json(r)
     })
 })
-router.get('/comparepages/:itemId?',(req,res)=>{
-    let sql='SELECT * FROM `allhardware` WHERE `itemId` = ?'
-    console.log(req.params)
+router.get('/users/:itemId?',(req,res)=>{
+    let sql='SELECT * FROM `user_comment` WHERE `productId` = ?'
     db.queryAsync(sql,[req.params.itemId])
     .then(r=>{
         return res.json(r)

@@ -5,6 +5,14 @@ import classNames from 'classnames'
 import {BrowserRouter as Router,Route,Link,Switch,withRouter} from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
+import { FiHeart ,FiShoppingBag} from 'react-icons/fi'
+
+//redux
+import { connect } from 'react-redux'
+//action
+import { bindActionCreators } from 'redux'
+import {fromServerMbLikeData} from '../../stacey/actions/couponAction'
+
 function RelatedHistory(props){
 const [newHisitem,setNewHisitem]=useState([])
 const [hisrelitem,setHisrelitem]=useState(false)
@@ -12,10 +20,15 @@ const Itemhis = useSelector(state => state.getItemNamehis)
 const itemsCategoryId = useSelector(state => state.getitemCategoryId)
 const dispatch = useDispatch()
 const dataname = props.data[0]?props.data[0].name:''
-const dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
+let dataitemCategoryId = props.data[0]?props.data[0].itemCategoryId:''
+
 const itemClassName = classNames('chin-historicalrecord', {
   active:hisrelitem 
 })
+
+//會員id
+const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
 async function ItemToLocalStorage(value) {
 
   const currentHisitem = JSON.parse(localStorage.getItem('hisitem')) || []
@@ -146,6 +159,11 @@ async function getItemToLocalStorage() {
           className="chin-hiarr"/>:''}
         <Slider {...settings}>
             {newHisitem.map((val,ind)=>{
+              //判斷是否我的最愛
+              let mbLike = false
+              if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
+                mbLike = true
+              }
               return(<div className="chin-commodity2">
                             <div className="chin-commodity-item2">
                               <ul className="chin-star-heart-bag2">
@@ -165,7 +183,7 @@ async function getItemToLocalStorage() {
                                   <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
                                 </li>
                                 <li className="chin-heart-bag2">
-                                  <img className="chin-heart2" src="/chin-img/heart.svg" alt="" />
+                                  <FiHeart className={`chin-heart2 ${mbLike ? 'Mao-like-red':''}`} src="/chin-img/heart.svg" alt="" />
                                   <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
                                 </li>
                               </ul>
@@ -187,6 +205,11 @@ async function getItemToLocalStorage() {
         <Slider {...settings}>
           {Itemhis.length < 5 ?
             itemsCategoryId.map((val,ind)=>{
+              //判斷是否我的最愛
+              let mbLike = false
+              if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
+                mbLike = true
+              }
             return(<div className="chin-commodity2">
                       <div className="chin-commodity-item2">
                         <ul className="chin-star-heart-bag2">
@@ -206,7 +229,7 @@ async function getItemToLocalStorage() {
                             <img className="chin-star2"  src="/chin-img/star.svg"  alt="" />
                           </li>
                           <li className="chin-heart-bag2">
-                            <img className="chin-heart2" src="/chin-img/heart.svg" alt="" />
+                            <img className={`chin-heart2 ${mbLike ? 'Mao-like-red':''}`} src="/chin-img/heart.svg" alt="" />
                             <img className="chin-bag2" src="/chin-img/shopping-bag.svg"  alt="" />
                           </li>
                         </ul>
@@ -261,4 +284,23 @@ async function getItemToLocalStorage() {
     )
 }
 
-export default withRouter(RelatedHistory)
+
+// 選擇對應的reducer
+const mapStateToProps = store => {
+  return { mbLikeData:store.memberLikeData,
+         }
+}
+
+//action
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(
+    {
+      fromServerMbLikeData,
+    },
+    dispatch
+  )
+}
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(RelatedHistory)
+)

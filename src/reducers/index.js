@@ -24,6 +24,7 @@ import {
   getitemCategoryId,
   getItemscompare,
   getListitemPrice2,
+  getUsersData,
   //getcompare,
   showDiscount,
 } from '../chin/reducer/itemsReducer'
@@ -84,6 +85,7 @@ const rootReducer = combineReducers({
   getitemCategoryId,
   getItemscompare,
   getListitemPrice2,
+  getUsersData,
   // getcompare,
   showDiscount,//chin
   //--------- ShopCart------------

@@ -185,3 +185,24 @@ export const ItemscompareNo = (val, product, data) => {
     const newdata = []
     return { type: 'ITEMNAME_RESETCOM', value: newdata }
   }
+//-----------------------------usercomments--------------------------------------------
+//回傳usercomments
+export const showUsers = val => {
+  return { type: 'SHOW_USER', value: val }
+}
+//跟node要usercomments資料
+export const formServerUsersData = val => {
+  return async dispatch => {
+    const request = new Request(`http://localhost:5500/items/users/${val}`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+
+    console.log('ffff', data)
+    dispatch(showUsers(data))
+  }
+}
+
+
