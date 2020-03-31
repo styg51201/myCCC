@@ -37,6 +37,19 @@ router.get('/getGarmin', (req, res) => {
   })
 })
 
+// 讀取 全台北 7-11 資料
+router.get('/get711', (req, res) => {
+  let sql = `SELECT * FROM \`taipei711\``
+  db.queryAsync(sql).then(r => {
+    r.forEach(e => {
+      e.date = moment(e.created_at).format(date)
+      e.time = moment(e.created_at).format(time)
+    })
+
+    return res.json(r)
+  })
+})
+
 router.post('/sendreply', (req, res) => {
   // console.log('45456',req.body.mb_id)
   const sql =

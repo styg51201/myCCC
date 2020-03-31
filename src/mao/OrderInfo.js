@@ -20,7 +20,13 @@ import './css/OrderInfo.scss'
 import $ from 'jquery'
 import MaoAD from './component/MaoAD'
 
+import 'leaflet/dist/leaflet.css'
+import L from 'leaflet'
+
 function OrderInfo(props) {
+  const [taipei711, setTaipei711] = useState([])
+  const [choose711, setChoose711] = useState('')
+  const [isShowMap, setIsShowMap] = useState(false)
   // console.log(props)
   let LocalUser = localStorage.getItem('userId')
     ? localStorage.getItem('userId')
@@ -153,7 +159,6 @@ function OrderInfo(props) {
         if (getInfo2 == 'Seven-store') {
           getInfo2 = '7-11'
           let newErr = errorBox.filter(e => e !== 'shipping')
-          // console.log(getInfo2)
           setErrorBox(newErr)
           setErrors({ ...errors, shipping: '' })
         } else if (getInfo2 == 'HiLife') {
@@ -221,17 +226,102 @@ function OrderInfo(props) {
     }
   }
 
+  async function get711() {
+    const request = new Request(`http://localhost:5500/backend/get711`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    setTaipei711(data)
+  }
+
   useEffect(() => {
+    get711()
     getRND()
     getorderProductInfo()
     GetDayRange()
     props.getserverMember(user)
-    console.log(LocalUser)
+
+    $(document).ready(function() {
+      // $('.map-hide').hide()
+      $('#Seven-store:radio').change(function() {
+        let value = $('#Seven-store:radio').val()
+        if (value === 'on') {
+          $('.map-hide').show()
+        }
+      })
+
+      $('#Adress:radio').change(function() {
+        let value = $('#Seven-store:radio').val()
+        if (value === 'on') {
+          $('.map-hide').hide()
+        }
+      })
+    })
   }, [])
+
+  let mymap = ''
+  useEffect(() => {
+    if (taipei711 && taipei711.length != 0) {
+      //OpenStreetMap
+      if (mymap === '') {
+        mymap = L.map('mapid').setView(
+          [25.033778350065916, 121.54337204522369],
+          16
+        )
+        const OSMUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+        L.tileLayer(OSMUrl).addTo(mymap)
+        // 使用 leaflet-color-markers ( https://github.com/pointhi/leaflet-color-markers ) 當作 marker
+        const greenIcon = new L.Icon({
+          iconUrl:
+            'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+          shadowUrl:
+            'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+          iconSize: [25, 41],
+          iconAnchor: [12, 41],
+          popupAnchor: [1, -34],
+          shadowSize: [41, 41],
+        })
+
+        function onMapClick(e) {
+          const shopName = e.target._popup._content.substring(
+            3,
+            e.target._popup._content.indexOf('</b>')
+          )
+
+          setChoose711(shopName)
+        }
+
+        for (let i = 0; i < taipei711.length; i++) {
+          const marker = L.marker(
+            [taipei711[i].shopLat, taipei711[i].shopLong],
+            {
+              icon: greenIcon,
+            }
+          ).addTo(mymap)
+          marker
+            .bindPopup(
+              `<b>${taipei711[i].shopName}</b><br>${taipei711[i].shopAddress}`
+            )
+            .openPopup()
+          marker.on('click', onMapClick)
+        }
+        $('.map-hide').hide()
+      }
+
+      // L.circle([25.03418, 121.564517], {
+      //   color: 'red',
+      //   fillColor: '#f03',
+      //   fillOpacity: 0.5,
+      //   radius: 10,
+      // }).addTo(mymap)
+    }
+  }, [taipei711])
 
   useEffect(() => {
     buyerInfo.orderId = order
-  }, [ order])
+  }, [order])
   useEffect(() => {
     // console.log('看這裡吧~getCouponArr==',getCouponArr)
   }, [getCouponArr])
@@ -305,7 +395,7 @@ function OrderInfo(props) {
           itemImg: `${itemImgArr[i]}`,
           count: `${countArr[i]}`,
           outStatus: '訂單處理中',
-          mId:LocalUser,
+          mId: LocalUser,
         }
         //送出產品
         props.forServerorderProductInfo(proBox)
@@ -398,8 +488,9 @@ function OrderInfo(props) {
             getformInfo(e, 'payment')
           }}
           onClick={() => {
-        {v.type=='CreditCard'?setOpenCard(true):setOpenCard(false)}
-            
+            {
+              v.type == 'CreditCard' ? setOpenCard(true) : setOpenCard(false)
+            }
           }}
         />
         <label className="custom-control-label" htmlFor={v.type}>
@@ -595,6 +686,32 @@ function OrderInfo(props) {
             </div>
             <div className="d-flex">{shipTypeDOM}</div>
           </div>
+
+          <>
+            <label
+              className="map-hide"
+              style={{ marginTop: '15px', fontSize: '20px' }}
+            >
+              你選擇的門市：
+            </label>
+            <label
+              id="chooseShop"
+              className="map-hide"
+              style={{ marginTop: '15px', fontSize: '20px' }}
+            >
+              {choose711}
+            </label>
+            <div
+              id="mapid"
+              className="map-hide"
+              style={{
+                height: '40vh',
+                width: '30vw',
+                marginTop: '10px',
+              }}
+            />
+          </>
+
           {errors.buyerAdress !== '' ? (
             <p className="Mao-prompt-word">{errors.buyerAdress}</p>
           ) : (
