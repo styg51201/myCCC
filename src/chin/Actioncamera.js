@@ -27,7 +27,6 @@ function Actioncamera(props) {
   const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
   const [commodityPrice, setCommdityPrice] = useState(false)
-  // document.documentElement.scrollTop = document.body.scrollTop =0;
 
   //會員id
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0

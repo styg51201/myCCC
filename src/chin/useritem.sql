@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `user_comment`
+-- 資料表結構 `useritem`
 --
 
-CREATE TABLE `user_comment` (
+CREATE TABLE `useritem` (
   `commentId` int(10) NOT NULL,
   `productId` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `userId` int(10) NOT NULL,
@@ -42,10 +42,10 @@ CREATE TABLE `user_comment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- 傾印資料表的資料 `user_comment`
+-- 傾印資料表的資料 `useritem`
 --
 
-INSERT INTO `user_comment` (`commentId`, `productId`, `userId`, `userName`, `rank`, `commentText`, `commentText2`, `img`, `created_at`, `updated_at`) VALUES
+INSERT INTO `useritem` (`commentId`, `productId`, `userId`, `userName`, `rank`, `commentText`, `commentText2`, `img`, `created_at`, `updated_at`) VALUES
 (1, '1', 1, 'yaling999', 5, '很輕，錶帶觸感也不錯', '真的超棒的', '1.jpg', '2020-03-31 15:34:11', '2020-03-31 15:34:11'),
 (2, '1', 2, 'rick06', 5, '害怕買到假貨但此商場服務人員耐心細心解說服務不錯就決定下單給它，隔天就到貨了非常不錯的商家', '一拿到就可以使用一切正常!!!', '2.jpg', '2020-03-31 15:34:11', '2020-03-31 15:34:11'),
 (3, '1', 3, 'jolin719', 5, '包裝很精美東西帶起來很好看', 'CP值很高 !!', '3.jpg', '2020-03-31 15:34:11', '2020-03-31 15:34:11'),
@@ -430,7 +430,7 @@ INSERT INTO `user_comment` (`commentId`, `productId`, `userId`, `userName`, `ran
 (382, '118', 382, 'tim067', 5, '鈦金屬的錶帶相當有質感', '真的超棒的', '10.jpg', '2020-03-31 15:34:19', '2020-03-31 15:34:19'),
 (383, '119', 383, 'Imp01', 5, '很快就收到了，目前使用上沒太多問題。只有garmin本身錶面軟體有時候會卡然後重開機，就看新韌體是否能解決了', '一拿到就可以使用一切正常!!!', '2.jpg', '2020-03-31 15:34:19', '2020-03-31 15:34:19'),
 (384, '119', 384, 'nitos', 5, '老闆太優惹，幫買家設想周到，詢問回答都很詳細，出貨速度也很快！大推！', 'CP值很高 !!', '8.jpg', '2020-03-31 15:34:19', '2020-03-31 15:34:19');
-INSERT INTO `user_comment` (`commentId`, `productId`, `userId`, `userName`, `rank`, `commentText`, `commentText2`, `img`, `created_at`, `updated_at`) VALUES
+INSERT INTO `useritem` (`commentId`, `productId`, `userId`, `userName`, `rank`, `commentText`, `commentText2`, `img`, `created_at`, `updated_at`) VALUES
 (385, '120', 385, 'nio5019', 5, '陶瓷錶圈+真皮錶帶，質感很好', 'CP值很高 !!', '9.jpg', '2020-03-31 15:34:19', '2020-03-31 15:34:19'),
 (386, '120', 386, 'arben', 5, '1.30 吋彩色觸控顯示螢幕觀看資訊很清晰', '物超所值', '10.jpg', '2020-03-31 15:34:19', '2020-03-31 15:34:19'),
 (387, '120', 387, 'elfin008', 5, '高感度的 GPS 快速定位，搭配高爾夫球場地圖真的很方便', 'CP值很高！！推薦購入', '11.jpg', '2020-03-31 15:34:19', '2020-03-31 15:34:19'),
@@ -669,9 +669,9 @@ INSERT INTO `user_comment` (`commentId`, `productId`, `userId`, `userName`, `ran
 --
 
 --
--- 資料表索引 `user_comment`
+-- 資料表索引 `useritem`
 --
-ALTER TABLE `user_comment`
+ALTER TABLE `useritem`
   ADD PRIMARY KEY (`commentId`);
 
 --
@@ -679,9 +679,9 @@ ALTER TABLE `user_comment`
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `user_comment`
+-- 使用資料表自動遞增(AUTO_INCREMENT) `useritem`
 --
-ALTER TABLE `user_comment`
+ALTER TABLE `useritem`
   MODIFY `commentId` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=617;
 COMMIT;
 

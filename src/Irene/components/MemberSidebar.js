@@ -13,6 +13,8 @@ function MemberSidebar(props) {
   const memberdata = localStorage.getItem('userdata')
   const account = JSON.parse(memberdata)
   const usernametrue = account.username
+  const imgid=localStorage.getItem('userId')
+  console.log('imgid',imgid)
   // console.log('memberdata.username', account)
   // console.log('username', usernametrue)
   function openNav() {
@@ -33,10 +35,10 @@ function MemberSidebar(props) {
       {/* <MemberSidebar/> */}
       <div className="membersidebar col-3">
         <ListGroup>
-          <ListGroup.Item>
+          <ListGroup.Item>         
             <div className='editPic'>
               <div className='userPic'>
-                <img className="image" src="https://fakeimg.pl/150x150/" alt="" />
+               <img className="image" src={require(`../irene-img/${imgid}.png`)} alt="Background" />
               </div>
               <Nav.Link className="edit">編輯</Nav.Link>
             </div>
@@ -105,7 +107,7 @@ function MemberSidebar(props) {
           <Nav.Link>優惠券</Nav.Link>
           <Nav.Link>
             <div onClick={toggleStories} role="button">
-              我的故事eeee <FiChevronDown />
+              我的故事 <FiChevronDown />
             </div>
             <div
               className={`bk-member-nav-stories-list${

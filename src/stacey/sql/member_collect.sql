@@ -39,14 +39,6 @@ CREATE TABLE `member_collect` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- 傾印資料表的資料 `member_collect`
---
-
-INSERT INTO `member_collect` (`collect_id`, `mb_id`, `p_id`, `p_category`, `p_vendor`, `created_at`, `updates_at`) VALUES
-(1, 37, 153, '運動攝影機', 'GoPro', '2020-03-29 10:08:59', '2020-03-29 10:08:59'),
-(2, 37, 15, '穿戴式裝置', 'APPLE', '2020-03-29 10:08:59', '2020-03-29 10:08:59');
-
---
 -- 已傾印資料表的索引
 --
 
@@ -64,7 +56,7 @@ ALTER TABLE `member_collect`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `member_collect`
 --
 ALTER TABLE `member_collect`
-  MODIFY `collect_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `collect_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
