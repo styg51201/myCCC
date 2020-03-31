@@ -19,32 +19,25 @@ router.get('/orderbuyerInfo', (req, res) => {
   })
 })
 
-
 //訂單退貨
-// router.post('/orderBuyerInfoReturn', (req, res) => {
-//   const output = {
-//     success: false,
-//     data: '',
-//     message: '',
-//   }
-//   let sql =
-//     `UPDATE \`orderdetail\` SET \`outStatus\`='申請退貨中' WHERE \`orderId\` = ?`
+router.post('/orderBuyerInfoReturn', (req, res) => {
+  const output = {
+    success: false,
+    data: '',
+    message: '',
+  }
+  let sql = `UPDATE \`orderdetail\` SET \`outStatus\`='申請退貨中' WHERE \`orderId\` = ?`
 
-//   db.queryAsync(sql, [
-//     req.body
-//   ])
-//     .then(r => {
-//       return res.json(r)
-//     })
-//     .catch(err => {
-//       output.data = err
-//       // console.log(err)
-//       res.json(output)
-//     })
-// })
-
-
-
+  db.queryAsync(sql, [req.body.orderId])
+    .then(r => {
+      return res.json(r)
+    })
+    .catch(err => {
+      output.data = err
+      // console.log(err)
+      res.json(output)
+    })
+})
 
 //訂單成立 購買人資料
 router.post('/orderBuyerInfo', (req, res) => {
@@ -101,7 +94,6 @@ router.post('/orderproductInfo', (req, res) => {
     req.body.outStatus,
     req.body.mId,
   ])
-
     .then(r => {
       return res.json(r)
     })
