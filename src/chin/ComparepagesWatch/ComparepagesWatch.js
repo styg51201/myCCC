@@ -21,8 +21,7 @@ import {
 } from  '../../mao/actions/ShopCartAction'
 
 function ComparepagesWatch(props){
-// console.log('這有什麼東西?',props.compare)
-  document.documentElement.scrollTop = document.body.scrollTop =0;
+
 return(
     <>
     <main className="chin-main-item">

@@ -46,7 +46,6 @@ function Surrounding(props) {
 
 
   const [commodity, setCommdity] = useState(false)
-  // document.documentElement.scrollTop = document.body.scrollTop =0;
   const itemlist = props.data.map((val, ind) => {
     let mbLike = false
     if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){

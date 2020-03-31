@@ -23,7 +23,7 @@ import {
 
 function ComparepagesHeadset(props){
 
-  document.documentElement.scrollTop = document.body.scrollTop =0;
+
 return(
     <>
     <main className="chin-main-item">
