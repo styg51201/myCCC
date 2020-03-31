@@ -227,18 +227,18 @@ function OrderInfo(props) {
     GetDayRange()
     props.getserverMember(user)
     console.log(LocalUser)
-  }, [LocalUser, getRND, getorderProductInfo, props, user])
+  }, [])
 
   useEffect(() => {
     buyerInfo.orderId = order
-  }, [buyerInfo.orderId, order])
+  }, [ order])
   useEffect(() => {
     // console.log('看這裡吧~getCouponArr==',getCouponArr)
   }, [getCouponArr])
   useEffect(() => {
     // console.log('errorBox',errorBox)
     setBuyerInfo({ ...buyerInfo, discount: getdiscount })
-  }, [errorBox, getdiscount])
+  }, [errorBox])
   // useEffect(()=>{
   // console.log('buyerInfo',buyerInfo)
   // },[buyerInfo])
@@ -399,8 +399,13 @@ function OrderInfo(props) {
           }}
           onClick={() => {
         {v.type=='CreditCard'?setOpenCard(true):setOpenCard(false)}
+<<<<<<< HEAD
             }
           }
+=======
+            
+          }}
+>>>>>>> bc546feac445b56430da43d588a963e682114f57
         />
         <label className="custom-control-label" htmlFor={v.type}>
           {v.name}
