@@ -40,7 +40,8 @@ import {
   getOrderBuyer,
   saveOrderBuyerInfoReducer,
   saveOrderBuyerProReducer,
-  getRANDitemid,saveCoupon,saveDiscount
+  getRANDitemid,saveCoupon,saveDiscount,
+  cartCouponData,
 } from '../mao/reducers/ShopCartReducer'
 import {
   getMemberID,
@@ -98,7 +99,7 @@ const rootReducer = combineReducers({
   ControlDataState,
   getOrderBuyer,
   saveOrderBuyerInfoReducer,
-  saveOrderBuyerProReducer,saveCoupon,saveDiscount,
+  saveOrderBuyerProReducer,saveCoupon,saveDiscount,cartCouponData,
   //member
   member,
   getMemberID,

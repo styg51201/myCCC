@@ -2,9 +2,93 @@
 @import "../../css/main.scss";
 
 .membersidebar {
-  // margin-top: 50px;
-  margin-right: 50px;
+  padding-right: 30px;
+  min-height: 650px;
+  margin-bottom: $spacing * 2;
+
+  .list-group {
+    .list-group-item {
+      background: transparent;
+      text-align: left;
+
+      &:nth-child(1) {
+        padding-top: 0;
+
+        .editPic {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          width: 150px;
+
+          a {
+            margin-top: -$spacing;
+            background-color: $grey;
+
+            &:hover {
+              opacity: 1;
+              color: rgba($black, 0.5);
+            }
+          }
+        }
+      }
+      &:nth-child(2) {
+        margin-top: $spacing;
+      }
+
+      .userPic {
+        width: 150px;
+      }
+
+      a {
+        color: $black;
+        opacity: 1;
+        transition: 0.2s;
+        text-align: left;
+
+        &:hover {
+          opacity: 0.5;
+        }
+      }
+    }
+    .bk-member-nav-story-group {
+      .bk-member-nav-button {
+        cursor: pointer;
+        transition: 0.2s;
+
+        &:hover {
+          opacity: 0.5;
+        }
+        &.active {
+          svg {
+            transform: rotate(180deg);
+          }
+        }
+
+        svg {
+          margin-left: $spacing * 2;
+          transition: 0.3s;
+        }
+      }
+
+      .bk-member-nav-stories-list {
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.3s;
+        cursor: pointer;
+
+        &.active {
+          max-height: 110px;
+        }
+
+        a.nav-link {
+          color: rgba($black, 0.5);
+        }
+      }
+    }
+  }
 }
+
+//-----
 
 .membersidebar {
   .list-group-item {

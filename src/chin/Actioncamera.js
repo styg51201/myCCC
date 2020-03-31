@@ -26,7 +26,7 @@ function Actioncamera(props) {
   const [englishnameActioncamera, setEnglishnameActioncamera] = useState('ACTION CAMERA')
   const [delitems,setDelitems] = useState()
   const [commodity, setCommdity] = useState(false)
-  // document.documentElement.scrollTop = document.body.scrollTop =0;
+  const [commodityPrice, setCommdityPrice] = useState(false)
 
   //會員id
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
@@ -71,13 +71,20 @@ function Actioncamera(props) {
   const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} delitems={delitems} sendx={v=>{setDelitems(v)}}/>
   })
-  
+  const ItemPrice = props.data.map((val,ind)=>{
+    if(props.ItemPrice.itemPrice < val.itemPrice || props.ItemPrice2.itemPrice2 > val.itemPrice){
+        // console.log(val)
+      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+    }
+  })
 
   return (
     <>
       <main className="chin-main">
         <section className="chin-section">
-          <Commoditylist data={props.data} />
+          <Commoditylist data={props.data} price={commodityPrice}  sendprice={v => {
+                setCommdityPrice(v)
+              }}/>
           <div className="chin-commodity-title">
             <CompareProductSort
               data={props.data}
@@ -88,13 +95,22 @@ function Actioncamera(props) {
               }}
             />
             <div className="chin-commodity">
-              {commodity
+            {commodityPrice?ItemPrice:commodity
+                  ? 
+                  props.actioncamera.length
+                  ? commodityItems
+                  : allcommodityItems
+                  : 
+                  props.actioncamera.length
+                  ? itemlist
+                  : allitemlist}
+              {/* {commodity
                 ? props.actioncamera.length
                   ? commodityItems
                   : allcommodityItems
                 : props.actioncamera.length
                 ? itemlist
-                : allitemlist}
+                : allitemlist} */}
             </div>
             {commodity ? (
               <div className="chin-article">
@@ -139,6 +155,8 @@ function Actioncamera(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
           actioncamera: store.getListitemName,
+          ItemPrice: store.getListitemPrice,
+          ItemPrice2:store.getListitemPrice2,
           compare:store.getItemscompare,
           mbLikeData:store.memberLikeData,
           rest:store.rest}

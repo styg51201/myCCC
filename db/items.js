@@ -75,7 +75,7 @@ router.get('/itemCategoryId/:itemCategoryId?/:headphone?',(req,res)=>{
     })
 })
 router.get('/users/:itemId?',(req,res)=>{
-    let sql='SELECT * FROM `user_comment` WHERE `productId` = ?'
+    let sql='SELECT * FROM `useritem` WHERE `productId` = ?'
     db.queryAsync(sql,[req.params.itemId])
     .then(r=>{
         return res.json(r)

@@ -28,7 +28,7 @@ function Surrounding(props) {
     'SURROUNDING'
   )
 
-  
+  const [commodityPrice, setCommdityPrice] = useState(false)
   //會員id
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
@@ -46,7 +46,6 @@ function Surrounding(props) {
 
 
   const [commodity, setCommdity] = useState(false)
-  // document.documentElement.scrollTop = document.body.scrollTop =0;
   const itemlist = props.data.map((val, ind) => {
     let mbLike = false
     if(props.mbLikeData.findIndex((v)=>v.itemId === val.itemId) > -1 ){
@@ -71,13 +70,20 @@ function Surrounding(props) {
   const allcommodityItems = props.data.map((val, ind) => {
     return <Commoditycomponents2 key={val.itemId} data={val} arrIndex={ind} />
   })
- 
+  const ItemPrice = props.data.map((val,ind)=>{
+    if(props.ItemPrice.itemPrice < val.itemPrice || props.ItemPrice2.itemPrice2 > val.itemPrice){
+        // console.log(val)
+      return <Commoditycomponents key={val.itemId} data={val} arrIndex={ind} />
+    }
+  })
 
   return (
     <>
       <main className="chin-main">
         <section className="chin-section">
-          <Commoditylist data={props.data} />
+          <Commoditylist data={props.data} price={commodityPrice}  sendprice={v => {
+                setCommdityPrice(v)
+              }}/>
           <div className="chin-commodity-title">
             <CompareProductSort
               data={props.data}
@@ -88,13 +94,22 @@ function Surrounding(props) {
               }}
             />
             <div className="chin-commodity">
-              {commodity
+            {commodityPrice?ItemPrice:commodity
+                  ? 
+                  props.surrounding.length
+                  ? commodityItems
+                  : allcommodityItems
+                  : 
+                  props.surrounding.length
+                  ? itemlist
+                  : allitemlist}
+              {/* {commodity
                 ? props.surrounding.length
                   ? commodityItems
                   : allcommodityItems
                 :  props.surrounding.length
                 ? itemlist
-                : allitemlist}
+                : allitemlist} */}
             </div>
             <div className="circle">
               <div className="circle1">
@@ -114,6 +129,8 @@ function Surrounding(props) {
 const mapStateToProps = store => {
   return { data: store.getItems, 
           surrounding: store.getListitemName,
+          ItemPrice: store.getListitemPrice,
+          ItemPrice2:store.getListitemPrice2,
           mbLikeData:store.memberLikeData,
           rest:store.rest}
 }

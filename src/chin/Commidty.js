@@ -22,7 +22,6 @@ function Commidty(props) {
   // console.log('back', props.data)
 
   const itemId = props.match.params.itemId ? props.match.params.itemId : ''
-  document.documentElement.scrollTop = document.body.scrollTop =0;
 
   //會員id
   const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0

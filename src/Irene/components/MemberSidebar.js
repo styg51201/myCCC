@@ -5,6 +5,10 @@ import Nav from 'react-bootstrap/Nav'
 import MemberOrder from '../MemberOrder'
 import $ from 'jquery'
 
+import {
+  FiChevronDown
+} from 'react-icons/fi'
+
 function MemberSidebar(props) {
   const memberdata = localStorage.getItem('userdata')
   const account = JSON.parse(memberdata)
@@ -29,13 +33,15 @@ function MemberSidebar(props) {
     <>
       {/* 要加<div className="row d-flex justify-content-center">才可以flex */}
       {/* <MemberSidebar/> */}
-      <div className="membersidebar col-2">
+      <div className="membersidebar col-3">
         <ListGroup>
-          <ListGroup.Item>
-            <div>
-              <img className="image" src={require(`../irene-img/${imgid}.png`)} alt="Background" />
+          <ListGroup.Item>         
+            <div className='editPic'>
+              <div className='userPic'>
+               <img className="image" src={require(`../irene-img/${imgid}.png`)} alt="Background" />
+              </div>
+              <Nav.Link className="edit">編輯</Nav.Link>
             </div>
-            <Nav.Link className="edit">編輯</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
             <Nav.Link href={'/memberedit/' + usernametrue}>
@@ -53,9 +59,13 @@ function MemberSidebar(props) {
           <ListGroup.Item>
             <Nav.Link href="/memberedit/memberCoupon">優惠券</Nav.Link>
           </ListGroup.Item>
-          <ListGroup.Item>
-            <div onClick={toggleStories} role="button">
-              我的故事
+          <ListGroup.Item className='bk-member-nav-story-group'>
+            <div 
+            className={`bk-member-nav-button nav-link ${storyListOpen ? 'active' : ''}`}
+            onClick={toggleStories} 
+            role="button"
+            >
+              我的故事 <FiChevronDown />
             </div>
             <div
               className={`bk-member-nav-stories-list${
@@ -97,7 +107,7 @@ function MemberSidebar(props) {
           <Nav.Link>優惠券</Nav.Link>
           <Nav.Link>
             <div onClick={toggleStories} role="button">
-              我的故事
+              我的故事eeee <FiChevronDown />
             </div>
             <div
               className={`bk-member-nav-stories-list${
