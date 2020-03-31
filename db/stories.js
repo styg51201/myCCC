@@ -696,7 +696,7 @@ router.get('/:page?', (req, res)=>{
     }
 
 
-    console.log(sql)
+    // console.log(sql)
 
     const countsql = 'SELECT COUNT(*) AS "stryTotal" FROM `stories` WHERE `stryStatus`="active"';
 

@@ -4,6 +4,11 @@
 @media (max-width: $bp-sm) {
 
     //STORIES
+
+    .bk-story-search{
+        width: 100%;
+    }
+    
     .bk-stories-container{
         .bk-masonry-brick{
             width:100%;

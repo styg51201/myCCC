@@ -107,7 +107,7 @@ function MemberSidebar(props) {
           <Nav.Link>優惠券</Nav.Link>
           <Nav.Link>
             <div onClick={toggleStories} role="button">
-              我的故事eeee <FiChevronDown />
+              我的故事 <FiChevronDown />
             </div>
             <div
               className={`bk-member-nav-stories-list${
