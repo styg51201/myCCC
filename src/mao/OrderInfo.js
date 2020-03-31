@@ -400,7 +400,7 @@ function OrderInfo(props) {
           onClick={() => {
         {v.type=='CreditCard'?setOpenCard(true):setOpenCard(false)}
             }
-          }}
+          }
         />
         <label className="custom-control-label" htmlFor={v.type}>
           {v.name}
