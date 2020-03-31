@@ -1,5 +1,5 @@
-@import '../../css/variables';
-@import '../../css/main.scss';
+@import "../../css/variables";
+@import "../../css/main.scss";
 
 a:hover {
   text-decoration: none;
@@ -13,7 +13,7 @@ a:hover {
   display: flex;
   flex-direction: row;
 }
-input[type='checkbox'] {
+input[type="checkbox"] {
   display: none;
   &:checked + label {
     .chin-box::before {
@@ -23,7 +23,7 @@ input[type='checkbox'] {
       left: 0;
       right: 0;
       bottom: 0;
-      content: '\2714';
+      content: "\2714";
       font-size: 0.875rem;
       color: white;
       background: #000000;
@@ -200,7 +200,6 @@ input[type='checkbox'] {
     color: $black;
     font-size: 22px;
     font-weight: $font-bold;
-    font-family: Helvetica Neue;
     &:nth-child(2) {
       margin-left: 44px;
       font-size: 18px;
@@ -601,8 +600,8 @@ input[type='checkbox'] {
 }
 /*--------------RWD------------------*/
 
-@import '../../css/variables';
-@import '../../css/main.scss';
+@import "../../css/variables";
+@import "../../css/main.scss";
 .chin-rwd-sort-features {
   display: none;
 }

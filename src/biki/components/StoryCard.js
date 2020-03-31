@@ -77,7 +77,7 @@ function StoryCard(props){
                     <h3>{props.data.stryTitle}</h3>
                     <div className='bk-tags'>{JSON.parse(props.data.stryTags).map((elm, idx)=>{
                         return (<div 
-                                className='bk-tag'
+                                className='bk-tag bk-hover'
                                 key={`${elm}-${idx}`}
                                 onClick={(evt)=>{
                                     handleTagClick(elm, evt)

@@ -70,25 +70,27 @@ function Bigitem(props) {
               })}
         </Slider>
         </div>
-        <div className="chin-bigitem">
-          <Slider
-            asNavFor={nav2}
-            ref={slider=>(slider1.current= slider)}
-            arrows={false}
-            slidesToShow={props.data.multiple.length === 0 ? 0 : 1}
-          >
-            {props.data.multiple.map((val, ind) => {
-              return (
-                <div>
-                  <img
-                    key={ind}
-                    src={`/chin-img/images/${val.itemName}/${val.multipleImageImg}`}
-                    className="chin-smallitem-img"
-                  />
-                </div>
-              )
-            })}
-          </Slider>
+        <div className='bk-bigitem-wrapper'>
+          <div className="chin-bigitem">
+            <Slider
+              asNavFor={nav2}
+              ref={slider=>(slider1.current= slider)}
+              arrows={false}
+              slidesToShow={props.data.multiple.length === 0 ? 0 : 1}
+            >
+              {props.data.multiple.map((val, ind) => {
+                return (
+                  <div>
+                    <img
+                      key={ind}
+                      src={`/chin-img/images/${val.itemName}/${val.multipleImageImg}`}
+                      className="chin-smallitem-img"
+                    />
+                  </div>
+                )
+              })}
+            </Slider>
+          </div>
         </div>
         <div className="chin-smallitem">
           <Slider

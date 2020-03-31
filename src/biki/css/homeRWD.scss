@@ -1,5 +1,5 @@
-@import '../../css/variables.scss';
-@import './myVars.scss';
+@import "../../css/variables.scss";
+@import "./myVars.scss";
 
 @media (max-width: $bp-sm) {
   .bk-mouse {
@@ -7,8 +7,9 @@
   }
 
   .bk-home-slider {
-    height: $bk-full-page-RWD - 200px;
-    min-height: $bk-container-min-height - 100px;
+    height: $bk-container-min-height;
+    margin-top: -30px;
+    // min-height: $bk-container-min-height - 100px;
   }
 
   /* ----- ADS ----- */
@@ -40,15 +41,20 @@
           position: relative;
           left: 0;
           top: 0;
+          margin-bottom: $spacing;
+          align-items: center;
 
           .bk-block-num {
             font-size: 2rem;
-            width: 55px;
-            height: 55px;
-            line-height: 55px;
+            width: 65px;
+            height: 65px;
+            line-height: 65px;
           }
 
           .bk-block-text {
+            margin-left: $spacing;
+            margin-top: 0;
+
             .bk-h3 {
               font-size: 1.8rem;
             }
