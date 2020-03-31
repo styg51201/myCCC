@@ -2,6 +2,26 @@
 @import "../css/all.scss";
 @import "./myVars.scss";
 
+.bk-story-search {
+  border: solid 1px $black;
+  padding: $spacing/2 $spacing;
+  display: flex;
+  align-items: center;
+  width: 500px;
+  margin-top: $spacing * 2;
+
+  input {
+    background: transparent;
+    border: none;
+    width: 100%;
+    margin-left: $spacing/2;
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+
 .bk-tags {
   // margin-bottom: $spacing;
   font-size: $font-xs;
@@ -450,16 +470,6 @@
 }
 
 // ----- MEMBER STORY LIST PAGE ------
-
-.bk-member-nav-stories-list {
-  max-height: 0;
-  overflow: hidden;
-  transition: 0.3s;
-
-  &.active {
-    max-height: 110px;
-  }
-}
 
 .bk-story-top {
   display: flex;

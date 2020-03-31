@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
-export default function useStorySearch(pageNumber, sortName, tag){
+export default function useStorySearch(pageNumber, sortName, tag, search){
 
     const [loading, setLoading] = useState(true)
     const [hasMore, setHasMore] = useState(false)
@@ -47,7 +47,14 @@ export default function useStorySearch(pageNumber, sortName, tag){
             }
         }
 
-        // console.log('url', url)
+        if(search){
+            if(tag || sortName){
+                url += `&key=${search}`
+            }else{
+                url += `?key=${search}`
+            }
+        }
+
 
         axios({
             method: 'GET',
@@ -76,14 +83,14 @@ export default function useStorySearch(pageNumber, sortName, tag){
         })
         // return ()=> cancel()
 
-    }, [pageNumber, sortName, tag])
+    }, [pageNumber, sortName, tag, search])
 
     useEffect(()=>{
         // if(sortName){
             // console.log('resetting stories..')
             setStories([])
         // }
-    }, [sortName, tag])
+    }, [sortName, tag, search])
 
     return {loading, hasMore, stories, stryTotal, showBtn, error}
 }
