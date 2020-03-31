@@ -633,7 +633,7 @@ router.get('/story/:id', (req, res)=>{
 })
 
 //stories page
-router.get('/:page?', (req, res)=>{
+router.get('/:page?/:tag?', (req, res)=>{
 
     let perPage = 15;
     let currentPage = req.params.page ? parseInt(req.params.page) : 1;
@@ -647,7 +647,39 @@ router.get('/:page?', (req, res)=>{
     LEFT JOIN 
         (SELECT \`storyLikes\`.\`stryId\`, COUNT(\`storyLikes\`.\`stryId\`) AS sLikes FROM \`storyLikes\` GROUP BY \`storyLikes\`.\`stryId\`) AS story_likes
     ON \`stories\`.\`stryId\` = story_likes.\`stryId\`
-    WHERE \`stryStatus\` = "active" GROUP BY \`stories\`.\`stryId\``;
+    WHERE \`stryStatus\` = "active"`;
+
+    //如果有搜尋
+    if(req.query.key){
+        let searchArr = req.query.key.replace(/\s+/g, ' ').trim().split(' ')
+        let likeArr = [
+            '`stryTItle`',
+            '`stryContent`',
+            'stryTags'
+        ]
+        let likeStr = '';
+        
+        searchArr.forEach((elm, idx)=>{
+            likeStr += ` AND (`
+            likeArr.forEach((e, i)=>{
+                likeStr += `${e} LIKE '%${elm}' OR ${e} LIKE '%${elm}%' OR ${e} LIKE '${elm}%'`
+                if(i !== likeArr.length -1){
+                    likeStr += ` OR `
+                }
+            })
+            likeStr += `)`
+        })
+        sql += likeStr;
+    }
+
+    //點擊標籤
+    if(req.query.tag){
+        let tag = req.query.tag;
+
+        sql += ` AND (\`stryTags\` LIKE '%"${tag}"' OR \`stryTags\` LIKE '"${tag}"%' OR \`stryTags\` LIKE '%"${tag}"%')`;
+    }
+
+    sql += ' GROUP BY \`stories\`.\`stryId\`';
 
     if(!req.query.orderby){
         sql = sql + ` ORDER BY \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`
@@ -662,6 +694,7 @@ router.get('/:page?', (req, res)=>{
             sql = sql + ` ORDER BY \`rplyTotal\` DESC, \`stories\`.\`stryViews\` DESC, \`stories\`.\`updated_at\` DESC LIMIT ${(currentPage - 1) * perPage}, ${perPage}`;
         }
     }
+
 
     // console.log(sql)
 

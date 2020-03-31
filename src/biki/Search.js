@@ -36,7 +36,7 @@ function Search(props){
             <div className='bk-page-title'>
                 <span>SEARCH RESULTS</span>
                 <span>搜尋結果</span>
-                <span>{searchKey} 共找到 {data.length} 個商品</span>
+                <span>{decodeURI(searchKey)} 共找到 {data.length} 個商品</span>
             </div>
         </div>
             <div className='bk-search-results'>
