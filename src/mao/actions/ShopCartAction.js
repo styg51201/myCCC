@@ -76,7 +76,7 @@ export const returnTheOrder = val => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         }),
-        body: JSON.stringify(val),
+        body: JSON.stringify({orderId:val}),
       }
     )
     const res = await fetch(request)
@@ -100,6 +100,7 @@ export const forServerorderProductInfo = val => {
         body: JSON.stringify(val),
       }
     )
+    await console.log(val)
     await dispatch(saveOrderBuyerproduct(val))
     const res = await fetch(request)
     const data = await res.json()
