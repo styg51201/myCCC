@@ -56,10 +56,13 @@ async function getItemToLocalStorage() {
 
   const currentHisitem = localStorage.getItem('hisitem') || []
 
-
-
   // 設定資料
-  setNewHisitem(JSON.parse(currentHisitem))
+  if(currentHisitem.length > 0){
+    setNewHisitem(JSON.parse(currentHisitem))
+  }else{
+    setNewHisitem([])
+  }
+
 }
   function SamplePrevArrow(props) {
     const { className, style, onClick } = props;

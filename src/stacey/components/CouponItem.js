@@ -9,11 +9,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {getCouponToServer,getCoupon,goShopping,showDiscountAction} from '../actions/couponAction'
 
-//icon
-import { IconContext } from 'react-icons'
-import {
-  IoMdArrowDropright
-} from 'react-icons/io'
 
 //動畫
 import { bounceIn } from 'react-animations';
@@ -130,6 +125,7 @@ function CouponItem(props){
     props.showDiscountAction(true,props.item)
     props.goShopping(props.item.cp_vendor) 
     props.history.push(path)
+    window.scrollTo({ top: 0 });
   }
 
   function getAction () {

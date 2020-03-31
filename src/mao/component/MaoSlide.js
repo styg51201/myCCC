@@ -25,9 +25,9 @@ function MaoSlide(props) {
     arrows: true, //箭頭是否要有,如果要改的話用物件寫　需搭配ref
     autoplay: false,
     pauseOnHover: true,
-    onChange: (oldIndex, newIndex) => {
-      console.log(`slide transition from ${oldIndex} to ${newIndex}`)
-    },
+    // onChange: (oldIndex, newIndex) => {
+      // console.log(`slide transition from ${oldIndex} to ${newIndex}`)
+    // },
   }
 
   //儲存箱子

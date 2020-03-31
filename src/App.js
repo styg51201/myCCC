@@ -44,8 +44,7 @@ import MemberEdit from './Irene/MemberEdit'
 
 //import stacey
 import GetCoupon from './stacey/GetCoupon'
-import OnSale from './stacey/OnSale'
-import AdTest from './stacey/AdTest'
+
 
 
 function App() {
@@ -125,12 +124,6 @@ function App() {
             {/* 連結優惠券專區 */}
             <Route path="/getCoupon">
               <GetCoupon />
-            </Route>
-            <Route path="/onSale">
-              <OnSale />
-            </Route>
-            <Route path="/adTest">
-              <AdTest />
             </Route>
             <Route path="/member/upload-stories">
               <UploadStory />

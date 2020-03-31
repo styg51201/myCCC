@@ -5,7 +5,7 @@ const router = express.Router();
 
 
 router.get('/allitems', (req, res)=>{
-    let sql='SELECT * FROM `items` ORDER BY RAND() LIMIT 25'
+    let sql='SELECT * FROM `items` ORDER BY RAND() LIMIT 24'
     db.queryAsync(sql)
     .then(r=>{
         return res.json(r)

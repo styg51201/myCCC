@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { Card } from 'react-bootstrap'
-import {Link} from 'react-router-dom'
+import {Link, withRouter} from 'react-router-dom'
 import axios from 'axios'
 
 import {
@@ -49,9 +49,13 @@ function StoryCard(props){
         }
     }
 
-    // useEffect(()=>{
-    //     console.log(props.data.stryId, 'this story is liked?', like)
-    // }, [])
+    const handleTagClick = (data, evt)=>{
+        evt.preventDefault()
+        // console.log(props)
+        // props.addTagsToArr(data)
+        props.history.push(`/stories?tag=${data}`)
+        // window.location.reload() //???
+    }
 
     return(
         <Link to={`/stories/story/${props.data.stryId}`} className="bk-card-linkwrapper">
@@ -75,6 +79,9 @@ function StoryCard(props){
                         return (<div 
                                 className='bk-tag'
                                 key={`${elm}-${idx}`}
+                                onClick={(evt)=>{
+                                    handleTagClick(elm, evt)
+                                }}
                                 >
                                     {elm}
                                 </div>)
@@ -98,4 +105,4 @@ function StoryCard(props){
     )
 }
 
-export default StoryCard
+export default withRouter(StoryCard)

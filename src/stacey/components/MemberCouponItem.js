@@ -89,6 +89,7 @@ function MemberCouponItem(props){
     props.showDiscountAction(true,props.item)
     props.goShopping(props.item.cp_vendor) 
     props.history.push(path)
+    window.scrollTo({ top: 0 });
   }
  
     return (

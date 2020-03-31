@@ -8,7 +8,8 @@ function StoryReply(props){
     const [txtContent, setTxtContent] = useState('')
     const [showReplyTo, setShowReplyTo] = useState(false)
     const [replyTo, setReplyTo] = useState(null)
-    const [user, setUser] = useState(localStorage.getItem('userId'))
+    const user = localStorage.getItem('userId')
+    // const [user, setUser] = useState(localStorage.getItem('userId'))
 
     const {
         rows, 

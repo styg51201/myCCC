@@ -22,7 +22,7 @@ export const getRecursiveJson = (children, parents)=>{
     if(leftoutchildren.length > 0){
         getRecursiveJson(leftoutchildren, children)
     }
-    console.log('parents:', parents)
+    // console.log('parents:', parents)
 
     return parents;
 }

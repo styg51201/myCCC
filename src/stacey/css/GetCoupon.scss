@@ -1,7 +1,7 @@
 @import './var.scss';
 @import '../../css/variables';
 @import '../../css/main.scss';
-@import './hover/hover.scss';
+
 
 * {
   padding: 0;
@@ -355,8 +355,8 @@ button {
       transform: scale(1.03);
     }
     &:hover button {
-      @include prefixed(animation-name, push);
-      @include prefixed(animation-duration, 0.4s);
+      animation-name: push;
+      animation-duration: 0.4s;
     }
 
     // &:hover button span {
@@ -370,8 +370,8 @@ button {
   .item {
     cursor: pointer;
     &:active button {
-      @include prefixed(animation-name, push);
-      @include prefixed(animation-duration, 0.4s);
+      animation-name: push;
+      animation-duration: 0.4s;
     }
   }
 
@@ -483,11 +483,11 @@ button {
 /* Push */
 @keyframes push {
   50% {
-    @include prefixed(transform, scale(0.8));
+    transform: scale(0.8);
   }
 
   100% {
-    @include prefixed(transform, scale(1));
+    transform: scale(1);
   }
 }
 

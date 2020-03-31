@@ -340,10 +340,10 @@ function OrderInfo(props) {
   useEffect(() => {
     buyerInfo.orderId = order
   }, [ order])
-  useEffect(() => {
-    console.log('buyerInfo2', buyerInfo)
-    console.log('props', props)
-  }, [buyerInfo])
+  // useEffect(() => {
+    // console.log('buyerInfo2', buyerInfo)
+    // console.log('props', props)
+  // }, [buyerInfo])
 
   //送出
   async function POSTorderInfo() {
@@ -429,9 +429,9 @@ function OrderInfo(props) {
     }
     
   }
-useEffect(()=>{
-  console.log('errors==',errors)
-},[errors])
+// useEffect(()=>{
+//   console.log('errors==',errors)
+// },[errors])
 
   const CreditCardInfo = (
     <div id="creditCardInfo">

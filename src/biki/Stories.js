@@ -12,12 +12,15 @@ import {
 
 import useStorySearch from './utils/useStorySearch'
 
-// import './css/all.scss'
 import './css/stories.scss'
 import './css/storiesRWD.scss'
 
 import StoryCard from './components/StoryCard'
 import Masonry from 'react-masonry-component';
+
+import {
+    FiX
+  } from 'react-icons/fi'
 
 
 function Stories(props){
@@ -29,6 +32,8 @@ function Stories(props){
     const [sortNameCn, setSortNameCn] = useState(null)
     const [usrId, setUsrId] = useState(localStorage.getItem('userId'))
     const [stryLikes, setStryLikes] = useState(null)
+    // const [tags, setTags] = useState(props.location.search.replace(/[\?\&]tag\d=/g, ' ').split(' '))
+    const [tag, setTag] = useState(props.location.search)
 
     const {
         loading,
@@ -37,12 +42,13 @@ function Stories(props){
         stryTotal,
         showBtn,
         error,
-    } = useStorySearch(pageNumber, sortName)
+    } = useStorySearch(pageNumber, sortName, tag)
 
     const observer = useRef(null)
 
     //查看使用者按讚的故事
     useEffect(()=>{
+        // if(props.location) setTag(props.location.search)
         if(!usrId) return;
 
         axios.get(`http://localhost:5500/stories/member/like?usrId=${usrId}`)
@@ -56,9 +62,15 @@ function Stories(props){
         })
     }, [])
 
+    // useEffect(()=>{
+    //     console.log('stryLikes:', stryLikes)
+    // }, [stryLikes])
+
     useEffect(()=>{
-        console.log('stryLikes:', stryLikes)
-    }, [stryLikes])
+        setTag(props.location.search)
+        // console.log(props.location.search)
+
+    }, [props.location.search])
 
     const lastStoryElementRef = useCallback(node => {
         if(loading) return
@@ -91,9 +103,17 @@ function Stories(props){
         setShowSort(false)
     }
 
+    // const addTagsToArr = (tag)=>{
+    //     setTags(prevTags=>{
+    //         return [...prevTags, tag]
+    //     })
+    // }
+
     useEffect(()=>{
         if(sortName) setPageNumber(1)
-    }, [sortName])
+        // if(tags.length) setPageNumber(1)
+        if(tag) setPageNumber(1)
+    }, [sortName, tag])
     
 
     const items =  stories.map((itm, idx)=>{
@@ -124,6 +144,8 @@ function Stories(props){
                         content={story} 
                         data={itm}
                         liked={stryLikes ? (stryLikes.indexOf(itm.stryId) !== -1) : null}
+                        // addTagsToArr={addTagsToArr}
+                        // tags={tags}
                     />
                 </div>
             )
@@ -136,6 +158,8 @@ function Stories(props){
                         content={story} 
                         data={itm}
                         liked={stryLikes ? !(stryLikes.indexOf(itm.stryId) === -1) : null}
+                        // addTagsToArr={addTagsToArr}
+                        // tags={tags}
                     />
                 </div>
             )
@@ -171,6 +195,30 @@ function Stories(props){
                     </ul>
                 </div>
             </div>
+            {/* {tags.length ? 
+            (<div className='bk-tags bk-dark mt-5'>
+                {tags.map((elm, idx)=>{
+                    return (
+                    <div className='bk-tag' key={`${elm}-${idx}`}>
+                        {elm}
+                    </div>
+                )
+                })}
+            </div>)
+            : ''} */}
+
+            {tag ? 
+            (<div className='bk-tags bk-dark mt-5'>
+                <div className='bk-tag' style={{display:'flex', alignItems:'center'}}>
+                    {decodeURI(tag.replace('?tag=', ''))}
+                    <FiX style={{marginLeft:'7.5px'}} onClick={()=>{
+                        setPageNumber(1)
+                        setTag('')
+                        props.history.push('/stories')
+                    }} />
+                </div>
+            </div>)
+            : ''}
 
             <main className="mt-5">
                 <div className="bk-stories-container">
@@ -194,4 +242,4 @@ function Stories(props){
     )
 }
 
-export default Stories
+export default withRouter(Stories)

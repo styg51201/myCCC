@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
-export default function useStorySearch(pageNumber, sortName){
+export default function useStorySearch(pageNumber, sortName, tag){
 
     const [loading, setLoading] = useState(true)
     const [hasMore, setHasMore] = useState(false)
@@ -12,22 +12,42 @@ export default function useStorySearch(pageNumber, sortName){
     const [showBtn, setShowBtn] = useState(false)
 
     useEffect(()=>{
+        // console.log('tag', tag)
         setLoading(true)
         setError(false)
         // console.log('page or sortname has been changed')
 
-        let cancel;
+        // let cancel;
 
         if(pageNumber === Math.ceil(stryTotal / 15)){
             setShowBtn(false)
         }
 
-        let url;
-        if(sortName){
-            url = `http://localhost:5500/stories/${pageNumber}?orderby=${sortName}`;
-        }else{
-            url = `http://localhost:5500/stories/${pageNumber}`
+        let url = `http://localhost:5500/stories/${pageNumber}`
+
+        if(tag){
+            url += `${tag}`
         }
+
+        // if(tag){
+        //     tag.forEach((elm, idx)=>{
+        //         if(idx === 0){
+        //             url += `?tag${idx}=${elm}`
+        //         }else{
+        //             url += `&tag${idx}=${elm}`
+        //         }
+        //     })
+        // }
+
+        if(sortName){
+            if(tag){
+                url += `&orderby=${sortName}`;
+            }else{
+                url += `?orderby=${sortName}`;
+            }
+        }
+
+        // console.log('url', url)
 
         axios({
             method: 'GET',
@@ -56,14 +76,14 @@ export default function useStorySearch(pageNumber, sortName){
         })
         // return ()=> cancel()
 
-    }, [pageNumber, sortName])
+    }, [pageNumber, sortName, tag])
 
     useEffect(()=>{
-        if(sortName){
-            console.log('resetting stories..')
+        // if(sortName){
+            // console.log('resetting stories..')
             setStories([])
-        }
-    }, [sortName])
+        // }
+    }, [sortName, tag])
 
     return {loading, hasMore, stories, stryTotal, showBtn, error}
 }

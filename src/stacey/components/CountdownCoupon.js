@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react'
 import classNames from 'classnames'
-import { withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch ,withRouter } from 'react-router-dom'
 import moment from 'moment'
 
 import '../css/countdownCoupon.scss'
@@ -13,7 +13,6 @@ import { connect } from 'react-redux'
 //action
 import { bindActionCreators } from 'redux'
 import {countdownCouponGet , getCouponToServer ,fromServerCountdownCouponData,goShopping,showDiscountAction} from '../actions/couponAction'
-
 
 
 //動畫
@@ -36,9 +35,10 @@ const now = new Date()
 const nowHour = moment().hour()
 const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
 const endTime = moment(`${today} ${nowHour+1}:00:00`)
-const countdownTime = (endTime.valueOf() - now.valueOf() )/1000
+const countdownTime = Math.round( (endTime.valueOf() - now.valueOf() ) / 1000 )
 // const start = moment(`${today} ${nowHour}:59:40`)
 // const countdownTime = (endTime.valueOf() - start.valueOf() )/1000
+
 
 const timeout = countdownTime *1000
 
@@ -49,13 +49,13 @@ useEffect(()=>{
     props.fromServerCountdownCouponData(mb_id) 
 
     let timer = setTimeout(() => {
-        console.log('settimeout')
+       
         props.fromServerCountdownCouponData(mb_id) 
     }, timeout);
-    console.log('timeout',timeout)
+    
 
     return ()=> {clearTimeout(timer)
-    console.log('end')};
+   };
 
 },[])
 
@@ -165,7 +165,7 @@ const coupon =  props.item.map((val,ind)=>{
 
 
 return(
-    <div className={couponClassName}>
+    <div key={ind} className={couponClassName}>
               <div className="item" onClick={()=>{
                   val.geted ? shopAction() : getAction()
               }}>

@@ -35,15 +35,17 @@ function ShopCartLike(props) {
     ? localStorage.getItem('userId')
     : 0
 
+    
   useEffect(() => {
+    console.log('這裡原本有props被我拿掉囉')
     if (mb_id) {
       props.fromServerMbLikeData(mb_id)
     }
-  }, [mb_id, props])
+  }, [mb_id])
 
   // 購物車內容顯示　要再做調整
   const dataList = props.MyFavorite.map((v, i) => {
-    console.log('MyFavorite', v)
+    // console.log('MyFavorite', v)
     return (
       <li key={v.itemId} className="d-flex Mao-shopcart-check-item">
         <img

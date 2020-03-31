@@ -17,7 +17,7 @@ import {
     FiEye
   } from 'react-icons/fi'
 
-import './css/stories.scss'
+// import './css/stories.scss'
 
 function Story(props){
 
@@ -65,10 +65,10 @@ function Story(props){
         .then(axios.spread((...res)=>{
             // console.log('like or not:', res[3].data.length)
             if(res[3].data.length){
-                console.log('set like')
+                // console.log('set like')
                 setLike(true)
             }
-            console.log(res[2].data)
+            // console.log(res[2].data)
 
             let options = {
                 blockStyleFn: (block) => {
@@ -139,17 +139,17 @@ function Story(props){
                         return [r.data[0], ...prevData]
                     }else{
                         let getObjPos = (obj, arr)=>{
-                            console.log('obj:', obj)
+                            // console.log('obj:', obj)
                             let newArr = [...arr]
                             newArr.some(elm=>{
                                 if(elm.rplyId === obj.rplyTo){
                                     obj.rplyToName = elm.Name || elm.Account;
                                     (elm.children || (elm.children = [])).push(obj)
-                                    console.log('found!')
+                                    // console.log('found!')
                                     return true;
                                 }else{
                                     if(elm.children){
-                                        console.log('continue finding...')
+                                        // console.log('continue finding...')
                                         getObjPos(obj, elm.children)
                                     }
                                 }
@@ -175,22 +175,22 @@ function Story(props){
                     confirmButton: 'bk-swl-confirm-button',
                   }
               })  
-            console.log(res.data)
+            // console.log(res.data)
         })
     }
 
     const handleToggleLike = (id, evt)=>{
         evt.preventDefault()
         if(user){
-            console.log('set like to ', !like)
+            // console.log('set like to ', !like)
             setLike(!like)
 
             if(!like){
-                console.log('like!')
+                // console.log('like!')
                 setLikeNum(likeNum + 1)
                 axios.post(`http://localhost:5500/stories/member/add-like/${props.match.params.id}?usrId=${user}`)
             }else if(like){
-                console.log('unlike!')
+                // console.log('unlike!')
                 setLikeNum(likeNum - 1)
                 axios({
                     method: 'DELETE',

@@ -9,7 +9,8 @@ import MemberSidebar from '../Irene/components/MemberSidebar'
 
 function MemberDrafts(){
 
-    const [user, setUser] = useState(localStorage.getItem('userId'))
+    // const [user, setUser] = useState(localStorage.getItem('userId'))
+    const user = localStorage.getItem('userId')
     const [data, setData] = useState([])
 
     useEffect(()=>{

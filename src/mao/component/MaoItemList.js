@@ -79,7 +79,7 @@ async function ItemToLocalStorage(value) {
     if(index === -1){
       const newHisitem = [...currentHisitem, value]
       localStorage.setItem('hisitem', JSON.stringify(newHisitem))
-    }else{console.log('asdsadasdsd')}
+    }
   // 設定資料
   setNewHisitem(newHisitem)
 }

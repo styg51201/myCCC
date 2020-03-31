@@ -64,6 +64,27 @@ export const fromServerorderBuyerInfo = val => {
   }
 }
 
+//退貨
+export const returnTheOrder = val => {
+  return async dispatch => {
+    const request = new Request(
+      'http://localhost:5500/shopCart/orderBuyerInfoReturn',
+      {
+        method: 'POST',
+        credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body: JSON.stringify(val),
+      }
+    )
+    const res = await fetch(request)
+    const data = await res.json()
+  }
+}
+
+
 //訂單產品資料
 export const forServerorderProductInfo = val => {
   return async dispatch => {
@@ -239,7 +260,7 @@ export const AddCartNewItem_sendcal = (val, data) => {
     } else {
       data[index].count = +data[index].count + 1
     }
-    console.log('data', data)
+    // console.log('data', data)
     dispatch(AddCart(data))
     dispatch(CalShopCart(data))
   }
@@ -256,8 +277,8 @@ export const Handle_AddMyFavorite = (val, product, data) => {
     itemPrice: product.itemPrice,
     itemCategoryId: product.itemCategoryId,
   }
-  console.log('加入我的最愛 = ', product.itemId)
-  console.log('加入我的最愛 = ', newProduct)
+  // console.log('加入我的最愛 = ', product.itemId)
+  // console.log('加入我的最愛 = ', newProduct)
   let pIdBox = []
   data.map((v, i) => {
     pIdBox.push(v.itemId)
@@ -270,7 +291,7 @@ export const Handle_AddMyFavorite = (val, product, data) => {
       if (box == -1) {
         newData.push(newProduct)
       } else {
-        console.log('false')
+        // console.log('false')
         return newData
       }
     } else if (val == false) {
