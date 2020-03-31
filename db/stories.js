@@ -633,7 +633,7 @@ router.get('/story/:id', (req, res)=>{
 })
 
 //stories page
-router.get('/:page?/:tag?', (req, res)=>{
+router.get('/:page?', (req, res)=>{
 
     let perPage = 15;
     let currentPage = req.params.page ? parseInt(req.params.page) : 1;
@@ -655,7 +655,7 @@ router.get('/:page?/:tag?', (req, res)=>{
         let likeArr = [
             '`stryTItle`',
             '`stryContent`',
-            'stryTags'
+            '`stryTags`'
         ]
         let likeStr = '';
         
@@ -696,7 +696,7 @@ router.get('/:page?/:tag?', (req, res)=>{
     }
 
 
-    // console.log(sql)
+    console.log(sql)
 
     const countsql = 'SELECT COUNT(*) AS "stryTotal" FROM `stories` WHERE `stryStatus`="active"';
 
