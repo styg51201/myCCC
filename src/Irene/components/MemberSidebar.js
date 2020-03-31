@@ -12,19 +12,15 @@ function MemberSidebar(props) {
   // console.log('memberdata.username', account)
   // console.log('username', usernametrue)
   function openNav() {
+    // alert('ya')
     document.querySelector('.irene-side-nav').style.width = '250px'
   }
   function closeNav() {
     document.querySelector('.irene-side-nav').style.width = '0'
   }
-  // useEffect(() => {
-  //   $('.irene-openside-btn').click(() => {
-  //     document.getElementById('mySidenav').style.width = '250px'
-  //   })
-  // })
 
   const [storyListOpen, setStoryListOpen] = useState(false)
-  const toggleStories = ()=>{
+  const toggleStories = () => {
     setStoryListOpen(!storyListOpen)
   }
   return (
@@ -56,8 +52,14 @@ function MemberSidebar(props) {
             <Nav.Link href="/memberedit/memberCoupon">優惠券</Nav.Link>
           </ListGroup.Item>
           <ListGroup.Item>
-            <div onClick={toggleStories} role='button'>我的故事</div>
-            <div className={`bk-member-nav-stories-list${storyListOpen ? ' active' : ''}`}>
+            <div onClick={toggleStories} role="button">
+              我的故事
+            </div>
+            <div
+              className={`bk-member-nav-stories-list${
+                storyListOpen ? ' active' : ''
+              }`}
+            >
               <Nav.Link href="/member/upload-stories">寫故事</Nav.Link>
               <Nav.Link href="/member/stories">已發布故事</Nav.Link>
               <Nav.Link href="/member/stories/drafts">草稿</Nav.Link>
@@ -67,7 +69,7 @@ function MemberSidebar(props) {
       </div>
       <div className="irene-openRWDbtn">
         <button
-          className="irene-openside-btn"    
+          className="irene-openside-btn"
           onClick={event => openNav(event)}
         >
           side
@@ -75,22 +77,36 @@ function MemberSidebar(props) {
       </div>
       <div className="irene-RWD-membersidebar irene-side-nav">
         <Nav className="flex-column">
-          <Nav.Link>         
+          <Nav.Link>
             <button
               className="irene-closeside-btn"
-              style={{textAlign:'left'}}
+              style={{ textAlign: 'left' }}
               onClick={event => closeNav(event)}
             >
               X
             </button>
-          </Nav.Link>         
-            <div className="irene-image-div">
-              <img className="image" src="https://fakeimg.pl/150x150/" alt="" />
-            </div>          
+          </Nav.Link>
+          <div className="irene-image-div">
+            <img className="image" src="https://fakeimg.pl/150x150/" alt="" />
+          </div>
           <Nav.Link>基本資料管理</Nav.Link>
           <Nav.Link>交易紀錄</Nav.Link>
           <Nav.Link>我的收藏</Nav.Link>
           <Nav.Link>優惠券</Nav.Link>
+          <Nav.Link>
+            <div onClick={toggleStories} role="button">
+              我的故事
+            </div>
+            <div
+              className={`bk-member-nav-stories-list${
+                storyListOpen ? ' active' : ''
+              }`}
+            >
+              <Nav.Link href="/member/upload-stories">寫故事</Nav.Link>
+              <Nav.Link href="/member/stories">已發布故事</Nav.Link>
+              <Nav.Link href="/member/stories/drafts">草稿</Nav.Link>
+            </div>
+          </Nav.Link>
         </Nav>
       </div>
     </>

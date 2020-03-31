@@ -20,12 +20,13 @@ export const userRegisterAsync = (userData, callback) => {
 
     const response = await fetch(request)
     const data = await response.json()
-    console.log('resgister', data)
+    // console.log('resgister', data)
 
     // 設定資料
     dispatch(userRegister(data))
     callback()
-
+    localStorage.removeItem('userdata')
+    localStorage.removeItem('userId')
     localStorage.setItem('userdata', JSON.stringify(userData))
     localStorage.setItem('userId', JSON.stringify(data.result.insertId))
     const loginsucess = localStorage.getItem(
@@ -59,18 +60,18 @@ export const userLoginAsync = (userData, callback) => {
       }
     )
 
-    console.log(JSON.stringify(userData))
+    // console.log(JSON.stringify(userData))
 
     const response = await fetch(request)
     const data = await response.json()
-    console.log('res data', data)
+    // console.log('res data', data)
 
     if (data.length > 0) {
       if (
         data[0].Account === userData.username &&
         data[0].Pwd === userData.password
       ) {
-        console.log(data)
+        // console.log(data)
         // 設定資料
         dispatch(userLogin(userData))
         //存入localstorage
@@ -79,7 +80,7 @@ export const userLoginAsync = (userData, callback) => {
         window.location = `http://localhost:3000/memberedit/${userData.username}`
 
         // alert(`${userData.username}登入成功`)
-        console.log('登入成功')
+        // console.log('登入成功')
       } else {
         alert('帳密錯誤')
       }
@@ -144,8 +145,8 @@ export const updateServerMember = val => {
     // console.log('userData', userData)
     const res = await fetch(request)
     const data = await res.json()
-    console.log('upval', val)
-    console.log('updata', data)
+    // console.log('upval', val)
+    // console.log('updata', data)
     dispatch(updateMember(data))
     if (data.result.affectedRows) {
       Swal.fire({
@@ -179,11 +180,11 @@ export const getServerMemberOrder = () => {
         }),
       }
     )
-    console.log('account', accountId)
+    // console.log('account', accountId)
     // console.log('userData', userData)
     const res = await fetch(request)
     const data = await res.json()
-    console.log('the', data)
+    // console.log('the', data)
 
     dispatch(getMemberOrder(data))
   }
