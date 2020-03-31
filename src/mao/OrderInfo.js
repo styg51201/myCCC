@@ -399,13 +399,8 @@ function OrderInfo(props) {
           }}
           onClick={() => {
         {v.type=='CreditCard'?setOpenCard(true):setOpenCard(false)}
-<<<<<<< HEAD
-            }
-          }
-=======
             
           }}
->>>>>>> bc546feac445b56430da43d588a963e682114f57
         />
         <label className="custom-control-label" htmlFor={v.type}>
           {v.name}
