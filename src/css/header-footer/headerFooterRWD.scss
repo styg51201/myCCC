@@ -80,6 +80,8 @@
   .bk-mobile-nav-append {
     width: 100%;
     height: 90px;
+    pointer-events: none;
+    display: block;
   }
 
   .bk-mobile-side-nav {

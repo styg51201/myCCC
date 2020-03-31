@@ -74,7 +74,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
-        <Container>
+        <Container style={{marginTop: '30px'}}>
           <Switch>
             {/*----------------------chin---------------------*/}
             <Route path="/headset">
