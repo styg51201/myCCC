@@ -55,7 +55,7 @@ const PriceClassName= classNames('chin-totalprice',{active:price})
                     </div>
                     {/* {CustomizedSlider()} */}
                 </div>
-            </li>
+      </li>
       {/* <Price price={props.data} /> */}
       {props.showDiscount.isShow ? <Discount data={props.showDiscount.value}/> : ''}
       <Brand list={nameList} />
