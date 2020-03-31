@@ -71,7 +71,7 @@ function MemberOrder(props) {
 
   useEffect(() => {
     // var searchword = $('.searchbar').val()
-    console.log('searchword', searchbar)
+    // console.log('searchword', searchbar)
     if (searchbar !== '') {
       $('.irene-ordernumber')
         .parent('tr')
@@ -85,7 +85,7 @@ function MemberOrder(props) {
       $('.irene-ordernumber')
         .parent('tr')
         .css('display', 'table-row')
-      console.log('nothing')
+      // console.log('nothing')
     }
   }, [searchbar])
 
@@ -177,7 +177,7 @@ function MemberOrder(props) {
                 </tr>
               </thead>
               <tbody>
-              {props.data.map((v, i) => (
+                {props.data.map((v, i) => (
                   <tr>
                     <td>{v.created_at}</td>
                     <td className="irene-ordernumber">
@@ -203,7 +203,7 @@ function MemberOrder(props) {
                       <button className="irene-membercommentbtn">評價</button>
                     </td>
                   </tr>
-                ))}               
+                ))}
               </tbody>
             </Table>
           </div>

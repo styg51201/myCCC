@@ -12,6 +12,8 @@ function MemberLoginRight(props) {
   const [error, setError] = useState(false)
   const [errorMessages, setErrorMessages] = useState([])
 
+  const email_pattern = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+
   const handleSubmit = () => {
     let error = false
     let errorMessages = []
@@ -30,6 +32,10 @@ function MemberLoginRight(props) {
     if (!email) {
       error = true
       errorMessages.push('請輸入電子郵件')
+    }
+    if (!email_pattern.test(email)) {
+      error = true
+      errorMessages.push('電子郵件格式錯誤，請確認')
     }
 
     if (error) {
@@ -71,11 +77,10 @@ function MemberLoginRight(props) {
             </div>
             <div className="row my-2">
               <label className="col-3">密碼：</label>
-
               <input
                 name="password"
                 className="form-control  col-6"
-                type="text"
+                type="password"
                 onChange={e => setPassword(e.target.value)}
               />
             </div>

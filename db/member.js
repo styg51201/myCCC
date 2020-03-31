@@ -43,14 +43,14 @@ router.post('/insert', (req, res) => {
   db.queryAsync(sql, [req.body.username, req.body.password, req.body.email])
     .then(r => {
       output.result = r
-      console.log('result', r)
+      // console.log('result', r)
       output.success = true
       // res.json(req.body);
       return res.json(output)
     })
     .catch(error => {
       // res.send(error);
-      console.log(error)
+      // console.log(error)
       return res.send(error)
     })
 })
@@ -89,11 +89,11 @@ router.post('/update', (req, res) => {
     .then(r => {
       output.result = r
       output.success = true
-      console.log('result:', output)
+      // console.log('result:', output)
       return res.json(output)
     })
     .catch(error => {
-      console.log('更新錯誤:', error)
+      // console.log('更新錯誤:', error)
       return res.json(output)
     })
 })
