@@ -1,6 +1,6 @@
-@import '../../css/variables.scss';
+@import "../../css/variables.scss";
 
-@import './myVars.scss';
+@import "./myVars.scss";
 
 .bk-page-load {
   width: 100%;
@@ -370,11 +370,13 @@
     position: absolute;
     left: 1.5rem;
     top: 1.5rem;
+    color: $yellow;
 
     svg {
       position: absolute;
       transition: 0.3s;
       left: 0;
+      fill: $yellow;
     }
   }
 

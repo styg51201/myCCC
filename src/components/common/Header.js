@@ -377,7 +377,7 @@ function Header(props) {
   const mobileNav = (
     <>
       <div className={`bk-mobile-nav${hideMobileNav ? ' hide' : ''}`}>
-        <div className='bk-nav-menu-icon' onClick={toggleSideNav}>
+        <div className={`bk-nav-menu-icon${showMobileSideNav ? ' open' : ''}`} onClick={toggleSideNav}>
           <span></span>
           <span></span>
           <span></span>
@@ -401,6 +401,9 @@ function Header(props) {
         </Link>
       </div>
       <ul>
+        <li style={{fontSize:'1.2rem'}}>
+          <FiSearch />
+        </li>
         <li onClick={toggleSideNav}>
           <Link to='/watch'>穿戴式裝置</Link>
         </li>

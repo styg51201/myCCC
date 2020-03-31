@@ -225,7 +225,7 @@ function Story(props){
     if(loaded){
         return (
             <>
-                <div className="bk-story-head">
+                <div className="bk-story-head mt-4">
                     <div className='bk-story-container'>
                         <div className='title'>{data[0].stryTitle}</div>
                         <div className='user'>
