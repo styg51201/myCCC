@@ -90,6 +90,93 @@ router.post('/upLoadimg', upload.single('file'), (req, res) => {
   }
 })
 
+router.get('/inputData', (req, res) => {
+  // console.log('45456',req.body.mb_id)
+  const inputData =
+    'INSERT INTO `items`( `name`, `itemName`, `itemImg`, `itemDescription`,`itemDescription2`,`itemPrice`,`itemQty`,`itemCategoryId`,`data`,`data2`,`data3`,`data4`,`data5`,`data6`,`data7`,`data8`,`data9`,`data10`,`data11`,`data12`,`data13`,`data14`,`data15`,`data16`,`data17`,`data18`,`data19`,`data20`,`data21`,`data22`,`data23`,`data24`,`data25`,`data26`,`data27`,`data28`,`data29`,`data30`,`data31`,`data32`,`data33`,`data34`,`data35`,`data36`,`data37`,`data38`,`data39`,`data40`,`data41`,`data42`,`data43`,`data44`,`data45`,`data46`,`data47`,`data48`,`data49`,`data50`,`data51`,`data52`,`data53`,`data54`,`data55`,`data56`) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'
+
+  db.queryAsync(inputData, [
+    'GARMIN',
+    'GARMIN Legacy Saga傳奇星戰系列',
+    '0.jpg',
+    '●主題式應用程式/限定版優選材質\n●靈感來自您喜愛的超級英雄\n●GARMIN PAY/音樂儲存\n●健康偵測/螢幕指導訓練',
+    '主題式應用程式/限定版優選材質\n靈感來自您喜愛的超級英雄\nGARMIN PAY/音樂儲存\n健康偵測/螢幕指導訓練',
+    '$13,990',
+    '599',
+    '穿戴式裝置',
+    '活動追蹤/ 跑步',
+    '繁體中文 /英文',
+    '3: 4.4 x 4.4 x 1.13 公分3S: 3.9 x 3.9 x 1.09 公分',
+    '0.89  x 1.83 公分',
+    '72 x 132 畫素',
+    '隱藏式OLED觸控螢幕',
+    '3: 29.6公克 3S: 24.5公克',
+    '矽膠',
+    '強化纖維聚合物',
+    '-',
+    '充電式鋰電池',
+    '手錶模式：最長可額外多達一週手錶模式：最長可達 4 天',
+    '游泳防水等級',
+    '七筆計時活動，14天活動追蹤資料',
+    'BLE / ANT+',
+    'USB充電線',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+    '●',
+  ]).then(r => {
+    let final = []
+    for (let i = 0; i < 5; i++) {
+      const inputMultipleData =
+        'INSERT INTO `multiple_images` (`multipleImageImg`,`itemId`,`itemName`) VALUES (?,?,?)'
+      db.queryAsync(inputMultipleData, [
+        `${i}.jpg`,
+        r.insertId,
+        `GARMIN Legacy Saga傳奇星戰系列`,
+      ]).then(end => {
+        final.push(end)
+      })
+    }
+    res.json('done')
+  })
+})
+
 // 隨機寫入訂單資料
 router.get('/fakeorder/stop', (req, res) => {
   // console.log('45456',req.body.mb_id)
