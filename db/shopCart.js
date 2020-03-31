@@ -88,7 +88,7 @@ router.post('/orderproductInfo', (req, res) => {
     message: '',
   }
   let sql =
-    'INSERT INTO `orderdetail`(`orderId`, `itemId`, `name`, `itemName`, `itemImg`, `itemPrice`, `itemCategoryId`, `count`, `outStatus`) VALUES (?,?,?,?,?,?,?,?,?)'
+    'INSERT INTO `orderdetail`(`orderId`, `itemId`, `name`, `itemName`, `itemImg`, `itemPrice`, `itemCategoryId`, `count`, `outStatus`,`mId`) VALUES (?,?,?,?,?,?,?,?,?,?)'
   db.queryAsync(sql, [
     req.body.orderId,
     req.body.itemId,
@@ -99,6 +99,7 @@ router.post('/orderproductInfo', (req, res) => {
     req.body.itemCategoryId,
     req.body.count,
     req.body.outStatus,
+    req.body.mId,
   ])
 
     .then(r => {
