@@ -19,7 +19,8 @@ import StoryCard from './components/StoryCard'
 import Masonry from 'react-masonry-component';
 
 import {
-    FiX
+    FiX,
+    FiSearch
   } from 'react-icons/fi'
 
 
@@ -34,6 +35,8 @@ function Stories(props){
     const [stryLikes, setStryLikes] = useState(null)
     // const [tags, setTags] = useState(props.location.search.replace(/[\?\&]tag\d=/g, ' ').split(' '))
     const [tag, setTag] = useState(props.location.search)
+    const [search, setSearch] = useState('')
+    const [goSearch, setGoSearch] = useState('')
 
     const {
         loading,
@@ -42,7 +45,7 @@ function Stories(props){
         stryTotal,
         showBtn,
         error,
-    } = useStorySearch(pageNumber, sortName, tag)
+    } = useStorySearch(pageNumber, sortName, tag, goSearch)
 
     const observer = useRef(null)
 
@@ -166,6 +169,24 @@ function Stories(props){
         }
     })
 
+    const handleSearch = (evt)=>{
+        setSearch(evt.target.value)
+    }
+
+    const handleGoSearch = (evt) =>{
+        if(evt.key === 'Enter'){
+            // let keySearchStr;
+            // if(props.location.search.length){
+            //     keySearchStr = `&key=${search}`
+            // }else{
+            //     keySearchStr = `?key=${search}`
+            // }
+            // props.history.push(props.location.pathname + props.location.search + keySearchStr)
+            setGoSearch(search)
+            setPageNumber(1)
+        }
+    }
+
     return(
         <>
             <div className = 'bk-page-top'>
@@ -206,9 +227,17 @@ function Stories(props){
                 })}
             </div>)
             : ''} */}
+            <div className='bk-story-search'>
+                <FiSearch />
+                <input type="text" 
+                onChange={handleSearch} 
+                onKeyUp={handleGoSearch}
+                placeholder='搜尋故事'
+                 />
+            </div>
 
             {tag ? 
-            (<div className='bk-tags bk-dark mt-5'>
+            (<div className='bk-tags bk-dark mt-3'>
                 <div className='bk-tag' style={{display:'flex', alignItems:'center'}}>
                     {decodeURI(tag.replace('?tag=', ''))}
                     <FiX style={{marginLeft:'7.5px'}} onClick={()=>{

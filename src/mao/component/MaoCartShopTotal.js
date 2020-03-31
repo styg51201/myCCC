@@ -10,7 +10,7 @@ import {
   AddCartItem,
   DelCartItem,
   calCart,
-  CalShopCartTotal,hadleCoupon,CheckCoupon
+  CalShopCartTotal,hadleCoupon,CheckCoupon,cartCoupon
 } from '../actions/ShopCartAction'
 import $ from 'jquery'
 import { FaTicketAlt } from 'react-icons/fa'
@@ -26,6 +26,10 @@ function MaoCartShopTotal(props) {
   //變化總額有hook變動
   const [saveTotal,setSaveTotal]=useState(0)
   let buyerTotal = 0
+
+  //會員
+  const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
   function CalTotal() {
     buyerTotal = props.sTotal + shipping - discount
     props.CalShopCartTotal(buyerTotal)
@@ -76,8 +80,11 @@ function MaoCartShopTotal(props) {
      setSaveStotal(props.sTotal)
      //得到store的總額
      setSaveTotal(props.FinalTotal)
+
      
   }, [])
+
+  console.log('99999',props.cartCouponData)
 
   useEffect(() => {
     CalTotal()
@@ -163,11 +170,11 @@ const totalSort=(
   const couponType=[
     {
       id:0,
-      value:3000,
+      value:0.6,
       Csort:'全部',
       Cname:null,
-      rule:'一律',
-      slogan:'全部商品-結帳金額折扣3000',
+      rule:'滿額打折',
+      slogan:'全部商品-滿2件打6折',
       payLevel:0,
       amount:1},
     {
@@ -190,13 +197,13 @@ const totalSort=(
       amount:1},
     {
       id:3,
-      value:0.8,
+      value:0.9,
       Csort:'耳機/喇叭',
       Cname:'SONY',
       rule:'滿件打折',
-      slogan:'耳機/喇叭分類-滿2件打8折',
+      slogan:'耳機/喇叭分類-滿3件打9折',
       payLevel:0,
-      amount:2}
+      amount:3}
   ]
 
   //儲存優惠券種類，主要是拿來做變動執行
@@ -207,7 +214,7 @@ const totalSort=(
   const [couponMsg,setCouponMsg]=useState('')
   const couponDOM=[]
   let useFilterCoupon=[]
-  const couponBox=MaoCouponType.map((v,i)=>{
+  const couponBox=props.saveCoupon.map((v,i)=>{
     useFilterCoupon.push(v.type)
     couponDOM.push(
       <div onClick={()=>{props.hadleCoupon(v.value,v.type,props.sTotal)
@@ -385,8 +392,13 @@ const totalSort=(
     let hadle_discountNum=props.FinalTotal
 }
 useEffect(()=>{
-  props.CheckCoupon(couponType)
+  // props.CheckCoupon(couponType)
   // console.log('props.saveCoupon',props.saveCoupon)
+
+  if(mb_id){
+    props.cartCoupon(mb_id)
+  }
+
 },[])
 
 let cartItemText=[]
@@ -563,7 +575,8 @@ const mapStateToProps = store => {
     sTotal: store.calculator,
     FinalTotal: store.calculator_total,
     saveDiscount:store.saveDiscount,
-    saveCoupon:store.saveCoupon
+    // saveCoupon:store.saveCoupon,
+    saveCoupon:store.cartCouponData,
   }
 }
 
@@ -576,7 +589,7 @@ const mapDispatchToProps = dispatch => {
       AddCartItem,
       DelCartItem,
       calCart,
-      CalShopCartTotal,hadleCoupon,CheckCoupon
+      CalShopCartTotal,hadleCoupon,CheckCoupon,cartCoupon
     },
     dispatch
   )

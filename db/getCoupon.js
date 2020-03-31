@@ -145,6 +145,19 @@ router.post('/memberCoupon',(req,res)=>{
     })
 })
 
+router.post('/memberCouponForCart',(req,res)=>{
+    const sql = 'SELECT * FROM `coupon_item` INNER JOIN `coupon` ON `cpi_cp_id` = `cp_id` INNER JOIN `coupon_rule` ON `cp_rule` = `cpr_id` WHERE `cpi_mb_id` = ? AND `cp_due` >= CURRENT_DATE AND `cpi_use` = 0'
+    db.queryAsync(sql,[req.body.mb_id])
+    .then(r=>{
+        r.forEach(e => {
+            e.cp_start = moment(e.cp_start).format(fm)
+            e.cp_due = moment(e.cp_due).format(fm)
+            e.cpi_useDate = moment(e.cpi_useDate).format(fm)
+        });
+        res.json(r)
+    })
+})
+
 
 //新增優惠券
 // router.post('/addCoupon', upload.single('cp_img'), (req, res) => {

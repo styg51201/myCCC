@@ -1,6 +1,7 @@
 import React,{useState,useEffect, useReducer} from 'react'
 //classnames
 import classNames from 'classnames'
+import Swal from 'sweetalert2'
 import {
   IoIosStarOutline,
   IoIosStar,
@@ -37,7 +38,11 @@ const Rank = props.UserData.map((v,i)=>{
   bigbox.push(starbox)
   starbox=[]
  })
- 
+ const pioaks = ()=>
+ Swal.fire({
+  icon: 'error',
+  title: '請購買此產品才能進行發表評論!!',
+})
 
 useEffect(()=>{
   props.formServerUsersData(itemId)
@@ -99,7 +104,7 @@ useEffect(()=>{
           </div>
           <div className="chin-sort-discuss">
             <div className="chin-discuss">
-              <button onClick={()=>{setPostacomment(!postacomment)}}>發表評論</button>
+              <button onClick={()=>{pioaks()}}>發表評論</button>
             </div>
           </div>
         </div>

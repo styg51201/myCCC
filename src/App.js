@@ -12,6 +12,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Footer from './components/common/Footer'
 import Header from './components/common/Header'
 
+//import scroll to top
+import ScrollToTop from './components/ScrollToTop'
+
 //import biki
 import Home from './biki/Home'
 import Stories from './biki/Stories'
@@ -67,6 +70,7 @@ function App() {
 
   return (
     <Router>
+    <ScrollToTop />
       <>
         <Header />
         <Switch>
@@ -74,7 +78,7 @@ function App() {
             <Home />
           </Route>
         </Switch>
-        <Container>
+        <Container style={{marginTop: '30px'}}>
           <Switch>
             {/*----------------------chin---------------------*/}
             <Route path="/headset">

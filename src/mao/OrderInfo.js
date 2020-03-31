@@ -305,7 +305,7 @@ function OrderInfo(props) {
           itemImg: `${itemImgArr[i]}`,
           count: `${countArr[i]}`,
           outStatus: '訂單處理中',
-          mId: LocalUser,
+          mId:LocalUser,
         }
         //送出產品
         props.forServerorderProductInfo(proBox)

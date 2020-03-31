@@ -7,8 +7,9 @@
   }
 
   .bk-home-slider {
-    height: $bk-full-page-RWD - 200px;
-    min-height: $bk-container-min-height - 100px;
+    height: $bk-container-min-height;
+    margin-top: -30px;
+    // min-height: $bk-container-min-height - 100px;
   }
 
   /* ----- ADS ----- */
