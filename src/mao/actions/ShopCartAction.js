@@ -308,3 +308,147 @@ export const Handle_AddMyFavorite = (val, product, data) => {
 
 // export const Handel_DelMyFavorite=()
 export const AddMyFavorite = value => ({ type: 'LIKE_PRODUCT', value: value })
+
+
+export const cartCoupon = val => {
+
+  return async dispatch => {
+    const request = new Request('http://localhost:5500/getCoupon/memberCouponForCart', {
+      method: 'POST',
+      credentials: 'include',
+        headers: new Headers({
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        }),
+        body:JSON.stringify({
+          mb_id:val
+        })
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+
+    let newData = data.map((val,ind)=>{
+
+      let Cname = val.cp_vendor
+      let Csort = ''
+      switch(val.cpr_object){
+        case 0:
+         Csort = "全部"
+         break
+        case 1:
+          Csort = "穿戴式裝置"
+         break
+        case 2:
+          Csort = "耳機/喇叭"
+          break
+          case 3:
+         Csort = "運動攝影機"
+         break
+         case 4:
+          Csort = "周邊"
+         break
+      }
+  
+      //條件
+      let rule = ""
+      let payLevel = 0
+      let amount = 1
+      switch(val.cpr_rule){
+        case 0:
+          rule = '滿件'
+          payLevel = 0
+         break
+        case 1:
+          rule = '滿件'
+          amount = val.cpr_ruleNum
+         break
+        case 2:
+          rule = '滿額'
+          payLevel = val.cpr_ruleNum
+          break
+      }
+
+      switch(val.cpr_discount){
+        case 0:
+          rule += '打折'
+         break
+        case 1:
+          rule += '折現'
+         break
+      }
+
+      //金額
+      let value = 0
+      switch(val.cpr_discount){
+        case 0:
+          value = (val.cpr_discountNum * 0.01).toFixed(2)
+         break
+        case 1:
+          value = val.cpr_discountNum
+         break
+      }
+
+      //slogan
+      let object = ""
+      switch(val.cpr_object){
+        case 0:
+        object = "全部商品"
+        break
+        case 1:
+          object = "穿戴式裝置分類"
+        break
+        case 2:
+          object = "耳機/喇叭分類"
+          break
+        case 3:
+        object = "運動攝影機分類"
+        break
+        case 4:
+          object = "周邊商品分類"
+        break
+        
+      }
+      let rule_2 = ""
+      switch(val.cpr_rule){
+        case 0:
+          rule_2 = "結帳金額"
+        break
+        case 1:
+          rule_2 = `滿${val.cpr_ruleNum}件`
+        break
+        case 2:
+          rule_2 = `滿${val.cpr_ruleNum}元`
+          break
+      }
+      //金額
+      let discount = ""
+      switch(val.cpr_discount){
+        case 0:
+          if(val.cpr_discountNum%10===0) val.cpr_discountNum /=10
+          discount = `打${val.cpr_discountNum}折`
+        break
+        case 1:
+          discount = `折扣${val.cpr_discountNum}元`
+        break
+      }
+
+      let slogan = `${object}-${rule_2}${discount}`
+      
+      return {
+        id:ind,
+        value,
+        Csort,
+        Cname,
+        rule,
+        slogan,
+        payLevel,
+        amount
+      }
+
+    })
+
+    dispatch({type:'CART_COUPON_DATA',value:newData})
+
+    // console.log('memberCouponForCart',memberCouponForCart)
+  }
+}

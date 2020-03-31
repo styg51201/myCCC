@@ -129,3 +129,23 @@ export const saveDiscount=(state=0,action)=>{
       return state
   }
 }
+
+
+
+export const cartCouponData=(state=[],action)=>{
+  switch (action.type){
+    case 'CART_COUPON_DATA':
+      return action.value
+    default:  
+      return state
+  }
+}
+
+// export const cartCouponAll=(state=[],action)=>{
+//   switch (action.type){
+//     case 'CART_COUPON_All':
+//       return action.value
+//     default:  
+//       return state
+//   }
+// }

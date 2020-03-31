@@ -1,11 +1,11 @@
 export const MaoCouponType=[
     {
       id:0,
-      value:3000,
+      value:0.6,
       Csort:'全部',
       Cname:null,
       rule:'一律',
-      slogan:'全部商品-結帳金額折扣3000',
+      slogan:'全部商品-滿2件打6折',
       payLevel:0,
       amount:1},
     {
@@ -28,11 +28,11 @@ export const MaoCouponType=[
       amount:1},
     {
       id:3,
-      value:0.8,
+      value:0.9,
       Csort:'耳機/喇叭',
       Cname:'SONY',
       rule:'滿件打折',
-      slogan:'耳機/喇叭分類-滿2件打8折',
+      slogan:'耳機/喇叭分類-滿3件打9折',
       payLevel:0,
-      amount:2}
+      amount:3}
   ]

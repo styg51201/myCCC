@@ -20,7 +20,10 @@ import MaoAD from './component/MaoAD'
 
 function OrderInfo(props) {
 // console.log(props)
-let LocalUser=localStorage.getItem('userId')||0
+// let LocalUser=localStorage.getItem('userId')||0
+
+const LocalUser = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
+
 const [user, setUser] = useState(localStorage.getItem('userId'))
 const [userName,setUserName]=useState('')
 const [userPhoneNumber,setUserPhoneNumber]=useState('')
@@ -292,6 +295,7 @@ setBuyerInfo({ ...buyerInfo, discount:getdiscount })
           itemImg: `${itemImgArr[i]}`,
           count: `${countArr[i]}`,
           outStatus: '訂單處理中',
+          mId:LocalUser,
         }
         //送出產品
         props.forServerorderProductInfo(proBox)
