@@ -30,14 +30,12 @@ function MemberOrder(props) {
   // for訂單細節內容彈出
   const [showA, setShowA] = useState(false)
   const [searchbar, setSearchbar] = useState('')
-
   const toggleShowA = () => setShowA(!showA)
 
   // let orderdata = JSON.stringify(props.data)
-  // console.log('orderdata', orderdata)
+  console.log('props.data', props.data)
 
-  useEffect(() => {
-    // $('.memberorderdetail').click(() => alert('click'))
+  useEffect(() => {   
     props.getServerMemberOrder()
   }, [])
 
@@ -45,8 +43,8 @@ function MemberOrder(props) {
     return (
       <Row>
         <Col xs={6}>
-          <Toast show={showA} onClose={toggleShowA}>
-            <Toast.Header>
+          <Modal show={showA} onClose={toggleShowA}>
+            <Modal.Header>
               <img
                 src="holder.js/20x20?text=%20"
                 className="rounded mr-2"
@@ -54,17 +52,13 @@ function MemberOrder(props) {
               />
               <strong className="mr-auto">Bootstrap</strong>
               <small>11 mins ago</small>
-            </Toast.Header>
-            <Toast.Body>
+            </Modal.Header>
+            <Modal.Body>
               Woohoo, you're reading this text in a Toast!
-            </Toast.Body>
-          </Toast>
-        </Col>
-        <Col xs={6}>
-          <Button onClick={toggleShowA}>
-            Toggle Toast <strong>with</strong> Animation
-          </Button>
-        </Col>
+            </Modal.Body>
+            <button onClick={toggleShowA}>X</button>
+          </Modal>
+        </Col>        
       </Row>
     )
   }
@@ -185,15 +179,40 @@ function MemberOrder(props) {
                       <button
                         class="btn memberorderdetail"
                         type="button"
-                        id={i}
-                        onClick={() => setShowA(true)}
+                        onClick={toggleShowA}
                       >
-                        <FaInfoCircle />
-                        {/* <ShowMyOrderDetail
-                          show={modalShow}
-                          onHide={() => setModalShow(false)}
-                        /> */}
+                        <FaInfoCircle />                       
                       </button>
+                      <div>
+                      <Row>
+        <Col xs={6}>
+          <Modal show={showA} onClose={toggleShowA}>
+          <div>
+          <p>商品資料</p>
+          <table>
+            <th>商品名稱</th>
+            <th>商品價格</th>         
+            <th>商品數量</th>
+          </table>
+          <tbody>
+<tr><td></td></tr>
+          </tbody>
+          </div>
+            {/* <Modal.Header>
+              <img
+                src="holder.js/20x20?text=%20"
+                className="rounded mr-2"
+                alt=""
+              />
+              <strong className="mr-auto">Bootstrap</strong>             
+            </Modal.Header>
+            <Modal.Body>
+              Woohoo, you're reading this text in a Toast!
+            </Modal.Body> */}
+            <button onClick={toggleShowA}>X</button>
+          </Modal>
+        </Col>        
+      </Row></div>
                     </td>
                     <td>{v.outStatus}</td>
                     <td>
