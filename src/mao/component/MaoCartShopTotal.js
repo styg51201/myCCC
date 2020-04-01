@@ -261,7 +261,7 @@ const totalSort=(
       let finalPrice = truePrice.split(',').join('')
       if(judgeCouponCSort==null ||judgeCouponCSort=='全部'){
         //判斷是有分類別限定
-        if(judgeCouponAssignCname==v.name||judgeCouponAssignCname==null){
+        if(judgeCouponAssignCname==v.name||judgeCouponAssignCname==null||judgeCouponAssignCname=='TRIPLEC'){
           disCountItems.push(v)
           //產品總數量 判斷數量是否符合購物券使用條件
           let productAmount=0

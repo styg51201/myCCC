@@ -4,7 +4,6 @@ import useTextareaRows from '../utils/useTextareaRows'
 
 function StoryReply(props){
 
-
     const [txtContent, setTxtContent] = useState('')
     const [showReplyTo, setShowReplyTo] = useState(false)
     const [replyTo, setReplyTo] = useState(null)
@@ -52,7 +51,7 @@ function StoryReply(props){
             
             <div className='bk-rply-head'>
                 <div className='bk-rply-user-img'>
-                    <img src={props.data.Image ? props.data.Image : '/biki-img/SVG/user.svg'} />
+                    <img src={props.data.Img ? props.data.Img : '/biki-img/SVG/user.svg'} />
                 </div>
                 <div>
                     {props.data.Name || props.data.Account} <br />
