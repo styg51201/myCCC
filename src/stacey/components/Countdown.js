@@ -1,5 +1,5 @@
 import React ,{useEffect,useState} from 'react'
-
+import ReactTransitionGroup from 'react-addons-css-transition-group'
 import moment from 'moment'
 
 import '../css/countdown.scss'
@@ -7,23 +7,17 @@ import '../css/countdown.scss'
 
 function Countdown(props){
 
-// const now = new Date()
-// const nowHour = moment().hour()
-// const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
-// const endTime = moment(`${today} ${nowHour+1}:00:00`)
+const [countdownTime,setCountdownTime] = useState(props.countdownTime+1)
 
-// const countdownTime = (endTime.valueOf() - now.valueOf() )/1000 
+// console.log('props.countdownTime',props.countdownTime)
 
+const hour = Math.floor(countdownTime/3600)
+const min = Math.floor( (countdownTime % 3600)/ 60 )
+const sec = Math.floor( (countdownTime % 3600) % 60 )
 
-const hour = Math.floor(props.countdownTime/3600)
-const min = Math.floor( (props.countdownTime % 3600)/ 60 )
-const sec = Math.floor( (props.countdownTime % 3600) % 60 )
+console.log('min',min)
+console.log('sec',sec)
 
-
-
-// let min = 10
-// let sec = 10
-// let hour =12
 
 let secOne,secTen,minOne,minTen,hourOne
 
@@ -46,6 +40,7 @@ if(min >= 10 ){
  
 hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
  
+console.log('secOne',secOne,'secTen',secTen,'minOne',minOne,'minTen',minTen)
 
  const secOneStyle = {animationDelay:0-secOne+'s'}
  
@@ -57,9 +52,6 @@ hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
  
  const hourOneStyle = {animationDelay:0-hourOne+'s'}
 
-// const minOne = (10 - (min % 10) )* 60
-// const minTen = (6 - (min / 10)) * 600
-   
 
 
     return (
@@ -93,7 +85,11 @@ hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
                   <span> : </span>
                 </div>              
                 <div>
-                    <p className="min-ten" style={minTenStyle}>
+                <div>
+                    <p
+                      className="min-ten"
+                      style={minTenStyle} 
+                      >
                         <span>0</span>
                         <span>5</span>
                         <span>4</span>
@@ -103,8 +99,12 @@ hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
                         <span>0</span>
                   </p>
                 </div>
+
+                </div>
                 <div>
-                    <p className="min-one" style={minOneStyle}>
+                    <p className="min-one" 
+                    style={minOneStyle}
+                    >
                         <span>0</span>
                         <span>9</span>
                         <span>8</span>
@@ -123,7 +123,9 @@ hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
                   <span> : </span>
                 </div>
                 <div>
-                    <p className="sec-ten" style={secTenStyle}>
+                    <p className="sec-ten" 
+                    style={secTenStyle}
+                    >
                         <span>0</span>
                         <span>5</span>
                         <span>4</span>
@@ -135,7 +137,10 @@ hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
                   </p>
                 </div>
                 <div>
-                    <p className="sec-one" style={secOneStyle}>
+                    <p
+                      className="sec-one" 
+                      style={secOneStyle}
+                      >
                         <span>0</span>
                         <span>9</span>
                         <span>8</span>

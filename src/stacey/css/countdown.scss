@@ -36,6 +36,21 @@ button {
       font-size: $font-x;
       position: relative;
       overflow: hidden;
+      > span {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 0;
+        margin: 0;
+        > span {
+          width: 25px;
+          height: 30px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
       p {
         display: flex;
         flex-direction: column;
@@ -69,28 +84,28 @@ button {
   animation-name: sceOne;
   animation-duration: 10s;
   animation-iteration-count: infinite;
-  // animation-delay: -7s;
+  // animation-delay: -1s;
 }
 
 .sec-ten {
   animation-name: sceTen;
   animation-duration: 60s;
   animation-iteration-count: infinite;
-  // animation-delay: -56s;
+  // animation-delay: -10s;
 }
 
 .min-one {
   animation-name: minOne;
   animation-duration: 600s;
   animation-iteration-count: infinite;
-  // animation-delay: -586s;
+  // animation-delay: -60s;
 }
 
 .min-ten {
   animation-name: minTen;
   animation-duration: 3600s;
-  animation-iteration-count: infinite;
-  // animation-delay: -3526s;
+  // animation-iteration-count: infinite;
+  // animation-delay: -600s;
 }
 
 .hour-one {

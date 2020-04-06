@@ -33,7 +33,6 @@ function GetCoupon(props) {
   
   useEffect(()=>{
     props.fromServerCouponData(0,mb_id)
- 
   },[])
 
   useEffect(()=>{
@@ -128,7 +127,7 @@ const endDiv = (<div className="sty-coupon-finish"><div>已是最新資料</div>
 // 選擇對應的reducer
 const mapStateToProps = store => {
   return { data: store.getCouponData ,
-            vendor: store.filterCoupon,
+          vendor: store.filterCoupon,
           cp_total:store.couponTotal}
 }
 

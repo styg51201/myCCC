@@ -35,12 +35,13 @@ const now = new Date()
 const nowHour = moment().hour()
 const today = `${now.getFullYear()}/${(now.getMonth())+1}/${now.getDate()}`
 const endTime = moment(`${today} ${nowHour+1}:00:00`)
-const countdownTime = Math.round( (endTime.valueOf() - now.valueOf() ) / 1000 )
-// const start = moment(`${today} ${nowHour}:59:40`)
-// const countdownTime = (endTime.valueOf() - start.valueOf() )/1000
+const countdownTime =  (endTime.valueOf() - now.valueOf() ) / 1000 
 
+// console.log('countdownTime',countdownTime)
 
 const timeout = countdownTime *1000
+
+// console.log('timeout',timeout)
 
 const mb_id = localStorage.getItem('userId') ? localStorage.getItem('userId') : 0
 
@@ -49,11 +50,9 @@ useEffect(()=>{
     props.fromServerCountdownCouponData(mb_id) 
 
     let timer = setTimeout(() => {
-       
         props.fromServerCountdownCouponData(mb_id) 
-    }, timeout);
+    }, (timeout));
     
-
     return ()=> {clearTimeout(timer)
    };
 
@@ -63,8 +62,6 @@ useEffect(()=>{
 
 
 const coupon =  props.item.map((val,ind)=>{
-
-    
 
     // 設定按鈕裡的字樣
     let couponState = '領取'
@@ -158,9 +155,9 @@ const coupon =  props.item.map((val,ind)=>{
                 setGetAnimation([false,true])
             }else
                 setGetAnimation([true,false])
-            }else{
-                alert('請先登入')
-            }
+        }else{
+            alert('請先登入')
+        }
       }
 
 
