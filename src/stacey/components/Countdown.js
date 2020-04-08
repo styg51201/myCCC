@@ -15,10 +15,6 @@ const hour = Math.floor(countdownTime/3600)
 const min = Math.floor( (countdownTime % 3600)/ 60 )
 const sec = Math.floor( (countdownTime % 3600) % 60 )
 
-console.log('min',min)
-console.log('sec',sec)
-
-
 let secOne,secTen,minOne,minTen,hourOne
 
 if(sec >= 10){
@@ -39,8 +35,6 @@ if(min >= 10 ){
 
  
 hourOne = (10 - (hour % 10))  * 3600 + (min * 60) + sec
- 
-console.log('secOne',secOne,'secTen',secTen,'minOne',minOne,'minTen',minTen)
 
  const secOneStyle = {animationDelay:0-secOne+'s'}
  
@@ -68,7 +62,7 @@ console.log('secOne',secOne,'secTen',secTen,'minOne',minOne,'minTen',minTen)
                     {/* <p className="hour-one" style={hourOneStyle}> */}
                     <p className="hour-one">
                         <span>0</span>
-                        <span>9</span>
+                        {/* <span>9</span>
                         <span>8</span>
                         <span>7</span>
                         <span>6</span>
@@ -77,7 +71,7 @@ console.log('secOne',secOne,'secTen',secTen,'minOne',minOne,'minTen',minTen)
                         <span>3</span>
                         <span>2</span>
                         <span>1</span>
-                        <span>0</span>
+                        <span>0</span> */}
 
                   </p>
                 </div>

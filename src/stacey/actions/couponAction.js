@@ -140,14 +140,8 @@ export const addFilterCoupon = (obj,val) =>{
     return {type:'FILTER_VALUE',value:[obj.vendorName,...val]}
   }else{
     let ind = val.indexOf(obj.vendorName)
-    //有空可以解bug => 只用splice失靈??? 一定要splice+map
     val.splice(ind,1)
-    let newList = val.map((val,ind)=>{
-      if(val!==obj.vendorName){
-        return val
-      }
-    })
-    return {type:'FILTER_VALUE',value:newList}
+    return {type:'FILTER_VALUE',value:[...val]}
   }
 }
 
