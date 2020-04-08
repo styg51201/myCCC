@@ -41,7 +41,6 @@ function GetCoupon(props) {
     rowHeight = (rowInfo.top + rowInfo.height) + window.pageYOffset
     const handle = () =>{
 
-      if(!finish){
         if( (window.pageYOffset + (window.screen.availHeight/5)*4)> rowHeight){ 
   
           if(props.data.length !== props.cp_total){
@@ -64,9 +63,10 @@ function GetCoupon(props) {
       window.removeEventListener("scroll", handle);
 
         }
-      }
     }
-  window.addEventListener('scroll',handle)
+  if(!finish){
+    window.addEventListener('scroll',handle)
+  }
 
   return () => window.removeEventListener("scroll", handle);
 
