@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a5b7fce5cf1a49a0b4ef2a3a737b8d24",
+    "revision": "de4e4fb67a33ba33b4a46dd57335c7e0",
     "url": "/myCCC/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/myCCC/static/css/2.e1bd35af.chunk.css"
   },
   {
-    "revision": "d456d0bcf3e57dcfaeaf",
+    "revision": "72a8ae048a18fb59f7a4",
     "url": "/myCCC/static/css/main.0ec9c425.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/myCCC/static/js/2.3501ada2.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "d456d0bcf3e57dcfaeaf",
-    "url": "/myCCC/static/js/main.90fadbfd.chunk.js"
+    "revision": "72a8ae048a18fb59f7a4",
+    "url": "/myCCC/static/js/main.c7c2ce44.chunk.js"
   },
   {
     "revision": "6692984a484cc7b122a0",
